@@ -10,7 +10,7 @@
   <cavas id='canv'></canvas>
   <script>
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
-	xworld.addSystem('anim', new Points());
+	xworld.addSystem('visu', new Cube(xv.ecs, {}));
 	xworld.update()
   </script>
 </body>
