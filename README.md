@@ -31,7 +31,7 @@ It's also the npm package name.
     npm install --save-dev style-loader
     npm install --save-dev @babel/core @babel/preset-env
     npm install --save-dev babel-loader
-	npm i three
+    npm i three
 ~~~
 
 ## test (without server)
@@ -42,7 +42,7 @@ For installing and troubleshooting, see
 build and test
 ~~~
     npm run build
-	npm test
+    npm test
 ~~~
 
 ## troubleshooting
