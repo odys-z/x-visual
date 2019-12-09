@@ -1,0 +1,491 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>OSM Tiles</title>
+	<!-- <link href="../lib/map.css" rel="stylesheet"> -->
+
+	<!-- TODO Let's import this with webpack -->
+	<script type='text/javascript' src='../../3rd-lib/three.js/three.min.js'></script>
+	<script type='text/javascript' src='../../3rd-lib/three.js/three.module.js'></script>
+	<script type='text/javascript' src='../../3rd-lib/three.js/OrbitControls.js'></script>
+
+	<script type='text/javascript' src='../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <img id='tile' onclick='testChang()'></img>
+  <script>
+  // web worker tutorial: https://www.html5rocks.com/en/tutorials/workers/basics/
+  const work = `
+	self.addEventListener('message', function(e) {
+	  var data = e.data;
+	  switch (data.cmd) {
+	    case 'ping':
+	      self.postMessage('Pong: ' + data.msg.name);
+	      break;
+	    case 'osm':
+	      // self.postMessage('Pong: ' + data.msg.name);
+		  // endup with postMessage({code: 'texture'}, tiles)
+		  console.log('osm:data', data);
+		  loadOsm(data.xyz);
+	      break;
+	    case 'stop':
+	      self.postMessage('WORKER STOPPED: ' + data.msg );
+	      self.close(); // Terminates the worker.
+	      break;
+	    case 'tile': // handle tile
+	      console.log(data);
+		  break;
+	    default:
+	      self.postMessage('Unknown command: ' + data.msg);
+	  };
+	}, false);
+
+	function loadOsm(xyzs) {
+		console.log('loading', xyzs);
+		if (Array.isArray(xyzs)) {
+			xyzs.forEach(function(xyz, ix){
+				loadTile(xyz);
+			});
+		}
+		else if (typeof xyzs === 'object' && typeof xyzs.z === 'number')
+			loadTile(xyzs);
+	}
+
+	function loadTile(xyz) {
+		var url;
+		if (typeof xyz === 'string' ) {
+			url = 'https://a.tile.openstreetmap.org/'
+					+ xyz.z + '/' + xyz.x + '/' + xyz.y + '.png';
+		}
+		else {
+			url = 'https://a.tile.openstreetmap.org/'
+					+ xyz[2] + '/' + xyz[0] + '/' + xyz[1] + '.png';
+		}
+		console.log(url);
+		Request.getOsm(url, e => {
+			console.log(e.length, e);
+			var e0 = new Uint8Array(e);
+			postMessage({code: 'tile', img: e0, xyz}, [e0.buffer]);
+		});
+	}
+
+	// so 'class' can work in web worker
+	// for request in worker, see https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+	class Request {
+		  static load (url, callback) {
+		    const req = new XMLHttpRequest();
+			req.responseType = "arraybuffer";
+
+		    const timer = setTimeout(t => {
+		      if (req.readyState !== 4) {
+		        req.abort();
+		        callback('status');
+		      }
+		    }, 10000);
+
+		    req.onreadystatechange = () => {
+		      if (req.readyState !== 4) {
+		        return;
+		      }
+
+		      clearTimeout(timer);
+
+		      if (!req.status || req.status < 200 || req.status > 299) {
+		        callback('status');
+		        return;
+		      }
+
+		      callback(null, req);
+		    };
+
+		    req.open('GET', url);
+		    req.send(null);
+
+		    return {
+		      abort: () => {
+		        req.abort();
+		      }
+		    };
+		  }
+
+		  static getOsm (url, callback) {
+		    return this.load(url, (err, res) => {
+		      if (err) {
+		        callback(err);
+		        return;
+		      }
+		      if (!res.response) {
+		        callback('content not correct');
+		        return;
+		      }
+
+		      let json;
+		      try {
+				console.log(res.response);
+		        // json = JSON.parse(res.responseText);
+		        callback(res.response);
+		      } catch (ex) {
+		        // console.warn('Could not parse JSON from ' + url);
+		        callback('content');
+		      }
+		    });
+		  }
+
+		  static getJSON (url, callback) {
+		    return this.load(url, (err, res) => {
+		      if (err) {
+		        callback(err);
+		        return;
+		      }
+		      if (!res.responseText) {
+		        callback('content');
+		        return;
+		      }
+
+		      let json;
+		      try {
+		        json = JSON.parse(res.responseText);
+		        callback(null, json);
+		      } catch (ex) {
+		        console.warn('Could not parse JSON from ' + url);
+		        callback('content');
+		      }
+		    });
+		  }
+		}
+  `;
+
+	/** Osm-Three.js view */
+	const o3 = new xv.OSM3({});
+
+	var blankMaterial = new THREE.MeshBasicMaterial( {color: 0xc0c0c0, side: THREE.DoubleSide} );
+	init();
+	animate();
+
+	function init() {
+		// https://stackoverflow.com/questions/44630265/how-can-i-set-z-up-coordinate-system-in-three-js
+		THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
+
+    	var osm = {
+			campos: { lat: 0, lon: 0, h: 300 },
+			position: { lat: 0, lon: 0 },
+		//  position: { lat: 30.6765, lon: 104.09856 },
+			z: 15};
+
+		o3 = new O3(osm);
+
+		var scene = o3.s3.scene;
+		// testOsm(osm);
+		var tlkeepr = startOsm(o3.s3, osm);
+
+		// random buildings
+		addRandomesh(scene, 20, tlkeepr.viewCenter);
+
+		// lights
+		var light = new THREE.DirectionalLight( 0xffffff );
+		light.position.set( 100, 100, 100 );
+		scene.add( light );
+		var light = new THREE.DirectionalLight( 0x002288 );
+		light.position.set( -100, -100, -100 );
+		scene.add( light );
+		var light = new THREE.AmbientLight( 0x222222 );
+		scene.add( light );
+	}
+
+	function animate() {
+		requestAnimationFrame( animate );
+		o3.s3.controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+		render();
+	}
+
+	function render() {
+		o3.s3.renderer.render( o3.s3.scene, o3.s3.camera );
+	}
+
+	function addRandomesh(scene, count) {
+		if (count === undefined)
+			count = 200;
+		var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
+		geometry.translate( 0, 0, 0.5 );
+		var material = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } );
+		for ( var i = 0; i < count; i ++ ) {
+			var mesh = new THREE.Mesh( geometry, material );
+			mesh.position.x = Math.random() * 1600 - 800;
+			mesh.position.y = Math.random() * 1600 - 800;
+			mesh.position.z = 0;
+			mesh.scale.x = 20;
+			mesh.scale.y = 20;
+			mesh.scale.z = Math.random() * 80 + 10;
+			mesh.updateMatrix();
+			mesh.matrixAutoUpdate = false;
+			scene.add( mesh );
+		}
+	}
+
+	// var raytarges;
+	var dirs;
+	var tilesKeeper;
+	/**turorial: https://www.html5rocks.com/en/tutorials/workers/basics/
+	 * @param {object} opts
+	 * @@param {object} opts.position {longitude, latitude}
+	 * @@param {int} z OSM zoom level
+	 * @return {THREE.Mesh} meshes
+	 */
+	function testOsm(opts) {
+		if (tilesKeeper === undefined) {
+			tilesKeeper = initilesKeeper(opts.position, R);
+		}
+
+		groundMeshes = updateGround(groundMeshes, {z: 0});
+		// TODO purge
+
+		var msg = {name: 'function loadingOsm'};
+		tilesKeeper.postMessage({cmd: 'ping', msg: msg}); // Start worker
+
+		tilesKeeper.postMessage({cmd: 'osm', xyz: [{x: 0, y: 0, z: 0}]});
+	}
+
+	/**
+	 * @param {object} center center in lon-lat
+	 * @aram {float} a radius
+	 */
+	function initilesKeeper (center, a) {
+		var blob = new Blob([work]);
+		var url = window.URL.createObjectURL(blob);
+		var tilesKeeper = new Worker(url);
+		// tilesKeeper.center = osmUtils.rad2cart(center.lon, center.lat, a);
+		tilesKeeper.geoCenter = center;
+		// tilesKeeper.viewCenter = [center.x, center.y, center.z];
+		tilesKeeper.addEventListener('message', onOsmReady, false);
+		tilesKeeper.addEventListener('error', onErr, false);
+		const tiles = {};
+		tilesKeeper.tiles = tiles;
+
+		/**@param {object} xyz {x, y, z} */
+		tilesKeeper.getile = (xyz) => {
+			var ztiles = tilesKeeper.tiles[xyz.z];
+			if (ztiles) {
+				if (ztiles[xyz.x]) {
+					return ztiles[xyz.x][xyz.y];
+				}
+			}
+			// return tilesKeeper;
+		}
+
+		tilesKeeper.setile = (xyz, tile) => {
+			// collectOsmTiles (tiles, dir, c0, a) {
+			if (tiles === undefined)
+				tiles = {};
+
+			if (tiles[xyz.z] === undefined) {
+				tiles[xyz.z] = {};
+			}
+			if (tiles[xyz.z][xyz.x] === undefined) {
+				tiles[xyz.z][xyz.x] = {};
+			}
+			if (tiles[xyz.z][xyz.x][xyz.y] === undefined) {
+				tiles[xyz.z][xyz.x][xyz.y] = {};
+			}
+			Object.assign(tiles[xyz.z][xyz.x][xyz.y],
+				// { lon: longlat.long, lat: longlat.lat });
+				tile);
+			return tilesKeeper;
+		}
+
+		tilesKeeper.forEachTile = (fun) => {
+			var tz = tilesKeeper.tiles; // for short
+			if (tz) {
+				for (var z in tz)
+					for (var x in tz[z])
+						for (var y in tz[z][x])
+							fun(tz[z][x][y], [x, y, z]);
+			}
+		}
+
+		return tilesKeeper;
+	}
+
+	function onOsmReady (e) {
+		console.log(e);
+		// on tile loaded
+		if (e.data.code === 'tile') {
+			console.log(e.data);
+			{	var blob = new Blob( [ e.data.img ], { type: "image/jpeg" } );
+				var imageUrl = window.URL.createObjectURL( blob );
+				var img = document.querySelector( "#tile" );
+				img.src = imageUrl;
+			}
+			// tileKeeper.postMessage({cmd: 'set-ground', xyz: e.data.xyz}, e.data.bytes);
+
+			setOsmTexture(e.data.xyz, imageUrl);
+		}
+	}
+
+	function onErr (e) { console.error(e); }
+
+	function startOsm (s3, opts) {
+		if (tilesKeeper === undefined) {
+			tilesKeeper = initilesKeeper(opts.position, R);
+		}
+		var msg = {name: 'function loadingOsm'};
+		tilesKeeper.postMessage({cmd: 'ping', msg: msg}); // Start worker
+
+		// move to worker?
+		findTiles(tilesKeeper,
+				  { // worldMat4: new THREE.Matrix4(),
+					target: opts.position,
+				    position: { lat: opts.position.lat - 0.2, lon: opts.position.lon, h: 10 },
+				    z: 16 },
+				  s3.camera,
+				  opts.castMatrix );
+		if (o3.verbose >= 5) console.log(tilesKeeper.tiles);
+
+		// loading osm tile texture asynchronously
+		tilesKeeper.forEachTile((t, xyz) => {
+			if (t.mesh === undefined) {
+				t.mesh = new THREE.Mesh(t.geom(), blankMaterial);
+				t.mesh.name = `${xyz[2]}-${xyz[0]}-${xyz[1]}`
+				s3.scene.add(t.mesh);
+				tilesKeeper.postMessage({cmd: 'osm', xyz: [xyz]});
+			}
+		});
+
+		return tilesKeeper;
+		// for debug
+		// var g = new THREE.PlaneBufferGeometry( 500, 500 );
+		// ground = new THREE.Mesh( g, blankMaterial );
+		// s3.scene.add(ground);
+		// return ground;
+		// groundMeshes = updateGround(groundMeshes, osmTiles);
+		// TODO purge
+	}
+
+	/**Find osm tiles according to camera position.
+	 * @param {object} osmTiles osm tile collection {z: {x: {y: tileInf}}}<br>
+	 * tileInf: lon, lat, mesh, world
+	 * @param {object} camWorld:<br>
+	 *     target: lookAt, {lat, lon, h = 0}<br>
+	 *     position: eye position, {lat, lon, h}<br>
+	 *     z: osm z
+	 * @param {THREE.Camera} camera
+	 * @param {THREE.Matrix4} castMatrix
+		 * @return {object} tiles {z: {x: {y: {tileInf}}}}
+	 */
+	function findTiles (tilkeepr, camWorld, camera, castMatrix) {
+		var m = camWorld.worldMat4;
+		if (camWorld && camWorld.castMatrix) {
+			m.multiply(camWorld.castMatrix);
+		}
+
+		var eye = osmUtils.rad2cart(camWorld.position.lon, camWorld.position.lat, R + camWorld.position.h);
+		eye = [eye.x, eye.y, eye.z];
+
+		var lookAt = osmUtils.rad2cart(camWorld.target.lon, camWorld.target.lat,
+									camWorld.target.h === undefined ? R : R + camWorld.target.h);
+		lookAt= [lookAt.x, lookAt.y, lookAt.z];
+
+		// var dir = Vec3.minus(Vec3.add([x, y, z], lookAt), eye);
+		if (dirs === undefined)
+			dirs = o3.getRayDirs(camera, {w: 4, h: 3});
+
+		for ( var ix = 0; ix < dirs.count; ix++ ) {
+			var x = dirs.getX(ix);
+			var y = dirs.getY(ix);
+			var z = dirs.getZ(ix);
+
+			// find tile by ray casting from c0 to dir [x, y, z]
+			// var dir = Vec3.minus(Vec3.add([x, y, z], lookAt), eye);
+			var dir = [x, y, z];
+			osmUtils.collectOsmTiles(tilkeepr, dir, eye, R);
+		}
+
+		if (o3.verbose >= 5) {
+			console.log('osmTiles', tilkeepr.tiles);
+		}
+
+		return tilkeepr;
+	}
+
+	/**Set loaded osm texture to the ground tile geometry
+	 * For three.js texture loader, see
+	 * https://threejs.org/docs/index.html#api/en/loaders/TextureLoader
+	 * TODO put into work?
+	 * @param {object} osm xyz {x, y, z}
+	 * @param {URL} should be a blob url - ready for building texture
+	 */
+	function setOsmTexture(xyz, blobUrl) {
+		// instantiate a loader
+		var loader = new THREE.TextureLoader();
+
+		// load a resource
+		loader.load( blobUrl, // resource URL
+			// onLoad callback
+			function ( texture ) {
+				// in this example we create the material when the texture is loaded
+				var material = new THREE.MeshBasicMaterial( {
+					map: texture
+				 } );
+
+				// groundMeshes.material = material;
+				// groundMeshes.material.map.needsUpdate = true;
+				var tile = tilesKeeper.getile({x: xyz[0], y: xyz[1], z: xyz[2]});
+				if (tile) {
+					tile.mesh.material = material;
+					tile.mesh.material.map.needsUpdate = true;
+				}
+				else {
+					console.error('No tile for texture?', xyz);
+				}
+			},
+
+			// onProgress callback currently not supported
+			undefined,
+
+			// onError callback
+			function ( err ) {
+				console.error( 'An error happened loading image' );
+			}
+		);
+	}
+
+	function testChang () {
+			console.log('change');
+			var loader = new THREE.TextureLoader();
+
+			// load a resource
+			loader.load(
+				// resource URL
+				'https://a.tile.openstreetmap.org/0/0/0.png',
+
+				// onLoad callback
+				function ( texture ) {
+					// in this example we create the material when the texture is loaded
+					var material = new THREE.MeshBasicMaterial( {
+						map: texture
+					 } );
+
+					// groundMeshes.material.map = texture;
+					// tilesKeeper.tiles = groundMeshes;
+					var tl;
+					tilesKeeper.forEachTile((t, x) => {
+						console.log(t);
+						tl = t;
+					});
+					tl.mesh.material = material;
+					tl.mesh.material.map.needsUpdate = true;
+				},
+
+				// onProgress callback currently not supported
+				undefined,
+
+				// onError callback
+				function ( err ) {
+					console.error( 'An error happened.' );
+				}
+			);
+		}
+  </script>
+</body>
+</html>

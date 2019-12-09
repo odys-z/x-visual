@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>OSM Tiles</title>
+	<script type='text/javascript' src='../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <cavas id='canv'></canvas>
+  <script>
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	xworld.update()
+  </script>
+</body>
+</html>

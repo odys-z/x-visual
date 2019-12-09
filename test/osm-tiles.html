@@ -1,0 +1,33 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>OSM Tiles</title>
+	<!-- <link href="../lib/map.css" rel="stylesheet"> -->
+
+	<script type='text/javascript' src='../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <img id='tile' onclick='testChang()'></img>
+  <script>
+	/** Osm-Three.js view */
+	const osm3 = new xv.OSM3({});
+
+	init();
+	startAnimate();
+
+	function init() {
+    	var osm = {
+			campos: { lat: 0, lon: 0, h: 300 },
+			position: { lat: 0, lon: 0 },
+		//  position: { lat: 30.6765, lon: 104.09856 },
+			z: 15};
+	}
+
+	function startAnimate() {
+		osm3.render(0);
+	}
+  </script>
+</body>
+</html>

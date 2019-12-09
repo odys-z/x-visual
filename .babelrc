@@ -1,0 +1,5 @@
+// babel-plugin-wildcard
+// npm i --save-dev babel-plugin-wildcard
+{
+  "plugins": ["wildcard"]
+}
