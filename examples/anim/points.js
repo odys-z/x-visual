@@ -10,9 +10,16 @@ class Cube extends xv.sys.Obj {
 	constructor(ecs, options) {
 		super(ecs);
 		this.ecs = ecs;
+
+		// create a cube with options
+		// var cubeGeom = new THREE.BoxBufferGeometry( 200, 200, 200 );
 	}
 
 	update(tick, entities) {
 	}
 
 }
+
+Input.query = {
+  has: ['Geometry', 'Visual']
+};

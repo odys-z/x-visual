@@ -55,13 +55,13 @@ If the test reporting error around "chai.use(chaiStats)":
 try replace
 
 ```
-import {chaiStats} from 'chai-stats'
+    import {chaiStats} from 'chai-stats'
 ```
 
 with
 
 ```
-import chaiStats from 'chai-stats'
+    import chaiStats from 'chai-stats'
 ```
 
 ## hello world
