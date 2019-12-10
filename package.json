@@ -1,8 +1,8 @@
 {
   "name": "x-visual",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "x-visual is a hi dimensional data visualization tool kit.",
-  "main": "x3v.js",
+  "main": "./lib/xv.js",
   "directories": {
     "lib": "lib",
     "test": "test"

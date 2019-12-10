@@ -1,0 +1,20 @@
+{
+  "name": "x-examples",
+  "version": "1.0.0",
+  "description": "x-visual app examples",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "x-visual"
+  ],
+  "author": "odys-z@github.com",
+  "license": "MIT",
+  "dependencies": {
+    "x-visual": "^0.1.2"
+  },
+  "devDependencies": {
+    "babel-plugin-wildcard": "^5.0.0"
+  }
+}

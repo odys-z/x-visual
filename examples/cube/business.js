@@ -4,6 +4,6 @@ class Business {
 
 	static create(ecs, sceene) {
 		// create a cube for disply
-		
+
 	}
 }

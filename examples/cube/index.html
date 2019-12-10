@@ -3,15 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>OSM Tiles</title>
-	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
-	<script type='text/javascript' src='./points.js'></script>
+	<script type='text/javascript' src='../dist/xv-0.1.0.min.js'></script>
+	<script type='text/javascript' src='../dist/cube.min.js'></script>
 </head>
 <body>
   <cavas id='canv'></canvas>
   <script>
-	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
-	xworld.addSystem('visu', new Cube(xv.ecs, {}));
-	xworld.update()
+  	new App().init();
   </script>
 </body>
 </html>
