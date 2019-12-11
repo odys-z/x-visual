@@ -1,10 +1,14 @@
 
-import * as X from 'x-visual'
+import * as xv from 'x-visual'
+import {Business} from './business'
 
-export default class App {
-	constructor() {
-		const xworld = new XWorld(document.getElementById('canv'), window, {});
-		xworld.addSystem('visu', new Business(xv.ecs, {}));
-		xworld.update()
+class App {
+	constructor(canv) {
+		const xworld = new xv.XWorld(document.getElementById(canv), window, {});
+		xworld.addSystem('visu', Business.createCubesys(xv.ecs, {}));
+		xworld.update();
 	}
 }
+
+console.log('creating App for "canv"...');
+window.App = new App('canv');

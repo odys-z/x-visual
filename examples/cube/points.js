@@ -1,25 +1,31 @@
 
-// import * as ECS from '../../packages/ecs-js/index';
-//<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+import * as xv from 'x-visual'
+
 
 /**
  * Subclass for handling data objects
  * @class
  */
-class Cube extends xv.sys.Obj {
+export default class Cube extends xv.XObj {
 	constructor(ecs, options) {
 		super(ecs);
 		this.ecs = ecs;
+
+		this.logcnt = 0;
 
 		// create a cube with options
 		// var cubeGeom = new THREE.BoxBufferGeometry( 200, 200, 200 );
 	}
 
 	update(tick, entities) {
+		if (this.logcnt < 2) {
+			this.logcnt += 1;
+			console.log('cube.update(): ', tick, entities)
+		}
 	}
 
 }
 
-Input.query = {
+Cube.query = {
   has: ['Geometry', 'Visual']
 };

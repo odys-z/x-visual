@@ -29,8 +29,6 @@
 
    module: {
  	rules: [
-		// {test: /tiles-worker\.js$/,
-		//  use: { loader: 'worker-loader' } },
 		{test: /tiles-worker\.js$/,
 		 use: { loader: 'raw-loader' } },
 		{test: /\.js$/, exclude: /node_modules/, loader: "babel-loader",

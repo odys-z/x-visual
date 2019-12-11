@@ -26,12 +26,14 @@ It's also the npm package name.
 
 ~~~
     git clone https://github.com/odys-z/x-visual.git
-    npm install webpack
-    npm install --save-dev jquery
-    npm install --save-dev style-loader
-    npm install --save-dev @babel/core @babel/preset-env
-    npm install --save-dev babel-loader
-    npm i three
+    # npm install webpack
+    # npm install --save-dev jquery
+    # npm install --save-dev style-loader
+    # npm install --save-dev @babel/core @babel/preset-env
+    # npm install --save-dev babel-loader
+    # npm i three
+	# npm i uuid
+	npm i
 ~~~
 
 ## test (without server)

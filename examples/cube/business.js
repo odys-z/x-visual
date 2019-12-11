@@ -1,9 +1,13 @@
 
+import Cube from './points'
+
 class Business {
 	constructor() {}
 
-	static create(ecs, sceene) {
+	static createCubesys(ecs, scene) {
 		// create a cube for disply
-
+		return new Cube(ecs, {scene});
 	}
 }
+
+export {Business}
