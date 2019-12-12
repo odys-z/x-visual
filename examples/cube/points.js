@@ -27,5 +27,8 @@ export default class Cube extends xv.XObj {
 }
 
 Cube.query = {
-  has: ['Geometry', 'Visual']
+  // has: ['Geometry', 'Visual']
+  has: ['UserCmd']
 };
+
+console.log('Cube.query', Cube.query);

@@ -1,14 +1,20 @@
 
 import * as xv from 'x-visual'
 import {Business} from './business'
+// import Geometry from './business'
 
 class App {
 	constructor(canv) {
-		const xworld = new xv.XWorld(document.getElementById(canv), window, {});
-		xworld.addSystem('visu', Business.createCubesys(xv.ecs, {}));
+		var c = document.getElementById(canv);
+		console.log(c, c.getContext);
+		const xworld = new xv.XWorld(c, window, {});
+		var ecs = xworld.xecs();
+		ecs.registerComponent('Geometry', xv.XComponent.Geometry);
+		// ecs.registerComponent('Visual', Visual);
+		xworld.addSystem('visu', Business.createCubesys(ecs, {}));
 		xworld.update();
 	}
 }
 
-console.log('creating App for "canv"...');
-window.App = new App('canv');
+// console.log('creating App for "canv"...');
+window.App = App;
