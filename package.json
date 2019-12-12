@@ -1,6 +1,6 @@
 {
   "name": "x-visual",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "x-visual is a hi dimensional data visualization tool kit.",
   "main": "./lib/xv.js",
   "directories": {
@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "webpack --config mocha-osm.config.js",
+    "build": "webpack --config mocha.config.js",
     "test": "mocha dist/testBundle.js",
     "test-back": "webpack --config mocha-osm.config.js && mocha-webpack --webpack-config mocha-osm.config.js \"spec/**/*.spec.js\" || true"
   },
