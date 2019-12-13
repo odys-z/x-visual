@@ -12,6 +12,8 @@ import XObj from '../lib/sys/xobj'
 import Geometry from '../lib/component/geometry'
 import Visual from '../lib/component/visual'
 
+global.performance = performance;
+
 /**
  * Subclass for handling data objects
  * @class
@@ -39,20 +41,6 @@ class SubXobj extends XObj {
 SubXobj.query = {
   has: ['Geometry', 'Visual']
 };
-
-// const Geometry = {
-// 	properties: {
-// 		pos: [0, 0, 0]
-// 	}
-// };
-//
-// const Visual = {
-// 	properties: {
-// 		color: 0x5f003f
-// 	}
-// };
-
-global.performance = performance;
 
 describe('case: Subxobj query = [Geometry, Visual]', function() {
 	let xworld;

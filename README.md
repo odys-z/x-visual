@@ -32,14 +32,14 @@ It's also the npm package name.
     # npm install --save-dev @babel/core @babel/preset-env
     # npm install --save-dev babel-loader
     # npm i three
-	# npm i uuid
-	npm i
+    # npm i uuid
+    npm i
 ~~~
 
 ## test (without server)
 
 For installing and troubleshooting, see
-[A test project](https://github.com/odys-z/hello/blob/master/mocha/README.md)
+[Mocha project example](https://github.com/odys-z/hello/blob/master/mocha/README.md)
 
 build and test
 ~~~
@@ -69,3 +69,15 @@ with
 ## hello world
 
 TODO
+
+# Reference
+
+## Usable Components
+
+Currently usable (can registered by user) are
+
+```
+    UserCmd, CmdFlag, XCamera, Geometry, Visual.
+```
+
+For latest version, see exports in lib/xv.js.

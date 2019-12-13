@@ -10,7 +10,7 @@ class App {
 		const xworld = new xv.XWorld(c, window, {});
 		var ecs = xworld.xecs();
 		ecs.registerComponent('Geometry', xv.XComponent.Geometry);
-		// ecs.registerComponent('Visual', Visual);
+		ecs.registerComponent('Visual', xv.XComponent.Visual);
 		xworld.addSystem('visu', Business.createCubesys(ecs, {}));
 		xworld.update();
 	}

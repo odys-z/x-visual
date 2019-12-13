@@ -3,13 +3,87 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-ECS</title>
+	<script type='text/javascript' src='../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../dist/xv-0.1.0.min.js'></script>
 </head>
 <body>
-  <cavas id='canv'></canvas>
+  <canvas id='canv'></canvas>
   <script>
+	"use strict";
+	// const {THREE} = require('three');
+	// import * as THREE from '../node_modules/three/build/three.module.js';
+
+	var log = true;
+	class Cubesys extends xv.XObj {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCube(ecs, options.xscene);
+		}
+
+		update(tick, entities) {
+			if (log) {
+				log = false;
+				console.log('cube-sys');
+			}
+		}
+
+		initCube(ecs, scene) {
+			var texture = new THREE.TextureLoader().load( 'assets/ruler256.png' );
+			var mat = new THREE.MeshBasicMaterial({ map: texture });
+			var m = new THREE.Mesh( new THREE.BoxBufferGeometry( 160, 200, 320 ), mat );
+			scene.add( m );
+			console.log('add mesh to scene: ', scene.uuid);
+
+			if (ecs) {
+				var cube = ecs.createEntity({
+					id: 'cube0',
+					Geometry: {pos: [0, 0, 0],
+							rotate: [0, 0, 0] },
+					Visual: {vtype: xv.AssetType.mesh, assetId: 0}
+				});
+			}
+		}
+	}
+
+	Cubesys.query = {
+		has: ['Visual']
+	};
+
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
-	xworld.update()
+	const ecs = xworld.xecs();
+	const xscene = xworld.xscene();
+
+	ecs.registerComponent('Geometry', xv.XComponent.Geometry);
+	xworld.addSystem('visu', new Cubesys(ecs, {xscene}));
+
+	xworld.update();
+
+	/*
+	var camera, renderer, scene;
+	camera = new THREE.PerspectiveCamera( 70, 2, 1, 1000 );
+	camera.position.z = 400;
+	scene = new THREE.Scene();
+	var texture = new THREE.TextureLoader().load( 'assets/ruler256.png' );
+	var mat = new THREE.MeshBasicMaterial( { map: texture } );
+	var m = new THREE.Mesh( new THREE.BoxBufferGeometry( 200, 200, 200 ), mat );
+	scene.add( m );
+	var canvas = document.getElementById('canv');
+	renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+	// renderer.setPixelRatio( window.devicePixelRatio );
+	// renderer.setSize( window.innerWidth, window.innerHeight );
+
+	// document.body.appendChild( renderer.domElement );
+
+	function animate() {
+		requestAnimationFrame( animate );
+		// m.rotation.x += 0.005;
+		// m.rotation.y += 0.01;
+		renderer.render( scene, camera );
+	}
+
+	animate();
+	*/
   </script>
 </body>
 </html>
