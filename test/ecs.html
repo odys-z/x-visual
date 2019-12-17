@@ -18,6 +18,7 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
+			ecs.registerComponent('Visual', xv.XComponent.Visual);
 			this.initCube(ecs, options.xscene);
 		}
 
@@ -28,12 +29,16 @@
 			}
 
 	    	for (const e of entities) {
-				if (e.CmdFlag && e.CmdFlag.flag > 0) {
-					console.log(e.UserCmd);
-					this.cmd = e.UserCmd.cmd;
+				if (e.CmdFlag) {
+				 	if (e.CmdFlag.flag > 0) {
+						console.log(e.UserCmd);
+						this.cmd = e.UserCmd.cmds[0].cmd;
+					}
+					else this.cmd = undefined;
 				}
 				else if (e.Visual) {
-					console.log('visual changing: ', this.cmd);
+					if (this.cmd)
+						console.log('visual changing: ', this.cmd);
 				}
 			}
 		}

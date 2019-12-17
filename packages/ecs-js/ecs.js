@@ -87,9 +87,11 @@ class ECS {
 	 persist = CamCtrl {ecs: ECS, changes: Array(0), lastTick: 0},
 	 updatedValues = 0, updatedComponents = 0
 	 */
-    const { has, hasnt, persist, updatedValues, updatedComponents } = Object.assign({
+	// branch ANY
+    const { has, hasnt, any, persist, updatedValues, updatedComponents } = Object.assign({
       has: [],
       hasnt: [],
+	  any: [],
       persist: false,
       updatedValues: 0,
       updatedComponents: 0
@@ -100,7 +102,8 @@ class ECS {
       query = this.queryCache.get(persist);
     }
     if (!query) {
-      query = new QueryCache(this, has, hasnt);
+	  // branch ANY
+      query = new QueryCache(this, has, hasnt, any);
     }
     if (persist) {
       this.queryCache.set(persist, query);

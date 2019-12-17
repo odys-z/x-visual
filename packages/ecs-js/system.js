@@ -6,7 +6,10 @@ class System {
     this.changes = [];
     this.lastTick = this.ecs.ticks;
     /* $lab:coverage:off$ */
-    if (this.constructor.query && (this.constructor.query.has || this.constructor.query.hasnt)) {
+	// branch ANY
+    // if (this.constructor.query && (this.constructor.query.has || this.constructor.query.hasnt)) {
+    if (this.constructor.query
+		&& (this.constructor.query.has || this.constructor.query.hasnt || this.constructor.query.any)) {
     /* $lab:coverage:on$ */
       const query = { persist: this, ... this.constructor.query };
       this.ecs.queryEntities(query);
