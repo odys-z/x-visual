@@ -81,7 +81,12 @@ class ECS {
   }
 
   queryEntities(args) {
-
+    /* e.g. args = {persist: CamCtrl, has: Array(2)}
+	 has = (2) ["UserCmd", "CmdFlag"],
+	 hasnt = [],
+	 persist = CamCtrl {ecs: ECS, changes: Array(0), lastTick: 0},
+	 updatedValues = 0, updatedComponents = 0
+	 */
     const { has, hasnt, persist, updatedValues, updatedComponents } = Object.assign({
       has: [],
       hasnt: [],
@@ -136,7 +141,7 @@ class ECS {
       if (this.queryCache.has(system)) {
         entities = this.queryCache.get(system).filter();
       }
-      system.update(this.ticks, entities);
+      system.update(this.ticks, entities ? entities : []);
       system.lastTick = this.ticks;
       if (system.changes.length !== 0) {
         system.changes = [];

@@ -5,6 +5,8 @@ class QueryCache {
     this.ecs = ecs;
     this.has = has;
     this.hasnt = hasnt;
+	// set results as set of entities subscribed by System.query,
+	// e.g results = [entitye{ id = 'xview'}] by CamCtrl.query = [has['UserCmd', 'CmdFlag']]
     this.results = this._initial();
   }
 

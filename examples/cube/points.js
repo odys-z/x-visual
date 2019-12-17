@@ -1,7 +1,6 @@
 
 import * as xv from 'x-visual'
 
-
 /**
  * Subclass for handling data objects
  * @class
