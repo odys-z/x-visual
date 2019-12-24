@@ -1,7 +1,10 @@
 # About
 
 
-X-visual is a lib for data visiualization, includes:
+X-visual is a lib for data visiualization using [Three.js](https://threejs.org)
+as renderer. It includes:
+
+- ECS framework
 
 - OSM3
 
@@ -68,7 +71,8 @@ with
 
 ## hello world
 
-For ecs "hello world", try test/ecs.html.
+For ecs "hello world", try test/ecs.html. You should see something like this (v0.1.11)
+![ecs.html](./docs/imgs/000 0cs-html.png)
 
 TODO ...
 
