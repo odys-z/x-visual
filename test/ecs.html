@@ -10,8 +10,6 @@
   <canvas id='canv'></canvas>
   <script>
 	"use strict";
-	// const {THREE} = require('three');
-	// import * as THREE from '../node_modules/three/build/three.module.js';
 
 	var log = true;
 	class Cubesys extends xv.XObj {
@@ -74,31 +72,6 @@
 
 	xworld.update();
 
-	/*
-	var camera, renderer, scene;
-	camera = new THREE.PerspectiveCamera( 70, 2, 1, 1000 );
-	camera.position.z = 400;
-	scene = new THREE.Scene();
-	var texture = new THREE.TextureLoader().load( 'assets/ruler256.png' );
-	var mat = new THREE.MeshBasicMaterial( { map: texture } );
-	var m = new THREE.Mesh( new THREE.BoxBufferGeometry( 200, 200, 200 ), mat );
-	scene.add( m );
-	var canvas = document.getElementById('canv');
-	renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
-	// renderer.setPixelRatio( window.devicePixelRatio );
-	// renderer.setSize( window.innerWidth, window.innerHeight );
-
-	// document.body.appendChild( renderer.domElement );
-
-	function animate() {
-		requestAnimationFrame( animate );
-		// m.rotation.x += 0.005;
-		// m.rotation.y += 0.01;
-		renderer.render( scene, camera );
-	}
-
-	animate();
-	*/
   </script>
 </body>
 </html>

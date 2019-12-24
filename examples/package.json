@@ -12,7 +12,7 @@
   "author": "odys-z@github.com",
   "license": "MIT",
   "dependencies": {
-    "x-visual": "^0.1.9"
+    "x-visual": "^0.1.11"
   },
   "devDependencies": {
     "babel-plugin-wildcard": "^5.0.0"

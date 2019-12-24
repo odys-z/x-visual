@@ -70,6 +70,12 @@ with
 
 TODO
 
+# Powered by @fritzy/ecs
+
+x-visual is a js ECS framework inspired by [fritz's ecs-js](https://github.com/fritzy/ecs-js)
+The ECS part of x-visual is modified from his source. See change log in x-visual
+depending packages of [ecs-js README](./packages/ecs-js/README.md).
+
 # Reference
 
 ## Usable Components

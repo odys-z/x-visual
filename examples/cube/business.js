@@ -4,9 +4,9 @@ import Cube from './points'
 class Business {
 	constructor() {}
 
-	static createCubesys(ecs, scene) {
+	static createCubesys(ecs, options) {
 		// create a cube for disply
-		return new Cube(ecs, {scene});
+		return new Cube(ecs, options);
 	}
 }
 

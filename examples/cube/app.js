@@ -1,20 +1,22 @@
 
 import * as xv from 'x-visual'
 import {Business} from './business'
-// import Geometry from './business'
 
 class App {
 	constructor(canv) {
 		var c = document.getElementById(canv);
-		console.log(c, c.getContext);
-		const xworld = new xv.XWorld(c, window, {});
+		const xworld = new xv.XWorld(c, window, {
+			camera: {far: 10000} // default 5000
+		});
 		var ecs = xworld.xecs();
+
+		// FIXME Geometry should already been registered by XObj
 		ecs.registerComponent('Geometry', xv.XComponent.Geometry);
-		ecs.registerComponent('Visual', xv.XComponent.Visual);
-		xworld.addSystem('visu', Business.createCubesys(ecs, {}));
+		// ecs.registerComponent('Visual', xv.XComponent.Visual);
+
+		xworld.addSystem('visu', Business.createCubesys(ecs, {xscene: xworld.xscene}));
 		xworld.update();
 	}
 }
 
-// console.log('creating App for "canv"...');
 window.App = App;
