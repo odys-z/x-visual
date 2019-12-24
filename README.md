@@ -1,7 +1,7 @@
 # About
 
 
-X-visual is a lib for data visiualization, include:
+X-visual is a lib for data visiualization, includes:
 
 - OSM3
 
@@ -68,7 +68,9 @@ with
 
 ## hello world
 
-TODO
+For ecs "hello world", try test/ecs.html.
+
+TODO ...
 
 # Powered by @fritzy/ecs
 
