@@ -72,7 +72,7 @@ with
 ## hello world
 
 For ecs "hello world", try test/ecs.html. You should see something like this (v0.1.11)
-![ecs.html](./docs/imgs/000 0cs-html.png)
+![ecs.html](./docs/imgs/000 ecs-html.png)
 
 TODO ...
 
