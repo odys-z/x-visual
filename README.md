@@ -79,7 +79,7 @@ For ecs "hello world", try test/ecs.html. You should see something like this (v0
 
 x-visual is a js ECS framework inspired by [fritz's ecs-js](https://github.com/fritzy/ecs-js).
 The ECS part of x-visual is modified from his source. See change log in x-visual
-depending packages of [ecs-js README](./packages/ecs-js/README.md).
+depending package's [README in packages/ecs-js](./packages/ecs-js/README.md).
 
 # Reference
 
