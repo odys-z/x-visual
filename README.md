@@ -72,13 +72,12 @@ with
 ## hello world
 
 For ecs "hello world", try test/ecs.html. You should see something like this (v0.1.11)
-![ecs.html](./docs/imgs/000 ecs-html.png)
 
-TODO ...
+![ecs.html](./docs/imgs/000%20ecs-html.png)
 
 # Powered by @fritzy/ecs
 
-x-visual is a js ECS framework inspired by [fritz's ecs-js](https://github.com/fritzy/ecs-js)
+x-visual is a js ECS framework inspired by [fritz's ecs-js](https://github.com/fritzy/ecs-js).
 The ECS part of x-visual is modified from his source. See change log in x-visual
 depending packages of [ecs-js README](./packages/ecs-js/README.md).
 
