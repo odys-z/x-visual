@@ -43,18 +43,21 @@
 
 		initCube(ecs, scene) {
 			// FIXME This is not ECS. Rendering resource should handled in renderer subsystem.
-			var texture = new THREE.TextureLoader().load( 'assets/ruler256.png' );
-			var mat = new THREE.MeshBasicMaterial({ map: texture });
-			var m = new THREE.Mesh( new THREE.BoxBufferGeometry( 200, 120, 320 ), mat );
-			scene.add( m );
+			// var texture = new THREE.TextureLoader().load( 'assets/ruler256.png' );
+			// var mat = new THREE.MeshBasicMaterial({ map: texture });
+			// var m = new THREE.Mesh( new THREE.BoxBufferGeometry( 200, 120, 320 ), mat );
+			// scene.add( m );
+			// console.log('add mesh to scene: ', scene.uuid);
 			// END-FIXME
-			console.log('add mesh to scene: ', scene.uuid);
 
 			if (ecs) {
 				var cube = ecs.createEntity({
 					id: 'cube0',
 					Geometry: {pos: [0, 0, 0],
-							rotate: [0, 0, 0] },
+							rotate: [0, 0, 0], },
+					Obj3: { geom: Obj3Type.BOX,
+							box: [200, 120, 320],	// bounding box
+							mesh: undefined },		// Thrender will handle this
 					// FIXME As rendering subsystem handling THREE.scene, GpuPickable initing also should be there?
 					GpuPickable: {},
 					Visual: {vtype: xv.AssetType.mesh, assetId: 0}
