@@ -55,7 +55,7 @@
 					id: 'cube0',
 					Geometry: {pos: [0, 0, 0],
 							rotate: [0, 0, 0], },
-					Obj3: { geom: Obj3Type.BOX,
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 							box: [200, 120, 320],	// bounding box
 							mesh: undefined },		// Thrender will handle this
 					// FIXME As rendering subsystem handling THREE.scene, GpuPickable initing also should be there?
@@ -66,9 +66,7 @@
 		}
 	}
 
-	Cubesys.query = {
-		any: ['Visual', 'CmdFlag']
-	};
+	Cubesys.query = { any: ['Visual', 'CmdFlag'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs();

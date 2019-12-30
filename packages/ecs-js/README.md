@@ -54,31 +54,56 @@ Let system support query {any:[component]}
     }
 ```
 
--- QueryCache.updateEntity() - not tested
+-- QueryCache.updateEntity() - TODO: debug
 
 ```
-	let found = false;
-	const anySet = new Set();
-	for (const cname of this.any) {
-	  const anyEnts = this.ecs.entityComponents.get(cname);
-	  for (const ae in anyEnts) {
-		  if (anyEnts.has(id)) {
-			  found = true;
-			  break;
-		  }
-	  }
-	  if (found) break;
-	}
+    updateEntity(entity) {
 
-	// has
-	// let found = true;
-	if (found) {
-	    for (const cname of this.has) {
-	      const hasSet = this.ecs.entityComponents.get(cname);
-	      if (!hasSet.has(id)) {
-	        found = false;
-	        break;
-	      }
-	    }
-	}
+      const id = entity.id;
+      // any
+      let foundAny = false;
+      const anySet = new Set();
+      for (const cname of this.any) {
+        const anyEnts = this.ecs.entityComponents.get(cname);
+        for (const ae in anyEnts) {
+            if (anyEnts.has(id)) {
+                foundAny = true;
+                break;
+            }
+        }
+        if (foundAny) break;
+      }
+
+      // has
+      // let found = true;
+      let foundHas = true;
+      if (!foundAny) {
+          for (const cname of this.has) {
+            const hasSet = this.ecs.entityComponents.get(cname);
+            if (!hasSet.has(id)) {
+              foundHas = false;
+              break;
+            }
+          }
+      }
+
+      if (!foundAny && !foundHas) {
+        this.results.delete(entity);
+        return;
+      }
+
+      let foundHasnt = false;
+      for (const cname of this.hasnt) {
+        const hasntSet = this.ecs.entityComponents.get(cname);
+    	if (hasntSet.has(id)) {
+          foundHasnt = true;
+          break;
+    	}
+      }
+      if (foundHasnt) {
+        this.results.delete(entity);
+        return;
+      }
+      this.results.add(entity);
+    }
 ```
