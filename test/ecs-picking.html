@@ -16,7 +16,8 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			ecs.registerComponent('Visual', xv.XComponent.Visual);
+			// ecs.registerComponent('Visual', xv.XComponent.Visual);
+			// ecs.registerComponent('Geometry', xv.XComponent.Geometry);
 			this.initCube(ecs, options.xscene);
 		}
 
@@ -42,14 +43,8 @@
 		}
 
 		initCube(ecs, scene) {
-			// FIXME This is not ECS. Rendering resource should handled in renderer subsystem.
-			// var texture = new THREE.TextureLoader().load( 'assets/ruler256.png' );
-			// var mat = new THREE.MeshBasicMaterial({ map: texture });
-			// var m = new THREE.Mesh( new THREE.BoxBufferGeometry( 200, 120, 320 ), mat );
-			// scene.add( m );
-			// console.log('add mesh to scene: ', scene.uuid);
-			// END-FIXME
-
+			// Rendering resource (THREE.Object3D) should handled in renderer subsystem.
+			// As rendering subsystem handling THREE.scene, GpuPickable initing also should be there.
 			if (ecs) {
 				var cube = ecs.createEntity({
 					id: 'cube0',
@@ -58,7 +53,6 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 							box: [200, 120, 320],	// bounding box
 							mesh: undefined },		// Thrender will handle this
-					// FIXME As rendering subsystem handling THREE.scene, GpuPickable initing also should be there?
 					GpuPickable: {},
 					Visual: {vtype: xv.AssetType.mesh, assetId: 0}
 				});
@@ -72,10 +66,9 @@
 	const ecs = xworld.xecs();
 	const xscene = xworld.xscene();
 
-	ecs.registerComponent('Geometry', xv.XComponent.Geometry);
 	xworld.addSystem('visu', new Cubesys(ecs, {xscene}));
 
-	xworld.update();
+	xworld.startUpdate();
 
   </script>
 </body>
