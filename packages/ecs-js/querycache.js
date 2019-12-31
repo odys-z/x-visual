@@ -149,49 +149,54 @@ updateEntity(entity) {
     );
   }
 
+  /** Check entity's components, update this cache's entity set (this.results),
+   * according to conditions like 'has', 'any', ...
+   * @param {Entity} entity
+   */
   updateEntity(entity) {
 
     const id = entity.id;
 	// any
-    let found = false;
+    let foundAny = false;
 	const anySet = new Set();
 	for (const cname of this.any) {
       const anyEnts = this.ecs.entityComponents.get(cname);
 	  for (const ae in anyEnts) {
 		  if (anyEnts.has(id)) {
-			  found = true;
+			  foundAny = true;
 			  break;
 		  }
 	  }
-	  if (found) break;
+	  if (foundAny) break;
 	}
 
 	// has
     // let found = true;
-	if (found) {
+	let foundHas = true;
+	if (!foundAny) {
 	    for (const cname of this.has) {
 	      const hasSet = this.ecs.entityComponents.get(cname);
 	      if (!hasSet.has(id)) {
-	        found = false;
+	        foundHas = false;
 	        break;
 	      }
 	    }
 	}
 
-    if (!found) {
+    if (!foundAny && !foundHas) {
       this.results.delete(entity);
       return;
     }
 
-    found = false;
+    let foundHasnt = false;
     for (const cname of this.hasnt) {
       const hasntSet = this.ecs.entityComponents.get(cname);
       if (hasntSet.has(id)) {
-        found = true;
+        foundHasnt = true;
         break;
       }
     }
-    if (found) {
+    if (foundHasnt) {
       this.results.delete(entity);
       return;
     }
