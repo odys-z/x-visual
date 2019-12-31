@@ -54,19 +54,30 @@
 							box: [200, 120, 320],	// bounding box
 							mesh: undefined },		// Thrender will handle this
 					GpuPickable: {},
-					Visual: {vtype: xv.AssetType.mesh, assetId: 0}
+					Visual: {vtype: xv.AssetType.mesh, asset: 'ruler256.png'}
+				});
+
+				var cube = ecs.createEntity({
+					id: 'cube1',
+					Geometry: {pos: [0, 220, 0],
+							rotate: [0, 0, 0], },
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [60, 60, 30],
+							mesh: undefined },
+					GpuPickable: {},
+					Visual: {vtype: xv.AssetType.mesh, asset: 'sub/rgb2x2.png'}
 				});
 			}
 		}
 	}
 
-	Cubesys.query = { any: ['Visual', 'CmdFlag'] };
+	Cubesys.query = { any: ['Visual', 'CmdFlag', 'GpuPickable', 'Obj3'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs();
 	const xscene = xworld.xscene();
 
-	xworld.addSystem('visu', new Cubesys(ecs, {xscene}));
+	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
 
 	xworld.startUpdate();
 
