@@ -73,7 +73,7 @@ with
 
 For ecs "hello world", try test/ecs.html. You should see something like this (v0.1.11)
 
-![ecs.html](./docsphinx/imgs/000%20ecs-html.png)
+![ecs plain js example](./docsphinx/imgs/000%20ecs-html.png)
 
 # Powered by @fritzy/ecs
 
