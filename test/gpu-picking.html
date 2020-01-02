@@ -53,7 +53,7 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 							box: [200, 120, 320],	// bounding box
 							mesh: undefined },		// Thrender will handle this
-					GpuPickable: {},
+					GpuPickable: {pickid: 1},
 					Visual: {vtype: xv.AssetType.mesh, asset: 'ruler256.png'}
 				});
 
@@ -64,7 +64,7 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 							box: [60, 60, 30],
 							mesh: undefined },
-					GpuPickable: {},
+					GpuPickable: {pickid: 2},
 					Visual: {vtype: xv.AssetType.mesh, asset: 'sub/rgb2x2.png'}
 				});
 			}
