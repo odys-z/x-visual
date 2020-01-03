@@ -81,6 +81,17 @@ x-visual is a js ECS framework inspired by [fritz's ecs-js](https://github.com/f
 The ECS part of x-visual is modified from his source. See change log in x-visual
 depending package's [README in packages/ecs-js](./packages/ecs-js/README.md).
 
+# Asset Resources
+
+- Low Poly City
+
+Used by [x-visual gltf loader test case](./test/html/gltf-city.html), etc.
+
+Referenced by [Three.js tutorial: Three.js Loading a .GLTF File](https://threejsfundamentals.org/threejs/lessons/threejs-load-gltf.html)
+
+Download: [scene.gltf @ threejsfundamentals](https://threejsfundamentals.org/threejs/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf)
+or [low poly city @ sketchfab](https://sketchfab.com/3d-models/cartoon-lowpoly-small-city-free-pack-edd1c604e1e045a0a2a552ddd9a293e6)
+
 # Reference
 
 ## Usable Components
