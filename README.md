@@ -69,11 +69,17 @@ with
     import chaiStats from 'chai-stats'
 ```
 
-## hello world
+## Hello World
 
 For ecs "hello world", try test/ecs.html. You should see something like this (v0.1.11)
 
 ![ecs plain js example](./docsphinx/imgs/000%20ecs-html.png)
+
+### Some Other Examples
+
+- Test Case: GLTFLoader (test/html/gltf-city.html)
+
+<img src='./docsphinx/imgs/001%20gltf-loader.png' width='800px'></img>
 
 # Powered by @fritzy/ecs
 
