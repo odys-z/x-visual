@@ -54,13 +54,23 @@
 					CmdFlag: {},
 					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 							box: [200, 120, 80],	// bounding box
-							mesh: undefined },		// Thrender will handle this
-					RotaTween: {
-						rotation: [0, 0, 0],
-						animator: xv.XComponent.TweenOf.ROT_SIMPLE,
-						script: {cmd: 'w', deg: 45, axis: [1, 0, 0]},
+							// mesh is inited by thrender, can be ignored here - CmpTween's target
+							mesh: undefined },
+					CmpTween: {
+							playing: true,
+							animator: xv.XComponent.TweenScript.ROT_MESH,
+							script:{cmdcomp: 'UserCmd',
+									cmd: 'w',
+									prop: 'mesh',
+									deg: [0, 45],	// from, to
+									axis: [1, 0, 0],// TODO from, to
+									meshcomp: 'Obj3',
+									meshname: 'mesh',
+									ease: undefined,// default linear
+							},
 					},
-					Visual: {vtype: xv.AssetType.mesh, asset: 'byr0.png'}
+					Visual:{vtype: xv.AssetType.mesh,
+							asset: 'byr0.png' }
 				});
 			}
 		}
