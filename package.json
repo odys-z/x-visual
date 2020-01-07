@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/odys-z/x-visual#readme",
   "dependencies": {
+    "@tweenjs/tween.js": "^18.5.0",
     "webpack": "^4.41.2"
   },
   "devDependencies": {

@@ -123,11 +123,14 @@ updateEntity(entity) {
     }
 
 	// any
-    for (const cname of this.any) {
-      var c = this.ecs.entityComponents.get(cname);
-	  for (const e of c)
-      	results.add(e);
-    }
+	for (const cname of this.any) {
+		var c = this.ecs.entityComponents.get(cname);
+		// sometimes the user provided names is broken
+		if (c === undefined || !(Symbol.iterator in Object(c)))
+			continue;
+		for (const e of c)
+			results.add(e);
+	}
 
 	// hasn't
     const hasntSet = [];
@@ -155,19 +158,22 @@ updateEntity(entity) {
    */
   updateEntity(entity) {
 
-    const id = entity.id;
+	const id = entity.id;
 	// any
-    let foundAny = false;
+	let foundAny = false;
 	const anySet = new Set();
 	for (const cname of this.any) {
-      const anyEnts = this.ecs.entityComponents.get(cname);
-	  for (const ae in anyEnts) {
-		  if (anyEnts.has(id)) {
-			  foundAny = true;
-			  break;
-		  }
-	  }
-	  if (foundAny) break;
+		const anyEnts = this.ecs.entityComponents.get(cname);
+		// sometimes the user provided names is broken
+		if (anyEnts === undefined || !(Symbol.iterator in Object(anyEnts)))
+			continue;
+		for (const ae in anyEnts) {
+			if (anyEnts.has(id)) {
+				foundAny = true;
+				break;
+			}
+		}
+		if (foundAny) break;
 	}
 
 	// has

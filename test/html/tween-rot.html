@@ -12,13 +12,13 @@
 	"use strict";
 
 	var log = true;
-	class Citysys extends xv.XObj {
+	class Cubesys extends xv.XObj {
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
 			// ecs.registerComponent('Visual', xv.XComponent.Visual);
 			// ecs.registerComponent('Geometry', xv.XComponent.Geometry);
-			this.initCity(ecs, options.xscene);
+			this.initCube(ecs, options.xscene);
 		}
 
 		update(tick, entities) {
@@ -42,30 +42,47 @@
 			}
 		}
 
-		initCity(ecs, scene) {
+		initCube(ecs, scene) {
 			// Rendering resource (THREE.Object3D) should handled in renderer subsystem.
 			// As rendering subsystem handling THREE.scene, GpuPickable initing also should be there.
 			if (ecs) {
-				var city = ecs.createEntity({
-					id: 'city',
-					Geometry: {pos: [0, 0, 0],
-							rotate: [0, 0, 0], },
-					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-							box: [0, 0, 0],			// bounding box
-							mesh: undefined },		// Thrender will handle this
-					Visual: {vtype: xv.AssetType.gltf, asset: 'scene.gltf'}
+				var cube = ecs.createEntity({
+					id: 'cube0',
+					// Geometry: {pos: [0, 0, 0],
+					// 		rotate: [0, 0, 0], },
+					UserCmd: {},
+					CmdFlag: {},
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [200, 120, 80],	// bounding box
+							// mesh is inited by thrender, can be ignored here - CmpTween's target
+							mesh: undefined },
+					CmpTween: {
+							playing: true,
+							animator: xv.XComponent.TweenScript.ROT_MESH,
+							script:{cmdcomp: 'UserCmd',
+									cmd: 'w',
+									prop: 'mesh',
+									deg: [0, 45],	// from, to
+									axis: [1, 0, 0],// TODO from, to
+									meshcomp: 'Obj3',
+									meshname: 'mesh',
+									ease: undefined,// default linear
+							},
+					},
+					Visual:{vtype: xv.AssetType.mesh,
+							asset: 'byr0.png' }
 				});
 			}
 		}
 	}
 
-	Citysys.query = { any: ['Visual', 'CmdFlag'] };
+	Cubesys.query = { any: ['Visual', 'CmdFlag'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs();
 	const xscene = xworld.xscene();
 
-	xworld.addSystem('test', new Citysys(ecs, {xscene}));
+	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
 
 	xworld.startUpdate();
 

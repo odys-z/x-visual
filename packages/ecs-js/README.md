@@ -49,8 +49,10 @@ Let system support query {any:[component]}
 	// any
     for (const cname of this.any) {
       var c = this.ecs.entityComponents.get(cname);
-	  for (const e of c)
-      	results.add(e);
+      if (c === undefined || !(Symbol.iterator in Object(c)))
+        continue;
+      for (const e of c)
+        results.add(e);
     }
 ```
 
@@ -95,7 +97,9 @@ Let system support query {any:[component]}
       let foundHasnt = false;
       for (const cname of this.hasnt) {
         const hasntSet = this.ecs.entityComponents.get(cname);
-    	if (hasntSet.has(id)) {
+        if (anyEnts === undefined || !(Symbol.iterator in Object(anyEnts)))
+            continue;
+        if (hasntSet.has(id)) {
           foundHasnt = true;
           break;
     	}
