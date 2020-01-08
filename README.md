@@ -81,13 +81,15 @@ For ecs "hello world", try test/ecs.html. You should see something like this (v0
 
 <img src='./docsphinx/imgs/001%20gltf-loader.png' width='800px'></img>
 
-# ECS - Powered by @fritzy/ecs
+# Acknowledgement
+
+## ECS - Powered by @fritzy/ecs
 
 x-visual is a js ECS framework inspired by [fritz's ecs-js](https://github.com/fritzy/ecs-js).
 The ECS part of x-visual is modified from his source. See change log in x-visual
 depending package's [README in packages/ecs-js](./packages/ecs-js/README.md).
 
-# Acknowledgement: Asset Resources
+## Asset Resources
 
 - Low Poly City
 
@@ -101,6 +103,8 @@ resources like scene.bin and textures/\*.png.
 or [low poly city @ sketchfab](https://sketchfab.com/3d-models/cartoon-lowpoly-small-city-free-pack-edd1c604e1e045a0a2a552ddd9a293e6)
 
 # Reference
+
+TODO move to docs
 
 ## Usable Components
 
