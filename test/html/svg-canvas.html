@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-ECS</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	var log = true;
+	class SvgCanvasys extends xv.XObj {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCanvas(ecs, options.xscene);
+		}
+
+		// update(tick, entities) {
+		// 	if (log) {
+		// 		log = false;
+		// 		console.log('cube-sys');
+		// 	}
+		//
+	    // 	for (const e of entities) {
+		// 		if (e.CmdFlag) {
+		// 		 	if (e.CmdFlag.flag > 0) {
+		// 				// console.log(e.UserCmd);
+		// 				this.cmd = e.UserCmd.cmds[0].cmd;
+		// 			}
+		// 			else this.cmd = undefined;
+		// 		}
+		// 		else if (e.Visual) {
+		// 			if (this.cmd)
+		// 				console.log('visual changing: ', this.cmd);
+		// 		}
+		// 	}
+		// }
+
+		initCanvas(ecs, scene) {
+			if (ecs) {
+				var city = ecs.createEntity({
+					id: 'canv',
+					Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+							box: [100, 160, 0],		// bounding box
+							mesh: undefined },		// Thrender will handle this
+					Visual: {vtype: xv.AssetType.canvas },
+					Canvas: {dom: 'svg-canv'},
+				});
+			}
+		}
+	}
+
+	SvgCanvasys.query = { has: ['Visual', 'Canvas'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs();
+	const xscene = xworld.xscene();
+
+	xworld.addSystem('test', new Citysys(ecs, {xscene}));
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
