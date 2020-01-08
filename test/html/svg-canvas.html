@@ -8,6 +8,8 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <img src='../assets/ruler256.png' style='width:20px; height:20px'/>
+  <canvas id='canvas' style='width:20px; height:20px'/>
   <script>
 	"use strict";
 
@@ -42,13 +44,13 @@
 
 		initCanvas(ecs, scene) {
 			if (ecs) {
-				var city = ecs.createEntity({
-					id: 'canv',
+				var scrn = ecs.createEntity({
+					id: 'screen1',
 					Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 							box: [100, 160, 0],		// bounding box
 							mesh: undefined },		// Thrender will handle this
 					Visual: {vtype: xv.AssetType.canvas },
-					Canvas: {dom: 'svg-canv'},
+					Canvas: {canvas: 'svg-canv'},
 				});
 			}
 		}
@@ -60,7 +62,7 @@
 	const ecs = xworld.xecs();
 	const xscene = xworld.xscene();
 
-	xworld.addSystem('test', new Citysys(ecs, {xscene}));
+	xworld.addSystem('test', new SvgCanvasys(ecs, {xscene}));
 
 	xworld.startUpdate();
 
