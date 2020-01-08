@@ -16,8 +16,6 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			// ecs.registerComponent('Visual', xv.XComponent.Visual);
-			// ecs.registerComponent('Geometry', xv.XComponent.Geometry);
 			this.initCube(ecs, options.xscene);
 		}
 
@@ -30,7 +28,6 @@
 	    	for (const e of entities) {
 				if (e.CmdFlag) {
 				 	if (e.CmdFlag.flag > 0) {
-						// console.log(e.UserCmd);
 						this.cmd = e.UserCmd.cmds[0].cmd;
 					}
 					else this.cmd = undefined;
@@ -43,13 +40,9 @@
 		}
 
 		initCube(ecs, scene) {
-			// Rendering resource (THREE.Object3D) should handled in renderer subsystem.
-			// As rendering subsystem handling THREE.scene, GpuPickable initing also should be there.
 			if (ecs) {
 				var cube = ecs.createEntity({
 					id: 'cube0',
-					// Geometry: {pos: [0, 0, 0],
-					// 		rotate: [0, 0, 0], },
 					UserCmd: {},
 					CmdFlag: {},
 					Obj3: { geom: xv.XComponent.Obj3Type.BOX,

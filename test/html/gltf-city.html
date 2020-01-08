@@ -16,8 +16,6 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			// ecs.registerComponent('Visual', xv.XComponent.Visual);
-			// ecs.registerComponent('Geometry', xv.XComponent.Geometry);
 			this.initCity(ecs, options.xscene);
 		}
 
@@ -43,13 +41,9 @@
 		}
 
 		initCity(ecs, scene) {
-			// Rendering resource (THREE.Object3D) should handled in renderer subsystem.
-			// As rendering subsystem handling THREE.scene, GpuPickable initing also should be there.
 			if (ecs) {
 				var city = ecs.createEntity({
 					id: 'city',
-					Geometry: {pos: [0, 0, 0],
-							rotate: [0, 0, 0], },
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],			// bounding box
 							mesh: undefined },		// Thrender will handle this

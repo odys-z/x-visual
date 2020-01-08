@@ -24,9 +24,6 @@ class SubXobj extends XObj {
 		this.ecs = ecs;
 
 		this.logcnt = 0;
-
-		// create a cube with options
-		// var cubeGeom = new THREE.BoxBufferGeometry( 200, 200, 200 );
 	}
 
 	update(tick, entities) {
@@ -47,7 +44,6 @@ describe('case: Subxobj query = [Geometry, Visual]', function() {
 	let subx;
 
 	before(function() {
-		// const ecs = new ECS.ECS();
 		xworld = new XWorld(undefined, 'window', {});
 		var ecs = xworld.xecs();
 		ecs.registerComponent('Geometry', Geometry);
