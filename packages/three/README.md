@@ -4,7 +4,7 @@ For webpack, GLFLoader can be referenced to node_modules/three/examples. But Moc
 won't tolerate this. It reports error like:
 
 ```
-.../x-visual/node_modules/three/examples/jsm/loaders/GLTFLoader.js:9
+/home/ody/git/x-visual/node_modules/three/examples/jsm/loaders/GLTFLoader.js:9
 import {
        ^
 
