@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-HTML CANVASE</title>
+	<script type='text/javascript' src='./html2canvas.js'></script>
+</head>
+<body>
+	<!-- Issue: this line makes html2canvas generated canvas can't draw addional arc.
+  <canvas id='canv' onclick='drawCircle(canv2.getContext("2d"), 50, 0.3)'></canvas>
+	 -->
+  <div id='h5'>
+	<!-- Issue: this line is necessary to make html2canvas works -->
+	<canvas id='canv' style='display: block; position: absolute;' onclick='drawCircle(canv2.getContext("2d"), 50, 0.3)'></canvas>
+	<p>Radius <input placeholder='1.0' style='width: 30px'/><br></p>
+	<img style='height: 160px; width: 160px', src='../../assets/ruler256.png'></img>
+  </div>
+  <a id="dl" download="Canvas.png" href="#">Download Canvas</a>
+  <script>
+	"use strict";
+	const h5 = document.getElementById('h5');
+
+	// var ctx = document.getElementById('canv').getContext("2d");
+	// drawCircle(ctx, 20, 0);
+	// drawCircle(ctx, 22, 0);
+
+	let ctx2
+	let canv2
+
+	html2canvas(h5, {onrendered: function(canvas) {
+		// not reached
+		console.log('2', canvas);
+	}}).then(function(canvas) {
+		canv2 = canvas;
+		document.body.appendChild(canvas);
+		ctx2 = canvas.getContext("2d");
+		console.log('1', ctx2);
+		drawCircle(ctx2, 40, .3 * Math.PI);
+	});
+
+	function drawCircle(ctx, r, startAngle) {
+		console.log(startAngle, ctx);
+		ctx.beginPath();
+		ctx.arc(100, 120, r, startAngle, 1.75 * Math.PI);
+		ctx.stroke();
+	}
+
+	function dlCanvas() {
+	  var dt = canv2.toDataURL('image/png'); // << this fails in IE/Edge...
+	  dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+	  dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
+	  this.href = dt;
+	};
+	document.getElementById('dl').addEventListener('click', dlCanvas, false);
+  </script>
+</body>
+</html>
