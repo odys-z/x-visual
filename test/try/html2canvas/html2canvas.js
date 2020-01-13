@@ -1,3 +1,13 @@
+/**
+ * Odys-z: according to it's <a href='https://github.com/niklasvh/html2canvas'>
+ * README</a>:
+ * The script is still in a very experimental state, so I don't recommend using
+ * it in a production environment nor start building applications with it yet,
+ * as there will be still major changes made.
+ *
+ * So, not depending on it with npm. Just use a tried version.
+ */
+
 /*!
  * html2canvas 1.0.0-rc.5 <https://html2canvas.hertzen.com>
  * Copyright (c) 2019 Niklas von Hertzen <https://hertzen.com>
