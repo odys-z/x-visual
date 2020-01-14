@@ -9,19 +9,42 @@
 <body>
   <canvas id='canv'></canvas>
   <div id='h5-content'>
+	<p>Radius <input placeholder='1.0' style='width: 30px'/><br></p>
 	<!-- draw your svg on this canvas, which works with providen html2canvas.ems.js -->
 	<canvas id='stub' style='display: block; position: absolute;'></canvas>
-	<p>Radius <input placeholder='1.0' style='width: 30px'/><br></p>
-	<img style='height: 160px; width: 160px', src='../assets/ruler256.png'></img>
+	<img style='height: 128px; width: 128px', src='../assets/ruler256.png'></img>
+	<img style='height: 128px; width: 128px', src='../assets/ruler256.png'></img>
   </div>
   <script>
 	"use strict";
+
+	function randInt(min, max) {
+		if (max === undefined) {
+			max = min;
+			min = 0;
+		}
+		return Math.random() * (max - min) + min | 0;
+	}
+
+	function drawPie() {
+		var ctx = document.getElementById('stub').getContext('2d');
+		ctx.fillStyle = `#${randInt(0x1000000).toString(16).padStart(6, '0')}`;
+		ctx.beginPath();
+		ctx.arc(64, 64, 20, 0, 1.2 * Math.PI);
+		ctx.stroke();
+		ctx.fill();
+	}
 
 	class SvgCanvasys extends xv.XObj {
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			this.initCanvas('h5-content', ecs, options.xscene);
+
+			// render something in h5-content's canvas
+			drawPie();
+
+			this.entity = this.initCanvas('h5-content', ecs, options.xscene);
+			const me = this;
 		}
 
 		update(tick, entities) {
@@ -29,25 +52,30 @@
 				var m = e.Obj3.mesh
 				if (e.Canvas.dirty && m) {
 					e.Canvas.dirty = false;
-					if (!m.material.map){
-						m.material.map = e.Canvas.tex;
-					}
-					m.material.map.needsUpdate = true;
+					e.Canvas.tex.needsUpdate = true;
+					m.material.map = e.Canvas.tex;
 				}
 			}
 		}
 
-		initCanvas(canvId, ecs, scene) {
+		initCanvas(domId, ecs, scene) {
 			if (ecs) {
-				var scrn = ecs.createEntity({
+				var plane = ecs.createEntity({
 					id: 'screen1',
 					Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-							box: [100, 160, 0],		// bounding box also plane size
+							box: [100, 100, 0],		// bounding box also plane size
 							mesh: undefined },		// Thrender will handle this
 					Visual: {vtype: xv.AssetType.canvas },
-					Canvas: {domId: canvId},
+					Canvas: {domId: domId,
+							 options: {width: 256, height: 256}, // buffer tex size
+							},
 				});
+				return plane;
 			}
+		}
+
+		refresh() {
+			xv.AssetKeepr.initCanvtex(this.entity.Canvas);
 		}
 	}
 
@@ -58,7 +86,15 @@
 	const ecs = xworld.xecs();
 	const xscene = xworld.xscene();
 
-	xworld.addSystem('test', new SvgCanvasys(ecs, {xscene}));
+	const canvsys = new SvgCanvasys(ecs, {xscene});
+	xworld.addSystem('test', canvsys);
+
+	document.getElementById('stub')
+			.addEventListener('click', function() {
+				drawPie();
+				// demo: updating canvas -- TODO docs
+				canvsys.refresh();
+			});
 
 	xworld.startUpdate();
 

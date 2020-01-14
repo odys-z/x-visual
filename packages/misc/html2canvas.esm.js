@@ -6908,7 +6908,11 @@ var html2canvas = function (element, options) {
     if (options === void 0) { options = {}; }
     return renderElement(element, options);
 };
-CacheStorage.setContext(window);
+
+// ody for testing - should alread tested by authors
+if (typeof window !== 'undefined')
+	CacheStorage.setContext(window);
+
 var renderElement = function (element, opts) { return __awaiter(_this, void 0, void 0, function () {
     var ownerDocument, defaultView, instanceName, _a, width, height, left, top, defaultResourceOptions, resourceOptions, defaultOptions, options, windowBounds, documentCloner, clonedElement, container, documentBackgroundColor, bodyBackgroundColor, bgColor, defaultBackgroundColor, backgroundColor, renderOptions, canvas, renderer, root, renderer;
     return __generator(this, function (_b) {
