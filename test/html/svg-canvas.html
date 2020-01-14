@@ -35,64 +35,20 @@
 		ctx.fill();
 	}
 
-	class SvgCanvasys extends xv.XObj {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-
-			// render something in h5-content's canvas
-			drawPie();
-
-			this.entity = this.initCanvas('h5-content', ecs, options.xscene);
-			const me = this;
-		}
-
-		update(tick, entities) {
-			for (const e of entities) {
-				var m = e.Obj3.mesh
-				if (e.Canvas.dirty && m) {
-					e.Canvas.dirty = false;
-					e.Canvas.tex.needsUpdate = true;
-					m.material.map = e.Canvas.tex;
-				}
-			}
-		}
-
-		initCanvas(domId, ecs, scene) {
-			if (ecs) {
-				var plane = ecs.createEntity({
-					id: 'screen1',
-					Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-							box: [100, 100, 0],		// bounding box also plane size
-							mesh: undefined },		// Thrender will handle this
-					Visual: {vtype: xv.AssetType.canvas },
-					Canvas: {domId: domId,
-							 options: {width: 256, height: 256}, // buffer tex size
-							},
-				});
-				return plane;
-			}
-		}
-
-		refresh() {
-			xv.AssetKeepr.initCanvtex(this.entity.Canvas);
-		}
-	}
-
-	SvgCanvasys.query = { has: ['Visual', 'Canvas', 'Obj3'] };
-
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 						window, {canvasize: [480, 320]});
 	const ecs = xworld.xecs();
 	const xscene = xworld.xscene();
 
-	const canvsys = new SvgCanvasys(ecs, {xscene});
+	// render something in h5-content's canvas
+	drawPie();
+	const canvsys = new xv.Htmltex(ecs, {domId: 'h5-content', xscene});
 	xworld.addSystem('test', canvsys);
 
 	document.getElementById('stub')
 			.addEventListener('click', function() {
 				drawPie();
-				// demo: updating canvas -- TODO docs
+				// updating canvas -- TODO docs
 				canvsys.refresh();
 			});
 
