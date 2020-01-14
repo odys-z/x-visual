@@ -8,9 +8,8 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <img src='../assets/ruler256.png' style='width:20px; height:20px'/>
-  <canvas id='canvas' style='width:20px; height:20px'/>
-  <div>
+  <div id='h5-content'>
+	<!-- draw your svg on this canvas, which works with providen html2canvas.ems.js -->
 	<canvas id='stub' style='display: block; position: absolute;'></canvas>
 	<p>Radius <input placeholder='1.0' style='width: 30px'/><br></p>
 	<img style='height: 160px; width: 160px', src='../assets/ruler256.png'></img>
@@ -18,52 +17,44 @@
   <script>
 	"use strict";
 
-	var log = true;
 	class SvgCanvasys extends xv.XObj {
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			this.initCanvas(ecs, options.xscene);
+			this.initCanvas('h5-content', ecs, options.xscene);
 		}
 
-		// update(tick, entities) {
-		// 	if (log) {
-		// 		log = false;
-		// 		console.log('cube-sys');
-		// 	}
-		//
-	    // 	for (const e of entities) {
-		// 		if (e.CmdFlag) {
-		// 		 	if (e.CmdFlag.flag > 0) {
-		// 				// console.log(e.UserCmd);
-		// 				this.cmd = e.UserCmd.cmds[0].cmd;
-		// 			}
-		// 			else this.cmd = undefined;
-		// 		}
-		// 		else if (e.Visual) {
-		// 			if (this.cmd)
-		// 				console.log('visual changing: ', this.cmd);
-		// 		}
-		// 	}
-		// }
+		update(tick, entities) {
+			for (const e of entities) {
+				var m = e.Obj3.mesh
+				if (e.Canvas.dirty && m) {
+					e.Canvas.dirty = false;
+					if (!m.material.map){
+						m.material.map = e.Canvas.tex;
+					}
+					m.material.map.needsUpdate = true;
+				}
+			}
+		}
 
-		initCanvas(ecs, scene) {
+		initCanvas(canvId, ecs, scene) {
 			if (ecs) {
 				var scrn = ecs.createEntity({
 					id: 'screen1',
 					Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-							box: [100, 160, 0],		// bounding box
+							box: [100, 160, 0],		// bounding box also plane size
 							mesh: undefined },		// Thrender will handle this
 					Visual: {vtype: xv.AssetType.canvas },
-					Canvas: {canvas: 'svg-canv'},
+					Canvas: {domId: canvId},
 				});
 			}
 		}
 	}
 
-	SvgCanvasys.query = { has: ['Visual', 'Canvas'] };
+	SvgCanvasys.query = { has: ['Visual', 'Canvas', 'Obj3'] };
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+						window, {canvasize: [480, 320]});
 	const ecs = xworld.xecs();
 	const xscene = xworld.xscene();
 

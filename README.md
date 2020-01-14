@@ -41,6 +41,10 @@ It's also the npm package name.
 
 ## test (without server)
 
+```
+    import chaiStats from 'chai-stats'
+```
+
 For installing and troubleshooting, see
 [Mocha project example](https://github.com/odys-z/hello/blob/master/mocha/README.md)
 
@@ -50,30 +54,23 @@ build and test
     npm test
 ~~~
 
-## troubleshooting
-
-If the test reporting error around "chai.use(chaiStats)":
-```
-    TypeError: fn is not a function
-```
-
-try replace
-
-```
-    import {chaiStats} from 'chai-stats'
-```
-
-with
-
-```
-    import chaiStats from 'chai-stats'
-```
 
 ## Hello World
 
 For ecs "hello world", try test/ecs.html. You should see something like this (v0.1.11)
 
 ![ecs plain js example](./docsphinx/imgs/000%20ecs-html.png)
+
+- tip
+
+The html can be load from local file system if browser allow cross domain file access.
+Try (tested on Ubuntu):
+
+```
+    vim chrome # add this: google-chrome --allow-file-access-from-files --allow-file-access --allow-cross-origin-auth-prompt
+    chmod +x chrome
+    ./chrome
+```
 
 ### Some Other Examples
 
@@ -88,6 +85,14 @@ For ecs "hello world", try test/ecs.html. You should see something like this (v0
 x-visual is a js ECS framework inspired by [fritz's ecs-js](https://github.com/fritzy/ecs-js).
 The ECS part of x-visual is modified from his source. See change log in x-visual
 depending package's [README in packages/ecs-js](./packages/ecs-js/README.md).
+
+## extension: [html2canvas](https://github.com/niklasvh/html2canvas)
+
+14 Jan. 2020:
+
+According to it's README: "The script is still in a very experimental state".
+
+So A tested working version is provided as packages/misc/html2canvas.esm.js
 
 ## Asset Resources
 
