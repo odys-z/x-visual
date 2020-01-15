@@ -18,6 +18,8 @@
   <script>
 	"use strict";
 
+	/**Senario: suppose you have some shape for your business. */
+
 	function randInt(min, max) {
 		if (max === undefined) {
 			max = min;
@@ -35,22 +37,25 @@
 		ctx.fill();
 	}
 
-	const xworld = new xv.XWorld(document.getElementById('canv'),
-						window, {canvasize: [480, 320]});
-	const ecs = xworld.xecs();
-	const xscene = xworld.xscene();
-
-	// render something in h5-content's canvas
-	drawPie();
-	const canvsys = new xv.Htmltex(ecs, {domId: 'h5-content', xscene});
-	xworld.addSystem('test', canvsys);
-
 	document.getElementById('stub')
 			.addEventListener('click', function() {
 				drawPie();
 				// updating canvas -- TODO docs
 				canvsys.refresh();
 			});
+
+	// render something in h5-content's canvas
+	drawPie();
+
+	// initiating xworld
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+						window, {canvasize: [480, 320]});
+	const ecs = xworld.xecs();
+	const xscene = xworld.xscene();
+
+	// the Htmltex convert html content to texture and render it as requested in what?
+	const canvsys = new xv.Htmltex(ecs, {domId: 'h5-content', xscene});
+	xworld.addSystem('test', canvsys);
 
 	xworld.startUpdate();
 
