@@ -9,8 +9,8 @@ const {performance} = require('perf_hooks');
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld.js'
 import XObj from '../lib/sys/xobj'
-import Geometry from '../lib/component/geometry'
-import Visual from '../lib/component/visual'
+import {Geometry} from '../lib/component/geometry'
+import {Visual} from '../lib/component/visual'
 
 global.performance = performance;
 

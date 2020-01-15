@@ -54,7 +54,13 @@
 	const xscene = xworld.xscene();
 
 	// the Htmltex convert html content to texture and render it as requested in what?
-	const canvsys = new xv.Htmltex(ecs, {domId: 'h5-content', xscene});
+	// TODO doc: domId, obj3, width / height
+	const entDefines = xv.Htmltex.createEntityDefs({objcanvas: [
+			{domId: 'h5-content',
+			 texsize: {width: 512, height: 512}}
+		 ]});
+	xworld.addEntities(entDefines);
+	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines});
 	xworld.addSystem('test', canvsys);
 
 	xworld.startUpdate();
