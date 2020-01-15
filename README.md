@@ -82,7 +82,7 @@ To update rendering texture, use
     SvgCanvasys.refresh();
 ```
 
-see test/html/svg-canvas.html
+see [test/html/svg-canvas.html](./blob/master/test/html/svg-canvas.html).
 
 # Acknowledgement
 
