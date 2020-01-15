@@ -79,7 +79,7 @@ Try (tested on Ubuntu):
 To update rendering texture, use
 
 ```
-    SvgCanvasys.refresh();
+    Htmltex.refresh();
 ```
 
 see [test/html/svg-canvas.html](./blob/master/test/html/svg-canvas.html).
