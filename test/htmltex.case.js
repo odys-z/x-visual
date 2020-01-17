@@ -36,7 +36,8 @@ describe('case: Htmltex (CanvasTexture)', function() {
 	let xworld, ecs;
 	let htmltex;
 
-	before(function() {
+	before(function(arg) {
+		console.log('what is this:\n', arg);
 		xworld = new XWorld(undefined, 'window', {});
 		ecs = xworld.xecs();
 	});
