@@ -36,10 +36,10 @@ describe('case: Htmltex (CanvasTexture)', function() {
 	let xworld, ecs;
 	let htmltex;
 
-	before(function(arg) {
-		console.log('what is this:\n', arg);
+	before(function() {
 		xworld = new XWorld(undefined, 'window', {});
 		ecs = xworld.xecs();
+        console.log('deleting ... 113');
 	});
 
 	it('creating a entity definition', function() {
