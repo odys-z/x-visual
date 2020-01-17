@@ -46,6 +46,25 @@ Let system support query {any:[component]}
       }
     }
 
+    // iffall (contains)
+    const iffSet = [];
+    let iffname;
+    for (const cname of this.iffall) {
+      iffSet.push(this.ecs.entityComponents.get(cname));
+      iffname = cname;
+      break;
+    }
+    for (const cname of this.iffall) {
+      if (cname === iffname)
+        continue;
+      const intersect = this.ecs.entityComponents.get(cname);
+      for (const id of results) {	// id = EntityId.id, e.g. 'xview'
+        if (!intersect.has(id)) {
+          results.delete(id);
+        }
+      }
+    }
+    
 	// any
     for (const cname of this.any) {
       var c = this.ecs.entityComponents.get(cname);
@@ -76,10 +95,21 @@ Let system support query {any:[component]}
         if (foundAny) break;
       }
 
-      // has
-      // let found = true;
-      let foundHas = true;
+      // iffall
+      let foundIffall = true;
       if (!foundAny) {
+        for (const cname of this.iffall) {
+          const iffSet = this.ecs.entityComponents.get(cname);
+    	    if (!iffSet.has(id)) {
+    	       foundIffall = false;
+    	       break;
+    	    }
+        }
+      }
+
+      // has
+      let foundHas = true;
+      if (!foundAny && !foundIffall) {
           for (const cname of this.has) {
             const hasSet = this.ecs.entityComponents.get(cname);
             if (!hasSet.has(id)) {
@@ -89,7 +119,7 @@ Let system support query {any:[component]}
           }
       }
 
-      if (!foundAny && !foundHas) {
+      if (!foundAny && !foundHas && foundIffall) {
         this.results.delete(entity);
         return;
       }

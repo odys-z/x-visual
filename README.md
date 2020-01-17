@@ -54,7 +54,7 @@ build and test
 
 For ecs "hello world", try test/ecs.html. You should see something like this (v0.1.11)
 
-![ecs plain js example](./docsphinx/imgs/000%20ecs-html.png)
+![ecs plain js example](./docsphinx/source/imgs/000%20ecs-html.png)
 
 - tip
 
@@ -72,7 +72,7 @@ Try (tested on Ubuntu):
 
 - Test Case: GLTFLoader (test/html/gltf-city.html)
 
-<img src='./docsphinx/imgs/001%20gltf-loader.png' width='800px'></img>
+<img src='./docsphinx/source/imgs/001%20gltf-loader.png' width='800px'></img>
 
 
 - Test Case: using html DOM as texture

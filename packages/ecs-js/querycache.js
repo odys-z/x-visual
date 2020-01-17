@@ -89,6 +89,12 @@ updateEntity(entity) {
   }
 
   */
+
+  /**TODO docs:
+   * Logics of has, iff, any, hasnt:
+   * result = (has || iff || any) && !hasnt
+   * see query-details.ods
+   */
   _initial() {
     if (this.has.length === 1 && this.any.length === 0 && this.hasnt.length === 0) {
       const entities = new Set();
@@ -98,7 +104,7 @@ updateEntity(entity) {
       return entities;
     }
 
-	// has
+	// has (all)
     const hasSet = [];
     for (const cname of this.has) {
       hasSet.push(this.ecs.entityComponents.get(cname));
@@ -115,6 +121,25 @@ updateEntity(entity) {
 	else results = new Set();
     for (let idx = 1, l = hasSet.length; idx < l; idx++) {
       const intersect = hasSet[idx];
+      for (const id of results) {	// id = EntityId.id, e.g. 'xview'
+        if (!intersect.has(id)) {
+          results.delete(id);
+        }
+      }
+    }
+
+    // iffall (contains)
+    const iffSet = [];
+    let iffname;
+    for (const cname of this.iffall) {
+      iffSet.push(this.ecs.entityComponents.get(cname));
+      iffname = cname;
+      break;
+    }
+    for (const cname of this.iffall) {
+      if (cname === iffname)
+        continue;
+      const intersect = this.ecs.entityComponents.get(cname);
       for (const id of results) {	// id = EntityId.id, e.g. 'xview'
         if (!intersect.has(id)) {
           results.delete(id);
@@ -154,6 +179,12 @@ updateEntity(entity) {
 
   /** Check entity's components, update this cache's entity set (this.results),
    * according to conditions like 'has', 'any', ...
+   *
+   * TODO docs:
+   * Logics of has, iff, any, hasnt:
+   * result = (has || iff || any) && !hasnt
+   * see query-details.ods
+   *
    * @param {Entity} entity
    */
   updateEntity(entity) {
@@ -176,10 +207,21 @@ updateEntity(entity) {
 		if (foundAny) break;
 	}
 
-	// has
-    // let found = true;
+    // iffall
+	let foundIffall = true;
+    if (!foundAny) {
+    	for (const cname of this.iffall) {
+    	  const iffSet = this.ecs.entityComponents.get(cname);
+	      if (!iffSet.has(id)) {
+	        foundIffall = false;
+	        break;
+	      }
+        }
+    }
+
+	// has (logical error here?)
 	let foundHas = true;
-	if (!foundAny) {
+	if (!foundAny && !foundIffall) {
 	    for (const cname of this.has) {
 	      const hasSet = this.ecs.entityComponents.get(cname);
 	      if (!hasSet.has(id)) {
@@ -189,7 +231,7 @@ updateEntity(entity) {
 	    }
 	}
 
-    if (!foundAny && !foundHas) {
+    if ( !foundAny && !foundHas && !foundIffall ) {
       this.results.delete(entity);
       return;
     }
@@ -210,7 +252,6 @@ updateEntity(entity) {
   }
 
   clearEntity(entity) {
-
     this.results.delete(entity);
   }
 
