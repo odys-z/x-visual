@@ -18,7 +18,7 @@ const {performance} = require('perf_hooks');
 import * as ECS from '../packages/ecs-js/index';
 
 // lab.experiment('express components', () => {
-describe('express components', () => {
+describe('case: express components', () => {
 
   const ecs = new ECS.ECS();
   ecs.registerComponent('Health', {

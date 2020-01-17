@@ -42,7 +42,7 @@ describe('case: Htmltex (CanvasTexture)', function() {
 		ecs = xworld.xecs();
 	});
 
-	it('creating 1 entity definition', function() {
+	it('creating a entity definition', function() {
 		var testcase1 = new CaseMultiScreens(ecs);
 		htmltex = new Htmltex(ecs, testcase1.getInputCase());
 		assert.isOk(htmltex);
