@@ -1,11 +1,12 @@
 class QueryCache {
 
   // branch ANY
-  constructor (ecs, has, hasnt, any) {
+  constructor (ecs, has, hasnt, any, iffall) {
     this.ecs = ecs;
     this.has = has;
     this.hasnt = hasnt;
 	this.any = any;
+	this.iffall = iffall;
 	// set results as set of entities subscribed by System.query,
 	// e.g results = [entitye{ id = 'xview'}] by CamCtrl.query = [has['UserCmd', 'CmdFlag']]
     this.results = this._initial();

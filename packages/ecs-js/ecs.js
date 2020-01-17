@@ -88,9 +88,10 @@ class ECS {
 	 updatedValues = 0, updatedComponents = 0
 	 */
 	// branch ANY
-    const { has, hasnt, any, persist, updatedValues, updatedComponents } = Object.assign({
-      has: [],
+    const { hasnt, has, iffall, any, persist, updatedValues, updatedComponents } = Object.assign({
       hasnt: [],
+      has: [],
+      iffall: [],
 	  any: [],
       persist: false,
       updatedValues: 0,
@@ -103,7 +104,7 @@ class ECS {
     }
     if (!query) {
 	  // branch ANY
-      query = new QueryCache(this, has, hasnt, any);
+      query = new QueryCache(this, has, hasnt, any, iffall);
     }
     if (persist) {
       this.queryCache.set(persist, query);
