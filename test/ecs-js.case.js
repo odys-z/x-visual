@@ -116,8 +116,10 @@ describe('case: express components', () => {
 
     const entity2 = ecs.createEntity(entityDef);
 
-    expect(entity.components.Storage.pockets.items.has(food)).to.be.true();
-    expect(entity2.components.Storage.pockets.items.has(food)).to.be.true();
+    // expect(entity.components.Storage.pockets.items.has(food)).to.be.true();
+    expect(entity.components.Storage.pockets.items.has(food)).equal(true);
+    // expect(entity2.components.Storage.pockets.items.has(food)).to.be.true();
+    expect(entity2.components.Storage.pockets.items.has(food)).equal(true);
 
     ecs.removeEntity(food);
 
