@@ -150,7 +150,7 @@ describe('case: [ecs]express components', () => {
         for (const change of this.changes) {
           const parent = change.component.entity;
           if (change.component.type === 'EquipmentSlot'
-          && change.op === 'setEntity') {
+                && change.op === 'setEntity') {
             if (change.value !== null) {
               const value = this.ecs.getEntity(change.value);
               if (value.hasOwnProperty('Wearable')) {
@@ -540,16 +540,50 @@ describe('case: [ecs]system queries', () => {
 
     const resultSet = new Set([...result]);
 
-    // expect(resultSet.has(tile1)).to.be.false();
-    // expect(resultSet.has(tile2)).to.be.true();
-    // expect(resultSet.has(tile3)).to.be.false();
-    // expect(resultSet.has(tile4)).to.be.false();
-    // expect(resultSet.has(tile5)).to.be.false();
     expect(resultSet.has(tile1)).false;
     expect(resultSet.has(tile2)).true;
     expect(resultSet.has(tile3)).false;
     expect(resultSet.has(tile4)).false;
     expect(resultSet.has(tile5)).false;
+  });
+
+  // odys-z@github.com Jan 17, 2020
+  // test iffall
+  it('multiple iffall', () => {
+    ecs.registerComponent('Visual', {});
+    ecs.registerComponent('Obj3', {});
+    ecs.registerComponent('Unknown1', {});
+    ecs.registerComponent('Unknown2', {});
+    ecs.registerComponent('Unknown3', {});
+
+    const obj1 = ecs.createEntity({
+      Visual: {},
+      Obj3: {},
+      Unknown1: {},
+      Unknown2: {}
+    });
+
+    const obj2 = ecs.createEntity({
+      Visual: {},
+      Obj3: {},
+      Unknown2: {},
+      Unknown3: {}
+    });
+
+    const exc1 = ecs.createEntity({
+      Visual: {}
+    });
+
+    const result = ecs.queryEntities({
+      has: ['Visaul'],
+      iffall: ['Visual', 'Obj3']
+    });
+
+    const resultSet = new Set([...result]);
+
+    expect(resultSet.has(obj1)).true;
+    expect(resultSet.has(obj2)).true;
+    expect(resultSet.has(exc3)).false;
   });
 
   // lab.test('filter by updatedValues', () => {
