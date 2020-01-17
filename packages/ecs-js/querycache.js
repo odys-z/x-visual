@@ -99,10 +99,12 @@ updateEntity(entity) {
   _initial() {
     if (this.has.length === 1 && this.any.length === 0 && this.hasnt.length === 0) {
       const entities = new Set();
-      for (const component of this.ecs.getComponents(this.has[0])) {
-        entities.add(component.entity);
+      if (this.ecs.getComponents(this.has[0])) {
+          for (const component of this.ecs.getComponents(this.has[0])) {
+            entities.add(component.entity);
+          }
+          return entities;
       }
-      return entities;
     }
 
 	// has (all)
