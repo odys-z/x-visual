@@ -286,7 +286,7 @@ describe('express components', () => {
     expect(entity.Burning).to.not.exist();
     */
 
-  });
+  // });
 
   /*
   lab.test('component pointers', () => {
