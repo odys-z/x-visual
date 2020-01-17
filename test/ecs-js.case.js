@@ -128,7 +128,7 @@ describe('case: express components', () => {
 
   });
 
-  lab.test('system subscriptions', () => {
+  // lab.test('system subscriptions', () => {
   it('system subscriptions', () => {
     let changes = [];
     let changes2 = [];
@@ -259,7 +259,6 @@ describe('case: express components', () => {
     ecs.runSystemGroup('equipment');
 
     expect(entity.EquipmentEffect).to.exist();
-    /*
     expect([...entity.EquipmentEffect][0].effects.has(effectExt)).to.be.true();
     expect([...entity.EquipmentEffect][0].effects.has(effectExt.id)).to.be.true();
     expect(entity.Burning).to.exist();
@@ -280,8 +279,6 @@ describe('case: express components', () => {
     expect(changes[0].value).to.be.null();
     expect(entity.EquipmentEffect).to.not.exist();
     expect(entity.Burning).to.not.exist();
-    */
-
   });
 
   /*
