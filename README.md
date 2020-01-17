@@ -62,7 +62,8 @@ The html can be load from local file system if browser allow cross domain file a
 Try (tested on Ubuntu):
 
 ```
-    vim chrome # add this: google-chrome --allow-file-access-from-files --allow-file-access --allow-cross-origin-auth-prompt
+    vim chrome
+    # add this: google-chrome --allow-file-access-from-files --allow-file-access --allow-cross-origin-auth-prompt
     chmod +x chrome
     ./chrome
 ```
