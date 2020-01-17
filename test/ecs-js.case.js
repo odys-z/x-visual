@@ -42,7 +42,7 @@ describe('case: express components', () => {
       Health: [ { hp: 10 } ]
     });
     const results = ecs.queryEntities({ has: ['Health'] });
-    // expect(results.size).to.equal(1);
+    expect(results.size).to.equal(1);
     assert.equal(results.size, 1);
   });
 
