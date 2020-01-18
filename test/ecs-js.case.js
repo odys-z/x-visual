@@ -549,7 +549,7 @@ describe('case: [ecs]system queries', () => {
 
   // odys-z@github.com Jan 17, 2020
   // test iffall
-  it('multiple iffall', () => {
+  it('multiple any / iffall', () => {
     ecs.registerComponent('Visual', {});
     ecs.registerComponent('Obj3', {});
     ecs.registerComponent('Unknown1', {});
@@ -574,16 +574,28 @@ describe('case: [ecs]system queries', () => {
       Visual: {}
     });
 
-    const result = ecs.queryEntities({
+    var result = ecs.queryEntities({
       has: ['Visual'],
       iffall: ['Visual', 'Obj3']
     });
 
-    const resultSet = new Set([...result]);
+    var resultSet = new Set([...result]);
 
+	// iff 'Visual', 'Obj3'
     expect(resultSet.has(obj1)).true;
     expect(resultSet.has(obj2)).true;
     expect(resultSet.has(exc1)).false;
+
+	// any 'Visual'
+    result = ecs.queryEntities({
+      any: ['Visual'],
+      iffall: ['Visual', 'Obj3']
+    });
+    resultSet = new Set([...result]);
+    expect(resultSet.has(obj1)).true;
+    expect(resultSet.has(obj2)).true;
+    expect(resultSet.has(exc1)).true;
+
   });
 
   // lab.test('filter by updatedValues', () => {
