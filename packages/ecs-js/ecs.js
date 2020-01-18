@@ -90,7 +90,7 @@ class ECS {
 	 persist = CamCtrl {ecs: ECS, changes: Array(0), lastTick: 0},
 	 updatedValues = 0, updatedComponents = 0
 	 */
-	// branch ANY
+	// branch ANY (and IFFALL)
     const { hasnt, has, iffall, any, persist, updatedValues, updatedComponents } = Object.assign({
       hasnt: [],
       has: [],

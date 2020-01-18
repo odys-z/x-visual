@@ -575,7 +575,7 @@ describe('case: [ecs]system queries', () => {
     });
 
     const result = ecs.queryEntities({
-      has: ['Visaul'],
+      has: ['Visual'],
       iffall: ['Visual', 'Obj3']
     });
 
@@ -583,7 +583,7 @@ describe('case: [ecs]system queries', () => {
 
     expect(resultSet.has(obj1)).true;
     expect(resultSet.has(obj2)).true;
-    expect(resultSet.has(exc3)).false;
+    expect(resultSet.has(exc1)).false;
   });
 
   // lab.test('filter by updatedValues', () => {

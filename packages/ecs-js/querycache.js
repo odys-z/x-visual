@@ -97,7 +97,8 @@ updateEntity(entity) {
    * see query-details.ods
    */
   _initial() {
-    if (this.has.length === 1 && this.any.length === 0 && this.hasnt.length === 0) {
+    if (this.has.length === 1
+		&& this.iffall.length === 0 && this.any.length === 0 && this.hasnt.length === 0) {
       const entities = new Set();
       if (this.ecs.getComponents(this.has[0])) {
           for (const component of this.ecs.getComponents(this.has[0])) {
@@ -110,6 +111,8 @@ updateEntity(entity) {
 	// has (all)
     const hasSet = [];
     for (const cname of this.has) {
+      // console.log('debug: first hasSet element: ',
+      //   cname, this.ecs.entityComponents.get(cname));
       hasSet.push(this.ecs.entityComponents.get(cname));
     }
     hasSet.sort((a, b) => {
