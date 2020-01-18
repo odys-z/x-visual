@@ -45,7 +45,7 @@ describe('case: Subxobj query = [Geometry, Visual]', function() {
 
 	before(function() {
 		xworld = new XWorld(undefined, 'window', {});
-		var ecs = xworld.xecs();
+		var ecs = xworld.xecs;
 		// ecs.registerComponent('Geometry', Geometry);
 		// ecs.registerComponent('Visual', Visual);
 		subx = new SubXobj(ecs);

@@ -36,19 +36,20 @@ It's also the npm package name.
 
 ## test (without server)
 
+The proect uses Mocha and Chai for test, import like this.
+
 ```
     import chaiStats from 'chai-stats'
 ```
 
-For installing and troubleshooting, see
-[Mocha project example](https://github.com/odys-z/hello/blob/master/mocha/README.md)
-
-build and test
+To build and test
 ~~~
     npm run build
     npm test
 ~~~
 
+For installing and troubleshooting, there is a trying page may be helpfful. See
+[Mocha project example](https://github.com/odys-z/hello/blob/master/mocha/README.md)
 
 ## Hello World
 

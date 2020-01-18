@@ -119,6 +119,7 @@ updateEntity(entity) {
 	// results is a set of Entities Ids (mapped later)
     let results; //  = new Set();
 	if (hasSet && hasSet.length > 0) {
+		console.log('.............. hasSet ', hasSet, hasSet.length);
 		results = new Set([...hasSet[0]]);
 	}
 	else results = new Set();
@@ -186,7 +187,7 @@ updateEntity(entity) {
    * TODO docs:
    * Logics of has, iff, any, hasnt:
    * result = (has || iff || any) && !hasnt
-   * see query-details.ods
+   * see doc/ecs/query-details.ods
    *
    * @param {Entity} entity
    */

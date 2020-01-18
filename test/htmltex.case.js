@@ -38,7 +38,7 @@ describe('case: Htmltex (CanvasTexture)', function() {
 
 	before(function() {
 		xworld = new XWorld(undefined, 'window', {});
-		ecs = xworld.xecs();
+		ecs = xworld.xecs;
 	});
 
 	it('creating a entity definition', function() {

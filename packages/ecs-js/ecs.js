@@ -20,9 +20,12 @@ class ECS {
   }
 
   tick() {
-
     this.ticks++;
     return this.ticks;
+  }
+
+  get lastick() {
+	  return this.ticks;
   }
 
   addRef(target, entity, component, prop, sub) {

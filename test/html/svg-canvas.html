@@ -40,8 +40,8 @@
 	document.getElementById('stub')
 			.addEventListener('click', function() {
 				drawPie();
-				// updating canvas -- TODO docs
-				canvsys.refresh();
+				// updating canvas -- TODO docs: how to update canvas
+				canvsys.refresh('h5-content');
 			});
 
 	// render something in h5-content's canvas
@@ -50,8 +50,8 @@
 	// initiating xworld
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 						window, {canvasize: [480, 320]});
-	const ecs = xworld.xecs();
-	const xscene = xworld.xscene();
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
 
 	// the Htmltex convert html content to texture and render it as requested in what?
 	// TODO doc: domId, obj3, width / height
