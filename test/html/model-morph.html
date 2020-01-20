@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest-ECS</title>
+	<title>XTest-Morph</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
@@ -11,74 +11,43 @@
   <script>
 	"use strict";
 
-	var log = true;
-	class Cubesys extends xv.XObj {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-			this.initCube(ecs, options.xscene);
-		}
-
-		update(tick, entities) {
-			if (log) {
-				log = false;
-				console.log('cube-sys');
-			}
-
-	    	for (const e of entities) {
-				if (e.CmdFlag) {
-				 	if (e.CmdFlag.flag > 0) {
-						this.cmd = e.UserCmd.cmds[0].cmd;
-					}
-					else this.cmd = undefined;
-				}
-				else if (e.Visual) {
-					if (this.cmd)
-						console.log('visual changing: ', this.cmd);
-				}
-			}
-		}
-
-		initCube(ecs, scene) {
-			if (ecs) {
-				var cube = ecs.createEntity({
-					id: 'cube0',
-					UserCmd: {},
-					CmdFlag: {},
-					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-							box: [200, 120, 80],	// bounding box
-							// mesh is inited by thrender, can be ignored here - CmpTween's target
-							mesh: undefined },
-					CmpTween: {
-							playing: true,
-							animator: xv.XComponent.TweenScript.ROT_MESH,
-							script:{cmdcomp: 'UserCmd',
-									cmd: 'w',
-									prop: 'mesh',
-									deg: [0, 45],	// from, to
-									axis: [1, 0, 0],// TODO from, to
-									meshcomp: 'Obj3',
-									meshname: 'mesh',
-									ease: undefined,// default linear
-							},
-					},
-					Visual:{vtype: xv.AssetType.mesh,
-							asset: 'byr0.png' }
-				});
-			}
-		}
-	}
-
-	Cubesys.query = { any: ['Visual', 'CmdFlag'] };
-
-	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	/**Senario: suppose you have a model to be animated. */
+	// initiating xworld
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+						window, {canvasize: [480, 320]});
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+	const def1 = {
+		id: 'obj2',
+		Obj3: {},
+		Visual:{vtype: xv.AssetType.mesh,
+				asset: 'byr0.png' }
+		morphs: [
+			{mtype: MorphType.FADEOUT,
+			 paras: {}},
+			{mtype: MorphType.POINTS,
+			 paras: {followBy: 'obj2'}}
+		 ] };
+	const entities = xworld.addEntities(def1);
+
+	const def2 = {
+		id: 'obj2',
+		Obj3: {},
+		Visual:{vtype: xv.AssetType.mesh,
+				asset: 'byr0.png' }
+		morphs: [
+			{mtype: MorphType.FADEOUT,
+			 paras: {}},
+			{mtype: MorphType.POINTS,
+			 paras: {}}
+		 ] };
+	entities.push(... xworld.addEntities(def2));
+
+	const morphsys = new xv.Morph(ecs, { xscene });
+	xworld.addSystem('test', morphsys);
 
 	xworld.startUpdate();
-
   </script>
 </body>
 </html>

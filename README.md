@@ -64,9 +64,10 @@ Chrome will show the inspect list at
 ```
     chrome://inspect
 ```
-[1](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints)
-[2](https://blog.andrewray.me/how-to-debug-mocha-tests-with-chrome/)
-[3](https://nodejs.org/en/docs/guides/debugging-getting-started/)
+
+[\[1\]](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints)
+[[2](https://blog.andrewray.me/how-to-debug-mocha-tests-with-chrome/)]
+[[3](https://nodejs.org/en/docs/guides/debugging-getting-started/)]
 
 ## Hello World
 
@@ -104,6 +105,8 @@ To update rendering texture, use
 see [test/html/svg-canvas.html](./test/html/svg-canvas.html).
 
 # Acknowledgement
+
+## [Three.js](https://threejs.org)
 
 ## ECS - Powered by @fritzy/ecs
 
