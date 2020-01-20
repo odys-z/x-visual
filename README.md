@@ -36,13 +36,14 @@ It's also the npm package name.
 
 ## test (without server)
 
-The proect uses Mocha and Chai for test, import like this.
+The project uses Mocha and Chai for testing, imports like this.
 
 ```
     import chaiStats from 'chai-stats'
 ```
 
 To build and test
+
 ~~~
     npm run build
     npm test
@@ -50,6 +51,23 @@ To build and test
 
 For installing and troubleshooting, there is a trying page may be helpfful. See
 [Mocha project example](https://github.com/odys-z/hello/blob/master/mocha/README.md)
+
+- debug tip
+
+The test case can debugging with Node:
+
+```
+    npm test -- --inspect --inspect-brk
+```
+
+Chrome will show the inspect list at
+
+```
+    chrome://inspect
+```
+[1](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints)
+[2](https://blog.andrewray.me/how-to-debug-mocha-tests-with-chrome/)
+[3](https://nodejs.org/en/docs/guides/debugging-getting-started/)
 
 ## Hello World
 
