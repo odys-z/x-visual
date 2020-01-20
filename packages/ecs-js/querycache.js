@@ -1,11 +1,12 @@
 class QueryCache {
 
   // branch ANY
-  constructor (ecs, has, hasnt, any) {
+  constructor (ecs, has, hasnt, any, iffall) {
     this.ecs = ecs;
     this.has = has;
     this.hasnt = hasnt;
 	this.any = any;
+	this.iffall = iffall;
 	// set results as set of entities subscribed by System.query,
 	// e.g results = [entitye{ id = 'xview'}] by CamCtrl.query = [has['UserCmd', 'CmdFlag']]
     this.results = this._initial();
@@ -89,18 +90,29 @@ updateEntity(entity) {
   }
 
   */
+
+  /**TODO docs:
+   * Logics of has, iff, any, hasnt:
+   * result = (has || iff || any) && !hasnt
+   * see query-details.ods
+   */
   _initial() {
-    if (this.has.length === 1 && this.any.length === 0 && this.hasnt.length === 0) {
+    if (this.has.length === 1
+		&& this.iffall.length === 0 && this.any.length === 0 && this.hasnt.length === 0) {
       const entities = new Set();
-      for (const component of this.ecs.getComponents(this.has[0])) {
-        entities.add(component.entity);
+      if (this.ecs.getComponents(this.has[0])) {
+          for (const component of this.ecs.getComponents(this.has[0])) {
+            entities.add(component.entity);
+          }
+          return entities;
       }
-      return entities;
     }
 
-	// has
+	// has (all)
     const hasSet = [];
     for (const cname of this.has) {
+      // console.log('debug: first hasSet element: ',
+      //   cname, this.ecs.entityComponents.get(cname));
       hasSet.push(this.ecs.entityComponents.get(cname));
     }
     hasSet.sort((a, b) => {
@@ -110,6 +122,7 @@ updateEntity(entity) {
 	// results is a set of Entities Ids (mapped later)
     let results; //  = new Set();
 	if (hasSet && hasSet.length > 0) {
+		// console.log('.............. hasSet ', hasSet, hasSet.length);
 		results = new Set([...hasSet[0]]);
 	}
 	else results = new Set();
@@ -121,6 +134,29 @@ updateEntity(entity) {
         }
       }
     }
+
+    // iffall (contains)
+    let iffSet; // = new Set();
+    let iffname;
+    for (const cname of this.iffall) {
+	  // Debug Note: the set must been cloned - some of iffSet will be deleted later
+      iffSet = new Set(this.ecs.entityComponents.get(cname));
+      iffname = cname;
+      break;
+    }
+    for (const cname of this.iffall) {
+      if (cname === iffname)
+        continue;
+      const intersect = this.ecs.entityComponents.get(cname);
+      for (const id of iffSet) {	// id = EntityId.id, e.g. 'htmltex-0'
+        if (!intersect.has(id)) {
+          iffSet.delete(id);
+          // if (!hasSet.has(id))
+          //   results.delete(id);
+        }
+      }
+    }
+	if (iffSet) for (var el of iffSet) results.add(el);
 
 	// any
 	for (const cname of this.any) {
@@ -154,6 +190,12 @@ updateEntity(entity) {
 
   /** Check entity's components, update this cache's entity set (this.results),
    * according to conditions like 'has', 'any', ...
+   *
+   * TODO docs:
+   * Logics of has, iff, any, hasnt:
+   * result = (has || iff || any) && !hasnt
+   * see doc/ecs/query-details.ods
+   *
    * @param {Entity} entity
    */
   updateEntity(entity) {
@@ -176,10 +218,21 @@ updateEntity(entity) {
 		if (foundAny) break;
 	}
 
-	// has
-    // let found = true;
+    // iffall
+	let foundIffall = true;
+    if (!foundAny) {
+    	for (const cname of this.iffall) {
+    	  const iffSet = this.ecs.entityComponents.get(cname);
+	      if (!iffSet.has(id)) {
+	        foundIffall = false;
+	        break;
+	      }
+        }
+    }
+
+	// has (logical error here?)
 	let foundHas = true;
-	if (!foundAny) {
+	if (!foundAny && !foundIffall) {
 	    for (const cname of this.has) {
 	      const hasSet = this.ecs.entityComponents.get(cname);
 	      if (!hasSet.has(id)) {
@@ -189,7 +242,7 @@ updateEntity(entity) {
 	    }
 	}
 
-    if (!foundAny && !foundHas) {
+    if ( !foundAny && !foundHas && !foundIffall ) {
       this.results.delete(entity);
       return;
     }
@@ -210,7 +263,6 @@ updateEntity(entity) {
   }
 
   clearEntity(entity) {
-
     this.results.delete(entity);
   }
 

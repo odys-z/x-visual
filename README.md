@@ -36,25 +36,26 @@ It's also the npm package name.
 
 ## test (without server)
 
+The proect uses Mocha and Chai for test, import like this.
+
 ```
     import chaiStats from 'chai-stats'
 ```
 
-For installing and troubleshooting, see
-[Mocha project example](https://github.com/odys-z/hello/blob/master/mocha/README.md)
-
-build and test
+To build and test
 ~~~
     npm run build
     npm test
 ~~~
 
+For installing and troubleshooting, there is a trying page may be helpfful. See
+[Mocha project example](https://github.com/odys-z/hello/blob/master/mocha/README.md)
 
 ## Hello World
 
 For ecs "hello world", try test/ecs.html. You should see something like this (v0.1.11)
 
-![ecs plain js example](./docsphinx/imgs/000%20ecs-html.png)
+![ecs plain js example](./docsphinx/source/imgs/000%20ecs-html.png)
 
 - tip
 
@@ -62,7 +63,8 @@ The html can be load from local file system if browser allow cross domain file a
 Try (tested on Ubuntu):
 
 ```
-    vim chrome # add this: google-chrome --allow-file-access-from-files --allow-file-access --allow-cross-origin-auth-prompt
+    vim chrome
+    # add this: google-chrome --allow-file-access-from-files --allow-file-access --allow-cross-origin-auth-prompt
     chmod +x chrome
     ./chrome
 ```
@@ -71,7 +73,7 @@ Try (tested on Ubuntu):
 
 - Test Case: GLTFLoader (test/html/gltf-city.html)
 
-<img src='./docsphinx/imgs/001%20gltf-loader.png' width='800px'></img>
+<img src='./docsphinx/source/imgs/001%20gltf-loader.png' width='800px'></img>
 
 
 - Test Case: using html DOM as texture

@@ -72,8 +72,8 @@
 	Cubesys.query = { any: ['Visual', 'CmdFlag'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
-	const ecs = xworld.xecs();
-	const xscene = xworld.xscene();
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
 
 	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
 

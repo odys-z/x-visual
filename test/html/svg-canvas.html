@@ -13,10 +13,12 @@
 	<!-- draw your svg on this canvas, which works with providen html2canvas.ems.js -->
 	<canvas id='stub' style='display: block; position: absolute;'></canvas>
 	<img style='height: 128px; width: 128px', src='../assets/ruler256.png'></img>
-	<img style='height: 128px; width: 128px', src='../assets/ruler256.png'></img>
+	<img style='height: 128px; width: 128px', src='../assets/sub/rgb2x2.png'></img>
   </div>
   <script>
 	"use strict";
+
+	/**Senario: suppose you have some shape for your business. */
 
 	function randInt(min, max) {
 		if (max === undefined) {
@@ -35,22 +37,34 @@
 		ctx.fill();
 	}
 
-	const xworld = new xv.XWorld(document.getElementById('canv'),
-						window, {canvasize: [480, 320]});
-	const ecs = xworld.xecs();
-	const xscene = xworld.xscene();
-
-	// render something in h5-content's canvas
-	drawPie();
-	const canvsys = new xv.Htmltex(ecs, {domId: 'h5-content', xscene});
-	xworld.addSystem('test', canvsys);
-
 	document.getElementById('stub')
 			.addEventListener('click', function() {
 				drawPie();
-				// updating canvas -- TODO docs
-				canvsys.refresh();
+				// updating canvas -- TODO docs: how to update canvas
+				canvsys.refresh('h5-content', function(canvas) {
+					// document.body.appendChild(canvas);
+					console.log("canvas-texture updated", canvas);
+				});
 			});
+
+	// render something in h5-content's canvas
+	drawPie();
+
+	// initiating xworld
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+						window, {canvasize: [480, 320]});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	// the Htmltex convert html content to texture and render it as requested in what?
+	// TODO doc: domId, obj3, width / height
+	const entDefines = xv.Htmltex.createEntityDefs({objcanvas: [
+			{domId: 'h5-content',
+			 texsize: {width: 512, height: 512}}
+		 ]});
+	xworld.addEntities(entDefines);
+	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines});
+	xworld.addSystem('test', canvsys);
 
 	xworld.startUpdate();
 
