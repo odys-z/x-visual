@@ -19,7 +19,7 @@
 	const xscene = xworld.xscene;
 
 	const def1 = {
-		id: 'obj2',
+		id: 'entity1',
 		Obj3: {},
 		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'byr0.png' }
@@ -27,12 +27,12 @@
 			{mtype: MorphType.FADEOUT,
 			 paras: {}},
 			{mtype: MorphType.POINTS,
-			 paras: {followBy: 'obj2'}}
+			 paras: {followBy: 'entity2'}}
 		 ] };
 	const entities = xworld.addEntities(def1);
 
 	const def2 = {
-		id: 'obj2',
+		id: 'entity2',
 		Obj3: {},
 		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'byr0.png' }
@@ -46,8 +46,9 @@
 
 	const morphsys = new xv.Morph(ecs, { xscene });
 	xworld.addSystem('test', morphsys);
-
 	xworld.startUpdate();
+
+	morphsys.start('entity1');
   </script>
 </body>
 </html>
