@@ -53,7 +53,7 @@ For installing and troubleshooting, there is a trying page may be helpfful. See
 
 - debug tip
 
-The test case can debugging with Node:
+The Mocha & Chai test cases support debugging with Node:
 
 ```
     npm test -- --inspect --inspect-brk
