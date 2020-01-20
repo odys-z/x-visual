@@ -41,7 +41,9 @@
 			.addEventListener('click', function() {
 				drawPie();
 				// updating canvas -- TODO docs: how to update canvas
-				canvsys.refresh('h5-content');
+				canvsys.refresh('h5-content', function(canvas) {
+					document.body.appendChild(canvas);
+				});
 			});
 
 	// render something in h5-content's canvas
