@@ -1,6 +1,5 @@
 # About
 
-
 X-visual is a lib for data visiualization using [Three.js](https://threejs.org)
 as renderer. It includes:
 
