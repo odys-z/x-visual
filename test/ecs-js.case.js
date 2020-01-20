@@ -557,6 +557,7 @@ describe('case: [ecs]system queries', () => {
     ecs.registerComponent('Unknown3', {});
 
     const obj1 = ecs.createEntity({
+      id: 'obj1',
       Visual: {},
       Obj3: {},
       Unknown1: {},
@@ -564,6 +565,7 @@ describe('case: [ecs]system queries', () => {
     });
 
     const obj2 = ecs.createEntity({
+      id: 'obj2',
       Visual: {},
       Obj3: {},
       Unknown2: {},
@@ -571,8 +573,22 @@ describe('case: [ecs]system queries', () => {
     });
 
     const exc1 = ecs.createEntity({
+      id: 'exc1',
       Visual: {}
     });
+
+	// iff 'Visual', 'Obj3'
+    var result = ecs.queryEntities({
+      // has: ['Visual'],
+      iffall: ['Visual', 'Obj3']
+    });
+
+    var resultSet = new Set([...result]);
+
+	expect(resultSet.size).equal(2);
+    expect(resultSet.has(obj1)).true;
+    expect(resultSet.has(obj2)).true;
+    expect(resultSet.has(exc1)).false;
 
     var result = ecs.queryEntities({
       has: ['Visual'],
@@ -581,10 +597,11 @@ describe('case: [ecs]system queries', () => {
 
     var resultSet = new Set([...result]);
 
-	// iff 'Visual', 'Obj3'
+	debugger;
+	expect(resultSet.size).equal(3);
     expect(resultSet.has(obj1)).true;
     expect(resultSet.has(obj2)).true;
-    expect(resultSet.has(exc1)).false;
+    expect(resultSet.has(exc1)).true;
 
 	// any 'Visual'
     result = ecs.queryEntities({
@@ -592,10 +609,11 @@ describe('case: [ecs]system queries', () => {
       iffall: ['Visual', 'Obj3']
     });
     resultSet = new Set([...result]);
+	
+	expect(resultSet.size).equal(3);
     expect(resultSet.has(obj1)).true;
     expect(resultSet.has(obj2)).true;
     expect(resultSet.has(exc1)).true;
-
   });
 
   // lab.test('filter by updatedValues', () => {

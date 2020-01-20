@@ -122,7 +122,7 @@ updateEntity(entity) {
 	// results is a set of Entities Ids (mapped later)
     let results; //  = new Set();
 	if (hasSet && hasSet.length > 0) {
-		console.log('.............. hasSet ', hasSet, hasSet.length);
+		// console.log('.............. hasSet ', hasSet, hasSet.length);
 		results = new Set([...hasSet[0]]);
 	}
 	else results = new Set();
@@ -136,10 +136,11 @@ updateEntity(entity) {
     }
 
     // iffall (contains)
-    const iffSet = [];
+    let iffSet; // = new Set();
     let iffname;
     for (const cname of this.iffall) {
-      iffSet.push(this.ecs.entityComponents.get(cname));
+	  // Debug Note: the set must been cloned - some of iffSet will be deleted later
+      iffSet = new Set(this.ecs.entityComponents.get(cname));
       iffname = cname;
       break;
     }
@@ -147,12 +148,15 @@ updateEntity(entity) {
       if (cname === iffname)
         continue;
       const intersect = this.ecs.entityComponents.get(cname);
-      for (const id of results) {	// id = EntityId.id, e.g. 'xview'
+      for (const id of iffSet) {	// id = EntityId.id, e.g. 'htmltex-0'
         if (!intersect.has(id)) {
-          results.delete(id);
+          iffSet.delete(id);
+          // if (!hasSet.has(id))
+          //   results.delete(id);
         }
       }
     }
+	if (iffSet) for (var el of iffSet) results.add(el);
 
 	// any
 	for (const cname of this.any) {
