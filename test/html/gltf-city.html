@@ -22,7 +22,7 @@
 		update(tick, entities) {
 			if (log) {
 				log = false;
-				console.log('cube-sys');
+				console.log('city-sys');
 			}
 
 	    	for (const e of entities) {
@@ -47,7 +47,7 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],			// bounding box
 							mesh: undefined },		// Thrender will handle this
-					Visual: {vtype: xv.AssetType.gltf, asset: 'scene.gltf'}
+					Visual: {vtype: xv.AssetType.gltf, asset: 'city/scene.gltf'}
 				});
 			}
 		}
