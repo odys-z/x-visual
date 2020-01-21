@@ -122,6 +122,10 @@ According to it's README: "The script is still in a very experimental state".
 
 So A tested working version is provided as packages/misc/html2canvas.esm.js
 
+## extension: [Tween.js](https://github.com/tweenjs/tween.js)
+
+Modified for adapting to ecs framework, together with unit tests.
+
 ## Asset Resources
 
 - Low Poly City

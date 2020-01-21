@@ -20,28 +20,54 @@
 
 	const def1 = {
 		id: 'entity1',
-		Obj3: {},
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [200, 120, 80],	// bounding box
+				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
+				mesh: undefined },
 		Visual:{vtype: xv.AssetType.mesh,
-				asset: 'byr0.png' }
-		morphs: [
-			{mtype: xv.Compoents.MorphType.FADEOUT,
-			 paras: {}},
-			{mtype: MorphType.POINTS,
-			 paras: {followBy: 'entity2'}}
-		 ] };
+				asset: 'byr0.png' },
+		MorphSeqs: {
+			script: [[{ mtype: xv.Compoents.MorphType.FADEOUT,
+						paras: {start: 0}},		// auto start, only alpha tween in 0.1
+					  { mtype: MorphType.POINTS,
+					 	paras: {
+							src: 'entity1',		// entity1.Obj3.mesh
+							dest: 'entity2',	// entity2.Obj3.mesh
+							followBy: { entity: 'entity2',
+										script: 'fade-in'}}
+					  }],
+					 [{ mtype: xv.Compoents.MorphType.FADEIN,
+						name: 'fade-in',
+						paras: {}}				// only alpha tween in 0.1
+					]] },
+		CmpTween: undefined
+	};
 	const entities = xworld.addEntities(def1);
 
 	const def2 = {
 		id: 'entity2',
-		Obj3: {},
+		// TODO test with a loaded model
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				box: [240, 100, 0],	// bounding box
+				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
+				mesh: undefined },
 		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'textures/World_ap_baseColor.png' }
-		morphs: [
-			{mtype: xv.XCompoents.MorphType.FADEIN,
-			 paras: {}},
-			{mtype: MorphType.POINTS,
-			 paras: {}}
-		 ] };
+		MorphSeqs: {
+			script: [[{ mtype: xv.Compoents.MorphType.FADEIN,
+						name: 'fade-in',
+						paras: {}} ],			// only alpha tween in 0.1
+					 [{ mtype: xv.Compoents.MorphType.FADEOUT,
+						paras: {cmd: 'w'}},		// start by 'w'
+					  { mtype: MorphType.POINTS,
+					 	paras: {
+							src: 'entity2',		// entity1.Obj3.mesh
+							dest: 'entity1',	// entity2.Obj3.mesh
+							followBy: { entity: 'entity1',
+										script: 'fade-in'}}
+					  } ]] },
+		CmpTween: undefined
+	};
 	entities.push(... xworld.addEntities(def2));
 
 	const morphsys = new xv.Morph(ecs, { xscene });
