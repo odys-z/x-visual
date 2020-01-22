@@ -74,8 +74,8 @@
 	};
 	entities.push(... xworld.addEntities(def2));
 
-	const morphsys = new xv.Morph(ecs, { xscene });
-	xworld.addSystem('test', morphsys);
+	// const morphsys = new xv.Morph(ecs, { xscene });
+	// xworld.addSystem('test', morphsys);
 	xworld.startUpdate();
 
 	morphsys.start('entity1');
