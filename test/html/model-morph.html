@@ -25,7 +25,7 @@
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 				mesh: undefined },
 		Visual:{vtype: xv.AssetType.mesh,
-				asset: 'byr0.png' },
+				asset: 'tex/byr0.png' },
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.FADEOUT,
 						paras: {start: 0}},		// auto start, only alpha tween in 0.1
@@ -48,11 +48,12 @@
 		id: 'entity2',
 		// TODO test with a loaded model
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [240, 100, 0],	// bounding box
+				box: [210, 200, 0],	// bounding box
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
-				mesh: undefined },
+				mesh: undefined,
+			 	invisible: true },
 		Visual:{vtype: xv.AssetType.mesh,
-				asset: 'textures/World_ap_baseColor.png' },
+				asset: 'city/textures/World_ap_baseColor.jpeg' },
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.FADEIN,
 						name: 'fade-in',
@@ -78,7 +79,8 @@
 	// xworld.addSystem('test', morphsys);
 	xworld.startUpdate();
 
-	morphsys.start('entity1');
+	// morphsys.start('entity1');
+	entities[0].ModelSeqs.script[0][0].paras.start = 0;
   </script>
 </body>
 </html>
