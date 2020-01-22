@@ -26,17 +26,17 @@
 				mesh: undefined },
 		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'byr0.png' },
-		MorphSeqs: {
-			script: [[{ mtype: xv.Compoents.MorphType.FADEOUT,
+		ModelSeqs: {
+			script: [[{ mtype: xv.Compoents.AnimType.FADEOUT,
 						paras: {start: 0}},		// auto start, only alpha tween in 0.1
-					  { mtype: MorphType.POINTS,
+					  { mtype: AnimType.POINTS,
 					 	paras: {
 							src: 'entity1',		// entity1.Obj3.mesh
 							dest: 'entity2',	// entity2.Obj3.mesh
 							followBy: { entity: 'entity2',
 										script: 'fade-in'}}
 					  }],
-					 [{ mtype: xv.Compoents.MorphType.FADEIN,
+					 [{ mtype: xv.Compoents.AnimType.FADEIN,
 						name: 'fade-in',
 						paras: {}}				// only alpha tween in 0.1
 					]] },
@@ -53,13 +53,13 @@
 				mesh: undefined },
 		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'textures/World_ap_baseColor.png' }
-		MorphSeqs: {
-			script: [[{ mtype: xv.Compoents.MorphType.FADEIN,
+		ModelSeqs: {
+			script: [[{ mtype: xv.Compoents.AnimType.FADEIN,
 						name: 'fade-in',
 						paras: {}} ],			// only alpha tween in 0.1
-					 [{ mtype: xv.Compoents.MorphType.FADEOUT,
+					 [{ mtype: xv.Compoents.AnimType.FADEOUT,
 						paras: {cmd: 'w'}},		// start by 'w'
-					  { mtype: MorphType.POINTS,
+					  { mtype: AnimType.POINTS,
 					 	paras: {
 							src: 'entity2',		// entity1.Obj3.mesh
 							dest: 'entity1',	// entity2.Obj3.mesh
