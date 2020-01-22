@@ -10,7 +10,8 @@ Let system support query {any:[component]}
 
 ```
     if (this.constructor.query
-        (this.constructor.query.has || this.constructor.query.hasnt || this.constructor.query.any))
+		&& (this.constructor.query.has || this.constructor.query.hasnt
+         || this.constructor.query.iffall || tthis.constructor.query.any)) {
 ```
 
 -- ECS.queryEntities() can handle any parameter
@@ -64,7 +65,7 @@ Let system support query {any:[component]}
         }
       }
     }
-    
+
 	// any
     for (const cname of this.any) {
       var c = this.ecs.entityComponents.get(cname);
