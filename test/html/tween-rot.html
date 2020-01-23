@@ -7,6 +7,7 @@
 	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
 <body>
+  <cavas id='splash'></canvas>
   <canvas id='canv'></canvas>
   <script>
 	"use strict";
@@ -65,7 +66,7 @@
 					Visual:{vtype: xv.AssetType.mesh,
 							asset: 'tex/byr0.png' },
 					ModelSeqs: {
-						twindx: {},	// e.g. {'0': 0.2 }, tweening[0].value = 0.2, handled by animizer
+						twindx: [[0]],	// e.g. twindex[0][0] is 0, tweening script[0], current 0, handled by animizer
 						script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
 									paras: {start: 0,		// auto start, only alpha tween in 0.2
 											duration: 1,	// 1 seconds
@@ -81,7 +82,7 @@
 					 						ease: xv.XEasing.Elastic}// TODO docs
 								  } ]]
 						},
-					CmpTweens: {tweens: []}	// animizer will handle this
+					CmpTweens: {tweens: [[]]}	// initialized by animizer, handled by XTweener.
 				});
 			}
 		}
@@ -89,13 +90,17 @@
 
 	Cubesys.query = { iffall: ['Visual', 'CmdFlag'] };
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
-	const ecs = xworld.xecs;
-	const xscene = xworld.xscene;
+	xv.splash('splash', rock);
 
-	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+	function rock() {
+		const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
+		const ecs = xworld.xecs;
+		const xscene = xworld.xscene;
 
-	xworld.startUpdate();
+		xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+
+		xworld.startUpdate();
+	}
   </script>
 </body>
 </html>
