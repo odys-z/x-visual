@@ -71,7 +71,14 @@
 											cmd: 'w',		// reset by 'w'
 											deg: [0, 45],	// from, to
 					 						ease: undefined}// default linear
-								}]]
+								},
+								{ mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
+									paras: {start: 0,		// auto start, only alpha tween in 0.2
+											duration: 1,	// 1 seconds
+											axis: [0, 1, 0],
+											deg: [0, 90],	// from, to
+					 						ease: xv.XEasing.Elastic}// TODO docs
+								} ]]
 						},
 					CmpTween: {}
 				});
