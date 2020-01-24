@@ -65,6 +65,8 @@
 					// }
 					Visual:{vtype: xv.AssetType.mesh,
 							asset: 'tex/byr0.png' },
+
+					// TODO docs: in version 1.0, only type of sequence animation is supported
 					ModelSeqs: {
 						script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
 									paras: {start: 0,		// auto start, only alpha tween in 0.2
@@ -83,7 +85,7 @@
 						},
 					CmpTweens: {
 						twindx: [0],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-						tweens: [[]]}	// initialized by animizer, handled by XTweener.
+						tweens: [[]]}	// initialized by animizer, handled by XTweener. [] is safely ignored
 				});
 			}
 		}
