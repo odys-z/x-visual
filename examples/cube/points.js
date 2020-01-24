@@ -14,19 +14,25 @@ export default class Cube extends xv.XObj {
 
 		this.logcnt = 0;
 
+		// 24 Jan. 2020
+		// scene is not avialable because Thrender not created yet.
+		// Design Nots: THREE.Scene should only taked care by Thrender.
+		// User's app hanling should only care about entity definitions.
+		// TODO docs
 		// create a cube with options
-		var texture = new THREE.TextureLoader().load( '../assets/rgb2x2.png' );
-		var mat = new THREE.MeshBasicMaterial({ map: texture });
-		var m = new THREE.Mesh( new THREE.BoxBufferGeometry( 60, 200, 40 ), mat );
-		options.xscene().add( m );
-		console.log('add mesh to scene: ', m.uuid);
+		// var texture = new THREE.TextureLoader().load( '../assets/rgb2x2.png' );
+		// var mat = new THREE.MeshBasicMaterial({ map: texture });
+		// var m = new THREE.Mesh( new THREE.BoxBufferGeometry( 60, 200, 40 ), mat );
+		// options.xscene.add( m );
+		// console.log('add mesh to scene: ', m.uuid);
 
 		if (ecs) {
 			var cube = ecs.createEntity({
 				id: 'cube0',
-				Geometry: {pos: [0, 0, 0],
-						rotate: [0, 0, 0] },
-				Visual: {vtype: xv.AssetType.mesh, assetId: 0}
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [200, 120, 80] },	// bounding box
+				Visual: {vtype: xv.AssetType.mesh,
+						 asset: '../../assets/rgb2x2.png' }
 			});
 		}
 	}
@@ -40,20 +46,15 @@ export default class Cube extends xv.XObj {
 		for (const e of entities) {
 			if (e.CmdFlag) {
 			 	if (e.CmdFlag.flag > 0) {
+					// handling command like start an animation here
 					this.cmd = e.UserCmd.cmds[0].cmd;
 				}
 				else this.cmd = undefined;
-			}
-			else if (e.Visual) {
-				if (this.cmd)
-					console.log('visual changing: ', this.cmd);
 			}
 		}
 	}
 }
 
 Cube.query = {
-	any: ['Visual', 'CmdFlag']
+	iffall: ['Visual', 'CmdFlag']
 };
-
-console.log('Cube.query', Cube.query);
