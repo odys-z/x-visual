@@ -7,7 +7,7 @@
 	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
 <body>
-  <cavas id='splash'></canvas>
+  <img id='splash'></img>
   <canvas id='canv'></canvas>
   <script>
 	"use strict";
@@ -66,7 +66,6 @@
 					Visual:{vtype: xv.AssetType.mesh,
 							asset: 'tex/byr0.png' },
 					ModelSeqs: {
-						twindx: [[0]],	// e.g. twindex[0][0] is 0, tweening script[0], current 0, handled by animizer
 						script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
 									paras: {start: 0,		// auto start, only alpha tween in 0.2
 											duration: 1,	// 1 seconds
@@ -82,7 +81,9 @@
 					 						ease: xv.XEasing.Elastic}// TODO docs
 								  } ]]
 						},
-					CmpTweens: {tweens: [[]]}	// initialized by animizer, handled by XTweener.
+					CmpTweens: {
+						twindx: [0],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
+						tweens: [[]]}	// initialized by animizer, handled by XTweener.
 				});
 			}
 		}
