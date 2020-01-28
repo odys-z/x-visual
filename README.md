@@ -139,11 +139,11 @@ resources like scene.bin and textures/\*.png.
 
 or [low poly city @ sketchfab](https://sketchfab.com/3d-models/cartoon-lowpoly-small-city-free-pack-edd1c604e1e045a0a2a552ddd9a293e6)
 
-# Reference
-
-TODO move to docs
+### [updating: Reference & Details](https://odys-z.github.io/x-visual/)
 
 ## Usable Components
+
+TODO include xv.js in docs
 
 Currently usable (can registered by user) are
 
