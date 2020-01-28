@@ -53,6 +53,7 @@ help:
 ghpage:
 	@make html
 	@cp -a xvbuild/html/. ../docs
+	@touch ../docs/.nojekyll
 
 .PHONY: clean
 clean:
