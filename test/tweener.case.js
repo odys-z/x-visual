@@ -16,6 +16,7 @@ import {sleep} from '../lib/xutils/xcommon'
 import {Visual, Canvas, AssetType} from '../lib/component/visual'
 import {Obj3, Obj3Type} from '../lib/component/obj3'
 import {AnimType, ModelSeqs} from '../lib/component/morph';
+import {CmpTween, CmpTweens} from '../lib/component/tween';
 import XTweener from '../lib/sys/tween/xtweener'
 import {XEasing} from '../lib/sys/tween/xtweener'
 import {MorphingAnim} from '../lib/sys/tween/animizer'
@@ -45,7 +46,8 @@ describe('case: [tween] hello', function() {
 });
 
 describe('case: [tween] animization', function() {
-	this.timeout(6000);
+	this.timeout(10000);
+	x.log = 4;
 
 	it('try 2 consecutive scripts', async function() {
 		// debugger
@@ -69,15 +71,15 @@ describe('case: [tween] animization', function() {
 			// TODO docs: in version 1.0, only type of sequence animation is supported
 			ModelSeqs: {
 				script: [[{ mtype: AnimType.OBJ3ROTX,
-							paras: {start: 0,		// auto start, only alpha tween in 0.2
+							paras: {start: 0,		// auto start, only alpha tween in v0.2
 									duration: 1,	// seconds
 									cmd: '',
 									deg: [0, 45],	// from, to
 			 						ease: undefined}// default linear
 						  },
 						  { mtype: AnimType.OBJ3ROTAXIS,
-							paras: {start: Infinity,// auto start, only alpha tween in 0.2
-									duration: 2,	// seconds
+							paras: {start: Infinity,// auto start, only alpha tween in v0.2
+									duration: 1,	// seconds
 									axis: [0, 1, 0],
 									deg: [0, 90],	// from, to
 			 						ease: XEasing.Elastic,// TODO docs
@@ -95,21 +97,36 @@ describe('case: [tween] animization', function() {
 		// const xtweener = new XTweener(ecs, x);
 		// xworld.addSystem('tween', xtweener);
 
-		debugger
 		xworld.startUpdate();
-		assert.equal(1, cube.CmpTweens.twindx.length);
-		assert.equal(1, cube.CmpTweens.tweens.length);
-		assert.equal(2, cube.CmpTweens.tweens[0].length);
-		assert.equal(0, cube.CmpTweens.twindx[0]);
-		assert.equal(0, cube.CmpTweens.twindx[0]);
+		assert.equal(1, cube.CmpTweens.twindx.length, 'twindx != 1');
+		assert.equal(1, cube.CmpTweens.tweens.length, 'tweens != 1');
+		assert.equal(2, cube.CmpTweens.tweens[0].length, 'tweens[0] != 2');
 
-		await sleep(3200);
+		assert.equal(0, cube.CmpTweens.twindx[0]);
+		assert.equal(true, cube.CmpTweens.tweens[0][0].isPlaying, 'cube.CmpTweens.tweens[0][0].isPlaying 0');
+		assert.equal(false, cube.CmpTweens.tweens[0][1].isPlaying, 'cube.CmpTweens.tweens[0][1].isPlaying 0');
+		assert.equal(false, cube.CmpTweens.tweens[0][0].isCompleted, 'cube.CmpTweens.tweens[0][0].isCompleted 0');
+		assert.equal(false, !!cube.CmpTweens.tweens[0][1].isCompleted, 'cube.CmpTweens.tweens[0][1].isCompleted 0');
+
+		console.log('waiting for animation completed...');
+		debugger
+		await sleep(1200);
 		xworld.update();
-		assert.equal(1, cube.CmpTweens.twindx[0]);
-		assert.equal(CmpTweens.id, completeflags[cube.CmpTweens.id].id);
+		assert.equal(false, cube.CmpTweens.tweens[0][0].isPlaying, 'cube.CmpTweens.tweens[0][0].isPlaying 1');
+		assert.equal(true, cube.CmpTweens.tweens[0][1].isPlaying, 'cube.CmpTweens.tweens[0][1].isPlaying 1');
+		assert.equal(true, cube.CmpTweens.tweens[0][0].isCompleted, 'cube.CmpTweens.tweens[0][0].isCompleted 1');
+		assert.equal(false, !!cube.CmpTweens.tweens[0][1].isCompleted, 'cube.CmpTweens.tweens[0][1].isCompleted 1');
+
+		await sleep(1000);
+		xworld.update();
+		assert.equal(false, cube.CmpTweens.tweens[0][0].isPlaying, 'cube.CmpTweens.tweens[0][0].isPlaying 2');
+		assert.equal(false, cube.CmpTweens.tweens[0][1].isPlaying, 'cube.CmpTweens.tweens[0][1].isPlaying 2');
+		assert.equal(true, cube.CmpTweens.tweens[0][0].isCompleted, 'cube.CmpTweens.tweens[0][0].isCompleted 2');
+		assert.equal(true, !!cube.CmpTweens.tweens[0][1].isCompleted, 'cube.CmpTweens.tweens[0][1].isCompleted 2');
 	});
 });
 
+/**@deprecated */
 function assertComplete(buffer) {
 	var buff = buffer;
 	return new function (rotation, cmp) {
