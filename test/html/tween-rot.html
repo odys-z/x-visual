@@ -70,14 +70,14 @@
 					ModelSeqs: {
 						script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
 									paras: {start: 0,		// auto start, only alpha tween in 0.2
-											duration: 1,	// 1 seconds
+											duration: 1,	// seconds
 											cmd: 'w',		// reset by 'w'
 											deg: [0, 45],	// from, to
 					 						ease: undefined}// default linear
 								  },
 								  { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
-									paras: {start: 0,		// auto start, only alpha tween in 0.2
-											duration: 1,	// 1 seconds
+									paras: {start: Infinity,// auto start, only alpha tween in 0.2
+											duration: 3,	// seconds
 											axis: [0, 1, 0],
 											deg: [0, 90],	// from, to
 					 						ease: xv.XEasing.Elastic}// TODO docs
