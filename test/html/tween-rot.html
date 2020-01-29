@@ -84,9 +84,10 @@
 								  } ]]
 						},
 					CmpTweens: {
-						// TODO docs: this can be some twenn seq already defined.
-						// Any newly animized tween sequences will be appended.
+						// TODO docs: here are some twenn seq already defined by user.
+						// Any newly animized tween sequences will be appended to it.
 						// twindx is 1D array, tweens is a 2D array.
+						// example: xv.ecs.sys.tween.MorphingAnim.initTweens()
 						twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
 						tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
 				});
