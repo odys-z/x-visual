@@ -7,6 +7,7 @@
 	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
 <body>
+  <img id='splash'></img>
   <canvas id='canv'></canvas>
   <script>
 	"use strict";
@@ -64,23 +65,31 @@
 					// }
 					Visual:{vtype: xv.AssetType.mesh,
 							asset: 'tex/byr0.png' },
+
+					// TODO docs: in version 1.0, only type of sequence animation is supported
 					ModelSeqs: {
 						script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
 									paras: {start: 0,		// auto start, only alpha tween in 0.2
-											duration: 1,	// 1 seconds
+											duration: 1,	// seconds
 											cmd: 'w',		// reset by 'w'
 											deg: [0, 45],	// from, to
 					 						ease: undefined}// default linear
-								},
-								{ mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
-									paras: {start: 0,		// auto start, only alpha tween in 0.2
-											duration: 1,	// 1 seconds
+								  },
+								  { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
+									paras: {start: Infinity,// auto start, only alpha tween in 0.2
+											duration: 3,	// seconds
 											axis: [0, 1, 0],
 											deg: [0, 90],	// from, to
 					 						ease: xv.XEasing.Elastic}// TODO docs
-								} ]]
+								  } ]]
 						},
-					CmpTween: {}
+					CmpTweens: {
+						// TODO docs: here are some twenn seq already defined by user.
+						// Any newly animized tween sequences will be appended to it.
+						// twindx is 1D array, tweens is a 2D array.
+						// example: xv.ecs.sys.tween.MorphingAnim.initTweens()
+						twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
+						tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
 				});
 			}
 		}
@@ -88,13 +97,17 @@
 
 	Cubesys.query = { iffall: ['Visual', 'CmdFlag'] };
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
-	const ecs = xworld.xecs;
-	const xscene = xworld.xscene;
+	xv.splash('splash', rock);
 
-	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+	function rock() {
+		const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
+		const ecs = xworld.xecs;
+		const xscene = xworld.xscene;
 
-	xworld.startUpdate();
+		xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+
+		xworld.startUpdate();
+	}
   </script>
 </body>
 </html>

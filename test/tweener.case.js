@@ -1,3 +1,19 @@
+
+import chai from 'chai'
+import { expect, assert } from 'chai'
+import chaiStats from 'chai-stats'
+
+const {performance} = require('perf_hooks');
+
+import * as ECS from '../packages/ecs-js/index';
+
+describe('case: [ecs]express components', () => {
+	const ecs = new ECS.ECS();
+
+	it('create entity', () => {
+	});
+}
+
 (function() {
 
 	function getTests(TWEEN) {
@@ -1157,25 +1173,25 @@
 
 				test.done();
 			},
-			
+
 			'tween.isPlaying() is true when a tween is started and before it ends': function(test) {
 				TWEEN.removeAll();
-				
+
 				var t = new TWEEN.Tween({x:0}).to({x:1}, 100);
 				t.start(0);
 				test.equal(t.isPlaying(), true);
-				
+
 				test.done();
 			},
-			
+
 			'tween.isPlaying() is false after a tween ends': function(test) {
 				TWEEN.removeAll();
-				
+
 				var t = new TWEEN.Tween({x:0}).to({x:1}, 100);
 				t.start(0);
 				TWEEN.update(150);
 				test.equal(t.isPlaying(), false);
-				
+
 				test.done();
 			},
 
