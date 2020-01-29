@@ -10,7 +10,6 @@ const {performance} = require('perf_hooks');
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld'
 import x from '../lib/xapp/xworld'
-// import AssetKeepr from '../lib/xutils/assetkeepr'
 import {sleep} from '../lib/xutils/xcommon'
 
 import {Visual, Canvas, AssetType} from '../lib/component/visual'
@@ -98,31 +97,31 @@ describe('case: [tween] animization', function() {
 		// xworld.addSystem('tween', xtweener);
 
 		xworld.startUpdate();
-		assert.equal(1, cube.CmpTweens.twindx.length, 'twindx != 1');
-		assert.equal(1, cube.CmpTweens.tweens.length, 'tweens != 1');
-		assert.equal(2, cube.CmpTweens.tweens[0].length, 'tweens[0] != 2');
+        debugger
+		assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1');
+		assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1');
+		assert.equal( cube.CmpTweens.tweens[0].length, 2, 'tweens[0] != 2');
 
-		assert.equal(0, cube.CmpTweens.twindx[0]);
-		assert.equal(true, cube.CmpTweens.tweens[0][0].isPlaying, 'cube.CmpTweens.tweens[0][0].isPlaying 0');
-		assert.equal(false, cube.CmpTweens.tweens[0][1].isPlaying, 'cube.CmpTweens.tweens[0][1].isPlaying 0');
-		assert.equal(false, cube.CmpTweens.tweens[0][0].isCompleted, 'cube.CmpTweens.tweens[0][0].isCompleted 0');
-		assert.equal(false, !!cube.CmpTweens.tweens[0][1].isCompleted, 'cube.CmpTweens.tweens[0][1].isCompleted 0');
+		assert.equal( cube.CmpTweens.twindx[0], 0 );
+		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, true, 'cube.CmpTweens.tweens[0][0].isPlaying 0');
+		assert.equal( cube.CmpTweens.tweens[0][1].isPlaying, false, 'cube.CmpTweens.tweens[0][1].isPlaying 0');
+		assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, false, 'cube.CmpTweens.tweens[0][0].isCompleted 0');
+		assert.equal( !!cube.CmpTweens.tweens[0][1].isCompleted, false, 'cube.CmpTweens.tweens[0][1].isCompleted 0');
 
 		console.log('waiting for animation completed...');
-		debugger
 		await sleep(1200);
 		xworld.update();
-		assert.equal(false, cube.CmpTweens.tweens[0][0].isPlaying, 'cube.CmpTweens.tweens[0][0].isPlaying 1');
-		assert.equal(true, cube.CmpTweens.tweens[0][1].isPlaying, 'cube.CmpTweens.tweens[0][1].isPlaying 1');
-		assert.equal(true, cube.CmpTweens.tweens[0][0].isCompleted, 'cube.CmpTweens.tweens[0][0].isCompleted 1');
-		assert.equal(false, !!cube.CmpTweens.tweens[0][1].isCompleted, 'cube.CmpTweens.tweens[0][1].isCompleted 1');
+		assert.equal(cube.CmpTweens.tweens[0][0].isPlaying, false, 'cube.CmpTweens.tweens[0][0].isPlaying 1');
+		assert.equal(cube.CmpTweens.tweens[0][1].isPlaying, true, 'cube.CmpTweens.tweens[0][1].isPlaying 1');
+		assert.equal(cube.CmpTweens.tweens[0][0].isCompleted, true, 'cube.CmpTweens.tweens[0][0].isCompleted 1');
+		assert.equal(!!cube.CmpTweens.tweens[0][1].isCompleted, false, 'cube.CmpTweens.tweens[0][1].isCompleted 1');
 
 		await sleep(1000);
 		xworld.update();
-		assert.equal(false, cube.CmpTweens.tweens[0][0].isPlaying, 'cube.CmpTweens.tweens[0][0].isPlaying 2');
-		assert.equal(false, cube.CmpTweens.tweens[0][1].isPlaying, 'cube.CmpTweens.tweens[0][1].isPlaying 2');
-		assert.equal(true, cube.CmpTweens.tweens[0][0].isCompleted, 'cube.CmpTweens.tweens[0][0].isCompleted 2');
-		assert.equal(true, !!cube.CmpTweens.tweens[0][1].isCompleted, 'cube.CmpTweens.tweens[0][1].isCompleted 2');
+		assert.equal(cube.CmpTweens.tweens[0][0].isPlaying, false, 'cube.CmpTweens.tweens[0][0].isPlaying 2');
+		assert.equal(cube.CmpTweens.tweens[0][1].isPlaying, false, 'cube.CmpTweens.tweens[0][1].isPlaying 2');
+		assert.equal(cube.CmpTweens.tweens[0][0].isCompleted, true, 'cube.CmpTweens.tweens[0][0].isCompleted 2');
+		assert.equal(!!cube.CmpTweens.tweens[0][1].isCompleted, true, 'cube.CmpTweens.tweens[0][1].isCompleted 2');
 	});
 });
 
