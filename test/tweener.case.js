@@ -170,13 +170,14 @@ describe('case: [tween] animization', function() {
 	});
 });
 
-/**@deprecated */
+/**
 function assertComplete(buffer) {
 	var buff = buffer;
 	return new function (rotation, cmp) {
 		buff.cmp = cmp;
 	};
 }
+*/
 
 /*
 (function() {
