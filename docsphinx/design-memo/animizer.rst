@@ -89,3 +89,10 @@ __________________________
 - axis:
 
 Array of axis to rotate around.
+
+AnimType.ALPHA paras
+____________________
+
+- alpha:
+
+Array of starting and ending alpha.
