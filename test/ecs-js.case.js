@@ -597,7 +597,7 @@ describe('case: [ecs]system queries', () => {
 
     var resultSet = new Set([...result]);
 
-	debugger;
+	// debugger;
 	expect(resultSet.size).equal(3);
     expect(resultSet.has(obj1)).true;
     expect(resultSet.has(obj2)).true;
@@ -609,7 +609,7 @@ describe('case: [ecs]system queries', () => {
       iffall: ['Visual', 'Obj3']
     });
     resultSet = new Set([...result]);
-	
+
 	expect(resultSet.size).equal(3);
     expect(resultSet.has(obj1)).true;
     expect(resultSet.has(obj2)).true;
