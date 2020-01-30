@@ -50,19 +50,6 @@
 							box: [200, 120, 80],	// bounding box
 							// mesh is inited by thrender, can be ignored here - CmpTween's target
 							mesh: undefined },
-					// CmpTween: {
-					// 		playing: true,
-					// 		animator: xv.XComponent.TweenScript.ROT_MESH,
-					// 		script:{cmdcomp: 'UserCmd',
-					// 				cmd: 'w',
-					// 				prop: 'mesh',
-					// 				deg: [0, 45],	// from, to
-					// 				axis: [1, 0, 0],// TODO from, to
-					// 				meshcomp: 'Obj3',
-					// 				meshname: 'mesh',
-					// 				ease: undefined,// default linear
-					// 		},
-					// }
 					Visual:{vtype: xv.AssetType.mesh,
 							asset: 'tex/byr0.png' },
 
@@ -77,10 +64,16 @@
 								  },
 								  { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
 									paras: {start: Infinity,// auto start, only alpha tween in 0.2
-											duration: 3,	// seconds
+											duration: 1.5,	// seconds
 											axis: [0, 1, 0],
 											deg: [0, 90],	// from, to
-					 						ease: xv.XEasing.Elastic}// TODO docs
+					 						ease: xv.XEasing.Elastic.InOut}// TODO docs
+								  },
+								  { mtype: xv.XComponent.AnimType.ALPHA,
+									paras: {start: Infinity,// auto start, only alpha tween in 0.2
+											duration: 1.2,	// seconds
+											alpha: [0.9, 0.12],	// from, to
+					 						ease: xv.XEasing.Elastic.In}// TODO docs
 								  } ]]
 						},
 					CmpTweens: {

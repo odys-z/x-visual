@@ -3,6 +3,7 @@
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
+
 import chaiStats from 'chai-stats'
 
 const {performance} = require('perf_hooks');
@@ -48,8 +49,7 @@ describe('case: [tween] animization', function() {
 	this.timeout(10000);
 	x.log = 4;
 
-	it('try 2 consecutive scripts', async function() {
-		// debugger
+	it('consecutive scripts', async function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
@@ -57,8 +57,6 @@ describe('case: [tween] animization', function() {
 
 		var cube = ecs.createEntity({
 			id: 'cube0',
-			UserCmd: {},
-			CmdFlag: {},
 			Obj3: { geom: Obj3Type.BOX,
 					box: [200, 120, 80],	// bounding box
 					mesh: undefined },
@@ -71,7 +69,7 @@ describe('case: [tween] animization', function() {
 			ModelSeqs: {
 				script: [[{ mtype: AnimType.OBJ3ROTX,
 							paras: {start: 0,		// auto start, only alpha tween in v0.2
-									duration: 1,	// seconds
+									duration: 0.8,	// seconds
 									cmd: '',
 									deg: [0, 45],	// from, to
 			 						ease: undefined}// default linear
@@ -81,7 +79,7 @@ describe('case: [tween] animization', function() {
 									duration: 1,	// seconds
 									axis: [0, 1, 0],
 									deg: [0, 90],	// from, to
-			 						ease: XEasing.Elastic,// TODO docs
+			 						ease: XEasing.Elastic.InOut,// TODO docs
 									onComplete: assertComplete(completeflags)}
 						  } ]]
 				},
@@ -90,38 +88,85 @@ describe('case: [tween] animization', function() {
 				tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
 		});
 
-		// Morphinganim uses Obj3.mesh, can only created saparatly without scripts.
-		// const modelizer = new MorphingAnim(ecs, {});
-		// xworld.addSystem('tween', modelizer);
-		// const xtweener = new XTweener(ecs, x);
-		// xworld.addSystem('tween', xtweener);
-
 		xworld.startUpdate();
-        debugger
 		assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1');
 		assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1');
-		assert.equal( cube.CmpTweens.tweens[0].length, 2, 'tweens[0] != 2');
+		assert.equal( cube.CmpTweens.tweens[0].length, 2, 'tweens length 2');
 
 		assert.equal( cube.CmpTweens.twindx[0], 0 );
-		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, true, 'cube.CmpTweens.tweens[0][0].isPlaying 0');
-		assert.equal( cube.CmpTweens.tweens[0][1].isPlaying, false, 'cube.CmpTweens.tweens[0][1].isPlaying 0');
-		assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, false, 'cube.CmpTweens.tweens[0][0].isCompleted 0');
-		assert.equal( !!cube.CmpTweens.tweens[0][1].isCompleted, false, 'cube.CmpTweens.tweens[0][1].isCompleted 0');
+		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, true, 'A cube.CmpTweens.tweens[0][0].isPlaying true');
+		assert.equal( !!cube.CmpTweens.tweens[0][1].isPlaying, false, 'A cube.CmpTweens.tweens[0][1].isPlaying false');
+		assert.equal( !!cube.CmpTweens.tweens[0][0].isCompleted, false, 'A cube.CmpTweens.tweens[0][0].isCompleted false');
+		assert.equal( !!cube.CmpTweens.tweens[0][1].isCompleted, false, 'A cube.CmpTweens.tweens[0][1].isCompleted false');
 
 		console.log('waiting for animation completed...');
-		await sleep(1200);
+		await sleep(1400); // 900 ms won't work for 0.8 seconds duration
+		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, true, 'B cube.CmpTweens.tweens[0][0].isPlaying true');
+		assert.equal( !!cube.CmpTweens.tweens[0][1].isPlaying, false, 'B cube.CmpTweens.tweens[0][1].isPlaying false');
+		assert.equal( !!cube.CmpTweens.tweens[0][0].isCompleted, false, 'B cube.CmpTweens.tweens[0][0].isCompleted false');
+		assert.equal( !!cube.CmpTweens.tweens[0][1].isCompleted, false, 'B cube.CmpTweens.tweens[0][1].isCompleted false');
+
 		xworld.update();
-		assert.equal(cube.CmpTweens.tweens[0][0].isPlaying, false, 'cube.CmpTweens.tweens[0][0].isPlaying 1');
-		assert.equal(cube.CmpTweens.tweens[0][1].isPlaying, true, 'cube.CmpTweens.tweens[0][1].isPlaying 1');
-		assert.equal(cube.CmpTweens.tweens[0][0].isCompleted, true, 'cube.CmpTweens.tweens[0][0].isCompleted 1');
-		assert.equal(!!cube.CmpTweens.tweens[0][1].isCompleted, false, 'cube.CmpTweens.tweens[0][1].isCompleted 1');
+		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, 'C tweens[0][0].isPlaying false');
+		assert.equal( cube.CmpTweens.tweens[0][1].isPlaying, true, 'C cube.CmpTweens.tweens[0][1].isPlaying true');
+		assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, 'C cube.CmpTweens.tweens[0][0].isCompleted true');
+		assert.equal( !!cube.CmpTweens.tweens[0][1].isCompleted, false, 'C cube.CmpTweens.tweens[0][1].isCompleted false');
+
+		await sleep(1200);
+		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, 'C tweens[0][0].isPlaying false');
+		assert.equal( cube.CmpTweens.tweens[0][1].isPlaying, true, 'C cube.CmpTweens.tweens[0][1].isPlaying true');
+		assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, 'C cube.CmpTweens.tweens[0][0].isCompleted true');
+		assert.equal( !!cube.CmpTweens.tweens[0][1].isCompleted, false, 'C cube.CmpTweens.tweens[0][1].isCompleted false');
+
+		xworld.update();
+		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, 'D cube.CmpTweens.tweens[0][0].isPlaying false');
+		assert.equal( cube.CmpTweens.tweens[0][1].isPlaying, false, 'D cube.CmpTweens.tweens[0][1].isPlaying false');
+		assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, 'D cube.CmpTweens.tweens[0][0].isCompleted true');
+		assert.equal( cube.CmpTweens.tweens[0][1].isCompleted, true, 'D cube.CmpTweens.tweens[0][1].isCompleted true');
+	});
+
+	it('animizer: ModelSeq', async function() {
+		const xworld = new XWorld(undefined, 'window', {});
+		const ecs = xworld.xecs;
+
+		var completeflags = {};
+
+		const opa0 = 0.9;
+		const opa1 = 0.05;
+		var cube = ecs.createEntity({
+			id: 'fade-out',
+			Obj3: { geom: Obj3Type.BOX,
+					box: [200, 120, 80],	// bounding box
+					mesh: undefined },
+			Visual:{vtype: AssetType.mesh,
+					// Three use document to load assets, which doesn't exist whil testing
+					// null acts as a flag to let thrender create a ram texture.
+					asset: null },
+
+			// TODO docs: in version 1.0, only type of sequence animation is supported
+			ModelSeqs: {
+				script: [[{ mtype: AnimType.ALPHA,
+							paras: {start: 0,		// auto start, only alpha tween in v0.2
+									duration: 0.8,	// seconds
+									alpha: [opa0, opa1],
+			 						ease: XEasing.Elastic.InOut}// TODO docs
+						}]] },
+			CmpTweens: {
+				twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
+				tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
+		});
+
+		xworld.startUpdate();
+		assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1' );
+		assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1' );
+		assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1' );
+
+		assert.closeTo(cube.Obj3.mesh.material.opacity, opa0, 0.01);
 
 		await sleep(1000);
+		assert.closeTo(cube.Obj3.mesh.material.opacity, opa0, 0.01);
 		xworld.update();
-		assert.equal(cube.CmpTweens.tweens[0][0].isPlaying, false, 'cube.CmpTweens.tweens[0][0].isPlaying 2');
-		assert.equal(cube.CmpTweens.tweens[0][1].isPlaying, false, 'cube.CmpTweens.tweens[0][1].isPlaying 2');
-		assert.equal(cube.CmpTweens.tweens[0][0].isCompleted, true, 'cube.CmpTweens.tweens[0][0].isCompleted 2');
-		assert.equal(!!cube.CmpTweens.tweens[0][1].isCompleted, true, 'cube.CmpTweens.tweens[0][1].isCompleted 2');
+		assert.closeTo(cube.Obj3.mesh.material.opacity, opa1, 0.01);
 	});
 });
 
