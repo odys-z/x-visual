@@ -7,4 +7,5 @@ Contents:
    :maxdepth: 2
 
    assets
+   renderer
    animizer
