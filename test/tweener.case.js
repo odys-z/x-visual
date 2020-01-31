@@ -189,6 +189,7 @@ describe('case: [tween] animization', function() {
 
 		xworld.startUpdate();
 		assert.isOk( cube.Obj3.mesh );
+		assert.equal( cube.Obje3.mesh.size, 3 * 8);
 	});
 });
 

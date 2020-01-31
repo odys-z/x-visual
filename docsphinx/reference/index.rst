@@ -1,2 +1,95 @@
 Reference
 =========
+
+Three.js gltf representation
+----------------------------
+
+Partial low poly city gltf asset:
+
+.. code-block:: json
+
+{ "accessors": [
+    { "bufferView": 2, "componentType": 5126, "count": 1762,
+      "max": [ 25.192995071411133, 10.835280418395996, 27.863927841186523 ],
+      "min": [ -18.667209625244141, -29.31907844543457, -72.12615966796875 ],
+      "type": "VEC3"
+    },
+    { "bufferView": 2, "byteOffset": 21144, "componentType": 5126, "count": 1762,
+      "max": [ 1, 1, 0.98781126737594604 ], "min": [ -1, -1, -1 ], "type": "VEC3"
+    },
+  ],
+  "asset": {
+    "extras": { "author": "antonmoek (https://sketchfab.com/antonmoek)",
+        "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+        "source": "https://sketchfab.com/models/edd1c604e1e045a0a2a552ddd9a293e6",
+        "title": "Cartoon Lowpoly Small City Free Pack" },
+        "generator": "Sketchfab-3.25.5", "version": "2.0" },
+    "bufferViews": [
+        { "buffer": 0, "byteLength": 443160, "byteOffset": 0, "name": "floatBufferViews", "target": 34963 },
+        { "buffer": 0, "byteLength": 557656, "byteOffset": 443160, "byteStride": 8, "name": "floatBufferViews", "target": 34962 },
+        { "buffer": 0, "byteLength": 1672968, "byteOffset": 1000816, "byteStride": 12, "name": "floatBufferViews", "target": 34962 },
+        { "buffer": 0, "byteLength": 1115312, "byteOffset": 2673784, "byteStride": 16, "name": "floatBufferViews", "target": 34962 } ],
+    "buffers": [ { "byteLength": 3789096, "uri": "scene.bin" } ],
+    "images": [
+        { "uri": "textures/World_ap.16_baseColor.jpeg" },
+        ...
+        { "uri": "textures/World_ap.11_baseColor.jpeg" } ],
+    "materials": [
+        { "doubleSided": true, "emissiveFactor": [ 0, 0, 0 ],
+          "name": "World_ap",
+          "pbrMetallicRoughness": { "baseColorFactor": [ 1, 1, 1, 1 ], "baseColorTexture": { "index": 4, "texCoord": 0 },
+          "metallicFactor": 0, "roughnessFactor": 1 } },
+        { "doubleSided": true, "emissiveFactor": [ 0, 0, 0 ], "name":
+          "World_ap.8",
+          "pbrMetallicRoughness": { "baseColorFactor": [ 1, 1, 1, 1 ], "baseColorTexture": { "index": 6, "texCoord": 0 },
+          "metallicFactor": 0, "roughnessFactor": 0.59999999999999998 } },
+        ...
+    ],
+    "meshes": [
+        { "name": "CAR_03_1_World ap_0",
+          "primitives": [
+            { "attributes": { "NORMAL": 1, "POSITION": 0, "TANGENT": 2, "TEXCOORD_0": 3 },
+              "indices": 4, "material": 0, "mode": 4 }
+          ] },
+        { "name": "CAR_03_World ap_0",
+          "primitives": [
+            { "attributes": { "NORMAL": 6, "POSITION": 5, "TANGENT": 7, "TEXCOORD_0": 8 },
+              "indices": 9, "material": 0, "mode": 4 }
+          ] },
+        ...
+    ],
+    "nodes": [
+        { "children": [ 1 ], "name": "RootNode (gltf orientation matrix)", "rotation": [ -0.70710678118654746, -0, -0, 0.70710678118654757 ] },
+        { "children": [ 2 ], "name": "RootNode (model correction matrix)" },
+        { "children": [ 3 ], "matrix": [ 1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1 ], "name": "4d4100bcb1c640e69699a87140df79d7.fbx" },
+        { "children": [ 4, 6, 22, 65, 98, 134, 178, 227, 237 ], "name": "RootNode" },
+        ...
+        { "children": [ 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63 ], "matrix": [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -369.06906127929688, -90.703544616699219, -920.1591796875, 1 ],
+          "name": "Cars" },
+        { "children": [ 24 ], "matrix": [ -1.1161040868103447, 1.3668332938134597e-16, -1.002153514889434, 0, -1.8070770596253361e-08, 1.4999999999999998, 2.0125520511237016e-08, 0, 1.002153514889434, 2.7047907974381987e-08, -1.1161040868103445, 0, 22.131305694580078, 14.663174629211426, -475.07095336914062, 1 ],
+          "name": "CAR_03_1" },
+        { "mesh": 0, "name": "CAR_03_1_World ap_0" },
+        { "children": [ 26 ], "matrix": [ -0.039509975088762972, 4.8385761910227429e-18, -1.4994795636715044, 0, 1.6096576513098873e-09, 1.5, -4.2413066498289683e-11, 0, 1.4994795636715044, -1.610216327898289e-09, -0.039509975088762972, 0, -281.15509033203125, 14.663183212280273, 108.45243835449219, 1 ],
+          "name": "CAR_03" },
+        { "mesh": 1, "name": "CAR_03_World ap_0" },
+        ...
+    ],
+    "samplers": [ { "magFilter": 9729, "minFilter": 9987, "wrapS": 10497, "wrapT": 10497 } ],
+    "scene": 0,
+    "scenes": [ { "name": "OSG_Scene", "nodes": [ 0 ] } ],
+    "textures": [
+        { "sampler": 0, "source": 0 },
+        ...
+    ]
+..
+
+Note: 21144 = 1762 x 12
+
+References
+----------
+
+- `GLTF (https://www.khronos.org/gltf/)`_
+
+- `GLTF Github (https://github.com/KhronosGroup/glTF-Tutorials)`_
+
+- `GLTF Tutorial, Github (https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md)`_
