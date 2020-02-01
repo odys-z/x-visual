@@ -2,7 +2,7 @@ GLTF Format
 ===========
 
 city/scene.gltf representation
--------------------------------
+------------------------------
 
 Partial low poly city gltf asset:
 
@@ -84,6 +84,134 @@ Partial low poly city gltf asset:
 ..
 
 Note: 21144 = 1762 x 12
+
+Three.js GLTFLoader
+-------------------
+
+The gltf loader processing can be simplify and clarified if with some basic gltf
+knowledge.
+
+.. code-block:: javascript
+
+    function GLTFLoader( manager ) {
+		parse: function ( data, path, onLoad, onError ) {
+			var parser = new GLTFParser( json, extensions, { manager: this.manager } );
+			parser.parse( onLoad, onError );
+		}
+	}
+
+	function GLTFParser( json, extensions, options ) {
+		this.json = json || {};
+		this.extensions = extensions || {};
+		this.options = options || {};
+
+		this.parse = function ( onLoad, onError ) {
+			var parser = this;
+			var json = this.json;
+			var extensions = this.extensions;
+			Promise.all( [
+				this.getDependencies( 'scene' ),
+				this.getDependencies( 'animation' ),
+				this.getDependencies( 'camera' ),
+			] ).then( function ( dependencies ) {
+				var result = {
+					scene: dependencies[ 0 ][ json.scene || 0 ],
+					asset: json.asset,
+					...
+				};
+				...
+				onLoad( result );
+			} ).catch( onError );
+		};
+
+..
+
+This loading and parsing is finished after multiple dependency like mesh, nodes,
+etc. been parsed.
+
+.. code-block:: javascript
+
+	/**Ody: Load mesh with vertices accessing via accessors.
+	 * For a primitive.mode == WEBGL_CONSTANTS.TRIANGLES, it's
+	 * new Mesh( geometry, material )
+	 *
+	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
+	 * @param {number} meshIndex
+	 * @return {Promise<Group|Mesh|SkinnedMesh>}
+	 */
+	GLTFParser.prototype.loadMesh = function ( meshIndex ) {
+		var parser = this;
+		var json = this.json;
+		var meshDef = json.meshes[ meshIndex ];
+		var primitives = meshDef.primitives;
+		var pending = [];
+
+		for ( var i = 0, il = primitives.length; i < il; i ++ ) {
+			var material = primitives[ i ].material === undefined
+				? createDefaultMaterial()
+				: this.getDependency( 'material', primitives[ i ].material );
+			pending.push( material );
+		}
+
+		return Promise.all( pending ).then( function ( originalMaterials ) {
+			return parser.loadGeometries( primitives )
+			  // Ody:
+			  // geometries must be BufferGeometry. See GLTFParser.loadGeometries()
+			  .then( function ( geometries ) {
+				var meshes = [];
+				for ( var i = 0, il = geometries.length; i < il; i ++ ) {
+					var geometry = geometries[ i ];
+					var primitive = primitives[ i ];
+					// 1. create Mesh
+					var mesh;
+					var material = originalMaterials[ i ];
+					if ( primitive.mode === WEBGL_CONSTANTS.TRIANGLES ) {
+						mesh = meshDef.isSkinnedMesh === true
+							? new SkinnedMesh( geometry, material )
+							: new Mesh( geometry, material );
+					} else if ( primitive.mode === WEBGL_CONSTANTS.LINES ) {
+						mesh = new LineSegments( geometry, material );
+					}
+					else ...
+					mesh.name = meshDef.name || ( 'mesh_' + meshIndex );
+					if ( geometries.length > 1 ) mesh.name += '_' + i;
+					...
+					meshes.push( mesh );
+				}
+				return meshes[ 0 ];
+			} );
+		} );
+	};
+
+	/**Requests the specified dependency asynchronously, with caching.
+	 * Ody:
+	 * Dependency means scene, node, mesh, materail etc., except scenes.
+	 * Anything that can be dependend by others.
+	 * @param {string} type
+	 * @param {number} index
+	 * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
+	 */
+	GLTFParser.prototype.getDependency = function ( type, index ) {
+		var cacheKey = type + ':' + index;
+		var dependency = this.cache.get( cacheKey );
+
+		if ( ! dependency ) {
+			switch ( type ) {
+				case 'scene':
+					dependency = this.loadScene( index );
+					break;
+				case 'camera':
+					dependency = this.loadCamera( index );
+					break;
+				...
+				default:
+					throw new Error( 'Unknown type: ' + type );
+			}
+			this.cache.add( cacheKey, dependency );
+		}
+		return dependency;
+	};
+..
 
 References
 ----------
