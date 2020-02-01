@@ -13,6 +13,14 @@ describe('case: [gltf] load mesh', function() {
 	before(() => {
 	});
 
-	it('simple.gltf', function() {
+	it('simple.gltf', function(done) {
+		AssetKeepr.loadGltfNode('simple.gltf', 'Tree_1_2', // parent Bushes_3_3
+			(node) => {
+				assert.isOk(node);
+				assert.isOk(node.children);
+				assert.equal(node.children.length, 1);
+
+				done();
+		});	// ix = 221
 	});
 });

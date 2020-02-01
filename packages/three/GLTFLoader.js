@@ -146,7 +146,7 @@ var GLTFLoader = ( function () {
 
 					scope.parse( data, resourcePath, function ( gltf ) {
 
-						onLoad( gltf );
+						onLoad( gltf, scope.nodeMap );
 
 						scope.manager.itemEnd( url );
 
@@ -1620,13 +1620,20 @@ var GLTFLoader = ( function () {
 			this.getDependencies( 'scene' ),
 			this.getDependencies( 'animation' ),
 			this.getDependencies( 'camera' ),
+			// odys-z:
+			// nodes[ix].children.geometry.attributes.position is a BufferAttribute
+			// nodes[ix].children.geometry.attributes.position.array is a Float32Array
+			this.getDependencies( 'node' ),
 		] )
 			.then( function ( dependencies ) {
+				// console.log(dependencies);
 				var result = {
 					scene: dependencies[ 0 ][ json.scene || 0 ],
 					scenes: dependencies[ 0 ],
 					animations: dependencies[ 1 ],
 					cameras: dependencies[ 2 ],
+					// odys-z
+					nodes: dependencies[3],
 					asset: json.asset,
 					parser: parser,
 					userData: {}
