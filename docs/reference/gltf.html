@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GLTF Format &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+        <link rel="up" title="Reference" href="index.html"/>
+        <link rel="next" title="Components" href="components.html"/>
+        <link rel="prev" title="Reference" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">GLTF Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#city-scene-gltf-representation">city/scene.gltf representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Reference</a> &raquo;</li>
+      
+    <li>GLTF Format</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/reference/gltf.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gltf-format">
+<h1>GLTF Format<a class="headerlink" href="#gltf-format" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="city-scene-gltf-representation">
+<h2>city/scene.gltf representation<a class="headerlink" href="#city-scene-gltf-representation" title="Permalink to this headline">¶</a></h2>
+<p>Partial low poly city gltf asset:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>{ &#8220;accessors&#8221;: [</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>{ &#8220;bufferView&#8221;: 2, &#8220;componentType&#8221;: 5126, &#8220;count&#8221;: 1762,</dt>
+<dd>&#8220;max&#8221;: [ 25.192995071411133, 10.835280418395996, 27.863927841186523 ],
+&#8220;min&#8221;: [ -18.667209625244141, -29.31907844543457, -72.12615966796875 ],
+&#8220;type&#8221;: &#8220;VEC3&#8221;</dd>
+</dl>
+<p>},
+{ &#8220;bufferView&#8221;: 2, &#8220;byteOffset&#8221;: 21144, &#8220;componentType&#8221;: 5126, &#8220;count&#8221;: 1762,</p>
+<blockquote>
+<div>&#8220;max&#8221;: [ 1, 1, 0.98781126737594604 ], &#8220;min&#8221;: [ -1, -1, -1 ], &#8220;type&#8221;: &#8220;VEC3&#8221;</div></blockquote>
+<p>},</p>
+</div></blockquote>
+<p>],
+&#8220;asset&#8221;: {</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>&#8220;extras&#8221;: { &#8220;author&#8221;: &#8220;antonmoek (<a class="reference external" href="https://sketchfab.com/antonmoek">https://sketchfab.com/antonmoek</a>)&#8221;,</dt>
+<dd>&#8220;license&#8221;: &#8220;CC-BY-4.0 (<a class="reference external" href="http://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</a>)&#8221;,
+&#8220;source&#8221;: &#8220;<a class="reference external" href="https://sketchfab.com/models/edd1c604e1e045a0a2a552ddd9a293e6">https://sketchfab.com/models/edd1c604e1e045a0a2a552ddd9a293e6</a>&#8221;,
+&#8220;title&#8221;: &#8220;Cartoon Lowpoly Small City Free Pack&#8221; },
+&#8220;generator&#8221;: &#8220;Sketchfab-3.25.5&#8221;, &#8220;version&#8221;: &#8220;2.0&#8221; },</dd>
+<dt>&#8220;bufferViews&#8221;: [</dt>
+<dd>{ &#8220;buffer&#8221;: 0, &#8220;byteLength&#8221;: 443160, &#8220;byteOffset&#8221;: 0, &#8220;name&#8221;: &#8220;floatBufferViews&#8221;, &#8220;target&#8221;: 34963 },
+{ &#8220;buffer&#8221;: 0, &#8220;byteLength&#8221;: 557656, &#8220;byteOffset&#8221;: 443160, &#8220;byteStride&#8221;: 8, &#8220;name&#8221;: &#8220;floatBufferViews&#8221;, &#8220;target&#8221;: 34962 },
+{ &#8220;buffer&#8221;: 0, &#8220;byteLength&#8221;: 1672968, &#8220;byteOffset&#8221;: 1000816, &#8220;byteStride&#8221;: 12, &#8220;name&#8221;: &#8220;floatBufferViews&#8221;, &#8220;target&#8221;: 34962 },
+{ &#8220;buffer&#8221;: 0, &#8220;byteLength&#8221;: 1115312, &#8220;byteOffset&#8221;: 2673784, &#8220;byteStride&#8221;: 16, &#8220;name&#8221;: &#8220;floatBufferViews&#8221;, &#8220;target&#8221;: 34962 } ],</dd>
+</dl>
+<p>&#8220;buffers&#8221;: [ { &#8220;byteLength&#8221;: 3789096, &#8220;uri&#8221;: &#8220;scene.bin&#8221; } ],
+&#8220;images&#8221;: [</p>
+<blockquote>
+<div>{ &#8220;uri&#8221;: &#8220;textures/World_ap.16_baseColor.jpeg&#8221; },
+...
+{ &#8220;uri&#8221;: &#8220;textures/World_ap.11_baseColor.jpeg&#8221; } ],</div></blockquote>
+<dl class="docutils">
+<dt>&#8220;materials&#8221;: [</dt>
+<dd><dl class="first docutils">
+<dt>{ &#8220;doubleSided&#8221;: true, &#8220;emissiveFactor&#8221;: [ 0, 0, 0 ],</dt>
+<dd>&#8220;name&#8221;: &#8220;World_ap&#8221;,
+&#8220;pbrMetallicRoughness&#8221;: { &#8220;baseColorFactor&#8221;: [ 1, 1, 1, 1 ], &#8220;baseColorTexture&#8221;: { &#8220;index&#8221;: 4, &#8220;texCoord&#8221;: 0 },
+&#8220;metallicFactor&#8221;: 0, &#8220;roughnessFactor&#8221;: 1 } },</dd>
+<dt>{ &#8220;doubleSided&#8221;: true, &#8220;emissiveFactor&#8221;: [ 0, 0, 0 ], &#8220;name&#8221;:</dt>
+<dd>&#8220;World_ap.8&#8221;,
+&#8220;pbrMetallicRoughness&#8221;: { &#8220;baseColorFactor&#8221;: [ 1, 1, 1, 1 ], &#8220;baseColorTexture&#8221;: { &#8220;index&#8221;: 6, &#8220;texCoord&#8221;: 0 },
+&#8220;metallicFactor&#8221;: 0, &#8220;roughnessFactor&#8221;: 0.59999999999999998 } },</dd>
+</dl>
+<p class="last">...</p>
+</dd>
+</dl>
+<p>],
+&#8220;meshes&#8221;: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{ &#8220;name&#8221;: &#8220;CAR_03_1_World ap_0&#8221;,</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;primitives&#8221;: [</dt>
+<dd><dl class="first last docutils">
+<dt>{ &#8220;attributes&#8221;: { &#8220;NORMAL&#8221;: 1, &#8220;POSITION&#8221;: 0, &#8220;TANGENT&#8221;: 2, &#8220;TEXCOORD_0&#8221;: 3 },</dt>
+<dd>&#8220;indices&#8221;: 4, &#8220;material&#8221;: 0, &#8220;mode&#8221;: 4 }</dd>
+</dl>
+</dd>
+</dl>
+<p class="last">] },</p>
+</dd>
+<dt>{ &#8220;name&#8221;: &#8220;CAR_03_World ap_0&#8221;,</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;primitives&#8221;: [</dt>
+<dd><dl class="first last docutils">
+<dt>{ &#8220;attributes&#8221;: { &#8220;NORMAL&#8221;: 6, &#8220;POSITION&#8221;: 5, &#8220;TANGENT&#8221;: 7, &#8220;TEXCOORD_0&#8221;: 8 },</dt>
+<dd>&#8220;indices&#8221;: 9, &#8220;material&#8221;: 0, &#8220;mode&#8221;: 4 }</dd>
+</dl>
+</dd>
+</dl>
+<p class="last">] },</p>
+</dd>
+</dl>
+<p>...</p>
+</div></blockquote>
+<p>],
+&#8220;nodes&#8221;: [</p>
+<blockquote>
+<div><p>{ &#8220;children&#8221;: [ 1 ], &#8220;name&#8221;: &#8220;RootNode (gltf orientation matrix)&#8221;, &#8220;rotation&#8221;: [ -0.70710678118654746, -0, -0, 0.70710678118654757 ] },
+{ &#8220;children&#8221;: [ 2 ], &#8220;name&#8221;: &#8220;RootNode (model correction matrix)&#8221; },
+{ &#8220;children&#8221;: [ 3 ], &#8220;matrix&#8221;: [ 1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1 ], &#8220;name&#8221;: &#8220;4d4100bcb1c640e69699a87140df79d7.fbx&#8221; },
+{ &#8220;children&#8221;: [ 4, 6, 22, 65, 98, 134, 178, 227, 237 ], &#8220;name&#8221;: &#8220;RootNode&#8221; },
+...
+{ &#8220;children&#8221;: [ 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63 ], &#8220;matrix&#8221;: [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -369.06906127929688, -90.703544616699219, -920.1591796875, 1 ],</p>
+<blockquote>
+<div>&#8220;name&#8221;: &#8220;Cars&#8221; },</div></blockquote>
+<dl class="docutils">
+<dt>{ &#8220;children&#8221;: [ 24 ], &#8220;matrix&#8221;: [ -1.1161040868103447, 1.3668332938134597e-16, -1.002153514889434, 0, -1.8070770596253361e-08, 1.4999999999999998, 2.0125520511237016e-08, 0, 1.002153514889434, 2.7047907974381987e-08, -1.1161040868103445, 0, 22.131305694580078, 14.663174629211426, -475.07095336914062, 1 ],</dt>
+<dd>&#8220;name&#8221;: &#8220;CAR_03_1&#8221; },</dd>
+</dl>
+<p>{ &#8220;mesh&#8221;: 0, &#8220;name&#8221;: &#8220;CAR_03_1_World ap_0&#8221; },
+{ &#8220;children&#8221;: [ 26 ], &#8220;matrix&#8221;: [ -0.039509975088762972, 4.8385761910227429e-18, -1.4994795636715044, 0, 1.6096576513098873e-09, 1.5, -4.2413066498289683e-11, 0, 1.4994795636715044, -1.610216327898289e-09, -0.039509975088762972, 0, -281.15509033203125, 14.663183212280273, 108.45243835449219, 1 ],</p>
+<blockquote>
+<div>&#8220;name&#8221;: &#8220;CAR_03&#8221; },</div></blockquote>
+<p>{ &#8220;mesh&#8221;: 1, &#8220;name&#8221;: &#8220;CAR_03_World ap_0&#8221; },
+...</p>
+</div></blockquote>
+<p>],
+&#8220;samplers&#8221;: [ { &#8220;magFilter&#8221;: 9729, &#8220;minFilter&#8221;: 9987, &#8220;wrapS&#8221;: 10497, &#8220;wrapT&#8221;: 10497 } ],
+&#8220;scene&#8221;: 0,
+&#8220;scenes&#8221;: [ { &#8220;name&#8221;: &#8220;OSG_Scene&#8221;, &#8220;nodes&#8221;: [ 0 ] } ],
+&#8220;textures&#8221;: [</p>
+<blockquote>
+<div>{ &#8220;sampler&#8221;: 0, &#8220;source&#8221;: 0 },
+...</div></blockquote>
+<p>]</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>Note: 21144 = 1762 x 12</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a href="#id1"><span class="problematic" id="id2">`GLTF (https://www.khronos.org/gltf/)`_</span></a></li>
+<li><a href="#id3"><span class="problematic" id="id4">`GLTF Github (https://github.com/KhronosGroup/glTF-Tutorials)`_</span></a></li>
+<li><a href="#id5"><span class="problematic" id="id6">`GLTF Tutorial, Github (https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md)`_</span></a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="components.html" class="btn btn-neutral float-right" title="Components" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Reference" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

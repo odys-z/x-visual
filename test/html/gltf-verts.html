@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-ECS</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	function initCity(ecs, scene) {
+		if (ecs) {
+			var city = ecs.createEntity({
+				id: 'city',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+						box: [0, 0, 0],			// not used
+						mesh: undefined },		// Thrender will handle this
+				Visual: {vtype: xv.AssetType.point,
+						 paras: {nodes:['Tree_1_2']},
+						 asset: 'city/scene.gltf'}
+			});
+			return city;
+		}
+	}
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	const points = initCity(ecs, xscene);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

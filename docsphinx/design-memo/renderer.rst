@@ -46,3 +46,17 @@ Model geometry and materail are good examples to get this idea. Another is the
 point visual and points object, where point is a visual effect a points array,
 the scene object consists many points.
 
+Visual.vtype
+____________
+
+- AssetType.point
+
+The created `THREE.Object3D <https://threejs.org/docs/#api/en/core/Object3D>`_
+will be rendered as an array of WebGl points.
+
+If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
+visible points.
+
+-- paras.nodes
+
+String array of node's name. Model of these nodes will be converted into points.
