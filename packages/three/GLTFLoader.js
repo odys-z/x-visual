@@ -79,6 +79,8 @@ var GLTFLoader = ( function () {
 		this.dracoLoader = null;
 		this.ddsLoader = null;
 
+		// odys-z
+		this.nodeMap = {};
 	}
 
 	GLTFLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
@@ -144,11 +146,11 @@ var GLTFLoader = ( function () {
 
 					scope.parse( data, resourcePath, function ( gltf ) {
 
-						onLoad( gltf );
+						onLoad( gltf, scope.nodeMap );
 
 						scope.manager.itemEnd( url );
 
-					}, _onError );
+					}, _onError, scope );
 
 				} catch ( e ) {
 
@@ -174,7 +176,7 @@ var GLTFLoader = ( function () {
 
 		},
 
-		parse: function ( data, path, onLoad, onError ) {
+		parse: function ( data, path, onLoad, onError, loaderScope ) {
 
 			var content;
 			var extensions = {};
@@ -272,7 +274,7 @@ var GLTFLoader = ( function () {
 				crossOrigin: this.crossOrigin,
 				manager: this.manager
 
-			} );
+			}, loaderScope );
 
 			parser.parse( onLoad, onError );
 
@@ -1576,8 +1578,8 @@ var GLTFLoader = ( function () {
 
 	/* GLTF PARSER */
 
-	function GLTFParser( json, extensions, options ) {
-
+	function GLTFParser( json, extensions, options, scope ) {
+		this.loaderScope = scope;
 		this.json = json || {};
 		this.extensions = extensions || {};
 		this.options = options || {};
@@ -1615,28 +1617,33 @@ var GLTFLoader = ( function () {
 		this.markDefs();
 
 		Promise.all( [
-
 			this.getDependencies( 'scene' ),
 			this.getDependencies( 'animation' ),
 			this.getDependencies( 'camera' ),
+			// odys-z:
+			// nodes[ix].children.geometry.attributes.position is a BufferAttribute
+			// nodes[ix].children.geometry.attributes.position.array is a Float32Array
+			this.getDependencies( 'node' ),
+		] )
+			.then( function ( dependencies ) {
+				// console.log(dependencies);
+				var result = {
+					scene: dependencies[ 0 ][ json.scene || 0 ],
+					scenes: dependencies[ 0 ],
+					animations: dependencies[ 1 ],
+					cameras: dependencies[ 2 ],
+					// odys-z
+					nodes: dependencies[3],
+					asset: json.asset,
+					parser: parser,
+					userData: {}
+				};
 
-		] ).then( function ( dependencies ) {
+				addUnknownExtensionsToUserData( extensions, result, json );
 
-			var result = {
-				scene: dependencies[ 0 ][ json.scene || 0 ],
-				scenes: dependencies[ 0 ],
-				animations: dependencies[ 1 ],
-				cameras: dependencies[ 2 ],
-				asset: json.asset,
-				parser: parser,
-				userData: {}
-			};
+				assignExtrasToUserData( result, json );
 
-			addUnknownExtensionsToUserData( extensions, result, json );
-
-			assignExtrasToUserData( result, json );
-
-			onLoad( result );
+				onLoad( result );
 
 		} ).catch( onError );
 
@@ -1705,8 +1712,10 @@ var GLTFLoader = ( function () {
 
 	};
 
-	/**
-	 * Requests the specified dependency asynchronously, with caching.
+	/**Requests the specified dependency asynchronously, with caching.
+	 * Ody:
+	 * Dependency means scene, node, mesh, materail etc., except scenes.
+	 * Anything that can be dependend by others.
 	 * @param {string} type
 	 * @param {number} index
 	 * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
@@ -2426,7 +2435,7 @@ var GLTFLoader = ( function () {
 
 	};
 
-	/**
+	/**Ody: adding accessor dependency to geometry, a.k.a. primitive?
 	 * @param {BufferGeometry} geometry
 	 * @param {GLTF.Primitive} primitiveDef
 	 * @param {GLTFParser} parser
@@ -2554,7 +2563,10 @@ var GLTFLoader = ( function () {
 
 	};
 
-	/**
+	/**Ody: Load mesh with vertices accessing via accessors.
+	 * For a primitive.mode == WEBGL_CONSTANTS.TRIANGLES, it's
+	 * new Mesh( geometry, material )
+	 *
 	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
 	 * @param {number} meshIndex
 	 * @return {Promise<Group|Mesh|SkinnedMesh>}
@@ -2581,7 +2593,10 @@ var GLTFLoader = ( function () {
 
 		return Promise.all( pending ).then( function ( originalMaterials ) {
 
-			return parser.loadGeometries( primitives ).then( function ( geometries ) {
+			return parser.loadGeometries( primitives )
+			  // Ody:
+			  // geometries must be BufferGeometry. See GLTFParser.loadGeometries()
+			  .then( function ( geometries ) {
 
 				var meshes = [];
 
@@ -2949,7 +2964,7 @@ var GLTFLoader = ( function () {
 	 * @return {Promise<Object3D>}
 	 */
 	GLTFParser.prototype.loadNode = function ( nodeIndex ) {
-
+		var scope = this.loaderScope;
 		var json = this.json;
 		var extensions = this.extensions;
 		var parser = this;
@@ -2958,6 +2973,8 @@ var GLTFLoader = ( function () {
 		var meshUses = json.meshUses;
 
 		var nodeDef = json.nodes[ nodeIndex ];
+		// ody:
+		nodeDef.idx = nodeIndex;
 
 		return ( function () {
 
@@ -3031,81 +3048,87 @@ var GLTFLoader = ( function () {
 
 			return Promise.all( pending );
 
-		}() ).then( function ( objects ) {
+		}() )
+			// Ody: then build node (Object3D etc.) with the objects
+			.then( function ( objects ) {
 
-			var node;
+				var node;
 
-			// .isBone isn't in glTF spec. See .markDefs
-			if ( nodeDef.isBone === true ) {
+				// .isBone isn't in glTF spec. See .markDefs
+				if ( nodeDef.isBone === true ) {
 
-				node = new Bone();
+					node = new Bone();
 
-			} else if ( objects.length > 1 ) {
+				} else if ( objects.length > 1 ) {
 
-				node = new Group();
+					node = new Group();
 
-			} else if ( objects.length === 1 ) {
+				} else if ( objects.length === 1 ) {
 
-				node = objects[ 0 ];
+					node = objects[ 0 ];
 
-			} else {
+				} else {
 
-				node = new Object3D();
-
-			}
-
-			if ( node !== objects[ 0 ] ) {
-
-				for ( var i = 0, il = objects.length; i < il; i ++ ) {
-
-					node.add( objects[ i ] );
+					node = new Object3D();
 
 				}
 
-			}
+				if ( node !== objects[ 0 ] ) {
 
-			if ( nodeDef.name !== undefined ) {
+					for ( var i = 0, il = objects.length; i < il; i ++ ) {
 
-				node.userData.name = nodeDef.name;
-				node.name = PropertyBinding.sanitizeNodeName( nodeDef.name );
+						node.add( objects[ i ] );
 
-			}
-
-			assignExtrasToUserData( node, nodeDef );
-
-			if ( nodeDef.extensions ) addUnknownExtensionsToUserData( extensions, node, nodeDef );
-
-			if ( nodeDef.matrix !== undefined ) {
-
-				var matrix = new Matrix4();
-				matrix.fromArray( nodeDef.matrix );
-				node.applyMatrix( matrix );
-
-			} else {
-
-				if ( nodeDef.translation !== undefined ) {
-
-					node.position.fromArray( nodeDef.translation );
+					}
 
 				}
 
-				if ( nodeDef.rotation !== undefined ) {
+				if ( nodeDef.name !== undefined ) {
+					node.userData.name = nodeDef.name;
+					node.name = PropertyBinding.sanitizeNodeName( nodeDef.name );
+				}
 
-					node.quaternion.fromArray( nodeDef.rotation );
+				// ody
+				if (!node.name) {
+					node.name = String(nodeDef.idx);
+				}
+				scope.nodeMap[node.name] = nodeDef.idx;
+
+				assignExtrasToUserData( node, nodeDef );
+
+				if ( nodeDef.extensions ) addUnknownExtensionsToUserData( extensions, node, nodeDef );
+
+				if ( nodeDef.matrix !== undefined ) {
+
+					var matrix = new Matrix4();
+					matrix.fromArray( nodeDef.matrix );
+					node.applyMatrix( matrix );
+
+				} else {
+
+					if ( nodeDef.translation !== undefined ) {
+
+						node.position.fromArray( nodeDef.translation );
+
+					}
+
+					if ( nodeDef.rotation !== undefined ) {
+
+						node.quaternion.fromArray( nodeDef.rotation );
+
+					}
+
+					if ( nodeDef.scale !== undefined ) {
+
+						node.scale.fromArray( nodeDef.scale );
+
+					}
 
 				}
 
-				if ( nodeDef.scale !== undefined ) {
+				return node;
 
-					node.scale.fromArray( nodeDef.scale );
-
-				}
-
-			}
-
-			return node;
-
-		} );
+			} );
 
 	};
 

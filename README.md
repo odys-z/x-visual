@@ -139,6 +139,12 @@ resources like scene.bin and textures/\*.png.
 
 or [low poly city @ sketchfab](https://sketchfab.com/3d-models/cartoon-lowpoly-small-city-free-pack-edd1c604e1e045a0a2a552ddd9a293e6)
 
+- Simple Scene GLTF
+
+Used by [x-visual gltf mesh BuffereGeometry test case](./test/gltf-mesh.case.js), etc.
+
+Referenced by [Gltf tutorial: A Minimal glTF File](https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/gltfTutorial_003_MinimalGltfFile.md)
+
 ### [updating: Reference & Details](https://odys-z.github.io/x-visual/)
 
 ## Usable Components

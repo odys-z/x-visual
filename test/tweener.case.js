@@ -193,6 +193,7 @@ describe('case: [tween] animization', function() {
 	});
 });
 
+<<<<<<< HEAD
 function assertComplete(buffer) {
 	var buff = buffer;
 	return new function (rotation, cmp) {
@@ -200,6 +201,8 @@ function assertComplete(buffer) {
 	};
 }
 
+=======
+>>>>>>> c5ccb07792a09ddd84602a99832969580b229dcc
 /*
 (function() {
 
