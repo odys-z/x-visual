@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Design Memo &mdash; x-visual 0.3 documentation</title>
+  <title>Assets Loader &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -31,8 +31,9 @@
 
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
-        <link rel="next" title="Assets Loader" href="assets.html"/>
-        <link rel="prev" title="Welcome to x-visual’s documentation!" href="../index.html"/> 
+        <link rel="up" title="Design Memo" href="index.html"/>
+        <link rel="next" title="Visual &amp; Renderers" href="renderer.html"/>
+        <link rel="prev" title="Design Memo" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -82,8 +83,11 @@
             
             
                 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Design Memo</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Assets Loader</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#default-texture-asset">Default Texture Asset</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 </ul>
@@ -119,11 +123,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Design Memo</li>
+          <li><a href="index.html">Design Memo</a> &raquo;</li>
+      
+    <li>Assets Loader</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/design-memo/index.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/design-memo/assets.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -133,27 +139,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="design-memo">
-<h1>Design Memo<a class="headerlink" href="#design-memo" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="assets.html">Assets Loader</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="assets.html#default-texture-asset">Default Texture Asset</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html#visual-component">Visual Component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html#obj3-component">Obj3 Component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html#thrender-the-default">Thrender the Default</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="animizer.html">Animizers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="animizer.html#mesh-animiation-script">Mesh Animiation Script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="animizer.html#script">script</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="assets-loader">
+<h1>Assets Loader<a class="headerlink" href="#assets-loader" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="default-texture-asset">
+<h2>Default Texture Asset<a class="headerlink" href="#default-texture-asset" title="Permalink to this headline">¶</a></h2>
+<p>If Visual components.assetId is null (not undefined), Thrender will initialize it
+with a default texture.</p>
 </div>
 </div>
 
@@ -164,10 +155,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="assets.html" class="btn btn-neutral float-right" title="Assets Loader" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="renderer.html" class="btn btn-neutral float-right" title="Visual &amp; Renderers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="Welcome to x-visual’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Design Memo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

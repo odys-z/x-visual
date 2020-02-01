@@ -33,7 +33,7 @@
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Reference" href="../reference/index.html"/>
-        <link rel="prev" title="Design Memo" href="index.html"/> 
+        <link rel="prev" title="Visual &amp; Renderers" href="renderer.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -84,8 +84,15 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Animizers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mesh-parameter-script">Mesh Parameter Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mesh-animiation-script">Mesh Animiation Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#script">script</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mtype">mtype</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#paras">paras</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -139,11 +146,95 @@
             
   <div class="section" id="animizers">
 <h1>Animizers<a class="headerlink" href="#animizers" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="mesh-parameter-script">
-<h2>Mesh Parameter Script<a class="headerlink" href="#mesh-parameter-script" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mesh-animiation-script">
+<h2>Mesh Animiation Script<a class="headerlink" href="#mesh-animiation-script" title="Permalink to this headline">¶</a></h2>
+<p>Example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
+    <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
+            <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>    <span class="c1">// bounding box</span>
+            <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
+    <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+            <span class="c1">// Three use document to load assets, which doesn&#39;t exist whil testing</span>
+            <span class="c1">// null acts as a flag to let thrender create a ram texture.</span>
+            <span class="nx">asset</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
+
+    <span class="c1">// TODO docs: in version 1.0, only type of sequence animation is supported</span>
+    <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">OBJ3ROTX</span><span class="p">,</span>
+                    <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>        <span class="c1">// auto start, only alpha tween in v0.2</span>
+                            <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.8</span><span class="p">,</span>    <span class="c1">// seconds</span>
+                            <span class="nx">cmd</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                            <span class="nx">deg</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span>    <span class="c1">// from, to</span>
+                             <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span><span class="c1">// default linear</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">OBJ3ROTAXIS</span><span class="p">,</span>
+                    <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span><span class="c1">// auto start, only alpha tween in v0.2</span>
+                            <span class="nx">duration</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1">// seconds</span>
+                            <span class="nx">axis</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                            <span class="nx">deg</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>    <span class="c1">// from, to</span>
+                             <span class="nx">ease</span><span class="o">:</span> <span class="nx">XEasing</span><span class="p">.</span><span class="nx">Elastic</span><span class="p">,</span><span class="c1">// TODO docs</span>
+                            <span class="nx">onComplete</span><span class="o">:</span> <span class="nx">assertComplete</span><span class="p">(</span><span class="nx">completeflags</span><span class="p">)}</span>
+                  <span class="p">}</span> <span class="p">]]</span>
+        <span class="p">},</span>
+    <span class="nx">CmpTweens</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">twindx</span><span class="o">:</span> <span class="p">[],</span>    <span class="c1">// e.g. twindex[0] is 0, script[0] current is 0, created by animizer</span>
+        <span class="nx">tweens</span><span class="o">:</span> <span class="p">[]}</span>    <span class="c1">// initialized by animizer, handled by XTweener. [] is safely ignored</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="script">
+<h2>script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mtype">
+<h3>mtype<a class="headerlink" href="#mtype" title="Permalink to this headline">¶</a></h3>
+<p>AnimType (TODO doc)</p>
+</div>
+<div class="section" id="paras">
+<h3>paras<a class="headerlink" href="#paras" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="common-paras">
+<h4>common paras<a class="headerlink" href="#common-paras" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Example:</li>
+<li>start</li>
 </ul>
+<p>Acctually this is delay time in milliseconds.</p>
+<p>0 | null | undefined:</p>
+<blockquote>
+<div>start the first immediatly, without delaying following once the previous one completed;</div></blockquote>
+<p>Infinity:</p>
+<blockquote>
+<div>start the tween with other way, e.g. by cmd handling (todo)</div></blockquote>
+<ul class="simple">
+<li>duration</li>
+</ul>
+<p>Same as tween.js</p>
+<ul class="simple">
+<li>ease:</li>
+</ul>
+<p>Same as tween.js</p>
+</div>
+<div class="section" id="animtype-obj3rotx-paras">
+<h4>AnimType.OBJ3ROTX paras<a class="headerlink" href="#animtype-obj3rotx-paras" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>deg</li>
+</ul>
+<p>Rotaion degree</p>
+</div>
+<div class="section" id="animtype-obj3rotaxis-paras">
+<h4>AnimType.OBJ3ROTAXIS paras<a class="headerlink" href="#animtype-obj3rotaxis-paras" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>axis:</li>
+</ul>
+<p>Array of axis to rotate around.</p>
+</div>
+<div class="section" id="animtype-alpha-paras">
+<h4>AnimType.ALPHA paras<a class="headerlink" href="#animtype-alpha-paras" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>alpha:</li>
+</ul>
+<p>Array of starting and ending alpha.</p>
+</div>
+</div>
 </div>
 </div>
 
@@ -157,7 +248,7 @@
         <a href="../reference/index.html" class="btn btn-neutral float-right" title="Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Design Memo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="renderer.html" class="btn btn-neutral" title="Visual &amp; Renderers" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
