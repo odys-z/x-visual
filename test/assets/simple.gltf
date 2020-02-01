@@ -1,5 +1,5 @@
 { "scenes" : [ { "nodes" : [ 0 ] } ],
-  "nodes" : [ { "mesh" : 0 } ],
+  "nodes" : [ { "mesh" : 0, "name": "simple-0" } ],
   "meshes" : [
     { "primitives" : [
       { "attributes" : { "POSITION" : 1 }, "indices" : 0 }
