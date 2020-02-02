@@ -4,15 +4,6 @@ GLTF Format
 city/scene.gltf representation
 ------------------------------
 
-simple.gltf:
-
-.. code-block:: json
-
-    {
-       "ky": 1
-    }
-..
-
 Some parts of low poly city gltf assets:
 
 .. code-block:: json
