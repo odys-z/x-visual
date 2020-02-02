@@ -168,15 +168,39 @@ describe('case: [tween] animization', function() {
 		xworld.update();
 		assert.closeTo(cube.Obj3.mesh.material.opacity, opa1, 0.01);
 	});
+
+	it('animizer: Point Visual', async function() {
+		const xworld = new XWorld(undefined, 'window', {});
+		const ecs = xworld.xecs;
+
+		var completeflags = {};
+
+		const opa0 = 0.9;
+		const opa1 = 0.05;
+		var cube = ecs.createEntity({
+			id: 'points',
+			Obj3: { geom: Obj3Type.POINTS,
+					box: [200, 120, 80],// bounding box
+					mesh: undefined },
+			Visual:{vtype: AssetType.point,
+					options: {model: Obj3Type.Box},// points generated from a box, TODO gltf
+					asset: null },		// asset not used for point
+		});
+
+		xworld.startUpdate();
+		assert.isOk( cube.Obj3.mesh );
+		assert.equal( cube.Obje3.mesh.size, 3 * 8);
+	});
 });
 
-/**@deprecated */
+/**
 function assertComplete(buffer) {
 	var buff = buffer;
 	return new function (rotation, cmp) {
 		buff.cmp = cmp;
 	};
 }
+*/
 
 /*
 (function() {

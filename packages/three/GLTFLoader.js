@@ -1705,8 +1705,10 @@ var GLTFLoader = ( function () {
 
 	};
 
-	/**
-	 * Requests the specified dependency asynchronously, with caching.
+	/**Requests the specified dependency asynchronously, with caching.
+	 * Ody:
+	 * Dependency means scene, node, mesh, materail etc., except scenes.
+	 * Anything that can be dependend by others.
 	 * @param {string} type
 	 * @param {number} index
 	 * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
@@ -2426,7 +2428,7 @@ var GLTFLoader = ( function () {
 
 	};
 
-	/**
+	/**Ody: adding accessor dependency to geometry, a.k.a. primitive?
 	 * @param {BufferGeometry} geometry
 	 * @param {GLTF.Primitive} primitiveDef
 	 * @param {GLTFParser} parser
@@ -2554,7 +2556,10 @@ var GLTFLoader = ( function () {
 
 	};
 
-	/**
+	/**Ody: Load mesh with vertices accessing via accessors.
+	 * For a primitive.mode == WEBGL_CONSTANTS.TRIANGLES, it's
+	 * new Mesh( geometry, material )
+	 *
 	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
 	 * @param {number} meshIndex
 	 * @return {Promise<Group|Mesh|SkinnedMesh>}
@@ -2581,7 +2586,10 @@ var GLTFLoader = ( function () {
 
 		return Promise.all( pending ).then( function ( originalMaterials ) {
 
-			return parser.loadGeometries( primitives ).then( function ( geometries ) {
+			return parser.loadGeometries( primitives )
+			  // Ody:
+			  // geometries must be BufferGeometry. See GLTFParser.loadGeometries()
+			  .then( function ( geometries ) {
 
 				var meshes = [];
 
