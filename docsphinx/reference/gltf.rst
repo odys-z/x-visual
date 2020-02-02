@@ -213,6 +213,29 @@ etc. been parsed.
 	};
 ..
 
+X-visual Edition
+----------------
+
+Source: x-visual/packages/three/GLTFLoader
+
+- Exposing Raw Nodes/Geometry Buffer
+
+1. Add the scope (GLTFLoader stack) as the argument of GLTFParser constructor,
+which makes the GLTFLoader instance can be accessed while parsing nodes.
+
+2. When parsing nodes, update a map in 'scope' so nodes name - index can be found
+out.
+
+.. code-block: javascript
+    function GLTFParser( json, extensions, options ) {
+        this.scope = loaderScope;
+        this.json = json || {};
+        ...
+    }
+..
+
+3. After every thing done, the nodes array also been taken out in gltf results.
+
 References
 ----------
 
