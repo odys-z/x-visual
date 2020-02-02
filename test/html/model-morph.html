@@ -31,9 +31,9 @@
 						paras: {start: 0,		// auto start
 								duration: 1.2,	// seconds
 								alpha: [0.05, 0.90],	// from, to
-		 						ease: xv.XEasing.Elastic.In}// TODO docs
+		 						ease: xv.XEasing.Elastic.In}
 					  },
-					  { mtype: xv.XComponent.AnimType.POINTS,
+					  { mtype: xv.XComponent.AnimType.GL_VERTS_TRANS,// TODO docs
 						paras: {src: 'entity1',		// entity1.Obj3.mesh
 								dest: 'entity2',	// entity2.Obj3.mesh
 								followBy: [{entity: 'entity2',
@@ -56,7 +56,6 @@
 
 	const def2 = {
 		id: 'entity2',
-		// TODO test with a loaded model
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [210, 200, 0],	// bounding box
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
@@ -69,9 +68,9 @@
 						paras: {start: Infinity,	// triggered by entity1
 								duration: 1.2,		// seconds
 								alpha: [0.9, 0.12],	// from, to
-		 						ease: xv.XEasing.Elastic.In}// TODO docs
+		 						ease: xv.XEasing.Elastic.In}
 					  },
-					  { mtype: xv.XComponent.AnimType.POINTS,
+					  { mtype: xv.XComponent.AnimType.GL_VERTS_TRANS,// TODO docs
 					 	paras: {start: Infinity,	// follow previous
 								duration: 1.2,		// seconds
 								src: 'entity2',		// entity1.Obj3.mesh

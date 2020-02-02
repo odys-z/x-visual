@@ -11,7 +11,7 @@ E.g. Noisy Easing
 
 - Tween.glsl
 
-`Jet Blue already tried this <https://stackoverflow.com/questions/35328937/how-to-tween-10-000-particles-in-three-js>`_ :
+`Jet Blue already had tried this <https://stackoverflow.com/questions/35328937/how-to-tween-10-000-particles-in-three-js>`_ :
 
 .. code-block:: cpp
 
