@@ -94,35 +94,35 @@ knowledge.
 .. code-block:: javascript
 
     function GLTFLoader( manager ) {
-		parse: function ( data, path, onLoad, onError ) {
-			var parser = new GLTFParser( json, extensions, { manager: this.manager } );
-			parser.parse( onLoad, onError );
-		}
-	}
+        parse: function ( data, path, onLoad, onError ) {
+            var parser = new GLTFParser( json, extensions, { manager: this.manager } );
+            parser.parse( onLoad, onError );
+        }
+    }
 
-	function GLTFParser( json, extensions, options ) {
-		this.json = json || {};
-		this.extensions = extensions || {};
-		this.options = options || {};
+    function GLTFParser( json, extensions, options ) {
+        this.json = json || {};
+        this.extensions = extensions || {};
+        this.options = options || {};
 
-		this.parse = function ( onLoad, onError ) {
-			var parser = this;
-			var json = this.json;
-			var extensions = this.extensions;
-			Promise.all( [
-				this.getDependencies( 'scene' ),
-				this.getDependencies( 'animation' ),
-				this.getDependencies( 'camera' ),
-			] ).then( function ( dependencies ) {
-				var result = {
-					scene: dependencies[ 0 ][ json.scene || 0 ],
-					asset: json.asset,
-					...
-				};
-				...
-				onLoad( result );
-			} ).catch( onError );
-		};
+        this.parse = function ( onLoad, onError ) {
+            var parser = this;
+            var json = this.json;
+            var extensions = this.extensions;
+            Promise.all( [
+                this.getDependencies( 'scene' ),
+                this.getDependencies( 'animation' ),
+                this.getDependencies( 'camera' ),
+            ] ).then( function ( dependencies ) {
+                var result = {
+                    scene: dependencies[ 0 ][ json.scene || 0 ],
+                    asset: json.asset,
+                    ...
+                };
+                ...
+                onLoad( result );
+            } ).catch( onError );
+        };
 
 ..
 
@@ -131,86 +131,86 @@ etc. been parsed.
 
 .. code-block:: javascript
 
-	/**Ody: Load mesh with vertices accessing via accessors.
-	 * For a primitive.mode == WEBGL_CONSTANTS.TRIANGLES, it's
-	 * new Mesh( geometry, material )
-	 *
-	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
-	 * @param {number} meshIndex
-	 * @return {Promise<Group|Mesh|SkinnedMesh>}
-	 */
-	GLTFParser.prototype.loadMesh = function ( meshIndex ) {
-		var parser = this;
-		var json = this.json;
-		var meshDef = json.meshes[ meshIndex ];
-		var primitives = meshDef.primitives;
-		var pending = [];
+    /**Ody: Load mesh with vertices accessing via accessors.
+     * For a primitive.mode == WEBGL_CONSTANTS.TRIANGLES, it's
+     * new Mesh( geometry, material )
+     *
+     * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
+     * @param {number} meshIndex
+     * @return {Promise<Group|Mesh|SkinnedMesh>}
+     */
+    GLTFParser.prototype.loadMesh = function ( meshIndex ) {
+        var parser = this;
+        var json = this.json;
+        var meshDef = json.meshes[ meshIndex ];
+        var primitives = meshDef.primitives;
+        var pending = [];
 
-		for ( var i = 0, il = primitives.length; i < il; i ++ ) {
-			var material = primitives[ i ].material === undefined
-				? createDefaultMaterial()
-				: this.getDependency( 'material', primitives[ i ].material );
-			pending.push( material );
-		}
+        for ( var i = 0, il = primitives.length; i < il; i ++ ) {
+            var material = primitives[ i ].material === undefined
+                ? createDefaultMaterial()
+                : this.getDependency( 'material', primitives[ i ].material );
+            pending.push( material );
+        }
 
-		return Promise.all( pending ).then( function ( originalMaterials ) {
-			return parser.loadGeometries( primitives )
-			  // Ody:
-			  // geometries must be BufferGeometry. See GLTFParser.loadGeometries()
-			  .then( function ( geometries ) {
-				var meshes = [];
-				for ( var i = 0, il = geometries.length; i < il; i ++ ) {
-					var geometry = geometries[ i ];
-					var primitive = primitives[ i ];
-					// 1. create Mesh
-					var mesh;
-					var material = originalMaterials[ i ];
-					if ( primitive.mode === WEBGL_CONSTANTS.TRIANGLES ) {
-						mesh = meshDef.isSkinnedMesh === true
-							? new SkinnedMesh( geometry, material )
-							: new Mesh( geometry, material );
-					} else if ( primitive.mode === WEBGL_CONSTANTS.LINES ) {
-						mesh = new LineSegments( geometry, material );
-					}
-					else ...
-					mesh.name = meshDef.name || ( 'mesh_' + meshIndex );
-					if ( geometries.length > 1 ) mesh.name += '_' + i;
-					...
-					meshes.push( mesh );
-				}
-				return meshes[ 0 ];
-			} );
-		} );
-	};
+        return Promise.all( pending ).then( function ( originalMaterials ) {
+            return parser.loadGeometries( primitives )
+              // Ody:
+              // geometries must be BufferGeometry. See GLTFParser.loadGeometries()
+              .then( function ( geometries ) {
+                var meshes = [];
+                for ( var i = 0, il = geometries.length; i < il; i ++ ) {
+                    var geometry = geometries[ i ];
+                    var primitive = primitives[ i ];
+                    // 1. create Mesh
+                    var mesh;
+                    var material = originalMaterials[ i ];
+                    if ( primitive.mode === WEBGL_CONSTANTS.TRIANGLES ) {
+                        mesh = meshDef.isSkinnedMesh === true
+                            ? new SkinnedMesh( geometry, material )
+                            : new Mesh( geometry, material );
+                    } else if ( primitive.mode === WEBGL_CONSTANTS.LINES ) {
+                        mesh = new LineSegments( geometry, material );
+                    }
+                    else ...
+                    mesh.name = meshDef.name || ( 'mesh_' + meshIndex );
+                    if ( geometries.length > 1 ) mesh.name += '_' + i;
+                    ...
+                    meshes.push( mesh );
+                }
+                return meshes[ 0 ];
+            } );
+        } );
+    };
 
-	/**Requests the specified dependency asynchronously, with caching.
-	 * Ody:
-	 * Dependency means scene, node, mesh, materail etc., except scenes.
-	 * Anything that can be dependend by others.
-	 * @param {string} type
-	 * @param {number} index
-	 * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
-	 */
-	GLTFParser.prototype.getDependency = function ( type, index ) {
-		var cacheKey = type + ':' + index;
-		var dependency = this.cache.get( cacheKey );
+    /**Requests the specified dependency asynchronously, with caching.
+     * Ody:
+     * Dependency means scene, node, mesh, materail etc., except scenes.
+     * Anything that can be dependend by others.
+     * @param {string} type
+     * @param {number} index
+     * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
+     */
+    GLTFParser.prototype.getDependency = function ( type, index ) {
+        var cacheKey = type + ':' + index;
+        var dependency = this.cache.get( cacheKey );
 
-		if ( ! dependency ) {
-			switch ( type ) {
-				case 'scene':
-					dependency = this.loadScene( index );
-					break;
-				case 'camera':
-					dependency = this.loadCamera( index );
-					break;
-				...
-				default:
-					throw new Error( 'Unknown type: ' + type );
-			}
-			this.cache.add( cacheKey, dependency );
-		}
-		return dependency;
-	};
+        if ( ! dependency ) {
+            switch ( type ) {
+                case 'scene':
+                    dependency = this.loadScene( index );
+                    break;
+                case 'camera':
+                    dependency = this.loadCamera( index );
+                    break;
+                ...
+                default:
+                    throw new Error( 'Unknown type: ' + type );
+            }
+            this.cache.add( cacheKey, dependency );
+        }
+        return dependency;
+    };
 ..
 
 X-visual Edition
@@ -223,18 +223,102 @@ Source: x-visual/packages/three/GLTFLoader
 1. Add the scope (GLTFLoader stack) as the argument of GLTFParser constructor,
 which makes the GLTFLoader instance can be accessed while parsing nodes.
 
+.. code-block: javascript
+
+    function GLTFLoader( manager ) {
+        this.nodeMap = {};
+
+        load: function ( url, onLoad, onProgress, onError ) {
+            var scope = this;
+            var loader = new FileLoader( scope.manager );
+            loader.load( url, function ( data ) {
+                try {
+                    scope.parse( data, resourcePath, function ( gltf ) {
+                        onLoad( gltf, scope.nodeMap );
+                    }, _onError, scope );
+                } catch ( e ) {
+                    _onError( e );
+                }
+            }, onProgress, _onError );
+        },
+
+        parse: function ( data, path, onLoad, onError, loaderScope ) {
+            var parser = new GLTFParser( json, extensions,
+                { ... },
+                loaderScope );
+
+            parser.parse( onLoad, onError );
+    }
+
+    function GLTFParser( json, extensions, options, scope ) {
+        this.loaderScope = scope;
+        this.json = json || {};
+        ...
+    }
+
+    GLTFParser.prototype.parse = function ( onLoad, onError ) {
+        var parser = this;
+        var json = this.json;
+        var extensions = this.extensions;
+
+        Promise.all( [
+            this.getDependencies( 'scene' ),
+            this.getDependencies( 'animation' ),
+            this.getDependencies( 'camera' ),
+            // modification
+            // nodes[ix].children.geometry.attributes.position is a BufferAttribute
+            // nodes[ix].children.geometry.attributes.position.array is a Float32Array
+            this.getDependencies( 'node' ),
+        ] ).then( function ( dependencies ) {
+                ...
+            }
+    }
+
+..
+
 2. When parsing nodes, update a map in 'scope' so nodes name - index can be found
 out.
 
 .. code-block: javascript
-    function GLTFParser( json, extensions, options ) {
-        this.scope = loaderScope;
-        this.json = json || {};
-        ...
-    }
+
+    GLTFParser.prototype.loadNode = function ( nodeIndex ) {
+            ...
+        }()
+            // then build node (Object3D etc.) with the objects
+            .then( function ( objects ) {
+                return ( function () {
+                        ...
+                        if (!node.name) {
+                            node.name = String(nodeDef.idx);
+                        }
+                        scope.nodeMap[node.name] = nodeDef.idx;
+                        return node;
+                    } );
+            });
 ..
 
 3. After every thing done, the nodes array also been taken out in gltf results.
+
+.. code-block: javascript
+
+    GLTFParser.prototype.parse = function ( onLoad, onError ) {
+        Promise.all(
+            ...    // see 2.
+        ).then( function ( dependencies ) {
+            var result = {
+                    scene: dependencies[ 0 ][ json.scene || 0 ],
+                    scenes: dependencies[ 0 ],
+                    animations: dependencies[ 1 ],
+                    cameras: dependencies[ 2 ],
+                    // odys-z
+                    nodes: dependencies[3],
+                    asset: json.asset,
+                    parser: parser,
+                    userData: {}
+                };
+            onLoad( result ); // callback reporting results to caller
+    };
+..
 
 References
 ----------
