@@ -145,7 +145,11 @@ Used by [x-visual gltf mesh BuffereGeometry test case](./test/gltf-mesh.case.js)
 
 Referenced by [Gltf tutorial: A Minimal glTF File](https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/gltfTutorial_003_MinimalGltfFile.md)
 
-### [updating: Reference & Details](https://odys-z.github.io/x-visual/)
+# Documents
+
+Nope. Sorry!
+
+[updating: Reference & Details](https://odys-z.github.io/x-visual/)
 
 ## Usable Components
 
