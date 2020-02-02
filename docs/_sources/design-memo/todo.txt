@@ -1,0 +1,53 @@
+Wish List
+=========
+
+- Animize Letters
+
+See `Ilmari Heikkinen, Animating a Million Letters Using Three.js <https://www.html5rocks.com/en/tutorials/webgl/million_letters>`_
+
+- Tween.js Extension
+
+E.g. Noisy Easing
+
+- Tween.glsl
+
+`Somebody already tried <https://stackoverflow.com/questions/35328937/how-to-tween-10-000-particles-in-three-js>`_ :
+
+.. code-block:: cpp
+
+    // Vertex Shader
+
+    uniform float elapsedTime;
+    uniform float duration;
+    attribute vec3 targetPosition;
+
+    float exponentialInOut( float k ){
+        // https://github.com/tweenjs/tween.js/blob/master/src/Tween.js
+        if( k <= 0.0 ){
+            return 0.0;
+        }
+        else if( k >= 1.0 ){
+            return 1.0;
+        }
+        else if( ( k *= 2.0 ) < 1.0 ){
+            return 0.5 * pow( 1024.0, k - 1.0 );
+        }
+        return 0.5 * ( - pow( 2.0, - 10.0 * ( k - 1.0 ) ) + 2.0 );
+    }
+
+    void main(){
+
+        // calculate time value (also vary duration of each particle)
+        float t = elapsedTime / ( duration * ( 1.0 + randomNum.x ) );
+
+        // calculate progress
+        float progress = exponentialInOut( t );
+
+        // calculate new position (simple linear interpolation)
+        vec3 delta = targetPosition - position;
+        vec3 newPosition = position + delta * progress;
+
+        // something
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+    }
+..

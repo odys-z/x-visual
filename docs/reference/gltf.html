@@ -87,10 +87,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">GLTF Format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#city-scene-gltf-representation">city/scene.gltf representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#three-js-gltfloader">Three.js GLTFLoader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#x-visual-edition">X-visual Edition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">Systems</a></li>
 </ul>
 </li>
 </ul>
@@ -128,8 +131,6 @@
     <li>GLTF Format</li>
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/reference/gltf.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -262,6 +263,141 @@
 </dd>
 </dl>
 <p>Note: 21144 = 1762 x 12</p>
+</div>
+<div class="section" id="three-js-gltfloader">
+<h2>Three.js GLTFLoader<a class="headerlink" href="#three-js-gltfloader" title="Permalink to this headline">¶</a></h2>
+<p>The gltf loader processing can be simplify and clarified if with some basic gltf
+knowledge.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="p">{</span> <span class="nx">manager</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">manager</span> <span class="p">}</span> <span class="p">);</span>
+        <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="nx">options</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">extensions</span> <span class="o">=</span> <span class="nx">extensions</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">extensions</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">extensions</span><span class="p">;</span>
+        <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span> <span class="p">[</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;scene&#39;</span> <span class="p">),</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;animation&#39;</span> <span class="p">),</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;camera&#39;</span> <span class="p">),</span>
+        <span class="p">]</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dependencies</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">scene</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="nx">json</span><span class="p">.</span><span class="nx">scene</span> <span class="o">||</span> <span class="mi">0</span> <span class="p">],</span>
+                <span class="nx">asset</span><span class="o">:</span> <span class="nx">json</span><span class="p">.</span><span class="nx">asset</span><span class="p">,</span>
+                <span class="p">...</span>
+            <span class="p">};</span>
+            <span class="p">...</span>
+            <span class="nx">onLoad</span><span class="p">(</span> <span class="nx">result</span> <span class="p">);</span>
+        <span class="p">}</span> <span class="p">).</span><span class="k">catch</span><span class="p">(</span> <span class="nx">onError</span> <span class="p">);</span>
+    <span class="p">};</span>
+</pre></div>
+</div>
+<p>This loading and parsing is finished after multiple dependency like mesh, nodes,
+etc. been parsed.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="cm">/**Ody: Load mesh with vertices accessing via accessors.</span>
+<span class="cm"> * For a primitive.mode == WEBGL_CONSTANTS.TRIANGLES, it&#39;s</span>
+<span class="cm"> * new Mesh( geometry, material )</span>
+<span class="cm"> *</span>
+<span class="cm"> * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes</span>
+<span class="cm"> * @param {number} meshIndex</span>
+<span class="cm"> * @return {Promise&lt;Group|Mesh|SkinnedMesh&gt;}</span>
+<span class="cm"> */</span>
+<span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadMesh</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">meshIndex</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">meshDef</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">meshes</span><span class="p">[</span> <span class="nx">meshIndex</span> <span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">primitives</span> <span class="o">=</span> <span class="nx">meshDef</span><span class="p">.</span><span class="nx">primitives</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">pending</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">il</span> <span class="o">=</span> <span class="nx">primitives</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">il</span><span class="p">;</span> <span class="nx">i</span> <span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">material</span> <span class="o">=</span> <span class="nx">primitives</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">material</span> <span class="o">===</span> <span class="kc">undefined</span>
+            <span class="o">?</span> <span class="nx">createDefaultMaterial</span><span class="p">()</span>
+            <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDependency</span><span class="p">(</span> <span class="s1">&#39;material&#39;</span><span class="p">,</span> <span class="nx">primitives</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">material</span> <span class="p">);</span>
+        <span class="nx">pending</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">material</span> <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span> <span class="nx">pending</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">originalMaterials</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">loadGeometries</span><span class="p">(</span> <span class="nx">primitives</span> <span class="p">)</span>
+          <span class="c1">// Ody:</span>
+          <span class="c1">// geometries must be BufferGeometry. See GLTFParser.loadGeometries()</span>
+          <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">geometries</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">meshes</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">il</span> <span class="o">=</span> <span class="nx">geometries</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">il</span><span class="p">;</span> <span class="nx">i</span> <span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">geometry</span> <span class="o">=</span> <span class="nx">geometries</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                <span class="kd">var</span> <span class="nx">primitive</span> <span class="o">=</span> <span class="nx">primitives</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                <span class="c1">// 1. create Mesh</span>
+                <span class="kd">var</span> <span class="nx">mesh</span><span class="p">;</span>
+                <span class="kd">var</span> <span class="nx">material</span> <span class="o">=</span> <span class="nx">originalMaterials</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">primitive</span><span class="p">.</span><span class="nx">mode</span> <span class="o">===</span> <span class="nx">WEBGL_CONSTANTS</span><span class="p">.</span><span class="nx">TRIANGLES</span> <span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">mesh</span> <span class="o">=</span> <span class="nx">meshDef</span><span class="p">.</span><span class="nx">isSkinnedMesh</span> <span class="o">===</span> <span class="kc">true</span>
+                        <span class="o">?</span> <span class="k">new</span> <span class="nx">SkinnedMesh</span><span class="p">(</span> <span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span> <span class="p">)</span>
+                        <span class="o">:</span> <span class="k">new</span> <span class="nx">Mesh</span><span class="p">(</span> <span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span> <span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">primitive</span><span class="p">.</span><span class="nx">mode</span> <span class="o">===</span> <span class="nx">WEBGL_CONSTANTS</span><span class="p">.</span><span class="nx">LINES</span> <span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">mesh</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">LineSegments</span><span class="p">(</span> <span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">...</span>
+                <span class="nx">mesh</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">meshDef</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="p">(</span> <span class="s1">&#39;mesh_&#39;</span> <span class="o">+</span> <span class="nx">meshIndex</span> <span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">geometries</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span> <span class="nx">mesh</span><span class="p">.</span><span class="nx">name</span> <span class="o">+=</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+                <span class="p">...</span>
+                <span class="nx">meshes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">mesh</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">meshes</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+        <span class="p">}</span> <span class="p">);</span>
+    <span class="p">}</span> <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="cm">/**Requests the specified dependency asynchronously, with caching.</span>
+<span class="cm"> * Ody:</span>
+<span class="cm"> * Dependency means scene, node, mesh, materail etc., except scenes.</span>
+<span class="cm"> * Anything that can be dependend by others.</span>
+<span class="cm"> * @param {string} type</span>
+<span class="cm"> * @param {number} index</span>
+<span class="cm"> * @return {Promise&lt;Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object&gt;}</span>
+<span class="cm"> */</span>
+<span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getDependency</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">index</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cacheKey</span> <span class="o">=</span> <span class="nx">type</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">index</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">dependency</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">cache</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">cacheKey</span> <span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nx">dependency</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span> <span class="nx">type</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="s1">&#39;scene&#39;</span><span class="o">:</span>
+                <span class="nx">dependency</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadScene</span><span class="p">(</span> <span class="nx">index</span> <span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s1">&#39;camera&#39;</span><span class="o">:</span>
+                <span class="nx">dependency</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadCamera</span><span class="p">(</span> <span class="nx">index</span> <span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">...</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span> <span class="s1">&#39;Unknown type: &#39;</span> <span class="o">+</span> <span class="nx">type</span> <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">cache</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="nx">cacheKey</span><span class="p">,</span> <span class="nx">dependency</span> <span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">dependency</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="x-visual-edition">
+<h2>X-visual Edition<a class="headerlink" href="#x-visual-edition" title="Permalink to this headline">¶</a></h2>
+<p>Source: x-visual/packages/three/GLTFLoader</p>
+<ul class="simple">
+<li>Exposing Raw Nodes/Geometry Buffer</li>
+</ul>
+<p>1. Add the scope (GLTFLoader stack) as the argument of GLTFParser constructor,
+which makes the GLTFLoader instance can be accessed while parsing nodes.</p>
+<p>2. When parsing nodes, update a map in &#8216;scope&#8217; so nodes name - index can be found
+out.</p>
+<ol class="arabic simple" start="3">
+<li>After every thing done, the nodes array also been taken out in gltf results.</li>
+</ol>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
