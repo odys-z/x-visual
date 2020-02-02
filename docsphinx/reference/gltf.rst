@@ -235,10 +235,16 @@ etc. been parsed.
     };
 ..
 
+.. _xv-gltf-loader:
+
 The X-visual Edition
 --------------------
 
+Which is an x-visual vision of GLTF loader modified from There.js GLTFLoader.
+
 Source: x-visual/packages/three/GLTFLoader
+
+The modification includes:
 
 Exposing Raw Nodes/Geometry Buffer
 ++++++++++++++++++++++++++++++++++
