@@ -6,7 +6,7 @@ city/scene.gltf representation
 
 Partial low poly city gltf asset:
 
-.. code-block:: json
+.. code-block:: javascript
 
 { "accessors": [
     { "bufferView": 2, "componentType": 5126, "count": 1762,
@@ -84,6 +84,29 @@ Partial low poly city gltf asset:
 ..
 
 Note: 21144 = 1762 x 12
+
+Node Example
+
+The loaded node example (name = 'Tree-1-3')
+
+.. code-block:: javascript
+    /* for city/scene.gltf, paras.nodes = ['Tree-1-3'],
+     * nodes[0].children[0].type == 'Mesh',
+     * nodes[0].children[0].geometry is a BufferGeometry, with array of
+     * BufferAttributes as 'attributes'.
+     * nodes[0].children[0].geometry.attributes['position'] ==
+       length: 2772
+       dynamic: false
+       name: ""
+       array: Float32Array(2772) [135.61163330078125, 31.193208694458008, -2.098475694656372, …]
+       itemSize: 3
+       count: 924
+       normalized: false
+       usage: 35044
+       updateRange: {offset: 0, count: -1}
+       version: 0
+     */
+..
 
 Three.js GLTFLoader
 -------------------
