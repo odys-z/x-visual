@@ -303,7 +303,7 @@ out.
 
     GLTFParser.prototype.parse = function ( onLoad, onError ) {
         Promise.all(
-            ...    // see 2.
+            ...    // see `parse promise <parse_promise>`_.
         ).then( function ( dependencies ) {
             var result = {
                     scene: dependencies[ 0 ][ json.scene || 0 ],

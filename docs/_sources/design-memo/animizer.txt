@@ -58,9 +58,9 @@ ____________
 
 - start
 
-Acctually this is delay time in milliseconds.
+Acctually this is delay time in seconds.
 
-0 | null | undefined: 
+value: 0 | null | undefined:
 
     start the first immediatly, without delaying following once the previous one completed;
 
@@ -75,6 +75,22 @@ Same as tween.js
 - ease:
 
 Same as tween.js
+
+- followBy
+
+Object with properties:
+
+entity
+
+    followed by the script of name of the entity.
+
+idx
+
+    script index
+
+start
+
+    see paras.start.
 
 AnimType.OBJ3ROTX paras
 _______________________
