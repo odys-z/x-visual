@@ -60,3 +60,17 @@ visible points.
 -- paras.nodes
 
 String array of node's name. Model of these nodes will be converted into points.
+
+Visual.asset
+____________
+
+Specify a gltf asset file, e.g. int the test case of html/gltf:
+
+::
+
+    test/html/gitf-city.html/script/Citysys.initCity(),
+
+    Visual.asset: 'city/scene.gltf'
+
+The file located in 'assets/city/scene.gltf' and referenced bin file together with
+texture files are loaded by :ref:`xv-gltf-loader` of gltf loader.

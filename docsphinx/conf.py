@@ -16,6 +16,9 @@
 import sys
 import os
 
+# https://stackoverflow.com/questions/4259105/which-sphinx-code-block-language-to-use-for-json
+sys.path.insert(0, os.path.abspath('_ext'))
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -33,6 +36,7 @@ extensions = [
     'sphinx.ext.mathjax',
     # see also G4 Loader/docsrc/conf.py
     'sphinx_rtd_theme',
+    'jsonlexer',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

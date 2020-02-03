@@ -87,8 +87,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">GLTF Format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#city-scene-gltf-representation">city/scene.gltf representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node-example">Node Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#three-js-gltfloader">Three.js GLTFLoader</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#x-visual-edition">X-visual Edition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-x-visual-edition">The X-visual Edition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exposing-raw-nodes-geometry-buffer">Exposing Raw Nodes/Geometry Buffer</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
@@ -144,125 +148,102 @@
 <h1>GLTF Format<a class="headerlink" href="#gltf-format" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="city-scene-gltf-representation">
 <h2>city/scene.gltf representation<a class="headerlink" href="#city-scene-gltf-representation" title="Permalink to this headline">¶</a></h2>
-<p>Partial low poly city gltf asset:</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span>
+<p>Some parts of low poly city gltf assets:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;accessors&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="nt">&quot;bufferView&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;componentType&quot;</span><span class="p">:</span> <span class="mi">5126</span><span class="p">,</span> <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1762</span><span class="p">,</span>
+    <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">25.192995071411133</span><span class="p">,</span> <span class="mf">10.835280418395996</span><span class="p">,</span> <span class="mf">27.863927841186523</span> <span class="p">],</span>
+    <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-18.667209625244141</span><span class="p">,</span> <span class="mf">-29.31907844543457</span><span class="p">,</span> <span class="mf">-72.12615966796875</span> <span class="p">],</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VEC3&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nt">&quot;bufferView&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">21144</span><span class="p">,</span> <span class="nt">&quot;componentType&quot;</span><span class="p">:</span> <span class="mi">5126</span><span class="p">,</span> <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1762</span><span class="p">,</span>
+    <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.98781126737594604</span> <span class="p">],</span> <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span> <span class="p">],</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VEC3&quot;</span> <span class="p">},</span> <span class="p">],</span>
+  <span class="nt">&quot;asset&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;extras&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;antonmoek (https://sketchfab.com/antonmoek)&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;https://sketchfab.com/models/edd1c604e1e045a0a2a552ddd9a293e6&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Cartoon Lowpoly Small City Free Pack&quot;</span> <span class="p">},</span>
+      <span class="nt">&quot;generator&quot;</span><span class="p">:</span> <span class="s2">&quot;Sketchfab-3.25.5&quot;</span><span class="p">,</span> <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span> <span class="p">},</span>
+    <span class="nt">&quot;bufferViews&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">443160</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;floatBufferViews&quot;</span><span class="p">,</span> <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">34963</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">557656</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">443160</span><span class="p">,</span> <span class="nt">&quot;byteStride&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;floatBufferViews&quot;</span><span class="p">,</span> <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">34962</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">1672968</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">1000816</span><span class="p">,</span> <span class="nt">&quot;byteStride&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;floatBufferViews&quot;</span><span class="p">,</span> <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">34962</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">1115312</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">2673784</span><span class="p">,</span> <span class="nt">&quot;byteStride&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;floatBufferViews&quot;</span><span class="p">,</span> <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">34962</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">3789096</span><span class="p">,</span> <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;scene.bin&quot;</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;textures/World_ap.16_baseColor.jpeg&quot;</span> <span class="p">},</span>
+      <span class="err">...</span>
+      <span class="p">{</span> <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;textures/World_ap.11_baseColor.jpeg&quot;</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nt">&quot;materials&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;doubleSided&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;emissiveFactor&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">],</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;World_ap&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pbrMetallicRoughness&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;baseColorFactor&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span> <span class="nt">&quot;baseColorTexture&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nt">&quot;texCoord&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="nt">&quot;metallicFactor&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;roughnessFactor&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;doubleSided&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;emissiveFactor&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span>
+        <span class="s2">&quot;World_ap.8&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pbrMetallicRoughness&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;baseColorFactor&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span> <span class="nt">&quot;baseColorTexture&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nt">&quot;texCoord&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="nt">&quot;metallicFactor&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;roughnessFactor&quot;</span><span class="p">:</span> <span class="mf">0.59999999999999998</span> <span class="p">}</span> <span class="p">},</span>
+      <span class="err">...</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;meshes&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_1_World ap_0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span> <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;NORMAL&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;POSITION&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;TANGENT&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;TEXCOORD_0&quot;</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
+            <span class="nt">&quot;indices&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nt">&quot;material&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
+        <span class="p">]</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_World ap_0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span> <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;NORMAL&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nt">&quot;POSITION&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nt">&quot;TANGENT&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nt">&quot;TEXCOORD_0&quot;</span><span class="p">:</span> <span class="mi">8</span> <span class="p">},</span>
+            <span class="nt">&quot;indices&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nt">&quot;material&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
+        <span class="p">]</span> <span class="p">},</span>
+      <span class="err">...</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;nodes&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;RootNode (gltf orientation matrix)&quot;</span><span class="p">,</span> <span class="nt">&quot;rotation&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-0.70710678118654746</span><span class="p">,</span> <span class="mi">-0</span><span class="p">,</span> <span class="mi">-0</span><span class="p">,</span> <span class="mf">0.70710678118654757</span> <span class="p">]</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">2</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;RootNode (model correction matrix)&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">3</span> <span class="p">],</span> <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;4d4100bcb1c640e69699a87140df79d7.fbx&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">178</span><span class="p">,</span> <span class="mi">227</span><span class="p">,</span> <span class="mi">237</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;RootNode&quot;</span> <span class="p">},</span>
+      <span class="err">...</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">63</span> <span class="p">],</span> <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">-369.06906127929688</span><span class="p">,</span> <span class="mf">-90.703544616699219</span><span class="p">,</span> <span class="mf">-920.1591796875</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Cars&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">24</span> <span class="p">],</span> <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-1.1161040868103447</span><span class="p">,</span> <span class="mf">1.3668332938134597e-16</span><span class="p">,</span> <span class="mf">-1.002153514889434</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">-1.8070770596253361e-08</span><span class="p">,</span> <span class="mf">1.4999999999999998</span><span class="p">,</span> <span class="mf">2.0125520511237016e-08</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.002153514889434</span><span class="p">,</span> <span class="mf">2.7047907974381987e-08</span><span class="p">,</span> <span class="mf">-1.1161040868103445</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">22.131305694580078</span><span class="p">,</span> <span class="mf">14.663174629211426</span><span class="p">,</span> <span class="mf">-475.07095336914062</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_1&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_1_World ap_0&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">26</span> <span class="p">],</span> <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-0.039509975088762972</span><span class="p">,</span> <span class="mf">4.8385761910227429e-18</span><span class="p">,</span> <span class="mf">-1.4994795636715044</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.6096576513098873e-09</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">-4.2413066498289683e-11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.4994795636715044</span><span class="p">,</span> <span class="mf">-1.610216327898289e-09</span><span class="p">,</span> <span class="mf">-0.039509975088762972</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">-281.15509033203125</span><span class="p">,</span> <span class="mf">14.663183212280273</span><span class="p">,</span> <span class="mf">108.45243835449219</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_World ap_0&quot;</span> <span class="p">},</span>
+      <span class="err">...</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;samplers&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;magFilter&quot;</span><span class="p">:</span> <span class="mi">9729</span><span class="p">,</span> <span class="nt">&quot;minFilter&quot;</span><span class="p">:</span> <span class="mi">9987</span><span class="p">,</span> <span class="nt">&quot;wrapS&quot;</span><span class="p">:</span> <span class="mi">10497</span><span class="p">,</span> <span class="nt">&quot;wrapT&quot;</span><span class="p">:</span> <span class="mi">10497</span> <span class="p">}</span> <span class="p">],</span>
+  <span class="nt">&quot;scene&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;scenes&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;OSG_Scene&quot;</span><span class="p">,</span> <span class="nt">&quot;nodes&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">}</span> <span class="p">],</span>
+  <span class="nt">&quot;textures&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;sampler&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
+      <span class="err">...</span>
+  <span class="p">]</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>{ &#8220;accessors&#8221;: [</dt>
-<dd><blockquote class="first">
-<div><dl class="docutils">
-<dt>{ &#8220;bufferView&#8221;: 2, &#8220;componentType&#8221;: 5126, &#8220;count&#8221;: 1762,</dt>
-<dd>&#8220;max&#8221;: [ 25.192995071411133, 10.835280418395996, 27.863927841186523 ],
-&#8220;min&#8221;: [ -18.667209625244141, -29.31907844543457, -72.12615966796875 ],
-&#8220;type&#8221;: &#8220;VEC3&#8221;</dd>
-</dl>
-<p>},
-{ &#8220;bufferView&#8221;: 2, &#8220;byteOffset&#8221;: 21144, &#8220;componentType&#8221;: 5126, &#8220;count&#8221;: 1762,</p>
-<blockquote>
-<div>&#8220;max&#8221;: [ 1, 1, 0.98781126737594604 ], &#8220;min&#8221;: [ -1, -1, -1 ], &#8220;type&#8221;: &#8220;VEC3&#8221;</div></blockquote>
-<p>},</p>
-</div></blockquote>
-<p>],
-&#8220;asset&#8221;: {</p>
-<blockquote class="last">
-<div><dl class="docutils">
-<dt>&#8220;extras&#8221;: { &#8220;author&#8221;: &#8220;antonmoek (<a class="reference external" href="https://sketchfab.com/antonmoek">https://sketchfab.com/antonmoek</a>)&#8221;,</dt>
-<dd>&#8220;license&#8221;: &#8220;CC-BY-4.0 (<a class="reference external" href="http://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</a>)&#8221;,
-&#8220;source&#8221;: &#8220;<a class="reference external" href="https://sketchfab.com/models/edd1c604e1e045a0a2a552ddd9a293e6">https://sketchfab.com/models/edd1c604e1e045a0a2a552ddd9a293e6</a>&#8221;,
-&#8220;title&#8221;: &#8220;Cartoon Lowpoly Small City Free Pack&#8221; },
-&#8220;generator&#8221;: &#8220;Sketchfab-3.25.5&#8221;, &#8220;version&#8221;: &#8220;2.0&#8221; },</dd>
-<dt>&#8220;bufferViews&#8221;: [</dt>
-<dd>{ &#8220;buffer&#8221;: 0, &#8220;byteLength&#8221;: 443160, &#8220;byteOffset&#8221;: 0, &#8220;name&#8221;: &#8220;floatBufferViews&#8221;, &#8220;target&#8221;: 34963 },
-{ &#8220;buffer&#8221;: 0, &#8220;byteLength&#8221;: 557656, &#8220;byteOffset&#8221;: 443160, &#8220;byteStride&#8221;: 8, &#8220;name&#8221;: &#8220;floatBufferViews&#8221;, &#8220;target&#8221;: 34962 },
-{ &#8220;buffer&#8221;: 0, &#8220;byteLength&#8221;: 1672968, &#8220;byteOffset&#8221;: 1000816, &#8220;byteStride&#8221;: 12, &#8220;name&#8221;: &#8220;floatBufferViews&#8221;, &#8220;target&#8221;: 34962 },
-{ &#8220;buffer&#8221;: 0, &#8220;byteLength&#8221;: 1115312, &#8220;byteOffset&#8221;: 2673784, &#8220;byteStride&#8221;: 16, &#8220;name&#8221;: &#8220;floatBufferViews&#8221;, &#8220;target&#8221;: 34962 } ],</dd>
-</dl>
-<p>&#8220;buffers&#8221;: [ { &#8220;byteLength&#8221;: 3789096, &#8220;uri&#8221;: &#8220;scene.bin&#8221; } ],
-&#8220;images&#8221;: [</p>
-<blockquote>
-<div>{ &#8220;uri&#8221;: &#8220;textures/World_ap.16_baseColor.jpeg&#8221; },
-...
-{ &#8220;uri&#8221;: &#8220;textures/World_ap.11_baseColor.jpeg&#8221; } ],</div></blockquote>
-<dl class="docutils">
-<dt>&#8220;materials&#8221;: [</dt>
-<dd><dl class="first docutils">
-<dt>{ &#8220;doubleSided&#8221;: true, &#8220;emissiveFactor&#8221;: [ 0, 0, 0 ],</dt>
-<dd>&#8220;name&#8221;: &#8220;World_ap&#8221;,
-&#8220;pbrMetallicRoughness&#8221;: { &#8220;baseColorFactor&#8221;: [ 1, 1, 1, 1 ], &#8220;baseColorTexture&#8221;: { &#8220;index&#8221;: 4, &#8220;texCoord&#8221;: 0 },
-&#8220;metallicFactor&#8221;: 0, &#8220;roughnessFactor&#8221;: 1 } },</dd>
-<dt>{ &#8220;doubleSided&#8221;: true, &#8220;emissiveFactor&#8221;: [ 0, 0, 0 ], &#8220;name&#8221;:</dt>
-<dd>&#8220;World_ap.8&#8221;,
-&#8220;pbrMetallicRoughness&#8221;: { &#8220;baseColorFactor&#8221;: [ 1, 1, 1, 1 ], &#8220;baseColorTexture&#8221;: { &#8220;index&#8221;: 6, &#8220;texCoord&#8221;: 0 },
-&#8220;metallicFactor&#8221;: 0, &#8220;roughnessFactor&#8221;: 0.59999999999999998 } },</dd>
-</dl>
-<p class="last">...</p>
-</dd>
-</dl>
-<p>],
-&#8220;meshes&#8221;: [</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>{ &#8220;name&#8221;: &#8220;CAR_03_1_World ap_0&#8221;,</dt>
-<dd><dl class="first docutils">
-<dt>&#8220;primitives&#8221;: [</dt>
-<dd><dl class="first last docutils">
-<dt>{ &#8220;attributes&#8221;: { &#8220;NORMAL&#8221;: 1, &#8220;POSITION&#8221;: 0, &#8220;TANGENT&#8221;: 2, &#8220;TEXCOORD_0&#8221;: 3 },</dt>
-<dd>&#8220;indices&#8221;: 4, &#8220;material&#8221;: 0, &#8220;mode&#8221;: 4 }</dd>
-</dl>
-</dd>
-</dl>
-<p class="last">] },</p>
-</dd>
-<dt>{ &#8220;name&#8221;: &#8220;CAR_03_World ap_0&#8221;,</dt>
-<dd><dl class="first docutils">
-<dt>&#8220;primitives&#8221;: [</dt>
-<dd><dl class="first last docutils">
-<dt>{ &#8220;attributes&#8221;: { &#8220;NORMAL&#8221;: 6, &#8220;POSITION&#8221;: 5, &#8220;TANGENT&#8221;: 7, &#8220;TEXCOORD_0&#8221;: 8 },</dt>
-<dd>&#8220;indices&#8221;: 9, &#8220;material&#8221;: 0, &#8220;mode&#8221;: 4 }</dd>
-</dl>
-</dd>
-</dl>
-<p class="last">] },</p>
-</dd>
-</dl>
-<p>...</p>
-</div></blockquote>
-<p>],
-&#8220;nodes&#8221;: [</p>
-<blockquote>
-<div><p>{ &#8220;children&#8221;: [ 1 ], &#8220;name&#8221;: &#8220;RootNode (gltf orientation matrix)&#8221;, &#8220;rotation&#8221;: [ -0.70710678118654746, -0, -0, 0.70710678118654757 ] },
-{ &#8220;children&#8221;: [ 2 ], &#8220;name&#8221;: &#8220;RootNode (model correction matrix)&#8221; },
-{ &#8220;children&#8221;: [ 3 ], &#8220;matrix&#8221;: [ 1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1 ], &#8220;name&#8221;: &#8220;4d4100bcb1c640e69699a87140df79d7.fbx&#8221; },
-{ &#8220;children&#8221;: [ 4, 6, 22, 65, 98, 134, 178, 227, 237 ], &#8220;name&#8221;: &#8220;RootNode&#8221; },
-...
-{ &#8220;children&#8221;: [ 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63 ], &#8220;matrix&#8221;: [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -369.06906127929688, -90.703544616699219, -920.1591796875, 1 ],</p>
-<blockquote>
-<div>&#8220;name&#8221;: &#8220;Cars&#8221; },</div></blockquote>
-<dl class="docutils">
-<dt>{ &#8220;children&#8221;: [ 24 ], &#8220;matrix&#8221;: [ -1.1161040868103447, 1.3668332938134597e-16, -1.002153514889434, 0, -1.8070770596253361e-08, 1.4999999999999998, 2.0125520511237016e-08, 0, 1.002153514889434, 2.7047907974381987e-08, -1.1161040868103445, 0, 22.131305694580078, 14.663174629211426, -475.07095336914062, 1 ],</dt>
-<dd>&#8220;name&#8221;: &#8220;CAR_03_1&#8221; },</dd>
-</dl>
-<p>{ &#8220;mesh&#8221;: 0, &#8220;name&#8221;: &#8220;CAR_03_1_World ap_0&#8221; },
-{ &#8220;children&#8221;: [ 26 ], &#8220;matrix&#8221;: [ -0.039509975088762972, 4.8385761910227429e-18, -1.4994795636715044, 0, 1.6096576513098873e-09, 1.5, -4.2413066498289683e-11, 0, 1.4994795636715044, -1.610216327898289e-09, -0.039509975088762972, 0, -281.15509033203125, 14.663183212280273, 108.45243835449219, 1 ],</p>
-<blockquote>
-<div>&#8220;name&#8221;: &#8220;CAR_03&#8221; },</div></blockquote>
-<p>{ &#8220;mesh&#8221;: 1, &#8220;name&#8221;: &#8220;CAR_03_World ap_0&#8221; },
-...</p>
-</div></blockquote>
-<p>],
-&#8220;samplers&#8221;: [ { &#8220;magFilter&#8221;: 9729, &#8220;minFilter&#8221;: 9987, &#8220;wrapS&#8221;: 10497, &#8220;wrapT&#8221;: 10497 } ],
-&#8220;scene&#8221;: 0,
-&#8220;scenes&#8221;: [ { &#8220;name&#8221;: &#8220;OSG_Scene&#8221;, &#8220;nodes&#8221;: [ 0 ] } ],
-&#8220;textures&#8221;: [</p>
-<blockquote>
-<div>{ &#8220;sampler&#8221;: 0, &#8220;source&#8221;: 0 },
-...</div></blockquote>
-<p>]</p>
-</div></blockquote>
-</dd>
-</dl>
 <p>Note: 21144 = 1762 x 12</p>
+</div>
+<div class="section" id="node-example">
+<h2>Node Example<a class="headerlink" href="#node-example" title="Permalink to this headline">¶</a></h2>
+<p>The loaded node example (name = &#8216;Tree-1-3&#8217;)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>for city/scene.gltf, paras.nodes = [&#39;Tree-1-3&#39;],
+nodes[0].children[0].type == &#39;Mesh&#39;,
+nodes[0].children[0].geometry is a BufferGeometry, with array of
+BufferAttributes as &#39;attributes&#39;.
+nodes[0].children[0].geometry.attributes[&#39;position&#39;] ==
+   length: 2772
+   dynamic: false
+   name: &quot;&quot;
+   array: Float32Array(2772) [135.61163330078125, 31.193208694458008, -2.098475694656372, …]
+   itemSize: 3
+   count: 924
+   normalized: false
+   usage: 35044
+   updateRange: {offset: 0, count: -1}
+   version: 0
+</pre></div>
+</div>
 </div>
 <div class="section" id="three-js-gltfloader">
 <h2>Three.js GLTFLoader<a class="headerlink" href="#three-js-gltfloader" title="Permalink to this headline">¶</a></h2>
@@ -385,26 +366,113 @@ etc. been parsed.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="x-visual-edition">
-<h2>X-visual Edition<a class="headerlink" href="#x-visual-edition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-x-visual-edition">
+<span id="xv-gltf-loader"></span><h2>The X-visual Edition<a class="headerlink" href="#the-x-visual-edition" title="Permalink to this headline">¶</a></h2>
+<p>Which is an x-visual vision of GLTF loader modified from There.js GLTFLoader.</p>
 <p>Source: x-visual/packages/three/GLTFLoader</p>
-<ul class="simple">
-<li>Exposing Raw Nodes/Geometry Buffer</li>
-</ul>
+<p>The modification includes:</p>
+<div class="section" id="exposing-raw-nodes-geometry-buffer">
+<h3>Exposing Raw Nodes/Geometry Buffer<a class="headerlink" href="#exposing-raw-nodes-geometry-buffer" title="Permalink to this headline">¶</a></h3>
 <p>1. Add the scope (GLTFLoader stack) as the argument of GLTFParser constructor,
 which makes the GLTFLoader instance can be accessed while parsing nodes.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">nodeMap</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onProgress</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileLoader</span><span class="p">(</span> <span class="nx">scope</span><span class="p">.</span><span class="nx">manager</span> <span class="p">);</span>
+        <span class="nx">loader</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span> <span class="nx">url</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">data</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="nx">scope</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">resourcePath</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">gltf</span> <span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">onLoad</span><span class="p">(</span> <span class="nx">gltf</span><span class="p">,</span> <span class="nx">scope</span><span class="p">.</span><span class="nx">nodeMap</span> <span class="p">);</span>
+                <span class="p">},</span> <span class="nx">_onError</span><span class="p">,</span> <span class="nx">scope</span> <span class="p">);</span>
+            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+                <span class="nx">_onError</span><span class="p">(</span> <span class="nx">e</span> <span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="nx">onProgress</span><span class="p">,</span> <span class="nx">_onError</span> <span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span><span class="p">,</span> <span class="nx">loaderScope</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span>
+            <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+            <span class="nx">loaderScope</span> <span class="p">);</span>
+
+        <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">scope</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">loaderScope</span> <span class="o">=</span> <span class="nx">scope</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">extensions</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">extensions</span><span class="p">;</span>
+
+    <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span> <span class="p">[</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;scene&#39;</span> <span class="p">),</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;animation&#39;</span> <span class="p">),</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;camera&#39;</span> <span class="p">),</span>
+        <span class="c1">// modification</span>
+        <span class="c1">// nodes[ix].children.geometry.attributes.position is a BufferAttribute</span>
+        <span class="c1">// nodes[ix].children.geometry.attributes.position.array is a Float32Array</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;node&#39;</span> <span class="p">),</span>
+    <span class="p">]</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dependencies</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="p">...</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>2. When parsing nodes, update a map in &#8216;scope&#8217; so nodes name - index can be found
 out.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadNode</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">nodeIndex</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">}()</span>
+        <span class="c1">// then build node (Object3D etc.) with the objects</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">objects</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="p">...</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">node</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">nodeDef</span><span class="p">.</span><span class="nx">idx</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="nx">scope</span><span class="p">.</span><span class="nx">nodeMap</span><span class="p">[</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">nodeDef</span><span class="p">.</span><span class="nx">idx</span><span class="p">;</span>
+                    <span class="k">return</span> <span class="nx">node</span><span class="p">;</span>
+                <span class="p">}</span> <span class="p">);</span>
+        <span class="p">});</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="3">
 <li>After every thing done, the nodes array also been taken out in gltf results.</li>
 </ol>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span>
+        <span class="p">...</span>    <span class="c1">// see `parse promise &lt;parse_promise&gt;`_.</span>
+    <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dependencies</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">scene</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="nx">json</span><span class="p">.</span><span class="nx">scene</span> <span class="o">||</span> <span class="mi">0</span> <span class="p">],</span>
+                <span class="nx">scenes</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span>
+                <span class="nx">animations</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">1</span> <span class="p">],</span>
+                <span class="nx">cameras</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">2</span> <span class="p">],</span>
+                <span class="c1">// odys-z</span>
+                <span class="nx">nodes</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                <span class="nx">asset</span><span class="o">:</span> <span class="nx">json</span><span class="p">.</span><span class="nx">asset</span><span class="p">,</span>
+                <span class="nx">parser</span><span class="o">:</span> <span class="nx">parser</span><span class="p">,</span>
+                <span class="nx">userData</span><span class="o">:</span> <span class="p">{}</span>
+            <span class="p">};</span>
+        <span class="nx">onLoad</span><span class="p">(</span> <span class="nx">result</span> <span class="p">);</span> <span class="c1">// callback reporting results to caller</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a href="#id1"><span class="problematic" id="id2">`GLTF (https://www.khronos.org/gltf/)`_</span></a></li>
-<li><a href="#id3"><span class="problematic" id="id4">`GLTF Github (https://github.com/KhronosGroup/glTF-Tutorials)`_</span></a></li>
-<li><a href="#id5"><span class="problematic" id="id6">`GLTF Tutorial, Github (https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md)`_</span></a></li>
+<li><a class="reference external" href="https://www.khronos.org/gltf/">GLTF Home Page</a></li>
+<li><a class="reference external" href="https://github.com/KhronosGroup/glTF-Tutorials">GLTF Github</a></li>
+<li><a class="reference external" href="https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md">GLTF Tutorial, Github</a></li>
 </ul>
 </div>
 </div>

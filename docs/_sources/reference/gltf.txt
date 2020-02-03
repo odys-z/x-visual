@@ -4,37 +4,35 @@ GLTF Format
 city/scene.gltf representation
 ------------------------------
 
-Partial low poly city gltf asset:
+Some parts of low poly city gltf assets:
 
 .. code-block:: json
 
-{ "accessors": [
+  { "accessors": [
     { "bufferView": 2, "componentType": 5126, "count": 1762,
       "max": [ 25.192995071411133, 10.835280418395996, 27.863927841186523 ],
       "min": [ -18.667209625244141, -29.31907844543457, -72.12615966796875 ],
-      "type": "VEC3"
-    },
+      "type": "VEC3" },
     { "bufferView": 2, "byteOffset": 21144, "componentType": 5126, "count": 1762,
-      "max": [ 1, 1, 0.98781126737594604 ], "min": [ -1, -1, -1 ], "type": "VEC3"
-    },
-  ],
-  "asset": {
-    "extras": { "author": "antonmoek (https://sketchfab.com/antonmoek)",
+      "max": [ 1, 1, 0.98781126737594604 ], "min": [ -1, -1, -1 ],
+      "type": "VEC3" }, ],
+    "asset": {
+      "extras": { "author": "antonmoek (https://sketchfab.com/antonmoek)",
         "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
         "source": "https://sketchfab.com/models/edd1c604e1e045a0a2a552ddd9a293e6",
         "title": "Cartoon Lowpoly Small City Free Pack" },
         "generator": "Sketchfab-3.25.5", "version": "2.0" },
-    "bufferViews": [
+      "bufferViews": [
         { "buffer": 0, "byteLength": 443160, "byteOffset": 0, "name": "floatBufferViews", "target": 34963 },
         { "buffer": 0, "byteLength": 557656, "byteOffset": 443160, "byteStride": 8, "name": "floatBufferViews", "target": 34962 },
         { "buffer": 0, "byteLength": 1672968, "byteOffset": 1000816, "byteStride": 12, "name": "floatBufferViews", "target": 34962 },
         { "buffer": 0, "byteLength": 1115312, "byteOffset": 2673784, "byteStride": 16, "name": "floatBufferViews", "target": 34962 } ],
-    "buffers": [ { "byteLength": 3789096, "uri": "scene.bin" } ],
-    "images": [
+      "buffers": [ { "byteLength": 3789096, "uri": "scene.bin" } ],
+      "images": [
         { "uri": "textures/World_ap.16_baseColor.jpeg" },
         ...
         { "uri": "textures/World_ap.11_baseColor.jpeg" } ],
-    "materials": [
+      "materials": [
         { "doubleSided": true, "emissiveFactor": [ 0, 0, 0 ],
           "name": "World_ap",
           "pbrMetallicRoughness": { "baseColorFactor": [ 1, 1, 1, 1 ], "baseColorTexture": { "index": 4, "texCoord": 0 },
@@ -84,6 +82,30 @@ Partial low poly city gltf asset:
 ..
 
 Note: 21144 = 1762 x 12
+
+Node Example
+------------
+
+The loaded node example (name = 'Tree-1-3')
+
+::
+
+    for city/scene.gltf, paras.nodes = ['Tree-1-3'],
+    nodes[0].children[0].type == 'Mesh',
+    nodes[0].children[0].geometry is a BufferGeometry, with array of
+    BufferAttributes as 'attributes'.
+    nodes[0].children[0].geometry.attributes['position'] ==
+       length: 2772
+       dynamic: false
+       name: ""
+       array: Float32Array(2772) [135.61163330078125, 31.193208694458008, -2.098475694656372, …]
+       itemSize: 3
+       count: 924
+       normalized: false
+       usage: 35044
+       updateRange: {offset: 0, count: -1}
+       version: 0
+
 
 Three.js GLTFLoader
 -------------------
@@ -213,17 +235,24 @@ etc. been parsed.
     };
 ..
 
-X-visual Edition
-----------------
+.. _xv-gltf-loader:
+
+The X-visual Edition
+--------------------
+
+Which is an x-visual vision of GLTF loader modified from There.js GLTFLoader.
 
 Source: x-visual/packages/three/GLTFLoader
 
-- Exposing Raw Nodes/Geometry Buffer
+The modification includes:
+
+Exposing Raw Nodes/Geometry Buffer
+++++++++++++++++++++++++++++++++++
 
 1. Add the scope (GLTFLoader stack) as the argument of GLTFParser constructor,
 which makes the GLTFLoader instance can be accessed while parsing nodes.
 
-.. code-block: javascript
+.. code-block:: javascript
 
     function GLTFLoader( manager ) {
         this.nodeMap = {};
@@ -273,13 +302,12 @@ which makes the GLTFLoader instance can be accessed while parsing nodes.
                 ...
             }
     }
-
 ..
 
 2. When parsing nodes, update a map in 'scope' so nodes name - index can be found
 out.
 
-.. code-block: javascript
+.. code-block:: javascript
 
     GLTFParser.prototype.loadNode = function ( nodeIndex ) {
             ...
@@ -299,7 +327,7 @@ out.
 
 3. After every thing done, the nodes array also been taken out in gltf results.
 
-.. code-block: javascript
+.. code-block:: javascript
 
     GLTFParser.prototype.parse = function ( onLoad, onError ) {
         Promise.all(
@@ -323,8 +351,8 @@ out.
 References
 ----------
 
-- `GLTF (https://www.khronos.org/gltf/)`_
+- `GLTF Home Page <https://www.khronos.org/gltf/>`_
 
-- `GLTF Github (https://github.com/KhronosGroup/glTF-Tutorials)`_
+- `GLTF Github <https://github.com/KhronosGroup/glTF-Tutorials>`_
 
-- `GLTF Tutorial, Github (https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md)`_
+- `GLTF Tutorial, Github <https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md>`_
