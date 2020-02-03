@@ -24,28 +24,23 @@
 				box: [200, 120, 80],	// bounding box
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 				mesh: undefined },
-		Visual:{vtype: xv.AssetType.mesh,
+		Visual:{vtype: xv.AssetType.point,
 				asset: 'tex/byr0.png' },
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
-						paras: {start: 0,		// auto start
-								duration: 1.2,	// seconds
-								alpha: [0.05, 0.90],	// from, to
+						paras: {start: Infinity,			// auto start
+								duration: 1.2,		// seconds
+								alpha: [0.05, 0.90],// from, to
 		 						ease: xv.XEasing.Elastic.In}
-					  },
-					  { mtype: xv.XComponent.AnimType.GL_VERTS_TRANS,// TODO docs
-						paras: {start: Infinity,
-								duration: 2,
-								src: 'entity1',		// entity1.Obj3.mesh
-								dest: 'entity2',	// entity2.Obj3.mesh
-								followBy: [{entity: 'points',
-											idx: 0}]}	// index of the fade-in
-					  }],
+					 }],
 					 [{ mtype: xv.XComponent.AnimType.ALPHA,
 						paras: {start: 0,
 								alpha: [0.95, 0.05],
-								ease: undefined }}]
-					] },
+								ease: undefined,
+								startWith:[{entity: 'points',
+											idx: 0,	// index of the fade-in
+											start: 2000}]} },
+					 ]] },
 		CmpTweens: {
 			// TODO docs: here are some twenn seq already defined by user.
 			// Any newly animized tween sequences will be appended to it.

@@ -84,7 +84,9 @@ Same as tween.js
 
 Same as tween.js
 
-- followBy
+- followBy:
+
+Trigger another entity's animation when finished.
 
 Object with properties:
 
@@ -99,6 +101,12 @@ idx
 start
 
     see paras.start.
+
+- startWith:
+
+Start animation with script in another entity.
+
+Object has same properties of *followBy*.
 
 AnimType.OBJ3ROTX paras
 _______________________
