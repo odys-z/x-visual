@@ -177,20 +177,28 @@ describe('case: [tween] animization', function() {
 
 		const opa0 = 0.9;
 		const opa1 = 0.05;
-		var cube = ecs.createEntity({
+		
+		var box1 = ecs.createEntity({
+			id: 'box1',
+			Obj3: { geom: Obj3Type.BOX,
+					box: [200, 120, 80],	// bounding box
+					mesh: undefined },
+			Visual:{vtype: AssetType.mesh,
+					asset: null } 
+		});
+
+		var points = ecs.createEntity({
 			id: 'points',
 			Obj3: { geom: Obj3Type.POINTS,
-					box: [200, 120, 80],// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
-			// Node: Visual with asset can't been tested here
-			// - GLTFLoader needs file access of HTTP. 
-			Visual:{vtype: AssetType.point,
-					paras: {model: Obj3Type.Box},// points generated from a box, TODO gltf
-					asset: null },		// asset not used for point
+			Visual:{vtype: AssetType.refPoint,
+					asset: 'box1' },
 		});
 
 		xworld.startUpdate();
-		assert.isOk( cube.Obj3.mesh );
+		assert.isOk( points.Obj3.mesh );
+		assert.isOk( points.Obj3.mesh instanceof THREE.Points );
 		// assert.equal( cube.Obj3.mesh.size, 3 * 8);
 	});
 });

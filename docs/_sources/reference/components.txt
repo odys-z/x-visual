@@ -63,7 +63,7 @@ AssetType
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 6-17
+   :lines: 6-19
    :linenos:
 
 Visual
