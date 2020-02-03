@@ -13,6 +13,8 @@
 
   
   
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
 
   
 
@@ -405,8 +407,10 @@ which makes the GLTFLoader instance can be accessed while parsing nodes.</p>
     <span class="k">this</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span> <span class="o">||</span> <span class="p">{};</span>
     <span class="p">...</span>
 <span class="p">}</span>
-
-<span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+</pre></div>
+</div>
+<p>The &#8216;node&#8217; dependency will get return and returned by parser.parse():</p>
+<div class="highlight-javascript" id="parse-promise"><div class="highlight"><pre><span></span><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">extensions</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">extensions</span><span class="p">;</span>
@@ -446,9 +450,10 @@ out.</p>
 <ol class="arabic simple" start="3">
 <li>After every thing done, the nodes array also been taken out in gltf results.</li>
 </ol>
+<p>For promise returning &#8216;ndoes&#8217;, see <a class="reference internal" href="#parse-promise"><span>Parse Promise</span></a>.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
     <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span>
-        <span class="p">...</span>    <span class="c1">// see `parse promise &lt;parse_promise&gt;`_.</span>
+        <span class="p">...</span>
     <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dependencies</span> <span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="nx">scene</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="nx">json</span><span class="p">.</span><span class="nx">scene</span> <span class="o">||</span> <span class="mi">0</span> <span class="p">],</span>
