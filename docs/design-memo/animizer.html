@@ -189,7 +189,43 @@
 <h2>script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="mtype">
 <h3>mtype<a class="headerlink" href="#mtype" title="Permalink to this headline">¶</a></h3>
-<p>AnimType (TODO doc)</p>
+<div class="section" id="animtype">
+<h4>AnimType<a class="headerlink" href="#animtype" title="Permalink to this headline">¶</a></h4>
+<p>Supported Animation types are defined in x-visual/component/morph.js:</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nx">ALPHA</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+	<span class="cm">/** using tween.js update shader uniforms (Obj3.uniforms) */</span>
+	<span class="nx">GL_VERTS_TRANS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+	<span class="nx">WIREFAME</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
+	<span class="nx">OBJ3ROTX</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span>
+	<span class="nx">OBJ3ROTAXIS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span>
+	<span class="nx">TODO</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span>
+	<span class="nx">USER</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">63</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">ModelSeqs</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">script</span><span class="o">:</span> <span class="p">[[]]</span>	<span class="c1">// example: test/html/mdel-morph.html</span>
+	<span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table></div>
+</div>
 </div>
 <div class="section" id="paras">
 <h3>paras<a class="headerlink" href="#paras" title="Permalink to this headline">¶</a></h3>
