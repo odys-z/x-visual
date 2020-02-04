@@ -187,11 +187,6 @@ describe('case: [Visual] points', function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
-		// var completeflags = {};
-
-		// const opa0 = 0.05;
-		// const opa1 = 0.95;
-
 		var box1 = ecs.createEntity({
 			id: 'box1',
 			Obj3: { geom: Obj3Type.BOX,
@@ -210,12 +205,49 @@ describe('case: [Visual] points', function() {
 					asset: 'box1' },
 		});
 
+		// simple.gltf has 3 vertices
+		var point4model = ecs.createEntity({
+			id: 'points-of-model',
+			Obj3: { geom: Obj3Type.POINTS,
+					box: [40, 20, 20],
+					mesh: undefined },
+			Visual:{vtype: AssetType.point,
+					paras: { obj3type: Obj3Type.SPHERE },
+					asset: undefined },
+		});
+
 		debugger
 		xworld.startUpdate();
 		assert.isOk( points.Obj3.mesh );
 		assert.isOk( points.Obj3.mesh instanceof THREE.Points );
 		assert.isOk( points.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
 		assert.equal( points.Obj3.mesh.geometry.attributes.position.count, 3 * 8 );
+
+		assert.isOk( point4model.Obj3.mesh );
+		assert.isOk( point4model.Obj3.mesh instanceof THREE.Points );
+		// assert.isOk( point4model.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
+		// assert.equal( point4model.Obj3.mesh.geometry.attributes.position.count, 3 * 3 );
+	});
+
+	it('Thrender: Animizing Obj3Type.POINTS', async function() {
+		const xworld = new XWorld(undefined, 'window', {});
+		const ecs = xworld.xecs;
+
+		var points = ecs.createEntity({
+			id: 'points',
+			Obj3: { geom: Obj3Type.POINTS,
+					box: [200, 120, 80],
+					mesh: undefined },
+			Visual:{vtype: AssetType.refPoint,
+					asset: 'box1' },
+		});
+
+		debugger
+		xworld.startUpdate();
+		// assert.isOk( points.Obj3.mesh );
+		// assert.isOk( points.Obj3.mesh instanceof THREE.Points );
+		// assert.isOk( points.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
+		// assert.equal( points.Obj3.mesh.geometry.attributes.position.count, 3 * 8 );
 	});
 
 });
