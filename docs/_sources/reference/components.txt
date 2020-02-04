@@ -75,6 +75,8 @@ Visual
    :linenos:
 
 
+.. _api-component-obj3type:
+
 Obj3Type
 ++++++++
 

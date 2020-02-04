@@ -188,7 +188,11 @@ the scene object consists many points.</p>
 <p>The created <a class="reference external" href="https://threejs.org/docs/#api/en/core/Object3D">THREE.Object3D</a>
 will be rendered as an array of WebGl points.</p>
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
-visible points.</p>
+visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
+<p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
+by Thrender using this entity.Visual.paras.obj3type, whhich can be one of
+<a class="reference internal" href="../reference/components.html#api-component-obj3type"><span>Obj3Type component</span></a> value.</p>
+<p>TODO test case as example.</p>
 <p>&#8211; paras.nodes</p>
 <p>String array of node&#8217;s name. Model of these nodes will be converted into points.</p>
 </div>
