@@ -53,8 +53,8 @@
 
 	const points = {
 		id: 'points',
-		Obj3: { geom: xv.XComponent.Obj3Type.POINTS,
-				box: undefined,		// not used for points
+		Obj3: { geom: xv.XComponent.Obj3Type.ICOSAHEDRON,
+				box: [200, 200, 10, 10],
 				mesh: undefined,	// THREE.Points
 			 	invisible: true },	// It's visible, but alpha 0?
 		Visual:{vtype: xv.AssetType.mesh,
