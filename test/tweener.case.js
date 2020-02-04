@@ -8,6 +8,7 @@ import chaiStats from 'chai-stats'
 
 const {performance} = require('perf_hooks');
 
+import * as THREE from 'three';
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld'
 import x from '../lib/xapp/xworld'
@@ -209,11 +210,12 @@ describe('case: [Visual] points', function() {
 					asset: 'box1' },
 		});
 
+		debugger
 		xworld.startUpdate();
 		assert.isOk( points.Obj3.mesh );
 		assert.isOk( points.Obj3.mesh instanceof THREE.Points );
-		assert.isOk( cube.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
-		assert.equal( cube.Obj3.mesh.geometry.length, 3 * 8 );
+		assert.isOk( points.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
+		assert.equal( points.Obj3.mesh.geometry.attributes.position.count, 3 * 8 );
 	});
 
 });
