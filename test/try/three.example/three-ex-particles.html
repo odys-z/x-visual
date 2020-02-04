@@ -122,7 +122,8 @@
 
 			function render() {
 				var time = Date.now() * 0.005;
-				particleSystem.rotation.z = 0.01 * time;
+				particleSystem.rotation.y = 0.02 * time;
+				particleSystem.position.y += 0.7 * Math.sin(time * 0.3);
 				var sizes = geometry.attributes.size.array;
 				for ( var i = 0; i < particles; i ++ ) {
 					sizes[ i ] = 10 * ( 1 + Math.sin( 0.1 * i + time ) );

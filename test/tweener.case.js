@@ -169,22 +169,35 @@ describe('case: [tween] animization', function() {
 		assert.closeTo(cube.Obj3.mesh.material.opacity, opa1, 0.01);
 	});
 
-	it('animizer: Point Visual', async function() {
+});
+
+function assertComplete(buffer) {
+	var buff = buffer;
+	return new function (rotation, cmp) {
+		buff.cmp = cmp;
+	};
+}
+
+describe('case: [Visual] points', function() {
+	this.timeout(10000);
+	x.log = 4;
+
+	it('Thrender: Obj3Type.POINTS <- AssetType.refPoint etc.', async function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
-		var completeflags = {};
+		// var completeflags = {};
 
-		const opa0 = 0.9;
-		const opa1 = 0.05;
-		
+		// const opa0 = 0.05;
+		// const opa1 = 0.95;
+
 		var box1 = ecs.createEntity({
 			id: 'box1',
 			Obj3: { geom: Obj3Type.BOX,
 					box: [200, 120, 80],	// bounding box
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
-					asset: null } 
+					asset: null }
 		});
 
 		var points = ecs.createEntity({
@@ -199,16 +212,11 @@ describe('case: [tween] animization', function() {
 		xworld.startUpdate();
 		assert.isOk( points.Obj3.mesh );
 		assert.isOk( points.Obj3.mesh instanceof THREE.Points );
-		// assert.equal( cube.Obj3.mesh.size, 3 * 8);
+		assert.isOk( cube.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
+		assert.equal( cube.Obj3.mesh.geometry.length, 3 * 8 );
 	});
-});
 
-function assertComplete(buffer) {
-	var buff = buffer;
-	return new function (rotation, cmp) {
-		buff.cmp = cmp;
-	};
-}
+});
 
 /*
 (function() {
