@@ -44,6 +44,43 @@ describe('case: [tween] hello', function() {
 	    assert.ok(xtweener);
 	    assert.ok(modelizer);
 	});
+
+	it('tweening uniforms', function() {
+		// debugger
+		const xworld = new XWorld(undefined, 'window', {tween: false});
+		const ecs = xworld.xecs;
+
+		var cube = ecs.createEntity({
+			id: 'cube0',
+			Obj3: { geom: Obj3Type.BOX,
+					box: [200, 120, 80],	// bounding box
+					mesh: undefined },
+			Visual:{vtype: AssetType.point,
+					// Three use document to load assets, which doesn't exist whil testing
+					// null acts as a flag to let thrender create a ram texture.
+					asset: null },
+
+			// TODO docs: in version 1.0, only type of sequence animation is supported
+			ModelSeqs: {
+				script: [[{ mtype: AnimType.UNIFORMS,
+							paras: {start: 0,		// auto start, only alpha tween in v0.2
+									duration: 0.8,	// seconds
+									uniforms: { u_alpha: [0, 1],
+												u_dist: [-100, 200]},
+			 						ease: undefined}// default linear
+						}]] },
+			CmpTweens: {
+				twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
+				tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
+		});
+
+		xworld.startUpdate();
+		assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1');
+		assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1');
+		assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1');
+		assert.isOk( cube.CmpTweens.tweens[0].valuesEnd['u_alpha'] );
+		assert.equal( typeof cube.CmpTweens.tweens[0].valuesEnd['u_alpha'].value, 'number' );
+	});
 });
 
 describe('case: [tween] animization', function() {
