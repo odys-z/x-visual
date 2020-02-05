@@ -54,6 +54,10 @@ ____________
 The created `THREE.Object3D <https://threejs.org/docs/#api/en/core/Object3D>`_
 will be rendered as an array of WebGl points.
 
+Point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
+
+TODO vertexShader and fragmentShader are optional?, or supporting PointsMaterail?
+
 If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).
 
