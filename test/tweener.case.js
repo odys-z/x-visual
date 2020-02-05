@@ -47,7 +47,7 @@ describe('case: [tween] hello', function() {
 
 	/** This test doesn't tested uniforms updating, only test tween.prop.value be
 	 * tweened */
-	it('tweening uniforms', function() {
+	it('tweening uniforms', async function() {
 		// debugger
 		const xworld = new XWorld(undefined, 'window', {tween: false});
 		const ecs = xworld.xecs;
@@ -66,7 +66,7 @@ describe('case: [tween] hello', function() {
 			ModelSeqs: {
 				script: [[{ mtype: AnimType.UNIFORMS,
 							paras: {start: 0,		// auto start, only alpha tween in v0.2
-									duration: 0.8,	// seconds
+									duration: 0.6,	// seconds
 									uniforms: { u_alpha: [0, 1],
 												u_dist: [-100, 200]},
 			 						ease: undefined}// default linear
@@ -80,12 +80,18 @@ describe('case: [tween] hello', function() {
 		assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1');
 		assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1');
 		assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1');
-		assert.isOk( cube.CmpTweens.tweens[0][0].object.u_alpha );
 		assert.equal( typeof cube.CmpTweens.tweens[0][0].object.u_alpha.value, 'number', 'u_alpha doesn\'t been animized' );
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1);
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, -100, 1); // -99.7 ~ -99.1
+
+		await sleep(1000);
+		xworld.update();
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 1, 0.01);
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, 200, 1.0);
 	});
 });
 
-describe('case: [tween] animization', function() {
+describe('case: [tween] anim sequence', function() {
 	this.timeout(10000);
 	x.log = 4;
 
@@ -209,6 +215,149 @@ describe('case: [tween] animization', function() {
 		assert.closeTo(cube.Obj3.mesh.material.opacity, opa1, 0.01);
 	});
 
+	it('animizer: referencing particles translating', async function() {
+		const xworld = new XWorld(undefined, 'window', {});
+		const ecs = xworld.xecs;
+		var cube = ecs.createEntity({
+			id: 'cube',
+			Obj3: { geom: Obj3Type.BOX,
+					box: [200, 120, 80],	// bounding box
+					// mesh is inited by thrender, can be ignored here - MorphSwitch's target
+					mesh: undefined },
+			Visual:{vtype: AssetType.mesh,
+					asset: undefined },		// use ram texture, can't load 'tex/byr0.png'
+			ModelSeqs: {// fade-out now, wait for fade-in
+				script: [[{ mtype: AnimType.ALPHA,
+							paras: {start: Infinity,	// triggered by points
+									duration: 0.4,		// seconds
+									alpha: [0.05, 0.95],// fade-in
+			 						ease: XEasing.Elastic.In}
+						 }],
+						 [{ mtype: AnimType.ALPHA,
+							paras: {start: 0,
+									alpha: [0.95, 0.05],
+									ease: undefined,
+									startWith:[{entity: 'points',
+												idx: 0,	// index of the fade-in
+												start: 0.02}]} },
+						 ]] },
+			CmpTweens: { twindx: [], tweens: [] }
+		});
+
+		var points = ecs.createEntity({
+			id: 'points',
+			Obj3: { geom: Obj3Type.NA,	// undefined
+					box: [1, 1, 1],						// not used, using entity1's
+					mesh: undefined,					// THREE.Points
+				 	invisible: false },					// It's visible, but alpha 0?
+			Visual:{vtype: AssetType.refPoint,
+					asset: 'cube' },
+			ModelSeqs: {
+				script: [[{ mtype: AnimType.ALPHA,
+							paras: {start: Infinity,	// triggered by entity1
+									duration: 0.4,		// seconds
+									alpha: [0.05, 0.92],// fade-in
+			 						ease: XEasing.Elastic.In} },
+						  { mtype: AnimType.GL_VERTS_TRANS,
+						 	paras: {start: Infinity,	// follow previous
+									duration: 0.4,		// seconds
+									dest: 'plane',		// plane.Obj3.mesh
+									uniforms: { u_morph: [0, 1],
+												u_alpha: [0.1, 0.9]},
+									followBy: [{entity: 'plane',
+												idx: 0,	// index of the fade-in
+												start: 0.1}]} },
+						  { mtype: AnimType.ALPHA,
+							paras: {start: Infinity,	// triggered by entity1
+									duration: 0.4,		// seconds
+									alpha: [0.9, 0.05],
+			 						ease: XEasing.Elastic.In} }
+					   ]] },
+			CmpTweens: { twindx: [], tweens: [] }
+		});
+
+		var plane = ecs.createEntity({
+			id: 'plane',
+			Obj3: { geom: Obj3Type.PLANE,
+					box: [210, 200, 0],	// bounding box
+					mesh: undefined },
+			Visual:{vtype: AssetType.mesh,
+					asset: undefined }, // 'city/textures/World_ap_baseColor.jpeg'
+			ModelSeqs: {
+				script: [[{ mtype: AnimType.ALPHA,
+							paras: {start: Infinity,	// auto start
+									duration: 0.4,		// seconds
+									alpha: [0.05, 0.90],
+			 						ease: XEasing.Elastic.In}
+						 }],
+						 [{ mtype: AnimType.ALPHA,
+							paras: {start: 0,
+									alpha: [0.95, 0.05],
+									ease: undefined }}]
+						]},
+			CmpTweens: { twindx: [], tweens: [] }
+		});
+
+		xworld.startUpdate();// cube fade out
+		assert.equal( cube.CmpTweens.twindx.length, 2, 'cube twindx != 2' );
+		assert.equal( points.CmpTweens.twindx.length, 1, 'particles twindx != 1' );
+		assert.equal( plane.CmpTweens.twindx.length, 2, 'particles twindx != 2' );
+
+		assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, false, '0 cube fading out' );
+		assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, true, '0 cube fading in' );
+
+		assert.equal( points.CmpTweens.tweens[0][0].isPlaying, true, '0 points fading in' );
+		assert.equal( !!points.CmpTweens.tweens[0][1].isPlaying, false, '0 points translate' );
+		assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '0 plane fade in' );
+
+		assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '0 plane fading in' );
+		assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '0 plane fading ouot' );
+
+		await sleep(600);// points moving
+		xworld.update();
+		assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, false, '600 cube fade out' );
+		assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '600 cube fading in' );
+		assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, false, '600 cube fading out complete' );
+
+		assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '600 points fade in' );
+		assert.equal( points.CmpTweens.tweens[0][1].isPlaying, true, '600 points translate' );
+		assert.equal( !!points.CmpTweens.tweens[0][2].isPlaying, false, '600 points sfade out' );
+
+		assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '600 plane fading in' );
+		assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '600 plane fading ouot' );
+
+		await sleep(400);// points fade out, plane fade in
+		xworld.update();
+		assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, true, '1s cube fade out' );
+		assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '1s cube fading in' );
+		assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, true, '1s cube fading out complete' );
+
+		assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '1s points fade in' );
+		assert.equal( points.CmpTweens.tweens[0][1].isPlaying, false, '1s points translate' );
+		assert.equal( points.CmpTweens.tweens[0][1].isCompleted, true, '1s points translate completed' );
+		assert.equal( points.CmpTweens.tweens[0][2].isPlaying, true, '1s points fade out' );
+
+		assert.equal( plane.CmpTweens.tweens[0][0].isPlaying, true, 'plane fading in' );
+		assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, 'plane fading out' );
+
+		await sleep(400);// plane fade in completed
+		xworld.update();
+		assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, true, '1.4s cube fade out' );
+		assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '1.4s cube fading in' );
+		assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, true, '1.4s cube fading out complete' );
+
+		assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '1.4s points fade in' );
+		assert.equal( points.CmpTweens.tweens[0][1].isPlaying, false, '1.4s points translate' );
+		assert.equal( points.CmpTweens.tweens[0][1].isCompleted, true, '1.4s points translate completed' );
+		assert.equal( points.CmpTweens.tweens[0][2].isPlaying, true, '1.4s points fade out' );
+		assert.equal( points.CmpTweens.tweens[0][2].isCompleted, true, '1.4s points fade out completed' );
+
+		assert.equal( plane.CmpTweens.tweens[0][0].isPlaying, false, '1.4s plane fading in' );
+		assert.equal( plane.CmpTweens.tweens[0][0].isCompleted, true, '1.4s plane fading in completed' );
+		assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '1.4s plane fading out' );
+
+		// TODO  add command test case, rolling back
+	});
 });
 
 function assertComplete(buffer) {
