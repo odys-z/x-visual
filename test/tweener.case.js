@@ -45,6 +45,8 @@ describe('case: [tween] hello', function() {
 	    assert.ok(modelizer);
 	});
 
+	/** This test doesn't tested uniforms updating, only test tween.prop.value be
+	 * tweened */
 	it('tweening uniforms', function() {
 		// debugger
 		const xworld = new XWorld(undefined, 'window', {tween: false});
@@ -78,8 +80,8 @@ describe('case: [tween] hello', function() {
 		assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1');
 		assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1');
 		assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1');
-		assert.isOk( cube.CmpTweens.tweens[0].valuesEnd['u_alpha'] );
-		assert.equal( typeof cube.CmpTweens.tweens[0].valuesEnd['u_alpha'].value, 'number' );
+		assert.isOk( cube.CmpTweens.tweens[0][0].object.u_alpha );
+		assert.equal( typeof cube.CmpTweens.tweens[0][0].object.u_alpha.value, 'number', 'u_alpha doesn\'t been animized' );
 	});
 });
 
