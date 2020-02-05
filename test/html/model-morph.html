@@ -24,7 +24,7 @@
 				box: [200, 120, 80],	// bounding box
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 				mesh: undefined },
-		Visual:{vtype: xv.AssetType.point,
+		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'tex/byr0.png' },
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
@@ -54,7 +54,7 @@
 	const points = {
 		id: 'points',
 		Obj3: { geom: xv.XComponent.Obj3Type.ICOSAHEDRON,
-				box: [200, 200, 10, 10],
+				box: [200, 2, 1],
 				mesh: undefined,	// THREE.Points
 			 	invisible: true },	// It's visible, but alpha 0?
 		Visual:{vtype: xv.AssetType.mesh,
