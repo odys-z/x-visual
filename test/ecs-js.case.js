@@ -597,7 +597,6 @@ describe('case: [ecs]system queries', () => {
 
     var resultSet = new Set([...result]);
 
-	// debugger;
 	expect(resultSet.size).equal(3);
     expect(resultSet.has(obj1)).true;
     expect(resultSet.has(obj2)).true;

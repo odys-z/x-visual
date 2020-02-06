@@ -84,6 +84,8 @@ Same as tween.js
 
 Same as tween.js
 
+.. _script_followBy:
+
 - followBy:
 
 Trigger another entity's animation when finished.
@@ -106,7 +108,7 @@ start
 
 Start animation with script in another entity.
 
-Object has same properties of *followBy*.
+Object has same properties of :ref:`script-followBy`.
 
 AnimType.OBJ3ROTX paras
 _______________________

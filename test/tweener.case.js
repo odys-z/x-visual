@@ -11,7 +11,7 @@ const {performance} = require('perf_hooks');
 import * as THREE from 'three';
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld'
-import x from '../lib/xapp/xworld'
+import {x} from '../lib/xapp/xworld'
 import {sleep} from '../lib/xutils/xcommon'
 
 import {Visual, Canvas, AssetType} from '../lib/component/visual'
@@ -26,12 +26,12 @@ global.performance = performance;
 
 describe('case: [tween] hello', function() {
 	this.timeout(6000);
+	x.log = 4;
 
 	before(() => {
 	});
 
 	it('initiating tween', function() {
-		// debugger
 		const xworld = new XWorld(undefined, 'window', {tween: false});
 		const ecs = xworld.xecs;
 
@@ -48,7 +48,6 @@ describe('case: [tween] hello', function() {
 	/** This test doesn't tested uniforms updating, only test tween.prop.value be
 	 * tweened */
 	it('tweening uniforms', async function() {
-		// debugger
 		const xworld = new XWorld(undefined, 'window', {tween: false});
 		const ecs = xworld.xecs;
 
@@ -81,8 +80,8 @@ describe('case: [tween] hello', function() {
 		assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1');
 		assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1');
 		assert.equal( typeof cube.CmpTweens.tweens[0][0].object.u_alpha.value, 'number', 'u_alpha doesn\'t been animized' );
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1);
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, -100, 1); // -99.7 ~ -99.1
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1, 'u_alpha 0');
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, -100, 10, 'u_dist -100'); // -92.7 ~ -99.1
 
 		await sleep(1000);
 		xworld.update();
@@ -90,6 +89,13 @@ describe('case: [tween] hello', function() {
 		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, 200, 1.0);
 	});
 });
+
+function assertComplete(buffer) {
+	var buff = buffer;
+	return new function (rotation, cmp) {
+		buff.cmp = cmp;
+	};
+}
 
 describe('case: [tween] anim sequence', function() {
 	this.timeout(10000);
@@ -228,18 +234,19 @@ describe('case: [tween] anim sequence', function() {
 					asset: undefined },		// use ram texture, can't load 'tex/byr0.png'
 			ModelSeqs: {// fade-out now, wait for fade-in
 				script: [[{ mtype: AnimType.ALPHA,
-							paras: {start: Infinity,	// triggered by points
+							paras: {start: Infinity,	// start with plane[0][1] at 1.6s
 									duration: 0.4,		// seconds
 									alpha: [0.05, 0.95],// fade-in
 			 						ease: XEasing.Elastic.In}
 						 }],
 						 [{ mtype: AnimType.ALPHA,
 							paras: {start: 0,
-									alpha: [0.95, 0.05],
-									ease: undefined,
-									startWith:[{entity: 'points',
-												idx: 0,	// index of the fade-in
-												start: 0.02}]} },
+									duration: 0.4,		// seconds
+									alpha: [0.95, 0.05],// fade-out
+									ease: undefined },
+							startWith:[{entity: 'points',
+										seqx: 0,	// index of the fade-in
+										start: 0.08 }] },
 						 ]] },
 			CmpTweens: { twindx: [], tweens: [] }
 		});
@@ -254,23 +261,23 @@ describe('case: [tween] anim sequence', function() {
 					asset: 'cube' },
 			ModelSeqs: {
 				script: [[{ mtype: AnimType.ALPHA,
-							paras: {start: Infinity,	// triggered by entity1
+							paras: {start: Infinity,	// triggered by entity1 at 0.4s
 									duration: 0.4,		// seconds
 									alpha: [0.05, 0.92],// fade-in
 			 						ease: XEasing.Elastic.In} },
-						  { mtype: AnimType.GL_VERTS_TRANS,
-						 	paras: {start: Infinity,	// follow previous
+						  { mtype: AnimType.U_VERTS_TRANS,
+						 	paras: {start: Infinity,	// follow previous, 0.8
 									duration: 0.4,		// seconds
 									dest: 'plane',		// plane.Obj3.mesh
 									uniforms: { u_morph: [0, 1],
-												u_alpha: [0.1, 0.9]},
-									followBy: [{entity: 'plane',
-												idx: 0,	// index of the fade-in
-												start: 0.1}]} },
+												u_alpha: [0.1, 0.9] } },
+							followBy: [{entity: 'plane',
+										seqx: 0,	// index of the fade-in
+										start: 0.1 }] },
 						  { mtype: AnimType.ALPHA,
 							paras: {start: Infinity,	// triggered by entity1
 									duration: 0.4,		// seconds
-									alpha: [0.9, 0.05],
+									alpha: [0.9, 0.05],	// fade out
 			 						ease: XEasing.Elastic.In} }
 					   ]] },
 			CmpTweens: { twindx: [], tweens: [] }
@@ -285,87 +292,96 @@ describe('case: [tween] anim sequence', function() {
 					asset: undefined }, // 'city/textures/World_ap_baseColor.jpeg'
 			ModelSeqs: {
 				script: [[{ mtype: AnimType.ALPHA,
-							paras: {start: Infinity,	// auto start
+							paras: {start: Infinity,	// follow points[0][1], at 1.2s
 									duration: 0.4,		// seconds
-									alpha: [0.05, 0.90],
-			 						ease: XEasing.Elastic.In}
-						 }],
+									alpha: [0.05, 0.90],// fade in
+			 						ease: XEasing.Elastic.In},
+							followBy: [{entity: 'plane',
+										seqx: 1,		// test follow by itself
+										start: 0.0 }] }],
 						 [{ mtype: AnimType.ALPHA,
-							paras: {start: 0,
-									alpha: [0.95, 0.05],
-									ease: undefined }}]
+							paras: {start: Infinity,	// follow at 1.6s
+									alpha: [0.95, 0.05],// fade out
+									ease: undefined },
+							startWith: [{entity: 'cube',
+										 seqx: 0 }]
+						 }]
 						]},
 			CmpTweens: { twindx: [], tweens: [] }
 		});
 
+		debugger
 		xworld.startUpdate();// cube fade out
-		assert.equal( cube.CmpTweens.twindx.length, 2, 'cube twindx != 2' );
-		assert.equal( points.CmpTweens.twindx.length, 1, 'particles twindx != 1' );
-		assert.equal( plane.CmpTweens.twindx.length, 2, 'particles twindx != 2' );
+			assert.equal( cube.CmpTweens.twindx.length, 2, 'cube twindx != 2' );
+			assert.equal( points.CmpTweens.twindx.length, 1, 'particles twindx != 1' );
+			assert.equal( plane.CmpTweens.twindx.length, 2, 'particles twindx != 2' );
 
-		assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, false, '0 cube fading out' );
-		assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, true, '0 cube fading in' );
+			assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, false, '0 cube fading in' );
+			assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, true, '0 cube fading out' );
 
-		assert.equal( points.CmpTweens.tweens[0][0].isPlaying, true, '0 points fading in' );
-		assert.equal( !!points.CmpTweens.tweens[0][1].isPlaying, false, '0 points translate' );
-		assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '0 plane fade in' );
+			// been triggered with 'startWith'
+			assert.equal( points.CmpTweens.tweens[0][0].isPlaying, true, '0 points fading in' );
+			assert.equal( !!points.CmpTweens.tweens[0][1].isPlaying, false, '0 points translate' );
+			assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '0 plane fade in' );
 
-		assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '0 plane fading in' );
-		assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '0 plane fading ouot' );
+			assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '0 plane fading in' );
+			assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '0 plane fading out' );
 
 		await sleep(600);// points moving
-		xworld.update();
-		assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, false, '600 cube fade out' );
-		assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '600 cube fading in' );
-		assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, false, '600 cube fading out complete' );
+			xworld.update();
+			assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, false, '600 cube fade in' );
+			assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '600 cube fading out' );
+			assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, true, '600 cube fading out complete' );
 
-		assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '600 points fade in' );
-		assert.equal( points.CmpTweens.tweens[0][1].isPlaying, true, '600 points translate' );
-		assert.equal( !!points.CmpTweens.tweens[0][2].isPlaying, false, '600 points sfade out' );
+			assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '600 points fade in' );
+			assert.equal( points.CmpTweens.tweens[0][1].isPlaying, true, '600 points translate' );
+			assert.equal( !!points.CmpTweens.tweens[0][2].isPlaying, false, '600 points sfade out' );
 
-		assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '600 plane fading in' );
-		assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '600 plane fading ouot' );
+			assert.equal( !!plane.CmpTweens.tweens[0][0].isPlaying, false, '600 plane fading in' );
+			assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '600 plane fading ouot' );
 
 		await sleep(400);// points fade out, plane fade in
-		xworld.update();
-		assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, true, '1s cube fade out' );
-		assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '1s cube fading in' );
-		assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, true, '1s cube fading out complete' );
+			xworld.update();
+			assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, undefined, '1s cube fade in' );
+			assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '1s cube fading out' );
+			assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, true, '1s cube fading out complete' );
 
-		assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '1s points fade in' );
-		assert.equal( points.CmpTweens.tweens[0][1].isPlaying, false, '1s points translate' );
-		assert.equal( points.CmpTweens.tweens[0][1].isCompleted, true, '1s points translate completed' );
-		assert.equal( points.CmpTweens.tweens[0][2].isPlaying, true, '1s points fade out' );
+			assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '1s points fade in' );
+			assert.equal( points.CmpTweens.tweens[0][1].isPlaying, false, '1s points translate' );
+			assert.equal( points.CmpTweens.tweens[0][1].isCompleted, true, '1s points translate completed' );
+			assert.equal( points.CmpTweens.tweens[0][2].isPlaying, true, '1s points fade out' );
 
-		assert.equal( plane.CmpTweens.tweens[0][0].isPlaying, true, 'plane fading in' );
-		assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, 'plane fading out' );
+			// been started by 'followBy'
+			assert.equal( plane.CmpTweens.tweens[0][0].isPlaying, true, '1s plane fading in' );
+			assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '1s plane fading out' );
 
 		await sleep(400);// plane fade in completed
+			xworld.update();
+			assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, undefined, '1.4s cube fade in' );
+			assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '1.4s cube fading out' );
+			assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, true, '1.4s cube fading out complete' );
+
+			assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '1.4s points fade in' );
+			assert.equal( points.CmpTweens.tweens[0][1].isPlaying, false, '1.4s points translate' );
+			assert.equal( points.CmpTweens.tweens[0][1].isCompleted, true, '1.4s points translate completed' );
+			assert.equal( points.CmpTweens.tweens[0][2].isPlaying, false, '1.4s points fade out' );
+			assert.equal( points.CmpTweens.tweens[0][2].isCompleted, true, '1.4s points fade out completed' );
+
+			assert.equal( plane.CmpTweens.tweens[0][0].isPlaying, false, '1.4s plane fading in' );
+			assert.equal( plane.CmpTweens.tweens[0][0].isCompleted, true, '1.4s plane fading in completed' );
+			assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, true, '1.4s plane fading out' );
+
+		// plane is fading out, cube fading in
+		await sleep(400);
 		xworld.update();
-		assert.equal( !!cube.CmpTweens.tweens[0][0].isPlaying, true, '1.4s cube fade out' );
-		assert.equal( cube.CmpTweens.tweens[1][0].isPlaying, false, '1.4s cube fading in' );
-		assert.equal( cube.CmpTweens.tweens[1][0].isCompleted, true, '1.4s cube fading out complete' );
+			assert.equal( plane.CmpTweens.tweens[1][0].isPlaying, false, '1.8s plane fading out' );
+			assert.equal( plane.CmpTweens.tweens[1][0].isCompleted, true, '1.8s plane fading out completed' );
 
-		assert.equal( points.CmpTweens.tweens[0][0].isPlaying, false, '1.4s points fade in' );
-		assert.equal( points.CmpTweens.tweens[0][1].isPlaying, false, '1.4s points translate' );
-		assert.equal( points.CmpTweens.tweens[0][1].isCompleted, true, '1.4s points translate completed' );
-		assert.equal( points.CmpTweens.tweens[0][2].isPlaying, true, '1.4s points fade out' );
-		assert.equal( points.CmpTweens.tweens[0][2].isCompleted, true, '1.4s points fade out completed' );
-
-		assert.equal( plane.CmpTweens.tweens[0][0].isPlaying, false, '1.4s plane fading in' );
-		assert.equal( plane.CmpTweens.tweens[0][0].isCompleted, true, '1.4s plane fading in completed' );
-		assert.equal( !!plane.CmpTweens.tweens[1][0].isPlaying, false, '1.4s plane fading out' );
-
-		// TODO  add command test case, rolling back
+			assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, '1.8s cube fading in' );
+			assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, '1.8s cube fading in completed' );
 	});
 });
 
-function assertComplete(buffer) {
-	var buff = buffer;
-	return new function (rotation, cmp) {
-		buff.cmp = cmp;
-	};
-}
 
 /*
 (function() {
