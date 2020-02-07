@@ -29,8 +29,8 @@ Each 1D Array of the 2D array is an animation processing script. Each element of
 1D array define a duration of tween animation. The above example defined 1 process
 of two tween steps.
 
-script
-------
+ModleSeqs.script
+----------------
 
 mtype
 +++++
