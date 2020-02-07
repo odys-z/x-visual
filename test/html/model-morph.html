@@ -36,11 +36,11 @@
 					 [{ mtype: xv.XComponent.AnimType.ALPHA,
 						paras: {start: 0,
 								alpha: [0.95, 0.05],
-								ease: undefined,
-								startWith:[{entity: 'points',
-											idx: 0,	// index of the fade-in
-											start: 2000}]} },
-					 ]] },
+								ease: undefined},
+						startWith:[{entity: 'points',
+									seqx: 0,	// index of the fade-in
+									start: 0.0}] }]
+					 ] },
 		CmpTweens: {
 			// TODO docs: here are some twenn seq already defined by user.
 			// Any newly animized tween sequences will be appended to it.
@@ -65,26 +65,16 @@
 								duration: 1.2,		// seconds
 								alpha: [0.06, 0.92],	// from, to
 		 						ease: xv.XEasing.Elastic.In} },
-					/*
-					  { mtype: xv.XComponent.AnimType.GL_VERTS_TRANS,// TODO docs
-					 	paras: {start: Infinity,	// follow previous
-								duration: 1.2,		// seconds
-								// src: 'entity2',		// entity1.Obj3.mesh
-								dest: 'entity1',	// entity2.Obj3.mesh
-								followBy: [{entity: 'entity2',
-											idx: 0,	// index of the fade-in
-											start: 2000}]} },
-					*/
 					  { mtype: xv.XComponent.AnimType.GL_VERTS_TRANS,
 					 	paras: {start: Infinity,	// follow previous
 								duration: 1.2,		// seconds
 								// src: 'entity2',		// entity1.Obj3.mesh
 								dest: 'entity1',	// entity2.Obj3.mesh
 								uniforms: { u_morph: [0, 1],
-											u_alpha: [0.1, 0.9]},
-								followBy: [{entity: 'entity1',
-											idx: 0,	// index of the fade-in
-											start: 2000}]} },
+											u_alpha: [0.1, 0.9] },
+						followBy: [{entity: 'entity1',
+									seqx: 0,	// index of the fade-in
+									start: 0.3}]} },
 					  { mtype: xv.XComponent.AnimType.ALPHA,
 						paras: {start: Infinity,	// triggered by entity1
 								duration: 1.2,		// seconds
