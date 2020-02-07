@@ -35,6 +35,7 @@ describe('case: [script] anim sequence', function() {
 	this.timeout(100000);
 	x.log = 4;
 
+	// Don't change line numbers, referenced by docsphinx/design-memo/animizer.rst
 	it('consecutive scripts', async function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
@@ -44,14 +45,11 @@ describe('case: [script] anim sequence', function() {
 		var cube = ecs.createEntity({
 			id: 'cube0',
 			Obj3: { geom: Obj3Type.BOX,
-					box: [200, 120, 80],	// bounding box
+					box: [200, 120, 80],// bounding box
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
-					// Three use document to load assets, which doesn't exist whil testing
-					// null acts as a flag to let thrender create a ram texture.
-					asset: null },
+					asset: null },		// let thrender create a ram texture.
 
-			// TODO docs: in version 1.0, only type of sequence animation is supported
 			ModelSeqs: {
 				script: [[{ mtype: AnimType.OBJ3ROTX,
 							paras: {start: 0,		// auto start, only alpha tween in v0.2
