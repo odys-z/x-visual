@@ -45,13 +45,14 @@ describe('case: [Visual] load mesh', function() {
 			Visual:{vtype: AssetType.refPoint,
 					asset: 'cube0' },
 			ModelSeqs: {
-					script: [[{ mtype: AnimType.U_VERTS_TRANS,
-							 	paras: {start: 0,	// follow previous
-										duration: 4.2,		// seconds
-										dest: 'entity1',	// entity2.Obj3.mesh
-										uniforms: { u_morph: [0, 1],
-													u_alpha: [0.1, 0.9] } },
-							 }]] },
+					script: [[{
+						mtype: AnimType.U_VERTS_TRANS,
+					 	paras: {start: 0,			// auto start
+								duration: 2.2,		// seconds
+								dest: 'cube0',		// cube0.Obj3.mesh
+								uniforms: { u_morph: [0, 1],
+											u_alpha: [0.1, 0.9] } },
+				}]] },
 			CmpTweens: { twindx: [], tweens: [] }
 		});
 
