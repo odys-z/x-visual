@@ -14,7 +14,7 @@ import XWorld from '../lib/xapp/xworld'
 import {x} from '../lib/xapp/xworld'
 import {sleep} from '../lib/xutils/xcommon'
 
-import {Visual, Canvas, AssetType} from '../lib/component/visual'
+import {Visual, AssetType} from '../lib/component/visual'
 import {Obj3, Obj3Type} from '../lib/component/obj3'
 import {AnimType, ModelSeqs} from '../lib/component/morph';
 import {CmpTween, CmpTweens} from '../lib/component/tween';
@@ -31,8 +31,8 @@ function assertComplete(buffer) {
 	};
 }
 
-describe('case: [tween] anim sequence', function() {
-	this.timeout(1000000);
+describe('case: [script] anim sequence', function() {
+	this.timeout(100000);
 	x.log = 4;
 
 	it('consecutive scripts', async function() {
@@ -156,7 +156,6 @@ describe('case: [tween] anim sequence', function() {
 	});
 
 	it('animizer: referencing particles translating', async function() {
-		debugger
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 		var cube = ecs.createEntity({
@@ -247,7 +246,6 @@ describe('case: [tween] anim sequence', function() {
 			CmpTweens: { twindx: [], tweens: [] }
 		});
 
-		debugger
 		xworld.startUpdate();// cube fade out
 			assert.equal( cube.CmpTweens.twindx.length, 2, 'cube twindx != 2' );
 			assert.equal( points.CmpTweens.twindx.length, 1, 'particles twindx != 1' );

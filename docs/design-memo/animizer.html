@@ -235,20 +235,34 @@
 <li>start</li>
 </ul>
 <p>Acctually this is delay time in seconds.</p>
-<p>value: 0 | null | undefined:</p>
+<p>value</p>
+<p>0 | number:</p>
 <blockquote>
-<div>start the first immediatly, without delaying following once the previous one completed;</div></blockquote>
+<div>Delay seconds and start the the animation.</div></blockquote>
 <p>Infinity:</p>
 <blockquote>
-<div>start the tween with other way, e.g. by cmd handling (todo)</div></blockquote>
+<div>Infinity: Never start automatically. (Triggered by others)</div></blockquote>
 <ul class="simple">
 <li>duration</li>
 </ul>
-<p>Same as tween.js</p>
+<p>Animation duration, in seconds.</p>
 <ul class="simple">
 <li>ease:</li>
 </ul>
-<p>Same as tween.js</p>
+<p>Same as tween.js, any one of</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Linear</span>
+<span class="n">Quadratic</span>
+<span class="n">Cubic</span>
+<span class="n">Quartic</span>
+<span class="n">Quintic</span>
+<span class="n">Sinusoidal</span>
+<span class="n">Exponential</span>
+<span class="n">Circular</span>
+<span class="n">Elastic</span>
+<span class="n">Back</span>
+<span class="n">Bounce</span>
+</pre></div>
+</div>
 <ul class="simple" id="script-followby">
 <li>followBy:</li>
 </ul>

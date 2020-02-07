@@ -49,7 +49,8 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 							box: [200, 120, 80],	// bounding box
 							// mesh is inited by thrender, can be ignored here - CmpTween's target
-							mesh: undefined },
+							mesh: undefined,
+							uniforms: {opacity: 0.4}},
 					Visual:{vtype: xv.AssetType.mesh,
 							asset: 'tex/byr0.png' },
 
@@ -64,7 +65,7 @@
 								  },
 								  { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
 									paras: {start: Infinity,// auto start
-											duration: 1.5,	// seconds
+											duration: 3.5,	// seconds
 											axis: [0, 1, 0],
 											deg: [0, 90],	// from, to
 					 						ease: xv.XEasing.Elastic.InOut}// TODO docs

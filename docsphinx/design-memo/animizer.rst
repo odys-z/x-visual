@@ -68,21 +68,38 @@ ____________
 
 Acctually this is delay time in seconds.
 
-value: 0 | null | undefined:
+value
 
-    start the first immediatly, without delaying following once the previous one completed;
+0 | number:
+
+    Delay seconds and start the the animation.
+
 
 Infinity:
 
-    start the tween with other way, e.g. by cmd handling (todo)
+    Infinity: Never start automatically. (Triggered by others)
 
 - duration
 
-Same as tween.js
+Animation duration, in seconds.
 
 - ease:
 
-Same as tween.js
+Same as tween.js, any one of
+
+::
+
+    Linear
+    Quadratic
+    Cubic
+    Quartic
+    Quintic
+    Sinusoidal
+    Exponential
+    Circular
+    Elastic
+    Back
+    Bounce
 
 .. _script_followBy:
 
