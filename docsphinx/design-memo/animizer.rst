@@ -88,7 +88,8 @@ Same as tween.js
 
 - followBy:
 
-Trigger another entity's animation when finished.
+An array of scripts that triggering other entities' animation when this animation
+is finished.
 
 Object with properties:
 
@@ -104,9 +105,18 @@ start
 
     see paras.start.
 
+Example:
+
+.. coed-block:: json
+
+    type: [{ entity: 'id',
+             seqx: 0,
+             start: 0.1}]
+..
+
 - startWith:
 
-Start animation with script in another entity.
+Start animation with script in other entities.
 
 Object has same properties of :ref:`script-followBy`.
 
