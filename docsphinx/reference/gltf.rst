@@ -284,6 +284,13 @@ which makes the GLTFLoader instance can be accessed while parsing nodes.
         this.json = json || {};
         ...
     }
+..
+
+The 'node' dependency will get return and returned by parser.parse():
+
+.. _parse-promise:
+
+.. code-block:: javascript
 
     GLTFParser.prototype.parse = function ( onLoad, onError ) {
         var parser = this;
@@ -327,11 +334,13 @@ out.
 
 3. After every thing done, the nodes array also been taken out in gltf results.
 
+For promise returning 'ndoes', see :ref:`Parse Promise<parse-promise>`.
+
 .. code-block:: javascript
 
     GLTFParser.prototype.parse = function ( onLoad, onError ) {
         Promise.all(
-            ...    // see 2.
+            ...
         ).then( function ( dependencies ) {
             var result = {
                     scene: dependencies[ 0 ][ json.scene || 0 ],

@@ -48,7 +48,15 @@ script
 mtype
 +++++
 
-AnimType (TODO doc)
+AnimType
+________
+
+Supported Animation types are defined in x-visual/component/morph.js:
+
+.. literalinclude:: ../../lib/component/morph.js
+   :language: javascript
+   :lines: 5-20
+   :linenos:
 
 paras
 +++++
@@ -58,9 +66,9 @@ ____________
 
 - start
 
-Acctually this is delay time in milliseconds.
+Acctually this is delay time in seconds.
 
-0 | null | undefined: 
+value: 0 | null | undefined:
 
     start the first immediatly, without delaying following once the previous one completed;
 
@@ -75,6 +83,42 @@ Same as tween.js
 - ease:
 
 Same as tween.js
+
+.. _script_followBy:
+
+- followBy:
+
+An array of scripts that triggering other entities' animation when this animation
+is finished.
+
+Object with properties:
+
+entity
+
+    followed by the script of name of the entity.
+
+idx
+
+    script index
+
+start
+
+    see paras.start.
+
+Example:
+
+.. coed-block:: json
+
+    type: [{ entity: 'id',
+             seqx: 0,
+             start: 0.1}]
+..
+
+- startWith:
+
+Start animation with script in other entities.
+
+Object has same properties of :ref:`script-followBy`.
 
 AnimType.OBJ3ROTX paras
 _______________________

@@ -16,21 +16,16 @@
 	<img style='height: 128px; width: 128px', src='../assets/sub/rgb2x2.png'></img>
   </div>
   <script>
+	/**TODO we can also animize letters:
+	 * https://www.html5rocks.com/en/tutorials/webgl/million_letters/#disqus_thread
+	 */
 	"use strict";
 
 	/**Senario: suppose you have some shape for your business. */
 
-	function randInt(min, max) {
-		if (max === undefined) {
-			max = min;
-			min = 0;
-		}
-		return Math.random() * (max - min) + min | 0;
-	}
-
 	function drawPie() {
 		var ctx = document.getElementById('stub').getContext('2d');
-		ctx.fillStyle = `#${randInt(0x1000000).toString(16).padStart(6, '0')}`;
+		ctx.fillStyle = xv.xutils.randomColor();
 		ctx.beginPath();
 		ctx.arc(64, 64, 20, 0, 1.2 * Math.PI);
 		ctx.stroke();

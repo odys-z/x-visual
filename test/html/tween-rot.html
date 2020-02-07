@@ -56,21 +56,21 @@
 					// TODO docs: in version 1.0, only type of sequence animation is supported
 					ModelSeqs: {
 						script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
-									paras: {start: 0,		// auto start, only alpha tween in 0.2
+									paras: {start: 0,		// auto start
 											duration: 1,	// seconds
 											cmd: 'w',		// reset by 'w'
 											deg: [0, 45],	// from, to
 					 						ease: undefined}// default linear
 								  },
 								  { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
-									paras: {start: Infinity,// auto start, only alpha tween in 0.2
+									paras: {start: Infinity,// auto start
 											duration: 1.5,	// seconds
 											axis: [0, 1, 0],
 											deg: [0, 90],	// from, to
 					 						ease: xv.XEasing.Elastic.InOut}// TODO docs
 								  },
 								  { mtype: xv.XComponent.AnimType.ALPHA,
-									paras: {start: Infinity,// auto start, only alpha tween in 0.2
+									paras: {start: Infinity,// start after previous
 											duration: 1.2,	// seconds
 											alpha: [0.9, 0.12],	// from, to
 					 						ease: xv.XEasing.Elastic.In}// TODO docs
