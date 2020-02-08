@@ -84,3 +84,15 @@ Specify a gltf asset file, e.g. int the test case of html/gltf:
 
 The file located in 'assets/city/scene.gltf' and referenced bin file together with
 texture files are loaded by :ref:`xv-gltf-loader` of gltf loader.
+
+
+Visual.paras
+____________
+
+Visual.paras has different usage for different vtype.
+
+It's been used for vtype of :ref:`vtype-refPoint`, :ref:`vtype-point`.
+
+For these vtype, it's usually used together with :ref:`animtype-u-verts-trans` and :ref:`animtype-uniform`.
+
+Check it for how Visual.paras and ModelSeqs.script.paras work together to change glsl/shaders behaviour.
