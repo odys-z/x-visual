@@ -154,15 +154,3 @@ Referenced by [Gltf tutorial: A Minimal glTF File](https://github.com/KhronosGro
 Nope. Sorry!
 
 [updating: Reference & Details](https://odys-z.github.io/x-visual/)
-
-## Usable Components
-
-TODO include xv.js in docs
-
-Currently usable (can registered by user) are
-
-```
-    UserCmd, CmdFlag, XCamera, Geometry, Visual.
-```
-
-For latest version, see exports in lib/xv.js.
