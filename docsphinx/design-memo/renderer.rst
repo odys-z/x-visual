@@ -66,6 +66,9 @@ Point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/d
 Visual.paras
 ____________
 
+For point & refPoint
+....................
+
 Visual.paras has different usage for different vtype.
 
 It's been used for vtype of :ref:`vtype-refPoint`, :ref:`vtype-point`.
@@ -92,6 +95,14 @@ String array of node's name. Model of these nodes will be converted into points.
 If true, the generated Object3D object will have a 'a_noise' attribute. Fo animation
 type :ref:`animtype-u-verts-trans` and :ref:`animtype-uniform`, this value is used for
 scale the distance.
+
+-- paras.vert_scale
+
+A string for vertex size scale: 
+
+.. codle-block:: cpp
+    gl_pointSize = 3.0 * vert_scale;
+..
 
 Visual.asset
 ____________
