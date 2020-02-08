@@ -6,44 +6,31 @@ Mesh Animiation Script
 
 Example:
 
-.. code-block:: javascript
+.. literalinclude:: ../../test/scripts.case.js
+   :language: javascript
+   :lines: 45-73
+   :linenos:
 
-        var cube = ecs.createEntity({
-            id: 'cube0',
-            Obj3: { geom: Obj3Type.BOX,
-                    box: [200, 120, 80],    // bounding box
-                    mesh: undefined },
-            Visual:{vtype: AssetType.mesh,
-                    // Three use document to load assets, which doesn't exist whil testing
-                    // null acts as a flag to let thrender create a ram texture.
-                    asset: null },
+In the above example, the entity is defined with 2 components, ModelSeqs & CmpTweens.
 
-            // TODO docs: in version 1.0, only type of sequence animation is supported
-            ModelSeqs: {
-                script: [[{ mtype: AnimType.OBJ3ROTX,
-                            paras: {start: 0,        // auto start, only alpha tween in v0.2
-                                    duration: 0.8,    // seconds
-                                    cmd: '',
-                                    deg: [0, 45],    // from, to
-                                     ease: undefined}// default linear
-                          },
-                          { mtype: AnimType.OBJ3ROTAXIS,
-                            paras: {start: Infinity,// auto start, only alpha tween in v0.2
-                                    duration: 1,    // seconds
-                                    axis: [0, 1, 0],
-                                    deg: [0, 90],    // from, to
-                                     ease: XEasing.Elastic,// TODO docs
-                                    onComplete: assertComplete(completeflags)}
-                          } ]]
-                },
-            CmpTweens: {
-                twindx: [],    // e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-                tweens: []}    // initialized by animizer, handled by XTweener. [] is safely ignored
-        });
-..
+ModelSeqs is the animation defining animation process that animated by the x-visual's
+tweening system, XTweener.
 
-script
-------
+Then tweening process is record and updated in CmpTweens. It's a 2D array of CmpTween,
+the equivalent of Tween object's data part in Tween.js. The methods part is moved
+to XTweener, which is the style of ECS.
+
+CmpTween and CmpTweens are wrapped by x-visual and user shouldn't worry about it.
+The ModelSeqs is what users will working on, which also is defined as a 2D array.
+
+- ModelSeqs
+
+Each 1D Array of the 2D array is an animation processing script. Each element of
+1D array define a duration of tween animation. The above example defined 1 process
+of two tween steps.
+
+ModleSeqs.script
+----------------
 
 mtype
 +++++
@@ -55,7 +42,7 @@ Supported Animation types are defined in x-visual/component/morph.js:
 
 .. literalinclude:: ../../lib/component/morph.js
    :language: javascript
-   :lines: 5-20
+   :lines: 5-15
    :linenos:
 
 paras
@@ -66,13 +53,14 @@ ____________
 
 - start
 
-Acctually this is delay time in seconds.
+Acctually this is delay time for starting in seconds.
 
 value
 
 0 | number:
 
-    Delay seconds and start the the animation.
+    Delay seconds and start the the animation. If the script step is the first of
+    the animation process, the animation will automatically start.
 
 
 Infinity:
