@@ -56,7 +56,23 @@ will be rendered as an array of WebGl points.
 
 Point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
 
-TODO vertexShader and fragmentShader are optional?, or supporting PointsMaterail?
+- AssetType.refPoint
+
+Same as *point*, except that this type use the *asset* property specifying entity id
+of which the vertices' position is copied from, the entity's Obj3.mesh.
+
+Point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
+
+Visual.paras
+____________
+
+Visual.paras has different usage for different vtype.
+
+It's been used for vtype of :ref:`vtype-refPoint`, :ref:`vtype-point`.
+
+For these vtype, it's usually used together with :ref:`animtype-u-verts-trans` and :ref:`animtype-uniform`.
+
+Check it for how Visual.paras and ModelSeqs.script.paras work together to change glsl/shaders behaviour.
 
 If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).
@@ -71,6 +87,12 @@ TODO test case as example.
 
 String array of node's name. Model of these nodes will be converted into points.
 
+-- paras.noise
+
+If true, the generated Object3D object will have a 'a_noise' attribute. Fo animation
+type :ref:`animtype-u-verts-trans` and :ref:`animtype-uniform`, this value is used for
+scale the distance.
+
 Visual.asset
 ____________
 
@@ -84,15 +106,3 @@ Specify a gltf asset file, e.g. int the test case of html/gltf:
 
 The file located in 'assets/city/scene.gltf' and referenced bin file together with
 texture files are loaded by :ref:`xv-gltf-loader` of gltf loader.
-
-
-Visual.paras
-____________
-
-Visual.paras has different usage for different vtype.
-
-It's been used for vtype of :ref:`vtype-refPoint`, :ref:`vtype-point`.
-
-For these vtype, it's usually used together with :ref:`animtype-u-verts-trans` and :ref:`animtype-uniform`.
-
-Check it for how Visual.paras and ModelSeqs.script.paras work together to change glsl/shaders behaviour.
