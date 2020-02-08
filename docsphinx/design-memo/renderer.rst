@@ -100,7 +100,7 @@ scale the distance.
 
 A string for vertex size scale: 
 
-.. codle-block:: cpp
+.. code-block:: cpp
 
     gl_pointSize = 3.0 * vert_scale;
 ..
