@@ -23,7 +23,7 @@
 				box: [200, 120, 80],	// bounding box
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 				mesh: undefined,
-			 	uniforms: {opacity: 0.2}},
+			 	uniforms: {opacity: 0.1}},
 		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'tex/byr0.png' },
 		// ModelSeqs: {
@@ -50,11 +50,12 @@
 		// 	twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
 		// 	tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
 	};
-	ecs.createEntity(ent1);
+	xworld.addEntities(ent1);
+	// ecs.createEntity(ent1);
 
 	const points = {
 		id: 'points',
-		Obj3: { geom: xv.XComponent.Obj3Type.NA,	// undefined
+		Obj3: { geom: xv.XComponent.Obj3Type.NA,	// use the geometry of entity1
 				box: [200, 2, 1],
 				mesh: undefined,					// THREE.Points
 			 	invisible: false },					// It's visible, but alpha 0?
@@ -90,7 +91,6 @@
 		// 	tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
 	};
 	xworld.addEntities(points);
-	// entities.push(... xworld.addEntities(points));
 
 	const ent2 = {
 		id: 'entity2',
@@ -117,12 +117,9 @@
 			twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
 			tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
 	};
-	// ecs.createEntity(ent2);
 	// entities.push(... xworld.addEntities(ent2));
 
 	xworld.startUpdate();
-
-	// entities[0].ModelSeqs.script[0][0].paras.start = 0;
   </script>
 </body>
 </html>
