@@ -104,6 +104,10 @@ To update rendering texture, use
 
 see [test/html/svg-canvas.html](./test/html/svg-canvas.html).
 
+- Test Case: Model Animization
+
+- Test Case: Particle Animation Script
+
 # Acknowledgement
 
 ## [Three.js](https://threejs.org)

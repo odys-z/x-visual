@@ -187,6 +187,8 @@ the scene object consists many points.</p>
 </ul>
 <p>The created <a class="reference external" href="https://threejs.org/docs/#api/en/core/Object3D">THREE.Object3D</a>
 will be rendered as an array of WebGl points.</p>
+<p>Point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
+<p>TODO vertexShader and fragmentShader are optional?, or supporting PointsMaterail?</p>
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
 <p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created

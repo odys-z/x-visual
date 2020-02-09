@@ -55,7 +55,7 @@ Supported Animation types are defined in x-visual/component/morph.js:
 
 .. literalinclude:: ../../lib/component/morph.js
    :language: javascript
-   :lines: 5-20
+   :lines: 5-15
    :linenos:
 
 AssetType
@@ -66,12 +66,20 @@ AssetType
    :lines: 6-19
    :linenos:
 
+ShaderType
+++++++++++
+
+.. literalinclude:: ../../lib/component/visual.js
+   :language: javascript
+   :lines: 20-24
+   :linenos:
+
 Visual
 ++++++
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 19-29
+   :lines: 25-35
    :linenos:
 
 
@@ -82,5 +90,5 @@ Obj3Type
 
 .. literalinclude:: ../../lib/component/obj3.js
    :language: javascript
-   :lines: 4-37
+   :lines: 5-37
    :linenos:

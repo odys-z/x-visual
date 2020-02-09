@@ -27,10 +27,7 @@ class SubXobj extends XObj {
 	}
 
 	update(tick, entities) {
-		if (this.logcnt < 2) {
-			console.log('SubXobj.update(tick, entities): ', tick, entities)
-			this.logcnt += 1;
-		}
+		this.logcnt += 1;
 	}
 
 }
@@ -58,6 +55,6 @@ describe('case: Subxobj query = [Geometry, Visual]', function() {
 		xworld.update();
 		assert.equal(subx.logcnt, 2);
 		xworld.update();
-		assert.equal(subx.logcnt, 2);
+		assert.equal(subx.logcnt, 3);
 	});
 });

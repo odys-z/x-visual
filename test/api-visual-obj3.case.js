@@ -134,7 +134,6 @@ describe('case: [Visual] points', function() {
 					asset: undefined },
 		});
 
-		debugger
 		xworld.startUpdate();
 		assert.isOk( points.Obj3.mesh );
 		assert.isOk( points.Obj3.mesh instanceof THREE.Points );
