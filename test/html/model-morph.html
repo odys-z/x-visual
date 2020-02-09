@@ -62,34 +62,28 @@
 		Visual:{vtype: xv.AssetType.refPoint,
 				asset: 'entity1',
 				paras: {vert_scale: '1.5'}},
-		// ModelSeqs: {
-		// 	script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
-		// 				paras: {start: Infinity,	// triggered by entity1
-		// 						duration: 1.2,		// seconds
-		// 						alpha: [0.06, 0.92],	// from, to
-		//  						ease: xv.XEasing.Elastic.In} },
-		// 			  { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
-		// 			 	paras: {start: Infinity,	// follow previous
-		// 						duration: 4.2,		// seconds
-		// 						dest: 'entity1',	// entity2.Obj3.mesh
-		// 						uniforms: { u_morph: [0, 1],
-		// 									u_alpha: [0.1, 0.9] },
-		// 				followBy: [{entity: 'entity2',
-		// 							seqx: 0,	// index of the fade-in
-		// 							start: 0.3}]} },
-		// 			  { mtype: xv.XComponent.AnimType.ALPHA,
-		// 				paras: {start: Infinity,	// triggered by entity1
-		// 						duration: 1.2,		// seconds
-		// 						alpha: [0.9, 0.05],	// from, to
-		//  						ease: xv.XEasing.Elastic.In} }
-		// 			]] },
-		// CmpTweens: {
-		// 	// TODO docs: here are some twenn seq already defined by user.
-		// 	// Any newly animized tween sequences will be appended to it.
-		// 	// twindx is 1D array, tweens is a 2D array.
-		// 	// example: xv.ecs.sys.tween.MorphingAnim.initTweens()
-		// 	twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-		// 	tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
+		ModelSeqs: {
+			script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
+						paras: {start: Infinity,	// triggered by entity1
+								duration: 1.2,		// seconds
+								alpha: [0.06, 0.92],// from, to
+		 						ease: xv.XEasing.Elastic.In} },
+					  { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
+					 	paras: {start: Infinity,	// follow previous
+								duration: 1.2,		// seconds
+								dest: 'entity2',	// entity2.Obj3.mesh
+								uniforms: { u_morph: [0, 1],
+											u_alpha: [0.1, 0.9] }},
+						followBy: [{entity: 'entity2',
+									seqx: 0,		// index of the fade-in
+									start: 0.3}] },
+					  { mtype: xv.XComponent.AnimType.ALPHA,
+						paras: {start: Infinity,	// triggered by entity1
+								duration: 1.2,		// seconds
+								alpha: [0.9, 0.05],	// from, to
+		 						ease: xv.XEasing.Elastic.In} }
+					]] },
+		CmpTweens: {}
 	};
 	xworld.addEntities(points);
 
