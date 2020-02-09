@@ -10,6 +10,7 @@ import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld'
 import {x} from '../lib/xapp/xworld'
 import AssetKeepr from '../lib/xutils/assetkeepr'
+import {sleep} from '../lib/xutils/xcommon'
 import {AssetType, ShaderFlag} from '../lib/component/visual';
 import {Obj3, Obj3Type} from '../lib/component/obj3'
 import {AnimType} from '../lib/component/morph'
@@ -22,7 +23,7 @@ describe('case: [Visual] load mesh', function() {
 
 	before(() => { });
 
-	it('refPoint', function() {
+	it('vtype: refPoint', function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
@@ -69,5 +70,59 @@ describe('case: [Visual] load mesh', function() {
 
 		assert.equal(points.CmpTweens.twindx[0], 0);
 		assert.equal(points.CmpTweens.tweens[0][0].isPlaying, true);
+	});
+
+	it('VisualType.refPoint & AnimType.ALPHA', async function() {
+		const xworld = new XWorld(undefined, 'window', {});
+		const ecs = xworld.xecs;
+
+		var completeflags = {};
+
+		var cube = ecs.createEntity({
+			id: 'cube0',
+			Obj3: { geom: Obj3Type.BOX,
+					box: [200, 120, 80],// bounding box
+					mesh: undefined },
+			Visual:{vtype: AssetType.mesh,
+					asset: null }
+		});
+
+		var points = ecs.createEntity({
+			id: 'points',
+			Obj3: { geom: Obj3Type.NA,
+					box: [200, 120, 80],// bounding box
+					mesh: undefined },
+			Visual:{vtype: AssetType.refPoint,
+					asset: 'cube0' },	// shader with default randomParticle flag
+			ModelSeqs: {
+					script: [[{
+						mtype: AnimType.ALPHA,
+					 	paras: {start: 0,			// auto start
+								duration: 0.4,		// seconds
+								alpha: [1, 0] },
+							}]] },
+			CmpTweens: { twindx: [], tweens: [] }
+		});
+
+		debugger
+		xworld.startUpdate();
+		assert.isOk(points.Obj3.mesh);
+		assert.isOk(points.Obj3.mesh.geometry.attributes.position);
+		assert.equal(points.Obj3.mesh.geometry.attributes.position.itemSize, 3);
+		assert.equal(points.Obj3.mesh.geometry.attributes.position.length, 8 * 3 * 3);
+		assert.isNumber(points.Obj3.mesh.geometry.attributes.position.array[0]);
+		assert.isAbove(points.Obj3.mesh.geometry.attributes.position.array[0], -Infinity);
+		assert.isAbove(points.Obj3.mesh.geometry.attributes.position.array[1], -Infinity);
+		assert.isAbove(points.Obj3.mesh.geometry.attributes.position.array[2], -Infinity);
+
+		assert.equal(points.CmpTweens.twindx[0], 0);
+		assert.equal(points.CmpTweens.tweens[0][0].isPlaying, true);
+		assert.closeTo(points.Obj3.mesh.geometry.uniforms.value, 1, 0.1);
+
+		await sleep(500);
+		xworld.update();
+		assert.equal(points.CmpTweens.twindx[0], 0);
+		assert.equal(points.CmpTweens.tweens[0][0].isPlaying, true);
+		assert.closeTo(points.Obj3.mesh.geometry.uniforms.value, 0, 0.1);
 	});
 });
