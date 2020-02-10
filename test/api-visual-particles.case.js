@@ -23,7 +23,7 @@ describe('case: [Particles] VisualType.points', function() {
 
 	before(() => { });
 
-	it('vtype: refPoint', function() {
+	it('vtype: convert refPoint to particles', function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
@@ -71,7 +71,7 @@ describe('case: [Particles] VisualType.points', function() {
 		assert.equal(points.CmpTweens.tweens[0][0].isPlaying, true);
 	});
 
-	it('VisualType.refPoint & AnimType.ALPHA', async function() {
+	it('VisualType.refPoint & AnimType.ALPHA script animation', async function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
@@ -125,7 +125,7 @@ describe('case: [Particles] VisualType.points', function() {
 		assert.closeTo(points.Obj3.mesh.material.uniforms.u_alpha.value, 0, 0.1, 'uniforms.u_alpha 0');
 	});
 
-	it('VisualType.refPoint & AnimType.U_VERTS_TRANS', async function() {
+	it('VisualType.refPoint & AnimType.U_VERTS_TRANS script animation', async function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
@@ -135,6 +135,15 @@ describe('case: [Particles] VisualType.points', function() {
 			id: 'cube0',
 			Obj3: { geom: Obj3Type.BOX,
 					box: [200, 120, 80],// bounding box
+					mesh: undefined },
+			Visual:{vtype: AssetType.mesh,
+					asset: null }
+		});
+
+		var cub2 = ecs.createEntity({
+			id: 'cube2',
+			Obj3: { geom: Obj3Type.BOX,
+					box: [100, 200, 20],// bounding box
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null }
@@ -159,15 +168,6 @@ describe('case: [Particles] VisualType.points', function() {
 			CmpTweens: { twindx: [], tweens: [] }
 		});
 
-		var cub2 = ecs.createEntity({
-			id: 'cube2',
-			Obj3: { geom: Obj3Type.BOX,
-					box: [100, 200, 20],// bounding box
-					mesh: undefined },
-			Visual:{vtype: AssetType.mesh,
-					asset: null }
-		});
-
 		xworld.startUpdate();
 		assert.isNumber(points.Obj3.mesh.material.uniforms.u_alpha.value, 'uniforms.u_alpha');
 		assert.isOk(points.Obj3.mesh);
@@ -185,7 +185,6 @@ describe('case: [Particles] VisualType.points', function() {
 		assert.closeTo(points.Obj3.mesh.material.uniforms.u_morph.value, 0, 0.1, 'uniforms.u_morph 0');
 
 		await sleep(500);
-		debugger
 		xworld.update();
 		assert.equal(points.CmpTweens.twindx[0], 1);
 		assert.equal(points.CmpTweens.tweens[0][0].isPlaying, false);
