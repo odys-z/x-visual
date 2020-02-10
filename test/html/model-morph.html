@@ -23,106 +23,103 @@
 				box: [200, 120, 80],	// bounding box
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 				mesh: undefined,
-			 	uniforms: {opacity: 0.2}},
+			 	uniforms: {opacity: 0.1}},
 		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'tex/byr0.png' },
-		// ModelSeqs: {
-		// 	script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
-		// 				paras: {start: 0,			// auto start
-		// 						duration: 0.7,		// seconds
-		// 						alpha: [0.05, 0.90],// from, to
-		//  						ease: xv.XEasing.Elastic.Elastic},
-		// 				startWith:[{entity: 'points',
-		// 							seqx: 0,		// index of the fade-in
-		// 							start: 0.0}]
-		// 			 }],
-		// 			 [{ mtype: xv.XComponent.AnimType.ALPHA,
-		// 				paras: {start: Infinity,
-		// 						alpha: [0.95, 0.05],
-		// 						ease: undefined},
-		// 			 }]
-		// 		 ] },
-		// CmpTweens: {
-		// 	// TODO docs: here are some twenn seq already defined by user.
-		// 	// Any newly animized tween sequences will be appended to it.
-		// 	// twindx is 1D array, tweens is a 2D array.
-		// 	// example: xv.ecs.sys.tween.MorphingAnim.initTweens()
-		// 	twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-		// 	tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
+		ModelSeqs: {
+			script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
+						paras: {start: 0,			// auto start
+								duration: 0.7,		// seconds
+								alpha: [0.95, 0.05],// from, to
+		 						ease: xv.XEasing.Elastic.Elastic},
+						startWith:[{entity: 'points',
+									seqx: 0,		// index of the fade-in
+									start: 0.0}]
+					 }],
+					 [{ mtype: xv.XComponent.AnimType.ALPHA,
+						paras: {start: Infinity,
+								alpha: [0.05, 0.95],
+								ease: undefined},
+					 }]
+				 ] },
+		CmpTweens: {
+			// TODO docs: here are some twenn seq already defined by user.
+			// Any newly animized tween sequences will be appended to it.
+			// twindx is 1D array, tweens is a 2D array.
+			// example: xv.ecs.sys.tween.MorphingAnim.initTweens()
+			twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
+			tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
 	};
-	ecs.createEntity(ent1);
-
-	const points = {
-		id: 'points',
-		Obj3: { geom: xv.XComponent.Obj3Type.NA,	// undefined
-				box: [200, 2, 1],
-				mesh: undefined,					// THREE.Points
-			 	invisible: false },					// It's visible, but alpha 0?
-		Visual:{vtype: xv.AssetType.refPoint,
-				asset: 'entity1' },
-		// ModelSeqs: {
-		// 	script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
-		// 				paras: {start: Infinity,	// triggered by entity1
-		// 						duration: 1.2,		// seconds
-		// 						alpha: [0.06, 0.92],	// from, to
-		//  						ease: xv.XEasing.Elastic.In} },
-		// 			  { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
-		// 			 	paras: {start: Infinity,	// follow previous
-		// 						duration: 4.2,		// seconds
-		// 						dest: 'entity1',	// entity2.Obj3.mesh
-		// 						uniforms: { u_morph: [0, 1],
-		// 									u_alpha: [0.1, 0.9] },
-		// 				followBy: [{entity: 'entity2',
-		// 							seqx: 0,	// index of the fade-in
-		// 							start: 0.3}]} },
-		// 			  { mtype: xv.XComponent.AnimType.ALPHA,
-		// 				paras: {start: Infinity,	// triggered by entity1
-		// 						duration: 1.2,		// seconds
-		// 						alpha: [0.9, 0.05],	// from, to
-		//  						ease: xv.XEasing.Elastic.In} }
-		// 			]] },
-		// CmpTweens: {
-		// 	// TODO docs: here are some twenn seq already defined by user.
-		// 	// Any newly animized tween sequences will be appended to it.
-		// 	// twindx is 1D array, tweens is a 2D array.
-		// 	// example: xv.ecs.sys.tween.MorphingAnim.initTweens()
-		// 	twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-		// 	tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
-	};
-	xworld.addEntities(points);
-	// entities.push(... xworld.addEntities(points));
+	xworld.addEntities(ent1);
+	// ecs.createEntity(ent1);
 
 	const ent2 = {
 		id: 'entity2',
-		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [360, 40, 0],	// bounding box
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [260, 40, 200],	// bounding box
 				mesh: undefined,
 			 	uniforms: {opacity: 0.2}},
 		Visual:{vtype: xv.AssetType.mesh,
 				asset: 'city/textures/World_ap_baseColor.jpeg' },
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
-						paras: {start: Infinity,		// auto start
-								duration: 3.2,			// seconds
-								alpha: [0.05, 0.90],	// from, to
-		 						ease: xv.XEasing.Elastic.In}
+						paras: {start: Infinity,		// follow points[0][1]
+								duration: 1.2,			// seconds
+								alpha: [0.95, 0.05],	// from, to
+		 						ease: xv.XEasing.Elastic.In},
 					 }],
 					 [{ mtype: xv.XComponent.AnimType.ALPHA,
 						paras: {start: Infinity,
 								duration: 3.2,			// seconds
-								alpha: [0.95, 0.05],
+								alpha: [0.05, 0.95],
 								ease: undefined }}]
 					]},
 		CmpTweens: {
 			twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
 			tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
 	};
-	// ecs.createEntity(ent2);
+	xworld.addEntities(ent2);
 	// entities.push(... xworld.addEntities(ent2));
 
-	xworld.startUpdate();
+	const points = {
+		id: 'points',
+		Obj3: { geom: xv.XComponent.Obj3Type.NA,	// use the geometry of entity1
+				box: [200, 2, 1],
+				mesh: undefined,					// THREE.Points
+			 	invisible: false },					// It's visible, but alpha 0?
+		Visual:{vtype: xv.AssetType.refPoint,
+				asset: 'entity1',
+				shader: xv.XComponent.ShaderFlag.randomParticles | xv.XComponent.ShaderFlag.defaultex,
+				paras: {vert_scale: '30.0',
+						a_dest: 'entity2',			// entity2.Obj3.mesh
+						// u_tex: 'tex/spark1.png',
+						// u_tex: 'tex/crosstar.png',
+						a_noise: false}},
+		ModelSeqs: {
+			script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
+						paras: {start: Infinity,	// TODO triggered by entity1
+								duration: 1.2,		// seconds
+								alpha: [0.06, 0.92],// from, to
+		 						ease: xv.XEasing.Elastic.In} },
+					  { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
+					 	paras: {start: Infinity,	// follow previous
+								duration: 1.2,		// seconds
+								uniforms: { u_morph: [0, 1],
+											u_alpha: [0.1, 0.9] }},
+						followBy: [{entity: 'entity2',
+									seqx: 1,		// index of the fade-in
+									start: 0.3}] },
+					  { mtype: xv.XComponent.AnimType.ALPHA,
+						paras: {start: Infinity,	// triggered by entity1
+								duration: 1.2,		// seconds
+								alpha: [0.9, 0.41],	// from, to
+		 						ease: xv.XEasing.Elastic.In} }
+					]] },
+		CmpTweens: {}
+	};
+	xworld.addEntities(points);
 
-	// entities[0].ModelSeqs.script[0][0].paras.start = 0;
+	xworld.startUpdate();
   </script>
 </body>
 </html>
