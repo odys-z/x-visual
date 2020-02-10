@@ -29,8 +29,8 @@ Each 1D Array of the 2D array is an animation processing script. Each element of
 1D array define a duration of tween animation. The above example defined 1 process
 of two tween steps.
 
-script
-------
+ModleSeqs.script
+----------------
 
 mtype
 +++++
@@ -145,3 +145,22 @@ ____________________
 - alpha:
 
 Array of starting and ending alpha.
+
+AnimType.UNIFORM paras
+______________________
+
+
+AnimType.U_VERTS_TRANS paras
+____________________________
+
+- u_morph:
+
+The vertix position will be mixed with attribute target, *a_target*. 
+For a_target, See VisualType.point.
+
+- u_dist:
+
+The vertix distance to position variable, scaled with attribute noise, *a_noise*. 
+For a_noise, See VisualType.point.
+
+

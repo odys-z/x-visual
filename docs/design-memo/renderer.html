@@ -188,7 +188,21 @@ the scene object consists many points.</p>
 <p>The created <a class="reference external" href="https://threejs.org/docs/#api/en/core/Object3D">THREE.Object3D</a>
 will be rendered as an array of WebGl points.</p>
 <p>Point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
-<p>TODO vertexShader and fragmentShader are optional?, or supporting PointsMaterail?</p>
+<ul class="simple">
+<li>AssetType.refPoint</li>
+</ul>
+<p>Same as <em>point</em>, except that this type use the <em>asset</em> property specifying entity id
+of which the vertices&#8217; position is copied from, the entity&#8217;s Obj3.mesh.</p>
+<p>Point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
+</div>
+<div class="section" id="visual-paras">
+<h4>Visual.paras<a class="headerlink" href="#visual-paras" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="for-point-refpoint">
+<h5>For point &amp; refPoint<a class="headerlink" href="#for-point-refpoint" title="Permalink to this headline">¶</a></h5>
+<p>Visual.paras has different usage for different vtype.</p>
+<p>It&#8217;s been used for vtype of <span class="xref std std-ref">vtype-refPoint</span>, <span class="xref std std-ref">vtype-point</span>.</p>
+<p>For these vtype, it&#8217;s usually used together with <span class="xref std std-ref">animtype-u-verts-trans</span> and <span class="xref std std-ref">animtype-uniform</span>.</p>
+<p>Check it for how Visual.paras and ModelSeqs.script.paras work together to change glsl/shaders behaviour.</p>
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
 <p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
@@ -197,6 +211,16 @@ by Thrender using this entity.Visual.paras.obj3type, whhich can be one of
 <p>TODO test case as example.</p>
 <p>&#8211; paras.nodes</p>
 <p>String array of node&#8217;s name. Model of these nodes will be converted into points.</p>
+<p>&#8211; paras.noise</p>
+<p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. Fo animation
+type <span class="xref std std-ref">animtype-u-verts-trans</span> and <span class="xref std std-ref">animtype-uniform</span>, this value is used for
+scale the distance.</p>
+<p>&#8211; paras.vert_scale</p>
+<p>A string for vertex size scale:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">gl_pointSize</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">vert_scale</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="visual-asset">
 <h4>Visual.asset<a class="headerlink" href="#visual-asset" title="Permalink to this headline">¶</a></h4>
