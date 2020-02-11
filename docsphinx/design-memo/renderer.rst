@@ -24,10 +24,10 @@ Example:
             id: 'cube0',
             Obj3: { geom: Obj3Type.BOX,
                     box: [200, 120, 80],    // bounding box
-                    mesh: undefined },
+                    mesh: undefined },      // Thrender will create this from Visual
             Visual:{vtype: AssetType.mesh,
-                    // Three use document to load assets, which doesn't exist whil testing
-                    // null acts as a flag to let thrender create a ram texture.
+                    // Three use document to load assets, which doesn't exist while testing.
+                    // 'null' acts as a flag to let thrender create a ram texture.
                     asset: null },
             });
 ..
@@ -49,12 +49,40 @@ the scene object consists many points.
 Visual.vtype
 ____________
 
+.. _vtype-point:
+
 - AssetType.point
 
 The created `THREE.Object3D <https://threejs.org/docs/#api/en/core/Object3D>`_
 will be rendered as an array of WebGl points.
 
+<<<<<<< HEAD
+=======
 The point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
+
+.. _vtype-refPoint:
+
+- AssetType.refPoint
+
+Same as *point*, except that this type use the *asset* property specifying entity id
+of which the vertices' position is copied from, the entity's Obj3.mesh.
+
+The refPoint type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
+
+Visual.paras
+____________
+
+For point & refPoint
+....................
+
+Visual.paras has different usage for different vtype.
+
+It's been used for vtype = :ref:`AssetType.refPoint<vtype-refPoint>` or
+:ref:`AssetType.point<vtype-point>`.
+
+For these vtype, it's usually used together with :ref:`animtype-u-verts-trans` and :ref:`animtype-uniform`.
+
+Check it for how Visual.paras and ModelSeqs.script.paras work together to change glsl/shaders behaviour.
 
 If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).
@@ -76,6 +104,30 @@ TODO test case as example.
 
 A `Voxel <https://en.wikipedia.org/wiki/Voxel>`_ is handled in x-visual as a single
 WebGl point.
+
+-- paras.noise
+
+If true, the generated Object3D object will have a 'a_noise' attribute. For animation
+type :ref:`AnimType U_VERTS_TRANS<animtype-u-verts-trans>` and :ref:`AnimType UNIFORM<animtype-uniform>`,
+this value is used for scale the distance.
+
+-- paras.vert_scale
+
+A string for vertex size scale. Here is how the default particles vertex shader
+handling this parameter.
+
+.. code-block:: javascript
+
+	gl_PointSize = size * `${paras.vert_scale || '10.0'}`;
+..
+
+-- paras.u_tex
+
+A string pointing to file in 'asset' folder. If the is not undefined, the vtype's
+flag, ShaderFlag.defaultex is ignored.
+
+u_tex is a shader's uniforms parameter, which means only Visual using THREE.ShaderMaterial
+can has a u_tex parameter.
 
 Visual.asset
 ____________

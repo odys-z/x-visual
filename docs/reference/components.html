@@ -13,7 +13,7 @@
 
   
   
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
 
   
@@ -246,10 +246,12 @@
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">ShaderType</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="nx">random</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-	<span class="nx">user</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
-<span class="p">}</span>
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** javascript operators uses 32 bits signed integers</span>
+<span class="cm"> * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators</span>
+<span class="cm"> */</span>
+<span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nx">mask</span><span class="o">:</span> <span class="mh">0xffff</span><span class="p">,</span>	<span class="c1">// 16 bits for types</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -265,17 +267,17 @@
  8
  9
 10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">Visual</span> <span class="o">=</span> <span class="p">{</span>
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span>	<span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>	<span class="c1">// use default texture</span>
+	<span class="nx">testPoints</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>		<span class="c1">// default</span>
+	<span class="nx">randomParticles</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+	<span class="nx">uniformParticles</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">Visual</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
 	<span class="nx">vtype</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
 	<span class="c1">// sprite: {}, // suposing</span>
-	<span class="c1">// shader: {fx: &#39;id&#39;, vs: &#39;id&#39;}, // suposing</span>
-	<span class="c1">// matId: &#39;&#39;,</span>
-	<span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// texture path, mesh, sprite, shader, materail, ...</span>
-	<span class="nx">paras</span><span class="o">:</span> <span class="p">{},</span>
-	<span class="c1">// uniforms: {}	// deprecated</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+	<span class="nx">shader</span><span class="o">:</span> <span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">testPoints</span><span class="p">,</span>
 </pre></div>
 </td></tr></table></div>
 </div>

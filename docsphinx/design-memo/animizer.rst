@@ -89,7 +89,7 @@ Same as tween.js, any one of
     Back
     Bounce
 
-.. _script_followBy:
+.. _script-followby:
 
 - followBy:
 
@@ -112,7 +112,7 @@ start
 
 Example:
 
-.. coed-block:: json
+.. code-block:: json
 
     type: [{ entity: 'id',
              seqx: 0,
@@ -123,7 +123,7 @@ Example:
 
 Start animation with script in other entities.
 
-Object has same properties of :ref:`script-followBy`.
+Object has same properties of :ref:`paras.followBy<script-followby>`.
 
 AnimType.OBJ3ROTX paras
 _______________________
@@ -145,3 +145,38 @@ ____________________
 - alpha:
 
 Array of starting and ending alpha.
+
+If the Visual is a :ref:`point<vtype-point>` or :ref:`refPoint<vtype-refPoint>`
+type, the alpha tween is been handled by shader.
+
+.. _animtype-uniform:
+
+AnimType.UNIFORM paras
+______________________
+
+.. _animtype-u-verts-trans:
+
+AnimType.U_VERTS_TRANS paras
+____________________________
+
+- u_morph:
+
+The vertix position will be mixed with attribute target, *a_target*.
+For a_target, See VisualType.point.
+
+- u_dist:
+
+The vertix distance to position variable, scaled with attribute noise, *a_noise*.
+For a_noise, See VisualType.point.
+
+Script Example:
+---------------
+
+The test case 'html/model-morph.html' is an html page using transpiled results,
+defining 2 box object, with the 3rd as points referencing the boxes' vertices and
+moving the poings, changing the alpha.
+
+.. literalinclude:: ../../test/html/model-morph.html
+   :language: javascript
+   :lines: 14-118
+   :linenos:
