@@ -56,8 +56,6 @@ ____________
 The created `THREE.Object3D <https://threejs.org/docs/#api/en/core/Object3D>`_
 will be rendered as an array of WebGl points.
 
-<<<<<<< HEAD
-=======
 The point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
 
 .. _vtype-refPoint:
