@@ -54,22 +54,28 @@ ____________
 The created `THREE.Object3D <https://threejs.org/docs/#api/en/core/Object3D>`_
 will be rendered as an array of WebGl points.
 
-Point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
-
-TODO vertexShader and fragmentShader are optional?, or supporting PointsMaterail?
+The point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
 
 If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).
 
 If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
-by Thrender using this entity.Visual.paras.obj3type, whhich can be one of 
+by Thrender using this entity.Visual.paras.obj3type, which can be one of
 :ref:`Obj3Type component<api-component-obj3type>` value.
-
-TODO test case as example.
 
 -- paras.nodes
 
-String array of node's name. Model of these nodes will be converted into points.
+This parameter used only for creating mesh from gltf assets. It's a string array
+of node's name in gltf. Model of these nodes will be converted into points.
+
+- AssetType.refPoint
+
+TODO test case as example.
+
+- AssetType.voxel
+
+A `Voxel <https://en.wikipedia.org/wiki/Voxel>`_ is handled in x-visual as a single
+WebGl point.
 
 Visual.asset
 ____________
