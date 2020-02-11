@@ -15,38 +15,42 @@
 	// initiating xworld
 	const defs = [];
 	defs.push({
-		id: 'entity1',
+		id: 'ent1',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [200, 120, 80],	// bounding box
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 				mesh: undefined,
-			 	uniforms: {opacity: 0.1}},
+			 	uniforms: {opacity: 0.9}},
 		Visual:{vtype: xv.AssetType.mesh,// TODO path / line
-				asset: null },
+				paras: {tex_alpha: 0.9},
+				asset: 'tex/crosstar.png' },
 	});
 
 	defs.push({
-		id: 'entity2',
+		id: 'ent2',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [260, 40, 200],	// bounding box
 				mesh: undefined,
+				invisible: true,
 			 	uniforms: {opacity: 0.1}},
 		Visual:{vtype: xv.AssetType.mesh,// TODO path / line
+				paras: {alpha: 0.001},
 				asset: null },
 	});
 
 	defs.push({
 		id: 'points',
-		Obj3: { geom: xv.XComponent.Obj3Type.NA,	// use the geometry of entity1
+		Obj3: { geom: xv.XComponent.Obj3Type.NA,	// use the geometry of ent1
 				box: [200, 2, 1],
 				mesh: undefined,					// THREE.Points
 			 	invisible: false },					// It's visible, but alpha 0?
-		Visual:{vtype: xv.AssetType.voxel,
-				asset: 'entity1',
+		Visual:{vtype: xv.AssetType.cubeVoxel,
+				asset: 'ent1',
 				shader: xv.XComponent.ShaderFlag.cubeVoxels,
 				paras: {vert_scale: '30.0',
-						a_dest: 'entity2',			// entity2.Obj3.mesh
-						u_tex: 'tex/spark1.png' } },
+						uniforms:{u_cubes: ['ent1', 'ent2'],	// ent2.Obj3.mesh, matrix, etc.
+								  u_sects: [5, 6, 7],			// sections in x, y, z
+								  u_tex: 'tex/spark1.png' } }},
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
 						paras: {start: 0,
