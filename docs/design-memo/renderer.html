@@ -13,7 +13,7 @@
 
   
   
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
 
   
@@ -163,10 +163,10 @@
     <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
     <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
             <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>    <span class="c1">// bounding box</span>
-            <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
+            <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>      <span class="c1">// Thrender will create this from Visual</span>
     <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
-            <span class="c1">// Three use document to load assets, which doesn&#39;t exist whil testing</span>
-            <span class="c1">// null acts as a flag to let thrender create a ram texture.</span>
+            <span class="c1">// Three use document to load assets, which doesn&#39;t exist while testing.</span>
+            <span class="c1">// &#39;null&#39; acts as a flag to let thrender create a ram texture.</span>
             <span class="nx">asset</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
     <span class="p">});</span>
 </pre></div>
@@ -182,13 +182,13 @@ point visual and points object, where point is a visual effect a points array,
 the scene object consists many points.</p>
 <div class="section" id="visual-vtype">
 <h4>Visual.vtype<a class="headerlink" href="#visual-vtype" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
+<ul class="simple" id="vtype-point">
 <li>AssetType.point</li>
 </ul>
 <p>The created <a class="reference external" href="https://threejs.org/docs/#api/en/core/Object3D">THREE.Object3D</a>
 will be rendered as an array of WebGl points.</p>
 <p>Point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
-<ul class="simple">
+<ul class="simple" id="vtype-refpoint">
 <li>AssetType.refPoint</li>
 </ul>
 <p>Same as <em>point</em>, except that this type use the <em>asset</em> property specifying entity id
@@ -200,8 +200,9 @@ of which the vertices&#8217; position is copied from, the entity&#8217;s Obj3.me
 <div class="section" id="for-point-refpoint">
 <h5>For point &amp; refPoint<a class="headerlink" href="#for-point-refpoint" title="Permalink to this headline">¶</a></h5>
 <p>Visual.paras has different usage for different vtype.</p>
-<p>It&#8217;s been used for vtype of <span class="xref std std-ref">vtype-refPoint</span>, <span class="xref std std-ref">vtype-point</span>.</p>
-<p>For these vtype, it&#8217;s usually used together with <span class="xref std std-ref">animtype-u-verts-trans</span> and <span class="xref std std-ref">animtype-uniform</span>.</p>
+<p>It&#8217;s been used for vtype = <a class="reference internal" href="#vtype-refpoint"><span>AssetType.refPoint</span></a> or
+<a class="reference internal" href="#vtype-point"><span>AssetType.point</span></a>.</p>
+<p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType.U_VERTS_TRANS paras</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType.UNIFORM paras</span></a>.</p>
 <p>Check it for how Visual.paras and ModelSeqs.script.paras work together to change glsl/shaders behaviour.</p>
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
@@ -212,14 +213,20 @@ by Thrender using this entity.Visual.paras.obj3type, whhich can be one of
 <p>&#8211; paras.nodes</p>
 <p>String array of node&#8217;s name. Model of these nodes will be converted into points.</p>
 <p>&#8211; paras.noise</p>
-<p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. Fo animation
-type <span class="xref std std-ref">animtype-u-verts-trans</span> and <span class="xref std std-ref">animtype-uniform</span>, this value is used for
-scale the distance.</p>
+<p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. For animation
+type <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType U_VERTS_TRANS</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType UNIFORM</span></a>,
+this value is used for scale the distance.</p>
 <p>&#8211; paras.vert_scale</p>
-<p>A string for vertex size scale:</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">gl_pointSize</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">vert_scale</span><span class="p">;</span>
+<p>A string for vertex size scale. Here is how the default particles vertex shader
+handling this parameter.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">gl_PointSize</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">*</span> <span class="sb">`</span><span class="si">${</span><span class="nx">paras</span><span class="p">.</span><span class="nx">vert_scale</span> <span class="o">||</span> <span class="s1">&#39;10.0&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
 </pre></div>
 </div>
+<p>&#8211; paras.u_tex</p>
+<p>A string pointing to file in &#8216;asset&#8217; folder. If the is not undefined, the vtype&#8217;s
+flag, ShaderFlag.defaultex is ignored.</p>
+<p>u_tex is a shader&#8217;s uniforms parameter, which means only Visual using THREE.ShaderMaterial
+can has a u_tex parameter.</p>
 </div>
 </div>
 <div class="section" id="visual-asset">
