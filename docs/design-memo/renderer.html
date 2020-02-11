@@ -96,6 +96,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#head">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
 </ul>
@@ -187,18 +188,19 @@ the scene object consists many points.</p>
 </ul>
 <p>The created <a class="reference external" href="https://threejs.org/docs/#api/en/core/Object3D">THREE.Object3D</a>
 will be rendered as an array of WebGl points.</p>
-<p>Point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="head">
+<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<a class="headerlink" href="#head" title="Permalink to this headline">¶</a></h1>
+<p>The point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
 <ul class="simple" id="vtype-refpoint">
 <li>AssetType.refPoint</li>
 </ul>
 <p>Same as <em>point</em>, except that this type use the <em>asset</em> property specifying entity id
 of which the vertices&#8217; position is copied from, the entity&#8217;s Obj3.mesh.</p>
-<p>Point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
-</div>
-<div class="section" id="visual-paras">
-<h4>Visual.paras<a class="headerlink" href="#visual-paras" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="for-point-refpoint">
-<h5>For point &amp; refPoint<a class="headerlink" href="#for-point-refpoint" title="Permalink to this headline">¶</a></h5>
+<p>The refPoint type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
 <p>Visual.paras has different usage for different vtype.</p>
 <p>It&#8217;s been used for vtype = <a class="reference internal" href="#vtype-refpoint"><span>AssetType.refPoint</span></a> or
 <a class="reference internal" href="#vtype-point"><span>AssetType.point</span></a>.</p>
@@ -207,11 +209,20 @@ of which the vertices&#8217; position is copied from, the entity&#8217;s Obj3.me
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
 <p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
-by Thrender using this entity.Visual.paras.obj3type, whhich can be one of
+by Thrender using this entity.Visual.paras.obj3type, which can be one of
 <a class="reference internal" href="../reference/components.html#api-component-obj3type"><span>Obj3Type component</span></a> value.</p>
-<p>TODO test case as example.</p>
 <p>&#8211; paras.nodes</p>
-<p>String array of node&#8217;s name. Model of these nodes will be converted into points.</p>
+<p>This parameter used only for creating mesh from gltf assets. It&#8217;s a string array
+of node&#8217;s name in gltf. Model of these nodes will be converted into points.</p>
+<ul class="simple">
+<li>AssetType.refPoint</li>
+</ul>
+<p>TODO test case as example.</p>
+<ul class="simple">
+<li>AssetType.voxel</li>
+</ul>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Voxel">Voxel</a> is handled in x-visual as a single
+WebGl point.</p>
 <p>&#8211; paras.noise</p>
 <p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. For animation
 type <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType U_VERTS_TRANS</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType UNIFORM</span></a>,
@@ -227,10 +238,6 @@ handling this parameter.</p>
 flag, ShaderFlag.defaultex is ignored.</p>
 <p>u_tex is a shader&#8217;s uniforms parameter, which means only Visual using THREE.ShaderMaterial
 can has a u_tex parameter.</p>
-</div>
-</div>
-<div class="section" id="visual-asset">
-<h4>Visual.asset<a class="headerlink" href="#visual-asset" title="Permalink to this headline">¶</a></h4>
 <p>Specify a gltf asset file, e.g. int the test case of html/gltf:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>test/html/gitf-city.html/script/Citysys.initCity(),
 
@@ -239,9 +246,6 @@ Visual.asset: &#39;city/scene.gltf&#39;
 </div>
 <p>The file located in &#8216;assets/city/scene.gltf&#8217; and referenced bin file together with
 texture files are loaded by <a class="reference internal" href="../reference/gltf.html#xv-gltf-loader"><span>The X-visual Edition</span></a> of gltf loader.</p>
-</div>
-</div>
-</div>
 </div>
 
 

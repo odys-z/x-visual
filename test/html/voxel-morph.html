@@ -43,7 +43,7 @@
 			 	invisible: false },					// It's visible, but alpha 0?
 		Visual:{vtype: xv.AssetType.voxel,
 				asset: 'entity1',
-				shader: xv.XComponent.ShaderFlag.randomParticles,
+				shader: xv.XComponent.ShaderFlag.cubeVoxels,
 				paras: {vert_scale: '30.0',
 						a_dest: 'entity2',			// entity2.Obj3.mesh
 						u_tex: 'tex/spark1.png' } },
@@ -67,7 +67,7 @@
 											a_noise: [0.2, 0.02] },
 		 						ease: xv.XEasing.Elastic.In},
 						followBy: [{entity: 'points',
-									seqx: 0,		// index of the fade-in
+									seqx: 0,		// repeat
 									start: 3}] },
 					]] },
 		CmpTweens: {}

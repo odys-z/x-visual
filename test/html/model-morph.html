@@ -29,9 +29,9 @@
         ModelSeqs: {
             script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
                         paras: {start: 0,            // auto start
-                                duration: 0.7,        // seconds
-                                alpha: [0.95, 0.05],// from, to
-                                 ease: xv.XEasing.Elastic.Elastic},
+                                duration: 0.7,       // seconds
+                                alpha: [0.95, 0.05], // from, to
+                                ease: xv.XEasing.Elastic.Elastic},
                         startWith:[{entity: 'points',
                                     seqx: 0,        // index of the fade-in
                                     start: 0.0}]
@@ -73,9 +73,7 @@
                                 alpha: [0.05, 0.95],
                                 ease: undefined }}]
                     ]},
-        CmpTweens: {
-            twindx: [],    // e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-            tweens: []}    // initialized by animizer, handled by XTweener. [] is safely ignored
+        CmpTweens: {}
     };
     xworld.addEntities(ent2);
 
