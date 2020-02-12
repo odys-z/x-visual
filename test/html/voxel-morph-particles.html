@@ -22,7 +22,7 @@
 				mesh: undefined,
 				// invisible: true,
 			 	uniforms: {opacity: 0.9}},
-		Visual:{vtype: xv.AssetType.mesh,// TODO path / line
+		Visual:{vtype: xv.AssetType.mesh,
 				paras: {tex_alpha: 0.9},
 				asset: null },
 	});
@@ -34,7 +34,7 @@
 				mesh: undefined,
 				// invisible: true,
 			 	uniforms: {opacity: 0.1}},
-		Visual:{vtype: xv.AssetType.mesh,// TODO path / line
+		Visual:{vtype: xv.AssetType.wireframe,
 				paras: {alpha: 0.1},
 				asset: null },
 	});
@@ -46,7 +46,7 @@
 				mesh: undefined,
 				invisible: true,
 			 	uniforms: {opacity: 0.1}},
-		Visual:{vtype: xv.AssetType.mesh,// TODO path / line
+		Visual:{vtype: xv.AssetType.wireframe,
 				paras: {alpha: 0.1},
 				asset: null },
 	});
@@ -62,10 +62,11 @@
 		Visual:{vtype: xv.AssetType.cubeVoxel,
 				asset: 'ent1',
 				shader: xv.XComponent.ShaderFlag.cubeVoxels,
-				paras: {vert_scale: '10.0',
+				paras: {vert_scale: '30.',
+						u_tex: 'tex/spark1.png',
 						uniforms:{u_cubes: ['ent1', 'ent2', 'ent3'],// ent2.Obj3.mesh, matrix, etc.
-								  u_sects: [2, 8, 3],				// sections in x, y, z
-								  u_tex: 'tex/spark1.png' } }},
+								  u_alpha: 0.5,
+								  u_sects: [5, 8, 3] } }},			// sections in x, y, z
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
 						paras: {start: 0,
@@ -84,7 +85,7 @@
 						paras: {start: 0,
 								duration: 0.203,
 								uniforms: { u_morph0: [0, 0],
-											u_morph1: [0, 1],
+											u_morph1: [0, 1],	// clear 0, TODO docs
 											a_noise: [0.2, 0.02] },
 		 						ease: undefined} },
 					  { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
