@@ -21,9 +21,8 @@ Supported transform properties include:
 ::
 
     translate, scale, shear, rotation, reflect
-..
 
-.. image:: ../img/002-transformatrix.png
+.. image:: imgs/002-transformatrix.svg
     :width: 600px
 
 `from Wikipedia [CC BY-SA 3.0] <https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg>`_

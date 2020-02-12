@@ -9,7 +9,8 @@ Welcome to x-visual's documentation!
   .. note:: x-visual documentation is not available now.
 
   .. attention:: x-visual is only an experimental framework, expecting support a
-  real commercial project.
+     real commercial project.
+..
 
 Welcome to the official documentation of x-visual, the free and open source
 community-driven 2D game level resource loader.

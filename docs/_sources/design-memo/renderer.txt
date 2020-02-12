@@ -11,6 +11,24 @@ Obj3 Component
 
 The Obj3 Component specify the geometry or shape such as plane, box or path type.
 
+Obj3.transform
+++++++++++++++
+
+Initial object transform. (TODO re-implement rotation animation using this.)
+
+Supported transform properties include:
+
+::
+
+    translate, scale, shear, rotation, reflect
+
+.. image:: imgs/002-transformatrix.svg
+    :width: 600px
+
+`from Wikipedia [CC BY-SA 3.0] <https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg>`_
+
+TODO Example
+
 Thrender the Default
 --------------------
 
