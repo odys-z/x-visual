@@ -5,8 +5,7 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      width="3in" height="3in"
      viewBox="0 0 512 512">
-  <path id="u"
-        fill="#005c9a" stroke="#217fba" stroke-width="1"
+  <path id="u" fill="#005c9a" stroke="#217fba" stroke-width="1"
         d="M 13.92,256.54
            C 13.59,258.36 13.34,259.95 13.19,261.33
              13.04,262.70 12.96,263.94 12.96,265.04
