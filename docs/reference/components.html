@@ -225,9 +225,10 @@
 10
 11
 12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="nx">tex</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>		<span class="c1">// no such case?</span>
-	<span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>	<span class="c1">// gltf asset file</span>
+	<span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span><span class="c1">// no such case?</span>
 	<span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>		<span class="c1">// short for material</span>
 	<span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
 	<span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>	<span class="c1">// customer</span>
@@ -235,6 +236,7 @@
 	<span class="nx">point</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>	<span class="c1">// THREE.Points. Note Obj3Type.POINTS is an array of vertices buffer.</span>
 	<span class="nx">refPoint</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span><span class="c1">// THREE.Points created from referencing model, with asset = entity id.</span>
 	<span class="nx">cubeVoxel</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+	<span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span><span class="c1">// ShaderFlag has a similar name, makes this error proven</span>
 	<span class="nx">canvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
 	<span class="nx">sprite</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
 <span class="p">}</span>
@@ -247,37 +249,35 @@
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** javascript operators uses 32 bits signed integers</span>
-<span class="cm"> * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators</span>
-<span class="cm"> */</span>
-<span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="nx">mask</span><span class="o">:</span> <span class="mh">0xffff</span><span class="p">,</span>	<span class="c1">// 16 bits for types</span>
+	<span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>	<span class="c1">// use default texture</span>
+	<span class="nx">testPoints</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>		<span class="c1">// default</span>
+	<span class="nx">randomParticles</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+	<span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
 <div class="section" id="visual">
 <h3>Visual<a class="headerlink" href="#visual" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span></span>	<span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>	<span class="c1">// use default texture</span>
-	<span class="nx">testPoints</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>		<span class="c1">// default</span>
-	<span class="nx">randomParticles</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-	<span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">Visual</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">Visual</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
 	<span class="nx">vtype</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-	<span class="c1">// sprite: {}, // suposing</span>
 	<span class="nx">shader</span><span class="o">:</span> <span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">testPoints</span><span class="p">,</span>
+	<span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// texture path, mesh, sprite, shader, materail, ...</span>
+	<span class="nx">paras</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </td></tr></table></div>
 </div>

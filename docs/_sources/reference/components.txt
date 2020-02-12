@@ -71,7 +71,7 @@ ShaderType
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 20-24
+   :lines: 24-30
    :linenos:
 
 Visual
@@ -79,7 +79,7 @@ Visual
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 25-35
+   :lines: 32-39
    :linenos:
 
 

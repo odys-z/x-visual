@@ -8,7 +8,7 @@ Example:
 
 .. literalinclude:: ../../test/scripts.case.js
    :language: javascript
-   :lines: 45-73
+   :lines: 88-114
    :linenos:
 
 In the above example, the entity is defined with 2 components, ModelSeqs & CmpTweens.
@@ -51,6 +51,8 @@ paras
 common paras
 ____________
 
+.. _anim-paras-start:
+
 - start
 
 Acctually this is delay time for starting in seconds.
@@ -62,6 +64,10 @@ value
     Delay seconds and start the the animation. If the script step is the first of
     the animation process, the animation will automatically start.
 
+    **ISSUE**
+
+*In the current version, start time in animation steps other than the first will
+be ignored. (We are considering reorganize the Tween.js scheduling schema.)*
 
 Infinity:
 
@@ -108,7 +114,7 @@ idx
 
 start
 
-    see paras.start.
+    see :ref:`paras.start<anim-paras-start>`.
 
 Example:
 
