@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-ECS</title>
+	<script type='text/javascript' src='../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	var log = true;
+	class Cubesys extends xv.XObj {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			// ecs.registerComponent('Visual', xv.XComponent.Visual);
+			// ecs.registerComponent('Geometry', xv.XComponent.Geometry);
+			this.initCube(ecs);
+		}
+
+		update(tick, entities) {
+			if (log) {
+				log = false;
+				console.log('cube-sys');
+			}
+
+	    	for (const e of entities) {
+				if (e.CmdFlag) {
+				 	if (e.CmdFlag.flag > 0) {
+						// console.log(e.UserCmd);
+						this.cmd = e.UserCmd.cmds[0].cmd;
+					}
+					else this.cmd = undefined;
+				}
+				// else if (e.Visual) {
+				// 	if (this.cmd)
+				// 		console.log('visual changing: ', this.cmd);
+				// }
+			}
+		}
+
+		initCube(ecs) {
+			var cube = ecs.createEntity({
+				id: 'cube0',
+				// Geometry: {pos: [0, 0, 0],
+				// 		rotate: [0, 0, 0], },
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [200, 120, 320],	// bounding box
+						mesh: undefined },		// Thrender will handle this
+				GpuPickable: {pickid: 1},
+				Visual: {vtype: xv.AssetType.mesh, asset: 'tex/ruler256.png'}
+			});
+
+			var cube = ecs.createEntity({
+				id: 'cube1',
+				Geometry: {pos: [0, 220, 0],
+						rotate: [0, 0, 0], },
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [60, 60, 30],
+						mesh: undefined },
+				GpuPickable: {pickid: 2},
+				Visual: {vtype: xv.AssetType.mesh, asset: 'sub/rgb2x2.png'}
+			});
+		}
+	}
+
+	Cubesys.query = { any: ['Visual', 'CmdFlag', 'GpuPickable', 'Obj3'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+	xworld.startUpdate();
+  </script>
+</body>
+</html>
