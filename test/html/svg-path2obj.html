@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest SVG -&gt; Obj3</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+  "use strict";
+
+  /**Senario: suppose you have an SVG file and it's pathes to be animated */
+  const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [480, 320]});
+  xworld.addEntities( {
+	id: 'others',
+	Obj3: { geom: xv.XComponent.Obj3Type.NA,
+			box: [320, 320, 0],	// bounding box used to scale svg
+			mesh: undefined,
+			uniforms: {opacity: 0.5}},
+	Visual:{vtype: xv.AssetType.svg,
+			paras: {paths: ['u', 'stc', 'orbit1', 'orbit2']},
+			asset: 'tex/uestc.svg' } } );
+
+  xworld.addEntities( {
+	id: 'e',
+	Obj3: { geom: xv.XComponent.Obj3Type.NA,
+			box: [320, 320, 5],	// bounding box used to scale svg
+			mesh: undefined,
+			uniforms: {opacity: 0.5}},
+	Visual:{vtype: xv.AssetType.svgPath,// 5 is used as line diameter
+			paras: {paths: ['e']},
+			asset: 'tex/uestc.svg' },
+	ModelSeqs: { script: [[
+		  { mtype: xv.XComponent.AnimType.OBJ3ROTX,
+			paras: {start: 0,			// auto start
+					duration: 1,		// seconds
+					deg: [0, 45],		// from, to
+					ease: undefined} },	// default linear
+		  { mtype: xv.XComponent.AnimType.OBJ3ROTX,
+			paras: {start: Infinity,	// auto start
+					duration: 1.5,		// seconds
+					deg: [50, 0],		// from, to
+					ease: xv.XEasing.Elastic.InOut} },
+		]] },
+	CmpTweens: {} } );
+
+  xworld.startUpdate();
+  </script>
+</body>
+</html>
