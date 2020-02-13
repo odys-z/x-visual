@@ -90,7 +90,10 @@
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Component Obj3</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Visual &amp; Renderers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#visual-component">Visual Component</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#obj3-component">Obj3 Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obj3-component">Obj3 Component</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#obj3-transform">Obj3.transform</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#thrender-the-default">Thrender the Default</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#visual-vtype-obj3-geom-handling">Visual.vtype &amp; Obj3.geom Handling</a></li>
 </ul>
@@ -155,6 +158,17 @@
 <div class="section" id="obj3-component">
 <h2>Obj3 Component<a class="headerlink" href="#obj3-component" title="Permalink to this headline">¶</a></h2>
 <p>The Obj3 Component specify the geometry or shape such as plane, box or path type.</p>
+<div class="section" id="obj3-transform">
+<h3>Obj3.transform<a class="headerlink" href="#obj3-transform" title="Permalink to this headline">¶</a></h3>
+<p>Initial object transform. (TODO re-implement rotation animation using this.)</p>
+<p>Supported transform properties include:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">translate</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">shear</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">reflect</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/002-transformatrix.svg"><img src="../_images/002-transformatrix.svg" width="600px" /></a>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg">from Wikipedia [CC BY-SA 3.0]</a></p>
+<p>TODO Example</p>
+</div>
 </div>
 <div class="section" id="thrender-the-default">
 <h2>Thrender the Default<a class="headerlink" href="#thrender-the-default" title="Permalink to this headline">¶</a></h2>
