@@ -1,33 +1,20 @@
 Visual & Renderers
 ==================
 
-Visual Component
-----------------
+X-visual rendering 3d scene with Three.js, wrapped in a rendere, Thrender system.
+The Thrender handling 2 components, Visual & Obj3, by converting parameters in a
+Visual to Obj3. The later is represented in scene as an `THREE.Object3D <https://threejs.org/docs/index.html#api/en/core/Object3D>`__
+object.
+
+- Visual
 
 The Visual Component specify the visual effect such as materail texture asset or wireframe type.
 
-Obj3 Component
---------------
+- Obj3
 
 The Obj3 Component specify the geometry or shape such as plane, box or path type.
 
-Obj3.transform
-++++++++++++++
-
-Initial object transform. (TODO re-implement rotation animation using this.)
-
-Supported transform properties include:
-
-::
-
-    translate, scale, shear, rotation, reflect
-
-.. image:: imgs/002-transformatrix.svg
-    :width: 600px
-
-`from Wikipedia [CC BY-SA 3.0] <https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg>`_
-
-TODO Example
+See :ref:`obj3-transform-guide`
 
 Thrender the Default
 --------------------
@@ -71,7 +58,7 @@ ____________
 
 - AssetType.point
 
-The created `THREE.Object3D <https://threejs.org/docs/#api/en/core/Object3D>`_
+The created `THREE.Object3D <https://threejs.org/docs/#api/en/core/Object3D>`__
 will be rendered as an array of WebGl points.
 
 The point type's material can only be a `THREE.ShaderMaterial <https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial>`_.
@@ -103,9 +90,11 @@ For point & refPoint
 It's been used for vtype = :ref:`AssetType.refPoint<vtype-refPoint>` or
 :ref:`AssetType.point<vtype-point>`.
 
-For these vtype, it's usually used together with :ref:`animtype-u-verts-trans` and :ref:`animtype-uniform`.
+For these vtype, it's usually used together with :ref:`animtype-u-verts-trans`
+and :ref:`animtype-uniform`.
 
-Check it for how Visual.paras and ModelSeqs.script.paras work together to change glsl/shaders behaviour.
+Check it for how Visual.paras and ModelSeqs.script.paras work together to change
+glsl/shaders behaviour.
 
 If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).
@@ -122,7 +111,7 @@ of node's name in gltf. Model of these nodes will be converted into points.
 -- paras.paths
 
 This parameter used only for creating mesh from svg assets. It's a string array
-of path names in svg. 
+of path names in svg.
 
 - AssetType.refPoint
 
