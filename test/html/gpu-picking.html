@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-ECS</title>
-	<script type='text/javascript' src='../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../dist/xv-0.1.0.min.js'></script>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -35,10 +35,6 @@
 					}
 					else this.cmd = undefined;
 				}
-				// else if (e.Visual) {
-				// 	if (this.cmd)
-				// 		console.log('visual changing: ', this.cmd);
-				// }
 			}
 		}
 
@@ -56,8 +52,8 @@
 
 			var cube = ecs.createEntity({
 				id: 'cube1',
-				Geometry: {pos: [0, 220, 0],
-						rotate: [0, 0, 0], },
+				// Geometry: {pos: [0, 220, 0],
+				// 		rotate: [0, 0, 0], },
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 						box: [60, 60, 30],
 						mesh: undefined },
@@ -67,7 +63,7 @@
 		}
 	}
 
-	Cubesys.query = { any: ['Visual', 'CmdFlag', 'GpuPickable', 'Obj3'] };
+	Cubesys.query = { iffall: ['CmdFlag', 'GpuPickable', 'Obj3'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
