@@ -101,6 +101,11 @@ by Thrender using this entity.Visual.paras.obj3type, which can be one of
 This parameter used only for creating mesh from gltf assets. It's a string array
 of node's name in gltf. Model of these nodes will be converted into points.
 
+-- paras.paths
+
+This parameter used only for creating mesh from svg assets. It's a string array
+of path names in svg. 
+
 - AssetType.refPoint
 
 TODO test case as example.
