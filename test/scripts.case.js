@@ -67,16 +67,16 @@ describe('case: [script] anim sequence', function() {
         });
 
         xworld.startUpdate();
-        assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1' );
-        assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1' );
-        assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1' );
+            assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1' );
+            assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1' );
+            assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1' );
 
-        assert.closeTo(cube.Obj3.mesh.material.opacity, opa0, 0.01);
+            assert.closeTo(cube.Obj3.mesh.material.opacity, opa0, 0.01);
 
         await sleep(1000);
-        assert.closeTo(cube.Obj3.mesh.material.opacity, opa0, 0.01);
-        xworld.update();
-        assert.closeTo(cube.Obj3.mesh.material.opacity, opa1, 0.01);
+            assert.closeTo(cube.Obj3.mesh.material.opacity, opa0, 0.01);
+            xworld.update();
+            assert.closeTo(cube.Obj3.mesh.material.opacity, opa1, 0.01);
     });
 
     it('consecutive scripts', async function() {
