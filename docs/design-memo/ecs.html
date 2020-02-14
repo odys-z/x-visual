@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Obj3 &amp; Scene &mdash; x-visual 0.3 documentation</title>
+  <title>ECS Framework &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -34,8 +34,8 @@
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
-        <link rel="next" title="Visual &amp; Renderers" href="renderer.html"/>
-        <link rel="prev" title="Assets Loader" href="assets.html"/> 
+        <link rel="next" title="MVC View" href="view.html"/>
+        <link rel="prev" title="Design Memo" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,13 +86,16 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Obj3 &amp; Scene</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#obj3-transform">Obj3.transform</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">ECS Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extension">Extension</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#query-conditions">query conditions</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
@@ -131,7 +134,7 @@
       
           <li><a href="index.html">Design Memo</a> &raquo;</li>
       
-    <li>Obj3 &amp; Scene</li>
+    <li>ECS Framework</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -143,26 +146,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="obj3-scene">
-<h1>Obj3 &amp; Scene<a class="headerlink" href="#obj3-scene" title="Permalink to this headline">¶</a></h1>
-<p>This component is used for <a class="reference external" href="https://threejs.org/docs/index.html#api/en/core/Object3D">THREE.Object3D</a>
-definition.</p>
-<p>Obj3 is defined in component/obj3.js.</p>
-<div class="section" id="obj3-transform">
-<span id="obj3-transform-guide"></span><h2>Obj3.transform<a class="headerlink" href="#obj3-transform" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="ecs-framework">
+<h1>ECS Framework<a class="headerlink" href="#ecs-framework" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><em>Obj3.transform</em> are parameters used only for creating THREE.Object3D
-object. Any further updating for animation are processed via Obj3.mesh properties.</p>
+<p class="last">doc stub</p>
 </div>
-<p>Initial object transform. (TODO re-implement rotation animation using this.)</p>
-<p>Supported transform properties include:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">translate</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">shear</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">reflect</span>
-</pre></div>
+<p>X-visual is inspired by fritz/ECS.</p>
+<p>In x-visual v1.0, all object are handled in static way - no new object can be created
+during scene updating process. Each subsystem is implement assuming that entity
+won&#8217;t been changed during entire rendering life cycle.</p>
+<p>Reason: there are many other more important concepts to be verified, this decision
+can largely simplify x-visual, and it&#8217;s highly probably impose limited modification
+when it&#8217;s needed in the future.</p>
+<div class="section" id="extension">
+<h2>Extension<a class="headerlink" href="#extension" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="query-conditions">
+<h3>query conditions<a class="headerlink" href="#query-conditions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>iffall</li>
+<li>any</li>
+</ul>
 </div>
-<a class="reference internal image-reference" href="../_images/002-transformatrix.svg"><img src="../_images/002-transformatrix.svg" width="600px" /></a>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg">from Wikipedia [CC BY-SA 3.0]</a></p>
-<p>TODO Example</p>
 </div>
 </div>
 
@@ -173,10 +178,10 @@ object. Any further updating for animation are processed via Obj3.mesh propertie
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="renderer.html" class="btn btn-neutral float-right" title="Visual &amp; Renderers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="view.html" class="btn btn-neutral float-right" title="MVC View" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="assets.html" class="btn btn-neutral" title="Assets Loader" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Design Memo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
