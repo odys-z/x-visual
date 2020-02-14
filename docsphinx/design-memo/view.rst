@@ -21,7 +21,7 @@ handling process:
 
     Inputs: mouse | key events -> UserCmd
     WebClient: web-message -> UserCmd
-    GpuPicker: UserCmd.clietxy -> UserCmd(entity.id)
+    GpuPicker: UserCmd.clietxy -> GpuPickable(entity.id)
 
 Inputs
 ------
