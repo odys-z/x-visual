@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reference &mdash; x-visual 0.3 documentation</title>
+  <title>Obj3 &amp; Scene &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -33,8 +33,9 @@
 
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
-        <link rel="next" title="GLTF Format" href="gltf.html"/>
-        <link rel="prev" title="Wish List" href="../design-memo/todo.html"/> 
+        <link rel="up" title="Design Memo" href="index.html"/>
+        <link rel="next" title="Visual &amp; Renderers" href="renderer.html"/>
+        <link rel="prev" title="Assets Loader" href="assets.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -84,15 +85,20 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svg.html#reference">Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html">Systems</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Obj3 &amp; Scene</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#obj3-transform">Obj3.transform</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
 </ul>
 
             
@@ -123,7 +129,9 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Reference</li>
+          <li><a href="index.html">Design Memo</a> &raquo;</li>
+      
+    <li>Obj3 &amp; Scene</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -135,36 +143,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="gltf.html">GLTF Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#city-scene-gltf-representation">city/scene.gltf representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#node-example">Node Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#three-js-gltfloader">Three.js GLTFLoader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#the-x-visual-edition">The X-visual Edition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#references">References</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="svg.html">SVG</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="svg.html#data-sample">Data Sample</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="svg.html#reference">Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="components.html#example">Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html#components-definitions">Components Definitions</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="systems.html">Systems</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#xtweener">XTweener</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#thrender">Thrender</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#morphinganim">MorphingAnim</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="obj3-scene">
+<h1>Obj3 &amp; Scene<a class="headerlink" href="#obj3-scene" title="Permalink to this headline">¶</a></h1>
+<p>This component is used for <a class="reference external" href="https://threejs.org/docs/index.html#api/en/core/Object3D">THREE.Object3D</a>
+definition.</p>
+<p>Obj3 is defined in component/obj3.js.</p>
+<div class="section" id="obj3-transform">
+<span id="obj3-transform-guide"></span><h2>Obj3.transform<a class="headerlink" href="#obj3-transform" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><em>Obj3.transform</em> are parameters used only for creating THREE.Object3D
+object. Any further updating for animation are processed via Obj3.mesh properties.</p>
+</div>
+<p>Initial object transform. (TODO re-implement rotation animation using this.)</p>
+<p>Supported transform properties include:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">translate</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">shear</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">reflect</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/002-transformatrix.svg"><img src="../_images/002-transformatrix.svg" width="600px" /></a>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg">from Wikipedia [CC BY-SA 3.0]</a></p>
+<p>TODO Example</p>
 </div>
 </div>
 
@@ -175,10 +173,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gltf.html" class="btn btn-neutral float-right" title="GLTF Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="renderer.html" class="btn btn-neutral float-right" title="Visual &amp; Renderers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../design-memo/todo.html" class="btn btn-neutral" title="Wish List" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="assets.html" class="btn btn-neutral" title="Assets Loader" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

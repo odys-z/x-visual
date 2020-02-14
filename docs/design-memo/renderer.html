@@ -35,7 +35,7 @@
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Animizers" href="animizer.html"/>
-        <link rel="prev" title="Assets Loader" href="assets.html"/> 
+        <link rel="prev" title="Obj3 &amp; Scene" href="obj3.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,13 +86,11 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Visual &amp; Renderers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#visual-component">Visual Component</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#obj3-component">Obj3 Component</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#obj3-transform">Obj3.transform</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="#thrender-the-default">Thrender the Default</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#visual-vtype-obj3-geom-handling">Visual.vtype &amp; Obj3.geom Handling</a></li>
 </ul>
@@ -150,25 +148,19 @@
             
   <div class="section" id="visual-renderers">
 <h1>Visual &amp; Renderers<a class="headerlink" href="#visual-renderers" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="visual-component">
-<h2>Visual Component<a class="headerlink" href="#visual-component" title="Permalink to this headline">¶</a></h2>
+<p>X-visual rendering 3d scene with Three.js, wrapped in a rendere, Thrender system.
+The Thrender handling 2 components, Visual &amp; Obj3, by converting parameters in a
+Visual to Obj3. The later is represented in scene as an <a class="reference external" href="https://threejs.org/docs/index.html#api/en/core/Object3D">THREE.Object3D</a>
+object.</p>
+<ul class="simple">
+<li>Visual</li>
+</ul>
 <p>The Visual Component specify the visual effect such as materail texture asset or wireframe type.</p>
-</div>
-<div class="section" id="obj3-component">
-<h2>Obj3 Component<a class="headerlink" href="#obj3-component" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Obj3</li>
+</ul>
 <p>The Obj3 Component specify the geometry or shape such as plane, box or path type.</p>
-<div class="section" id="obj3-transform">
-<h3>Obj3.transform<a class="headerlink" href="#obj3-transform" title="Permalink to this headline">¶</a></h3>
-<p>Initial object transform. (TODO re-implement rotation animation using this.)</p>
-<p>Supported transform properties include:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">translate</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">shear</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">reflect</span>
-</pre></div>
-</div>
-<a class="reference internal image-reference" href="../_images/002-transformatrix.svg"><img src="../_images/002-transformatrix.svg" width="600px" /></a>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg">from Wikipedia [CC BY-SA 3.0]</a></p>
-<p>TODO Example</p>
-</div>
-</div>
+<p>See <a class="reference internal" href="obj3.html#obj3-transform-guide"><span>Obj3.transform</span></a></p>
 <div class="section" id="thrender-the-default">
 <h2>Thrender the Default<a class="headerlink" href="#thrender-the-default" title="Permalink to this headline">¶</a></h2>
 <p>Thrender is the xv default renderer, handling Visual and Obj3 components. Created by xworld.startUpdate().</p>
@@ -221,8 +213,10 @@ of which the vertices&#8217; position is copied from, the entity&#8217;s Obj3.me
 <h5>For point &amp; refPoint<a class="headerlink" href="#for-point-refpoint" title="Permalink to this headline">¶</a></h5>
 <p>It&#8217;s been used for vtype = <a class="reference internal" href="#vtype-refpoint"><span>AssetType.refPoint</span></a> or
 <a class="reference internal" href="#vtype-point"><span>AssetType.point</span></a>.</p>
-<p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType.U_VERTS_TRANS paras</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType.UNIFORM paras</span></a>.</p>
-<p>Check it for how Visual.paras and ModelSeqs.script.paras work together to change glsl/shaders behaviour.</p>
+<p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType.U_VERTS_TRANS paras</span></a>
+and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType.UNIFORM paras</span></a>.</p>
+<p>Check it for how Visual.paras and ModelSeqs.script.paras work together to change
+glsl/shaders behaviour.</p>
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
 <p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
@@ -231,6 +225,9 @@ by Thrender using this entity.Visual.paras.obj3type, which can be one of
 <p>&#8211; paras.nodes</p>
 <p>This parameter used only for creating mesh from gltf assets. It&#8217;s a string array
 of node&#8217;s name in gltf. Model of these nodes will be converted into points.</p>
+<p>&#8211; paras.paths</p>
+<p>This parameter used only for creating mesh from svg assets. It&#8217;s a string array
+of path names in svg.</p>
 <ul class="simple">
 <li>AssetType.refPoint</li>
 </ul>
@@ -282,7 +279,7 @@ texture files are loaded by <a class="reference internal" href="../reference/glt
         <a href="animizer.html" class="btn btn-neutral float-right" title="Animizers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="assets.html" class="btn btn-neutral" title="Assets Loader" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="obj3.html" class="btn btn-neutral" title="Obj3 &amp; Scene" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -9,6 +9,10 @@ See `Ilmari Heikkinen, Animating a Million Letters Using Three.js <https://www.h
 
 E.g. Noisy Easing
 
+- Extends GPU picking with points picking
+
+This needs implementing a point shader for GPU picking.
+
 - Tween.glsl
 
 `Jet Blue already had tried this <https://stackoverflow.com/questions/35328937/how-to-tween-10-000-particles-in-three-js>`_ :

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reference &mdash; x-visual 0.3 documentation</title>
+  <title>ECS Framework &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -33,8 +33,9 @@
 
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
-        <link rel="next" title="GLTF Format" href="gltf.html"/>
-        <link rel="prev" title="Wish List" href="../design-memo/todo.html"/> 
+        <link rel="up" title="Design Memo" href="index.html"/>
+        <link rel="next" title="MVC View" href="view.html"/>
+        <link rel="prev" title="Design Memo" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -84,15 +85,23 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svg.html#reference">Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html">Systems</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">ECS Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extension">Extension</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#query-conditions">query conditions</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
 </ul>
 
             
@@ -123,7 +132,9 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Reference</li>
+          <li><a href="index.html">Design Memo</a> &raquo;</li>
+      
+    <li>ECS Framework</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -135,36 +146,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="gltf.html">GLTF Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#city-scene-gltf-representation">city/scene.gltf representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#node-example">Node Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#three-js-gltfloader">Three.js GLTFLoader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#the-x-visual-edition">The X-visual Edition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#references">References</a></li>
+  <div class="section" id="ecs-framework">
+<h1>ECS Framework<a class="headerlink" href="#ecs-framework" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">doc stub</p>
+</div>
+<p>X-visual is inspired by fritz/ECS.</p>
+<p>In x-visual v1.0, all object are handled in static way - no new object can be created
+during scene updating process. Each subsystem is implement assuming that entity
+won&#8217;t been changed during entire rendering life cycle.</p>
+<p>Reason: there are many other more important concepts to be verified, this decision
+can largely simplify x-visual, and it&#8217;s highly probably impose limited modification
+when it&#8217;s needed in the future.</p>
+<div class="section" id="extension">
+<h2>Extension<a class="headerlink" href="#extension" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="query-conditions">
+<h3>query conditions<a class="headerlink" href="#query-conditions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>iffall</li>
+<li>any</li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="svg.html">SVG</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="svg.html#data-sample">Data Sample</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="svg.html#reference">Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="components.html#example">Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html#components-definitions">Components Definitions</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="systems.html">Systems</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#xtweener">XTweener</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#thrender">Thrender</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#morphinganim">MorphingAnim</a></li>
-</ul>
-</li>
-</ul>
+</div>
 </div>
 </div>
 
@@ -175,10 +178,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gltf.html" class="btn btn-neutral float-right" title="GLTF Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="view.html" class="btn btn-neutral float-right" title="MVC View" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../design-memo/todo.html" class="btn btn-neutral" title="Wish List" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Design Memo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

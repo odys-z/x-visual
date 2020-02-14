@@ -35,7 +35,7 @@
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Reference" href="index.html"/>
         <link rel="next" title="Systems" href="systems.html"/>
-        <link rel="prev" title="GLTF Format" href="gltf.html"/> 
+        <link rel="prev" title="SVG" href="svg.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -88,6 +88,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svg.html#reference">Reference</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#components-definitions">Components Definitions</a><ul>
@@ -228,17 +230,17 @@
 13
 14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>	<span class="c1">// gltf asset file</span>
-	<span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span><span class="c1">// no such case?</span>
-	<span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>		<span class="c1">// short for material</span>
+	<span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// short for material</span>
 	<span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
 	<span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>	<span class="c1">// customer</span>
 	<span class="nx">mesh</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>	<span class="c1">// mesh created like THREE.Mesh(), usually loaded from gltf asset</span>
 	<span class="nx">point</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>	<span class="c1">// THREE.Points. Note Obj3Type.POINTS is an array of vertices buffer.</span>
 	<span class="nx">refPoint</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span><span class="c1">// THREE.Points created from referencing model, with asset = entity id.</span>
-	<span class="nx">cubeVoxel</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+	<span class="nx">cubeVoxel</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="c1">// voxel generated for Obj3.box</span>
 	<span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span><span class="c1">// ShaderFlag has a similar name, makes this error proven</span>
-	<span class="nx">canvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
-	<span class="nx">sprite</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+	<span class="nx">canvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>	<span class="c1">// test: htmltex.html</span>
+	<span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span> <span class="c1">// opengl / webgl wireframe</span>
+	<span class="nx">svg</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">sprite</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
@@ -364,7 +366,7 @@
         <a href="systems.html" class="btn btn-neutral float-right" title="Systems" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="gltf.html" class="btn btn-neutral" title="GLTF Format" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="svg.html" class="btn btn-neutral" title="SVG" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

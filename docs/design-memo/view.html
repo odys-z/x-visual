@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reference &mdash; x-visual 0.3 documentation</title>
+  <title>MVC View &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -33,8 +33,9 @@
 
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
-        <link rel="next" title="GLTF Format" href="gltf.html"/>
-        <link rel="prev" title="Wish List" href="../design-memo/todo.html"/> 
+        <link rel="up" title="Design Memo" href="index.html"/>
+        <link rel="next" title="Assets Loader" href="assets.html"/>
+        <link rel="prev" title="ECS Framework" href="ecs.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -84,15 +85,21 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svg.html#reference">Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html">Systems</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">MVC View</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpupicking">GpuPicking</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
 </ul>
 
             
@@ -123,7 +130,9 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Reference</li>
+          <li><a href="index.html">Design Memo</a> &raquo;</li>
+      
+    <li>MVC View</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -135,36 +144,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="gltf.html">GLTF Format</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#city-scene-gltf-representation">city/scene.gltf representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#node-example">Node Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#three-js-gltfloader">Three.js GLTFLoader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#the-x-visual-edition">The X-visual Edition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gltf.html#references">References</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="svg.html">SVG</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="svg.html#data-sample">Data Sample</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="svg.html#reference">Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="components.html#example">Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html#components-definitions">Components Definitions</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="systems.html">Systems</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#xtweener">XTweener</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#thrender">Thrender</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html#morphinganim">MorphingAnim</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="mvc-view">
+<h1>MVC View<a class="headerlink" href="#mvc-view" title="Permalink to this headline">¶</a></h1>
+<p>To the author&#8217;s knowledge, the ECS framework still needs an MVC pattern to handle
+user interactions.</p>
+<div class="section" id="inputs">
+<h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h2>
+<p>Input system always been created by xworld for handling user input.</p>
+<p>User interaction been converted into UserCmd component for subsequent system handling.</p>
+<p>On each updating iteration, the command&#8217;s buffer (UserCmd) is cleared. If no new
+user action, a flag, CmdFlag will be set to prevent unnecessary iteration.</p>
+</div>
+<div class="section" id="gpupicking">
+<h2>GpuPicking<a class="headerlink" href="#gpupicking" title="Permalink to this headline">¶</a></h2>
+<p>If an entity has a GpuPickable component, GpuPicker subsystem will create another
+object for rendering the picking scene.</p>
+<p>[1] <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-picking.html">Three.js Picking (with GPU)</a></p>
+<p>[2] <a class="reference external" href="https://github.com/mrdoob/three.js/issues/2599">Changing Materials at Runtime #2599</a></p>
 </div>
 </div>
 
@@ -175,10 +171,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gltf.html" class="btn btn-neutral float-right" title="GLTF Format" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="assets.html" class="btn btn-neutral float-right" title="Assets Loader" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../design-memo/todo.html" class="btn btn-neutral" title="Wish List" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ecs.html" class="btn btn-neutral" title="ECS Framework" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

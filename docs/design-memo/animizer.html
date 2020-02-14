@@ -86,7 +86,10 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Animizers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mesh-animiation-script">Mesh Animiation Script</a></li>
@@ -480,7 +483,7 @@ moving the poings, changing the alpha.</p>
                 box: [200, 120, 80],    // bounding box
                 // mesh is inited by thrender, can be ignored here - MorphSwitch&#39;s target
                 mesh: undefined,
-                 uniforms: {opacity: 0.1}},
+                uniforms: {opacity: 0.1}},
         Visual:{vtype: xv.AssetType.mesh,
                 asset: &#39;tex/byr0.png&#39; },
         ModelSeqs: {
@@ -508,7 +511,7 @@ moving the poings, changing the alpha.</p>
         Obj3: { geom: xv.XComponent.Obj3Type.BOX,
                 box: [260, 40, 200],    // bounding box
                 mesh: undefined,
-                 uniforms: {opacity: 0.2}},
+                uniforms: {opacity: 0.2}},
         Visual:{vtype: xv.AssetType.mesh,
                 asset: &#39;city/textures/World_ap_baseColor.jpeg&#39; },
         ModelSeqs: {
@@ -516,7 +519,7 @@ moving the poings, changing the alpha.</p>
                         paras: {start: Infinity,        // follow points[0][1]
                                 duration: 1.2,            // seconds
                                 alpha: [0.95, 0.05],    // from, to
-                                 ease: xv.XEasing.Elastic.In},
+                                ease: xv.XEasing.Elastic.In},
                      }],
                      [{ mtype: xv.XComponent.AnimType.ALPHA,
                         paras: {start: Infinity,
@@ -533,7 +536,7 @@ moving the poings, changing the alpha.</p>
         Obj3: { geom: xv.XComponent.Obj3Type.NA,// use the geometry of entity1
                 box: [200, 2, 1],
                 mesh: undefined,                // THREE.Points
-                 invisible: false },            // It&#39;s visible, but alpha 0?
+                invisible: false },            // It&#39;s visible, but alpha 0?
         Visual:{vtype: xv.AssetType.refPoint,
                 asset: &#39;entity1&#39;,
                 shader: xv.XComponent.ShaderFlag.randomParticles | xv.XComponent.ShaderFlag.defaultex,
