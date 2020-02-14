@@ -15,6 +15,14 @@ user command must query UserCmd.
 The intuition for this is there may be more user interaction handler, such as a websocket
 client.
 
+soppose:
+
+::
+
+    Inputs: mouse | key events -> UserCmd
+    WebClient: web-message -> UserCmd
+    GpuPicker: UserCmd.clietxy -> UserCmd(entity.id)
+
 Inputs
 ------
 
