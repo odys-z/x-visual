@@ -15,7 +15,7 @@ user command must query UserCmd.
 The intuition for this is there may be more user interaction handler, such as a websocket
 client.
 
-soppose:
+handling process:
 
 ::
 
