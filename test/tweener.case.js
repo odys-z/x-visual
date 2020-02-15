@@ -87,5 +87,61 @@ describe('case: [tween] hello', function() {
 		xworld.update();
 		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 1, 0.01);
 		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, 200, 1.0);
+
+		cube.CmpTweens.startCmds.push(0);
+		assert.closeTo( cube.CmpTweens.tweens[0][0].isPlaying, false, 0.1, 'before start by cmd');
+		xworld.update();
+		assert.equal( cube.CmpTweens.twindx[0], 0, 'start 0 cmd');
+		assert.closeTo( cube.CmpTweens.tweens[0][0].isPlaying, true, 0.1, 'u_alpha 0 - after start by cmd');
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1, 'after start by cmd');
 	});
+
+    it('start multple by cmds', async function() {
+        const xworld = new XWorld(undefined, 'window', {});
+        const ecs = xworld.xecs;
+
+        var completeflags = {};
+
+        var tetra = ecs.createEntity({
+            id: 'cube0',
+            Obj3: { geom: Obj3Type.TETRAHEDRON,
+                    box: [200, 120, 80],  // bounding box
+                    mesh: undefined },
+            Visual:{vtype: AssetType.mesh,
+                    asset: null },        // let thrender create a ram texture.
+            ModelSeqs: {
+                script: [[{ mtype: AnimType.OBJ3ROTX,
+                            paras: {start: Infinity,    // wait for cmd
+                                    duration: 0.4,      // seconds
+                                    cmd: '',
+                                    deg: [0, 45],       // from, to
+                                    ease: undefined}}], // default linear
+                         [{ mtype: AnimType.OBJ3ROTAXIS,
+                            paras: {start: Infinity,    // wait for cmd
+                                    duration: 0.4,      // seconds
+                                    axis: [0, 1, 0],
+                                    deg: [0, 90],       // from, to
+                                    ease: XEasing.Elastic.InOut },
+                            followBy: [{entity: 'cube0',
+                                        seqx: 0,
+                                        start: 0.4}] } ]]
+                },
+            CmpTweens: {}
+        });
+
+        xworld.startUpdate();
+        await sleep(200);
+            xworld.update();
+            assert.equal( tetra.CmpTweens.twindx[0], -1 );
+            assert.equal( tetra.CmpTweens.twindx[1], -1 );
+            assert.equal( tetra.CmpTweens.tweens[0][0].isPlaying, undefined, '0.2s tweens[0][0].isPlaying');
+            assert.equal( tetra.CmpTweens.tweens[1][0].isPlaying, undefined, '0.2s tweens[1][0].isPlaying');
+
+		tetra.CmpTweens.startCmds.push(1);
+            assert.equal( tetra.CmpTweens.tweens[0][0].isPlaying, undefined, 'started yet not updated: tweens[0][0].isPlaying');
+            assert.equal( tetra.CmpTweens.tweens[1][0].isPlaying, undefined, 'started yet not updated: tweens[1][0].isPlaying');
+            xworld.update();
+            assert.equal( tetra.CmpTweens.tweens[0][0].isPlaying, undefined, 'cmd started tweens[0][0].isPlaying');
+            assert.equal( tetra.CmpTweens.tweens[1][0].isPlaying, true, 'cmd Stared tweens[1][0].isPlaying');
+    });
 });
