@@ -4,6 +4,25 @@ MVC View
 To the author's knowledge, the ECS framework still needs an MVC pattern to handle
 user interactions.
 
+View
+----
+
+The xview is used as default mvc view.
+
+Xview is an entity has components CmdFlag and UserCmd. All system that can response to
+user command must query UserCmd.
+
+The intuition for this is there may be more user interaction handler, such as a websocket
+client.
+
+handling process:
+
+::
+
+    Inputs: mouse | key events -> UserCmd
+    WebClient: web-message -> UserCmd
+    GpuPicker: UserCmd.clietxy -> GpuPickable(entity.id)
+
 Inputs
 ------
 
