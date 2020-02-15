@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-ECS</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	/** use case:
+	 * Using a command to plug in a tween for roatating and buncing */
+	"use strict";
+
+	class Interaction extends xv.XObj {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+		}
+
+		update(tick, entities) {
+			for (const e of entities) {
+				if (e.CmdFlag) {
+				 	if (e.CmdFlag.flag > 0) {
+						// console.log(e.UserCmd);
+						this.cmd = e.UserCmd.cmds[0].cmd;
+					}
+					else this.cmd = undefined;
+				}
+				else if (e.Obj3) {
+					switch (this.cmd) {
+						case 'up':
+							e.Obj3.mesh.rotateX(0.125 * Math.PI);
+							break;
+						case 'left':
+							e.Obj3.mesh.rotateY(0.125 * Math.PI);
+							break;
+						case 'down':
+							e.Obj3.mesh.rotateX(-0.125 * Math.PI);
+							break;
+						case 'right':
+							e.Obj3.mesh.rotateY(-0.125 * Math.PI);
+							break;
+						default:
+					}
+				}
+			}
+		}
+
+	}
+	Cubesys.query = { any: ['GpuPickable'] };
+
+	function defineObjects() {
+		var objs = [];
+		objs.push( {
+			id: 'cube',
+			Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+					box: [200, 200, 200],	// bounding box
+					mesh: undefined },		// Thrender will handle this
+			GpuPickable: {},
+			Visual: {vtype: xv.AssetType.mesh,
+					 asset: 'tex/byr0.png'}
+		});
+		objs.push ({
+			id: 'torus',
+			Obj3: { geom: xv.XComponent.Obj3Type.TORUS,
+					box: [200, 100, 200],
+					mesh: undefined },		// Thrender will handle this
+			GpuPickable: {},
+			Visual: {vtype: xv.AssetType.mesh,
+					 asset: 'tex/rgb2x2.png'}
+		});
+		return objs;
+	}
+
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {log: 6});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addEntities(defineObjects);
+	xworld.addSystem('test', new Interaction(ecs, {xscene}));
+
+	xworld.startUpdate();
+  </script>
+</body>
+</html>
