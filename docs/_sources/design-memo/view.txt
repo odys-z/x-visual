@@ -4,6 +4,25 @@ MVC View
 To the author's knowledge, the ECS framework still needs an MVC pattern to handle
 user interactions.
 
+View
+----
+
+The xview is used as default mvc view.
+
+Xview is an entity has components CmdFlag and UserCmd. All system that can response to
+user command must query UserCmd.
+
+The intuition for this is there may be more user interaction handler, such as a websocket
+client.
+
+handling process:
+
+::
+
+    Inputs: mouse | key events -> UserCmd
+    WebClient: web-message -> UserCmd
+    GpuPicker: UserCmd.clietxy -> GpuPickable(entity.id)
+
 Inputs
 ------
 
@@ -19,6 +38,9 @@ GpuPicking
 
 If an entity has a GpuPickable component, GpuPicker subsystem will create another
 object for rendering the picking scene.
+
+So if there are entities with Obj3, they can be rendered as visible but not pickable,
+and can prevent entities with GpuPickable to be picked if they are rendered closer.
 
 [1] `Three.js Picking (with GPU) <https://threejsfundamentals.org/threejs/lessons/threejs-picking.html>`__
 

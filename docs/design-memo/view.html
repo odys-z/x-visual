@@ -88,6 +88,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">MVC View</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#view">View</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gpupicking">GpuPicking</a></li>
 </ul>
@@ -148,6 +149,20 @@
 <h1>MVC View<a class="headerlink" href="#mvc-view" title="Permalink to this headline">¶</a></h1>
 <p>To the author&#8217;s knowledge, the ECS framework still needs an MVC pattern to handle
 user interactions.</p>
+<div class="section" id="view">
+<h2>View<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h2>
+<p>The xview is used as default mvc view.</p>
+<p>Xview is an entity has components CmdFlag and UserCmd. All system that can response to
+user command must query UserCmd.</p>
+<p>The intuition for this is there may be more user interaction handler, such as a websocket
+client.</p>
+<p>handling process:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Inputs: mouse | key events -&gt; UserCmd
+WebClient: web-message -&gt; UserCmd
+GpuPicker: UserCmd.clietxy -&gt; GpuPickable(entity.id)
+</pre></div>
+</div>
+</div>
 <div class="section" id="inputs">
 <h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h2>
 <p>Input system always been created by xworld for handling user input.</p>
@@ -159,6 +174,8 @@ user action, a flag, CmdFlag will be set to prevent unnecessary iteration.</p>
 <h2>GpuPicking<a class="headerlink" href="#gpupicking" title="Permalink to this headline">¶</a></h2>
 <p>If an entity has a GpuPickable component, GpuPicker subsystem will create another
 object for rendering the picking scene.</p>
+<p>So if there are entities with Obj3, they can be rendered as visible but not pickable,
+and can prevent entities with GpuPickable to be picked if they are rendered closer.</p>
 <p>[1] <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-picking.html">Three.js Picking (with GPU)</a></p>
 <p>[2] <a class="reference external" href="https://github.com/mrdoob/three.js/issues/2599">Changing Materials at Runtime #2599</a></p>
 </div>
