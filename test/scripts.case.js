@@ -170,7 +170,7 @@ describe('case: [script] anim sequence', function() {
                                     deg: [0, 45],     // from, to
                                     ease: undefined}},// default linear
                           { mtype: AnimType.OBJ3ROTAXIS,
-                            paras: {start: Infinity,  // auto start, follow 0
+                            paras: {start: Infinity,  // auto start, follow 0, time ignored
                                     duration: 0.4,    // seconds
                                     axis: [0, 1, 0],
                                     deg: [0, 90],     // from, to
