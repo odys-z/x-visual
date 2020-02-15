@@ -23,6 +23,10 @@ to XTweener, which is the style of ECS.
 CmpTween and CmpTweens are wrapped by x-visual and user shouldn't worry about it.
 The ModelSeqs is what users will working on, which also is defined as a 2D array.
 
+.. note:: As x-visual is a data visualization prototype, it's only support static
+    animation scripts triggered by commands. Scripts can only provided when creating
+    entities, and not emit events.
+
 - ModelSeqs
 
 Each 1D Array of the 2D array is an animation processing script. Each element of
