@@ -203,7 +203,6 @@ describe('case: [script] anim sequence', function() {
             assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, '1s cube.CmpTweens.tweens[0][0].isCompleted');
             assert.equal( cube.CmpTweens.tweens[0][1].isPlaying, false, '1s cube.CmpTweens.tweens[0][1].isPlaying');
             assert.equal( cube.CmpTweens.tweens[0][1].isCompleted, true, '1s cube.CmpTweens.tweens[0][1].isCompleted');
-            debugger
             xworld.update();// 0 is following [1] and delayed (completed by previous playing)
             assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, '1s [updated] cube.CmpTweens.tweens[0][0].isPlaying');
             assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, '1s [updated] cube.CmpTweens.tweens[0][0].isCompleted');

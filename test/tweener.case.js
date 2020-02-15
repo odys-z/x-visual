@@ -24,7 +24,7 @@ import {MorphingAnim} from '../lib/sys/tween/animizer'
 
 global.performance = performance;
 
-describe('case: [tween] hello', function() {
+describe('case: [tween] tweener basics', function() {
 	this.timeout(6000);
 	x.log = 4;
 
@@ -45,7 +45,7 @@ describe('case: [tween] hello', function() {
 	    assert.ok(modelizer);
 	});
 
-	/** This test doesn't tested uniforms updating, only test tween.prop.value be
+	/**This test doesn't tested uniforms updating, only test tween.prop.value been
 	 * tweened */
 	it('tweening uniforms', async function() {
 		const xworld = new XWorld(undefined, 'window', {tween: false});
@@ -85,15 +85,17 @@ describe('case: [tween] hello', function() {
 
 		await sleep(1000);
 		xworld.update();
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 1, 0.01);
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, 200, 1.0);
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 1, 0.01, '1s 0, 0 u_alpha');
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, 200, 1.0, '1s 0, 0 u_dist');
 
 		cube.CmpTweens.startCmds.push(0);
-		assert.closeTo( cube.CmpTweens.tweens[0][0].isPlaying, false, 0.1, 'before start by cmd');
+		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, 'before start by cmd');
+		debugger
 		xworld.update();
-		assert.equal( cube.CmpTweens.twindx[0], 0, 'start 0 cmd');
-		assert.closeTo( cube.CmpTweens.tweens[0][0].isPlaying, true, 0.1, 'u_alpha 0 - after start by cmd');
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1, 'after start by cmd');
+		assert.equal( cube.CmpTweens.twindx[0], 0, 'start 0 by cmd');
+		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, true, 'u_alpha 0 - after start by cmd');
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1, 'after start by cmd u_alpha');
+		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, -100, 10, 'after start by cmd u_dist -100'); // -92.7 ~ -99.1
 	});
 
     it('start multple by cmds', async function() {
@@ -129,11 +131,12 @@ describe('case: [tween] hello', function() {
             CmpTweens: {}
         });
 
+        debugger
         xworld.startUpdate();
         await sleep(200);
             xworld.update();
-            assert.equal( tetra.CmpTweens.twindx[0], -1 );
-            assert.equal( tetra.CmpTweens.twindx[1], -1 );
+            assert.equal( tetra.CmpTweens.twindx[0], Infinity, 'twindx 0' );
+            assert.equal( tetra.CmpTweens.twindx[1], Infinity, 'twindx 1' );
             assert.equal( tetra.CmpTweens.tweens[0][0].isPlaying, undefined, '0.2s tweens[0][0].isPlaying');
             assert.equal( tetra.CmpTweens.tweens[1][0].isPlaying, undefined, '0.2s tweens[1][0].isPlaying');
 
@@ -142,6 +145,6 @@ describe('case: [tween] hello', function() {
             assert.equal( tetra.CmpTweens.tweens[1][0].isPlaying, undefined, 'started yet not updated: tweens[1][0].isPlaying');
             xworld.update();
             assert.equal( tetra.CmpTweens.tweens[0][0].isPlaying, undefined, 'cmd started tweens[0][0].isPlaying');
-            assert.equal( tetra.CmpTweens.tweens[1][0].isPlaying, true, 'cmd Stared tweens[1][0].isPlaying');
+            assert.equal( tetra.CmpTweens.tweens[1][0].isPlaying, true, 'cmd Started tweens[1][0].isPlaying');
     });
 });
