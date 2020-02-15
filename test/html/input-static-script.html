@@ -28,10 +28,10 @@
 					}
 					else this.cmd = undefined;
 				}
-				else if (e.Obj3) {
+				else if (e.id === 'sphere') {
 					switch (this.cmd) {
 						case 'up':
-							e.Obj3.mesh.rotateX(0.125 * Math.PI);
+							e.CmpTweens.
 							break;
 						case 'left':
 							e.Obj3.mesh.rotateY(0.125 * Math.PI);
@@ -54,7 +54,7 @@
 	function defineObjects() {
 		var objs = [];
 		objs.push( {
-			id: 'cube',
+			id: 'sphere',
 			Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
 					box: [200, 200, 200],	// bounding box
 					mesh: undefined },		// Thrender will handle this
