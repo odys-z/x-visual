@@ -57,7 +57,7 @@ describe('case: [tween] tweener basics', function() {
 					box: [200, 120, 80],	// bounding box
 					mesh: undefined },
 			Visual:{vtype: AssetType.point,
-					// Three use document to load assets, which doesn't exist whil testing
+					// Three use document to load assets, which doesn't exist while testing
 					// null acts as a flag to let thrender create a ram texture.
 					asset: null },
 
@@ -70,32 +70,30 @@ describe('case: [tween] tweener basics', function() {
 												u_dist: [-100, 200]},
 			 						ease: undefined}// default linear
 						}]] },
-			CmpTweens: {
-				twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-				tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
+			CmpTweens: {}
 		});
 
 		xworld.startUpdate();
-		assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1');
-		assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1');
-		assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1');
-		assert.equal( typeof cube.CmpTweens.tweens[0][0].object.u_alpha.value, 'number', 'u_alpha doesn\'t been animized' );
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1, 'u_alpha 0');
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, -100, 10, 'u_dist -100'); // -92.7 ~ -99.1
+			assert.equal( cube.CmpTweens.twindx.length, 1, 'twindx != 1');
+			assert.equal( cube.CmpTweens.tweens.length, 1, 'tweens != 1');
+			assert.equal( cube.CmpTweens.tweens[0].length, 1, 'tweens length 1');
+			assert.equal( typeof cube.CmpTweens.tweens[0][0].object.u_alpha.value, 'number', 'u_alpha doesn\'t been animized' );
+			assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1, 'u_alpha 0');
+			assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, -100, 10, 'u_dist -100'); // -92.7 ~ -99.1
 
 		await sleep(1000);
-		xworld.update();
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 1, 0.01, '1s 0, 0 u_alpha');
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, 200, 1.0, '1s 0, 0 u_dist');
+			xworld.update();
+			assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 1, 0.01, '1s 0, 0 u_alpha');
+			assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, 200, 1.0, '1s 0, 0 u_dist');
 
-		cube.CmpTweens.startCmds.push(0);
-		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, 'before start by cmd');
-		debugger
-		xworld.update();
-		assert.equal( cube.CmpTweens.twindx[0], 0, 'start 0 by cmd');
-		assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, true, 'u_alpha 0 - after start by cmd');
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1, 'after start by cmd u_alpha');
-		assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, -100, 10, 'after start by cmd u_dist -100'); // -92.7 ~ -99.1
+			cube.CmpTweens.startCmds.push(0);
+			assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, 'before start by cmd');
+
+			xworld.update();
+			assert.equal( cube.CmpTweens.twindx[0], 0, 'start 0 by cmd');
+			assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, true, 'u_alpha 0 - after start by cmd');
+			assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_alpha.value, 0, 0.1, 'after start by cmd u_alpha');
+			assert.closeTo( cube.CmpTweens.tweens[0][0].object.u_dist.value, -100, 10, 'after start by cmd u_dist -100'); // -92.7 ~ -99.1
 	});
 
     it('start multple by cmds', async function() {
@@ -131,7 +129,6 @@ describe('case: [tween] tweener basics', function() {
             CmpTweens: {}
         });
 
-        debugger
         xworld.startUpdate();
         await sleep(200);
             xworld.update();
