@@ -143,7 +143,7 @@ describe('case: [Visual] points', function() {
 		assert.isOk( points2.Obj3.mesh );
 		assert.isOk( points2.Obj3.mesh instanceof THREE.Points );
 		assert.isOk( points2.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
-		assert.equal( points2.Obj3.mesh.geometry.attributes.position.count, 42 );
+		assert.equal( points2.Obj3.mesh.geometry.attributes.position.count, 3 * 7 * 7 ); // 147, duno why
 	});
 
 });

@@ -1,88 +1,161 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>XTest-ECS</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+    <meta charset="utf-8">
+    <title>XTest-ECS</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
   <script>
-	/** use case:
-	 * Using a command to plug in a tween for roatating and buncing */
-	"use strict";
+    /** use case:
+     * Using a command to plug in a tween for roatating and buncing */
+    "use strict";
 
-	class Interaction extends xv.XObj {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-		}
+    var logged = false;
+    class Interaction extends xv.XObj {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.cmd = [];
+        }
 
-		update(tick, entities) {
-			for (const e of entities) {
-				if (e.CmdFlag) {
-				 	if (e.CmdFlag.flag > 0) {
-						// console.log(e.UserCmd);
-						this.cmd = e.UserCmd.cmds[0].cmd;
-					}
-					else this.cmd = undefined;
-				}
-				else if (e.id === 'sphere') {
-					switch (this.cmd) {
-						case 'up':
-							e.CmpTweens.
-							break;
-						case 'left':
-							e.Obj3.mesh.rotateY(0.125 * Math.PI);
-							break;
-						case 'down':
-							e.Obj3.mesh.rotateX(-0.125 * Math.PI);
-							break;
-						case 'right':
-							e.Obj3.mesh.rotateY(-0.125 * Math.PI);
-							break;
-						default:
-					}
-				}
-			}
-		}
+        update(tick, entities) {
+            for (const e of entities) {
+                if (e.CmdFlag) {
+                     if (e.CmdFlag.flag > 0) {
+                        // console.log(e.UserCmd);
+                        this.cmd.push(...e.UserCmd.cmds);
+                    }
+                    else this.cmd = [];
+                    continue;
+                }
 
-	}
-	Cubesys.query = { any: ['GpuPickable'] };
+                if (e.id === 'sphere') {
+                    for (var cmd of this.cmd) {
+                        if (cmd.code === 'key' && sphere(cmd.cmd, e))
+                            break;
+                    }
+                }
+                else if (e.id === 'torus') {
+                    for (var cmd of this.cmd) {
+                        if (cmd.code === 'key' && torus(cmd.cmd, e))
+                            break;
+                    }
+                }
+            }
+        }
+    }
 
-	function defineObjects() {
-		var objs = [];
-		objs.push( {
-			id: 'sphere',
-			Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-					box: [200, 200, 200],	// bounding box
-					mesh: undefined },		// Thrender will handle this
-			GpuPickable: {},
-			Visual: {vtype: xv.AssetType.mesh,
-					 asset: 'tex/byr0.png'}
-		});
-		objs.push ({
-			id: 'torus',
-			Obj3: { geom: xv.XComponent.Obj3Type.TORUS,
-					box: [200, 100, 200],
-					mesh: undefined },		// Thrender will handle this
-			GpuPickable: {},
-			Visual: {vtype: xv.AssetType.mesh,
-					 asset: 'tex/rgb2x2.png'}
-		});
-		return objs;
-	}
+    function sphere(cmd, e) {
+        if (e.CmpTweens)
+        switch (cmd) {
+            case 'up':
+                e.CmpTweens.startCmds.push(0);
+                break;
+            case 'down':
+                e.CmpTweens.startCmds.push(1);
+                break;
+            default:
+        }
+        else if (!logged){
+            console.error('No such tween.')
+            logged = true;
+        }
+    }
 
+    function torus(cmd, e) {
+        if (e.CmpTweens)
+        switch (cmd) {
+            case 'left':
+                e.CmpTweens.startCmds.push(0);
+                break;
+            case 'right':
+                e.CmpTweens.startCmds.push(1);
+                break;
+            default:
+        }
+        else if (!logged){
+            console.error('No such tween.');
+            logged = true;
+        }
+    }
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window, {log: 6});
-	const ecs = xworld.xecs;
-	const xscene = xworld.xscene;
+    Interaction.query = { any: ['GpuPickable', 'CmdFlag'] };
 
-	xworld.addEntities(defineObjects);
-	xworld.addSystem('test', new Interaction(ecs, {xscene}));
+    function defineObjects() {
+        var objs = [];
+        objs.push( {
+            id: 'sphere',
+            Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+                    // radius — sphere radius. Default is 1.
+                    // widthSegments — number of horizontal segments. Minimum value is 3, and the default is 8.
+                    // heightSegments — number of vertical segments. Minimum value is 2, and the default is 6.
+                    // phiStart — specify horizontal starting angle. Default is 0.
+                    // phiLength — specify horizontal sweep angle size. Default is Math.PI * 2.
+                    // thetaStart — specify vertical starting angle. Default is 0.
+                    // thetaLength — specify vertical sweep angle size. Default is Math.PI.
+                    box: [60, 8, 6],
+                    mesh: undefined },          // Thrender will handle this
+            GpuPickable: {},
+            Visual:{vtype: xv.AssetType.mesh,
+                    asset: 'tex/byr0.png'},
+            ModelSeqs: { script:
+                [[{ mtype: AnimType.ROTAXIS,
+                    paras: {start: Infinity,
+                            duration: 0.801,    // seconds
+                            deg: [0, 45],       // from, to
+                            ease: undefined}} ],// default linear
+                 [{ mtype: AnimType.ORBIT,
+                    paras: {start: Infinity,    // auto start, follow previous
+                            duration: 1,        // seconds
+                            axis: [0, 1, 0],
+                            origin: [120, 0, 0],
+                            deg: [0, 90],
+                            ease: XEasing.Elastic.InOut} } ]] },
+            CmpTweens: {}
+        });
+        objs.push ({
+            id: 'torus',
+            Obj3: { geom: xv.XComponent.Obj3Type.TORUS,
+                    // THREE.TorusBufferGeometry
+                    // radius - Radius of the torus, from the center of the torus to the center of the tube. Default is 1.
+                    // tube — Radius of the tube. Default is 0.4.
+                    // radialSegments — Default is 8
+                    // tubularSegments — Default is 6.
+                    // arc — Central angle. Default is Math.PI * 2.
+                    box: [100, 10, 8, 50],
+                    mesh: undefined },          // Thrender will handle this
+            GpuPickable: {},
+            Visual:{vtype: xv.AssetType.mesh,
+                    asset: 'tex/rgb2x2.png'}
+            ModelSeqs: { script:
+                [[{ mtype: AnimType.OBJ3ROTX,
+                    paras: {start: Infinity,
+                            duration: 0.8,      // seconds
+                            deg: [0, 45],       // from, to
+                            ease: undefined}} ],// default linear
+                 [{ mtype: AnimType.ORBIT,
+                    paras: {start: Infinity,    // auto start, follow previous
+                            duration: 1,        // seconds
+                            axis: [0, 1, 0],
+                            origin: [120, 0, 0],
+                            deg: [0, 90],
+                            ease: XEasing.Elastic.InOut} } ]] },
+            CmpTweens: {}
+        });
+        return objs;
+    }
 
-	xworld.startUpdate();
+    const xworld = new xv.XWorld(document.getElementById('canv'), window, {log: 6});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
+
+    xworld.addEntities(defineObjects());
+    xworld.addSystem('test', new Interaction(ecs, {xscene}));
+
+    xworld.startUpdate();
   </script>
 </body>
 </html>

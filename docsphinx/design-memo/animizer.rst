@@ -138,8 +138,8 @@ _______________________
 
 Rotaion degree
 
-AnimType.OBJ3ROTAXIS paras
-__________________________
+AnimType.ROTAXIS paras
+______________________
 
 - axis:
 
