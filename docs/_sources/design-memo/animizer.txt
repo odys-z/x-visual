@@ -140,7 +140,7 @@ _______________________
 
 - deg
 
-Rotaion degree
+Rotation degree
 
 AnimType.OBJ3ROTAXIS paras
 __________________________
@@ -148,6 +148,33 @@ __________________________
 - axis:
 
 Array of axis to rotate around.
+
+- deg
+
+Rotation degree
+
+AnimType.ORBIT paras
+____________________
+
+- axis:
+
+Array of axis to rotate around.
+
+- pivot:
+
+The pivot point tor rotate around.
+
+- deg
+
+Rotation degree
+
+::
+
+    detailed reference:
+    `Maths - Calculation of Matrix for 2D Rotation about a point <https://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix2d/index.htm>`_
+    `Discussion: Three JS Pivot point <https://stackoverflow.com/questions/42812861/three-js-pivot-point/42866733#42866733>`_
+    `Three.js org discourse: How to rotate an object around a pivot point? <https://discourse.threejs.org/t/how-to-rotate-an-object-around-a-pivot-point/6838>`_
+
 
 AnimType.ALPHA paras
 ____________________
