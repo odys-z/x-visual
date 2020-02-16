@@ -362,10 +362,16 @@ is finished.</p>
 <li>deg</li>
 </ul>
 <p>Rotation degree</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>detailed reference:
-`Maths - Calculation of Matrix for 2D Rotation about a point &lt;https://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix2d/index.htm&gt;`_
-`Discussion: Three JS Pivot point &lt;https://stackoverflow.com/questions/42812861/three-js-pivot-point/42866733#42866733&gt;`_
-`Three.js org discourse: How to rotate an object around a pivot point? &lt;https://discourse.threejs.org/t/how-to-rotate-an-object-around-a-pivot-point/6838&gt;`_
+<p>detailed reference:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix2d/index.htm">Maths - Calculation of Matrix for 2D Rotation about a point</a></p>
+<p><a class="reference external" href="https://stackoverflow.com/questions/42812861/three-js-pivot-point/42866733#42866733">Discussion: Three JS Pivot point</a></p>
+<p><a class="reference external" href="https://discourse.threejs.org/t/how-to-rotate-an-object-around-a-pivot-point/6838">Three.js org discourse: How to rotate an object around a pivot point?</a></p>
+</div></blockquote>
+<p>Yep, T&#8217;T = I</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>1 0 x       1 0 -x      1 0 0
+0 1 y   *   0 1 -y   =  0 1 0
+0 0 1       0 0  1      0 0 1
 </pre></div>
 </div>
 </div>
