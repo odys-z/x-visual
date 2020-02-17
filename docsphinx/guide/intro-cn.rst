@@ -25,8 +25,7 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 
 程序创建了一个xworld，作为渲染3D空间，然后添加定义的立方体，之后调用xworld.startUpdate()开始反复渲染更新场景。
 
-zh: The main app is this similar alike. The task is now create subsystem rendering
-a cube.
+基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Hello类。
 
 .. literalinclude:: ../../examples/cube/hello.js
    :language: javascript
@@ -113,14 +112,14 @@ AnimType.UNIFORMS
 
 示例： see `test/html/model-morph.html <../../test/html/model-morph.html>`_
 
-zh: first, it created 2 cube:
+这段首先定义了两个用于做位置参照的模型：
 
 .. literalinclude:: ../../test/html/model-morph.html
    :language: javascript
    :lines: 20-72
    :linenos:
 
-then referencing points (vertices) moving between the corresponding vertices.
+然后定义了若干顶点（points / vertices)，并且控制在这两个模型对应顶点间移动。
 
 .. literalinclude:: ../../test/html/model-morph.html
    :language: javascript
