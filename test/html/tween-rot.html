@@ -54,12 +54,11 @@
 					Visual:{vtype: xv.AssetType.mesh,
 							asset: 'tex/byr0.png' },
 
-					// TODO docs: in version 1.0, only type of sequence animation is supported
+					// in version 1.0, only type of sequence animation is supported
 					ModelSeqs: {
 						script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
 									paras: {start: 0,		// auto start
 											duration: 1,	// seconds
-											cmd: 'w',		// reset by 'w'
 											deg: [0, 45],	// from, to
 					 						ease: undefined}// default linear
 								  },
@@ -77,13 +76,7 @@
 					 						ease: xv.XEasing.Elastic.In}// TODO docs
 								  } ]]
 						},
-					CmpTweens: {
-						// TODO docs: here are some twenn seq already defined by user.
-						// Any newly animized tween sequences will be appended to it.
-						// twindx is 1D array, tweens is a 2D array.
-						// example: xv.ecs.sys.tween.MorphingAnim.initTweens()
-						twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-						tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
+					CmpTweens: {}
 				});
 			}
 		}
