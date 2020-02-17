@@ -1,3 +1,5 @@
+.. _guide-app-architecture:
+
 X-visual应用程序基本结构
 ========================
 
