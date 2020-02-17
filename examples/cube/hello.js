@@ -1,7 +1,7 @@
 
-import Cube from './points'
+import Cube from './hellocube'
 
-class Business {
+class Hello {
 	constructor() {}
 
 	static createCubesys(ecs, options) {
@@ -10,4 +10,4 @@ class Business {
 	}
 }
 
-export {Business}
+export {Hello}

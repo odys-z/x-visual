@@ -2,7 +2,7 @@ X-visual应用程序基本结构
 ======================
 
 .. note:: 搭建并运行x-visual examples后有更助于阅读下文内容细节。
-    
+
 ..
 
 x-visual是一个ECS WebGl渲染程序javascript框架。应用程序需要遵循ECS （Entity, Component, System)
@@ -16,11 +16,30 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 2. Hello XWorld
 ---------------
 
-下文是一个最简单的应用程序。
+以下是一个最简单的应用程序。
 
-在函数defineHello()中定义了一个立方体。
+.. literalinclude:: ../../example/cube/app.js
+   :language: javascript
+   :lines: 1-15
+   :linenos:
 
 程序创建了一个xworld，作为渲染3D空间，然后添加定义的立方体，之后调用xworld.startUpdate()开始反复渲染更新场景。
+
+zh: The main app is this similar alike. The task is now create subsystem rendering
+a cube.
+
+.. literalinclude:: ../../example/cube/hellocube.js
+   :language: javascript
+   :lines: 1-15
+   :linenos:
+
+在hellocube中定义了一个立方体:
+
+.. literalinclude:: ../../example/cube/hellocube.js
+   :language: javascript
+   :lines: 1-15
+   :linenos:
+
 
 3. 应用程序基本结构
 ------------------
@@ -34,14 +53,14 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 - Entity定义
 
     Entity由若干Component构成。实际是一组数据和System动作规则。
-    
+
 - System实现
-    
+
     继承ECS.XObj基础类，实现用户处理逻辑。
-    
+
     用户处理逻辑在这里应该只处理与渲染有关的工作，包括用户输入响应、数据展示方式处理等。更多复杂逻辑处理应当推到后台处理。
-    
-    
+
+
 4. 框架基本功能范围
 ------------------
 
@@ -114,4 +133,3 @@ AnimType.U_VERT_TRANS
 
 shader + uniform动画
 ++++++++++++++++++++
-
