@@ -9,7 +9,7 @@ class App {
 		const xworld = new xv.XWorld(c, window, {});
 		var ecs = xworld.xecs;
 
-		xworld.addSystem('visu', Business.createCubesys(ecs, {xscene: xworld.xscene}));
+		xworld.addSystem('visu', Hello.createCubesys(ecs, {xscene: xworld.xscene}));
 		xworld.startUpdate();
 	}
 }
