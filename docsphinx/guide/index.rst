@@ -6,4 +6,4 @@ Contents:
 .. toctree::
    :maxdepth: 3
 
-   about-cn
+   intro-cn
