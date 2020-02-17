@@ -28,16 +28,16 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 zh: The main app is this similar alike. The task is now create subsystem rendering
 a cube.
 
-.. literalinclude:: ../../examples/cube/hellocube.js
+.. literalinclude:: ../../examples/cube/hello.js
    :language: javascript
-   :lines: 1-15
+   :lines: 1-14
    :linenos:
 
 在hellocube中定义了一个立方体:
 
 .. literalinclude:: ../../examples/cube/hellocube.js
    :language: javascript
-   :lines: 1-15
+   :lines: 1-50
    :linenos:
 
 
@@ -97,16 +97,35 @@ x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是E
 
 示例：
 
+.. literalinclude:: ../../test/html/tween-rot.html
+   :language: javascript
+   :lines: 58-65
+   :linenos:
 
-上例中，模型将被xtweener驱动绕X轴旋转90°。
+上例中，模型将被xtweener驱动绕X轴旋转45°, time 1 second.
+
+see `test/html/tween-rot.html <../../test/html/tween-rot.html>`_
 
 6. shader uniform动画
 ---------------------
 
 AnimType.UNIFORMS
 
-示例：
+示例： see `test/html/model-morph.html <../../test/html/model-morph.html>`_
 
+zh: first, it created 2 cube:
+
+.. literalinclude:: ../../test/html/model-morph.html
+   :language: javascript
+   :lines: 20-72
+   :linenos:
+
+then referencing points (vertices) moving between the corresponding vertices.
+
+.. literalinclude:: ../../test/html/model-morph.html
+   :language: javascript
+   :lines: 74-110
+   :linenos:
 
 这个动画脚本将使Points的位置在两个模型的顶点位置间移动。因为u_morph设置了两个模型顶点的权重。
 
@@ -115,12 +134,21 @@ AnimType.UNIFORMS
 
 AnimType.U_VERT_TRANS
 
-示例：
+示例： see `test/html/voxel-morph-particles.html <../../test/html/voxel-morph-particles.html>`_
+
+.. literalinclude:: ../../test/html/voxel-morph-particles.html
+   :language: javascript
+   :lines: 70-101
+   :linenos:
 
 这个动画脚本被解释为创建等距分布的顶点，并使顶点在不同目标位置间取权重。同时还不断更新颜色透明度。
 
 8. 示例
 -------
+
+see test/html
+
+TODO docs ...
 
 载入GLTF模型
 ++++++++++++

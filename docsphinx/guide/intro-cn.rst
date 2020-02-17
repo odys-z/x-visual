@@ -104,14 +104,14 @@ x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是E
 
 上例中，模型将被xtweener驱动绕X轴旋转45°, time 1 second.
 
-see `test/html/tween-rot.html </test/html/tween-rot.html>`_
+see `test/html/tween-rot.html <../../test/html/tween-rot.html>`_
 
 6. shader uniform动画
 ---------------------
 
 AnimType.UNIFORMS
 
-示例： see `test/html/model-morph.html </test/html/model-morph.html>`_
+示例： see `test/html/model-morph.html <../../test/html/model-morph.html>`_
 
 zh: first, it created 2 cube:
 
@@ -134,7 +134,7 @@ then referencing points (vertices) moving between the corresponding vertices.
 
 AnimType.U_VERT_TRANS
 
-示例： see `test/html/voxel-morph-particles.html </test/html/voxel-morph-particles.html>`_
+示例： see `test/html/voxel-morph-particles.html <../../test/html/voxel-morph-particles.html>`_
 
 .. literalinclude:: ../../test/html/voxel-morph-particles.html
    :language: javascript

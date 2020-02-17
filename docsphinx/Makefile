@@ -52,6 +52,7 @@ help:
 # https://www.docslikecode.com/articles/github-pages-python-sphinx/
 # https://github.com/sphinx-doc/sphinx/issues/3382#issuecomment-470772316
 ghpage:
+	@rm -r ../docs
 	@rm -r xvbuild
 	@make html
 	@cp -a xvbuild/html/. ../docs
