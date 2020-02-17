@@ -12,4 +12,5 @@ Contents:
    obj3
    renderer
    animizer
+   extensions/index
    todo
