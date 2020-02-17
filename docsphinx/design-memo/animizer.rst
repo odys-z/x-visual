@@ -23,6 +23,10 @@ to XTweener, which is the style of ECS.
 CmpTween and CmpTweens are wrapped by x-visual and user shouldn't worry about it.
 The ModelSeqs is what users will working on, which also is defined as a 2D array.
 
+.. note:: As x-visual is a data visualization prototype, it's only support static
+    animation scripts triggered by commands. Scripts can only provided when creating
+    entities, and not emit events.
+
 - ModelSeqs
 
 Each 1D Array of the 2D array is an animation processing script. Each element of
@@ -136,7 +140,7 @@ _______________________
 
 - deg
 
-Rotaion degree
+Rotation degree
 
 AnimType.ROTAXIS paras
 ______________________
@@ -144,6 +148,114 @@ ______________________
 - axis:
 
 Array of axis to rotate around.
+
+- deg
+
+Rotation degree
+
+AnimType.ORBIT paras
+____________________
+
+- axis:
+
+Array of axis to rotate around.
+
+- pivot:
+
+The pivot point tor rotate around.
+
+- deg
+
+Rotation degree
+
+detailed reference:
+
+    `Maths - Calculation of Matrix for 2D Rotation about a point <https://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix2d/index.htm>`_
+
+    `StatckOverflow Discussion: Three JS Pivot point <https://stackoverflow.com/questions/42812861/three-js-pivot-point/42866733#42866733>`_
+
+    `Three.js org discourse: How to rotate an object around a pivot point? <https://discourse.threejs.org/t/how-to-rotate-an-object-around-a-pivot-point/6838>`_
+
+Yep,
+
+::
+
+    1 0 x       1 0 -x      1 0 0
+    0 1 y   *   0 1 -y   =  0 1 0
+    0 0 1       0 0  1      0 0 1
+
+Three.js implementation
+
+.. code-block:: javascript
+
+    function Object3D() {
+        var position = new Vector3();
+        var rotation = new Euler();
+        var quaternion = new Quaternion();
+        var scale = new Vector3( 1, 1, 1 );
+    }
+
+    Object3D.prototype = Object.assign( Object.create( EventDispatcher.prototype ), {
+        applyMatrix4: function ( matrix ) {
+            if ( this.matrixAutoUpdate ) this.updateMatrix();
+            this.matrix.premultiply( matrix );
+            this.matrix.decompose( this.position, this.quaternion, this.scale );
+        },
+
+        applyQuaternion: function ( q ) {
+            this.quaternion.premultiply( q );
+            return this;
+        },
+    });
+
+    function Quaternion( x, y, z, w ) {
+        this._x = x || 0;
+        this._y = y || 0;
+        this._z = z || 0;
+        this._w = ( w !== undefined ) ? w : 1;
+    }
+
+    Object.assign( Quaternion.prototype, {
+        setFromRotationMatrix: function ( m ) {
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+            // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+            var te = m.elements,
+                m11 = te[ 0 ], m12 = te[ 4 ], m13 = te[ 8 ],
+                m21 = te[ 1 ], m22 = te[ 5 ], m23 = te[ 9 ],
+                m31 = te[ 2 ], m32 = te[ 6 ], m33 = te[ 10 ],
+                trace = m11 + m22 + m33,
+                s;
+            if ( trace > 0 ) {
+                s = 0.5 / Math.sqrt( trace + 1.0 );
+                this._w = 0.25 / s;
+                this._x = ( m32 - m23 ) * s;
+                this._y = ( m13 - m31 ) * s;
+                this._z = ( m21 - m12 ) * s;
+            } else if ( m11 > m22 && m11 > m33 ) {
+                s = 2.0 * Math.sqrt( 1.0 + m11 - m22 - m33 );
+                this._w = ( m32 - m23 ) / s;
+                this._x = 0.25 * s;
+                this._y = ( m12 + m21 ) / s;
+                this._z = ( m13 + m31 ) / s;
+            } else if ( m22 > m33 ) {
+                s = 2.0 * Math.sqrt( 1.0 + m22 - m11 - m33 );
+                this._w = ( m13 - m31 ) / s;
+                this._x = ( m12 + m21 ) / s;
+                this._y = 0.25 * s;
+                this._z = ( m23 + m32 ) / s;
+            } else {
+                s = 2.0 * Math.sqrt( 1.0 + m33 - m11 - m22 );
+                this._w = ( m21 - m12 ) / s;
+                this._x = ( m13 + m31 ) / s;
+                this._y = ( m23 + m32 ) / s;
+                this._z = 0.25 * s;
+            }
+            this._onChangeCallback();
+            return this;
+        },
+    });
+..
+
 
 AnimType.ALPHA paras
 ____________________

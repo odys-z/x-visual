@@ -10,98 +10,91 @@
   <img id='splash'></img>
   <canvas id='canv'></canvas>
   <script>
-	"use strict";
+    "use strict";
 
-	var log = true;
-	class Cubesys extends xv.XObj {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-			this.initCube(ecs, options.xscene);
-		}
+    var log = true;
+    class Cubesys extends xv.XObj {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.initCube(ecs, options.xscene);
+        }
 
-		update(tick, entities) {
-			if (log) {
-				log = false;
-				console.log('cube-sys');
-			}
+        update(tick, entities) {
+            if (log) {
+                log = false;
+                console.log('cube-sys');
+            }
 
-	    	for (const e of entities) {
-				if (e.CmdFlag) {
-				 	if (e.CmdFlag.flag > 0) {
-						this.cmd = e.UserCmd.cmds[0].cmd;
-					}
-					else this.cmd = undefined;
-				}
-				else if (e.Visual) {
-					if (this.cmd)
-						console.log('visual changing: ', this.cmd);
-				}
-			}
-		}
+            for (const e of entities) {
+                if (e.CmdFlag) {
+                     if (e.CmdFlag.flag > 0) {
+                        this.cmd = e.UserCmd.cmds[0].cmd;
+                    }
+                    else this.cmd = undefined;
+                }
+                else if (e.Visual) {
+                    if (this.cmd)
+                        console.log('visual changing: ', this.cmd);
+                }
+            }
+        }
 
-		initCube(ecs, scene) {
-			if (ecs) {
-				var cube = ecs.createEntity({
-					id: 'cube0',
-					UserCmd: {},
-					CmdFlag: {},
-					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-							box: [200, 120, 80],	// bounding box
-							// mesh is inited by thrender, can be ignored here - CmpTween's target
-							mesh: undefined,
-							uniforms: {opacity: 0.4}},
-					Visual:{vtype: xv.AssetType.mesh,
-							asset: 'tex/byr0.png' },
+        initCube(ecs, scene) {
+            if (ecs) {
+                var cube = ecs.createEntity({
+                    id: 'cube0',
+                    UserCmd: {},
+                    CmdFlag: {},
+                    Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                            box: [200, 120, 80],    // bounding box
+                            // mesh is inited by thrender, can be ignored here - CmpTween's target
+                            mesh: undefined,
+                            uniforms: {opacity: 0.4}},
+                    Visual:{vtype: xv.AssetType.mesh,
+                            asset: 'tex/byr0.png' },
 
-					// TODO docs: in version 1.0, only type of sequence animation is supported
-					ModelSeqs: {
-						script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
-									paras: {start: 0,		// auto start
-											duration: 1,	// seconds
-											cmd: 'w',		// reset by 'w'
-											deg: [0, 45],	// from, to
-					 						ease: undefined}// default linear
-								  },
-								  { mtype: xv.XComponent.AnimType.ROTAXIS,
-									paras: {start: Infinity,// auto start
-											duration: 3.5,	// seconds
-											axis: [0, 1, 0],
-											deg: [0, 90],	// from, to
-					 						ease: xv.XEasing.Elastic.InOut}// TODO docs
-								  },
-								  { mtype: xv.XComponent.AnimType.ALPHA,
-									paras: {start: Infinity,// start after previous
-											duration: 1.2,	// seconds
-											alpha: [0.9, 0.12],	// from, to
-					 						ease: xv.XEasing.Elastic.In}// TODO docs
-								  } ]]
-						},
-					CmpTweens: {
-						// TODO docs: here are some twenn seq already defined by user.
-						// Any newly animized tween sequences will be appended to it.
-						// twindx is 1D array, tweens is a 2D array.
-						// example: xv.ecs.sys.tween.MorphingAnim.initTweens()
-						twindx: [],	// e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-						tweens: []}	// initialized by animizer, handled by XTweener. [] is safely ignored
-				});
-			}
-		}
-	}
+                    // in version 1.0, only type of sequence animation is supported
+                    ModelSeqs: {
+                        script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
+                                    paras: {start: 0,        // auto start
+                                            duration: 1,    // seconds
+                                            deg: [0, 45],    // from, to
+                                             ease: undefined}// default linear
+                                  },
+                                  { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
+                                    paras: {start: Infinity,// auto start
+                                            duration: 3.5,    // seconds
+                                            axis: [0, 1, 0],
+                                            deg: [0, 90],    // from, to
+                                             ease: xv.XEasing.Elastic.InOut}// TODO docs
+                                  },
+                                  { mtype: xv.XComponent.AnimType.ALPHA,
+                                    paras: {start: Infinity,// start after previous
+                                            duration: 1.2,    // seconds
+                                            alpha: [0.9, 0.12],    // from, to
+                                             ease: xv.XEasing.Elastic.In}// TODO docs
+                                  } ]]
+                        },
+                    CmpTweens: {}
+                });
+            }
+        }
+    }
 
-	Cubesys.query = { iffall: ['Visual', 'CmdFlag'] };
+    Cubesys.query = { iffall: ['Visual', 'CmdFlag'] };
 
-	xv.splash('splash', rock);
+    xv.splash('splash', rock);
 
-	function rock() {
-		const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
-		const ecs = xworld.xecs;
-		const xscene = xworld.xscene;
+    function rock() {
+        const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
+        const ecs = xworld.xecs;
+        const xscene = xworld.xscene;
 
-		xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+        xworld.addSystem('test', new Cubesys(ecs, {xscene}));
 
-		xworld.startUpdate();
-	}
+        xworld.startUpdate();
+    }
   </script>
 </body>
 </html>

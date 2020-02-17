@@ -26,6 +26,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   guide/index
    design-memo/index
    reference/index
 

@@ -1,6 +1,6 @@
 
 import * as xv from 'x-visual'
-import {Business} from './business'
+import {Hello} from './hello'
 
 class App {
 	constructor(canv) {
@@ -14,7 +14,7 @@ class App {
 		ecs.registerComponent('Geometry', xv.XComponent.Geometry);
 		// ecs.registerComponent('Visual', xv.XComponent.Visual);
 
-		xworld.addSystem('visu', Business.createCubesys(ecs, {xscene: xworld.xscene}));
+		xworld.addSystem('visu', Hello.createCubesys(ecs, {xscene: xworld.xscene}));
 		xworld.startUpdate();
 	}
 }
