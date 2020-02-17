@@ -4,6 +4,6 @@ X-visual Guide
 Contents:
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
 
    intro-cn
