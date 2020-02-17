@@ -197,8 +197,7 @@
 </pre></div>
 </td></tr></table></div>
 <p>程序创建了一个xworld，作为渲染3D空间，然后添加定义的立方体，之后调用xworld.startUpdate()开始反复渲染更新场景。</p>
-<p>zh: The main app is this similar alike. The task is now create subsystem rendering
-a cube.</p>
+<p>基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Hello类。</p>
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -412,7 +411,7 @@ Pickable.picktick中。</p>
 <h2>6. shader uniform动画<a class="headerlink" href="#shader-uniform" title="Permalink to this headline">¶</a></h2>
 <p>AnimType.UNIFORMS</p>
 <p>示例： see <a class="reference external" href="../../test/html/model-morph.html">test/html/model-morph.html</a></p>
-<p>zh: first, it created 2 cube:</p>
+<p>这段首先定义了两个用于做位置参照的模型：</p>
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -520,7 +519,7 @@ Pickable.picktick中。</p>
     <span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span><span class="nx">ent2</span><span class="p">);</span>
 </pre></div>
 </td></tr></table></div>
-<p>then referencing points (vertices) moving between the corresponding vertices.</p>
+<p>然后定义了若干顶点（points / vertices)，并且控制在这两个模型对应顶点间移动。</p>
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
