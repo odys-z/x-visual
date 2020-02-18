@@ -195,7 +195,7 @@
 <span class="cm"> */</span>
 
 <span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
-<span class="kr">import</span> <span class="p">{</span><span class="nx">Cube</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hellocube&#39;</span>
+<span class="kr">import</span> <span class="nx">Cube</span> <span class="nx">from</span> <span class="s1">&#39;./hellocube&#39;</span>
 
 <span class="cm">/** Hollow XWorld Application.</span>
 <span class="cm"> * add the user implemented system, Hello, into xworld, then show it.</span>
@@ -217,7 +217,7 @@
 </pre></div>
 </td></tr></table></div>
 <p>主程序创建了一个xworld，作为渲染3D空间，然后添加定义的立方体，之后调用xworld.startUpdate()开始反复渲染更新场景。</p>
-<p>基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Hello类。</p>
+<p>基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Cube类。</p>
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -276,48 +276,56 @@
 <span class="cm"> * @class</span>
 <span class="cm"> */</span>
 <span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Cube</span> <span class="kr">extends</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XObj</span> <span class="p">{</span>
-	<span class="nx">constructor</span><span class="p">(</span><span class="nx">ecs</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-		<span class="kr">super</span><span class="p">(</span><span class="nx">ecs</span><span class="p">);</span>
-		<span class="k">this</span><span class="p">.</span><span class="nx">ecs</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">;</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">ecs</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">(</span><span class="nx">ecs</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">ecs</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">;</span>
 
-		<span class="k">this</span><span class="p">.</span><span class="nx">logcnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">logcnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-		<span class="c1">// create a cube with options</span>
-		<span class="k">if</span> <span class="p">(</span><span class="nx">ecs</span><span class="p">)</span> <span class="p">{</span>
-			<span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
-				<span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
-				<span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
-						<span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span> <span class="p">},</span>	<span class="c1">// geometry parameters, for BOX, it&#39;s bounding box</span>
-				<span class="nx">Visual</span><span class="o">:</span> <span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
-						 <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;../../assets/rgb2x2.png&#39;</span> <span class="p">}</span>
-			<span class="p">});</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+        <span class="c1">// create a cube with options</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">ecs</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+                <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
+                <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
+                        <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span> <span class="p">},</span>    <span class="c1">// geometry parameters, for BOX, it&#39;s bounding box</span>
+                <span class="nx">Visual</span><span class="o">:</span> <span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                         <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;../../assets/rgb2x2.png&#39;</span> <span class="p">}</span>
+            <span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-	<span class="nx">update</span><span class="p">(</span><span class="nx">tick</span><span class="p">,</span> <span class="nx">entities</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">logcnt</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-			<span class="k">this</span><span class="p">.</span><span class="nx">logcnt</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-			<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;cube.update(): &#39;</span><span class="p">,</span> <span class="nx">tick</span><span class="p">,</span> <span class="nx">entities</span><span class="p">)</span>
-		<span class="p">}</span>
+    <span class="nx">update</span><span class="p">(</span><span class="nx">tick</span><span class="p">,</span> <span class="nx">entities</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">logcnt</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">logcnt</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;cube.update(): &#39;</span><span class="p">,</span> <span class="nx">tick</span><span class="p">,</span> <span class="nx">entities</span><span class="p">)</span>
+        <span class="p">}</span>
 
-		<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">e</span> <span class="k">of</span> <span class="nx">entities</span><span class="p">)</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmdFlag</span><span class="p">)</span> <span class="p">{</span>
-			 	<span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmdFlag</span><span class="p">.</span><span class="nx">flag</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-					<span class="c1">// handling command like start an animation here</span>
-					<span class="k">this</span><span class="p">.</span><span class="nx">cmd</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">UserCmd</span><span class="p">.</span><span class="nx">cmds</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">cmd</span><span class="p">;</span>
-				<span class="p">}</span>
-				<span class="k">else</span> <span class="k">this</span><span class="p">.</span><span class="nx">cmd</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">e</span> <span class="k">of</span> <span class="nx">entities</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmdFlag</span><span class="p">)</span> <span class="p">{</span>
+                 <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmdFlag</span><span class="p">.</span><span class="nx">flag</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// handling command like start an animation here</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">cmd</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">UserCmd</span><span class="p">.</span><span class="nx">cmds</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">cmd</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">this</span><span class="p">.</span><span class="nx">cmd</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="nx">Cube</span><span class="p">.</span><span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="nx">iffall</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Visual&#39;</span><span class="p">,</span> <span class="s1">&#39;CmdFlag&#39;</span><span class="p">]</span>
+    <span class="nx">iffall</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Visual&#39;</span><span class="p">,</span> <span class="s1">&#39;CmdFlag&#39;</span><span class="p">]</span>
 <span class="p">};</span>
 </pre></div>
 </td></tr></table></div>
-<p>在Hello中定义了一个立方体...</p>
+<p>在Cube中定义了一个立方体, zh: and id, Obj3, Visual, update(), query...</p>
+<p>zh: All examples are using Webpack for transpiling.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>npm i
+webpack
+</pre></div>
+</div>
+<p>zh: If everything goes well, open the examples/cube/index.html and it will show
+a cube.</p>
+<a class="reference internal image-reference" href="../_images/001-hellocube.png"><img alt="../_images/001-hellocube.png" src="../_images/001-hellocube.png" style="width: 300px;" /></a>
 </div>
 <div class="section" id="id2">
 <h2>3. 应用程序基本结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>

@@ -27,14 +27,27 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 
 主程序创建了一个xworld，作为渲染3D空间，然后添加定义的立方体，之后调用xworld.startUpdate()开始反复渲染更新场景。
 
-基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Hello类。
+基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Cube类。
 
 .. literalinclude:: ../../examples/cube/hellocube.js
    :language: javascript
    :lines: 1-50
    :linenos:
 
-在Hello中定义了一个立方体...
+在Cube中定义了一个立方体, zh: and id, Obj3, Visual, update(), query...
+
+zh: All examples are using Webpack for transpiling.
+
+::
+
+    npm i
+    webpack
+
+zh: If everything goes well, open the examples/cube/index.html and it will show
+a cube.
+
+.. image:: imgs/001-hellocube.png
+    :width: 300px
 
 3. 应用程序基本结构
 -------------------
