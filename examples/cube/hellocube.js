@@ -19,7 +19,7 @@ export default class Cube extends xv.XObj {
 			var cube = ecs.createEntity({
 				id: 'cube0',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-						box: [200, 120, 80] },	// bounding box
+						box: [200, 120, 80] },	// geometry parameters, for BOX, it's bounding box
 				Visual: {vtype: xv.AssetType.mesh,
 						 asset: '../../assets/rgb2x2.png' }
 			});
