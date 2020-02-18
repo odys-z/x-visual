@@ -59,10 +59,10 @@
                         script: [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
                                     paras: {start: 0,        // auto start
                                             duration: 1,    // seconds
-                                            deg: [0, 45],    // from, to
-                                             ease: undefined}// default linear
+                                            deg: [0, 60],    // from, to
+                                            ease: undefined}// default linear
                                   },
-                                  { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
+                                  { mtype: xv.XComponent.AnimType.ROTAXIS,
                                     paras: {start: Infinity,// auto start
                                             duration: 3.5,    // seconds
                                             axis: [0, 1, 0],
@@ -73,7 +73,7 @@
                                     paras: {start: Infinity,// start after previous
                                             duration: 1.2,    // seconds
                                             alpha: [0.9, 0.12],    // from, to
-                                             ease: xv.XEasing.Elastic.In}
+                                            ease: xv.XEasing.Elastic.In}
                                   } ]]
                         },
                     CmpTweens: {}
