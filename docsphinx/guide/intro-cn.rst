@@ -105,21 +105,36 @@ x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是E
 
 示例：
 
-.. literalinclude:: ../../test/html/tween-rot.html
-   :language: javascript
-   :lines: 58-65
-   :linenos:
+.. code-block:: javascript
+
+    ModelSeqs: { script:
+        [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
+            paras: {start: 0,        // auto start
+                    duration: 1,     // seconds
+                    deg: [0, 45],    // from, to
+                    ease: undefined} // default linear
+          },
+          { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
+            paras: {start: Infinity, // follow the first
+                    duration: 3.5,   // seconds
+                    axis: [0, 1, 0],
+                    deg: [0, 90],    // from, to
+                    ease: xv.XEasing.Elastic.InOut}
+          }
+        ]]
+     }
+..
 
 上例中，模型将被xtweener驱动绕X轴旋转45°, time 1 second.
 
-see `test/html/tween-rot.html <../../test/html/tween-rot.html>`_
+see `test/html/tween-rot.html <https://github.com/odys-z/x-visual/blob/master/test/html/tween-rot.html>`_
 
 6. shader uniform动画
 ---------------------
 
 AnimType.UNIFORMS
 
-示例： see `test/html/model-morph.html <../../test/html/model-morph.html>`_
+示例： see `test/html/model-morph.html <https://github.com/odys-z/x-visual/blob/master/test/html/model-morph.html>`_
 
 这段首先定义了两个用于做位置参照的模型：
 
@@ -142,7 +157,7 @@ AnimType.UNIFORMS
 
 AnimType.U_VERT_TRANS
 
-示例： see `test/html/voxel-morph-particles.html <../../test/html/voxel-morph-particles.html>`_
+示例： see `test/html/voxel-morph-particles.html <https://github.com/odys-z/x-visual/blob/master/test/html/voxel-morph-particles.html>`_
 
 .. literalinclude:: ../../test/html/voxel-morph-particles.html
    :language: javascript
