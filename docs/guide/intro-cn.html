@@ -180,9 +180,27 @@
 11
 12
 13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
-<span class="kr">import</span> <span class="p">{</span><span class="nx">Hello</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hello&#39;</span>
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** Example: Hello XWorld</span>
+<span class="cm"> * @module xv.example.hello</span>
+<span class="cm"> */</span>
 
+<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">Cube</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hellocube&#39;</span>
+
+<span class="cm">/** Hollow XWorld Application.</span>
+<span class="cm"> * add the user implemented system, Hello, into xworld, then show it.</span>
+<span class="cm"> * @class</span>
+<span class="cm"> */</span>
 <span class="kr">class</span> <span class="nx">App</span> <span class="p">{</span>
 	<span class="nx">constructor</span><span class="p">(</span><span class="nx">canv</span><span class="p">)</span> <span class="p">{</span>
 		<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">canv</span><span class="p">);</span>
@@ -191,39 +209,15 @@
 		<span class="p">});</span>
 		<span class="kd">var</span> <span class="nx">ecs</span> <span class="o">=</span> <span class="nx">xworld</span><span class="p">.</span><span class="nx">xecs</span><span class="p">;</span>
 
-		<span class="c1">// FIXME Geometry should already been registered by XObj</span>
-		<span class="nx">ecs</span><span class="p">.</span><span class="nx">registerComponent</span><span class="p">(</span><span class="s1">&#39;Geometry&#39;</span><span class="p">,</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Geometry</span><span class="p">);</span>
-		<span class="c1">// ecs.registerComponent(&#39;Visual&#39;, xv.XComponent.Visual);</span>
-</pre></div>
-</td></tr></table></div>
-<p>程序创建了一个xworld，作为渲染3D空间，然后添加定义的立方体，之后调用xworld.startUpdate()开始反复渲染更新场景。</p>
-<p>基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Hello类。</p>
-<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">Cube</span> <span class="nx">from</span> <span class="s1">&#39;./hellocube&#39;</span>
-
-<span class="kr">class</span> <span class="nx">Hello</span> <span class="p">{</span>
-    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{}</span>
-
-    <span class="kr">static</span> <span class="nx">createCubesys</span><span class="p">(</span><span class="nx">ecs</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// create a cube for disply</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nx">Cube</span><span class="p">(</span><span class="nx">ecs</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
-    <span class="p">}</span>
+		<span class="nx">xworld</span><span class="p">.</span><span class="nx">addSystem</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="c1">// any group name as you like</span>
+			<span class="k">new</span> <span class="nx">Cube</span><span class="p">(</span><span class="nx">ecs</span><span class="p">,</span> <span class="p">{</span><span class="nx">xscene</span><span class="o">:</span> <span class="nx">xworld</span><span class="p">.</span><span class="nx">xscene</span><span class="p">}));</span>
+		<span class="nx">xworld</span><span class="p">.</span><span class="nx">startUpdate</span><span class="p">();</span>
+	<span class="p">}</span>
 <span class="p">}</span>
-
-<span class="kr">export</span> <span class="p">{</span><span class="nx">Hello</span><span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
-<p>在hellocube中定义了一个立方体:</p>
+<p>主程序创建了一个xworld，作为渲染3D空间，然后添加定义的立方体，之后调用xworld.startUpdate()开始反复渲染更新场景。</p>
+<p>基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Hello类。</p>
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -293,7 +287,7 @@
 			<span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
 				<span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
 				<span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
-						<span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span> <span class="p">},</span>	<span class="c1">// bounding box</span>
+						<span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span> <span class="p">},</span>	<span class="c1">// geometry parameters, for BOX, it&#39;s bounding box</span>
 				<span class="nx">Visual</span><span class="o">:</span> <span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
 						 <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;../../assets/rgb2x2.png&#39;</span> <span class="p">}</span>
 			<span class="p">});</span>
@@ -323,6 +317,7 @@
 <span class="p">};</span>
 </pre></div>
 </td></tr></table></div>
+<p>在Hello中定义了一个立方体...</p>
 </div>
 <div class="section" id="id2">
 <h2>3. 应用程序基本结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>

@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-ECS</title>
-	<script type='text/javascript' src='../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../dist/xv-0.1.0.min.js'></script>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -16,8 +16,6 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			// ecs.registerComponent('Visual', xv.XComponent.Visual);
-			// ecs.registerComponent('Geometry', xv.XComponent.Geometry);
 			this.initCube(ecs, options.xscene);
 		}
 
@@ -27,7 +25,7 @@
 				console.log('cube-sys');
 			}
 
-	    	for (const e of entities) {
+			for (const e of entities) {
 				if (e.CmdFlag) {
 				 	if (e.CmdFlag.flag > 0) {
 						// console.log(e.UserCmd);
@@ -35,26 +33,36 @@
 					}
 					else this.cmd = undefined;
 				}
-				else if (e.Visual) {
-					if (this.cmd)
-						console.log('visual changing: ', this.cmd);
+				else if (e.Obj3) {
+					switch (this.cmd) {
+						case 'up':
+							e.Obj3.mesh.rotateX(0.125 * Math.PI);
+							break;
+						case 'left':
+							e.Obj3.mesh.rotateY(0.125 * Math.PI);
+							break;
+						case 'down':
+							e.Obj3.mesh.rotateX(-0.125 * Math.PI);
+							break;
+						case 'right':
+							e.Obj3.mesh.rotateY(-0.125 * Math.PI);
+							break;
+						default:
+					}
 				}
 			}
 		}
 
 		initCube(ecs, scene) {
-			// Rendering resource (THREE.Object3D) should handled in renderer subsystem.
-			// As rendering subsystem handling THREE.scene, GpuPickable initing also should be there.
 			if (ecs) {
 				var cube = ecs.createEntity({
 					id: 'cube0',
-					Geometry: {pos: [0, 0, 0],
-							rotate: [0, 0, 0], },
 					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-							box: [200, 120, 320],	// bounding box
+							box: [200, 200, 200],	// bounding box
 							mesh: undefined },		// Thrender will handle this
-					GpuPickable: {},
-					Visual: {vtype: xv.AssetType.mesh, asset: 'ruler256.png'}
+					GpuPickable: {pickid: 1},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
 				});
 			}
 		}
@@ -62,14 +70,13 @@
 
 	Cubesys.query = { any: ['Visual', 'CmdFlag'] };
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {log: 6});
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
 	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
 
 	xworld.startUpdate();
-
   </script>
 </body>
 </html>

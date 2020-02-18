@@ -102,7 +102,7 @@ describe('case: [script] anim sequence', function() {
                                     deg: [0, 45],    // from, to
                                     ease: undefined} // default linear
                           },
-                          { mtype: AnimType.OBJ3ROTAXIS,
+                          { mtype: AnimType.ROTAXIS,
                             paras: {start: Infinity, // auto start, follow previous
                                     duration: 1,     // seconds
                                     axis: [0, 1, 0],
@@ -169,8 +169,8 @@ describe('case: [script] anim sequence', function() {
                                     cmd: '',
                                     deg: [0, 45],     // from, to
                                     ease: undefined}},// default linear
-                          { mtype: AnimType.OBJ3ROTAXIS,
-                            paras: {start: Infinity,  // auto start, follow 0
+                          { mtype: AnimType.ROTAXIS,
+                            paras: {start: Infinity,  // auto start, follow 0, time ignored
                                     duration: 0.4,    // seconds
                                     axis: [0, 1, 0],
                                     deg: [0, 90],     // from, to
@@ -203,7 +203,6 @@ describe('case: [script] anim sequence', function() {
             assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, '1s cube.CmpTweens.tweens[0][0].isCompleted');
             assert.equal( cube.CmpTweens.tweens[0][1].isPlaying, false, '1s cube.CmpTweens.tweens[0][1].isPlaying');
             assert.equal( cube.CmpTweens.tweens[0][1].isCompleted, true, '1s cube.CmpTweens.tweens[0][1].isCompleted');
-            debugger
             xworld.update();// 0 is following [1] and delayed (completed by previous playing)
             assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, '1s [updated] cube.CmpTweens.tweens[0][0].isPlaying');
             assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, '1s [updated] cube.CmpTweens.tweens[0][0].isCompleted');
@@ -259,7 +258,7 @@ describe('case: [script] anim sequence', function() {
                             paras: {start: Infinity,    // triggered by entity1 at 0.4s
                                     duration: 0.4,        // seconds
                                     alpha: [0.05, 0.92],// fade-in
-                                     ease: XEasing.Elastic.In} },
+                                    ease: XEasing.Elastic.In} },
                           { mtype: AnimType.U_VERTS_TRANS,
                             paras: {start: Infinity,    // follow previous, 0.8
                                     duration: 0.4,        // seconds
@@ -273,7 +272,7 @@ describe('case: [script] anim sequence', function() {
                             paras: {start: Infinity,    // triggered by entity1
                                     duration: 0.4,        // seconds
                                     alpha: [0.9, 0.05],    // fade out
-                                     ease: XEasing.Elastic.In} }
+                                    ease: XEasing.Elastic.In} }
                        ]] },
             CmpTweens: { twindx: [], tweens: [] }
         });

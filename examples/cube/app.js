@@ -1,7 +1,14 @@
+/** Example: Hello XWorld
+ * @module xv.example.hello
+ */
 
 import * as xv from 'x-visual'
-import {Hello} from './hello'
+import {Cube} from './hellocube'
 
+/** Hollow XWorld Application.
+ * add the user implemented system, Hello, into xworld, then show it.
+ * @class
+ */
 class App {
 	constructor(canv) {
 		var c = document.getElementById(canv);
@@ -10,13 +17,12 @@ class App {
 		});
 		var ecs = xworld.xecs;
 
-		// FIXME Geometry should already been registered by XObj
-		ecs.registerComponent('Geometry', xv.XComponent.Geometry);
-		// ecs.registerComponent('Visual', xv.XComponent.Visual);
-
-		xworld.addSystem('visu', Hello.createCubesys(ecs, {xscene: xworld.xscene}));
+		xworld.addSystem('hello', // any group name as you like
+			new Cube(ecs, {xscene: xworld.xscene}));
 		xworld.startUpdate();
 	}
 }
+
+
 
 window.App = App;
