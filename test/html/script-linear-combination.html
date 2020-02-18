@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>XTest-Script Cmd</title>
+    <title>XTest-Script Linear Combination</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
     <script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
@@ -131,7 +131,7 @@
             Visual:{vtype: xv.AssetType.mesh,
                     asset: 'tex/rgb2x2.png'}
             ModelSeqs: { script:
-                [[{ mtype: AnimType.OBJ3ROTX,
+                [[{ mtype: AnimType.ROTATEX,
                     paras: {start: Infinity,
                             duration: 0.8,      // seconds
                             deg: [0, 45],       // from, to
@@ -140,7 +140,7 @@
                     paras: {start: Infinity,    // auto start, follow previous
                             duration: 1,        // seconds
                             axis: [0, 1, 0],
-                            origin: [120, 0, 0],
+                            pivot: [120, 0, 0],
                             deg: [0, 90],
                             ease: XEasing.Elastic.InOut} } ]] },
             CmpTweens: {}
