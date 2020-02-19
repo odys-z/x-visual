@@ -74,8 +74,8 @@ ShaderType
    :lines: 24-30
    :linenos:
 
-Visual
-++++++
+Visual Component
+++++++++++++++++
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
@@ -85,10 +85,18 @@ Visual
 
 .. _api-component-obj3type:
 
-Obj3Type
-++++++++
+Obj3Type const
+++++++++++++++
 
 .. literalinclude:: ../../lib/component/obj3.js
    :language: javascript
    :lines: 5-37
+   :linenos:
+
+Obj3 Component
+++++++++++++++
+
+.. literalinclude:: ../../lib/component/obj3.js
+   :language: javascript
+   :lines: 40-50
    :linenos:
