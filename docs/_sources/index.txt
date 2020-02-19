@@ -13,13 +13,10 @@ Welcome to x-visual's documentation!
 ..
 
 Welcome to the official documentation of x-visual, the free and open source
-community-driven 2D game level resource loader.
+3D data visualization toolkit.
 
-The table of contents in the sidebar should let you easily access the documentation
-for your topic of interest. You can also use the search function in the top left
-corner.
-
-Doc is still up coming.
+X-visual is still in an early idea verifying phase, and documents still up coming.
+Following are some details recorded both for memorandum and references.
 
 Contents:
 

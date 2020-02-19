@@ -6,7 +6,7 @@ Mesh Animiation Script
 
 Example:
 
-.. literalinclude:: ../../test/scripts.case.js
+.. literalinclude:: ../../test/api-scripts.case.js
    :language: javascript
    :lines: 88-114
    :linenos:

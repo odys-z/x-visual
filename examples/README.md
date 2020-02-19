@@ -27,10 +27,11 @@ Use this line to open it from file system:
 Sample Applications based on x-visual must keeping [ECS](https://en.wikipedia.org/wiki/Entity_component_system)
 pattern in mind - essentially x-visual is inspired by this ideal.
 
-## Cube
+## Hello XWorld
 
-The Cube Sample application has the following structure:
+The hello xworld application has the following structure:
 
 - App (app.js), the application main entry;
-- Business logics (business.js), which has some data to be showed;
-- Cube Subsystem (points.js), showing the data - cube
+- Business logics (hellocube.js), which has some data (a cube) to be shown;
+
+There is a [Chinese document version for general introduction](https://odys-z.github.io/x-visual/guide/index.html).

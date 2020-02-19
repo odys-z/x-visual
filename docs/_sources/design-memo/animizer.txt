@@ -6,7 +6,7 @@ Mesh Animiation Script
 
 Example:
 
-.. literalinclude:: ../../test/scripts.case.js
+.. literalinclude:: ../../test/api-scripts.case.js
    :language: javascript
    :lines: 88-114
    :linenos:
@@ -208,6 +208,96 @@ Three.js implementation
         },
     });
 
+    //////////////////////////////////////////////////////////////////////
+    function Matrix4() {
+    	this.elements = [ 1, 0, 0, 0,
+                          0, 1, 0, 0,
+                          0, 0, 1, 0,
+                          0, 0, 0, 1 ];
+
+        if ( arguments.length > 0 ) {
+            console.error( 'THREE.Matrix4: the constructor no longer reads arguments. use .set() instead.' );
+        }
+    }
+
+    Object.assign( Matrix4.prototype, {
+        compose: function ( position, quaternion, scale ) {
+            var te = this.elements;
+
+            var x = quaternion._x, y = quaternion._y, z = quaternion._z, w = quaternion._w;
+            var x2 = x + x,	y2 = y + y, z2 = z + z;
+            var xx = x * x2, xy = x * y2, xz = x * z2;
+            var yy = y * y2, yz = y * z2, zz = z * z2;
+            var wx = w * x2, wy = w * y2, wz = w * z2;
+
+            var sx = scale.x, sy = scale.y, sz = scale.z;
+
+            te[ 0 ] = ( 1 - ( yy + zz ) ) * sx;
+            te[ 1 ] = ( xy + wz ) * sx;
+            te[ 2 ] = ( xz - wy ) * sx;
+            te[ 3 ] = 0;
+
+            te[ 4 ] = ( xy - wz ) * sy;
+            te[ 5 ] = ( 1 - ( xx + zz ) ) * sy;
+            te[ 6 ] = ( yz + wx ) * sy;
+            te[ 7 ] = 0;
+
+            te[ 8 ] = ( xz + wy ) * sz;
+            te[ 9 ] = ( yz - wx ) * sz;
+            te[ 10 ] = ( 1 - ( xx + yy ) ) * sz;
+            te[ 11 ] = 0;
+
+            te[ 12 ] = position.x;
+            te[ 13 ] = position.y;
+            te[ 14 ] = position.z;
+            te[ 15 ] = 1;
+            return this;
+    	},
+
+    decompose: function ( position, quaternion, scale ) {
+        var te = this.elements;
+
+        var sx = _v1.set( te[ 0 ], te[ 1 ], te[ 2 ] ).length();
+        var sy = _v1.set( te[ 4 ], te[ 5 ], te[ 6 ] ).length();
+        var sz = _v1.set( te[ 8 ], te[ 9 ], te[ 10 ] ).length();
+
+        // if determine is negative, we need to invert one scale
+        var det = this.determinant();
+        if ( det < 0 ) sx = - sx;
+
+        position.x = te[ 12 ];
+        position.y = te[ 13 ];
+        position.z = te[ 14 ];
+
+        // scale the rotation part
+        _m1.copy( this );
+
+        var invSX = 1 / sx;
+        var invSY = 1 / sy;
+        var invSZ = 1 / sz;
+
+        _m1.elements[ 0 ] *= invSX;
+        _m1.elements[ 1 ] *= invSX;
+        _m1.elements[ 2 ] *= invSX;
+
+        _m1.elements[ 4 ] *= invSY;
+        _m1.elements[ 5 ] *= invSY;
+        _m1.elements[ 6 ] *= invSY;
+
+        _m1.elements[ 8 ] *= invSZ;
+        _m1.elements[ 9 ] *= invSZ;
+        _m1.elements[ 10 ] *= invSZ;
+
+        quaternion.setFromRotationMatrix( _m1 );
+
+        scale.x = sx;
+        scale.y = sy;
+        scale.z = sz;
+
+        return this;
+    },
+
+    //////////////////////////////////////////////////////////////////////
     function Quaternion( x, y, z, w ) {
         this._x = x || 0;
         this._y = y || 0;
@@ -296,5 +386,5 @@ moving the poings, changing the alpha.
 
 .. literalinclude:: ../../test/html/model-morph.html
    :language: javascript
-   :lines: 14-118
+   :lines: 14-112
    :linenos:
