@@ -51,3 +51,9 @@ The 3D shear matrix is defined as:
     y_x  22   y_z  ty
     z_x  z_y  33   tz
     41   42   43   w
+
+Affine Transformation References:
+
+`[1] Maths - Affine Transformations <https://www.euclideanspace.com/maths/geometry/affine/index.htm>`_
+
+`[2] Affine Transformation, wikipedia <https://en.wikipedia.org/wiki/Affine_transformation>`_
