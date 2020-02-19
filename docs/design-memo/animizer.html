@@ -192,7 +192,7 @@
             <span class="c1">// ModelSeq is an array of animation sequences.</span>
             <span class="c1">// Each sequence is an array.</span>
             <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">OBJ3ROTX</span><span class="p">,</span>
+                <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">ROTATEX</span><span class="p">,</span>
                             <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>        <span class="c1">// auto start</span>
                                     <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.801</span><span class="p">,</span>   <span class="c1">// seconds</span>
                                     <span class="nx">cmd</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
@@ -249,17 +249,25 @@ of two tween steps.</p>
  8
  9
 10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="nx">TODO</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span><span class="p">,</span>
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span>	<span class="nx">COMBINE_AFFINE</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+	<span class="nx">MASK</span><span class="o">:</span> <span class="mh">0xffff</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
+
 	<span class="nx">USER</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+
 	<span class="nx">ALPHA</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
-	<span class="cm">/** using tween.js update shader uniforms (Obj3.uniforms) */</span>
 	<span class="nx">UNIFORMS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
 	<span class="nx">U_VERTS_TRANS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span>
 	<span class="nx">WIREFAME</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span>
-	<span class="nx">OBJ3ROTX</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span>
-	<span class="nx">ROTAXIS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span>
-<span class="p">};</span>
+	<span class="nx">ROTATEX</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="c1">// TODO FIXME | AnimCate.COMBINE_AFFINE,</span>
+	<span class="nx">ROTAXIS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">|</span> <span class="nx">AnimCate</span><span class="p">.</span><span class="nx">COMBINE_AFFINE</span><span class="p">,</span>
+	<span class="nx">ORBIT</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">|</span> <span class="nx">AnimCate</span><span class="p">.</span><span class="nx">COMBINE_AFFINE</span><span class="p">,</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -332,8 +340,8 @@ is finished.</p>
 <p>Start animation with script in other entities.</p>
 <p>Object has same properties of <a class="reference internal" href="#script-followby"><span>paras.followBy</span></a>.</p>
 </div>
-<div class="section" id="animtype-obj3rotx-paras">
-<h4>AnimType.OBJ3ROTX paras<a class="headerlink" href="#animtype-obj3rotx-paras" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="animtype-rotatex-paras">
+<h4>AnimType.ROTATEX paras<a class="headerlink" href="#animtype-rotatex-paras" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li>deg</li>
 </ul>

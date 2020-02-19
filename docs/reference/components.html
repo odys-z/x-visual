@@ -97,8 +97,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#animtype">AnimType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#assettype">AssetType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#shadertype">ShaderType</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#visual">Visual</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#obj3type">Obj3Type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visual-component">Visual Component</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#obj3type-const">Obj3Type const</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#obj3-component">Obj3 Component</a></li>
 </ul>
 </li>
 </ul>
@@ -200,17 +201,25 @@
  8
  9
 10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="nx">TODO</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span><span class="p">,</span>
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span>	<span class="nx">COMBINE_AFFINE</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+	<span class="nx">MASK</span><span class="o">:</span> <span class="mh">0xffff</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
+
 	<span class="nx">USER</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+
 	<span class="nx">ALPHA</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
-	<span class="cm">/** using tween.js update shader uniforms (Obj3.uniforms) */</span>
 	<span class="nx">UNIFORMS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
 	<span class="nx">U_VERTS_TRANS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span>
 	<span class="nx">WIREFAME</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span>
-	<span class="nx">OBJ3ROTX</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span>
-	<span class="nx">ROTAXIS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span>
-<span class="p">};</span>
+	<span class="nx">ROTATEX</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="c1">// TODO FIXME | AnimCate.COMBINE_AFFINE,</span>
+	<span class="nx">ROTAXIS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">|</span> <span class="nx">AnimCate</span><span class="p">.</span><span class="nx">COMBINE_AFFINE</span><span class="p">,</span>
+	<span class="nx">ORBIT</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">|</span> <span class="nx">AnimCate</span><span class="p">.</span><span class="nx">COMBINE_AFFINE</span><span class="p">,</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -264,8 +273,8 @@
 </pre></div>
 </td></tr></table></div>
 </div>
-<div class="section" id="visual">
-<h3>Visual<a class="headerlink" href="#visual" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="visual-component">
+<h3>Visual Component<a class="headerlink" href="#visual-component" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -284,8 +293,8 @@
 </pre></div>
 </td></tr></table></div>
 </div>
-<div class="section" id="obj3type">
-<span id="api-component-obj3type"></span><h3>Obj3Type<a class="headerlink" href="#obj3type" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="obj3type-const">
+<span id="api-component-obj3type"></span><h3>Obj3Type const<a class="headerlink" href="#obj3type-const" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -351,6 +360,32 @@
 
 /** If Visual.vtype is mesh, sys.Thrender will create a THREE.Object3D according
  * to this component.
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="obj3-component">
+<h3>Obj3 Component<a class="headerlink" href="#obj3-component" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">Obj3</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">USER</span><span class="p">,</span>
+	<span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>   <span class="c1">// always not null</span>
+	<span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>     <span class="c1">// THREE.Mesh for BOX etc. or Array of vertices for POINTS</span>
+	<span class="nx">transform</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span><span class="c1">// {translate, scale, rotate, shear, reflect, mat4}, default unused</span>
+	<span class="nx">affines</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>  <span class="c1">// elements are same as &#39;transform&#39;, but used by xtweener</span>
+	<span class="nx">invisible</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+	<span class="nx">uniforms</span><span class="o">:</span> <span class="p">{}</span>
+  <span class="p">}</span>
+  
 </pre></div>
 </td></tr></table></div>
 </div>

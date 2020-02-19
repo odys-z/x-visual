@@ -46,7 +46,7 @@ Supported Animation types are defined in x-visual/component/morph.js:
 
 .. literalinclude:: ../../lib/component/morph.js
    :language: javascript
-   :lines: 5-15
+   :lines: 5-20
    :linenos:
 
 paras
@@ -135,8 +135,8 @@ Start animation with script in other entities.
 
 Object has same properties of :ref:`paras.followBy<script-followby>`.
 
-AnimType.OBJ3ROTX paras
-_______________________
+AnimType.ROTATEX paras
+______________________
 
 - deg
 
