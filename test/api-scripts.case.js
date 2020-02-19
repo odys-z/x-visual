@@ -95,7 +95,7 @@ describe('case: [script] anim sequence', function() {
             // ModelSeq is an array of animation sequences.
             // Each sequence is an array.
             ModelSeqs: {
-                script: [[{ mtype: AnimType.OBJ3ROTX,
+                script: [[{ mtype: AnimType.ROTATEX,
                             paras: {start: 0,        // auto start
                                     duration: 0.801,   // seconds
                                     cmd: '',
@@ -163,7 +163,7 @@ describe('case: [script] anim sequence', function() {
             Visual:{vtype: AssetType.mesh,
                     asset: null },        // let thrender create a ram texture.
             ModelSeqs: {
-                script: [[{ mtype: AnimType.OBJ3ROTX,
+                script: [[{ mtype: AnimType.ROTATEX,
                             paras: {start: 0,         // auto start
                                     duration: 0.4,    // seconds
                                     cmd: '',

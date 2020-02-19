@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>XTest-Script Cmd</title>
+    <title>XTest-Script Linear Combination</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
     <script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
@@ -34,13 +34,13 @@
 
                 if (e.id === 'sphere') {
                     for (var cmd of this.cmd) {
-                        if (cmd.code === 'key' && sphere(cmd.cmd, e))
+                        if (cmd.code === 'key' && sphereCmdHandler(cmd.cmd, e))
                             break;
                     }
                 }
                 else if (e.id === 'torus') {
                     for (var cmd of this.cmd) {
-                        if (cmd.code === 'key' && torus(cmd.cmd, e))
+                        if (cmd.code === 'key' && torusCmdHandler(cmd.cmd, e))
                             break;
                     }
                 }
@@ -48,7 +48,7 @@
         }
     }
 
-    function sphere(cmd, e) {
+    function sphereCmdHandler(cmd, e) {
         if (e.CmpTweens)
         switch (cmd) {
             case 'up':
@@ -65,7 +65,7 @@
         }
     }
 
-    function torus(cmd, e) {
+    function torusCmdHandler(cmd, e) {
         if (e.CmpTweens)
         switch (cmd) {
             case 'left':
@@ -102,18 +102,18 @@
             Visual:{vtype: xv.AssetType.mesh,
                     asset: 'tex/byr0.png'},
             ModelSeqs: { script:
-                [[{ mtype: AnimType.ROTAXIS,
+                [[{ mtype: xv.XComponent.AnimType.ROTAXIS,
                     paras: {start: Infinity,
                             duration: 0.801,    // seconds
                             deg: [0, 45],       // from, to
                             ease: undefined}} ],// default linear
-                 [{ mtype: AnimType.ORBIT,
+                 [{ mtype: xv.XComponent.AnimType.ORBIT,
                     paras: {start: Infinity,    // auto start, follow previous
                             duration: 1,        // seconds
                             axis: [0, 1, 0],
                             origin: [120, 0, 0],
                             deg: [0, 90],
-                            ease: XEasing.Elastic.InOut} } ]] },
+                            ease: xv.XEasing.Elastic.InOut} } ]] },
             CmpTweens: {}
         });
         objs.push ({
@@ -129,20 +129,20 @@
                     mesh: undefined },          // Thrender will handle this
             GpuPickable: {},
             Visual:{vtype: xv.AssetType.mesh,
-                    asset: 'tex/rgb2x2.png'}
+                    asset: 'tex/rgb2x2.png'},
             ModelSeqs: { script:
-                [[{ mtype: AnimType.OBJ3ROTX,
+                [[{ mtype: xv.XComponent.AnimType.ROTATEX,
                     paras: {start: Infinity,
                             duration: 0.8,      // seconds
                             deg: [0, 45],       // from, to
                             ease: undefined}} ],// default linear
-                 [{ mtype: AnimType.ORBIT,
+                 [{ mtype: xv.XComponent.AnimType.ORBIT,
                     paras: {start: Infinity,    // auto start, follow previous
                             duration: 1,        // seconds
                             axis: [0, 1, 0],
-                            origin: [120, 0, 0],
+                            pivot: [120, 0, 0],
                             deg: [0, 90],
-                            ease: XEasing.Elastic.InOut} } ]] },
+                            ease: xv.XEasing.Elastic.InOut} } ]] },
             CmpTweens: {}
         });
         return objs;

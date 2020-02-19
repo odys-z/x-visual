@@ -113,7 +113,7 @@ describe('case: [tween] tweener basics', function() {
             Visual:{vtype: AssetType.mesh,
                     asset: null },        // let thrender create a ram texture.
             ModelSeqs: {
-                script: [[{ mtype: AnimType.OBJ3ROTX,
+                script: [[{ mtype: AnimType.ROTATEX,
                             paras: {start: Infinity,    // wait for cmd
                                     duration: 0.4,      // seconds
                                     cmd: '',
