@@ -1,13 +1,5 @@
-/**Test case of packages/ecs-js with mocha and chai.
- * Original Author: fritzy@github
- * Original source @ github:
- * https://github.com/fritzy/ecs-js/blob/master/tests/index.js
- *
+/**Test case of xcommon/vec.js with mocha and chai.
  */
-// const { expect } = require('@hapi/code');
-// const Lab = require('@hapi/lab');
-// const lab = exports.lab = Lab.script();
-// const ECS = require('../src/index');
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
