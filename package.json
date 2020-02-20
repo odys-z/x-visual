@@ -41,6 +41,7 @@
     "babel-plugin-wildcard": "^5.0.0",
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.2.0",
+    "chai-arrays": "^2.0.0",
     "chai-stats": "^0.3.0",
     "jquery": "^3.4.1",
     "mocha": "^6.2.2",
