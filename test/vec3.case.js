@@ -8,7 +8,7 @@ import chaiStats from 'chai-stats'
 // const {performance} = require('perf_hooks');
 
 import * as THREE from 'three'
-import {vec3, mat4, rad} from '../lib/xutils/vec';
+import {vec3, mat4, rad, Affine} from '../lib/xutils/vec';
 
 describe('case: [vec3] operator basics', () => {
 
@@ -25,6 +25,14 @@ describe('case: [vec3] operator basics', () => {
     });
 
 });
+
+function orbitY_theta ( theta, affines, pivot ) {
+    // affines.push({translate: vec3.mul(pivot, -1).arr()}); // translation = 0 - pivot
+    // affines.push({rotate: {deg: theta, axis: [0, 1, 0]}});
+    // affines.push({translate: pivot.arr()});  // - translation
+
+    Affine.orbit( theta, pivot, [0, 1, 0], affines);
+}
 
 describe('case: [mat4] operator basics', () => {
 
@@ -100,16 +108,62 @@ describe('case: [mat4] operator basics', () => {
     });
 
     it('mat4 orbit combine', () => {
-        debugger
         var affines = [];
-        affines.push({translate: [-10, 0, 0]});
-        affines.push({rotate: {deg: 180, axis: [0, 1, 0]}});
-        affines.push({translate: [10, 0, 0]});
+        // affines.push({translate: [-10, 0, 0]}); // translation = 0 - pivot
+        // affines.push({rotate: {deg: 180, axis: [0, 1, 0]}});
+        // affines.push({translate: [10, 0, 0]});  // - translation
+        orbitY_theta(180, affines, new vec3(10, 0, 0));
 
         var p = new vec3(); // 0, 0, 0
 		var m4 = mat4.combine(affines);
         p.mat4(m4);
-        console.log(m4.m, p);
-        assert.isTrue(p.eq(new vec3(20, 0, 0)), "Origin point rotate 180° around Y axis pivoted at (10, 0, 0)");
+        assert.isTrue(p.eq(new vec3(20, 0, 0)), "Origin point rotate 180° around axis j pivoted at vec3(10, 0, 0)");
+
+        affines = [];
+        orbitY_theta(180, affines, [20, 0, 0]);
+        p = new vec3();
+		var m4 = mat4.combine(affines);
+        p.mat4(m4);
+        assert.isTrue(p.eq(new vec3(40, 0, 0)), "Origin point rotate 180° around axis j pivoted at [20, 0, 0]");
+
+        // 12 times of 30° rotation will make it come back
+        p = new vec3(5, 5, 5);
+        var p_ = p.clone();
+        affines = [];
+        var theta = 30;
+        var pivot = new vec3([1, 0, 0]);
+        for (var i = 1; i <= 360 / theta; i++) {
+            orbitY_theta(theta, affines, pivot);
+        }
+		m4 = mat4.combine(affines);
+        p.mat4(m4);
+        assert.isTrue(p.eq(p_), `Origin point rotate axis j for ${360/theta} times, each ${theta}°`);
+
+        // orbit 60° will result in radius distance
+
+        // FIXME
+        // when orbiting Y in different y axis, calculation difference is high.
+        // Why this happens?
+        // AssertionError: equilateral triangle: expected 14.730919862656235 to be close to 14.422204717764595 +/- 0.01
+        // p = new vec3(15, 2, -3);
+        // pivot = new vec3([3, 5, 5]);
+
+        p = new vec3(15, 5, -3);
+        pivot = new vec3([-3, 5, 5]);
+
+        theta = -60;
+        p_ = p.clone();
+        var p1 = p.clone();
+        var radius = p_.sub(pivot).length();
+        // console.log('radius', radius, p_);
+
+        affines = [];
+        orbitY_theta(theta, affines, pivot);
+		m4 = mat4.combine(affines);
+        p.mat4(m4);
+        var chord = p1.sub(p).length();
+        // console.log('chord', chord, 'p', p, 'p1', p1);
+
+        assert.closeTo(radius, chord, 0.01, "equilateral triangle");
     });
 });
