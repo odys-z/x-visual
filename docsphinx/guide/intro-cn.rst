@@ -108,7 +108,7 @@ x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是E
 .. code-block:: javascript
 
     ModelSeqs: { script:
-        [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
+        [[{ mtype: xv.XComponent.AnimType.ROTATEX,
             paras: {start: 0,        // auto start
                     duration: 1,     // seconds
                     deg: [0, 45],    // from, to

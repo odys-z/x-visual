@@ -7,7 +7,7 @@ import { expect, assert } from 'chai'
 // chai.use(assertArrays);
 
 import * as THREE from 'three'
-import {vec3, mat4, rad, Affine} from '../lib/xutils/vec';
+import {vec3, mat4, radian, Affine} from '../lib/xutils/vec';
 
 
 describe('case: [vec3] operator basics', () => {
@@ -36,13 +36,19 @@ function orbitY_theta ( theta, affines, pivot ) {
 
 describe('case: [mat4] THREE.Matrix4 compatiblility', () => {
     it('mat4 -> THREE.Matrix4', () => {
-        var r90 = rad(90);
+        var r90 = radian(90);
         var rx = mat4.rotx(r90);
-        var m4js = new THREE.Matrix4().set(rx.m);
-        debugger
-        var jsarr = m4js.toArray();
+        var m4js = new THREE.Matrix4().set(...rx.m);
+        var jsarr = m4js.transpose().toArray();
         for (var i = 0; i < rx.m.length; i++) {
-            assert.closeTo(jsarr[0][i], rx.m[i], 0.001, `jsarr[0, ${i}] v.s. m4[${i}]`);
+            assert.closeTo(jsarr[i], rx.m[i], 0.001, `Matrix4.set(): jsarr[${i}] v.s. m4[${i}]`);
+        }
+
+        debugger
+        m4js = mat4.js(rx);
+        jsarr = m4js.transpose().toArray();
+        for (var i = 0; i < rx.m.length; i++) {
+            assert.closeTo(jsarr[i], rx.m[i], 0.001, `mat4.js(): jsarr[${i}] v.s. m4[${i}]`);
         }
     });
 });
@@ -50,8 +56,8 @@ describe('case: [mat4] THREE.Matrix4 compatiblility', () => {
 describe('case: [mat4] operator basics', () => {
 
     it('mat4 instance operator', () => {
-        var r90 = rad(90);
-        var r_90 = rad(-90);
+        var r90 = radian(90);
+        var r_90 = radian(-90);
         var rx = mat4.rotx(r90);
         var ry = mat4.roty(r90);
         var rz = mat4.rotz(r90);
@@ -82,7 +88,7 @@ describe('case: [mat4] operator basics', () => {
          * see General rotations, Rotation Matrix, https://en.wikipedia.org/wiki/Rotation_matrix
          *
          */
-        var r = rad(90);
+        var r = radian(90);
         var a = r; var b = r;
         var ca = Math.cos( a );
         var sa = Math.sin( a );
@@ -99,7 +105,7 @@ describe('case: [mat4] operator basics', () => {
 
 
         // r = Math.PI / 6;
-        r = rad(30);
+        r = radian(30);
         rx = mat4.rotx(r);
         ry = mat4.roty(r);
         rz = mat4.rotz(r);
