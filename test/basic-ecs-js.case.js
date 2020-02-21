@@ -29,12 +29,6 @@ describe('case: [ecs]express components', () => {
     }
   });
 
-  // lab.before(({ context }) => {
-  // before((context) => {
-  //     console.log('Mocha can call before(callback) with args?\narg: ', typeof context);
-  // });
-  // before();
-
   // lab.test('create entity', () => {
   // it('creating 1 entity definition', function() {
   it('create entity', () => {

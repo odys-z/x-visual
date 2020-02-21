@@ -20,35 +20,34 @@
 				box: [200, 120, 80],	// bounding box
 				// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 				mesh: undefined,
-				// invisible: true,
+				invisible: true,
 			 	uniforms: {opacity: 0.5}},
-		Visual:{vtype: xv.AssetType.wireframe,// TODO path / line
-				paras: {tex_alpha: 0.1,
-						color: 0xe0e0ff,},
+		Visual:{vtype: xv.AssetType.wireframe,
+				paras: {color: 0xe0e0ff},
 				asset: undefined },
 	});
 
 	defs.push({
 		id: 'ent2',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [260, 20, 200],	// bounding box
+				box: [60, 200, 20],	// bounding box
 				mesh: undefined,
 				// invisible: true,
-			 	uniforms: {opacity: 0.1}},
-		Visual:{vtype: xv.AssetType.mesh,// TODO path / line
-				paras: {alpha: 0.1},
+			 	uniforms: {opacity: 0.3}},
+		Visual:{vtype: xv.AssetType.mesh,
+				paras: {},
 				asset: null },
 	});
 
 	defs.push({
 		id: 'ent3',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [200, 10, 20],	// bounding box
+				box: [300, 10, 20],	// bounding box
 				mesh: undefined,
-				invisible: true,
+				// invisible: true,
 			 	uniforms: {opacity: 0.1}},
 		Visual:{vtype: xv.AssetType.mesh,// TODO path / line
-				paras: {alpha: 0.1},
+				paras: {},
 				asset: null },
 	});
 
