@@ -98,5 +98,5 @@ Obj3 Component
 
 .. literalinclude:: ../../lib/component/obj3.js
    :language: javascript
-   :lines: 40-50
+   :lines: 40-52
    :linenos:
