@@ -7,7 +7,7 @@ import * as THREE from 'three'
  * Subclass for rendering data objects
  * @class
  */
-export default class Cube extends xv.XObj {
+export default class Cube extends xv.XSys {
     constructor(ecs, options) {
         super(ecs);
         this.ecs = ecs;

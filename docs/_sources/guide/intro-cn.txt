@@ -1,4 +1,4 @@
-.. _guide-app-architecture:
+.. _guide-app-architecture-cn:
 
 X-visual应用程序基本结构
 ========================
@@ -64,27 +64,31 @@ a cube.
 
 - System实现
 
-    继承ECS.XObj基础类，实现用户处理逻辑。
+    继承ECS.XSys基础类，实现用户处理逻辑。
 
-    用户处理逻辑在这里应该只处理与渲染有关的工作，包括用户输入响应、数据展示方式处理等。更多复杂逻辑处理应当推到后台处理。
+    用户处理逻辑在这里应该只处理与渲染有关的工作，包括用户输入响应、数据展示方式处理等。更多复杂
+    逻辑处理应当推到后台处理。
 
 
 4. 框架基本功能范围
 -------------------
 
-x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是ECS处理的最后环节。（之后可能扩展post effect system）
+x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是ECS处理的最后环节。
+（之后可能扩展post effect system）
 
-在Thrender处理渲染之前，所有的数据展示约束、tween动画处理已经分解到不同的子系统中处理完成，为最后渲染做好了准备。x-visual为
-这一系列处理提供了一个基本结构，包括一个MVC模式的view结构封装，若干个system来处理视效配置、动画脚本到渲染对象的分解转换。
+在Thrender处理渲染之前，所有的数据展示约束、tween动画处理已经分解到不同的子系统中处理完成， 为
+最后渲染做好了准备。x-visual为这一系列处理提供了一个基本结构，包括一个MVC模式的view结构封装，
+若干个system来处理视效配置、动画脚本到渲染对象的分解转换。
 
 具体功能包括：
 
 - 全局静态Asset管理
 
 - 用户输入映射
-    目前版本只考虑了键盘鼠标事件。用户输入被翻译成UserCmd component，保存在一个特殊的Entity管理，entity.id = 'xview'.
-    x-visual实现了一个利用渲染结果拾取场景模型的子系统，可以拾取透明材质后面的模型对象。拾取对象放在Entity包含的
-    Pickable.picktick中。
+    目前版本只考虑了键盘鼠标事件。用户输入被翻译成UserCmd component，保存在一个特殊的Entity
+    管理，entity.id = 'xview'. x-visual实现了一个利用渲染结果拾取场景模型的子系统，可以拾
+    取透明材质后面的模型对象。拾取对象放在Entity包含的Pickable.pickId中，(picktick =
+    update-tick)。
 
 - GLTF载入
 
@@ -108,7 +112,7 @@ x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是E
 .. code-block:: javascript
 
     ModelSeqs: { script:
-        [[{ mtype: xv.XComponent.AnimType.OBJ3ROTX,
+        [[{ mtype: xv.XComponent.AnimType.ROTATEX,
             paras: {start: 0,        // auto start
                     duration: 1,     // seconds
                     deg: [0, 45],    // from, to

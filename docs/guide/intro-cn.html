@@ -153,7 +153,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="x-visual">
-<span id="guide-app-architecture"></span><h1>X-visual应用程序基本结构<a class="headerlink" href="#x-visual" title="Permalink to this headline">¶</a></h1>
+<span id="guide-app-architecture-cn"></span><h1>X-visual应用程序基本结构<a class="headerlink" href="#x-visual" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">搭建并运行x-visual examples后有更助于阅读下文内容细节。</p>
@@ -275,7 +275,7 @@
 <span class="cm"> * Subclass for rendering data objects</span>
 <span class="cm"> * @class</span>
 <span class="cm"> */</span>
-<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Cube</span> <span class="kr">extends</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XObj</span> <span class="p">{</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Cube</span> <span class="kr">extends</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XSys</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">(</span><span class="nx">ecs</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
         <span class="kr">super</span><span class="p">(</span><span class="nx">ecs</span><span class="p">);</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">ecs</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">;</span>
@@ -343,26 +343,30 @@ a cube.</p>
 </li>
 <li><p class="first">System实现</p>
 <blockquote>
-<div><p>继承ECS.XObj基础类，实现用户处理逻辑。</p>
-<p>用户处理逻辑在这里应该只处理与渲染有关的工作，包括用户输入响应、数据展示方式处理等。更多复杂逻辑处理应当推到后台处理。</p>
+<div><p>继承ECS.XSys基础类，实现用户处理逻辑。</p>
+<p>用户处理逻辑在这里应该只处理与渲染有关的工作，包括用户输入响应、数据展示方式处理等。更多复杂
+逻辑处理应当推到后台处理。</p>
 </div></blockquote>
 </li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2>4. 框架基本功能范围<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是ECS处理的最后环节。（之后可能扩展post effect system）</p>
-<p>在Thrender处理渲染之前，所有的数据展示约束、tween动画处理已经分解到不同的子系统中处理完成，为最后渲染做好了准备。x-visual为
-这一系列处理提供了一个基本结构，包括一个MVC模式的view结构封装，若干个system来处理视效配置、动画脚本到渲染对象的分解转换。</p>
+<p>x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是ECS处理的最后环节。
+（之后可能扩展post effect system）</p>
+<p>在Thrender处理渲染之前，所有的数据展示约束、tween动画处理已经分解到不同的子系统中处理完成， 为
+最后渲染做好了准备。x-visual为这一系列处理提供了一个基本结构，包括一个MVC模式的view结构封装，
+若干个system来处理视效配置、动画脚本到渲染对象的分解转换。</p>
 <p>具体功能包括：</p>
 <ul>
 <li><p class="first">全局静态Asset管理</p>
 </li>
 <li><dl class="first docutils">
 <dt>用户输入映射</dt>
-<dd><p class="first last">目前版本只考虑了键盘鼠标事件。用户输入被翻译成UserCmd component，保存在一个特殊的Entity管理，entity.id = &#8216;xview&#8217;.
-x-visual实现了一个利用渲染结果拾取场景模型的子系统，可以拾取透明材质后面的模型对象。拾取对象放在Entity包含的
-Pickable.picktick中。</p>
+<dd><p class="first last">目前版本只考虑了键盘鼠标事件。用户输入被翻译成UserCmd component，保存在一个特殊的Entity
+管理，entity.id = &#8216;xview&#8217;. x-visual实现了一个利用渲染结果拾取场景模型的子系统，可以拾
+取透明材质后面的模型对象。拾取对象放在Entity包含的Pickable.pickId中，(picktick =
+update-tick)。</p>
 </dd>
 </dl>
 </li>
@@ -391,7 +395,7 @@ Pickable.picktick中。</p>
 <p>包括AnimType.ROTATXYZ等。</p>
 <p>示例：</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span> <span class="nx">script</span><span class="o">:</span>
-    <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">OBJ3ROTX</span><span class="p">,</span>
+    <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ROTATEX</span><span class="p">,</span>
         <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>        <span class="c1">// auto start</span>
                 <span class="nx">duration</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>     <span class="c1">// seconds</span>
                 <span class="nx">deg</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span>    <span class="c1">// from, to</span>

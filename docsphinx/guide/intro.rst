@@ -70,11 +70,11 @@ An x-visual application includes:
     Common pattern of application includes creating XWorld, Entity then start by
 	calling xworld.startUpdate().
 
-- Entity
+- Entities
 
-    Entity is a group of Components. In x-visaul, these components are a group of
-	data and System actions.
+    Entities are groups of Components. In x-visaul, these components are a group
+    of data and System actions scripts.
 
-- System
+- Systems
 
     TODO ...
