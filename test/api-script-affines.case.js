@@ -29,7 +29,7 @@ describe('case: [affine] orbit combine', function() {
     this.timeout(100000);
     x.log = 4;
 
-    it('array: trans, rotate, -trans', async function() {
+    it('affine array: trans, rotate, -trans', async function() {
         const xworld = new XWorld(undefined, 'window', {});
         const ecs = xworld.xecs;
 
@@ -60,5 +60,52 @@ describe('case: [affine] orbit combine', function() {
             var wp = cube.Obj3.mesh.getWorldPosition();
             var len = new vec3(wp).length();
             assert.closeTo(len, 120, 0.5); // 120 = pivot.len
+    });
+
+    it('affine combination: orbit + roate x', async function() {
+        const xworld = new XWorld(undefined, 'window', {});
+        const ecs = xworld.xecs;
+
+        var cube = ecs.createEntity({
+            id: 'orbit-rotatex',
+            Obj3: { geom: Obj3Type.BOX,
+                    box: [200, 120, 80],     // bounding box
+                    mesh: undefined },
+            Visual:{vtype: AssetType.mesh,
+                    asset: null },
+            ModelSeqs: { script: [
+                 [{ mtype: AnimType.ORBIT,
+                    paras: {start: Infinity,        // auto start,
+                            duration: 0.4,
+                            axis: [0, 1, 0],
+                            pivot: [120, 0, 0],
+                            deg: [0, 60],
+                            ease: null} }],
+                 // [{ mtype: AnimType.ROTATEX,
+                 //    paras: {start: Infinity,        // auto start,
+                 //            duration: 0.4,
+                 //            deg: [0, 60],
+                 //            ease: null} } ],
+                ] },
+            CmpTweens: {}
+        });
+
+        debugger
+        xworld.startUpdate();
+            cube.CmpTweens.startCmds.push(0);
+            cube.CmpTweens.startCmds.push(1);
+            xworld.update();
+            await sleep(500);
+            xworld.update();
+            var mat = cube.Obj3.mesh.matrix;
+            console.log(mat.toArray());
+            debugger
+            var mt4 = new mat4().translate(-120, 0, 0)
+                        .rotate(radian(60), 0, 1, 0)
+                        .translate(120, 0, 0);
+            console.log(mt4);
+            //          mt4.rotate(radian(90), 1, 0, 0);
+            // console.log(mt4);
+            assert.isTrue(mt4.eq(new mat4(mat)));
     });
 });
