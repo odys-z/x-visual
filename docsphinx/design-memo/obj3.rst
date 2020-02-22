@@ -130,6 +130,6 @@ Affine Transformation References:
 
 `[1] Maths - Affine Transformations <https://www.euclideanspace.com/maths/geometry/affine/index.htm>`_
 
-·[2] Geometric Operations: Affine Transformation <https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm>·__
+`[2] Geometric Operations: Affine Transformation <https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm>`_
 
 `[3] Affine Transformation, wikipedia <https://en.wikipedia.org/wiki/Affine_transformation>`_
