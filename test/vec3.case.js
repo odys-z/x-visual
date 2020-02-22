@@ -1,10 +1,9 @@
 /**Test case of xcommon/vec.js with mocha and chai.
+ * @module xv.test.vec
  */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
-// import assertArrays from 'chai-arrays'
-// chai.use(assertArrays);
 
 import * as THREE from 'three'
 import {vec3, mat4, radian, Affine} from '../lib/xutils/vec';
@@ -27,10 +26,6 @@ describe('case: [vec3] operator basics', () => {
 });
 
 function orbitY_theta ( theta, affines, pivot ) {
-    // affines.push({translate: vec3.mul(pivot, -1).arr()}); // translation = 0 - pivot
-    // affines.push({rotate: {deg: theta, axis: [0, 1, 0]}});
-    // affines.push({translate: pivot.arr()});  // - translation
-
     Affine.orbit( theta, pivot, [0, 1, 0], affines);
 }
 

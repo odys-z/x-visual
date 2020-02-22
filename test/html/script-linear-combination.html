@@ -89,6 +89,7 @@
         objs.push( {
             id: 'sphere',
             Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+                    // args of THREE.SphereGeometry:
                     // radius — sphere radius. Default is 1.
                     // widthSegments — number of horizontal segments. Minimum value is 3, and the default is 8.
                     // heightSegments — number of vertical segments. Minimum value is 2, and the default is 6.
@@ -99,26 +100,33 @@
                     box: [60, 8, 6],
                     mesh: undefined },          // Thrender will handle this
             GpuPickable: {},
-            Visual:{vtype: xv.AssetType.mesh,
+            Visual:{vtype: xv.AssetType.wireframe,
                     asset: 'tex/byr0.png'},
             ModelSeqs: { script:
                 [[{ mtype: xv.XComponent.AnimType.ROTAXIS,
                     paras: {start: Infinity,
                             duration: 0.801,    // seconds
-                            deg: [0, 45],       // from, to
-                            ease: undefined}} ],// default linear
+                            deg: [0, 115],      // from, to
+                            ease: undefined}},  // default linear
+                  { mtype: xv.XComponent.AnimType.ROTAXIS,
+                    paras: {start: Infinity,
+                            duration: 3.802,
+                            deg: [115, 0],
+                            ease: undefined}} ],
                  [{ mtype: xv.XComponent.AnimType.ORBIT,
                     paras: {start: Infinity,    // auto start, follow previous
-                            duration: 1,        // seconds
+                            duration: 200.1,      // seconds
                             axis: [0, 1, 0],
-                            origin: [120, 0, 0],
-                            deg: [0, 90],
-                            ease: xv.XEasing.Elastic.InOut} } ]] },
+                            pivot: [80, 0, 0],
+                            deg: [0, 30],
+                            ease: undefined} } ]] },
             CmpTweens: {}
         });
+
         objs.push ({
             id: 'torus',
             Obj3: { geom: xv.XComponent.Obj3Type.TORUS,
+                    // args of THREE.TorusGeometry:
                     // THREE.TorusBufferGeometry
                     // radius - Radius of the torus, from the center of the torus to the center of the tube. Default is 1.
                     // tube — Radius of the tube. Default is 0.4.
@@ -126,6 +134,7 @@
                     // tubularSegments — Default is 6.
                     // arc — Central angle. Default is Math.PI * 2.
                     box: [100, 10, 8, 50],
+                    invisible: true,
                     mesh: undefined },          // Thrender will handle this
             GpuPickable: {},
             Visual:{vtype: xv.AssetType.mesh,
@@ -138,7 +147,7 @@
                             ease: undefined}} ],// default linear
                  [{ mtype: xv.XComponent.AnimType.ORBIT,
                     paras: {start: Infinity,    // auto start, follow previous
-                            duration: 1,        // seconds
+                            duration: 2,        // seconds
                             axis: [0, 1, 0],
                             pivot: [120, 0, 0],
                             deg: [0, 90],

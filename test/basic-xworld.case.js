@@ -1,4 +1,4 @@
-/** @module xv.test.xobj */
+/** @module xv.test.xworld */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'

@@ -3,11 +3,7 @@
  * Original source @ github:
  * https://github.com/fritzy/ecs-js/blob/master/tests/index.js
  *
- */
-// const { expect } = require('@hapi/code');
-// const Lab = require('@hapi/lab');
-// const lab = exports.lab = Lab.script();
-// const ECS = require('../src/index');
+ * @module xv.test.ecs */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
