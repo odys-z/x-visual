@@ -106,6 +106,6 @@ describe('case: [affine] orbit combine', function() {
             console.log(mt4);
             //          mt4.rotate(radian(90), 1, 0, 0);
             // console.log(mt4);
-            assert.isTrue(mt4.eq(new mat4(mat)));
+            assert.isTrue(mt4.eq(new mat4(mat)), 'orbit v.s transform combined');
     });
 });
