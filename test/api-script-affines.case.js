@@ -43,7 +43,7 @@ describe('case: [affine] orbit combine', function() {
             ModelSeqs: { script: [[
                   { mtype: AnimType.ORBIT,
                     paras: {start: 0,        // auto start,
-                            duration: 0.4,
+                            duration: 0.2,
                             axis: [0, 1, 0],
                             pivot: [120, 0, 0],
                             deg: [0, 60],
@@ -52,7 +52,6 @@ describe('case: [affine] orbit combine', function() {
             CmpTweens: {}
         });
 
-        debugger
         xworld.startUpdate();
             await sleep(500);
             xworld.update();
@@ -62,12 +61,12 @@ describe('case: [affine] orbit combine', function() {
             assert.closeTo(len, 120, 0.5); // 120 = pivot.len
     });
 
-    it('affine combination: orbit + roate x', async function() {
+    it('affine combination: orbit {pivot: [120, 0, 0], axis: [0, 1, 0]}', async function() {
         const xworld = new XWorld(undefined, 'window', {});
         const ecs = xworld.xecs;
 
         var cube = ecs.createEntity({
-            id: 'orbit-rotatex',
+            id: 'orbit',
             Obj3: { geom: Obj3Type.BOX,
                     box: [200, 120, 80],     // bounding box
                     mesh: undefined },
@@ -79,34 +78,23 @@ describe('case: [affine] orbit combine', function() {
                             duration: 0.4,
                             axis: [0, 1, 0],
                             pivot: [120, 0, 0],
-                            deg: [0, 60],
+                            deg: [0, 180],
                             ease: null} }],
-                 // [{ mtype: AnimType.ROTATEX,
-                 //    paras: {start: Infinity,        // auto start,
-                 //            duration: 0.4,
-                 //            deg: [0, 60],
-                 //            ease: null} } ],
                 ] },
             CmpTweens: {}
         });
 
-        debugger
         xworld.startUpdate();
             cube.CmpTweens.startCmds.push(0);
-            // cube.CmpTweens.startCmds.push(1);
             xworld.update();
             await sleep(500);
             xworld.update();
             xworld.update();
             var mat = cube.Obj3.mesh.matrix;
-            console.log('mesh matrix', mat.toArray());
-            debugger
             var mt4 = new mat4().translate(-120, 0, 0)
-                        .rotate(radian(60), 0, 1, 0)
+                        .rotate(radian(180), 0, 1, 0)
                         .translate(120, 0, 0);
-            console.log('combined mat4', mt4);
-            //          mt4.rotate(radian(90), 1, 0, 0);
-            // console.log(mt4);
-            assert.isTrue(mt4.eq(new mat4(mat)), 'orbit v.s transform combined');
+            assert.isTrue(mt4.transpose().eq(new mat4(mat)), 'orbit v.s transform combined');
     });
+
 });
