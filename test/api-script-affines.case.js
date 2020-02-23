@@ -98,12 +98,12 @@ describe('case: [affine] orbit combine', function() {
             await sleep(500);
             xworld.update();
             var mat = cube.Obj3.mesh.matrix;
-            console.log(mat.toArray());
+            console.log('mesh matrix', mat.toArray());
             debugger
             var mt4 = new mat4().translate(-120, 0, 0)
                         .rotate(radian(60), 0, 1, 0)
                         .translate(120, 0, 0);
-            console.log(mt4);
+            console.log('combined mat4', mt4);
             //          mt4.rotate(radian(90), 1, 0, 0);
             // console.log(mt4);
             assert.isTrue(mt4.eq(new mat4(mat)));
