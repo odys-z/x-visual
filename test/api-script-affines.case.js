@@ -93,9 +93,10 @@ describe('case: [affine] orbit combine', function() {
         debugger
         xworld.startUpdate();
             cube.CmpTweens.startCmds.push(0);
-            cube.CmpTweens.startCmds.push(1);
+            // cube.CmpTweens.startCmds.push(1);
             xworld.update();
             await sleep(500);
+            xworld.update();
             xworld.update();
             var mat = cube.Obj3.mesh.matrix;
             console.log('mesh matrix', mat.toArray());
