@@ -3,11 +3,7 @@
  * Original source @ github:
  * https://github.com/fritzy/ecs-js/blob/master/tests/index.js
  *
- */
-// const { expect } = require('@hapi/code');
-// const Lab = require('@hapi/lab');
-// const lab = exports.lab = Lab.script();
-// const ECS = require('../src/index');
+ * @module xv.test.ecs */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
@@ -28,12 +24,6 @@ describe('case: [ecs]express components', () => {
       armor: 0
     }
   });
-
-  // lab.before(({ context }) => {
-  // before((context) => {
-  //     console.log('Mocha can call before(callback) with args?\narg: ', typeof context);
-  // });
-  // before();
 
   // lab.test('create entity', () => {
   // it('creating 1 entity definition', function() {

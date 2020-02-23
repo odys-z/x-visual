@@ -1,3 +1,5 @@
+.. _guide-app-architecture-cn:
+
 X-visual应用程序基本结构
 ========================
 
@@ -25,14 +27,27 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 
 主程序创建了一个xworld，作为渲染3D空间，然后添加定义的立方体，之后调用xworld.startUpdate()开始反复渲染更新场景。
 
-基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Hello类。
+基于x-visual的应用程序主入口与以上程序片段一致。应用程序的业务处理由各种继承的System来实现。比如下文中的Cube类。
 
 .. literalinclude:: ../../examples/cube/hellocube.js
    :language: javascript
    :lines: 1-50
    :linenos:
 
-在Hello中定义了一个立方体...
+在Cube中定义了一个立方体, zh: and id, Obj3, Visual, update(), query...
+
+zh: All examples are using Webpack for transpiling.
+
+::
+
+    npm i
+    webpack
+
+zh: If everything goes well, open the examples/cube/index.html and it will show
+a cube.
+
+.. image:: imgs/001-hellocube.png
+    :width: 300px
 
 3. 应用程序基本结构
 -------------------
@@ -49,27 +64,31 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 
 - System实现
 
-    继承ECS.XObj基础类，实现用户处理逻辑。
+    继承ECS.XSys基础类，实现用户处理逻辑。
 
-    用户处理逻辑在这里应该只处理与渲染有关的工作，包括用户输入响应、数据展示方式处理等。更多复杂逻辑处理应当推到后台处理。
+    用户处理逻辑在这里应该只处理与渲染有关的工作，包括用户输入响应、数据展示方式处理等。更多复杂
+    逻辑处理应当推到后台处理。
 
 
 4. 框架基本功能范围
 -------------------
 
-x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是ECS处理的最后环节。（之后可能扩展post effect system）
+x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是ECS处理的最后环节。
+（之后可能扩展post effect system）
 
-在Thrender处理渲染之前，所有的数据展示约束、tween动画处理已经分解到不同的子系统中处理完成，为最后渲染做好了准备。x-visual为
-这一系列处理提供了一个基本结构，包括一个MVC模式的view结构封装，若干个system来处理视效配置、动画脚本到渲染对象的分解转换。
+在Thrender处理渲染之前，所有的数据展示约束、tween动画处理已经分解到不同的子系统中处理完成， 为
+最后渲染做好了准备。x-visual为这一系列处理提供了一个基本结构，包括一个MVC模式的view结构封装，
+若干个system来处理视效配置、动画脚本到渲染对象的分解转换。
 
 具体功能包括：
 
 - 全局静态Asset管理
 
 - 用户输入映射
-    目前版本只考虑了键盘鼠标事件。用户输入被翻译成UserCmd component，保存在一个特殊的Entity管理，entity.id = 'xview'.
-    x-visual实现了一个利用渲染结果拾取场景模型的子系统，可以拾取透明材质后面的模型对象。拾取对象放在Entity包含的
-    Pickable.picktick中。
+    目前版本只考虑了键盘鼠标事件。用户输入被翻译成UserCmd component，保存在一个特殊的Entity
+    管理，entity.id = 'xview'. x-visual实现了一个利用渲染结果拾取场景模型的子系统，可以拾
+    取透明材质后面的模型对象。拾取对象放在Entity包含的Pickable.pickId中，(picktick =
+    update-tick)。
 
 - GLTF载入
 
@@ -90,21 +109,44 @@ x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是E
 
 示例：
 
-.. literalinclude:: ../../test/html/tween-rot.html
-   :language: javascript
-   :lines: 58-65
-   :linenos:
+.. code-block:: javascript
 
-上例中，模型将被xtweener驱动绕X轴旋转45°, time 1 second.
+    ModelSeqs: { script:
+        [[{ mtype: xv.XComponent.AnimType.ROTATEX,
+            paras: {start: 0,        // auto start
+                    duration: 1,     // seconds
+                    deg: [0, 45],    // from, to
+                    ease: undefined} // default linear
+          },
+          { mtype: xv.XComponent.AnimType.OBJ3ROTAXIS,
+            paras: {start: Infinity, // follow the first
+                    duration: 3.5,   // seconds
+                    axis: [0, 1, 0],
+                    deg: [0, 90],    // from, to
+                    ease: xv.XEasing.Elastic.InOut}
+          }
+        ]]
+     }
+..
 
-see `test/html/tween-rot.html <../../test/html/tween-rot.html>`_
+上例中，模型将被xtweener驱动绕X轴旋转45°, 动画时长1秒。
+
+see `test/html/tween-rot.html <https://github.com/odys-z/x-visual/blob/master/test/html/tween-rot.html>`_
+
+5.1 仿射变换(Affine Transformation)
+___________________________________
+
+线性变换有一类特殊的变换 - Affine Transformation, 三维空间模型的常见变换
+可以分解为基本变换。Affine Transformation的组合可以形成新的空间动画，如Orbit。
+
+关于Affine Transformation的介绍较多，如`Geometry Operations-Affine <https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm>`_
 
 6. shader uniform动画
 ---------------------
 
 AnimType.UNIFORMS
 
-示例： see `test/html/model-morph.html <../../test/html/model-morph.html>`_
+示例： see `test/html/model-morph.html <https://github.com/odys-z/x-visual/blob/master/test/html/model-morph.html>`_
 
 这段首先定义了两个用于做位置参照的模型：
 
@@ -127,7 +169,7 @@ AnimType.UNIFORMS
 
 AnimType.U_VERT_TRANS
 
-示例： see `test/html/voxel-morph-particles.html <../../test/html/voxel-morph-particles.html>`_
+示例： see `test/html/voxel-morph-particles.html <https://github.com/odys-z/x-visual/blob/master/test/html/voxel-morph-particles.html>`_
 
 .. literalinclude:: ../../test/html/voxel-morph-particles.html
    :language: javascript

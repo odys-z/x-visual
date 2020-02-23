@@ -8,7 +8,7 @@ const {performance} = require('perf_hooks');
 
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld.js'
-import XObj from '../lib/sys/xobj'
+import XSys from '../lib/sys/xobj'
 import {Geometry} from '../lib/component/geometry'
 import {Visual} from '../lib/component/visual'
 
@@ -18,7 +18,7 @@ global.performance = performance;
  * Subclass for handling data objects
  * @class
  */
-class SubXobj extends XObj {
+class SubXobj extends XSys {
 	constructor(ecs, options) {
 		super(ecs);
 		this.ecs = ecs;

@@ -6,8 +6,10 @@
 	npm test</pre>
  */
 
-context = require.context('.', true, /\.case\.js$/);
+// context = require.context('.', true, /\.case\.js$/);
 // context = require.context('.', true, /tweener.case\.js$/);
+// context = require.context('.', true, /vec3.case\.js$/);
+context = require.context('.', true, /api-script-affines.case\.js$/);
 
 context.keys().forEach(context)
 module.exports = context;

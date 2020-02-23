@@ -1,5 +1,5 @@
 
-/** @module xv.test.assets */
+/** @module xv.test.tween */
 
 // import chai from 'chai'
 import { chai, expect, assert } from 'chai'

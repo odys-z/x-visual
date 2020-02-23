@@ -59,7 +59,7 @@ describe('case: [script] anim sequence', function() {
                             paras: {start: 0,        // auto start, only alpha tween in v0.2
                                     duration: 0.8,    // seconds
                                     alpha: [opa0, opa1],
-                                     ease: XEasing.Elastic.InOut}
+                                    ease: XEasing.Elastic.InOut}
                         }]] },
             CmpTweens: {
                 twindx: [],    // e.g. twindex[0] is 0, script[0] current is 0, created by animizer

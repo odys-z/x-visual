@@ -5,7 +5,7 @@
  * @module xv.ecs.sys.contrl
  */
 import * as THREE from 'three';
-import * as X from '../../x.js';
+// import * as X from '../../x.js';
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com

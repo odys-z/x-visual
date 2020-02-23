@@ -158,13 +158,31 @@ definition.</p>
 object. Any further updating for animation are processed via Obj3.mesh properties.</p>
 </div>
 <p>Initial object transform. (TODO re-implement rotation animation using this.)</p>
-<p>Supported transform properties include:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">translate</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">shear</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">reflect</span>
+<p>Supported transform properties include 5 affine transformation in the exactly
+following sequence:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">translate</span><span class="p">,</span> <span class="n">rotate</span><span class="p">,</span> <span class="n">reflect</span><span class="p">,</span> <span class="n">shear</span><span class="p">,</span> <span class="n">scale</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../_images/002-transformatrix.svg"><img src="../_images/002-transformatrix.svg" width="600px" /></a>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg">from Wikipedia [CC BY-SA 3.0]</a></p>
 <p>TODO Example</p>
+<p>Shear is defined as:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span><span class="err">x_y,</span> <span class="err">x_z,</span> <span class="err">y_x,</span> <span class="err">y_z,</span> <span class="err">z_x,</span> <span class="err">z_y</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>where x_y stands for shear x with y, a.k.a x is changed wile increasing y in scale
+x_y, a.k.a mat4[1, 2] = x_y, a.k.a x&#8217; = m11 * x + x_y * y.</p>
+<p>The 3D shear matrix is defined as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>m =
+11   x_y  x_z  tx
+y_x  22   y_z  ty
+z_x  z_y  33   tz
+41   42   43   w
+</pre></div>
+</div>
+<p>Affine Transformation References:</p>
+<p><a class="reference external" href="https://www.euclideanspace.com/maths/geometry/affine/index.htm">[1] Maths - Affine Transformations</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation">[2] Affine Transformation, wikipedia</a></p>
 </div>
 </div>
 

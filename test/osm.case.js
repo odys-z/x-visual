@@ -8,13 +8,6 @@ import {OsmUtils, ThreeWrapper, R} from '../lib/osm/utils.js'
 import {TilesKeeper} from '../lib/osm/tiles-keeper.js'
 import {OSM3} from '../lib/osm/osm3.js'
 
-// describe('tests stub ++++++++++++', function() {
-//   it('should pass ---------', function() {
-// 	console.log('...................................')
-//     expect(true).to.be.true;
-//   });
-// });
-
 describe('case: OsmUtils', function() {
   let osmutils
   before(function() {
