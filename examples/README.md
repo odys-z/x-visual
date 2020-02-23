@@ -34,4 +34,4 @@ The hello xworld application has the following structure:
 - App (app.js), the application main entry;
 - Business logics (hellocube.js), which has some data (a cube) to be shown;
 
-There is a [Chinese document version for general introduction](https://odys-z.github.io/x-visual/guide/index.html).
+There is [an updating introduction for developers](https://odys-z.github.io/x-visual/guide/index.html).
