@@ -75,14 +75,14 @@ describe('case: [affine] orbit combine', function() {
                     asset: null },
             ModelSeqs: { script: [
                  [{ mtype: AnimType.ORBIT,
-                    paras: {start: Infinity,        // auto start,
+                    paras: {start: Infinity,
                             duration: 0.4,
                             axis: [0, 1, 0],
                             pivot: [120, 0, 0],
                             deg: [0, 60],
                             ease: null} }],
                  // [{ mtype: AnimType.ROTATEX,
-                 //    paras: {start: Infinity,        // auto start,
+                 //    paras: {start: Infinity,
                  //            duration: 0.4,
                  //            deg: [0, 60],
                  //            ease: null} } ],
@@ -93,7 +93,7 @@ describe('case: [affine] orbit combine', function() {
         debugger
         xworld.startUpdate();
             cube.CmpTweens.startCmds.push(0);
-            cube.CmpTweens.startCmds.push(1);
+            // cube.CmpTweens.startCmds.push(1);
             xworld.update();
             await sleep(500);
             xworld.update();
