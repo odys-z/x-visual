@@ -129,9 +129,17 @@ x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是E
      }
 ..
 
-上例中，模型将被xtweener驱动绕X轴旋转45°, time 1 second.
+上例中，模型将被xtweener驱动绕X轴旋转45°, 动画时长1秒。
 
 see `test/html/tween-rot.html <https://github.com/odys-z/x-visual/blob/master/test/html/tween-rot.html>`_
+
+5.1 仿射变换(Affine Transformation)
+___________________________________
+
+线性变换有一类特殊的变换 - Affine Transformation, 三维空间模型的常见变换
+可以分解为基本变换。Affine Transformation的组合可以形成新的空间动画，如Orbit。
+
+关于Affine Transformation的介绍较多，如`Geometry Operations-Affine <https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm>`_
 
 6. shader uniform动画
 ---------------------
