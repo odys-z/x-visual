@@ -236,6 +236,8 @@ of two tween steps.</p>
 <h2>ModleSeqs.script<a class="headerlink" href="#modleseqs-script" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="mtype">
 <h3>mtype<a class="headerlink" href="#mtype" title="Permalink to this headline">¶</a></h3>
+<p>The script sequence element has mtype as the first property, which can be one of
+AnimType defined in component/morph.js.</p>
 <div class="section" id="animtype">
 <h4>AnimType<a class="headerlink" href="#animtype" title="Permalink to this headline">¶</a></h4>
 <p>Supported Animation types are defined in x-visual/component/morph.js:</p>
@@ -252,12 +254,7 @@ of two tween steps.</p>
 11
 12
 13
-14
-15</pre></div></td><td class="code"><div class="highlight"><pre><span></span>	<span class="nx">COMBINE_AFFINE</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
-	<span class="nx">MASK</span><span class="o">:</span> <span class="mh">0xffff</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
 
 	<span class="nx">USER</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
 
@@ -268,8 +265,31 @@ of two tween steps.</p>
 	<span class="nx">ROTATEX</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="c1">// TODO FIXME | AnimCate.COMBINE_AFFINE,</span>
 	<span class="nx">ROTAXIS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">|</span> <span class="nx">AnimCate</span><span class="p">.</span><span class="nx">COMBINE_AFFINE</span><span class="p">,</span>
 	<span class="nx">ORBIT</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">|</span> <span class="nx">AnimCate</span><span class="p">.</span><span class="nx">COMBINE_AFFINE</span><span class="p">,</span>
+
+	<span class="nx">TODO</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span>
+<span class="p">};</span>
 </pre></div>
 </td></tr></table></div>
+</div>
+<div class="section" id="animcate">
+<h4>AnimCate<a class="headerlink" href="#animcate" title="Permalink to this headline">¶</a></h4>
+<p>mtype also has a flag indicating what kind of the animation is. Currently there
+is only one special flag, AnimCate.COMBINE_AFFINE, defined in <span class="xref std std-ref">AnimCate</span>.</p>
+<p id="affine-design-memo"><strong>Design and API for affine combination is not stable in current version.</strong></p>
+<p>To make affine tweening start from where it&#8217;s finished, and can be combined from
+all tweens of the object (component Obj3), it&#8217;s updated in XTweener like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>1. Animizer compose all scripts into every CmpTween&#39;s affine field.
+2. XTweener.update() create the Obj3.combined for each tweening update - Tween.js
+    update target object with interpolated value, not increasing value.
+3. Tweens start from a snapshot of Obj3.mesh.matrix, then update each time
+    with Obj3.combined as inter tweens&#39; buffer; when finished, the matrix of
+    mesh is stopped been updated by XTweener.
+4. Each tween sequence can be triggered asynchronously.
+</pre></div>
+</div>
+<p><span class="math">\(m_{0} = snapshot\)</span></p>
+<p><span class="math">\(m_{i} = f(m_{i-1}) z^{1} + g(m_{i-1}) z^{\alpha}\)</span></p>
+<p>where <span class="math">\(\alpha &gt; 1\)</span>.</p>
 </div>
 </div>
 <div class="section" id="paras">

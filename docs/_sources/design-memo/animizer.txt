@@ -39,6 +39,9 @@ ModleSeqs.script
 mtype
 +++++
 
+The script sequence element has mtype as the first property, which can be one of
+AnimType defined in component/morph.js.
+
 AnimType
 ________
 
@@ -46,8 +49,38 @@ Supported Animation types are defined in x-visual/component/morph.js:
 
 .. literalinclude:: ../../lib/component/morph.js
    :language: javascript
-   :lines: 5-20
+   :lines: 9-24
    :linenos:
+
+AnimCate
+________
+
+mtype also has a flag indicating what kind of the animation is. Currently there
+is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<animcate>`.
+
+.. _affine-design-memo:
+
+**Design and API for affine combination is not stable in current version.**
+
+To make affine tweening start from where it's finished, and can be combined from
+all tweens of the object (component Obj3), it's updated in XTweener like this:
+
+::
+
+    1. Animizer compose all scripts into every CmpTween's affine field.
+    2. XTweener.update() create the Obj3.combined for each tweening update - Tween.js
+        update target object with interpolated value, not increasing value.
+    3. Tweens start from a snapshot of Obj3.mesh.matrix, then update each time
+        with Obj3.combined as inter tweens' buffer; when finished, the matrix of
+        mesh is stopped been updated by XTweener.
+    4. Each tween sequence can be triggered asynchronously.
+
+
+:math:`m_{0} = snapshot`
+
+:math:`m_{i} = f(m_{i-1}) z^{1} + g(m_{i-1}) z^{\alpha}`
+
+where :math:`\alpha > 1`.
 
 paras
 +++++
