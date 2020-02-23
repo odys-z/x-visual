@@ -166,7 +166,6 @@ describe('case: [script] anim sequence', function() {
                 script: [[{ mtype: AnimType.ROTATEX,
                             paras: {start: 0,         // auto start
                                     duration: 0.4,    // seconds
-                                    cmd: '',
                                     deg: [0, 45],     // from, to
                                     ease: undefined}},// default linear
                           { mtype: AnimType.ROTAXIS,

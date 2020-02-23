@@ -39,10 +39,35 @@ repeatedly.
 
 A cube entity has been defined above, with id, Obj3, Visual components.
 
-About System.query
-__________________
+About System
+____________
 
-todo ...
+- ECS.System & ECS.XSys
+
+ECS.System is a base class of all x-visual built-in systems, like renderer, x-view
+and tween animation driver.
+
+ECS.XSys is a base class for users to extend. It's nothing now but a coding convention.
+Application systems should extends this class in case some common helping functions
+added to this system in the future.
+
+- query & update
+
+In the *Hello XWorld* example, there is a line of code reflecting key concept of
+ECS, the query condition:
+
+.. code-block:: javascript
+
+    Cube.query = {
+        iffall: ['Visual', 'CmdFlag']
+    };
+..
+
+The *iffall* is a condition specifying that all entities with all 2 components,
+*Visual* and *CmdFlag* must been handled by *Cube* system.
+
+The *update()* function is where a system handling entities at each rendering loop.
+The argument *entities* is passed to it according to the *query* logics.
 
 Examples
 ________
@@ -65,10 +90,10 @@ a cube.
 
 An x-visual application includes:
 
-- Main (App)
+- App Main
 
-    Common pattern of application includes creating XWorld, Entity then start by
-	calling xworld.startUpdate().
+    Main function is a common pattern of application includes creating XWorld,
+    Entities then start rendering by calling xworld.startUpdate().
 
 - Entities
 
@@ -77,4 +102,12 @@ An x-visual application includes:
 
 - Systems
 
-    TODO ...
+    Systems update components' state, changing how data been rendered. A user system
+    can change object's position, moving path or color etc.
+
+4. Next Step
+------------
+
+There are some html test cases can be useful, see `x-visual/test/html <https://github.com/odys-z/x-visual>`_.
+
+Details is up coming...
