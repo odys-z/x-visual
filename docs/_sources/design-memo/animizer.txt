@@ -45,12 +45,7 @@ AnimType defined in component/morph.js.
 AnimType
 ________
 
-Supported Animation types are defined in x-visual/component/morph.js:
-
-.. literalinclude:: ../../lib/component/morph.js
-   :language: javascript
-   :lines: 9-24
-   :linenos:
+:ref:`AnimType<animtype>` define supported Animation types are defined in x-visual/component/morph.js.
 
 AnimCate
 ________
@@ -60,7 +55,8 @@ is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<ani
 
 .. _affine-design-memo:
 
-**Design and API for affine combination is not stable in current version.**
+.. note:: Design and API for affine combination is not stable in current version.
+..
 
 To make affine tweening start from where it's finished, and can be combined from
 all tweens of the object (component Obj3), it's updated in XTweener like this:
@@ -68,19 +64,27 @@ all tweens of the object (component Obj3), it's updated in XTweener like this:
 ::
 
     1. Animizer compose all scripts into every CmpTween's affine field.
-    2. XTweener.update() create the Obj3.combined for each tweening update - Tween.js
-        update target object with interpolated value, not increasing value.
+    2. XTweener.update() create the Obj3.combined for each tweening update
+       - Tween.js update target object with interpolated value, not incremental value.
     3. Tweens start from a snapshot of Obj3.mesh.matrix, then update each time
-        with Obj3.combined as inter tweens' buffer; when finished, the matrix of
-        mesh is stopped been updated by XTweener.
+       with Obj3.combined as internal tweens' buffer; when finished, the matrix
+       of Obj3.mesh has been stopped while updating by XTweener.
     4. Each tween sequence can be triggered asynchronously.
+    5. When all these finished, the results has been applied to Obj3.mesh.matrix,
+       and can be snapshotted next time starting the tweens.
 
+let's *f, g* stands for different transformation, and z-transform for time expansion,
+such that
 
 :math:`m_{0} = snapshot`
 
-:math:`m_{i} = f(m_{i-1}) z^{1} + g(m_{i-1}) z^{\alpha}`
+:math:`m_{1} = f^{1}(m_{0}) z^{1}`
 
-where :math:`\alpha > 1`.
+:math:`m_{i} = f^{i}(m_{0}) z^{i} + g^{i - \alpha}(m_{0}) z^{i - \alpha}`
+
+where :math:`\alpha \in Z^{+}`.
+
+`[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
 
 paras
 +++++
