@@ -18,10 +18,6 @@ import {Visual, AssetType} from '../lib/component/visual'
 import {Obj3Type} from '../lib/component/obj3'
 import {AnimType, ModelSeqs} from '../lib/component/morph';
 import {vec3, mat4, radian, Affine} from '../lib/xutils/vec';
-// import {CmpTween, CmpTweens} from '../lib/component/tween';
-// import XTweener from '../lib/sys/tween/xtweener'
-// import {XEasing} from '../lib/sys/tween/xtweener'
-// import {MorphingAnim} from '../lib/sys/tween/animizer'
 
 global.performance = performance;
 
@@ -74,7 +70,7 @@ describe('case: [affine] orbit combine', function() {
                     asset: null },
             ModelSeqs: { script: [
                  [{ mtype: AnimType.ORBIT,
-                    paras: {start: Infinity,        // auto start,
+                    paras: {start: Infinity,
                             duration: 0.4,
                             axis: [0, 1, 0],
                             pivot: [120, 0, 0],
