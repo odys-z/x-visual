@@ -100,20 +100,20 @@ describe('case: [affine] orbit combine', function() {
         var cube = ecs.createEntity({
             id: 'orbit-rotatex',
             Obj3: { geom: Obj3Type.BOX,
-                    box: [200, 120, 80],     // bounding box
+                    box: [200, 120, 80],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,
                     asset: null },
             ModelSeqs: { script: [
                  [{ mtype: AnimType.ORBIT,
-                    paras: {start: Infinity,        // auto start,
-                            duration: 0.4,
+                    paras: {start: Infinity,
+                            duration: 0.2,
                             axis: [0, 1, 0],
                             pivot: [120, 0, 0],
                             deg: [0, 180],
                             ease: null} }],
                  [{ mtype: AnimType.ROTATEX,
-                    paras: {start: Infinity,        // auto start,
+                    paras: {start: Infinity,
                             duration: 0.4,
                             deg: [0, 60],
                             ease: null} } ],
@@ -125,13 +125,16 @@ describe('case: [affine] orbit combine', function() {
             cube.CmpTweens.startCmds.push(0);
             cube.CmpTweens.startCmds.push(1);
             xworld.update();
-            await sleep(500);
+            await sleep(300);
             xworld.update();
+            await sleep(200);
             xworld.update();
             var mat = cube.Obj3.mesh.matrix;
-            var mt4 = new mat4().translate(-120, 0, 0)
+            var mt4 = new mat4()
+                        .translate(-120, 0, 0)
                         .rotate(radian(180), 0, 1, 0)
-                        .translate(120, 0, 0);
+                        .translate(120, 0, 0)
+                        .rotate(radian(60), 1, 0, 0);
             assert.isTrue(mt4.transpose().eq(new mat4(mat)), 'orbit + rotatex v.s transform combined');
     });
 });
