@@ -39,15 +39,61 @@ ModleSeqs.script
 mtype
 +++++
 
+The script sequence element has mtype as the first property, which can be one of
+AnimType defined in component/morph.js.
+
 AnimType
 ________
 
-Supported Animation types are defined in x-visual/component/morph.js:
+:ref:`AnimType<animtype>` define supported Animation types are defined in x-visual/component/morph.js.
 
-.. literalinclude:: ../../lib/component/morph.js
+AnimCate
+________
+
+mtype also has a flag indicating what kind of the animation is. Currently there
+is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<animcate>`.
+
+.. _affine-design-memo:
+
+.. note:: Design and API for affine combination is not stable in current version.
+..
+
+To make affine tweening start from where it's finished, and can be combined from
+all tweens of the object (component Obj3), it's updated in XTweener like this:
+
+::
+
+    1. Animizer:
+       compose all scripts into every CmpTween's affine field.
+    2. XTweener.update(): for each tweening update
+       2.1 create the Obj3.combined as each tweening update buffer
+           - Tween.js update target object with interpolated value, not incremental value.
+       2.2 take a snapshot (mesh.matrix) before combine the object's transformations
+           combined.m0 = clone(mesh.matrix);
+       2.3 for each tween sequence, combine the transformation
+           combined.m4.mul(affine[tween]);
+           - to make each tween sequence can be triggered asynchronously, m0 is kept will updating
+       2.4 When all these finished, the results has been applied to Obj3.mesh.matrix,
+           and snapshot has been dropped.
+
+
+let's *f, g* stands for different transformation, and z-transform for time expansion,
+such that
+
+:math:`m_{0} = snapshot`
+
+:math:`m_{1} = f^{1}(m_{0}) z^{1}`
+
+:math:`m_{i} = f^{i}(m_{0}) z^{i} + g^{i - \alpha}(m_{0}) z^{i - \alpha}`
+
+where :math:`\alpha \in Z^{+}`.
+
+.. literalinclude:: ../../lib/xmath/affine.js
    :language: javascript
-   :lines: 5-20
+   :lines: 11-32
    :linenos:
+
+`[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
 
 paras
 +++++

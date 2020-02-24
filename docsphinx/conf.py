@@ -37,6 +37,7 @@ extensions = [
     # see also G4 Loader/docsrc/conf.py
     'sphinx_rtd_theme',
     'jsonlexer',
+    'sphinx.ext.mathjax',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

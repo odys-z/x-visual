@@ -185,14 +185,10 @@ see test/html
 
 TODO docs ...
 
-载入GLTF模型
-++++++++++++
+- 载入GLTF模型
 
-渲染HTML页面材质
-++++++++++++++++
+- 渲染HTML页面材质
 
-空间动画
-++++++++
+- 空间动画
 
-shader + uniform动画
-++++++++++++++++++++
+- shader + uniform动画

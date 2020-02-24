@@ -48,6 +48,18 @@ Or in plain js:
 Components Definitions
 ----------------------
 
+.. _animcate:
+
+AnimCate
+++++++++
+
+.. literalinclude:: ../../lib/component/morph.js
+   :language: javascript
+   :lines: 3-7
+   :linenos:
+
+.. _animtype:
+
 AnimType
 ++++++++
 
@@ -55,7 +67,7 @@ Supported Animation types are defined in x-visual/component/morph.js:
 
 .. literalinclude:: ../../lib/component/morph.js
    :language: javascript
-   :lines: 5-20
+   :lines: 9-20
    :linenos:
 
 AssetType

@@ -92,16 +92,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#hello-xworld">2. Hello XWorld</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">3. 应用程序基本结构</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">4. 框架基本功能范围</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">5. 模型空间属性动画</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#shader-uniform">6. shader uniform动画</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#particles">7. Particles动画</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">8. 示例</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#gltf">载入GLTF模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#html">渲染HTML页面材质</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">空间动画</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">shader + uniform动画</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">5. 模型空间属性动画</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#affine-transformation">5.1 仿射变换(Affine Transformation)</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#shader-uniform">6. shader uniform动画</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#particles">7. Particles动画</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">8. 示例</a></li>
 </ul>
 </li>
 </ul>
@@ -412,8 +409,14 @@ update-tick)。</p>
  <span class="p">}</span>
 </pre></div>
 </div>
-<p>上例中，模型将被xtweener驱动绕X轴旋转45°, time 1 second.</p>
+<p>上例中，模型将被xtweener驱动绕X轴旋转45°, 动画时长1秒。</p>
 <p>see <a class="reference external" href="https://github.com/odys-z/x-visual/blob/master/test/html/tween-rot.html">test/html/tween-rot.html</a></p>
+<div class="section" id="affine-transformation">
+<h3>5.1 仿射变换(Affine Transformation)<a class="headerlink" href="#affine-transformation" title="Permalink to this headline">¶</a></h3>
+<p>线性变换有一类特殊的变换 - Affine Transformation, 三维空间模型的常见变换
+可以分解为基本变换。Affine Transformation的组合可以形成新的空间动画，如Orbit。</p>
+<p>关于Affine Transformation的介绍较多，如`Geometry Operations-Affine &lt;<a class="reference external" href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm">https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm</a>&gt;`_</p>
+</div>
 </div>
 <div class="section" id="shader-uniform">
 <h2>6. shader uniform动画<a class="headerlink" href="#shader-uniform" title="Permalink to this headline">¶</a></h2>
@@ -475,7 +478,7 @@ update-tick)。</p>
 53</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="kr">const</span> <span class="nx">ent1</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;entity1&#39;</span><span class="p">,</span>
         <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
-                <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>    <span class="c1">// bounding box</span>
+                <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>
                 <span class="c1">// mesh is inited by thrender, can be ignored here - MorphSwitch&#39;s target</span>
                 <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
                 <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span><span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.1</span><span class="p">}},</span>
@@ -501,7 +504,7 @@ update-tick)。</p>
     <span class="kr">const</span> <span class="nx">ent2</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;entity2&#39;</span><span class="p">,</span>
         <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
-                <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">260</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span>    <span class="c1">// bounding box</span>
+                <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">260</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span>
                 <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
                 <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span><span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.2</span><span class="p">}},</span>
         <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
@@ -680,18 +683,12 @@ update-tick)。</p>
 <h2>8. 示例<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>see test/html</p>
 <p>TODO docs ...</p>
-<div class="section" id="gltf">
-<h3>载入GLTF模型<a class="headerlink" href="#gltf" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="html">
-<h3>渲染HTML页面材质<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="id6">
-<h3>空间动画<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="id7">
-<h3>shader + uniform动画<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-</div>
+<ul class="simple">
+<li>载入GLTF模型</li>
+<li>渲染HTML页面材质</li>
+<li>空间动画</li>
+<li>shader + uniform动画</li>
+</ul>
 </div>
 </div>
 
