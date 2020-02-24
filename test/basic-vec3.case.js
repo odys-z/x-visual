@@ -6,7 +6,8 @@ import chai from 'chai'
 import { expect, assert } from 'chai'
 
 import * as THREE from 'three'
-import {vec3, mat4, radian, Affine} from '../lib/xutils/vec';
+import {vec3, mat4, radian} from '../lib/xmath/vec'
+import {Affine} from '../lib/xmath/affine'
 
 
 describe('case: [vec3] operator basics', () => {
@@ -161,14 +162,16 @@ describe('case: [mat4] operator basics', () => {
         orbitY_theta(180, affines, new vec3(10, 0, 0));
 
         var p = new vec3(); // 0, 0, 0
-		var m4 = mat4.combine(affines);
+        var m4 = new mat4();
+        var combined = {mi: m4, m0: mat4.I()};
+		Affine.combine(affines, combined);
         p.mat4(m4);
         assert.isTrue(p.eq(new vec3(20, 0, 0)), "Origin point rotate 180° around axis j pivoted at vec3(10, 0, 0)");
 
         affines = [];
         orbitY_theta(180, affines, [20, 0, 0]);
         p = new vec3();
-		var m4 = mat4.combine(affines);
+		Affine.combine(affines, combined);
         p.mat4(m4);
         assert.isTrue(p.eq(new vec3(40, 0, 0)), "Origin point rotate 180° around axis j pivoted at [20, 0, 0]");
 
@@ -181,7 +184,7 @@ describe('case: [mat4] operator basics', () => {
         for (var i = 1; i <= 360 / theta; i++) {
             orbitY_theta(theta, affines, pivot);
         }
-		m4 = mat4.combine(affines);
+		Affine.combine(affines, combined);
         p.mat4(m4);
         assert.isTrue(p.eq(p_), `Origin point rotate axis j for ${360/theta} times, each ${theta}°`);
 
@@ -205,7 +208,7 @@ describe('case: [mat4] operator basics', () => {
 
         affines = [];
         orbitY_theta(theta, affines, pivot);
-		m4 = mat4.combine(affines);
+		Affine.combine(affines, combined);
         p.mat4(m4);
         var chord = p1.sub(p).length();
         // console.log('chord', chord, 'p', p, 'p1', p1);
