@@ -92,6 +92,8 @@
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Obj3 &amp; Scene</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#obj3-transform">Obj3.transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obj3-affines-combined">Obj3.affines &amp; combined</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#affine-transformation-references">Affine Transformation References:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
@@ -180,9 +182,74 @@ z_x  z_y  33   tz
 41   42   43   w
 </pre></div>
 </div>
-<p>Affine Transformation References:</p>
+</div>
+<div class="section" id="obj3-affines-combined">
+<h2>Obj3.affines &amp; combined<a class="headerlink" href="#obj3-affines-combined" title="Permalink to this headline">¶</a></h2>
+<p>This 2 properties ara similar to the mesh.matrix4, except that it&#8217;s created by
+animizer and tweened by XTtweener.</p>
+<p>Affines is an array of affine object, where affine can be:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>translate: vec3
+rotate: radian
+scale: number</dd>
+</dl>
+<p>Reflect and Shear are not supported as THREE.Matrix4 seams can only been decomposed into
+rotation, translation and scale.</p>
+<p>See <a class="reference external" href="https://github.com/mrdoob/three.js/blob/master/src/math/Matrix4.js">Three.js Matrix4 Source Code</a>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span> <span class="nx">Matrix4</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">decompose</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">position</span><span class="p">,</span> <span class="nx">quaternion</span><span class="p">,</span> <span class="nx">scale</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">te</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">sx</span> <span class="o">=</span> <span class="nx">_v1</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">1</span> <span class="p">],</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">2</span> <span class="p">]</span> <span class="p">).</span><span class="nx">length</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">sy</span> <span class="o">=</span> <span class="nx">_v1</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">4</span> <span class="p">],</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">5</span> <span class="p">],</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">6</span> <span class="p">]</span> <span class="p">).</span><span class="nx">length</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">sz</span> <span class="o">=</span> <span class="nx">_v1</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">8</span> <span class="p">],</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">9</span> <span class="p">],</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">10</span> <span class="p">]</span> <span class="p">).</span><span class="nx">length</span><span class="p">();</span>
+
+    <span class="c1">// if determine is negative, we need to invert one scale</span>
+    <span class="kd">var</span> <span class="nx">det</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">determinant</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">det</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">)</span> <span class="nx">sx</span> <span class="o">=</span> <span class="o">-</span> <span class="nx">sx</span><span class="p">;</span>
+
+    <span class="nx">position</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">12</span> <span class="p">];</span> <span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">13</span> <span class="p">];</span> <span class="nx">position</span><span class="p">.</span><span class="nx">z</span> <span class="o">=</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">14</span> <span class="p">];</span>
+
+    <span class="c1">// scale the rotation part</span>
+    <span class="nx">_m1</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">invSX</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nx">sx</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">invSY</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nx">sy</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">invSZ</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nx">sz</span><span class="p">;</span>
+    <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSX</span><span class="p">;</span> <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSX</span><span class="p">;</span> <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">2</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSX</span><span class="p">;</span>
+    <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">4</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSY</span><span class="p">;</span> <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">5</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSY</span><span class="p">;</span> <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">6</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSY</span><span class="p">;</span>
+    <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">8</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSZ</span><span class="p">;</span> <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">9</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSZ</span><span class="p">;</span> <span class="nx">_m1</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span> <span class="mi">10</span> <span class="p">]</span> <span class="o">*=</span> <span class="nx">invSZ</span><span class="p">;</span>
+
+    <span class="nx">quaternion</span><span class="p">.</span><span class="nx">setFromRotationMatrix</span><span class="p">(</span> <span class="nx">_m1</span> <span class="p">);</span>
+    <span class="nx">scale</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">sx</span><span class="p">;</span> <span class="nx">scale</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">sy</span><span class="p">;</span> <span class="nx">scale</span><span class="p">.</span><span class="nx">z</span> <span class="o">=</span> <span class="nx">sz</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>and Object3D</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">Object3D</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="nx">EventDispatcher</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">),</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="o">:</span> <span class="nx">Object3D</span><span class="p">,</span>
+  <span class="nx">isObject3D</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">onBeforeRender</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+  <span class="nx">onAfterRender</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+
+  <span class="nx">applyMatrix4</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">matrix</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">matrixAutoUpdate</span> <span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">updateMatrix</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">matrix</span><span class="p">.</span><span class="nx">premultiply</span><span class="p">(</span> <span class="nx">matrix</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">matrix</span><span class="p">.</span><span class="nx">decompose</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">position</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">quaternion</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">scale</span> <span class="p">);</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Combined is an array parsed and combined operation represented as a mat4.</p>
+<p>Obj3.Combined is the XTweener&#8217;s tweening target and been set to Obj3.mesh.matrix4 directly.
+Not using Object3D.applyMatrix() because the mesh matrix will accumulate ratation etc. at
+each updating &amp; applying matrix, making rotation steps getting increased.</p>
+<p>User shouldn&#8217;t modify <em>affines</em> and <em>combined</em> fields.</p>
+</div>
+<div class="section" id="affine-transformation-references">
+<h2>Affine Transformation References:<a class="headerlink" href="#affine-transformation-references" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://www.euclideanspace.com/maths/geometry/affine/index.htm">[1] Maths - Affine Transformations</a></p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation">[2] Affine Transformation, wikipedia</a></p>
+<p><a class="reference external" href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm">[2] Geometric Operations: Affine Transformation</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation">[3] Affine Transformation, wikipedia</a></p>
 </div>
 </div>
 

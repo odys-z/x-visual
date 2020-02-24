@@ -388,11 +388,11 @@
 	<span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>   <span class="c1">// always not null</span>
 	<span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>     <span class="c1">// THREE.Mesh for BOX etc. or Array of vertices for POINTS</span>
 	<span class="nx">transform</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span><span class="c1">// {translate, scale, rotate, shear, reflect, mat4}, default unused</span>
-	<span class="nx">affines</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>  <span class="c1">// elements are same as &#39;transform&#39;, but used by xtweener</span>
+	<span class="nx">affines</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>  <span class="c1">// deprecated: moved to CmpTween. Elements are same as &#39;transform&#39;, but used by xtweener, and mart4 is used for combined results; default must be undefined, created by XTweener</span>
+	<span class="nx">combined</span><span class="o">:</span> <span class="p">{},</span>        <span class="c1">// affines combinatiion, {m4, m0}, m4 is used as tweeing buffer to combine all affine transformation in CmpTween.affines</span>
 	<span class="nx">invisible</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
 	<span class="nx">uniforms</span><span class="o">:</span> <span class="p">{}</span>
   <span class="p">}</span>
-  
 </pre></div>
 </td></tr></table></div>
 </div>
