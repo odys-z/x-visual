@@ -46,7 +46,7 @@ describe('case: [script] anim sequence', function() {
         var cube = ecs.createEntity({
             id: 'fade-out',
             Obj3: { geom: Obj3Type.BOX,
-                    box: [200, 120, 80],    // bounding box
+                    box: [200, 120, 80],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,
                     // Three use document to load assets, which doesn't exist whil testing
@@ -56,14 +56,12 @@ describe('case: [script] anim sequence', function() {
             // TODO docs: in version 1.0, only type of sequence animation is supported
             ModelSeqs: {
                 script: [[{ mtype: AnimType.ALPHA,
-                            paras: {start: 0,        // auto start, only alpha tween in v0.2
+                            paras: {start: 0,         // auto start, only alpha tween in v0.2
                                     duration: 0.8,    // seconds
                                     alpha: [opa0, opa1],
                                     ease: XEasing.Elastic.InOut}
                         }]] },
-            CmpTweens: {
-                twindx: [],    // e.g. twindex[0] is 0, script[0] current is 0, created by animizer
-                tweens: []}    // initialized by animizer, handled by XTweener. [] is safely ignored
+            CmpTweens: {}
         });
 
         xworld.startUpdate();
@@ -88,7 +86,7 @@ describe('case: [script] anim sequence', function() {
         var cube = ecs.createEntity({
             id: 'cube0',
             Obj3: { geom: Obj3Type.BOX,
-                    box: [200, 120, 80],  // bounding box
+                    box: [200, 120, 80],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,
                     asset: null },        // let thrender create a ram texture.
@@ -158,7 +156,7 @@ describe('case: [script] anim sequence', function() {
         var cube = ecs.createEntity({
             id: 'cube0',
             Obj3: { geom: Obj3Type.BOX,
-                    box: [200, 120, 80],  // bounding box
+                    box: [200, 120, 80],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,
                     asset: null },        // let thrender create a ram texture.
@@ -220,7 +218,7 @@ describe('case: [script] anim sequence', function() {
         var cube = ecs.createEntity({
             id: 'cube0',
             Obj3: { geom: Obj3Type.BOX,
-                    box: [200, 120, 80],    // bounding box
+                    box: [200, 120, 80],
                     // mesh is inited by thrender, can be ignored here - MorphSwitch's target
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,
@@ -279,7 +277,7 @@ describe('case: [script] anim sequence', function() {
         var plane = ecs.createEntity({
             id: 'plane',
             Obj3: { geom: Obj3Type.PLANE,
-                    box: [210, 200, 0],    // bounding box
+                    box: [210, 200, 0],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,
                     asset: undefined }, // 'city/textures/World_ap_baseColor.jpeg'
