@@ -75,7 +75,7 @@ all tweens of the object (component Obj3), it's updated in XTweener like this:
            - to make each tween sequence can be triggered asynchronously, m0 is kept will updating
        2.4 When all these finished, the results has been applied to Obj3.mesh.matrix,
            and snapshot has been dropped.
-       
+
 
 let's *f, g* stands for different transformation, and z-transform for time expansion,
 such that
@@ -88,9 +88,9 @@ such that
 
 where :math:`\alpha \in Z^{+}`.
 
-.. literalinclude:: ../../lib/xutils/vec.js
+.. literalinclude:: ../../lib/xmath/affine.js
    :language: javascript
-   :lines: 876-893
+   :lines: 11-32
    :linenos:
 
 `[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
