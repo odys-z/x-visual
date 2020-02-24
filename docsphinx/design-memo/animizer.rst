@@ -63,15 +63,19 @@ all tweens of the object (component Obj3), it's updated in XTweener like this:
 
 ::
 
-    1. Animizer compose all scripts into every CmpTween's affine field.
-    2. XTweener.update() create the Obj3.combined for each tweening update
-       - Tween.js update target object with interpolated value, not incremental value.
-    3. Tweens start from a snapshot of Obj3.mesh.matrix, then update each time
-       with Obj3.combined as internal tweens' buffer; when finished, the matrix
-       of Obj3.mesh has been stopped while updating by XTweener.
-    4. Each tween sequence can be triggered asynchronously.
-    5. When all these finished, the results has been applied to Obj3.mesh.matrix,
-       and can be snapshotted next time starting the tweens.
+    1. Animizer:
+       compose all scripts into every CmpTween's affine field.
+    2. XTweener.update(): for each tweening update
+       2.1 create the Obj3.combined as each tweening update buffer
+           - Tween.js update target object with interpolated value, not incremental value.
+       2.2 take a snapshot (mesh.matrix) before combine the object's transformations
+           combined.m0 = clone(mesh.matrix);
+       2.3 for each tween sequence, combine the transformation
+           combined.m4.mul(affine[tween]);
+           - to make each tween sequence can be triggered asynchronously, m0 is kept will updating
+       2.4 When all these finished, the results has been applied to Obj3.mesh.matrix,
+           and snapshot has been dropped.
+       
 
 let's *f, g* stands for different transformation, and z-transform for time expansion,
 such that
@@ -83,6 +87,11 @@ such that
 :math:`m_{i} = f^{i}(m_{0}) z^{i} + g^{i - \alpha}(m_{0}) z^{i - \alpha}`
 
 where :math:`\alpha \in Z^{+}`.
+
+.. literalinclude:: ../../lib/xutils/vec.js
+   :language: javascript
+   :lines: 876-893
+   :linenos:
 
 `[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
 
