@@ -1,13 +1,13 @@
 /**Test case of xcommon/vec.js with mocha and chai.
+ * @module xv.test.vec
  */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
-// import assertArrays from 'chai-arrays'
-// chai.use(assertArrays);
 
 import * as THREE from 'three'
-import {vec3, mat4, radian, Affine} from '../lib/xutils/vec';
+import {vec3, mat4, radian} from '../lib/xmath/vec'
+import {Affine} from '../lib/xmath/affine'
 
 
 describe('case: [vec3] operator basics', () => {
@@ -17,20 +17,16 @@ describe('case: [vec3] operator basics', () => {
         var v2 = new vec3([1, 2, 3]);
         var v3 = new vec3(2, 4, 6);
 
-        assert.isTrue(v1.add(v2).mul(2).eq(v3));
-        assert.closeTo(v3.length() * v3.length(), v3.dot(v3), 0.01);
-        assert.closeTo(v3.length() * v3.length(), v2.div(0.5).dot(v2), 0.01);
-        assert.isTrue(v2.js() instanceof THREE.Vector3);
-        assert.equal(v3.js().z,  6);
+        assert.isTrue(v1.add(v2).mul(2).eq(v3), "1 ---");
+        assert.closeTo(v3.length() * v3.length(), v3.dot(v3), 0.01, "2 ---");
+        assert.closeTo(v3.length() * v3.length(), v2.div(0.5).dot(v2), 0.01, "3 ---");
+        assert.isTrue(v2.js() instanceof THREE.Vector3, "4 ---");
+        assert.equal(v3.js().z, 6, "5 ---");
     });
 
 });
 
 function orbitY_theta ( theta, affines, pivot ) {
-    // affines.push({translate: vec3.mul(pivot, -1).arr()}); // translation = 0 - pivot
-    // affines.push({rotate: {deg: theta, axis: [0, 1, 0]}});
-    // affines.push({translate: pivot.arr()});  // - translation
-
     Affine.orbit( theta, pivot, [0, 1, 0], affines);
 }
 
@@ -44,7 +40,6 @@ describe('case: [mat4] THREE.Matrix4 compatiblility', () => {
             assert.closeTo(jsarr[i], rx.m[i], 0.001, `Matrix4.set(): jsarr[${i}] v.s. m4[${i}]`);
         }
 
-        debugger
         m4js = mat4.js(rx);
         jsarr = m4js.transpose().toArray();
         for (var i = 0; i < rx.m.length; i++) {
@@ -54,6 +49,39 @@ describe('case: [mat4] THREE.Matrix4 compatiblility', () => {
 });
 
 describe('case: [mat4] operator basics', () => {
+    it('mat4 rotate & orbit', () => {
+        var mt4 = new mat4().rotate(radian(90), 0, 1, 0);
+        var ry = mat4.roty(radian(90));
+        assert.isTrue(mt4.eq(ry), "A 000");
+
+        var mt4 = new mat4()
+            .rotate(radian(60), 1, 0, 0)
+            .rotate(radian(30), 1, 0, 0);
+        var rx = mat4.rotx(radian(90));
+        assert.isTrue(mt4.eq(rx), "A ---");
+
+        mt4 = new mat4()
+            .translate(-120, 0, 0)
+            .rotate(radian(180), 0, 1, 0)
+            .translate(20, 0, 0);
+
+        debugger
+        var mt5 = new mat4().translate(140, 0, 0).reflect(-1, 1, -1);
+        assert.isTrue(mt5.eq(mt4), "B ---");
+
+        mt4 = new mat4()
+            .translate(-120, 0, 0)
+            .rotate(radian(60), 0, 1, 0)
+            .translate(120, 0, 0);
+        mt4.translate(-120, 0, 0)
+            .rotate(radian(60), 0, 1, 0)
+            .translate(120, 0, 0);
+        mt4.translate(-120, 0, 0)
+            .rotate(radian(60), 0, 1, 0)
+            .translate(120, 0, 0);
+        mt5 = new mat4().translate(240, 0, 0).reflect([-1, 1, -1]);
+        assert.isTrue(mt5.eq(mt4), "C ---");
+    });
 
     it('mat4 instance operator', () => {
         var r90 = radian(90);
@@ -134,14 +162,16 @@ describe('case: [mat4] operator basics', () => {
         orbitY_theta(180, affines, new vec3(10, 0, 0));
 
         var p = new vec3(); // 0, 0, 0
-		var m4 = mat4.combine(affines);
+        var m4 = new mat4();
+        var combined = {mi: m4, m0: mat4.I()};
+		Affine.combine(affines, combined);
         p.mat4(m4);
         assert.isTrue(p.eq(new vec3(20, 0, 0)), "Origin point rotate 180° around axis j pivoted at vec3(10, 0, 0)");
 
         affines = [];
         orbitY_theta(180, affines, [20, 0, 0]);
         p = new vec3();
-		var m4 = mat4.combine(affines);
+		Affine.combine(affines, combined);
         p.mat4(m4);
         assert.isTrue(p.eq(new vec3(40, 0, 0)), "Origin point rotate 180° around axis j pivoted at [20, 0, 0]");
 
@@ -154,7 +184,7 @@ describe('case: [mat4] operator basics', () => {
         for (var i = 1; i <= 360 / theta; i++) {
             orbitY_theta(theta, affines, pivot);
         }
-		m4 = mat4.combine(affines);
+		Affine.combine(affines, combined);
         p.mat4(m4);
         assert.isTrue(p.eq(p_), `Origin point rotate axis j for ${360/theta} times, each ${theta}°`);
 
@@ -178,7 +208,7 @@ describe('case: [mat4] operator basics', () => {
 
         affines = [];
         orbitY_theta(theta, affines, pivot);
-		m4 = mat4.combine(affines);
+		Affine.combine(affines, combined);
         p.mat4(m4);
         var chord = p1.sub(p).length();
         // console.log('chord', chord, 'p', p, 'p1', p1);

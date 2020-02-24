@@ -1,5 +1,5 @@
 
-/** @module xv.test.assets */
+/** @module xv.test.tween */
 
 // import chai from 'chai'
 import { chai, expect, assert } from 'chai'
@@ -32,7 +32,7 @@ describe('case: [Particles] VisualType.points', function() {
 		var cube = ecs.createEntity({
 			id: 'cube0',
 			Obj3: { geom: Obj3Type.BOX,
-					box: [200, 120, 80],// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null }
@@ -41,7 +41,7 @@ describe('case: [Particles] VisualType.points', function() {
 		var points = ecs.createEntity({
 			id: 'points',
 			Obj3: { geom: Obj3Type.NA,
-					box: [200, 120, 80],// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
 					asset: 'cube0' },	// shader with default randomParticle flag
@@ -80,7 +80,7 @@ describe('case: [Particles] VisualType.points', function() {
 		var cube = ecs.createEntity({
 			id: 'cube0',
 			Obj3: { geom: Obj3Type.BOX,
-					box: [200, 120, 80],// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null }
@@ -89,7 +89,7 @@ describe('case: [Particles] VisualType.points', function() {
 		var points = ecs.createEntity({
 			id: 'points',
 			Obj3: { geom: Obj3Type.NA,
-					box: [200, 120, 80],// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
 					asset: 'cube0' },	// shader with default randomParticle flag
@@ -134,7 +134,7 @@ describe('case: [Particles] VisualType.points', function() {
 		var cube = ecs.createEntity({
 			id: 'cube0',
 			Obj3: { geom: Obj3Type.BOX,
-					box: [200, 120, 80],// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null }
@@ -143,7 +143,7 @@ describe('case: [Particles] VisualType.points', function() {
 		var cub2 = ecs.createEntity({
 			id: 'cube2',
 			Obj3: { geom: Obj3Type.BOX,
-					box: [100, 200, 20],// bounding box
+					box: [100, 200, 20],
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null }
@@ -152,7 +152,7 @@ describe('case: [Particles] VisualType.points', function() {
 		var points = ecs.createEntity({
 			id: 'points',
 			Obj3: { geom: Obj3Type.NA,
-					box: [200, 120, 80],// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
 					asset: 'cube0' },	// shader with default randomParticle flag
