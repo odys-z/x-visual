@@ -54,7 +54,7 @@ describe('case: [tween] tweener basics', function() {
 		var cube = ecs.createEntity({
 			id: 'cube0',
 			Obj3: { geom: Obj3Type.BOX,
-					box: [200, 120, 80],	// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.point,
 					// Three use document to load assets, which doesn't exist while testing
@@ -108,7 +108,7 @@ describe('case: [tween] tweener basics', function() {
         var tetra = ecs.createEntity({
             id: 'cube0',
             Obj3: { geom: Obj3Type.TETRAHEDRON,
-                    box: [200, 2, 1],  // bounding box
+                    box: [200, 2, 1],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,
                     asset: null },        // let thrender create a ram texture.
@@ -116,7 +116,6 @@ describe('case: [tween] tweener basics', function() {
                 script: [[{ mtype: AnimType.ROTATEX,
                             paras: {start: Infinity,    // wait for cmd
                                     duration: 0.4,      // seconds
-                                    cmd: '',
                                     deg: [0, 45],       // from, to
                                     ease: undefined}}], // default linear
                          [{ mtype: AnimType.ROTAXIS,

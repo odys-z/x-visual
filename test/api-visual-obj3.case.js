@@ -35,7 +35,7 @@ describe('case: [Visual] points', function() {
 		var box1 = ecs.createEntity({
 			id: 'box1',
 			Obj3: { geom: Obj3Type.BOX,
-					box: [200, 120, 80],	// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null }
@@ -80,7 +80,7 @@ describe('case: [Visual] points', function() {
 		var box1 = ecs.createEntity({
 			id: 'box1',
 			Obj3: { geom: Obj3Type.BOX,
-					box: [200, 120, 80],	// bounding box
+					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null }
@@ -109,7 +109,7 @@ describe('case: [Visual] points', function() {
 		var box = ecs.createEntity({
 			id: 'box2',
 			Obj3: { geom: Obj3Type.SPHERE,
-					box: [20, 20, 8],	// bounding box
+					box: [20, 20, 8],
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null }
