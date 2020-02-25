@@ -52,10 +52,12 @@ describe('case: [mat4] operator basics', () => {
     it('mat4 rotate & orbit', () => {
         var m4 = new mat4();
         m4.m[0] = 3.9888;
+        m4.m[1] = -1.9999;
         m4.precision(3);
         debugger
         var m4_ = new mat4();
         m4_.m[0] = 3.989;
+        m4_.m[1] = -2;
         assert.isTrue(m4.eq(m4_), "round(3) & eq()");
 
         var mt4 = new mat4().rotate(radian(90), 0, 1, 0);
