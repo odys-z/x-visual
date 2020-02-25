@@ -53,7 +53,8 @@ describe('case: [affine] orbit combine', function() {
             await sleep(500);
             xworld.update();
             // equilateral triangle
-            var wp = cube.Obj3.mesh.getWorldPosition();
+            var wp = new THREE.Vector3();
+            cube.Obj3.mesh.getWorldPosition(wp);
             var len = new vec3(wp).length();
             assert.closeTo(len, 120, 0.5); // 120 = pivot.len
     });
@@ -148,8 +149,8 @@ describe('case: [affine] orbit combine', function() {
                         .rotate(radian(180), 0, 1, 0)
                         .translate(120, 0, 0)
                         .rotate(radian(60), 1, 0, 0);
-            mt4.reflect(-1, 0, -1).transpose().precision(3);
-            console.log('combine transpose: ', mt4);
+            mt4.reflect(-1, 0, -1).transpose();
+            console.log('combine transpose:', mt4.log());
             console.log('mesh: (column major)', mjs);
             assert.isTrue(mt4.eq(new mat4(mjs)), 'orbit + rotatex v.s transform combined');
     });

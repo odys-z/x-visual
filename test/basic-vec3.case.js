@@ -219,7 +219,6 @@ describe('case: [mat4] operator basics', () => {
         p_ = p.clone();
         var p1 = p.clone();
         var radius = p_.sub(pivot).length();
-        // console.log('radius', radius, p_);
 
         affines = [];
         orbitY_theta(theta, affines, pivot);
@@ -228,7 +227,6 @@ describe('case: [mat4] operator basics', () => {
 		Affine.combine(affines, combined);
         p.mat4(m4);
         var chord = p1.sub(p).length();
-        // console.log('chord', chord, 'p', p, 'p1', p1);
 
         assert.closeTo(radius, chord, 0.01, "equilateral triangle");
     });
