@@ -85,7 +85,6 @@ describe('case: [affine] orbit combine', function() {
             cube.CmpTweens.startCmds.push(0);
             xworld.update();
             await sleep(500);
-            debugger
             xworld.update();
             xworld.update();// reset combined.m0 === undefined
             var mat = cube.Obj3.mesh.matrix;
@@ -134,20 +133,24 @@ describe('case: [affine] orbit combine', function() {
             CmpTweens: {}
         });
 
+        debugger
         xworld.startUpdate();
             cube.CmpTweens.startCmds.push(0);
-            // cube.CmpTweens.startCmds.push(1); FIXME  FIXME  FIXME  FIXME  FIXME
+            cube.CmpTweens.startCmds.push(1);
             xworld.update();
             await sleep(300);
             xworld.update();
             await sleep(200);
             xworld.update();
-            var mat = cube.Obj3.mesh.matrix;
+            var mjs = cube.Obj3.mesh.matrix;
             var mt4 = new mat4()
                         .translate(-120, 0, 0)
                         .rotate(radian(180), 0, 1, 0)
                         .translate(120, 0, 0)
-                        // .rotate(radian(60), 1, 0, 0);
-            assert.isTrue(mt4.transpose().eq(new mat4(mat)), 'orbit + rotatex v.s transform combined');
+                        .rotate(radian(60), 1, 0, 0);
+            mt4.reflect(-1, 0, -1).transpose().precision(3);
+            console.log('combine transpose: ', mt4);
+            console.log('mesh: (column major)', mjs);
+            assert.isTrue(mt4.eq(new mat4(mjs)), 'orbit + rotatex v.s transform combined');
     });
 });
