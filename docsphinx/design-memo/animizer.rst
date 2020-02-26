@@ -94,7 +94,7 @@ Affine transformation are cumulated in Obj3.combined.mi:
 
 .. literalinclude:: ../../lib/xmath/affine.js
    :language: javascript
-   :lines: 11-32
+   :lines: 38-50
    :linenos:
 
 .. _affine-issue:
