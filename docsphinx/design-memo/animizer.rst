@@ -77,8 +77,8 @@ all tweens of the object (component Obj3), it's updated in XTweener like this:
            and snapshot has been dropped.
 
 
-let's *f, g* stands for different transformation, and z-transform for time expansion,
-such that
+let's *f, g* stands for independent transformations, and z-transform for time
+expansion, such that
 
 :math:`m_{0} = snapshot`
 
@@ -87,6 +87,10 @@ such that
 :math:`m_{i} = f^{i}(m_{0}) z^{i} + g^{i - \alpha}(m_{0}) z^{i - \alpha}`
 
 where :math:`\alpha \in Z^{+}`.
+
+`[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
+
+Affine transformation are cumulated in Obj3.combined.mi:
 
 .. literalinclude:: ../../lib/xmath/affine.js
    :language: javascript

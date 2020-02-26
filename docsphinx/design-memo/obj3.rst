@@ -133,3 +133,5 @@ Affine Transformation References:
 `[2] Geometric Operations: Affine Transformation <https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm>`_
 
 `[3] Affine Transformation, wikipedia <https://en.wikipedia.org/wiki/Affine_transformation>`_
+
+`[4] What is the difference between linear and affine function, Mathematics <https://math.stackexchange.com/questions/275310/what-is-the-difference-between-linear-and-affine-function>`_

@@ -50,6 +50,16 @@ describe('case: [mat4] THREE.Matrix4 compatiblility', () => {
 
 describe('case: [mat4] operator basics', () => {
     it('mat4 rotate & orbit', () => {
+        var m4 = new mat4();
+        m4.m[0] = 3.9888;
+        m4.m[1] = -1.9999;
+        m4.precision(3);
+        debugger
+        var m4_ = new mat4();
+        m4_.m[0] = 3.989;
+        m4_.m[1] = -2;
+        assert.isTrue(m4.eq(m4_), "round(3) & eq()");
+
         var mt4 = new mat4().rotate(radian(90), 0, 1, 0);
         var ry = mat4.roty(radian(90));
         assert.isTrue(mt4.eq(ry), "A 000");
@@ -65,7 +75,6 @@ describe('case: [mat4] operator basics', () => {
             .rotate(radian(180), 0, 1, 0)
             .translate(20, 0, 0);
 
-        debugger
         var mt5 = new mat4().translate(140, 0, 0).reflect(-1, 1, -1);
         assert.isTrue(mt5.eq(mt4), "B ---");
 
@@ -154,6 +163,7 @@ describe('case: [mat4] operator basics', () => {
 
     });
 
+    /*
     it('mat4 orbit combine', () => {
         var affines = [];
         // affines.push({translate: [-10, 0, 0]}); // translation = 0 - pivot
@@ -171,8 +181,11 @@ describe('case: [mat4] operator basics', () => {
         affines = [];
         orbitY_theta(180, affines, [20, 0, 0]);
         p = new vec3();
+        combined.m0.i();
+        combined.mi.i();
 		Affine.combine(affines, combined);
-        p.mat4(m4);
+        p.mat4(combined.mi);
+        debugger
         assert.isTrue(p.eq(new vec3(40, 0, 0)), "Origin point rotate 180° around axis j pivoted at [20, 0, 0]");
 
         // 12 times of 30° rotation will make it come back
@@ -184,7 +197,10 @@ describe('case: [mat4] operator basics', () => {
         for (var i = 1; i <= 360 / theta; i++) {
             orbitY_theta(theta, affines, pivot);
         }
+        combined.m0.i();
+        combined.mi.i();
 		Affine.combine(affines, combined);
+        m4 = combined.mi;
         p.mat4(m4);
         assert.isTrue(p.eq(p_), `Origin point rotate axis j for ${360/theta} times, each ${theta}°`);
 
@@ -204,15 +220,16 @@ describe('case: [mat4] operator basics', () => {
         p_ = p.clone();
         var p1 = p.clone();
         var radius = p_.sub(pivot).length();
-        // console.log('radius', radius, p_);
 
         affines = [];
         orbitY_theta(theta, affines, pivot);
+        combined.m0.i();
+        combined.mi.i();
 		Affine.combine(affines, combined);
         p.mat4(m4);
         var chord = p1.sub(p).length();
-        // console.log('chord', chord, 'p', p, 'p1', p1);
 
         assert.closeTo(radius, chord, 0.01, "equilateral triangle");
     });
+    */
 });

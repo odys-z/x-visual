@@ -100,21 +100,22 @@
                     box: [60, 8, 6],
                     mesh: undefined },          // Thrender will handle this
             GpuPickable: {},
-            Visual:{vtype: xv.AssetType.wireframe,
+            Visual:{vtype: xv.AssetType.mesh,
                     asset: 'tex/byr0.png'},
-            ModelSeqs: { script:
-                [[{ mtype: xv.XComponent.AnimType.ROTAXIS,
+            ModelSeqs: { script:[
+                [{ mtype: xv.XComponent.AnimType.ROTAXIS,
                     paras: {start: Infinity,
-                            duration: 1.801,    // seconds
+                            duration: 2.801,    // seconds
                             axis: [1, 0, 0],
-                            deg: [0, 350],      // from, to
+                            deg: [0, 115],      // from, to
                             ease: undefined}},  // default linear
                   { mtype: xv.XComponent.AnimType.ROTAXIS,
                     paras: {start: Infinity,
                             duration: 3.802,
                             axis: [0, 1, 0],
                             deg: [115, 0],
-                            ease: undefined}} ],
+                            ease: undefined}}
+                 ],
                  [{ mtype: xv.XComponent.AnimType.ORBIT,
                     paras: {start: Infinity,    // auto start, follow previous
                             duration: 3.9,      // seconds
@@ -125,37 +126,38 @@
             CmpTweens: {}
         });
 
-        // objs.push ({
-        //     id: 'torus',
-        //     Obj3: { geom: xv.XComponent.Obj3Type.TORUS,
-        //             // args of THREE.TorusGeometry:
-        //             // THREE.TorusBufferGeometry
-        //             // radius - Radius of the torus, from the center of the torus to the center of the tube. Default is 1.
-        //             // tube — Radius of the tube. Default is 0.4.
-        //             // radialSegments — Default is 8
-        //             // tubularSegments — Default is 6.
-        //             // arc — Central angle. Default is Math.PI * 2.
-        //             box: [100, 10, 8, 50],
-        //             invisible: true,
-        //             mesh: undefined },          // Thrender will handle this
-        //     GpuPickable: {},
-        //     Visual:{vtype: xv.AssetType.mesh,
-        //             asset: 'tex/rgb2x2.png'},
-        //     ModelSeqs: { script:
-        //         [[{ mtype: xv.XComponent.AnimType.ROTATEX,
-        //             paras: {start: Infinity,
-        //                     duration: 0.8,      // seconds
-        //                     deg: [0, 45],       // from, to
-        //                     ease: undefined}} ],// default linear
-        //          [{ mtype: xv.XComponent.AnimType.ORBIT,
-        //             paras: {start: Infinity,    // auto start, follow previous
-        //                     duration: 2,        // seconds
-        //                     axis: [0, 1, 0],
-        //                     pivot: [120, 0, 0],
-        //                     deg: [0, 90],
-        //                     ease: xv.XEasing.Elastic.InOut} } ]] },
-        //     CmpTweens: {}
-        // });
+        objs.push ({
+            id: 'torus',
+            Obj3: { geom: xv.XComponent.Obj3Type.TORUS,
+                    // args of THREE.TorusGeometry:
+                    // THREE.TorusBufferGeometry
+                    // radius - Radius of the torus, from the center of the torus to the center of the tube. Default is 1.
+                    // tube — Radius of the tube. Default is 0.4.
+                    // radialSegments — Default is 8
+                    // tubularSegments — Default is 6.
+                    // arc — Central angle. Default is Math.PI * 2.
+                    box: [100, 10, 8, 50],
+                    // invisible: true,
+                    mesh: undefined },          // Thrender will handle this
+            GpuPickable: {},
+            Visual:{vtype: xv.AssetType.mesh,
+                    asset: 'tex/rgb2x2.png'},
+            ModelSeqs: { script:
+                [[{ mtype: xv.XComponent.AnimType.ROTATEX,
+                    paras: {start: Infinity,
+                            duration: 0.8,      // seconds
+                            deg: [0, 45],       // from, to
+                            ease: undefined}} ],// default linear
+                 [{ mtype: xv.XComponent.AnimType.ORBIT,
+                    paras: {start: Infinity,    // auto start, follow previous
+                            duration: 2,        // seconds
+                            axis: [0, 1, 0],
+                            pivot: [120, 0, 0],
+                            deg: [0, 90],
+                            ease: xv.XEasing.Elastic.InOut} } ]] },
+            CmpTweens: {}
+        });
+
         return objs;
     }
 
