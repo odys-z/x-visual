@@ -22,7 +22,7 @@ import {Affine} from '../lib/xmath/affine';
 
 global.performance = performance;
 
-describe('case: [affine] orbit combine', function() {
+describe('case: [affine] orbit parallel to rotate axisy', function() {
     this.timeout(100000);
     x.log = 4;
 
@@ -45,10 +45,11 @@ describe('case: [affine] orbit combine', function() {
                             pivot: [120, 0, 0],
                             deg: [0, 180],
                             ease: null} }],
-                 [{ mtype: AnimType.ROTATEX,
+                 [{ mtype: AnimType.ROTAXIS,
                     paras: {start: Infinity,
                             duration: 0.4,
                             deg: [0, 60],
+                            axis: [1, 0, 0],
                             ease: null} } ],
                 ] },
             CmpTweens: {}

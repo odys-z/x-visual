@@ -26,57 +26,57 @@ describe('case: [affine] orbit combine', function() {
     this.timeout(100000);
     x.log = 4;
 
-    it('affine combination: orbit + roate x', async function() {
+    it('affine combination: orbit {pivot: [120, 0, 0], axis: [0, 1, 0]}', async function() {
         const xworld = new XWorld(undefined, 'window', {});
         const ecs = xworld.xecs;
 
         var cube = ecs.createEntity({
-            id: 'orbit-rotatex',
+            id: 'orbit',
             Obj3: { geom: Obj3Type.BOX,
                     box: [200, 120, 80],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,
                     asset: null },
-            ModelSeqs: { script: [
-                 [{ mtype: AnimType.ORBIT,
+            ModelSeqs: { script: [[
+                  { mtype: AnimType.ORBIT,
                     paras: {start: Infinity,
-                            duration: 0.2,
+                            duration: 0.4,
                             axis: [0, 1, 0],
                             pivot: [120, 0, 0],
                             deg: [0, 180],
-                            ease: null} }],
-                 [{ mtype: AnimType.ROTATEX,
-                    paras: {start: Infinity,
-                            duration: 0.4,
-                            deg: [0, 60],
-                            ease: null} } ],
-                ] },
+                            ease: null} }
+                ]]},
             CmpTweens: {}
         });
 
-        debugger
         xworld.startUpdate();
             cube.CmpTweens.startCmds.push(0);
-            cube.CmpTweens.startCmds.push(1);
             xworld.update();
-            await sleep(300);
+            await sleep(500);
             xworld.update();
-            await sleep(200);
-            xworld.update();
-            var mjs = cube.Obj3.mesh.matrix;
-            var mt4 = new mat4()
-                        .translate(-120, 0, 0)
+            xworld.update();// reset combined.m0 === undefined
+            var mat = cube.Obj3.mesh.matrix;
+            var mt4 = new mat4().translate(-120, 0, 0)
                         .rotate(radian(180), 0, 1, 0)
-                        .translate(120, 0, 0)
-                        .rotate(radian(60), 1, 0, 0);
-            // as rotation happens simutanously, some parts are not the same values
-            mt4.m[5] = mt4.m[6] = mt4.m[9] = mt4.m[10] = 0;
-            var ele = mjs.elements;
-            ele[5] = ele[6] = ele[9] = ele[10] = 0;
-            if (!mt4.eq(mjs)) {
+                        .translate(120, 0, 0);
+            if (!mt4.eq(mat)) {
                 console.log('combine:', mt4.log());
-                console.log('mesh: (column major)', mjs);
-                assert.fail('orbit + rotatex v.s transform combined');
+                console.log('mesh: (column major)', mat);
+                assert.fail('orbit v.s transform combined');
+            }
+
+        // must orbit from where it's stopped, so now should back to the origin
+        cube.CmpTweens.startCmds.push(0);
+            debugger
+            xworld.update();
+            await sleep(500);
+            xworld.update();
+            mat = cube.Obj3.mesh.matrix;
+            mt4 = new mat4();
+            if (!mt4.eq(mat)){
+                console.log('combine:', mt4.log());
+                console.log('mesh: (column major)', mat);
+                assert.fail('orbited back to start v.s transform combined');
             }
     });
 });

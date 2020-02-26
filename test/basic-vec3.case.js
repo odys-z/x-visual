@@ -163,6 +163,7 @@ describe('case: [mat4] operator basics', () => {
 
     });
 
+    /*
     it('mat4 orbit combine', () => {
         var affines = [];
         // affines.push({translate: [-10, 0, 0]}); // translation = 0 - pivot
@@ -230,4 +231,5 @@ describe('case: [mat4] operator basics', () => {
 
         assert.closeTo(radius, chord, 0.01, "equilateral triangle");
     });
+    */
 });
