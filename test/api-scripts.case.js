@@ -194,7 +194,7 @@ describe('case: [script] anim sequence', function() {
             assert.equal( cube.CmpTweens.tweens[0][1].isPlaying, true, '0.6s cube.CmpTweens.tweens[0][1].isPlaying');
             assert.equal( !!cube.CmpTweens.tweens[0][1].isCompleted, false, '0.6s cube.CmpTweens.tweens[0][1].isCompleted');
 
-        await sleep(400);
+        await sleep(450);
             xworld.update();
             assert.equal( cube.CmpTweens.tweens[0][0].isPlaying, false, '1s cube.CmpTweens.tweens[0][0].isPlaying');
             assert.equal( cube.CmpTweens.tweens[0][0].isCompleted, true, '1s cube.CmpTweens.tweens[0][0].isCompleted');
