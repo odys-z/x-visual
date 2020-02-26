@@ -11,9 +11,7 @@
   ],
   "author": "odys-z@github.com",
   "license": "MIT",
-  "dependencies": {
-    "x-visual": "^0.1.19"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-plugin-wildcard": "^5.0.0",
     "three-orbitcontrols": "^2.110.3"

@@ -100,8 +100,7 @@ Affine transformation are cumulated in Obj3.combined.mi:
 .. _affine-issue:
 
 .. attention:: Affine combination is needing to be upgraded to an independent system.
-
-    currently it's not work correctly.
+    Currently it's not working correctly.
 ..
 
 `[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
