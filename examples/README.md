@@ -35,3 +35,17 @@ The hello xworld application has the following structure:
 - Business logics (hellocube.js), which has some data (a cube) to be shown;
 
 There is [an updating introduction for developers](https://odys-z.github.io/x-visual/guide/index.html).
+
+## update failed
+
+tips:
+
+```
+    npm update x-visual
+    npm ERR! code Z_BUF_ERROR
+    npm ERR! errno -5
+    npm ERR! zlib: unexpected end of file
+
+    npm cache clean --force
+    npm update x-visual
+```
