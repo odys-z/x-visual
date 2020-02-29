@@ -1,4 +1,4 @@
-/** @module xv.test.xobj */
+/** @module xv.test.xsys */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
@@ -8,7 +8,7 @@ const {performance} = require('perf_hooks');
 
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld.js'
-import XSys from '../lib/sys/xobj'
+import XSys from '../lib/sys/xsys'
 import {Geometry} from '../lib/component/geometry'
 import {Visual} from '../lib/component/visual'
 
