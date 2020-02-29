@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>three.js webgl - buffergeometry - lines</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	</head>
-	<body>
-		<div id="container"></div>
-		<script type="module">
-			import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r113/build/three.module.js';
-			import Stats from 'https://threejsfundamentals.org/threejs/resources/threejs/r113/examples/jsm/libs/stats.module.js';
-			import {EffectComposer} from 'https://threejsfundamentals.org/threejs/resources/threejs/r113/examples/jsm/postprocessing/EffectComposer.js';
-			import {RenderPass} from 'https://threejsfundamentals.org/threejs/resources/threejs/r113/examples/jsm/postprocessing/RenderPass.js';
-			import { UnrealBloomPass } from 'https://threejsfundamentals.org/threejs/resources/threejs/r113/examples/jsm/postprocessing/UnrealBloomPass.js';
-			import { BloomPass } from 'https://threejsfundamentals.org/threejs/resources/threejs/r113/examples/jsm/postprocessing/BloomPass.js';
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Flowing Path</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	class FlowingPath extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCube(ecs, options.xscene);
+		}
+	}
+	
+	FlowingPath.query = {iffall:['Path']};
 
 			var container, stats;
 
