@@ -16,11 +16,26 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			this.initCube(ecs, options.xscene);
+			this.initPaths(ecs, options.xscene);
+		}
+
+		initPaths(ecs, scene) {
+            var path = ecs.createEntity({
+                id: 'p',
+                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                        box: [],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.lineCurve,
+                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+								segments: 5} },
+                FlowingPath: { script: [
+                        ?
+                ] }
+            });
 		}
 	}
-	
-	FlowingPath.query = {iffall:['Path']};
+
+	FlowingPath.query = {iffall:['FlowingPath']};
 
 			var container, stats;
 
