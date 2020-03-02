@@ -61,7 +61,7 @@ describe('case: [tween] tweener basics', function() {
 					// null acts as a flag to let thrender create a ram texture.
 					asset: null },
 
-			// TODO docs: in version 1.0, only type of sequence animation is supported
+			// in version 1.0, only type of sequence animation is supported
 			ModelSeqs: {
 				script: [[{ mtype: AnimType.UNIFORMS,
 							paras: {start: 0,		// auto start, only alpha tween in v0.2
