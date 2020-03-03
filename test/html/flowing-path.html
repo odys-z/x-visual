@@ -20,8 +20,8 @@
         }
 
         initPaths(ecs, scene) {
-            var path = ecs.createEntity({
-                id: 'p',
+            ecs.createEntity({
+                id: 'r',
                 Obj3: { geom: xv.XComponent.Obj3Type.PATH,
                         box: [],
                         mesh: undefined },
@@ -29,9 +29,32 @@
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
                 FlowingPath: { script: [
-                        // ?
                 ] },
-				Filming: {}
+                Filming: {}
+            });
+
+            ecs.createEntity({
+                id: 's',
+                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                        box: [],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.geomCurve,
+                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+                                segments: 5} },
+                FlowingPath: { script: [
+                ] },
+            });
+
+            ecs.createEntity({
+                id: 't',
+                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                        box: [],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.geomCurve,
+                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+                                segments: 5} },
+                FlowingPath: { script: [
+                ] },
             });
         }
     }
