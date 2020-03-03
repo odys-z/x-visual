@@ -8,6 +8,7 @@ const {performance} = require('perf_hooks');
 
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld.js'
+import {x} from '../lib/xapp/xworld.js'
 import {AssetType} from '../lib/component/visual'
 import {Obj3Type} from '../lib/component/obj3'
 
@@ -39,6 +40,7 @@ describe('case: Layers', function() {
 		});
 
 		xworld.startUpdate();
+		assert.isTrue(x.postEffects);
 
 	});
 });
