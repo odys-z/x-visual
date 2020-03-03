@@ -53,8 +53,6 @@
                 Visual:{vtype: xv.AssetType.geomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
-                FlowingPath: { script: [
-                ] },
             });
         }
     }
@@ -69,104 +67,6 @@
 	xworld.addSystem('test', new CustLine(ecs, {xscene}));
 
 	xworld.startUpdate();
-
-
-			// var container, stats;
-			//
-			// var camera, scene, composer;
-			//
-			// var line;
-			//
-			// init();
-			// animate();
-			//
-			// function init() {
-			//
-			// 	container = document.getElementById( 'container' );
-			//
-			// 	//
-			//
-			// 	camera = new THREE.PerspectiveCamera( 27, window.innerWidth / window.innerHeight, 1, 4000 );
-			// 	camera.position.z = 2750;
-			//
-			// 	scene = new THREE.Scene();
-			//
-			// 	var segments = 5;
-			//
-			// 	var geometry = new THREE.BufferGeometry();
-			// 	var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, linewidth: 12 } );
-			//
-			// 	var positions = [];
-			// 	var colors = [];
-			//
-			// 	var r = 800;
-			//
-			// 	for ( var i = 0; i < segments; i ++ ) {
-			// 		var x = Math.random() * r - r / 2;
-			// 		var y = Math.random() * r - r / 2;
-			// 		var z = Math.random() * r - r / 2;
-			// 		positions.push( new THREE.Vector3( x, y, z ));
-			// 		// positions.push( x, y, z );
-			// 		// colors.push( ( x / r ) + 0.5 );
-			// 		// colors.push( ( y / r ) + 0.5 );
-			// 		// colors.push( ( z / r ) + 0.5 );
-			// 	}
-			//
-			// 	// geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
-			// 	// geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-			// 	// geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-			// 	// geometry.computeBoundingSphere();
-			// 	// line = new THREE.Line( geometry, material );
-			// 	var spline = new THREE.CatmullRomCurve3( positions );
-			// 	var samples = spline.getPoints( positions.length * 6 ) // subdivisions: 6;
-			// 	var geometrySpline = new THREE.BufferGeometry().setFromPoints( samples );
-			// 	// line = new THREE.Line( geometrySpline, new THREE.LineDashedMaterial( { color: 0x0f0f0f, dashSize: 1, gapSize: 0.05 } ) );
-			// 	line = new THREE.Line( geometrySpline, new THREE.LineBasicMaterial( { color: 0x0f7f8f } ) );
-			// 	line.computeLineDistances();
-			// 	scene.add( line );
-			// 	//
-			// 	var renderer = new THREE.WebGLRenderer();
-			// 	renderer.setPixelRatio( window.devicePixelRatio );
-			// 	renderer.setSize( window.innerWidth, window.innerHeight );
-			// 	renderer.outputEncoding = THREE.sRGBEncoding;
-			// 	container.appendChild( renderer.domElement );
-			// 	// postprocessing
-			// 	composer = new EffectComposer( renderer );
-			// 	var renderPass = new RenderPass( scene, camera );
-			// 	composer.addPass( renderPass );
-			// 	var bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
-			// 	bloomPass.threshold = 0.00;
-			// 	bloomPass.strength = 10;
-			// 	bloomPass.radius = 0.5;
-			// 	// var bloomPass = new BloomPass( 30 );
-			// 	composer.addPass( bloomPass );
-			// 	//
-			// 	stats = new Stats();
-			// 	container.appendChild( stats.dom );
-			// 	//
-			// 	window.addEventListener( 'resize', onWindowResize, false );
-			// }
-			//
-			// function onWindowResize() {
-			// 	camera.aspect = window.innerWidth / window.innerHeight;
-			// 	camera.updateProjectionMatrix();
-			// 	renderer.setSize( window.innerWidth, window.innerHeight );
-			// }
-			//
-			// function animate() {
-			// 	requestAnimationFrame( animate );
-			// 	render();
-			// 	stats.update();
-			// }
-			//
-			// function render() {
-			// 	var time = Date.now() * 0.001;
-			// 	line.rotation.x = time * 0.125;
-			// 	line.rotation.y = time * 0.25;
-			// 	// renderer.render( scene, camera );
-			// 	composer.render(time);
-			// }
-
   </script>
   </body>
 </html>
