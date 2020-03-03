@@ -12,14 +12,14 @@
   <script>
 	"use strict";
 
-	class FlowingPath extends xv.XSys {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-			this.initPaths(ecs, options.xscene);
-		}
+    class CustLine extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.initPaths(ecs, options.xscene);
+        }
 
-		initPaths(ecs, scene) {
+        initPaths(ecs, scene) {
             var path = ecs.createEntity({
                 id: 'p',
                 Obj3: { geom: xv.XComponent.Obj3Type.PATH,
@@ -27,22 +27,22 @@
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.geomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
-								segments: 5} },
+                                segments: 5} },
                 FlowingPath: { script: [
                         // ?
                 ] }
             });
-		}
-	}
+        }
+    }
 
-	FlowingPath.query = { iffall: ['FlowingPath'] };
+	CustLine.query = { iffall: ['FlowingPath'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window,
 								{postEffects: true});
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	xworld.addSystem('test', new FlowingPath(ecs, {xscene}));
+	xworld.addSystem('test', new CustLine(ecs, {xscene}));
 
 	xworld.startUpdate();
 
