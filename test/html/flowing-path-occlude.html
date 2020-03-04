@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Flowing Path</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+    class CustLine extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.initPaths(ecs, options.xscene);
+        }
+
+        initPaths(ecs, scene) {
+            ecs.createEntity({
+                id: 'p1',
+                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                        box: [],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.geomCurve,
+                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+                                segments: 5} },
+                FlowingPath: { script: [
+                ] },
+                Filming: {}
+            });
+
+            ecs.createEntity({
+                id: 'p2',
+                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                        box: [],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.geomCurve,
+                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+                                segments: 5} },
+                FlowingPath: { script: [
+                ] },
+            });
+
+            ecs.createEntity({
+                id: 'occ',
+                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                        box: [],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.geomCurve,
+                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+                                segments: 5} },
+            });
+        }
+    }
+
+	CustLine.query = { iffall: ['FlowingPath'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window,
+								{postEffects: true});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new CustLine(ecs, {xscene}));
+
+	xworld.startUpdate();
+  </script>
+  </body>
+</html>
