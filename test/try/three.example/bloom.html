@@ -140,6 +140,7 @@
 			finalPass.needsSwap = true;
 
 			var finalComposer = new EffectComposer( renderer );
+			renderScene = new RenderPass( scene, camera );
 			finalComposer.addPass( renderScene );
 			finalComposer.addPass( finalPass );
 
@@ -151,25 +152,21 @@
 
 			var gui = new GUI();
 
-			gui.add( params, 'scene', [ 'Scene with Glow', 'Glow only', 'Scene only' ] ).onChange( function ( value ) {
-
-				switch ( value ) 	{
-
-					case 'Scene with Glow':
-						bloomComposer.renderToScreen = false;
-						break;
-					case 'Glow only':
-						bloomComposer.renderToScreen = true;
-						break;
-					case 'Scene only':
-						// nothing to do
-						break;
-
-				}
-
-				render();
-
-			} );
+			gui.add( params, 'scene', [ 'Scene with Glow', 'Glow only', 'Scene only' ] )
+				.onChange( function ( value ) {
+					switch ( value ) 	{
+						case 'Scene with Glow':
+							bloomComposer.renderToScreen = false;
+							break;
+						case 'Glow only':
+							bloomComposer.renderToScreen = true;
+							break;
+						case 'Scene only':
+							// nothing to do
+							break;
+					}
+					render();
+				} );
 
 			var folder = gui.addFolder( 'Bloom Parameters' );
 
