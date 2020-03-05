@@ -15,6 +15,9 @@ TODO docs ...
 About the Three Module Issue
 ----------------------------
 
+.. attention:: It's worth to have a note after days of debugging.
+..
+
 EffectComposer and its depending passes are not included in the threejs bundle.
 This makes x-visual have to import these modules via both by npm *three/examples/*
 or by copying directly the source files.
@@ -32,8 +35,6 @@ In lib/sys/ext/finalcomposer.js, the system create a *ShaderPass* with a
 THREE.ShaderMaterial will makes *ShaderPass* failed to check the the instance.
 
 There are similar issue like `this question <https://stackoverflow.com/questions/47481703/three-effectcomposer-is-not-a-constructor/49211046>`_.
-
-*It's worth to have a note after days of debugging :(*
 
 The code snippet causing the issue in lib/sys/ext/finalComposer.js/FinalComposer:
 

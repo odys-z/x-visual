@@ -165,6 +165,10 @@ and Passes. See <a class="reference external" href="https://threejsfundamentals.
 </div>
 <div class="section" id="about-the-three-module-issue">
 <h2>About the Three Module Issue<a class="headerlink" href="#about-the-three-module-issue" title="Permalink to this headline">¶</a></h2>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">It&#8217;s worth to have a note after days of debugging.</p>
+</div>
 <p>EffectComposer and its depending passes are not included in the threejs bundle.
 This makes x-visual have to import these modules via both by npm <em>three/examples/</em>
 or by copying directly the source files.</p>
@@ -177,7 +181,6 @@ be the same class are not as expected when checking with &#8220;instanceof&#8221
 <p>In lib/sys/ext/finalcomposer.js, the system create a <em>ShaderPass</em> with a
 THREE.ShaderMaterial will makes <em>ShaderPass</em> failed to check the the instance.</p>
 <p>There are similar issue like <a class="reference external" href="https://stackoverflow.com/questions/47481703/three-effectcomposer-is-not-a-constructor/49211046">this question</a>.</p>
-<p><em>It&#8217;s worth to have a note after days of debugging :(</em></p>
 <p>The code snippet causing the issue in lib/sys/ext/finalComposer.js/FinalComposer:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">THREE</span> <span class="nx">from</span> <span class="s1">&#39;three&#39;</span>
 <span class="kr">import</span> <span class="p">{</span><span class="nx">ShaderPass</span><span class="p">}</span> <span class="nx">from</span>  <span class="s1">&#39;../../../packages/three/postprocessing/ShaderPass&#39;</span>
