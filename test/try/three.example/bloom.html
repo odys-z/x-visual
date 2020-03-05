@@ -277,10 +277,16 @@
 						// render scene with bloom
 						renderBloom( true );
 
+						/* debug notes:
+						finalComposer.ShaderPass.uniforms.baseTexture.value == 8B8FD847-...
+						finalComposer.ShaderPass.uniforms.bloomTexture.value == CA98FFF3-...
+						bloomComposer.renderTarget2.texture == CA98FFF3-...
+						bloomComposer.readBuffer.texture == CA98FFF3-...
+						bloomComposer.writeBuffer.texture == 8a19170-...
+						*/
 						// render the entire scene, then render bloom scene on top
 						finalComposer.render();
 						break;
-
 				}
 
 			}
