@@ -70,7 +70,7 @@
 
 			var params = {
 				exposure: 1,
-				bloomStrength: 5,
+				bloomStrength: 2,
 				bloomThreshold: 0,
 				bloomRadius: 0,
 				scene: "Scene with Glow"
@@ -108,13 +108,13 @@
 
 			var filmPass1 = new FilmPass(
 				0.15,   // noise intensity
-				0.725,  // scanline intensity
+				0.5,  // scanline intensity
 				800,    // scanline count
 				false);
 			var filmPass2 = new FilmPass(
 				0.15,   // noise intensity
-				0.725,  // scanline intensity
-				200,    // scanline count
+				0.5,  // scanline intensity
+				233,    // scanline count
 				false);
 
 			var bloomComposer = new EffectComposer( renderer );
@@ -294,11 +294,15 @@
 						renderBloom( true );
 
 						/* debug notes:
-						 finalComposer.ShaderPass.uniforms.baseTexture.value == 8B8FD847-...
-						 finalComposer.ShaderPass.uniforms.bloomTexture.value == CA98FFF3-...
-						 bloomComposer.renderTarget2.texture == CA98FFF3-...
-						 bloomComposer.readBuffer.texture == CA98FFF3-...
-						 bloomComposer.writeBuffer.texture == 8A19170-...
+						 finalComposer.ShaderPass.uniforms.baseTexture.value == E7D24016-...
+						 finalComposer.ShaderPass.uniforms.bloomTexture.value == C109561A-...
+						 [same to finalComposer.ShaderPass.material.uniforms]
+
+						 bloomComposer.renderTarget1.texture = E738D90C-...
+						 bloomComposer.renderTarget2.texture = C109561A-...
+
+						 finalComposer.renderTarget1.texture = D125384A-...
+						 finalComposer.renderTarget2.texture = E7D24016-...
 						*/
 						// render the entire scene, then render bloom scene on top
 						finalComposer.render();
