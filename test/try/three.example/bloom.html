@@ -58,6 +58,7 @@
 			import { RenderPass } from 'https://threejs.org/examples/jsm/postprocessing/RenderPass.js';
 			import { ShaderPass } from 'https://threejs.org/examples/jsm/postprocessing/ShaderPass.js';
 			import { UnrealBloomPass } from 'https://threejs.org/examples/jsm/postprocessing/UnrealBloomPass.js';
+			import { FilmPass } from 'https://threejs.org/examples/jsm/postprocessing/FilmPass.js';
 
 			var scene, camera, controls;
 			var renderer;
@@ -69,7 +70,7 @@
 
 			var params = {
 				exposure: 1,
-				bloomStrength: 5,
+				bloomStrength: 2,
 				bloomThreshold: 0,
 				bloomRadius: 0,
 				scene: "Scene with Glow"
@@ -105,10 +106,25 @@
 			bloomPass.strength = params.bloomStrength;
 			bloomPass.radius = params.bloomRadius;
 
+			var filmPass1 = new FilmPass(
+				0.15,   // noise intensity
+				0.5,  // scanline intensity
+				800,    // scanline count
+				false);
+			var filmPass2 = new FilmPass(
+				0.15,   // noise intensity
+				0.5,  // scanline intensity
+				233,    // scanline count
+				false);
+
 			var bloomComposer = new EffectComposer( renderer );
 			bloomComposer.renderToScreen = false;
 			bloomComposer.addPass( renderScene );
 			bloomComposer.addPass( bloomPass );
+			// These 2 pass shows bloomeComposer.renderTargets been writen alternatively.
+			bloomComposer.addPass( filmPass1 );
+			bloomComposer.addPass( filmPass2 );
+
 
 			var finalPass = new ShaderPass(
 				new THREE.ShaderMaterial( {
@@ -124,6 +140,7 @@
 			finalPass.needsSwap = true;
 
 			var finalComposer = new EffectComposer( renderer );
+			renderScene = new RenderPass( scene, camera );
 			finalComposer.addPass( renderScene );
 			finalComposer.addPass( finalPass );
 
@@ -135,25 +152,21 @@
 
 			var gui = new GUI();
 
-			gui.add( params, 'scene', [ 'Scene with Glow', 'Glow only', 'Scene only' ] ).onChange( function ( value ) {
-
-				switch ( value ) 	{
-
-					case 'Scene with Glow':
-						bloomComposer.renderToScreen = false;
-						break;
-					case 'Glow only':
-						bloomComposer.renderToScreen = true;
-						break;
-					case 'Scene only':
-						// nothing to do
-						break;
-
-				}
-
-				render();
-
-			} );
+			gui.add( params, 'scene', [ 'Scene with Glow', 'Glow only', 'Scene only' ] )
+				.onChange( function ( value ) {
+					switch ( value ) 	{
+						case 'Scene with Glow':
+							bloomComposer.renderToScreen = false;
+							break;
+						case 'Glow only':
+							bloomComposer.renderToScreen = true;
+							break;
+						case 'Scene only':
+							// nothing to do
+							break;
+					}
+					render();
+				} );
 
 			var folder = gui.addFolder( 'Bloom Parameters' );
 
@@ -277,10 +290,20 @@
 						// render scene with bloom
 						renderBloom( true );
 
+						/* debug notes:
+						 finalComposer.ShaderPass.uniforms.baseTexture.value == FBF5F152-...
+						 finalComposer.ShaderPass.uniforms.bloomTexture.value == 2A9FE13F-...
+						 [same to finalComposer.ShaderPass.material.uniforms]
+
+						 bloomComposer.renderTarget1.texture = 7FC2293E-...
+						 bloomComposer.renderTarget2.texture = 2A9FE13F-...
+
+						 finalComposer.renderTarget1.texture = 2229EED5-...
+						 finalComposer.renderTarget2.texture = FBF5F152-...
+						*/
 						// render the entire scene, then render bloom scene on top
 						finalComposer.render();
 						break;
-
 				}
 
 			}
