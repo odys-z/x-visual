@@ -58,6 +58,7 @@
 			import { RenderPass } from 'https://threejs.org/examples/jsm/postprocessing/RenderPass.js';
 			import { ShaderPass } from 'https://threejs.org/examples/jsm/postprocessing/ShaderPass.js';
 			import { UnrealBloomPass } from 'https://threejs.org/examples/jsm/postprocessing/UnrealBloomPass.js';
+			import { FilmPass } from 'https://threejs.org/examples/jsm/postprocessing/FilmPass.js';
 
 			var scene, camera, controls;
 			var renderer;
@@ -105,10 +106,25 @@
 			bloomPass.strength = params.bloomStrength;
 			bloomPass.radius = params.bloomRadius;
 
+			var filmPass1 = new FilmPass(
+				0.15,   // noise intensity
+				0.725,  // scanline intensity
+				800,    // scanline count
+				false);
+			var filmPass2 = new FilmPass(
+				0.15,   // noise intensity
+				0.725,  // scanline intensity
+				200,    // scanline count
+				false);
+
 			var bloomComposer = new EffectComposer( renderer );
 			bloomComposer.renderToScreen = false;
 			bloomComposer.addPass( renderScene );
 			bloomComposer.addPass( bloomPass );
+			// These 2 pass shows bloomeComposer.renderTargets been writen alternatively.
+			bloomComposer.addPass( filmPass1 );
+			bloomComposer.addPass( filmPass2 );
+
 
 			var finalPass = new ShaderPass(
 				new THREE.ShaderMaterial( {
@@ -278,11 +294,11 @@
 						renderBloom( true );
 
 						/* debug notes:
-						finalComposer.ShaderPass.uniforms.baseTexture.value == 8B8FD847-...
-						finalComposer.ShaderPass.uniforms.bloomTexture.value == CA98FFF3-...
-						bloomComposer.renderTarget2.texture == CA98FFF3-...
-						bloomComposer.readBuffer.texture == CA98FFF3-...
-						bloomComposer.writeBuffer.texture == 8a19170-...
+						 finalComposer.ShaderPass.uniforms.baseTexture.value == 8B8FD847-...
+						 finalComposer.ShaderPass.uniforms.bloomTexture.value == CA98FFF3-...
+						 bloomComposer.renderTarget2.texture == CA98FFF3-...
+						 bloomComposer.readBuffer.texture == CA98FFF3-...
+						 bloomComposer.writeBuffer.texture == 8A19170-...
 						*/
 						// render the entire scene, then render bloom scene on top
 						finalComposer.render();
