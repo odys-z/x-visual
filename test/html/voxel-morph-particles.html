@@ -58,12 +58,12 @@
                 transform: {translate: [100, 0, 0],
                             rotate: [45, 0, 0]},
                 mesh: undefined,                    // THREE.Points
-                 invisible: false },                    // It's visible, but alpha 0?
+                invisible: false },                 // It's visible, but alpha 0?
         Visual:{vtype: xv.AssetType.cubeVoxel,
                 asset: 'ent1',
-                shader: xv.XComponent.ShaderFlag.cubeVoxels,
+                shader: xv.XComponent.ShaderFlag.defaultex,// FIXME // FIXME // FIXME // FIXME // FIXME
                 paras: {vert_scale: '30.',
-                        u_tex: 'tex/spark1.png',
+                        // u_tex: 'tex/spark1.png',
                         uniforms:{u_cubes: ['ent1', 'ent2', 'ent3'],// ent2.Obj3.mesh, matrix, etc.
                                   u_alpha: 0.5,
                                   u_sects: [5, 8, 3] } }},            // sections in x, y, z
@@ -85,7 +85,7 @@
                         paras: {start: 0,
                                 duration: 0.203,
                                 uniforms: { u_morph0: [0, 0],
-                                            u_morph1: [0, 1],    // clear 0, TODO docs
+                                            u_morph1: [0, 1],    // clear 0, FIXME should not useful now
                                             a_noise: [0.2, 0.02] },
                                  ease: undefined} },
                       { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,

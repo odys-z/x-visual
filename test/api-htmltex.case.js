@@ -12,7 +12,7 @@ import AssetKeepr from '../lib/xutils/assetkeepr'
 
 import {Visual, Canvas, AssetType} from '../lib/component/visual'
 import {Obj3, Obj3Type} from '../lib/component/obj3'
-import Htmltex from '../lib/sys/htmltex'
+import Htmltex from '../lib/sys/ext/htmltex'
 
 global.performance = performance;
 
