@@ -18,7 +18,7 @@ describe('case: Layers', function() {
 	before(function() { });
 
 	it('occluded', function() {
-		var xworld = new XWorld(undefined, 'window', {pathEffects: true});
+		var xworld = new XWorld(undefined, 'window', {});
 		var ecs = xworld.xecs;
 		var cube = ecs.createEntity({
 			id: 'bloom-0',
@@ -27,7 +27,6 @@ describe('case: Layers', function() {
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null },
-			FlowingPath: {}
 		});
 
 		cube = ecs.createEntity({

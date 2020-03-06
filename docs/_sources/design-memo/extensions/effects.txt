@@ -72,11 +72,13 @@ The code snippet causing the issue in lib/sys/ext/finalComposer.js/FinalComposer
 The final composer sharing texture from effects composer (*effects*) rendering
 target is essential to the result.
 
+**Here is where the problem comes from**:
+
 The packages/three/postprocessing/ShaderPass constructor check the *shader* arguments
 with "*insanceof ShaderMaterial*" which is actually another class from ../three.module.js,
 leading to an unexpected result.
 
-.. literalinclude:: ../../packages/three/postprocessing/ShaderPass.js
+.. literalinclude:: ../../../packages/three/postprocessing/ShaderPass.js
    :language: javascript
    :lines: 5-40
    :linenos:
