@@ -91,7 +91,7 @@ updateEntity(entity) {
 
   */
 
-  /**TODO docs:
+  /**
    * Logics of has, iff, any, hasnt:
    * result = (has || iff || any) && !hasnt
    * see query-details.ods
@@ -191,7 +191,6 @@ updateEntity(entity) {
   /** Check entity's components, update this cache's entity set (this.results),
    * according to conditions like 'has', 'any', ...
    *
-   * TODO docs:
    * Logics of has, iff, any, hasnt:
    * result = (has || iff || any) && !hasnt
    * see doc/ecs/query-details.ods
