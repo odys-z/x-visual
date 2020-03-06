@@ -18,7 +18,7 @@ describe('case: Layers', function() {
 	before(function() { });
 
 	it('occluded', function() {
-		var xworld = new XWorld(undefined, 'window', {postEffects: true});
+		var xworld = new XWorld(undefined, 'window', {pathEffects: true});
 		var ecs = xworld.xecs;
 		var cube = ecs.createEntity({
 			id: 'bloom-0',
@@ -40,7 +40,7 @@ describe('case: Layers', function() {
 		});
 
 		xworld.startUpdate();
-		assert.isTrue(x.postEffects);
+		assert.isTrue(x.pathEffects);
 
 	});
 });
