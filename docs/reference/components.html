@@ -246,18 +246,18 @@
 12
 13
 14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>	<span class="c1">// gltf asset file</span>
-	<span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// short for material</span>
-	<span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-	<span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>	<span class="c1">// customer</span>
-	<span class="nx">mesh</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>	<span class="c1">// mesh created like THREE.Mesh(), usually loaded from gltf asset</span>
-	<span class="nx">point</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>	<span class="c1">// THREE.Points. Note Obj3Type.POINTS is an array of vertices buffer.</span>
-	<span class="nx">refPoint</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span><span class="c1">// THREE.Points created from referencing model, with asset = entity id.</span>
-	<span class="nx">cubeVoxel</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="c1">// voxel generated for Obj3.box</span>
-	<span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span><span class="c1">// ShaderFlag has a similar name, makes this error proven</span>
-	<span class="nx">canvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>	<span class="c1">// test: htmltex.html</span>
-	<span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span> <span class="c1">// opengl / webgl wireframe</span>
-	<span class="nx">svg</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">sprite</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>	   <span class="c1">// gltf asset file</span>
+    <span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// short for material</span>
+    <span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>	 <span class="c1">// customer</span>
+    <span class="nx">mesh</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>	   <span class="c1">// mesh created like THREE.Mesh(), usually loaded from gltf asset</span>
+    <span class="nx">point</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>	   <span class="c1">// THREE.Points. Note Obj3Type.POINTS is an array of vertices buffer.</span>
+    <span class="nx">refPoint</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>   <span class="c1">// THREE.Points created from referencing model, with asset = entity id.</span>
+    <span class="nx">cubeVoxel</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1">// voxel generated for Obj3.box</span>
+    <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="c1">// ShaderFlag has a similar name, makes this error proven</span>
+    <span class="nx">canvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>     <span class="c1">// html DOM as texture, test/example: htmltex.html</span>
+    <span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>  <span class="c1">// opengl / webgl wireframe</span>
+    <span class="nx">geomCurve</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// THREE.Curve, rendered as opengl / webgl line, created form Obj3.geom</span>
+    <span class="nx">svg</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">sprite</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
@@ -271,11 +271,11 @@
 5
 6
 7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="nx">mask</span><span class="o">:</span> <span class="mh">0xffff</span><span class="p">,</span>	<span class="c1">// 16 bits for types</span>
-	<span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>	<span class="c1">// use default texture</span>
-	<span class="nx">testPoints</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>		<span class="c1">// default</span>
-	<span class="nx">randomParticles</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-	<span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nx">mask</span><span class="o">:</span> <span class="mh">0xffff</span><span class="p">,</span>       <span class="c1">// 16 bits for types</span>
+    <span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span> <span class="c1">// use default texture</span>
+    <span class="nx">testPoints</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1">// default</span>
+    <span class="nx">randomParticles</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
@@ -291,10 +291,10 @@
 7
 8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">Visual</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
-	<span class="nx">vtype</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-	<span class="nx">shader</span><span class="o">:</span> <span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">testPoints</span><span class="p">,</span>
-	<span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// texture path, mesh, sprite, shader, materail, ...</span>
-	<span class="nx">paras</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="nx">vtype</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">shader</span><span class="o">:</span> <span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">testPoints</span><span class="p">,</span>
+    <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// texture path, mesh, sprite, shader, materail, ...</span>
+    <span class="nx">paras</span><span class="o">:</span> <span class="p">{},</span>
   <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -354,13 +354,13 @@
 	POLYHEDRON: 0x22,	// THREE.PolyhedronBufferGeometry, not supported
 	LATHE: 0x23,		// https://threejs.org/docs/index.html#api/en/geometries/LatheGeometry
 
-	// morph FIXME how?
+	// morph FIXME wrong?
 	MORPH: 0x40,		// https://threejs.org/examples/?q=Geometry#webgl_buffergeometry_morphtargets
 
 	// line
 	CIRCLE: 0x82,
+	HILBERT: 0x83,
 };
-
 
 
 
@@ -382,9 +382,13 @@
  8
  9
 10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">Obj3</span> <span class="o">=</span> <span class="p">{</span>
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">Obj3</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">USER</span><span class="p">,</span>
+	<span class="nx">layers</span><span class="o">:</span> <span class="nx">LayerFilter</span><span class="p">.</span><span class="nx">ALL</span><span class="p">,</span>
+	<span class="nx">occluding</span><span class="o">:</span> <span class="nx">LayerFilter</span><span class="p">.</span><span class="nx">ALL</span><span class="p">,</span>
 	<span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>   <span class="c1">// always not null</span>
 	<span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>     <span class="c1">// THREE.Mesh for BOX etc. or Array of vertices for POINTS</span>
 	<span class="nx">transform</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span><span class="c1">// {translate, scale, rotate, shear, reflect, mat4}, default unused</span>

@@ -8,5 +8,6 @@ Contents:
 .. toctree::
    :maxdepth: 4
 
+   effects
    htmltex
    svg
