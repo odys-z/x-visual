@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>XTest-Flowing Path</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+    <meta charset="utf-8">
+    <title>XTest-Flowing Path</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
 </head>
 <body>
   <img id='splash'></img>
   <canvas id='canv'></canvas>
   <script>
-	"use strict";
+    "use strict";
 
     class CustLine extends xv.XSys {
         constructor(ecs, options) {
@@ -54,19 +54,30 @@
                         paras: {points: [100, 80, 0, 200, -80, 0],  // static p0, p1
                                 segments: 5} },
             });
+
+            ecs.createEntity({
+                id: 'plane',
+                Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                        box: [360, 180, 0],
+                        mesh: undefined,
+                        uniforms: {opacity: 0.1}},
+                Visual:{vtype: xv.AssetType.mesh,
+                        paras: {alpha: 0.1},
+                        asset: null },
+            });
         }
     }
 
-	CustLine.query = { iffall: ['FlowingPath'] };
+    CustLine.query = { iffall: ['FlowingPath'] };
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window,
-								{pathEffects: true});
-	const ecs = xworld.xecs;
-	const xscene = xworld.xscene;
+    const xworld = new xv.XWorld(document.getElementById('canv'), window,
+                                {pathEffects: true});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
 
-	xworld.addSystem('test', new CustLine(ecs, {xscene}));
+    xworld.addSystem('test', new CustLine(ecs, {xscene}));
 
-	xworld.startUpdate();
+    xworld.startUpdate();
   </script>
   </body>
 </html>
