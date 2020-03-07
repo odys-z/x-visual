@@ -17,7 +17,7 @@ const {performance} = require('perf_hooks');
 ////////////////////////////////////////////////
 // installation failed while needle downloading
 // var Canvas = require("canvas");
-// Use the China canvas
+// Use the China test
 ////////////////////////////////////////////////
 
 global.performance = performance;
@@ -31,21 +31,13 @@ describe('case: Layers', function() {
 		THREE.Layers.prototype.occlude = function (mask) {
 			return this.test(~mask);
 		}
-		canvas = {
-			width: 2,
-			height: 1,
-			style: {},
-			getContext: ()=> { return new CanvasRenderingContext2D(); },
-			addEventListener: function(){},
-			removeEventListener: function(){},
-		}
 	});
 
 	it('occluded', function() {
 		var xworld = new XWorld(undefined, 'window', {pathEffects: true});
 		var ecs = xworld.xecs;
 		xworld.registerComponents(ecs, Composers);
-		x.renderer = new THREE.WebGLRenderer({canvas, alpha: true});
+		// x.renderer = new THREE.WebGLRenderer({canvas, alpha: true});
 
 		var v1 = ecs.createEntity({
 			id: 'v1',
@@ -87,6 +79,5 @@ describe('case: Layers', function() {
 
 		assert.isFalse(camera.visible(inv.Obj3.layers), 'inv visible');
 		assert.isFalse(camera.occlude(inv.Obj3.occluding), 'inv occlude');
-
 	});
 });
