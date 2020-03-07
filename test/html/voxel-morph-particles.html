@@ -61,12 +61,12 @@
                 invisible: false },                 // It's visible, but alpha 0?
         Visual:{vtype: xv.AssetType.cubeVoxel,
                 asset: 'ent1',
-                shader: xv.XComponent.ShaderFlag.defaultex,// FIXME // FIXME // FIXME // FIXME // FIXME
+                shader: xv.XComponent.ShaderFlag.cubeVoxels,
                 paras: {vert_scale: '30.',
-                        // u_tex: 'tex/spark1.png',
+                        u_tex: 'tex/spark1.png',
                         uniforms:{u_cubes: ['ent1', 'ent2', 'ent3'],// ent2.Obj3.mesh, matrix, etc.
                                   u_alpha: 0.5,
-                                  u_sects: [5, 8, 3] } }},            // sections in x, y, z
+                                  u_sects: [5, 8, 3] } }},          // sections in x, y, z
         ModelSeqs: {
             script: [[{ mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
                         paras: {start: 0,
