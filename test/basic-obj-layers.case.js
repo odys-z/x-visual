@@ -14,11 +14,17 @@ import * as Composers from '../lib/component/ext/effects'
 import {Layers, LayerFilter} from '../lib/xmath/layer'
 
 const {performance} = require('perf_hooks');
-////////////////////////////////////////////////
-// installation failed while needle downloading
+////////////////////////////////////////////////////////////////////////////////
+// China Issue
+// Installing Canvas failed while needle downloading npm-pre-gyp, a c++ bridge.
+// Use the China test instead
+//
+// see also
+// Possible to render three.js on serverside? #730
+// https://github.com/Automattic/node-canvas/issues/730
+//
 // var Canvas = require("canvas");
-// Use the China test
-////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 global.performance = performance;
 
