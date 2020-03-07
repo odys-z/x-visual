@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>XTest-Flowing Path</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <script>
+    "use strict";
+
+    class CustLine extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.initPaths(ecs, options.xscene);
+        }
+
+        initPaths(ecs, scene) {
+            ecs.createEntity({
+                id: 'p1',
+                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                        box: [],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.geomCurve,
+                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+                                segments: 5} },
+                FlowingPath: { script: [
+                      { mtype: xv.XComponent.AnimType.PATH_MOVE,
+                        paras: {start: 0,            // auto start
+                                duration: 0.7,       // seconds
+                                path: 'p1',          // p1.Obj3.mesh (position array)
+                                ease: xv.XEasing.Elastic.Elastic},
+                        startWith:[{entity: 'points',
+                                    seqx: 0,        // index of the fade-in
+                                    start: 0.0}] }],
+                     [{ mtype: xv.XComponent.AnimType.ALPHA,
+                        paras: {start: Infinity,
+                                alpha: [0.95, 0.05],
+                                ease: undefined}, }]
+                ] },
+            });
+        }
+    }
+
+    CustLine.query = { iffall: ['FlowingPath'] };
+
+    const xworld = new xv.XWorld(document.getElementById('canv'), window,
+                                {pathEffects: true});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
+
+    xworld.addSystem('test', new CustLine(ecs, {xscene}));
+
+    xworld.startUpdate();
+  </script>
+  </body>
+</html>
