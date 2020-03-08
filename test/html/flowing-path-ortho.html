@@ -28,9 +28,8 @@
                 Visual:{vtype: xv.AssetType.geomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
-                FlowingPath: { script: [
+                GlowingEdge: { script: [
                 ] },
-                Filming: {}
             });
 
             ecs.createEntity({
@@ -41,18 +40,19 @@
                 Visual:{vtype: xv.AssetType.geomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
-                FlowingPath: { script: [
+                Filming: { script: [
                 ] },
             });
 
             ecs.createEntity({
-                id: 'occ',
-                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
-                        box: [],
-                        mesh: undefined },
-                Visual:{vtype: xv.AssetType.geomCurve,
-                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
-                                segments: 5} },
+                id: 'plane',
+                Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                        box: [480, 360, 0],
+                        mesh: undefined,
+                        uniforms: {opacity: 0.9}},
+                Visual:{vtype: xv.AssetType.mesh,
+                        asset: null },
+                Occluder: {FlowingPath: true}
             });
         }
     }
@@ -60,7 +60,7 @@
 	CustLine.query = { iffall: ['FlowingPath'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window,
-								{pathEffects: true});
+								{effects: true});
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 

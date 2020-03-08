@@ -47,7 +47,7 @@ describe('case: Layers', function() {
 	});
 
 	it('occluded', function() {
-		var xworld = new XWorld(undefined, 'window', {pathEffects: true});
+		var xworld = new XWorld(undefined, 'window', {effects: true});
 		var ecs = xworld.xecs;
 		xworld.registerComponents(ecs, Composers);
 
