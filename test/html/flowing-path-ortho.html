@@ -28,7 +28,7 @@
                 Visual:{vtype: xv.AssetType.geomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
-                GlowingEdge: { script: [
+                Glow: { script: [
                 ] },
             });
 
@@ -59,8 +59,7 @@
 
 	CustLine.query = { iffall: ['FlowingPath'] };
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window,
-								{effects: true});
+	const xworld = new xv.XWorld(document.getElementById('canv'), window);
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 

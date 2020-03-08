@@ -61,7 +61,36 @@ class ECS {
     this.components.set(klass.name, new Set());
   }
 
+  // Change Log:
+  /* Extending fouction: when a type of component is found, it's better to give
+   * the caller a chance to triggere something for the component.
+   * Call this to setup the event handler.
+   * @param {string | array} cnames component name
+   * @param {function} onFound event handler
+   * @return {ECS} this
+   */
+  componentTriggered(cnames, onFound) {
+    if (Array.isArray(cnames)) {
+      for (var cn of cnames)
+        this.componentTriggered(cn, onFound);
+    }
+    else {
+      if (!this.compoTriggers)
+        this.compoTriggers = new Set();
+      this.compoTriggers[cnames] = typeof onFound === 'stirng' ?
+        eval(onFound) : onFound;
+    }
+    return this;
+  }
+
   createEntity(definition) {
+
+    if (this.compoTriggers) {
+        for (const type of Object.keys(definition)) {
+            if (typeof this.compoTriggers[type] === 'function')
+              this.compoTriggers[type](definition);
+        }
+    }
 
     return new Entity(this, definition);
   }
