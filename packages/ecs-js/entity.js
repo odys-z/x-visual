@@ -16,7 +16,7 @@ class Entity {
     for (const type of Object.keys(definition)) {
       if (type === 'id') continue;
       const cdefs = definition[type];
-      if (!ecs.types.hasOwnProperty(type)) throw new Error(`No component type named "${type}". Did you misspell it?`)
+      if (!ecs.types.hasOwnProperty(type)) throw new Error(`No component type named "${type}". Hasn't been registered?`)
       const mapBy = ecs.types[type].definition.mapBy;
       if (Array.isArray(cdefs)) {
         for (const def of cdefs) {

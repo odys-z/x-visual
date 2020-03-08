@@ -11,15 +11,15 @@ import {x} from '../lib/xapp/xworld.js'
 import {AssetType} from '../lib/component/visual'
 import {Obj3Type} from '../lib/component/obj3'
 import * as Composers from '../lib/component/ext/effects'
-import {Layers, LayerFilter} from '../lib/xmath/layer'
+import {Layers, LayerChannel} from '../lib/xmath/layer'
 
 const {performance} = require('perf_hooks');
 ////////////////////////////////////////////////////////////////////////////////
 // China Issue
-// Installing Canvas failed while needle downloading npm-pre-gyp, a c++ bridge.
-// Use the China test instead
+// Installing Canvas failed while needle, a c++ bridge, downloading npm-pre-gyp.
+// Using the China Test instead.
 //
-// see also
+// For what's attempped to do, see also
 // Possible to render three.js on serverside? #730
 // https://github.com/Automattic/node-canvas/issues/730
 //
@@ -30,12 +30,19 @@ global.performance = performance;
 
 describe('case: Layers', function() {
 	let canvas;
+    x.log = 4;
+
 	before(function() {
+		// set up equivolent function to THREE.Layers, which is used by Orthocclud.layerpass
 		THREE.Layers.prototype.visible = function (mask) {
-			return ( this.mask & mask ) !== 0;
+			var l = new Layers();
+			l.mask = this.mask;
+			return l.visible(mask);
 		}
 		THREE.Layers.prototype.occlude = function (mask) {
-			return this.test(~mask);
+			var l = new Layers();
+			l.mask = this.mask;
+			return l.occlude(mask);
 		}
 	});
 
@@ -43,7 +50,6 @@ describe('case: Layers', function() {
 		var xworld = new XWorld(undefined, 'window', {pathEffects: true});
 		var ecs = xworld.xecs;
 		xworld.registerComponents(ecs, Composers);
-		// x.renderer = new THREE.WebGLRenderer({canvas, alpha: true});
 
 		var v1 = ecs.createEntity({
 			id: 'v1',
@@ -62,7 +68,7 @@ describe('case: Layers', function() {
 					mesh: undefined },
 			Visual:{vtype: AssetType.mesh,
 					asset: null },
-			Occluder: {occlude: {FlowingPath: true}}
+			Occluder: {FlowingPath: true}
 		});
 
 		var inv = ecs.createEntity({
@@ -74,7 +80,11 @@ describe('case: Layers', function() {
 					asset: null },
 		});
 
-		var camera = new THREE.Layers().push(LayerFilter.FLOWING_PATH);
+		var camLayer = new Layers()
+			.enable ( LayerChannel.FLOWING_PATH )
+			.enable ( LayerChannel.FILMING );
+
+		var camera = new THREE.Layers().push(camLayer.mask);
 
 		xworld.startUpdate();
 		debugger
