@@ -211,8 +211,8 @@ class BaseComponent {
     delete values.entity;
     delete values.id;
     Object.assign(this, values);
-    this.ecs._sendChange(this, 'addComponent');
     this._ready = true;
+    this.ecs._sendChange(this, 'addComponent');
   }
 
 

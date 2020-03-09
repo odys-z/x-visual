@@ -104,7 +104,7 @@ class Entity {
     }
   }
 
-  removeComponent(component, delayCache) {
+  removeComponent(component, delayCache, destroy=true) {
 
     if (!(component instanceof BaseComponent)) {
       component = this.componentMap[component];

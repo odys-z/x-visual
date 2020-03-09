@@ -37,6 +37,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
+    "@fritzy/ecs": "^0.5.2",
     "babel": "^6.23.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-wildcard": "^5.0.0",

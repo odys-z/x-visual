@@ -20,11 +20,13 @@ class ECS {
   }
 
   tick() {
+
     this.ticks++;
     return this.ticks;
   }
 
-  get lastick() {
+  // Change Log: add function
+  get getick() {
 	  return this.ticks;
   }
 
@@ -61,8 +63,9 @@ class ECS {
     this.components.set(klass.name, new Set());
   }
 
-  // Change Log:
-  /* Extending fouction: when a type of component is found, it's better to give
+  // Change Log: Extending fouction
+  /**
+   * When a type of component is found, it's better to give
    * the caller a chance to triggere something for the component.
    * Call this to setup the event handler.
    * @param {string | array} cnames component name
@@ -118,13 +121,13 @@ class ECS {
 	 hasnt = [],
 	 persist = CamCtrl {ecs: ECS, changes: Array(0), lastTick: 0},
 	 updatedValues = 0, updatedComponents = 0
-	 */
-	// branch ANY (and IFFALL)
+     */
+    // branch ANY (and IFFALL)
     const { hasnt, has, iffall, any, persist, updatedValues, updatedComponents } = Object.assign({
       hasnt: [],
       has: [],
       iffall: [],
-	  any: [],
+      any: [],
       persist: false,
       updatedValues: 0,
       updatedComponents: 0
@@ -135,7 +138,7 @@ class ECS {
       query = this.queryCache.get(persist);
     }
     if (!query) {
-	  // branch ANY
+	  // Change Log: branch ANY, IFFALL
       query = new QueryCache(this, has, hasnt, any, iffall);
     }
     if (persist) {

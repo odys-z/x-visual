@@ -6,8 +6,7 @@ class System {
     this.changes = [];
     this.lastTick = this.ecs.ticks;
     /* $lab:coverage:off$ */
-	// branch ANY
-    // if (this.constructor.query && (this.constructor.query.has || this.constructor.query.hasnt)) {
+    // branch ANY
     if (this.constructor.query
 		&& (this.constructor.query.has || this.constructor.query.hasnt
          || this.constructor.query.iffall || this.constructor.query.any)) {
