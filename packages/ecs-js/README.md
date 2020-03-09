@@ -2,9 +2,19 @@ see [fritzy/ecs-js readme](https://github.com/fritzy/ecs-js/blob/master/README.m
 
 # Change Log
 
-- Add ANY query
+- Add ANY, IFFALL query
 
-Let system support query {any:[component]}
+Let system support query { any: [component-name] } and { iffall: [component-name] }
+
+ANY:
+
+If any of the component presents in an entity, the entity will be included
+in the query results.
+
+IFFALL:
+
+If all of the named components present in a entity, it's included in the query
+results, no matter what else components in the entity are.
 
 -- System.constructor, condition check:
 
@@ -21,7 +31,7 @@ Let system support query {any:[component]}
             ... });
 ```
 
--- QueryCache.initial() - tested with ecs.html.Cubesys
+-- QueryCache.initial()
 
 ```
     const hasSet = [];
@@ -76,7 +86,7 @@ Let system support query {any:[component]}
     }
 ```
 
--- QueryCache.updateEntity() - TODO: debug
+-- QueryCache.updateEntity() - See source
 
 ```
     updateEntity(entity) {
@@ -142,3 +152,9 @@ Let system support query {any:[component]}
       this.results.add(entity);
     }
 ```
+
+- Trigger component founding events when creating entities
+
+1. Add function ECS.componentTriggered(cmp-names, callback) to set events handler.
+
+2. Modify ECS.createEntity() to trigger events if one of cmp-name been found.
