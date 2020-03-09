@@ -28,8 +28,7 @@
                 Visual:{vtype: xv.AssetType.geomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
-                Glow: { script: [
-                ] },
+                Glow: { script: [ ] },
             });
 
             ecs.createEntity({
@@ -57,7 +56,7 @@
         }
     }
 
-	CustLine.query = { iffall: ['FlowingPath'] };
+	// CustLine.query = { iffall: ['FlowingPath'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window);
 	const ecs = xworld.xecs;
