@@ -10,6 +10,37 @@ x-visual Passes & Composer
 
 Currently x-visual is trying to make these effects can be plugged in orthogonally.
 
+Design Pattern v0.1
++++++++++++++++++++
+
+- Abstratct Base Class: Orthocclude
+
+::
+    1. pack up Passes as an effect composer
+    2. ask subclass.getEffectPass() for {effects, layers}, where effects is an
+       array of Pass elements
+    3. render with composer in update() - subclass shouldn't render by themselves
+
+- Orthogonal Effects, e.g. FlowingPath
+
+For example, in FlowingPath
+
+::
+    1. compact several effect passes like render pass, blooming pass, etc.,
+    2. setup a layer mask,
+	3. then enable object mask saved to entities Obj3.layers.
+
+- Helping steps in XWorld & Thrender
+
+::
+    1. add functions to THREE.Layers (used in Object3D, e.g. Obj3.mesh)
+    2. add call backs to ECS.ECS.createEntity(), makes some added components trigger
+       some options, and creating some subsystem like PathEffect and FinalComposer
+    3. thrender will use final composer rendering scene in update() if it's triggered
+
+[`EffectComposer <https://threejs.org/docs/#examples/en/postprocessing/EffectComposer>`_]
+[`Pass.js (no docs) <https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js>`_]
+
 TODO docs ...
 
 About the Three Module Issue
