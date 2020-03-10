@@ -18,10 +18,8 @@
   },
   "keywords": [
     "Data Visualization",
-    "OSM",
-    "GIS",
     "WebGL",
-    "Three.js"
+    "Framework"
   ],
   "author": "odys-z",
   "license": "MIT",
