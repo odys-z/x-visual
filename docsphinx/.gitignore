@@ -1,2 +1,5 @@
 build
 xvbuild
+*.tar.gz
+*.whl
+*.delete

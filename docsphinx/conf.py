@@ -19,6 +19,9 @@ import os
 # https://stackoverflow.com/questions/4259105/which-sphinx-code-block-language-to-use-for-json
 sys.path.insert(0, os.path.abspath('_ext'))
 
+# Not working https://pypi.org/project/sphinx-js/
+# sys.path.insert(0, os.path.abspath('sphinx_js'))
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -37,11 +40,17 @@ extensions = [
     # see also G4 Loader/docsrc/conf.py
     'sphinx_rtd_theme',
     'jsonlexer',
-    'sphinx.ext.mathjax',
+
+    # Not working https://pypi.org/project/sphinx-js/
+    # pip3 install sphinx-js-2.8.tar.gz (try many times, cached files will be reused)
+    # 'sphinx_js',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['templates']
+
+# Not working https://pypi.org/project/sphinx-js/
+# js_source_path = '../lib/*'
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:

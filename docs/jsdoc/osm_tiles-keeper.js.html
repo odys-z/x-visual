@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: osm/tiles-keeper.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: osm/tiles-keeper.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @namespace xv.map3 */
+import {OsmUtils, Vec3, R} from './utils.js'
+import {OSM3} from './osm3.js'
+
+// import TileWorker from 'worker-loader!./tiles-worker.js'
+import workjs from 'raw-loader!./tiles-worker.js'
+
+/** @class */
+class TilesKeeper {
+
+	/**
+	 * @param {object} osm OSM3, provid function addTile(mesh), center()
+	 * and addTileMesh()
+	 * @param {string} path workder js path O3_workerPath = "tiles-keeper.js",
+	 * use webpack.config?
+	 */
+	constructor (osm, path) {
+		this.osm = osm;
+		this.tiles = {};
+
+		if (path) {
+			this.workers = new Array(1);
+			var num = 2; // threads
+			for (let i = 0; i &lt; num; i++) {
+				// var blob = new Blob([path]);
+				var blob = new Blob([workjs]);
+				var url = window.URL.createObjectURL(blob);
+				var w = new Worker(url);
+
+				// var w = new Worker(path);
+				// var w = new TileWorker();
+
+				w.addEventListener('message', this.onOsmReady, false);
+				w.addEventListener('error', this.onErr, false);
+				this.workers[i] = w;
+			}
+		}
+		else {
+			console.warn('Worker js is undefined. Testing?');
+		}
+	}
+
+	/**Asynchronously start an OSM tile loading - post message to worker.
+	 * This function always use the first worker.
+	 * @param {int[]} xyz [x,y,z]
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	loasOsmAsync (xyz) {
+		this.workers[0].postMessage({cmd: 'osm', xyz: [xyz]});
+	}
+
+	/** on tile loaded
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	onOsmReady (e) {
+		if (this.verbose >= 5)
+			console.log(e);
+		if (e.data.code === 'tile') {
+			console.log(e.data);
+			{	var blob = new Blob( [ e.data.img ], { type: "image/jpeg" } );
+				var imageUrl = window.URL.createObjectURL( blob );
+				var img = document.querySelector( "#tile" );
+				if (img) {
+					img.src = imageUrl;
+				}
+			}
+			// tileKeeper.postMessage({cmd: 'set-ground', xyz: e.data.xyz}, e.data.bytes);
+
+			this.setOsmTexture(e.data.xyz, imageUrl);
+		}
+	}
+
+	onErr (e) { console.error(e); }
+
+	/**Set loaded osm texture to the ground tile geometry
+	 * For three.js texture loader, see
+	 * https://threejs.org/docs/index.html#api/en/loaders/TextureLoader
+	 * TODO put into work?
+	 * @param {object} xyz osm {x, y, z}
+	 * @param {Blob} blobUrl should be a blob url - ready for building texture
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	setOsmTexture (xyz, blobUrl) {
+		// instantiate a loader
+		var loader = new THREE.TextureLoader();
+
+		// load a resource
+		loader.load( blobUrl, // resource URL
+			// onLoad callback
+			function ( texture ) {
+				// in this example we create the material when the texture is loaded
+				var material = new THREE.MeshBasicMaterial( {
+					map: texture
+				 } );
+
+				// groundMeshes.material = material;
+				// groundMeshes.material.map.needsUpdate = true;
+				var tile = tilesKeeper.getile({x: xyz[0], y: xyz[1], z: xyz[2]});
+				if (tile) {
+					tile.mesh.material = material;
+					tile.mesh.material.map.needsUpdate = true;
+				}
+				else {
+					console.error('No tile for texture?', xyz);
+				}
+			},
+
+			// onProgress callback currently not supported
+			undefined,
+
+			// onError callback
+			function ( err ) {
+				console.error( 'An error happened loading image' );
+			}
+		);
+	}
+
+	/**
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	destroy () {
+		this.workers.forEach( w => w.destroy());
+		this.workers = [];
+	}
+
+	/**
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	ping (ix) {
+		var msg = {name: 'function loadingOsm'};
+		this.workers[ix].postMessage({cmd: 'ping', msg: msg}); // Start worker
+	}
+
+	/**
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	getile (xyz) {
+		if (Array.isArray(xyz)) {
+			return tilesKeeper.tiles[xyz[2]][xyz[0]][xyz[1]]
+		}
+		else {
+			var ztiles = tilesKeeper.tiles[xyz.z];
+			if (ztiles) {
+				if (ztiles[xyz.x]) {
+					return ztiles[xyz.x][xyz.y];
+				}
+			}
+		}
+	}
+
+	/**
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	setile (xyz, tile) {
+		// collectOsmTiles (tiles, dir, c0, a) {
+		if (this.tiles === undefined)
+			this.tiles = {};
+
+		var tiles = this.tiles;
+
+		if (tiles[xyz.z] === undefined) {
+			tiles[xyz.z] = {};
+		}
+		if (tiles[xyz.z][xyz.x] === undefined) {
+			tiles[xyz.z][xyz.x] = {};
+		}
+		if (tiles[xyz.z][xyz.x][xyz.y] === undefined) {
+			tiles[xyz.z][xyz.x][xyz.y] = {};
+		}
+		Object.assign(tiles[xyz.z][xyz.x][xyz.y],
+			// { lon: longlat.long, lat: longlat.lat });
+			tile);
+		return this;
+	}
+
+	/*
+	forEachTile (fun) {
+		var tz = this.tiles; // for short
+		if (tz) {
+			for (var z in tz)
+				for (var x in tz[z])
+					for (var y in tz[z][x])
+						fun(tz[z][x][y], [x, y, z]);
+		}
+	}
+	*/
+
+	/**Find osm tiles according to camera position.
+	 * @param {object} osmTiles osm tile collection {z: {x: {y: tileInf}}}&lt;br>
+	 * tileInf: lon, lat, mesh, world
+	 * @param {object} camWorld:&lt;br>
+	 *     target: lookAt, {lat, lon, h = 0}&lt;br>
+	 *     position: eye position, {lat, lon, h}&lt;br>
+	 *     z: osm z
+	 * @param {THREE.Camera} camera
+	 * @param {THREE.Matrix4} castMatrix
+	 * @return {object} tiles {z: {x: {y: {tileInf}}}}
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	findTiles (camWorld, camera, castMatrix) {
+		var m = camWorld.worldMat4;
+		if (camWorld &amp;&amp; camWorld.castMatrix) {
+			m.multiply(camWorld.castMatrix);
+		}
+
+		var eye = OsmUtils.rad2cart(camWorld.position.lon,
+							camWorld.position.lat, R + camWorld.position.h);
+		eye = [eye.x, eye.y, eye.z];
+
+		var lookAt = OsmUtils.rad2cart(camWorld.target.lon, camWorld.target.lat,
+							camWorld.target.h === undefined ? R : R + camWorld.target.h);
+		lookAt= [lookAt.x, lookAt.y, lookAt.z];
+
+		// var dir = Vec3.minus(Vec3.add([x, y, z], lookAt), eye);
+		if (this.dirs === undefined) {
+			this.dirs = ThreeWrapper.getRayDirs(camera, {w: 4, h: 3});
+		}
+		else {
+			console.error('TODO')
+		}
+
+		for ( var ix = 0; ix &lt; this.dirs.count; ix++ ) {
+			var x = this.dirs.getX(ix);
+			var y = this.dirs.getY(ix);
+			var z = this.dirs.getZ(ix);
+
+			// find tile by ray casting from eye to dir [x, y, z]
+			// var dir = Vec3.minus(Vec3.add([x, y, z], lookAt), eye);
+			var looks = [x, y, z];
+			TilesKeeper.collectOsmTiles(this, looks, eye);
+		}
+
+		if (this.verbose >= 5) {
+			console.log('osmTiles', this.tiles);
+		}
+
+		return this;
+	}
+
+	/**
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	update (center) {
+		if (center.lon &amp;&amp; center.lat) {
+			this.geoCenter = ceneter;
+		}
+		else {
+			console.error("expecting center = {lon, lat, h(optinal)}, but get ",
+							center)
+			return
+		}
+
+		/*
+		this.forEachTile((t, xyz) => {
+			if (t.mesh === undefined) {
+				t.mesh = new THREE.Mesh(t.geom(), blankMaterial);
+				t.mesh.name = `${xyz[2]}-${xyz[0]}-${xyz[1]}`
+				s3.scene.add(t.mesh);
+				// this.tileskeepr.postMessage({cmd: 'osm', xyz: [xyz]});
+				this.loasOsmAsync(xyz);
+			}
+		});
+		*/
+		this.loadOsmTilesAsync()
+		// TODO purge
+	}
+
+	/**
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	loadOsmTilesAsync () {
+		var tz = this.tiles; // for short
+		for (var z in tz)
+			for (var x in tz[z])
+				for (var t in tz[z][x]) {
+					// fun(tz[z][x][y], [x, y, z]);
+					if (t.mesh === undefined) {
+						/*
+						t.mesh = new THREE.Mesh(t.geom(), blankMaterial);
+						t.mesh.name = `${xyz[2]}-${xyz[0]}-${xyz[1]}`
+						s3.scene.add(t.mesh);
+						// this.tileskeepr.postMessage({cmd: 'osm', xyz: [xyz]});
+						this.loasOsmAsync(xyz);
+						*/
+						t.mesh = ThreeWrapper.createMesh(this.osm.center(), t, xyz)
+						// s3.scene.add(t.mesh);
+						this.osm.addTileMesh(t.mesh, xyz); // xyz here for test
+					}
+				}
+	}
+
+	/**If xyz is not in tiles, add new xyz to tiles.
+	 * @param {tilesKeeper} tkeeper
+	 * {z: {x0: {y00: world00, ...}, {x1: {y10: world10, ...}, ...}}}
+	 * @param {vec3} dir [x, y, z] dir
+	 * @param {vec3} c0 [x, y, z] center / eye
+	 * @param {float} a radius
+	 * @return {object} tiles
+	 * @method
+	 * @memeberof TilesKeeper
+	 */
+	static collectOsmTiles (tkeeper, dir, c0) {
+		// dir = this.normalize(dir, [c0.x, c0.y, c0.z]);
+		// dir = this.normalize(dir, c0);
+		var p = OsmUtils.castPosition (c0, dir);
+		if (p) {
+			var longlat = OsmUtils.cart2rad(p);
+			longlat.lon *= 180 / Math.PI;
+			longlat.lat *= 180 / Math.PI;
+			var osmz = OsmUtils.stepz(p.w, a);
+			var xyz = {
+				x: OsmUtils.long2tile(longlat.lon, osmz),
+				y: OsmUtils.lat2tile(longlat.lat, osmz),
+				z: osmz };
+
+			if (OsmUtils.verbose >= 5) {
+				console.log('dir, p, long-lat, xyz', dir, p, longlat, xyz);
+			}
+
+			tkeeper.setile(xyz, { lon: longlat.lon, lat: longlat.lat });
+		}
+		return tkeeper;
+	}
+}
+
+export {TilesKeeper}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="map3.tiles.html">tiles</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.charts.html">charts</a></li><li><a href="xv.ecs.comp.html">comp</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effects.html">effects</a></li><li><a href="xv.ecs.comp.three.html">three</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.utils.html">utils</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="module.exports.html">exports</a></li><li><a href="ModuleChart.html">ModuleChart</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li></ul><h3>Global</h3><ul><li><a href="global.html#assets">assets</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#combineGltfPoints">combineGltfPoints</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#createObj3points">createObj3points</a></li><li><a href="global.html#createObj3s">createObj3s</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#Layers">Layers</a></li><li><a href="global.html#loadCanvtex">loadCanvtex</a></li><li><a href="global.html#loadGltf">loadGltf</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#Obj3">Obj3</a></li><li><a href="global.html#particlesGeom">particlesGeom</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#randomParticl">randomParticl</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#splash">splash</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#testPnt">testPnt</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xvShader">xvShader</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Mar 10 2020 23:49:55 GMT+0800 (Hong Kong Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

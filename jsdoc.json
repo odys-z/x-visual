@@ -1,0 +1,18 @@
+{
+  "source": {
+    "include": ["lib"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/jsdoc/",
+    "template": "./docsphinx/api-template",
+    "readme": "./docsphinx/_themes/api-index.md"
+  }
+}

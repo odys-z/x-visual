@@ -1,4 +1,4 @@
-/** @module xv.test.ext */
+/** @namespace xv.test.ext */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
