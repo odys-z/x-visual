@@ -2,4 +2,5 @@
 
 [Document: Guide & Reference](../index.html)
 
-[jsdoc example](https://github.com/bradtraversy/jsdoc-examples/)
+[jsdoc cheat sheet](https://jsdoc.app/)
+& [jsdoc configuration example](https://github.com/bradtraversy/jsdoc-examples/)
