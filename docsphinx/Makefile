@@ -54,6 +54,7 @@ help:
 ghpage:
 	@rm -rf ../docs
 	@rm -r $(BUILDDIR)
+	@mkdir $(BUILDDIR)
 	@make html
 	@cp -a $(BUILDDIR)/html/. ../docs
 	@touch ../docs/.nojekyll

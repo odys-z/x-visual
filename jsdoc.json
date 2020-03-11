@@ -13,6 +13,6 @@
     "recurse": true,
     "destination": "./docs/jsdoc/",
     "template": "./docsphinx/api-template",
-    "readme": "./docsphinx/_themes/api-index.md"
+    "readme": "./docsphinx/api-template/api-index.md"
   }
 }

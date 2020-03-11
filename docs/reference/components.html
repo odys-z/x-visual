@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Reference" href="index.html"/>
         <link rel="next" title="Systems" href="systems.html"/>
@@ -94,7 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
 <li class="toctree-l2"><a class="reference internal" href="svg.html#reference">Reference</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Components</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#components-definitions">Components Definitions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#animcate">AnimCate</a></li>
@@ -161,21 +158,21 @@
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>using components to defining an Entity</p>
 <p>With npm:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">i</span> <span class="n">x</span><span class="o">-</span><span class="n">visual</span>
+<div class="highlight-python"><div class="highlight"><pre>npm i x-visual
 </pre></div>
 </div>
 <p>and the js example for webpack:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
 
 <span class="c1">// Obj3: { geom: xv.XComponent.Obj3Type.BOX,</span>
 <span class="c1">// ...</span>
 </pre></div>
 </div>
 <p>Or in plain js:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;../../dist/xv-0.1.0.min.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="highlight-html"><div class="highlight"><pre><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;../../dist/xv-0.1.0.min.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// usage</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// usage</span>
 <span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
     <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
     <span class="nx">UserCmd</span><span class="o">:</span> <span class="p">{},</span>
@@ -194,11 +191,11 @@
 <h2>Components Definitions<a class="headerlink" href="#components-definitions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="animcate">
 <span id="id1"></span><h3>AnimCate<a class="headerlink" href="#animcate" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">ANIMTYPE_0</span> <span class="o">=</span> <span class="mh">0x40</span><span class="p">;</span>
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">ANIMTYPE_0</span> <span class="o">=</span> <span class="mh">0x40</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">AnimCate</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="nx">COMBINE_AFFINE</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
 	<span class="nx">MASK</span><span class="o">:</span> <span class="mh">0xffff</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
@@ -209,7 +206,7 @@
 <div class="section" id="animtype">
 <span id="id2"></span><h3>AnimType<a class="headerlink" href="#animtype" title="Permalink to this headline">¶</a></h3>
 <p>Supported Animation types are defined in x-visual/component/morph.js:</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -220,7 +217,7 @@
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="nx">USER</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
 
 	<span class="nx">ALPHA</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
@@ -237,7 +234,7 @@
 </div>
 <div class="section" id="assettype">
 <h3>AssetType<a class="headerlink" href="#assettype" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -250,7 +247,7 @@
 11
 12
 13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>	   <span class="c1">// gltf asset file</span>
     <span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// short for material</span>
     <span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>	 <span class="c1">// customer</span>
@@ -269,13 +266,13 @@
 </div>
 <div class="section" id="shadertype">
 <h3>ShaderType<a class="headerlink" href="#shadertype" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
 5
 6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">mask</span><span class="o">:</span> <span class="mh">0xffff</span><span class="p">,</span>       <span class="c1">// 16 bits for types</span>
     <span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span> <span class="c1">// use default texture</span>
     <span class="nx">testPoints</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1">// default</span>
@@ -287,14 +284,14 @@
 </div>
 <div class="section" id="visual-component">
 <h3>Visual Component<a class="headerlink" href="#visual-component" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
 5
 6
 7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">Visual</span> <span class="o">=</span> <span class="p">{</span>
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">Visual</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">vtype</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="nx">shader</span><span class="o">:</span> <span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">testPoints</span><span class="p">,</span>
@@ -307,7 +304,7 @@
 </div>
 <div class="section" id="obj3type-const">
 <span id="api-component-obj3type"></span><h3>Obj3Type const<a class="headerlink" href="#obj3type-const" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -339,7 +336,7 @@
 30
 31
 32
-33</pre></div></td><td class="code"><div class="highlight"><pre><span></span>const Obj3Type = {
+33</pre></div></td><td class="code"><div class="highlight"><pre>const Obj3Type = {
 	// custom or undefined
 	USER: 0,
 
@@ -377,7 +374,7 @@
 </div>
 <div class="section" id="obj3-component">
 <h3>Obj3 Component<a class="headerlink" href="#obj3-component" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -389,7 +386,7 @@
 10
 11
 12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">Obj3</span> <span class="o">=</span> <span class="p">{</span>
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">Obj3</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">USER</span><span class="p">,</span>
 	<span class="nx">layers</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="nx">LayerChannel</span><span class="p">.</span><span class="nx">ALL</span><span class="p">,</span>
@@ -458,8 +455,7 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

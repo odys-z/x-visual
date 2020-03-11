@@ -102,7 +102,7 @@ Obj3Type const
 
 .. literalinclude:: ../../lib/component/obj3.js
    :language: javascript
-   :lines: 5-37
+   :lines: 5-38
    :linenos:
 
 Obj3 Component
@@ -110,5 +110,5 @@ Obj3 Component
 
 .. literalinclude:: ../../lib/component/obj3.js
    :language: javascript
-   :lines: 40-52
+   :lines: 41-62
    :linenos:
