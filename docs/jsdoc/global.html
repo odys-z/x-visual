@@ -98,6 +98,78 @@
 
         
             
+<h4 class="name" id="AssetType"><span class="type-signature">(constant) </span>AssetType<span class="type-signature"> :<a href="global.html#AssetType">AssetType</a></span></h4>
+
+
+
+
+<div class="description">
+    <p>texture | basic material | custom shader ...</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="global.html#AssetType">AssetType</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="component_visual.js.html">component/visual.js</a>, <a href="component_visual.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="Canvas"><span class="type-signature">(constant) </span>Canvas<span class="type-signature"></span></h4>
 
 
@@ -225,7 +297,7 @@ see <a href='https://wiki.openstreetmap.org/wiki/Zoom_levels'>osm wiki: zoom lev
 
         
             
-<h4 class="name" id="ShaderFlag"><span class="type-signature">(constant) </span>ShaderFlag<span class="type-signature"></span></h4>
+<h4 class="name" id="ShaderFlag"><span class="type-signature">(constant) </span>ShaderFlag<span class="type-signature"> :<a href="global.html#ShaderFlag">ShaderFlag</a></span></h4>
 
 
 
@@ -236,6 +308,16 @@ see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="global.html#ShaderFlag">ShaderFlag</a></span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -423,193 +505,6 @@ FIXME merge with x.js/x</p>
     
 
     
-    <h4 class="name" id="combineGltfPoints"><span class="type-signature"></span>combineGltfPoints<span class="signature">(cmpObj3, nodes)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Clone and combine gltf nodes' geometry[position] buffer - the modules vertices.
-This only handling Visual.vtype == AssetType.point, making points (vertices)
-can basically rendered.
-Usually this not enough. The animizer will add more components to animize
-points.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cmpObj3</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">xv.Components.Obj3</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>nodes</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>nodes loaded from gltf.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Visual.paras,</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">paras</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>define, size, color...</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line350">line 350</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="createEntityDefs"><span class="type-signature"></span>createEntityDefs<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -757,7 +652,7 @@ https://evanw.github.io/lightgl.js/docs/matrix.html</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xmath_vec.js.html">xmath/vec.js</a>, <a href="xmath_vec.js.html#line363">line 363</a>
+        <a href="xmath_vec.js.html">xmath/vec.js</a>, <a href="xmath_vec.js.html#line384">line 384</a>
     </li></ul></dd>
     
 
@@ -940,7 +835,7 @@ If shader type is randomParticles, the buffer also has attributes color and size
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line159">line 159</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line186">line 186</a>
     </li></ul></dd>
     
 
@@ -1332,7 +1227,7 @@ paras.size_scale {float}</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line111">line 111</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line138">line 138</a>
     </li></ul></dd>
     
 
@@ -1445,189 +1340,6 @@ paras.size_scale {float}</p></td>
 
 
 
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="round_to_precision"><span class="type-signature"></span>round_to_precision<span class="signature">(x, precision,)</span><span class="type-signature"> &rarr; {number}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>round_to_precision(11, 8); // outputs 8
-round_to_precision(3.7, 0.5); // outputs 3.5</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>precision,</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>default 1</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xmath_vec.js.html">xmath/vec.js</a>, <a href="xmath_vec.js.html#line21">line 21</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>round up</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -2064,7 +1776,7 @@ other triggered recursively</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line196">line 196</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line223">line 223</a>
     </li></ul></dd>
     
 
@@ -2426,10 +2138,6 @@ this.ecs.runSystemGroup('render');</p>
 
 
 
-<div class="description">
-    <p>example: await sleep(1000);</p>
-</div>
-
 
 
 
@@ -2479,7 +2187,7 @@ this.ecs.runSystemGroup('render');</p>
 
             
 
-            <td class="description last"><p>see xv.ecs.comp.ShaderFlag</p></td>
+            <td class="description last"><p>@see ShaderFlag</p></td>
         </tr>
 
     
@@ -2502,7 +2210,7 @@ this.ecs.runSystemGroup('render');</p>
 
             
 
-            <td class="description last"><p>see xv.ecs.comp.Visual</p></td>
+            <td class="description last"><p>@see Visual</p></td>
         </tr>
 
     
@@ -2543,7 +2251,7 @@ this.ecs.runSystemGroup('render');</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line81">line 81</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -2614,13 +2322,13 @@ vertextShader {string}</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="Obj3.html">Obj3</a></li><li><a href="Obj3Type.html">Obj3Type</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#combineGltfPoints">combineGltfPoints</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#particlesGeom">particlesGeom</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#randomParticl">randomParticl</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#testPnt">testPnt</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xvShader">xvShader</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="Obj3.html">Obj3</a></li><li><a href="Obj3Type.html">Obj3Type</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#particlesGeom">particlesGeom</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#randomParticl">randomParticl</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#testPnt">testPnt</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xvShader">xvShader</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 09:45:07 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 11:48:55 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

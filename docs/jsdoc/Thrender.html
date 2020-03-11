@@ -143,6 +143,238 @@
 
         
             
+<h4 class="name" id=".createCubeVoxel"><span class="type-signature">(static) </span>createCubeVoxel<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line464">line 464</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".createCurve"><span class="type-signature">(static) </span>createCurve<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line223">line 223</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".createObj3mesh"><span class="type-signature">(static) </span>createObj3mesh<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line251">line 251</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".createObj3particles"><span class="type-signature">(static) </span>createObj3particles<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line417">line 417</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
 
 
@@ -151,7 +383,7 @@
 <div class="description">
     <p>Create THREE.Points from cmpObj3.mesh.
 Difference to createObj3particles: createObj3points create points according
-to <a href="Obj3Type.html"><code>geomType</code></a> and Obj3.box.</p>
+to Obj3.geomType (<a href="Obj3Type.html"><code>Obj3Type</code></a>) and Obj3.box.</p>
 </div>
 
 
@@ -190,6 +422,71 @@ to <a href="Obj3Type.html"><code>geomType</code></a> and Obj3.box.</p>
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line200">line 200</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Clone and combine gltf nodes' geometry[position] buffer - the modules vertices.</p>
+<p>This method can only handling Visual.vtype == AssetType.point, making
+points (vertices) can basically rendered.</p>
+<p>This is not enough. Animizer would added more components to animize points.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -268,6 +565,180 @@ to <a href="Obj3Type.html"><code>geomType</code></a> and Obj3.box.</p>
 
 
         
+            
+<h4 class="name" id=".threeGeometryCase"><span class="type-signature">(static) </span>threeGeometryCase<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line268">line 268</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="init"><span class="type-signature"></span>init<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line512">line 512</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="update"><span class="type-signature"></span>update<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line564">line 564</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
     
 
     
@@ -285,13 +756,13 @@ to <a href="Obj3Type.html"><code>geomType</code></a> and Obj3.box.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="Obj3.html">Obj3</a></li><li><a href="Obj3Type.html">Obj3Type</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#combineGltfPoints">combineGltfPoints</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#particlesGeom">particlesGeom</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#randomParticl">randomParticl</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#round_to_precision">round_to_precision</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#testPnt">testPnt</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xvShader">xvShader</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="Obj3.html">Obj3</a></li><li><a href="Obj3Type.html">Obj3Type</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#particlesGeom">particlesGeom</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#randomParticl">randomParticl</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#testPnt">testPnt</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xvShader">xvShader</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 09:45:07 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 11:48:55 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
