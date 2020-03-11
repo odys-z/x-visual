@@ -49,7 +49,10 @@
 
 
 <div class="description">
-    <p>Stub for jsdoc, a collection of common methods</p>
+    <p>Stub for jsdoc, a collection of common methods
+<b>NOTE: no 'xglsl.' prefix when calling functions.</b>
+<br>This class name is all in lower case. X-visual use this convention for a
+collection of common global methods when using jsdoc generating API doc.</p>
 </div>
 
 
@@ -93,7 +96,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line15">line 15</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -143,7 +146,193 @@
 
         
             
-<h4 class="name" id="formatUniforms"><span class="type-signature"></span>formatUniforms<span class="type-signature"></span></h4>
+<h4 class="name" id=".cubeVoxels"><span class="type-signature">(static) </span>cubeVoxels<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Create vertex &amp; fragment shaders that can morphing between multiple positions.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line301">line 301</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".cubeVoxels"><span class="type-signature">(static) </span>cubeVoxels<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>get shader of gl_point for debugging</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".cubeVoxels"><span class="type-signature">(static) </span>cubeVoxels<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Create vertex &amp; fragment shaders that can morphing between multiple positions.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line239">line 239</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".formatUniforms"><span class="type-signature">(static) </span>formatUniforms<span class="type-signature"></span></h4>
 
 
 
@@ -187,7 +376,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line17">line 17</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -205,7 +394,7 @@
 
         
             
-<h4 class="name" id="obj2uniforms"><span class="type-signature"></span>obj2uniforms<span class="type-signature"></span></h4>
+<h4 class="name" id=".obj2uniforms"><span class="type-signature">(static) </span>obj2uniforms<span class="type-signature"></span></h4>
 
 
 
@@ -249,7 +438,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line57">line 57</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -267,7 +456,192 @@
 
         
             
-<h4 class="name" id="script2uniforms"><span class="type-signature"></span>script2uniforms<span class="type-signature"></span></h4>
+<h4 class="name" id=".particlesGeom"><span class="type-signature">(static) </span>particlesGeom<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>this function can be completely covered by cubeVoxelGeom().
+Create geometry buffer from target mesh.
+If shader type is randomParticles, the buffer also has attributes color and size.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".randomRarticl"><span class="type-signature">(static) </span>randomRarticl<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Get shader for both ShaderFlag.randomParticles.
+If u_morph is animated, must providen a uniform vec3, a_target.
+Used variables: position, color, size.
+gl_position = mix(pos, taget, morph) + noise * dist;</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".randomRarticl"><span class="type-signature">(static) </span>randomRarticl<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line102">line 102</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".script2uniforms"><span class="type-signature">(static) </span>script2uniforms<span class="type-signature"></span></h4>
 
 
 
@@ -313,7 +687,7 @@ uniforms value - required by Tween.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line73">line 73</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -347,13 +721,13 @@ uniforms value - required by Tween.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="Obj3.html">Obj3</a></li><li><a href="Obj3Type.html">Obj3Type</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#particlesGeom">particlesGeom</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#randomParticl">randomParticl</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#testPnt">testPnt</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xvShader">xvShader</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 11:54:25 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 14:49:37 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

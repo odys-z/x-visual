@@ -26,46 +26,65 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
-/**
+            <pre class="prettyprint source linenums"><code>/**
  * @namespace xv.xutils
  */
 
 import * as THREE from 'three';
 
 /**
+ * Stub for jsdoc, a collection of common methods
+ * &lt;b>NOTE: no 'xutils.' prefix when calling functions.&lt;/b>
+ * &lt;br>This class name is all in lower case. X-visual use this convention for a
+ * collection of common global methods when using jsdoc generating API doc.
+ * @class xutils
+ */
+function xutils() { }
+
+/**
  * example: await sleep(1000);
  * @param {number} ms
+ * @member xutils.sleep
  */
 export function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * Get a texture generated in memory.
+ * @param {number} w 0 - 1
+ * @param {number} h 0 - 1
+ * @param {number} alpha 0 - 1
+ * @return {Unit8Array} size = w * h * 4
+ * @member xutils.ramTexture
+ */
 export function ramTexture(w, h, alpha) {
-    var size = w * h;
-    var data = new Uint8Array( 4 * size );
+	var size = w * h;
+	var data = new Uint8Array( 4 * size );
 
-    // var r = Math.floor( color.r * 255 );
-    // var g = Math.floor( color.g * 255 );
-    // var b = Math.floor( color.b * 255 );
-    // var a = Math.floor( (color.a || 1) * 255 );
-    var a = Math.floor( alpha * 255 );
+	var a = Math.floor( alpha * 255 );
 
-    for ( var i = 0; i &lt; size; i ++ ) {
+	for ( var i = 0; i &lt; size; i ++ ) {
 
-    	var stride = i * 4;
+		var stride = i * 4;
 
-        var x = i + 127
-    	data[ stride ] = (x % w) / w * 255;
-    	data[ stride + 1 ] = (x / w) / h * 255;
-    	data[ stride + 2 ] = (data[ stride ] + data[ stride + 1]) / 2;
-        data[ stride + 3 ] = a;
-    }
+		var x = i + 127
+		data[ stride ] = (x % w) / w * 255;
+		data[ stride + 1 ] = (x / w) / h * 255;
+		data[ stride + 2 ] = (data[ stride ] + data[ stride + 1]) / 2;
+		data[ stride + 3 ] = a;
+	}
 
-    var texture = new THREE.DataTexture( data, w, h, THREE.RGBAFormat );
-    return texture;
+	var texture = new THREE.DataTexture( data, w, h, THREE.RGBAFormat );
+	return texture;
 }
 
+/**
+ * Get a randome integer, between min (0), max
+ * @param {number} min
+ * @param {number} [max]
+ * @member xutils.randInt
+ */
 export function randInt(min, max) {
 	if (max === undefined) {
 		max = min;
@@ -74,29 +93,52 @@ export function randInt(min, max) {
 	return Math.random() * (max - min) + min | 0;
 }
 
+/**
+ * Get a randome color
+ * @return {string} e.g. '0x0f3271'
+ * @member xutils.randomColor
+ */
 export function randomColor() {
 	return `#${randInt(0x1000000).toString(16).padStart(6, '0')}`
 }
 
+/**
+ * Get a randome color
+ * @return {THREE.Color} color
+ * @member xutils.randomRGB
+ */
 export function randomRGB() {
 	var color = new THREE.Color(randInt(0, 0xffffff));
-    return color;
+	return color;
 }
 
-export function vec3(xyz) {
-    throw new XError('xcommon.vec3() is replaced by xv.packages.vec.vec3.js()');
-    return new THREE.Vector3(xyz[0], xyz[1], xyz[2]);
-}
+// export function vec3(xyz) {
+// 	throw new XError('xcommon.vec3() is replaced by xv.packages.vec.vec3.js()');
+// 	return new THREE.Vector3(xyz[0], xyz[1], xyz[2]);
+// }
+//
+// /**
+//  * @deprecated use {@link mat4}
+//  * @param {THREE.Matrix4} [mat]
+//  * @param {number} [max]
+//  * @return {THREE.Matrix4}
+//  * @member xutils.mat4
+// export function mat4(mat) {
+// 	throw new XError('xcommon.mat4() is replaced by xv.packages.vec.mat4.js()');
+// 	if (mat instanceof THREE.Matrix4)
+// 		return new THREE.Matrix4().set(mat.clone());
+// 	else return new THREE.Matrix4();
+// }
+//  */
 
-export function mat4(mat) {
-    throw new XError('xcommon.mat4() is replaced by xv.packages.vec.mat4.js()');
-    if (mat instanceof THREE.Matrix4)
-        return new THREE.Matrix4().set(mat.clone());
-    else return new THREE.Matrix4();
-}
-
+/**
+ * example: throw new XError('msg', 0);
+ * @param {number} err error message
+ * @param {number} [code] error code
+ * @class XError
+ */
 export function XError(err, code) {
-    this.code = code;
+	this.code = code;
 	this.message = err;
 	this.name = 'XError';
 }
@@ -110,13 +152,13 @@ export function XError(err, code) {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="Obj3.html">Obj3</a></li><li><a href="Obj3Type.html">Obj3Type</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#particlesGeom">particlesGeom</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#randomParticl">randomParticl</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#testPnt">testPnt</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xvShader">xvShader</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 11:54:25 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 14:49:37 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
