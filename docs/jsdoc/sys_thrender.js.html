@@ -92,7 +92,6 @@ export default class Thrender extends ECS.System {
 				var uniforms = Object.assign({}, e.Obj3.uniforms);
 				var uniforms = Object.assign(uniforms, e.Visual.uniforms);
 				switch (e.Visual.vtype) {
-					// if (e.Visual.vtype === AssetType.canvas) {
 					case AssetType.canvas:
 						// create texture of canvas
 						AssetKeepr.loadCanvtex(e.Canvas);
@@ -108,7 +107,6 @@ export default class Thrender extends ECS.System {
 						var m = Thrender.createObj3mesh(e.Obj3, e.Obj3.geom, mat);
 						mes.push(m);
 						break;
-					// else if (e.Visual.vtype === AssetType.mesh) {
 					case AssetType.mesh:
 						var alp = e.Visual.paras !== undefined &amp;&amp; e.Visual.paras.tex_alpha !== undefined ?
 							e.Visual.paras.tex_alpha : 1;
@@ -135,7 +133,6 @@ export default class Thrender extends ECS.System {
 						var m = Thrender.createObj3mesh(e.Obj3, e.Obj3.geom, mat);
 						mes.push(m);
 						break;
-					// else if (e.Visual.vtype === AssetType.wireframe) {
 					case AssetType.wireframe:
 						var alp = e.Visual.paras !== undefined &amp;&amp; e.Visual.paras.tex_alpha !== undefined ?
 							e.Visual.paras.tex_alpha : 1;
@@ -157,7 +154,6 @@ export default class Thrender extends ECS.System {
 						var m = Thrender.createObj3mesh(e.Obj3, e.Obj3.geom, mat);
 						mes.push(m);
 						break;
-					// else if (e.Visual.vtype === AssetType.point) {
 					case AssetType.point:
 						// use Obj3.geom vertices as points
 						if (!e.Visual.asset) {
@@ -179,8 +175,6 @@ export default class Thrender extends ECS.System {
 								});
 						}
 						break;
-					// else if (e.Visual.vtype === AssetType.refPoint
-					// || e.Visual.vtype === AssetType.cubeVoxel) {
 					case AssetType.refPoint:
 					case AssetType.cubeVoxel:
 						var eref = ecs.getEntity(e.Visual.asset);
@@ -205,9 +199,12 @@ export default class Thrender extends ECS.System {
 						}
 						break;
 					case AssetType.geomCurve:
-						var curv = Thrender.createCurve(e.Obj3, e.Visual.paras);
-						// scene.add(curv);
-						mes.push(curv);
+						var {curve, path} = Thrender.createCurve(e.Obj3, e.Visual.paras);
+						mes.push(curve);
+						if (e.ModelSeqs)
+							// For geomCurve, it's hightly likely this path is needed by MorphingAnim &amp; XTweener
+							// FIXME what's the better practice for this in ECS pattern?
+							e.ModelSeqs.cache.path = path;
 						break;
 					default:
 						console.error('TODO AssetType: ', e.Visual.vtype);
@@ -227,10 +224,18 @@ export default class Thrender extends ECS.System {
 
 	/**Create THREE.Points from cmpObj3.mesh.
 	 * Difference to createObj3particles: createObj3points create points according
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+	 * to [geomType]{@link Obj3Type} and Obj3.box.
+	 * @param {Obj3} cmpObj3 Obj3 for the mesh
+	 * @param {AssetType} geomType Visual.vtype
+	 * @param {THREE.Material} material [optional] default is THREE.ShaderMaterail.
+	 * @return {THREE.Mesh} mesh (already set in cmpObj3)
+=======
 	 * to Obj3.geomType ([Obj3Type]{@link Obj3Type}) and Obj3.box.
 	 * @param {Obj3} cmpObj3
 	 * @param {Obj3Type} geomType
 	 * @param {THREE.Material} [material]
+>>>>>>> master
 	 * @member Thrender.createObj3points
 	 */
 	static createObj3points(cmpObj3, geomType, material) {
@@ -273,7 +278,7 @@ export default class Thrender extends ECS.System {
 		var line = new THREE.Line( geometrySpline, new THREE.LineBasicMaterial( { color: 0x0f7f8f } ) );
 		line.computeLineDistances();
 		cmpObj3.mesh = line;
-		return line;
+		return {curve: line, path: points};
 	}
 
 	/**
@@ -443,6 +448,12 @@ export default class Thrender extends ECS.System {
 	}
 
 	/**
+	 * Create particles (THREE.Points) from vertices of mesh (frommesh).
+	 * @param {Obj3} cmpObj3 this enitiy's Obj3 component, uniforms merged to target mesh
+	 * @param {THREE.Mesh} fromesh referencing mesh
+	 * @param {Visual} cmpVisual this entity's Visual component.
+	 * cmVisual.paras.u_tex: texture path
+	 * cmVisual.shader: parameters for generate vertex and framgment shaders. see xglsl.xvShader().
 	 * @member Thrender.createObj3particles
 	 */
 	static createObj3particles(cmpObj3, fromesh, cmpVisual) {
@@ -568,13 +579,11 @@ export default class Thrender extends ECS.System {
 		x.scene = scene;
 		x.renderer = renderer;
 
-		// no final composer, needing a RenderPass
-		var composer;
-		// if (!x.options.effects &amp;&amp; !x.options.postEffects) {
-			composer = new EffectComposer( this.renderer );
+		// RenderPass for final composer
+		var composer
+			= new EffectComposer( this.renderer );
 			var renderPass = new RenderPass( scene, this.camera );
 			composer.addPass( renderPass );
-		// }
 
 
 		if (x.options.outlinePass) {
@@ -627,13 +636,13 @@ Thrender.query = {any};
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 14:49:37 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 15:04:10 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

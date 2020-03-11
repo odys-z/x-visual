@@ -56,11 +56,16 @@ export default class AssetKeepr {
 		assets.xref = x;
 	}
 
+	/**@property {THREE.Container} canvas */
 	static get canvs() { return assets.canvs; }
+	/**@property {object} assets - global assets */
 	static get assets() { return assets; }
+	/**@property {number} log - log level */
 	static get log() { return assets.log; }
 
-	/** @memberof AssetKeepr */
+	/**Get a spark texture, in 'data:image/png;base64'.
+	 * @return {THREE.Texture}
+	 * @member AssetKeepr.defaultex */
 	static defaultex() {
 		if (!assets.sparktex)
 		assets.sparktex = new THREE.TextureLoader().load(
@@ -81,7 +86,7 @@ export default class AssetKeepr {
 	 * @param {function} onload callback on assets loaded
 	 * see &lt;a href='https://threejs.org/docs/index.html#examples/en/loaders/GLTFLoader'>
 	 * THREE.GltfLoader&lt;/a>
-	 * @memberof AssetKeepr
+	 * @memberof AssetKeepr.loadGltf
 	 */
 	static loadGltf(scene, url, onload) {
 		if (assets.loaders[url] === undefined)
@@ -122,7 +127,7 @@ export default class AssetKeepr {
 	}
 
 	/**
-	 * @memberof AssetKeepr */
+	 * @member AssetKeepr.loadGltfNodes */
 	static loadGltfNodes(url, nnames, onParsed) {
 		if (!nnames) onParsed(undefined);
 		else {
@@ -169,7 +174,7 @@ export default class AssetKeepr {
 	 * threejs example: https://threejs.org/examples/?q=canvas#webgl_materials_texture_canvas
 	 * example source: https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_texture_canvas.html
 	 * threejs doc CanvasTexture: https://threejs.org/docs/index.html#api/en/textures/CanvasTexture
-	 * @memberof AssetKeepr
+	 * @member AssetKeepr.loadCanvtex
 	 */
 	static loadCanvtex(cmpCanv, stamp, onUpdate) {
 		const x = assets.xref;
@@ -226,7 +231,7 @@ export default class AssetKeepr {
 		return cmpCanv;
 	}
 
-	/** @memberof AssetKeepr */
+	/** @member AssetKeepr.loadSVG */
 	static loadSVG( url, opts, onload ) {
 		// scene = new THREE.Scene();
 		// scene.background = new THREE.Color( 0xb0b0b0 );
@@ -301,13 +306,12 @@ export default class AssetKeepr {
 }
 
 /**Splashing screean helper.
- * Usage:
+ * &lt;br>See &lt;a href='https://stackoverflow.com/questions/647440/showing-a-splash-screen-during-script-execution'>AnthonyWJones' Answer @ stackoverflow&lt;/a>
+ * @example
  * splash("mySplashDiv", longRunner)
  * function longRunner() {
  *    //This may take a while
  * }
- *
- * See &lt;a href='https://stackoverflow.com/questions/647440/showing-a-splash-screen-during-script-execution'>AnthonyWJones' Answer @ stackoverflow&lt;/a>
  * @param {string} splashImgId
  * @param {function} xworker the long rounner
  * @param {string} src image
@@ -336,13 +340,13 @@ export function splash(splashImgId, xworker, src) {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 14:49:37 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 15:04:10 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
