@@ -151,6 +151,7 @@ Referenced by [Gltf tutorial: A Minimal glTF File](https://github.com/KhronosGro
 
 # Documents
 
-Nope. Sorry!
+All the documents are updating.
 
-[updating: Reference & Details](https://odys-z.github.io/x-visual/)
+[updating: Introduction, Reference & Details](https://odys-z.github.io/x-visual/)
+& [jsdoc](https://odys-z.github.io/x-visual/jsdoc/index.html)

@@ -12,6 +12,8 @@ Welcome to x-visual's documentation!
      real commercial project.
 ..
 
+`jsdoc <./jsdoc/index.html>`_
+
 Welcome to the official documentation of x-visual, the free and open source
 3D data visualization toolkit.
 
@@ -26,6 +28,7 @@ Contents:
    guide/index
    design-memo/index
    reference/index
+   res/api
 
 
 Indices and tables

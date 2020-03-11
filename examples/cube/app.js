@@ -1,5 +1,5 @@
 /** Example: Hello XWorld
- * @module xv.example.hello
+ * @namespace xv.example.hello
  */
 
 import * as xv from 'x-visual'

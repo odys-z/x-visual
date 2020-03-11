@@ -10,6 +10,7 @@
   "scripts": {
     "build": "webpack --config mocha.config.js",
     "test": "mocha dist/testBundle.js",
+    "doc": "jsdoc -c jsdoc.json",
     "test-back": "webpack --config mocha-osm.config.js && mocha-webpack --webpack-config mocha-osm.config.js \"spec/**/*.spec.js\" || true"
   },
   "repository": {
@@ -45,6 +46,7 @@
     "chai-arrays": "^2.0.0",
     "chai-stats": "^0.3.0",
     "jquery": "^3.4.1",
+    "jsdoc": "^3.6.3",
     "mocha": "^6.2.2",
     "mocha-webpack": "^2.0.0-beta.0",
     "raw-loader": "^3.1.0",

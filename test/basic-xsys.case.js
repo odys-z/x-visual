@@ -1,4 +1,4 @@
-/** @module xv.test.xsys */
+/** @namespace xv.test.xsys */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'

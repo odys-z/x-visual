@@ -2,7 +2,7 @@
  * Copied from three/three-orbitcontrols/OrbitControls.
  * Copyrights and authour ect. are removed for new comments. For details, see
  * [npm package page](https://www.npmjs.com/package/three-orbitcontrols)
- * @module xv.ecs.sys.contrl
+ * @namespace xv.ecs.sys.contrl
  */
 import * as THREE from 'three';
 // import * as X from '../../x.js';

@@ -182,7 +182,7 @@
 24
 25
 26
-27</pre></div></td><td class="code"><div class="highlight"><pre><span></span>            <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
+27</pre></div></td><td class="code"><div class="highlight"><pre>            <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
                     <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>
                     <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
             <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
@@ -252,7 +252,7 @@ is only one special flag, AnimCate.COMBINE_AFFINE, defined in <a class="referenc
 </div>
 <p>To make affine tweening start from where it&#8217;s finished, and can be combined from
 all tweens of the object (component Obj3), it&#8217;s updated in XTweener like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>1. Animizer:
+<div class="highlight-python"><div class="highlight"><pre>1. Animizer:
    compose all scripts into every CmpTween&#39;s affine field.
 2. XTweener.update(): for each tweening update
    2.1 create the Obj3.combined as each tweening update buffer
@@ -285,7 +285,7 @@ expansion, such that</p>
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="kr">static</span> <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">affines</span><span class="p">,</span> <span class="nx">combined</span><span class="p">,</span> <span class="nx">mesh</span><span class="p">)</span> <span class="p">{</span>
+12</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="kr">static</span> <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">affines</span><span class="p">,</span> <span class="nx">combined</span><span class="p">,</span> <span class="nx">mesh</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">combined</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">combined</span><span class="p">.</span><span class="nx">m0</span><span class="p">)</span> <span class="p">{</span>
@@ -335,7 +335,7 @@ be ignored. (We are considering reorganize the Tween.js scheduling schema.)</em>
 <li>ease:</li>
 </ul>
 <p>Same as tween.js, any one of</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Linear</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Linear</span>
 <span class="n">Quadratic</span>
 <span class="n">Cubic</span>
 <span class="n">Quartic</span>
@@ -364,7 +364,7 @@ is finished.</p>
 <blockquote>
 <div>see <a class="reference internal" href="#anim-paras-start"><span>paras.start</span></a>.</div></blockquote>
 <p>Example:</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="err">type:</span> <span class="p">[{</span> <span class="err">entity:</span> <span class="err">&#39;id&#39;,</span>
+<div class="highlight-json"><div class="highlight"><pre><span class="err">type:</span> <span class="p">[{</span> <span class="err">entity:</span> <span class="err">&#39;id&#39;,</span>
          <span class="err">seqx:</span> <span class="err">0,</span>
          <span class="err">start:</span> <span class="err">0.1</span><span class="p">}]</span>
 </pre></div>
@@ -414,13 +414,13 @@ is finished.</p>
 <p><a class="reference external" href="https://discourse.threejs.org/t/how-to-rotate-an-object-around-a-pivot-point/6838">Three.js org discourse: How to rotate an object around a pivot point?</a></p>
 </div></blockquote>
 <p>Yep,</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>1 0 x       1 0 -x      1 0 0
+<div class="highlight-python"><div class="highlight"><pre>1 0 x       1 0 -x      1 0 0
 0 1 y   *   0 1 -y   =  0 1 0
 0 0 1       0 0  1      0 0 1
 </pre></div>
 </div>
 <p>Three.js implementation</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">Object3D</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">Object3D</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">position</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vector3</span><span class="p">();</span>
     <span class="kd">var</span> <span class="nx">rotation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Euler</span><span class="p">();</span>
     <span class="kd">var</span> <span class="nx">quaternion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Quaternion</span><span class="p">();</span>
@@ -709,7 +709,7 @@ moving the poings, changing the alpha.</p>
 96
 97
 98
-99</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    /**Senario: suppose you have 2 models to be morphed (animated). */
+99</pre></div></td><td class="code"><div class="highlight"><pre>    /**Senario: suppose you have 2 models to be morphed (animated). */
     // initiating xworld
     const xworld = new xv.XWorld(document.getElementById(&#39;canv&#39;),
                         window, {canvasize: [480, 320]});
