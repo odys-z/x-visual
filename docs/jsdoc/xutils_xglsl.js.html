@@ -38,6 +38,9 @@ import AssetKeepr from './assetkeepr'
 
 /**
  * Stub for jsdoc, a collection of common methods
+ * &lt;b>NOTE: no 'xglsl.' prefix when calling functions.&lt;/b>
+ * &lt;br>This class name is all in lower case. X-visual use this convention for a
+ * collection of common global methods when using jsdoc generating API doc.
  * @class
  */
 function xglsl() { }
@@ -47,7 +50,7 @@ function xglsl() { }
  * @param {Visual} cmpVisual
  * @param {Obj3} cmpObj3 not used?
  * @return {object} uniforms for THREE.Mesh - properties are in format of name: {value}
- * @member xglsl#formatUniforms
+ * @member xglsl.formatUniforms
  */
 export function formatUniforms(cmpVisual, cmpObj3) {
 	var uniforms = {};
@@ -87,7 +90,7 @@ export function formatUniforms(cmpVisual, cmpObj3) {
  * @param {object} properties
  * @param {THREE.Uniforms} uniforms
  * @return {object} uniforms for THREE.Mesh - properties are in format of name: {value}
- * @member xglsl#obj2uniforms
+ * @member xglsl.obj2uniforms
  */
 export function obj2uniforms(properties, uniforms) {
 	var u = {};
@@ -97,7 +100,6 @@ export function obj2uniforms(properties, uniforms) {
 	return Object.assign(uniforms || {}, u);
 }
 
-
 /**
  * Convert script value to THREE.Uniforms format (properties are {value} object).
  * &lt;br>If properties of sval is an array, only it's first value are used as the
@@ -105,7 +107,7 @@ export function obj2uniforms(properties, uniforms) {
  * @param {object} sval
  * @param {Obj3} uniforms not used?
  * @return {object} uniforms for THREE.Mesh - properties are in format of name: {value}
- * @member xglsl#script2uniforms
+ * @member xglsl.script2uniforms
  */
 export function script2uniforms(svals, uniforms) {
 	var u = {};
@@ -132,7 +134,7 @@ export function script2uniforms(svals, uniforms) {
  * The shaders for THREE.ShaderMaterial (using variables supported by Three.js)
  * vertextShader {string}
  * vertextShader {string}
- */
+ * @member xglsl.randomRarticl */
 export function xvShader(flag, vparas) {
 	var s;
     switch (flag &amp; ShaderFlag.mask) {
@@ -162,7 +164,8 @@ export function xvShader(flag, vparas) {
  * paras.a_dest {vec3} in world
  * paras.a_noise {float}
  * paras.size_scale {float}
- */
+ * @return {object} {vertexShader, fragmentShader}
+ * @member xglsl.randomRarticl */
 function randomParticl(paras) {
  return { vertexShader: `
   uniform float u_alpha;
@@ -210,6 +213,7 @@ function randomParticl(paras) {
  * @param {TREE.Mesh} meshSrc
  * @param {TREE.Mesh} meshTarget
  * @return {THREE.BufferGeometry}
+ * @member xglsl.particlesGeom
  */
 export function particlesGeom (vparas, meshSrc, meshTarget) {
 	var sizes = [];
@@ -247,7 +251,8 @@ export function particlesGeom (vparas, meshSrc, meshTarget) {
 
 /** get shader of gl_point for debugging
  * @param {object} paras paras.vert_scale [optional] number scale of vertices
- * @return {object} {vertexShader, fragmentShader} */
+ * @return {object} {vertexShader, fragmentShader}
+ * @member xglsl.cubeVoxels */
 function testPnt(paras) {
  return { vertexShader: `
   void main() {
@@ -259,6 +264,11 @@ function testPnt(paras) {
  };
 }
 
+/**Create vertex &amp; fragment shaders that can morphing between multiple positions.
+ * @param {object} paras
+ * @return {object} {vertexShader, fragmentShader}
+ * @member xglsl.cubeVoxels
+ */
 function cubeVoxels9(paras) {
  return { vertexShader: `
   uniform float u_alpha;
@@ -316,64 +326,11 @@ function cubeVoxels9(paras) {
  };
 }
 
-// function cubeVoxels1(paras) {
-//  return { vertexShader: `
-//   uniform vec3 u_sects;
-//   uniform vec3 u_box0;
-//   uniform vec3 u_box1;
-//   uniform float u_morph;
-//
-//   vec4 ix2model(vec3 sects, vec3 box) {
-//     return vec4((position - sects / 2.0) * box / sects, 1.);
-//   }
-//
-//   void main() {
-// 	vec4 pos = ix2model(u_sects, u_box0);
-// 	pos = mix(pos, ix2model(u_sects, u_box1), u_morph);
-//     gl_Position = projectionMatrix * modelViewMatrix * pos;
-// 	gl_PointSize = 6.0;
-//   }
-//   `,
-//
-//  fragmentShader: `
-//   void main() {
-// 	gl_FragColor = vec4(1.0);
-//   } `
-//  };
-// }
-//
-// function cubeVoxels2(paras) {
-// 	var boxi = ''; // 'uniform vec3 u_box0; uniform float u_morph0;';
-// 	var pos = '';
-// 	for (var i = 0; i &lt; paras.uniforms.u_cubes.length; i++) {
-// 		boxi += `\nuniform vec3 u_box${i}; uniform float u_morph${i};`;
-// 		if (i > 0)
-// 		pos += `pos = mix(pos, ix2model(u_sects, u_box${i}), u_morph${i-1});\n    `;
-// 	}
-// 	pos += `pos = mix(pos, ix2model(u_sects, u_box0), u_morph${i-1});\n    `;
-//  return { vertexShader: `
-//   uniform vec3 u_sects;
-//   //uniform vec3 u_box0; uniform float u_morph0;
-//   ${boxi}
-//   vec4 ix2model(vec3 sects, vec3 box) {
-//     return vec4((position - sects / 2.0) * box / sects, 1.);
-//   }
-//   void main() {
-// 	vec4 pos = ix2model(u_sects, u_box0);
-// 	// pos = mix(pos, ix2model(u_sects, u_box1), u_morph1);
-// 	${pos}
-//     gl_Position = projectionMatrix * modelViewMatrix * pos;
-// 	gl_PointSize = 3.0 * ${paras.vert_scale !== undefined ? paras.vert_scale : '3'};
-//   }
-//   `,
-//
-//  fragmentShader: `
-//   void main() {
-// 	gl_FragColor = vec4(1.0);
-//   } `
-//  };
-// }
-
+/**Create vertex &amp; fragment shaders that can morphing between multiple positions.
+ * @param {object} paras
+ * @return {object} {vertexShader, fragmentShader}
+ * @member xglsl.cubeVoxels
+ */
 function cubeVoxels(paras) {
 	var boxi = ''; // 'uniform vec3 u_box0; uniform float u_morph0;';
 	var pos = '';
@@ -482,13 +439,13 @@ export function cubeVoxelGeom(vparas) {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="Obj3.html">Obj3</a></li><li><a href="Obj3Type.html">Obj3Type</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#particlesGeom">particlesGeom</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#randomParticl">randomParticl</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#testPnt">testPnt</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xvShader">xvShader</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 11:48:55 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 14:49:37 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

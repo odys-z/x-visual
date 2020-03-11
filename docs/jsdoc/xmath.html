@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: xmath/affine.js</title>
+    <title>JSDoc: Class: xmath</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,109 +17,267 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: xmath/affine.js</h1>
+    <h1 class="page-title">Class: xmath</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Affine Transformation Helper
- * @namespace xv.xmath
- */
+        <h2><span class="attribs"><span class="type-signature"></span></span>xmath<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
 
-import {vec3, mat4} from './vec';
+<article>
+    <div class="container-overview">
+    
+        
 
-export class Affine {
-    constructor() { }
+    
 
-    static orbit( theta, pivot, axis, affines ) {
-        if (!Array.isArray(affines))
-            affines = [];
-        if (axis instanceof vec3)
-            axis = axis.arr();
-        affines.push({translate: vec3.mul(pivot, -1).arr()}); // translation = 0 - pivot
-        affines.push({rotate: {deg: theta, axis}});
-        affines.push({translate: Array.isArray(pivot) ? pivot : pivot.arr()});  // - translation
-        return affines;
-    }
+    
+    <h4 class="name" id="xmath"><span class="type-signature"></span>new xmath<span class="signature">()</span><span class="type-signature"></span></h4>
+    
 
-    static combineBegin(combined) {
-		if (combined.isPlaying) {
-			combined.isPlaying = false;
-			combined.mi.i(); // created when starting tween triggered in combineUpdate()
-		}
-    }
+    
 
-    /**Update affine combination for the object. (also trigger m0 snapshot for
-     * the first time).
-     *
-     * Affines need a buffer of combined mat4 for all tweening results.
-     * reason of mat4 buffer:
-     * XTweener must tweening on an object, e.g. affines[{rotate}],
-     * but THREE.Object3D.applyMatrix4() can accumulate transformation
-     * like rotations, makes rotation tweening faster and faster.
-     */
-    static combineUpdate(affines, combined, mesh) {
-        combined.isPlaying = true;
 
-        if (!combined.m0) {
-            // Starting tween event triggered at first of the tween sequence.
-            // m0 == undefined is a flag of starting tweens
-            // Handled here to ducking unnecessary "new" operation
-            // - XTweener calling combineBegin() repeatedly,
-            mesh.updateMatrix();
-            combined.m0 = new mat4(mesh.matrix);
-            combined.mi = new mat4();
-        }
 
-        // combine affines -> combined
-        if (affines &amp;&amp; affines.length > 0) {
-            var mi = combined.mi;
-            for (var ax = 0; ax &lt; affines.length; ax++) {
-                mi.appAfine(affines[ax]);
-            }
-            mi.mulpost(combined.m0);
-        }
-    }
+<div class="description">
+    <p>Stub class for jsdoc, a collection of common math function.
+<br>Use the function directly.</p>
+<p><b>NOTE: no 'xmath.' prefix when calling functions.</b>
+<br>This class name is all in lower case. X-visual use this convention for a
+collection of common global methods when using jsdoc generating API doc.</p>
+</div>
 
-    /**Update combined transform to Obj3.mesh.matrix.
-     * first update mesh matrix, then apply affine transformation to it
-     * Three.js docs about the order:
-     * Convenience properties and matrixAutoUpdate,
-     * https://threejs.org/docs/#manual/en/introduction/Matrix-transformations
-     */
-    static combineEnd(combined, mesh) {
-        /* Source of THREE.Object3D
-        applyMatrix4: function ( matrix ) {
-            if ( this.matrixAutoUpdate ) this.updateMatrix();
-            this.matrix.premultiply( matrix );
-            this.matrix.decompose( this.position, this.quaternion, this.scale );
-        },
-        */
-        // nothing to do if never started
-        if (combined.isPlaying &amp;&amp; combined.m0) {
-            mesh.matrixAutoUpdate = false;
-            if (!combined.mi) {
-                debugger;
-            }
-            combined.mi.put2js( mesh.matrix );
-            mesh.matrix.decompose( mesh.position, mesh.quaternion, mesh.scale );
-        }
-    }
 
-    static tweenStop(combined, mesh) {
-        combined.isPlaying = false;
-        combined.m0 = undefined;
-		mesh.matrixAutoUpdate = true;
-    }
-}
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xmath_vec.js.html">xmath/vec.js</a>, <a href="xmath_vec.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".radian"><span class="type-signature">(static) </span>radian<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xmath_vec.js.html">xmath/vec.js</a>, <a href="xmath_vec.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".round_to_precision"><span class="type-signature">(static) </span>round_to_precision<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <pre>exampels:
+round_to_precision(11, 8);    // outputs 8
+round_to_precision(3.7, 0.5); // outputs 3.5</pre>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xmath_vec.js.html">xmath/vec.js</a>, <a href="xmath_vec.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
