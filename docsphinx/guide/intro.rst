@@ -105,7 +105,17 @@ An x-visual application includes:
     Systems update components' state, changing how data been rendered. A user system
     can change object's position, moving path or color etc.
 
-4. Next Step
+4. Framework Functions & API
+
+Basically x-visual is not intended to be a well round data visualization framework.
+It's only used to verifying some idea required by a commercial system and as a
+personal arsenal for consolidate any creative thoughts.
+
+It would been eventually useful if it could trigger any further innovation.
+
+So currently there is no more documents about it's functions.
+
+5. Next Step
 ------------
 
 There are some html test cases can be useful, see `x-visual/test/html <https://github.com/odys-z/x-visual>`_.
