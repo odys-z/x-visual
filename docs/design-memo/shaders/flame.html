@@ -95,8 +95,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">Assets Loader</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Shader Samples</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Shadertoy Flame</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#noisy-star">Noisy Star</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#flame-modified">Flame Modified</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#throbbing-star">Throbbing Star</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lesser-raymarch-flame">Lesser Raymarch Flame</a></li>
 </ul>
 </li>
 </ul>
@@ -157,8 +157,8 @@
             
   <div class="section" id="shadertoy-flame">
 <h1>Shadertoy Flame<a class="headerlink" href="#shadertoy-flame" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="noisy-star">
-<h2>Noisy Star<a class="headerlink" href="#noisy-star" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="throbbing-star">
+<h2>Throbbing Star<a class="headerlink" href="#throbbing-star" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://www.shadertoy.com/view/MdX3zr">reference</a></p>
 <a class="reference internal image-reference" href="../../_images/001-noise-star.png"><img alt="../../_images/001-noise-star.png" src="../../_images/001-noise-star.png" style="width: 320px;" /></a>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span> <span class="n">noise</span><span class="p">(</span><span class="kt">vec3</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
@@ -188,8 +188,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="flame-modified">
-<h2>Flame Modified<a class="headerlink" href="#flame-modified" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lesser-raymarch-flame">
+<h2>Lesser Raymarch Flame<a class="headerlink" href="#lesser-raymarch-flame" title="Permalink to this headline">¶</a></h2>
 <a class="reference internal image-reference" href="../../_images/002-flame-lesser-raymartch.png"><img alt="../../_images/002-flame-lesser-raymartch.png" src="../../_images/002-flame-lesser-raymartch.png" style="width: 320px;" /></a>
 <a class="reference internal image-reference" href="../../_images/002-flame-particles.png"><img alt="../../_images/002-flame-particles.png" src="../../_images/002-flame-particles.png" style="width: 320px;" /></a>
 <div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span> <span class="n">noise</span><span class="p">(</span><span class="kt">vec3</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
@@ -218,7 +218,7 @@
 <span class="p">}</span>
 
 <span class="kt">vec4</span> <span class="n">raymarch</span><span class="p">(</span><span class="kt">vec3</span> <span class="n">org</span><span class="p">,</span> <span class="kt">vec3</span> <span class="n">dir</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">glow</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">glow</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">;</span>  <span class="c1">// eps can affect border significantly</span>
     <span class="kt">vec3</span>  <span class="n">p</span> <span class="o">=</span> <span class="n">org</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="n">glowed</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 

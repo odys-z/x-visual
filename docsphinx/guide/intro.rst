@@ -106,14 +106,17 @@ An x-visual application includes:
     can change object's position, moving path or color etc.
 
 4. Framework Functions & API
+----------------------------
 
 Basically x-visual is not intended to be a well round data visualization framework.
 It's only used to verifying some idea required by a commercial system and as a
 personal arsenal for consolidate any creative thoughts.
 
-It would been eventually useful if it could trigger any further innovation.
+It would been eventually useful if it could trigger any further innovation, when
+math met arts.
 
-So currently there is no more documents about it's functions.
+So currently there is no more documents about it's function details, jsut feel
+free to try it.
 
 5. Next Step
 ------------

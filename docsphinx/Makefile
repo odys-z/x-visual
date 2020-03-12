@@ -52,7 +52,7 @@ help:
 # https://www.docslikecode.com/articles/github-pages-python-sphinx/
 # https://github.com/sphinx-doc/sphinx/issues/3382#issuecomment-470772316
 ghpage:
-	@rm -rf ../docs
+	# @rm -rf ../docs
 	@rm -r $(BUILDDIR)
 	@mkdir $(BUILDDIR)
 	@make html

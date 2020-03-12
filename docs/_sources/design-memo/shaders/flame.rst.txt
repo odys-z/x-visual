@@ -1,8 +1,8 @@
 Shadertoy Flame
 ===============
 
-Noisy Star
-----------
+Throbbing Star
+--------------
 
 `reference <https://www.shadertoy.com/view/MdX3zr>`_
 
@@ -37,8 +37,8 @@ Noisy Star
     }
 ..
 
-Flame Modified
---------------
+Lesser Raymarch Flame
+---------------------
 
 .. image:: imgs/002-flame-lesser-raymartch.png
     :width: 320px
@@ -74,7 +74,7 @@ Flame Modified
     }
 
     vec4 raymarch(vec3 org, vec3 dir) {
-        float d = 0.0, glow = 0.0, eps = 0.02;
+        float d = 0.0, glow = 0.0, eps = 0.02;  // eps can affect border significantly
         vec3  p = org;
         bool glowed = false;
 
