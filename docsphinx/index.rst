@@ -28,7 +28,6 @@ Contents:
    guide/index
    design-memo/index
    reference/index
-   res/api
 
 
 Indices and tables

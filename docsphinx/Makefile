@@ -58,8 +58,8 @@ ghpage:
 	@make html
 	@cp -a $(BUILDDIR)/html/. ../docs
 	@touch ../docs/.nojekyll
-	@cd ..
-	@npm run doc
+	# @cd ..
+	# @npm run doc
 
 .PHONY: clean
 clean:
