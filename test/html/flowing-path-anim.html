@@ -35,11 +35,11 @@
                                 count: 7,            // total points
                                 interval: 0.2,       // new born after previous
                                 path: 'p1',          // p1.Obj3.mesh (position array)
-                                ease: xv.XEasing.Elastic.InOut} }
+                                ease: xv.XEasing.Elastic.Elastic} }
                 ]] },
 				CmpTweens: {},
                 // FIXME is this means we don't have a flowing path effect? (only glowing + ModelSeqs)
-                FlowingPath: {}
+                FlowingPath: {paras: {vert_scale: '160.0'}}
             });
         }
     }

@@ -9,6 +9,7 @@ Contents:
    ecs
    view
    assets
+   shaders/index
    obj3
    renderer
    animizer

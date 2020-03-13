@@ -31,7 +31,7 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 
 .. literalinclude:: ../../examples/cube/hellocube.js
    :language: javascript
-   :lines: 1-50
+   :lines: 1-49
    :linenos:
 
 在Cube中定义了一个立方体, zh: and id, Obj3, Visual, update(), query...
@@ -159,7 +159,7 @@ AnimType.UNIFORMS
 
 .. literalinclude:: ../../test/html/model-morph.html
    :language: javascript
-   :lines: 74-110
+   :lines: 74-107
    :linenos:
 
 这个动画脚本将使Points的位置在两个模型的顶点位置间移动。因为u_morph设置了两个模型顶点的权重。
