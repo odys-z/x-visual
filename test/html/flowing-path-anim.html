@@ -31,12 +31,13 @@
                 ModelSeqs: { script: [[
                       { mtype: xv.XComponent.AnimType.PATH_MOVE,
                         paras: {start: 0,            // auto start
-                                duration: 0.7,       // from born to death
+                                duration: 9.7,       // from born to death
                                 count: 7,            // total points
                                 interval: 0.2,       // new born after previous
                                 path: 'p1',          // p1.Obj3.mesh (position array)
-                                ease: xv.XEasing.Elastic.Elastic} }
+                                ease: xv.XEasing.Elastic.InOut} }
                 ]] },
+				CmpTweens: {},
                 // FIXME is this means we don't have a flowing path effect? (only glowing + ModelSeqs)
                 FlowingPath: {}
             });
