@@ -22,7 +22,7 @@
         initPaths(ecs, scene) {
             ecs.createEntity({
                 id: 'p1',
-                Obj3: { geom: xv.XComponent.Obj3Type.RANDOM_CURVE,
+                Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
                         box: [5],	// segments
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.geomCurve,
@@ -44,7 +44,7 @@
 
             ecs.createEntity({
                 id: 'p2',
-                Obj3: { geom: xv.XComponent.Obj3Type.RANDOM_SECTS,
+                Obj3: { geom: xv.XComponent.Obj3Type.RandomSects,
                         box: [5],	// segments
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.geomCurve,
