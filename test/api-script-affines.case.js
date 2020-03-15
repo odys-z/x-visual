@@ -46,11 +46,11 @@ describe('case: [affine] orbit combine', function() {
                             pivot: [120, 0, 0],
                             deg: [0, 180],
                             ease: null} }],
-                 [{ mtype: AnimType.ROTATEX,
-                    paras: {start: Infinity,
-                            duration: 0.4,
-                            deg: [0, 60],
-                            ease: null} } ],
+                 // [{ mtype: AnimType.ROTATEX,
+                 //    paras: {start: Infinity,
+                 //            duration: 0.4,
+                 //            deg: [0, 60],
+                 //            ease: null} } ],
                 ] },
             CmpTweens: {}
         });
@@ -69,7 +69,7 @@ describe('case: [affine] orbit combine', function() {
                         .translate(-120, 0, 0)
                         .rotate(xmath.radian(180), 0, 1, 0)
                         .translate(120, 0, 0)
-                        .rotate(xmath.radian(60), 1, 0, 0);
+                        // .rotate(xmath.radian(60), 1, 0, 0);
             // as rotation happens simutanously, some parts are not the same values
             mt4.m[5] = mt4.m[6] = mt4.m[9] = mt4.m[10] = 0;
             var ele = mjs.elements;
