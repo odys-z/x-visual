@@ -61,7 +61,7 @@
 		Visual:{vtype: xv.AssetType.cubeVoxel,
 				asset: 'ent1',
 				shader: xv.XComponent.ShaderFlag.cubeVoxels,
-				paras: {vert_scale: '20.',          // TODO doc special note for "."
+				paras: {vert_scale: '20.',          // NOTE "." is neccessary as this is a string in glsl source.
 						uniforms:{u_cubes: ['ent1', 'ent2', 'ent3'],// ent2.Obj3.mesh, matrix, etc.
 								  u_sects: [12, 8, 5],              // sections in x, y, z
 								  u_tex: 'tex/spark1.png' } }},
