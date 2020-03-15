@@ -6,7 +6,8 @@ import chai from 'chai'
 import { expect, assert } from 'chai'
 
 import * as THREE from 'three'
-import {vec3, mat4, radian} from '../lib/xmath/vec'
+import {vec3, mat4} from '../lib/xmath/vec'
+import xmath from '../lib/xmath/math'
 import {Affine} from '../lib/xmath/affine'
 
 
@@ -32,7 +33,7 @@ function orbitY_theta ( theta, affines, pivot ) {
 
 describe('case: [mat4] THREE.Matrix4 compatiblility', () => {
     it('mat4 -> THREE.Matrix4', () => {
-        var r90 = radian(90);
+        var r90 = xmath.radian(90);
         var rx = mat4.rotx(r90);
         var m4js = new THREE.Matrix4().set(...rx.m);
         var jsarr = m4js.transpose().toArray();
@@ -60,19 +61,19 @@ describe('case: [mat4] operator basics', () => {
         m4_.m[1] = -2;
         assert.isTrue(m4.eq(m4_), "round(3) & eq()");
 
-        var mt4 = new mat4().rotate(radian(90), 0, 1, 0);
-        var ry = mat4.roty(radian(90));
+        var mt4 = new mat4().rotate(xmath.radian(90), 0, 1, 0);
+        var ry = mat4.roty(xmath.radian(90));
         assert.isTrue(mt4.eq(ry), "A 000");
 
         var mt4 = new mat4()
-            .rotate(radian(60), 1, 0, 0)
-            .rotate(radian(30), 1, 0, 0);
-        var rx = mat4.rotx(radian(90));
+            .rotate(xmath.radian(60), 1, 0, 0)
+            .rotate(xmath.radian(30), 1, 0, 0);
+        var rx = mat4.rotx(xmath.radian(90));
         assert.isTrue(mt4.eq(rx), "A ---");
 
         mt4 = new mat4()
             .translate(-120, 0, 0)
-            .rotate(radian(180), 0, 1, 0)
+            .rotate(xmath.radian(180), 0, 1, 0)
             .translate(20, 0, 0);
 
         var mt5 = new mat4().translate(140, 0, 0).reflect(-1, 1, -1);
@@ -80,21 +81,21 @@ describe('case: [mat4] operator basics', () => {
 
         mt4 = new mat4()
             .translate(-120, 0, 0)
-            .rotate(radian(60), 0, 1, 0)
+            .rotate(xmath.radian(60), 0, 1, 0)
             .translate(120, 0, 0);
         mt4.translate(-120, 0, 0)
-            .rotate(radian(60), 0, 1, 0)
+            .rotate(xmath.radian(60), 0, 1, 0)
             .translate(120, 0, 0);
         mt4.translate(-120, 0, 0)
-            .rotate(radian(60), 0, 1, 0)
+            .rotate(xmath.radian(60), 0, 1, 0)
             .translate(120, 0, 0);
         mt5 = new mat4().translate(240, 0, 0).reflect([-1, 1, -1]);
         assert.isTrue(mt5.eq(mt4), "C ---");
     });
 
     it('mat4 instance operator', () => {
-        var r90 = radian(90);
-        var r_90 = radian(-90);
+        var r90 = xmath.radian(90);
+        var r_90 = xmath.radian(-90);
         var rx = mat4.rotx(r90);
         var ry = mat4.roty(r90);
         var rz = mat4.rotz(r90);
@@ -125,7 +126,7 @@ describe('case: [mat4] operator basics', () => {
          * see General rotations, Rotation Matrix, https://en.wikipedia.org/wiki/Rotation_matrix
          *
          */
-        var r = radian(90);
+        var r = xmath.radian(90);
         var a = r; var b = r;
         var ca = Math.cos( a );
         var sa = Math.sin( a );
@@ -142,7 +143,7 @@ describe('case: [mat4] operator basics', () => {
 
 
         // r = Math.PI / 6;
-        r = radian(30);
+        r = xmath.radian(30);
         rx = mat4.rotx(r);
         ry = mat4.roty(r);
         rz = mat4.rotz(r);
