@@ -41,24 +41,32 @@ import XTweener from './xtweener';
 import {TWEEN, TriggerEvent} from './xtweener';
 import {XError} from '../../xutils/xcommon'
 import * as xutils from '../../xutils/xcommon'
-import {vec3, mat4, radian} from '../../xmath/vec'
+import {vec3, mat4} from '../../xmath/vec'
 import * as xglsl from '../../xutils/xglsl'
+import {xmath} from '../../xmath/math'
 
+/**MorphingAnim update query - not used
+ * @memberof MorphingAnim */
 const iffModel = ['Obj3', 'ModelSeqs', 'CmpTweens'];
 
 /**Change ModelSeqs into tween scripts (CmpTweens) that can be tweened by XTweener.
- * @class */
+ * @class MorphingAnim */
 class MorphingAnim extends ECS.System {
 	/**Get startriggerings.
 	 * startriggerings are tween reference that will be started at next update,
 	 * by xtweener.
 	 * deprecated?
-	 * @memberof MorphingAnim
+	 * @property {object} startings - object buffer triggerring tweens on next update
 	 */
 	get startings() {
 		return this.startriggerings;
 	}
 
+	/**
+	 * @param {ECS} ecs
+	 * @param {object} options
+	 * @param {object} has query conditions
+	 */
 	constructor(ecs, options, has) {
 		super(ecs);
 		this.ecs = ecs;
@@ -70,6 +78,7 @@ class MorphingAnim extends ECS.System {
 	 * Animize script sequences into Tweens
 	 * @param {ECS} ecs
 	 * @param {array&lt;ECS.Entity>} entities
+	 * @member MorphingAnim#initTweens
 	 */
 	initTweens(ecs, entities) {
 		if (entities) {
@@ -123,35 +132,35 @@ class MorphingAnim extends ECS.System {
 										console.warn("Animizer.initTweens(): axis (${scrpt.paras.axis}) is not an array.")
 										axis = [0, 1, 0];
 									}
-									var rotate = {rad: radian(scrpt.paras.deg[0]), axis};
+									var rotate = {rad: xmath.radian(scrpt.paras.deg[0]), axis};
 
 									cmp.affines.push({rotate});
 									cmp.affines.push({translate: new vec3(scrpt.paras.pivot).arr()});
 									tween = TWEEN.Tween(cmp, rotate)
-										.to({rad: radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
+										.to({rad: xmath.radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
 										.easing(scrpt.paras.ease);
 								}
 								else if (mtype === AnimType.ROTAXIS) {
-									// e.Obj3.mesh.rotation.y = radian(scrpt.paras.deg[0]);
+									// e.Obj3.mesh.rotation.y = xmath.radian(scrpt.paras.deg[0]);
 									// tween = TWEEN.Tween(cmp, e.Obj3.mesh.rotation)
-										// .to({y: radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
+										// .to({y: xmath.radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
 										// .easing(scrpt.paras.ease);
 									var axis = scrpt.paras.axis;
 									if (!Array.isArray(axis)) {
 										console.warn("Animizer.initTweens(): axis (${scrpt.paras.axis}) is not an array.")
 										axis = [0, 1, 0];
 									}
-									var rotate = {rad: radian(scrpt.paras.deg[0]), axis};
+									var rotate = {rad: xmath.radian(scrpt.paras.deg[0]), axis};
 
 									cmp.affines.push({rotate});
 									tween = TWEEN.Tween(cmp, rotate)
-										.to({rad: radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
+										.to({rad: xmath.radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
 										.easing(scrpt.paras.ease);
 								}
 								else if (scrpt.mtype === AnimType.ROTATEX) {
-									e.Obj3.mesh.rotation.x = radian(scrpt.paras.deg[0]);
+									e.Obj3.mesh.rotation.x = xmath.radian(scrpt.paras.deg[0]);
 									tween = TWEEN.Tween(cmp, e.Obj3.mesh.rotation)
-										.to({x: radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
+										.to({x: xmath.radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
 										.easing(scrpt.paras.ease);
 								}
 								else {
@@ -160,9 +169,9 @@ class MorphingAnim extends ECS.System {
 							}
 							// else if (mtype === AnimType.ROTATEX) {
 							// 	cmp = {};
-							// 	e.Obj3.mesh.rotation.x = radian(scrpt.paras.deg[0]);
+							// 	e.Obj3.mesh.rotation.x = xmath.radian(scrpt.paras.deg[0]);
 							// 	tween = TWEEN.Tween(cmp, e.Obj3.mesh.rotation)
-							// 		.to({x: radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
+							// 		.to({x: xmath.radian(scrpt.paras.deg[1])}, scrpt.paras.duration * 1000 || cmp.duration)
 							// 		.easing(scrpt.paras.ease);
 							// }
 							else if (mtype === AnimType.ALPHA) {
@@ -236,8 +245,7 @@ class MorphingAnim extends ECS.System {
 										"Obj3.mesh:\n", e.Obj3.mesh, "script:\n", seqx, seq);
 								}
 								else {
-									// cmp = {};
-									var path = e.Obj3.mesh; // parent line
+									var path = e.ModelSeqs.cache.path; // parent line
 									// add some moving points as children of path
 
 									// var {start, to} = createFlowingPoints(path, e.FlowingPath.paras);
@@ -245,11 +253,13 @@ class MorphingAnim extends ECS.System {
 									// e.Obj3.mesh.material.uniforms = Object.assign(e.Obj3.mesh.material.uniforms, start);
 
 									var point;
-									var {point, tween, cmp} = createFlowingPoints(path, e.FlowingPath.paras);
+									var {point, tween, cmp} = MorphingAnim
+										.createFlowingParticles(path, scrpt.paras, e.FlowingPath.paras);
 									e.Obj3.mesh.add(point);
+									// point.layers = e.Obj3.mesh.layers;
 
 									tween // = TWEEN.Tween(cmp, e.Obj3.mesh.material.uniforms)
-										.to(to, scrpt.paras.duration * 1000 || cmp.duration)
+										// .to(to, scrpt.paras.duration * 1000 || cmp.duration)
 										.easing(scrpt.paras.ease);
 								}
 							}
@@ -298,29 +308,33 @@ class MorphingAnim extends ECS.System {
 		}
 	}
 
+	/** Current this doesn't acctually updating anything.
+	 * @param {number} tick
+	 * @param {array} entities
+	 * @member MorphingAnim#update
+	 * */
 	update(tick, entities) {
-		if (entities) {
-			var stamp = TWEEN.now();
-			for (const e of entities) {
-				if (e.CmdFlag > 0) {
-					console.log(stamp);
-					// TODO explain morphing script to tween
-				}
-			}
-		}
 	}
 
 	/**
-	 * @param {array} path THREE.Curve
+	 * @param {array&lt;THREE.Vector3>} path e.g. spline supporting positionAt()
 	 * @param {object} paras parameters of ModelSeqs.paras | FlowingPath.paras
 	 * @return {object} {point: Mesh, tween: Tween, cmp: CmpTween}
+	 * @member MorphingAnim.createFlowingParticles
 	 */
-	static createFlowingPoints(path, paras) {
+	static createFlowingParticles(path, scriparas = {}, pathparas = {}) {
 		if (path) {
 			var cmp = {};
-			var {vertexShader, fragmentShader} = xglsl.xvShader(ShaderFlag.randomParticles, paras);
+			var {vertexShader, fragmentShader} = xglsl.xvShader(ShaderFlag.throbStar, pathparas);
+			var pointBuffer = new THREE.Vector3();
+			// xglsl.pathPoints(path, paras, pointBuffer);
+			cmp.onUpdateHandler = {onUpdate:
+				function(obj, t) {
+					xmath.getPointAt(pointBuffer, path, obj.t);
+					point.geometry.verticesNeedUpdate = true;
+				}};
 			var mat = new THREE.ShaderMaterial( {
-				uniforms,
+				uniforms: {wpos: {value: pointBuffer}},
 				vertexShader,
 				fragmentShader,
 				blending: THREE.AdditiveBlending,
@@ -328,9 +342,11 @@ class MorphingAnim extends ECS.System {
 				transparent: true,
 				// vertexColors: THREE.VertexColors
 			} );
-			var pos0 = xglsl.pathPoint(path);
-			var point = new THREE.Mesh(pos0, mat);
-			var tween = TWEEN.Tween(cmp, point.material.uniforms);
+			var point = new THREE.Points(xglsl.pointGeom(pointBuffer), mat);
+			point.geometry.verticesNeedUpdate = true;
+			var t = {t: 0};
+			var tween = TWEEN.Tween(cmp, t)
+							.to({t: 1}, scriparas.duration * 1000 || cmp.duration)
 
 			return {point, tween, cmp}
 		}
@@ -352,13 +368,13 @@ export { MorphingAnim }
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="abstract.html">abstract</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 11 2020 15:04:10 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 13 2020 23:54:02 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

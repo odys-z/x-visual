@@ -442,5 +442,5 @@ moving the poings, changing the alpha.
 
 .. literalinclude:: ../../test/html/model-morph.html
    :language: javascript
-   :lines: 14-112
+   :lines: 12-109
    :linenos:
