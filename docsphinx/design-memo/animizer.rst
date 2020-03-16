@@ -6,7 +6,7 @@ Mesh Animiation Script
 
 Example:
 
-.. literalinclude:: ../../test/api-scripts.case.js
+.. literalinclude:: ../../test/api-scripts-anim.case.js
    :language: javascript
    :lines: 88-114
    :linenos:
@@ -59,9 +59,7 @@ is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<ani
 ..
 
 To make affine tweening start from where it's finished, and can be combined from
-all tweens of the object (component Obj3), it's updated in XTweener like this:
-
-::
+all tweens of the object (component Obj3), it's updated in XTweener like this: ::
 
     1. Animizer:
        compose all scripts into every CmpTween's affine field.
@@ -76,7 +74,6 @@ all tweens of the object (component Obj3), it's updated in XTweener like this:
        2.4 When all these finished, the results has been applied to Obj3.mesh.matrix,
            and snapshot has been dropped.
 
-
 let's *f, g* stands for independent transformations, and z-transform for time
 expansion, such that
 
@@ -88,7 +85,7 @@ expansion, such that
 
 where :math:`\alpha \in Z^{+}`.
 
-`[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
+`[mathjax cheat sheet] <https://matplotlib.org/tutorials/text/mathtext.html>`_
 
 Affine transformation are cumulated in Obj3.combined.mi:
 

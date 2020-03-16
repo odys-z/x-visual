@@ -6,7 +6,7 @@ Mesh Animiation Script
 
 Example:
 
-.. literalinclude:: ../../test/api-scripts.case.js
+.. literalinclude:: ../../test/api-scripts-anim.case.js
    :language: javascript
    :lines: 88-114
    :linenos:
@@ -59,9 +59,7 @@ is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<ani
 ..
 
 To make affine tweening start from where it's finished, and can be combined from
-all tweens of the object (component Obj3), it's updated in XTweener like this:
-
-::
+all tweens of the object (component Obj3), it's updated in XTweener like this: ::
 
     1. Animizer:
        compose all scripts into every CmpTween's affine field.

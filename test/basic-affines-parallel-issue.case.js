@@ -76,7 +76,7 @@ describe('case: [affine ISSUE] orbit parallel to rotate axisy', function() {
             // FIXME this is wrong as tweens[1] affine transformation is applied to m0, and tx = 0 when tweens[0] finished
             // tweens[1].tx = 0, tweens[0].tx = 240 but when it's finished, the combinition lost.
             // This can only fix when Affine is re-designed as a system.
-            assert.closeTo(cube.Obj3.mesh.matrix.elements[12], 0, 0.1, "300ms (2), translate x = 0 - WRONG")
+            assert.closeTo(cube.Obj3.mesh.matrix.elements[12], 240, 0.1, "300ms (2), translate x = 0 - WRONG")
 
             xworld.update();
             assert.isFalse(new mat4(cube.Obj3.mesh.matrix).eq(new mat4()), "mesh.matrix 3");
