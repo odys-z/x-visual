@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Affine Tweening &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+        <link rel="up" title="Design Memo" href="index.html"/>
+        <link rel="next" title="Extensions" href="extensions/index.html"/>
+        <link rel="prev" title="Animizers" href="animizer.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Affine Tweening</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#affine-combination">Affine Combination</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Design Memo</a> &raquo;</li>
+      
+    <li>Affine Tweening</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="affine-tweening">
+<h1>Affine Tweening<a class="headerlink" href="#affine-tweening" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="affine-combination">
+<span id="affine-design-memo"></span><h2>Affine Combination<a class="headerlink" href="#affine-combination" title="Permalink to this headline">¶</a></h2>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>Design and API for affine combination is not stable in current version.</p>
+<p class="last">Affine combination is planed to be upgraded.</p>
+</div>
+<p>To make affine tweening start from where it’s finished, and can be combined from
+all tweens of the object (component Obj3), it’s updated in XTweener like this:</p>
+<p>let <span class="math notranslate nohighlight">\(f(\cdot), g(\cdot)\)</span> stand for independent transformations, and
+z-transform for time expansion, such that</p>
+<p><span class="math notranslate nohighlight">\(m_{0_{f}}, m_{0_{g}} = mesh.matrix \cdot z^{0}, mesh.matrix \cdot z^{\alpha}\)</span></p>
+<p><span class="math notranslate nohighlight">\(m_{1} = f^{1}(m_{0_{f}}) z^{1}\)</span></p>
+<p><span class="math notranslate nohighlight">\(m_{i} = f^{i}(m_{0_{f}}) z^{i} + g^{i - \alpha}(m_{0_{g}}) z^{i - \alpha}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\alpha \in Z^{+}\)</span>.</p>
+<p><a class="reference external" href="https://matplotlib.org/tutorials/text/mathtext.html">[mathjax cheat sheet]</a></p>
+<p>Algorithm:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Animizer</span><span class="p">:</span>
+   <span class="n">compose</span> <span class="nb">all</span> <span class="n">scripts</span> <span class="n">into</span> <span class="n">every</span> <span class="n">CmpTween</span><span class="s1">&#39;s affine field;</span>
+   <span class="nb">set</span> <span class="n">CmpTweens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">m0</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
+
+<span class="mf">2.</span> <span class="n">XTweener</span><span class="o">.</span><span class="n">update</span><span class="p">():</span>
+   <span class="k">for</span> <span class="n">each</span> <span class="n">entity</span>
+     <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span> <span class="n">sequence</span>
+       <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span>
+         <span class="k">if</span> <span class="n">starting</span> <span class="n">a</span> <span class="n">tween</span><span class="p">:</span>
+           <span class="n">event</span><span class="p">:</span> <span class="n">onStart</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">clear</span> <span class="n">m0</span><span class="p">;</span>
+         <span class="n">update</span> <span class="n">tween</span><span class="p">;</span>
+
+<span class="mf">3.</span> <span class="n">Affine</span><span class="o">.</span><span class="n">update</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span> <span class="ow">in</span> <span class="n">CmpTweens</span><span class="p">,</span>
+      <span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">how</span> <span class="n">Tween</span><span class="o">.</span><span class="n">js</span> <span class="n">works</span> <span class="o">-</span> <span class="n">tweened</span> <span class="n">value</span> <span class="n">got</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">beginning</span><span class="o">.</span>
+      <span class="mf">3.1</span> <span class="k">if</span> <span class="n">starting</span> <span class="n">a</span> <span class="n">sequence</span> <span class="p">(</span><span class="n">tween</span><span class="o">.</span><span class="n">m0</span> <span class="o">==</span> <span class="n">undefied</span><span class="p">),</span> <span class="n">take</span> <span class="n">snapshot</span><span class="p">:</span>
+          <span class="n">tween</span><span class="o">.</span><span class="n">m0</span> <span class="o">-&gt;</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">matrix</span>
+      <span class="mf">3.2</span> <span class="n">combine</span> <span class="n">affine</span> <span class="n">transformation</span> <span class="n">when</span> <span class="n">the</span> <span class="n">tween</span> <span class="ow">is</span> <span class="n">updated</span>
+          <span class="n">Obj3</span><span class="o">.</span><span class="n">mi</span> <span class="o">&lt;-</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">mi</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span> <span class="n">f</span><span class="p">(</span> <span class="n">tween</span><span class="o">.</span><span class="n">m0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="p">)</span>
+      <span class="mf">3.3</span> <span class="k">if</span> <span class="n">the</span> <span class="n">tween</span> <span class="ow">is</span> <span class="n">finished</span><span class="p">,</span> <span class="n">keep</span> <span class="n">tween</span><span class="o">.</span><span class="n">m0</span>
+</pre></div>
+</div>
+<p>Affine transformation are accumulated in Obj3.mi:</p>
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span>        <span class="c1">// combine affines -&gt; combined</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">affines</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">mi</span> <span class="o">=</span> <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">ax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ax</span> <span class="o">&lt;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">ax</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">mi</span><span class="p">.</span><span class="nx">appAfine</span><span class="p">(</span><span class="nx">affines</span><span class="p">[</span><span class="nx">ax</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="nx">mi</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">combined</span><span class="p">.</span><span class="nx">m0</span><span class="p">);</span>
+        <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<span class="target" id="affine-issue"></span></div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="extensions/index.html" class="btn btn-neutral float-right" title="Extensions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="animizer.html" class="btn btn-neutral" title="Animizers" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
