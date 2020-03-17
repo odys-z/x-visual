@@ -13,5 +13,6 @@ Contents:
    obj3
    renderer
    animizer
+   affine
    extensions/index
    todo

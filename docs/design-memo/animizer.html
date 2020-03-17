@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
-        <link rel="next" title="Extensions" href="extensions/index.html"/>
+        <link rel="next" title="Affine Tweening" href="affine.html"/>
         <link rel="prev" title="Visual &amp; Renderers" href="renderer.html"/> 
 
   
@@ -106,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#script-example">Script Example:</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
 </ul>
@@ -250,65 +251,7 @@ AnimType defined in component/morph.js.</p>
 <h4>AnimCate<a class="headerlink" href="#animcate" title="Permalink to this headline">¶</a></h4>
 <p>mtype also has a flag indicating what kind of the animation is. Currently there
 is only one special flag, AnimCate.COMBINE_AFFINE, defined in <a class="reference internal" href="../reference/components.html#animcate"><span class="std std-ref">AnimCate</span></a>.</p>
-<div class="admonition note" id="affine-design-memo">
-<p class="first admonition-title">Note</p>
-<p class="last">Design and API for affine combination is not stable in current version.</p>
-</div>
-<p>To make affine tweening start from where it’s finished, and can be combined from
-all tweens of the object (component Obj3), it’s updated in XTweener like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Animizer</span><span class="p">:</span>
-   <span class="n">compose</span> <span class="nb">all</span> <span class="n">scripts</span> <span class="n">into</span> <span class="n">every</span> <span class="n">CmpTween</span><span class="s1">&#39;s affine field.</span>
-<span class="mf">2.</span> <span class="n">XTweener</span><span class="o">.</span><span class="n">update</span><span class="p">():</span> <span class="k">for</span> <span class="n">each</span> <span class="n">tweening</span> <span class="n">update</span>
-   <span class="mf">2.1</span> <span class="n">create</span> <span class="n">the</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">combined</span> <span class="k">as</span> <span class="n">each</span> <span class="n">tweening</span> <span class="n">update</span> <span class="n">buffer</span>
-       <span class="o">-</span> <span class="n">Tween</span><span class="o">.</span><span class="n">js</span> <span class="n">update</span> <span class="n">target</span> <span class="nb">object</span> <span class="k">with</span> <span class="n">interpolated</span> <span class="n">value</span><span class="p">,</span> <span class="ow">not</span> <span class="n">incremental</span> <span class="n">value</span><span class="o">.</span>
-   <span class="mf">2.2</span> <span class="n">take</span> <span class="n">a</span> <span class="n">snapshot</span> <span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">matrix</span><span class="p">)</span> <span class="n">before</span> <span class="n">combine</span> <span class="n">the</span> <span class="nb">object</span><span class="s1">&#39;s transformations</span>
-       <span class="n">combined</span><span class="o">.</span><span class="n">m0</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">matrix</span><span class="p">);</span>
-   <span class="mf">2.3</span> <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">combine</span> <span class="n">the</span> <span class="n">transformation</span>
-       <span class="n">combined</span><span class="o">.</span><span class="n">m4</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">affine</span><span class="p">[</span><span class="n">tween</span><span class="p">]);</span>
-       <span class="o">-</span> <span class="n">to</span> <span class="n">make</span> <span class="n">each</span> <span class="n">tween</span> <span class="n">sequence</span> <span class="n">can</span> <span class="n">be</span> <span class="n">triggered</span> <span class="n">asynchronously</span><span class="p">,</span> <span class="n">m0</span> <span class="ow">is</span> <span class="n">kept</span> <span class="n">will</span> <span class="n">updating</span>
-   <span class="mf">2.4</span> <span class="n">When</span> <span class="nb">all</span> <span class="n">these</span> <span class="n">finished</span><span class="p">,</span> <span class="n">the</span> <span class="n">results</span> <span class="n">has</span> <span class="n">been</span> <span class="n">applied</span> <span class="n">to</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span>
-       <span class="ow">and</span> <span class="n">snapshot</span> <span class="n">has</span> <span class="n">been</span> <span class="n">dropped</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>let’s <em>f, g</em> stands for independent transformations, and z-transform for time
-expansion, such that</p>
-<p><span class="math notranslate nohighlight">\(m_{0} = snapshot\)</span></p>
-<p><span class="math notranslate nohighlight">\(m_{1} = f^{1}(m_{0}) z^{1}\)</span></p>
-<p><span class="math notranslate nohighlight">\(m_{i} = f^{i}(m_{0}) z^{i} + g^{i - \alpha}(m_{0}) z^{i - \alpha}\)</span></p>
-<p>where <span class="math notranslate nohighlight">\(\alpha \in Z^{+}\)</span>.</p>
-<p><a class="reference external" href="https://matplotlib.org/tutorials/text/mathtext.html">[mathjax]</a></p>
-<p>Affine transformation are cumulated in Obj3.combined.mi:</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="kr">static</span> <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">affines</span><span class="p">,</span> <span class="nx">combined</span><span class="p">,</span> <span class="nx">mesh</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">combined</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">combined</span><span class="p">.</span><span class="nx">m0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// Starting tween event triggered at first of the tween sequence.</span>
-            <span class="c1">// m0 == undefined is a flag of starting tweens</span>
-            <span class="c1">// Handled here to ducking unnecessary &quot;new&quot; operation</span>
-            <span class="c1">// - XTweener calling combineBegin() repeatedly,</span>
-            <span class="nx">mesh</span><span class="p">.</span><span class="nx">updateMatrix</span><span class="p">();</span>
-            <span class="nx">combined</span><span class="p">.</span><span class="nx">m0</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mat4</span><span class="p">(</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
-            <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mat4</span><span class="p">();</span>
-        <span class="p">}</span>
-</pre></div>
-</td></tr></table></div>
-<div class="admonition attention" id="affine-issue">
-<p class="first admonition-title">Attention</p>
-<p class="last">Affine combination is needing to be upgraded to an independent system.
-Currently it’s not working correctly.</p>
-</div>
-<p><a class="reference external" href="https://matplotlib.org/tutorials/text/mathtext.html">[mathjax]</a></p>
+<p>See <a class="reference internal" href="affine.html#affine-design-memo"><span class="std std-ref">Affine Combination</span></a> for details.</p>
 </div>
 </div>
 <div class="section" id="paras">
@@ -822,7 +765,7 @@ moving the poings, changing the alpha.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="extensions/index.html" class="btn btn-neutral float-right" title="Extensions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="affine.html" class="btn btn-neutral float-right" title="Affine Tweening" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="renderer.html" class="btn btn-neutral" title="Visual &amp; Renderers" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
