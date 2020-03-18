@@ -68,11 +68,20 @@ Algorithm: ::
               Obj3.mi <- Obj3.mi.mul( f( tween.m0 ) * z )
           3.3 if the tween is finished, keep tween.m0
 
-Affine transformation are accumulated in Obj3.mi:
+Affine transformation are accumulated in Obj3. :math:`m_{i}` :
 
-.. literalinclude:: ../../lib/xmath/affine.js
+.. literalinclude:: ../../lib/sys/tween/affinecombiner.js
    :language: javascript
-   :lines: 66-73
+   :lines: 84-98
    :linenos:
 
 .. _affine-issue:
+
+Issue
+-----
+
+Tween.js start tween again, it will restore saved starting object for the beginning
+of interpolation. This makes AffineCombiner can't drive tween animation from where
+it stopped.
+
+See effects of test/html/script-linear-combination.html.

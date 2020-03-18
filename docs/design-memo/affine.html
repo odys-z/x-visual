@@ -96,6 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Affine Tweening</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#affine-combination">Affine Combination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issue">Issue</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
@@ -190,25 +191,46 @@ z-transform for time expansion, such that</p>
       3.3 if the tween is finished, keep tween.m0
 </pre></div>
 </div>
-<p>Affine transformation are accumulated in Obj3.mi:</p>
-<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre>        <span class="c1">// combine affines -&gt; combined</span>
+<p>Affine transformation are accumulated in Obj3. <span class="math">\(m_{i}\)</span> :</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="cm">/**Update affine combination for the object.</span>
+<span class="cm">	 * @param {Obj3} combined target object with mi</span>
+<span class="cm">	 * @param {array&lt;Affine&gt;} affines</span>
+<span class="cm">	 * @param {mat4} m0 m0_g, m0_f, ...</span>
+<span class="cm">	 * @member AffineCombiner#combineUpdate</span>
+<span class="cm">     */</span>
+    <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">combined</span><span class="p">,</span> <span class="nx">affines</span><span class="p">,</span> <span class="nx">m0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">affines</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">mi</span> <span class="o">=</span> <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">;</span>
             <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">ax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ax</span> <span class="o">&lt;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">ax</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nx">mi</span><span class="p">.</span><span class="nx">appAfine</span><span class="p">(</span><span class="nx">affines</span><span class="p">[</span><span class="nx">ax</span><span class="p">]);</span>
             <span class="p">}</span>
-            <span class="nx">mi</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">combined</span><span class="p">.</span><span class="nx">m0</span><span class="p">);</span>
+            <span class="nx">mi</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">m0</span><span class="p">);</span>
         <span class="p">}</span>
+    <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
-<span class="target" id="affine-issue"></span></div>
+</div>
+<div class="section" id="issue">
+<span id="affine-issue"></span><h2>Issue<a class="headerlink" href="#issue" title="Permalink to this headline">¶</a></h2>
+<p>Tween.js start tween again, it will restore saved starting object for the beginning
+of interpolation. This makes AffineCombiner can&#8217;t drive tween animation from where
+it stopped.</p>
+<p>See effects of test/html/script-linear-combination.html.</p>
+</div>
 </div>
 
 
