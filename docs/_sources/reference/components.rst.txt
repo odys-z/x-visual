@@ -78,7 +78,7 @@ AssetType
    :lines: 6-19
    :linenos:
 
-ShaderType
+ShaderFlag
 ++++++++++
 
 .. literalinclude:: ../../lib/component/visual.js

@@ -32,39 +32,10 @@
 
 import * as THREE from 'three'
 
-/**
- * Stub class for jsdoc, a collection of common math function.
- * &lt;br>Use the function directly.
- *
- * &lt;b>NOTE: no 'xmath.' prefix when calling functions.&lt;/b>
- * &lt;br>This class name is all in lower case. X-visual use this convention for a
- * collection of common global methods when using jsdoc generating API doc.
- * @class xmath
- */
-class xmath {}
-
-/**
- * @member xmath.radian */
-export function radian(degree) {
-    return degree * Math.PI/180;
-}
-
-/**&lt;pre>exampels:
- * round_to_precision(11, 8);    // outputs 8
- * round_to_precision(3.7, 0.5); // outputs 3.5&lt;/pre>
- * @param {number} x
- * @param {number} precision, default 1
- * @return {number} round up
- * @member xmath.round_to_precision */
-function round_to_precision(x, precision) {
-    var y = +x + (precision === undefined ? 0.5 : precision/2);
-    return y - (y % (precision === undefined ? 1 : +precision));
-}
-
 /** Vector helper
  * refrence algorithm:
  * https://evanw.github.io/lightgl.js/docs/main.html
- * @class
+ * @class vec3
  */
 export function vec3(x, y, z) {
 	if (Array.isArray(x)) {
@@ -78,24 +49,22 @@ export function vec3(x, y, z) {
 	}
 }
 
-/**
- * @memeberof vec3 */
 vec3.prototype = {
   /**
-   * @memeber vec3.js */
+   * @member vec3.js */
   js: function() {
 	return new THREE.Vector3(this.x, this.y, this.z);
   },
 
   /**vec *= -1
-   * @memeber vec3.neg */
+   * @member vec3.neg */
   neg: function() {
     this.x = -this.x, this.y = -this.y, this.z = -this.z;
     return this;
   },
 
   /**this += v, element wise.
-   * @memeber vec3#add */
+   * @member vec3#add */
   add: function(v) {
     if (v instanceof vec3) {
         this.x += v.x; this.y += v.y; this.z += v.z;
@@ -110,7 +79,7 @@ vec3.prototype = {
   },
 
   /**this -= v, element wise.
-   * @memeber vec3#sub */
+   * @member vec3#sub */
   sub: function(v) {
     if (v instanceof vec3) {
 		this.x -= v.x; this.y -= v.y; this.z -= v.z;
@@ -125,7 +94,7 @@ vec3.prototype = {
   },
 
   /**this *= v, element wise.
-   * @memeber vec3#mul */
+   * @member vec3#mul */
   mul: function(v) {
     if (v instanceof vec3) {
 		this.x *= v.x; this.y *= v.y; this.z *= v.z;
@@ -140,7 +109,7 @@ vec3.prototype = {
   },
 
   /**this /= v, element wise.
-   * @memeber vec3#div */
+   * @member vec3#div */
   div: function(v) {
     if (v instanceof vec3) {
 		this.x /= v.x, this.y /= v.y, this.z /= v.z;
@@ -155,7 +124,7 @@ vec3.prototype = {
   },
 
   /**Is this equals to v? (delta is tolerated).
-   * @memeber vec3#eq */
+   * @member vec3#eq */
   eq: function(v, delta) {
 	if (!delta) delta = 0.001;
 
@@ -170,7 +139,7 @@ vec3.prototype = {
   },
 
   /**this = dot product with v
-   * @memeber vec3#dot */
+   * @member vec3#dot */
   dot: function(v) {
     if (Array.isArray(v))
       return this.x * v[0] + this.y * v[1] + this.z * v[2];
@@ -179,7 +148,7 @@ vec3.prototype = {
 
   /**this = cross product with v
    * @return {vec3}
-   * @memeber vec3#dot */
+   * @member vec3#dot */
   cross: function(v) {
     if (Array.isArray(v))
         return new vec3(
@@ -197,7 +166,7 @@ vec3.prototype = {
 
   /**get vector lenght
    * @return {number} length
-   * @memeber vec3#dot */
+   * @member vec3#dot */
   length: function() {
     return Math.sqrt(this.dot(this));
   },
@@ -1019,13 +988,13 @@ mat4.prototype = {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Mar 12 2020 16:44:39 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 13 2020 23:54:02 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -61,6 +61,7 @@ animizer and tweened by XTtweener.
 Affines is an array of affine object, where affine can be:
 
 ::
+
     translate: vec3
     rotate: radian
     scale: number

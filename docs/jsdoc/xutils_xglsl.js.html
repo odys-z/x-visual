@@ -144,6 +144,12 @@ export function xvShader(flag, vparas) {
         case ShaderFlag.cubeVoxels:
             s = cubeVoxels(vparas);
 			break;
+		case ShaderFlag.flameLight:
+			s = flameLight(vparas);
+			break;
+		case ShaderFlag.throbStar:
+			s = throbStar(vparas);
+			break;
         case ShaderFlag.testPoints:
         default:
 			s = testPnt(vparas);
@@ -154,8 +160,8 @@ export function xvShader(flag, vparas) {
 	return s;
 }
 
-/**Get shader for both ShaderFlag.randomParticles.
- * If u_morph is animated, must providen a uniform vec3, a_target.
+/**Get shader for ShaderFlag.randomParticles.
+ * If u_morph is animated, must providing uniform vec3 &amp;amp a_target.
  * Used variables: position, color, size.
  * gl_position = mix(pos, taget, morph) + noise * dist;
  * @param {object} paras
@@ -252,7 +258,7 @@ export function particlesGeom (vparas, meshSrc, meshTarget) {
 /** get shader of gl_point for debugging
  * @param {object} paras paras.vert_scale [optional] number scale of vertices
  * @return {object} {vertexShader, fragmentShader}
- * @member xglsl.cubeVoxels */
+ * @member xglsl.testPnt */
 function testPnt(paras) {
  return { vertexShader: `
   void main() {
@@ -267,7 +273,7 @@ function testPnt(paras) {
 /**Create vertex &amp; fragment shaders that can morphing between multiple positions.
  * @param {object} paras
  * @return {object} {vertexShader, fragmentShader}
- * @member xglsl.cubeVoxels
+ * @member xglsl.cubeVoxels9
  */
 function cubeVoxels9(paras) {
  return { vertexShader: `
@@ -326,8 +332,11 @@ function cubeVoxels9(paras) {
  };
 }
 
-/**Create vertex &amp; fragment shaders that can morphing between multiple positions.
+/**Create vertex &amp;amp; fragment shaders that can morphing between multiple box positions.
  * @param {object} paras
+ * paras.uniforms.u_cubes array of boxes
+ * param.uniforms.u_box1, 2, ... vec3 for position index (voxel index, not position)
+ * param.uniforms.u_morph, morph animation, 0 - 1
  * @return {object} {vertexShader, fragmentShader}
  * @member xglsl.cubeVoxels
  */
@@ -396,6 +405,11 @@ function cubeVoxels(paras) {
  }
 };
 
+/** get geometry buffer for cube voxels, with attributes that the shader can work.
+ * @param {object} vparas
+ * @return {THREE.BufferGeometry} the geometry buffer.
+ * @member xglsl.cubeVoxels
+ */
 export function cubeVoxelGeom(vparas) {
 	var whd = vparas.u_sects;
 	var ixyz = []; // position, a.k.a vertex index
@@ -429,6 +443,97 @@ export function cubeVoxelGeom(vparas) {
 
 	return geometry;
 }
+
+/**Example:
+ * See docs/design memoe/shader samples
+ *
+ *
+ * @member xglsl.flameLight
+ */
+function flameLight(vparas) {
+	throw XError("TODO");
+}
+
+/**Example:
+ * See docs/design memoe/shader samples
+ *
+ * @param {object} paras
+ * paras.vert_scale: point scale
+ * @member xglsl.flameLight
+ */
+function throbStar(paras = {}) {
+ return { vertexShader: `
+  uniform vec2 fragSize;
+  varying vec2 size;
+
+  void main() {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    gl_PointSize = 3.0 * ${paras.vert_scale || '10.'};
+
+    if (fragSize.x == 0. &amp;&amp; fragSize.y == 0.)
+      size = vec2(gl_PointSize);
+ }`,
+ fragmentShader: `
+  uniform float iTime;
+
+  varying vec2 size;
+
+  float noise(vec3 p) {
+    vec3 i = floor(p);
+    vec4 a = dot(i, vec3(1., 57., 21.)) + vec4(0., 57., 21., 78.);
+    vec3 f = cos((p-i)*acos(-1.))*(-.5)+.5;
+    a = mix(sin(cos(a)*a),sin(cos(1.+a)*(1.+a)), f.x);
+    a.xy = mix(a.xz, a.yw, f.y);
+    return mix(a.x, a.y, f.z);
+  }
+
+  float sphere(vec3 p, vec4 spr) {
+    return length(spr.xyz-p) - spr.w;
+  }
+
+  float flame(vec3 p) {
+    float d = sphere(p, vec4(-0.460, -1.0, 0.0, 1.));
+    return d + (noise(p + vec3(.0, 0. * 2., .0)) + noise(p * 3.) * .5) * .25 * (p.y);
+  }
+
+  void mainImage( out vec4 fragColor, in vec2 fragCoord, in vec2 size ) {
+	// can we use z for p?
+    vec4 p = 1.5 - vec4(flame(vec3(abs(fragCoord - vec2(0.5)), 0.)));
+    // vec4 p = 1.5 - vec4(flame(vec3(abs(fragCoord - size * 0.5), 0.) / 500.0));
+
+    float glow = p.w;
+    vec4 col = mix(vec4(1., .5, .1, 1.), vec4(0.1, .5, 1., 1.), p.y * .02 + .4);
+    fragColor = mix(vec4(0.), col, pow(glow * 0.75, 10.));
+  }
+
+  void main() {
+    // mainImage(gl_FragColor, gl_FragCoord.xy, size);
+    mainImage(gl_FragColor, gl_PointCoord, size);
+
+	// gl_FragColor.r = 0.5;
+	// gl_FragColor.a = max(gl_FragColor.a, 0.5);
+	// gl_FragColor = vec4(1.0);
+  }` };
+}
+
+/**
+ * Get points geometry buffer for simulating flowing path.
+ * @param {THREE.Vector3} point
+ * @return {THREE.Geometry} point geometry
+ * @member xglsl.pointGeom
+ */
+export function pointGeom(point) {
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(
+		point
+		// new THREE.Vector3( -10,  10, 0 )
+		// new THREE.Vector3( -10, -10, 0 ),
+		// new THREE.Vector3(  10, -10, 0 )
+	);
+	// geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+	geometry.computeBoundingSphere();
+	return geometry;
+}
 </code></pre>
         </article>
     </section>
@@ -439,13 +544,13 @@ export function cubeVoxelGeom(vparas) {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="xutils.html">xutils</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#registerComponents">registerComponents</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Mar 12 2020 16:44:39 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 13 2020 23:54:02 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

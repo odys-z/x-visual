@@ -20,7 +20,7 @@
                 box: [200, 120, 80],
                 // mesh is inited by thrender, can be ignored here - MorphSwitch's target
                 mesh: undefined,
-                // invisible: true,
+                invisible: true,
                  uniforms: {opacity: 0.9}},
         Visual:{vtype: xv.AssetType.mesh,
                 paras: {tex_alpha: 0.9},
@@ -62,43 +62,43 @@
         Visual:{vtype: xv.AssetType.cubeVoxel,
                 asset: 'ent1',
                 shader: xv.XComponent.ShaderFlag.cubeVoxels,
-                paras: {vert_scale: '30.',
+                paras: {vert_scale: '30.',          // NOTE "." is neccessary as this is a string in glsl source.
                         u_tex: 'tex/spark1.png',
                         uniforms:{u_cubes: ['ent1', 'ent2', 'ent3'],// ent2.Obj3.mesh, matrix, etc.
                                   u_alpha: 0.5,
-                                  u_sects: [5, 8, 3] } }},          // sections in x, y, z
-        ModelSeqs: {
-            script: [[{ mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
-                        paras: {start: 0,
-                                duration: 3.401,
-                                uniforms: { u_morph0: [0, 0.4],
-                                            u_morph2: [0, 0],
-                                            a_noise: [0, 3] },
-                                 ease: undefined} },
-                      { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
-                        paras: {start: 1.2,         // ignored
-                                duration: 0.202,
-                                uniforms: { u_morph0: [0.4, 1],
-                                            a_noise: [3, 0.02] },
-                                 ease: undefined} },
-                      { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
-                        paras: {start: 0,
-                                duration: 0.203,
-                                uniforms: { u_morph0: [0, 0],
-                                            u_morph1: [0, 1],    // clear 0, FIXME should not useful now
-                                            a_noise: [0.2, 0.02] },
-                                 ease: undefined} },
-                      { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
-                        paras: {start: 0,
-                                duration: 0.204,
-                                uniforms: { u_morph1: [0, 0],
-                                            u_morph2: [0, 1],
-                                            a_noise: [0.2, 0.02] },
-                                 ease: undefined },
-                        followBy: [{entity: 'points',// repeat
-                                    seqx: 0,
-                                    start: 0.0}] },
-                    ]] },
+                                  u_sects: [24, 35, 3] } }},         // sections in x, y, z
+        ModelSeqs: { script: [[
+              { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
+                paras: {start: 0,
+                        duration: 3.401,
+                        uniforms: { u_morph0: [0, 0.4],
+                                    u_morph2: [0, 0],
+                                    a_noise: [0, 3] },
+                        ease: undefined} },
+              { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
+                paras: {start: 1.2,         // ignored
+                        duration: 0.202,
+                        uniforms: { u_morph0: [0.4, 1],
+                                    a_noise: [3, 0.02] },
+                        ease: undefined} },
+              { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
+                paras: {start: 0,
+                        duration: 0.203,
+                        uniforms: { u_morph0: [0, 0],    // clear 0, FIXME should not useful now
+                                    u_morph1: [0, 1],
+                                    a_noise: [0.2, 0.02] },
+                         ease: undefined} },
+              { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
+                paras: {start: 0,
+                        duration: 0.204,
+                        uniforms: { u_morph1: [0, 0],
+                                    u_morph2: [0, 1],
+                                    a_noise: [0.2, 0.02] },
+                        ease: undefined },
+                followBy: [{entity: 'points',// repeat
+                            seqx: 0,
+                            start: 0.0}] },
+            ]] },
         CmpTweens: {}
     });
 

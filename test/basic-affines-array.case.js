@@ -17,7 +17,7 @@ import {sleep} from '../lib/xutils/xcommon'
 import {Visual, AssetType} from '../lib/component/visual'
 import {Obj3Type} from '../lib/component/obj3'
 import {AnimType, ModelSeqs} from '../lib/component/morph';
-import {vec3, mat4, radian} from '../lib/xmath/vec';
+import {vec3, mat4} from '../lib/xmath/vec';
 import {Affine} from '../lib/xmath/affine';
 
 global.performance = performance;

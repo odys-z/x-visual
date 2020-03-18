@@ -6,7 +6,7 @@ Mesh Animiation Script
 
 Example:
 
-.. literalinclude:: ../../test/api-scripts.case.js
+.. literalinclude:: ../../test/api-scripts-anim.case.js
    :language: javascript
    :lines: 88-114
    :linenos:
@@ -53,57 +53,7 @@ ________
 mtype also has a flag indicating what kind of the animation is. Currently there
 is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<animcate>`.
 
-.. _affine-design-memo:
-
-.. note:: Design and API for affine combination is not stable in current version.
-..
-
-To make affine tweening start from where it's finished, and can be combined from
-all tweens of the object (component Obj3), it's updated in XTweener like this:
-
-::
-
-    1. Animizer:
-       compose all scripts into every CmpTween's affine field.
-    2. XTweener.update(): for each tweening update
-       2.1 create the Obj3.combined as each tweening update buffer
-           - Tween.js update target object with interpolated value, not incremental value.
-       2.2 take a snapshot (mesh.matrix) before combine the object's transformations
-           combined.m0 = clone(mesh.matrix);
-       2.3 for each tween sequence, combine the transformation
-           combined.m4.mul(affine[tween]);
-           - to make each tween sequence can be triggered asynchronously, m0 is kept will updating
-       2.4 When all these finished, the results has been applied to Obj3.mesh.matrix,
-           and snapshot has been dropped.
-
-
-let's *f, g* stands for independent transformations, and z-transform for time
-expansion, such that
-
-:math:`m_{0} = snapshot`
-
-:math:`m_{1} = f^{1}(m_{0}) z^{1}`
-
-:math:`m_{i} = f^{i}(m_{0}) z^{i} + g^{i - \alpha}(m_{0}) z^{i - \alpha}`
-
-where :math:`\alpha \in Z^{+}`.
-
-`[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
-
-Affine transformation are cumulated in Obj3.combined.mi:
-
-.. literalinclude:: ../../lib/xmath/affine.js
-   :language: javascript
-   :lines: 38-50
-   :linenos:
-
-.. _affine-issue:
-
-.. attention:: Affine combination is needing to be upgraded to an independent system.
-    Currently it's not working correctly.
-..
-
-`[mathjax] <https://matplotlib.org/tutorials/text/mathtext.html>`_
+See :ref:`Affine Combination <affine-design-memo>` for details.
 
 paras
 +++++

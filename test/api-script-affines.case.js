@@ -17,7 +17,8 @@ import {sleep} from '../lib/xutils/xcommon'
 import {Visual, AssetType} from '../lib/component/visual'
 import {Obj3Type} from '../lib/component/obj3'
 import {AnimType, ModelSeqs} from '../lib/component/morph';
-import {vec3, mat4, radian} from '../lib/xmath/vec';
+import {vec3, mat4} from '../lib/xmath/vec';
+import xmath from '../lib/xmath/math';
 import {Affine} from '../lib/xmath/affine';
 
 global.performance = performance;
@@ -66,9 +67,9 @@ describe('case: [affine] orbit combine', function() {
             var mjs = cube.Obj3.mesh.matrix;
             var mt4 = new mat4()
                         .translate(-120, 0, 0)
-                        .rotate(radian(180), 0, 1, 0)
+                        .rotate(xmath.radian(180), 0, 1, 0)
                         .translate(120, 0, 0)
-                        .rotate(radian(60), 1, 0, 0);
+                        .rotate(xmath.radian(60), 1, 0, 0);
             // as rotation happens simutanously, some parts are not the same values
             mt4.m[5] = mt4.m[6] = mt4.m[9] = mt4.m[10] = 0;
             var ele = mjs.elements;
