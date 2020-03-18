@@ -33,7 +33,7 @@
  *
  * System XTweener should replacing animators.
  *
- * @namespace xv.ecs.sys.tween
+ * @module xv.ecs.sys.tween
  */
 
 import * as ECS from '../../../packages/ecs-js/index';
@@ -51,6 +51,12 @@ const iffTween = {any: ['CmpTween', 'CmpTweens']}
 /**X-visual tween driving system.
  * @class XTweener*/
 export default class XTweener extends ECS.System {
+	/**Initialize all tweens.
+	 * @constructor
+	 * @param {ECS.ECS} ecs
+	 * @param {object} x singleton
+	 * @param {object} startingTrigged triggered buffer (Animizer found tweens should started)
+	 */
 	constructor (ecs, x, startingTrigged) {
 		super(ecs);
 		this.ecs = ecs;
@@ -60,6 +66,7 @@ export default class XTweener extends ECS.System {
 		this.resolvingStarts = startingTrigged || {};
 	}
 
+	/** @member XTweener#initTweens */
 	initTweens (ecs, entities) {
 		for (const e of entities) {
 			if (e.CmpTween) {
@@ -91,6 +98,7 @@ export default class XTweener extends ECS.System {
 		return true;
 	}
 
+	/** @member XTweener.initween */
 	static initween (cmp) {
 		if (Array.isArray(cmp)) {
 			for (const compt of cmp)
@@ -128,6 +136,7 @@ export default class XTweener extends ECS.System {
 		delete this._tweensAddedDuringUpdate[tween.getId()];
 	}
 
+	/*
 	update (tick, entities) {
 		var time = TWEEN.now();
 		for (const e of entities) {
@@ -137,7 +146,7 @@ export default class XTweener extends ECS.System {
 						if (0 &lt;= cmdx &amp;&amp; cmdx &lt; e.CmpTweens.tweens.length) {
 							var twSeq = e.CmpTweens.tweens[cmdx];
 							// debug note: important!
-							// don't let it set startTime after now - won't start
+							// don't let it set startTime after "now" - won't start
 							XTweener.startween(twSeq[0], 0);
 							e.CmpTweens.twindx[cmdx] = 0;
 
@@ -156,77 +165,68 @@ export default class XTweener extends ECS.System {
 				// for the entity, resolve startings triggered by Animizer startWith or followBy
 				var beingStartwiths = this.resolvingStarts[e.id];
 
-				// clean combined buffer at each update
-				// if (!e.Obj3.combined.mi)
-				// 	e.Obj3.combined.mi = new mat4();
-				// else e.Obj3.combined.mi.i();
-				// var touchedAffines = false; // FIXME this is a strong evidence that there are something wrong in OOP design
-
-				// if (e.Obj3.combined.isPlaying) {
-				// 	e.Obj3.combined.isPlaying = false;
-				// 	e.Obj3.combined.mi.i();
-				// }
 				Affine.combineBegin(e.Obj3.combined);
 
 				for (var seqx = 0; seqx &lt; e.CmpTweens.twindx.length; seqx ++) {
-					// if (seqx &lt; e.CmpTweens.tweens.length) {
-						var twnx = e.CmpTweens.twindx[seqx];
-						if (twnx >= e.CmpTweens.tweens[seqx].length) {
-							// FIXME we need optimize this (with CmpTweens.isPlaying?)
-							// console.error(`XTweener.update(): Why try to update ${twx}-th tween of`,
-							// 	e.CmpTweens.tweens, "\nEntity: ", e);
-						}
-						else {
-							const tween = e.CmpTweens.tweens[seqx][twnx];
-							if (tween &amp;&amp; tween.isPlaying) {
-								tween.isPlaying = XTweener.updateTween(tween, time, this.resolvingStarts);
-								if (e.preserve === false) {
-									// what's here?
+					var twnx = e.CmpTweens.twindx[seqx];
+					if (twnx >= e.CmpTweens.tweens[seqx].length) {
+						// FIXME we need optimize this (with CmpTweens.isPlaying?)
+						// console.error(`XTweener.update(): Why try to update ${twx}-th tween of`,
+						// 	e.CmpTweens.tweens, "\nEntity: ", e);
+					}
+					else {
+						const tween = e.CmpTweens.tweens[seqx][twnx];
+						if (tween &amp;&amp; tween.isPlaying) {
+							tween.isPlaying = XTweener.updateTween(tween, time, this.resolvingStarts);
+							if (e.preserve === false) {
+								// what's here?
+							}
+							if (tween.affineCombine) {
+								/*
+								e.Obj3.combined.isPlaying = true;
+								var m = e.Obj3.mesh; // for short
+
+								// take snapshot - most scripts are supposed to have affines
+								if (!e.Obj3.combined.m0) {
+									// m.updateMatrix();
+									// e.Obj3.combined.m0 = new mat4(m.matrix)
+									// 						.transpose();
+									// e.Obj3.combined.mi = new mat4();
+									Affine.startTweens(e.Obj3.combined);
 								}
-								if (tween.affineCombine) {
-									/*
+
+								// first update mesh matrix, then apply affine transformation to it
+								// Three.js docs about the order:
+								// Convenience properties and matrixAutoUpdate,
+								// https://threejs.org/docs/#manual/en/introduction/Matrix-transformations
+								Affine.combine(tween.affines, e.Obj3.combined);
+								* /
+								Affine.combineUpdate(tween.affines, e.Obj3.combined, e.Obj3.mesh);
+							}
+						}
+						if (tween &amp;&amp; tween.isCompleted) {
+							// finished, start next
+							e.CmpTweens.twindx[seqx] = twnx + 1;
+							if (twnx + 1 &lt; e.CmpTweens.tweens[seqx].length
+								&amp;&amp; e.CmpTweens.tweens[seqx][twnx + 1]) {
+								// XTweener.startween(e.CmpTweens.tweens[seqx][twnx + 1]);
+								const nxtween = e.CmpTweens.tweens[seqx][twnx + 1];
+								XTweener.startween(nxtween);
+
+								// FIXME debug notes:
+								// Affine snapshot for m0 here is still a bug:
+								// If another tween sequence finished, say tweens[1][0] (length = 1)
+								// it has no chance to push it's results for further tweening.
+								// - [1][0].mi lost it's results as it's not pushed into m0
+								if (nxtween.affineCombine) {
+									// keep snapshot m0
+									// touchedAffines = true;
 									e.Obj3.combined.isPlaying = true;
-									var m = e.Obj3.mesh; // for short
-
-									// take snapshot - most scripts are supposed to have affines
-									if (!e.Obj3.combined.m0) {
-										// m.updateMatrix();
-										// e.Obj3.combined.m0 = new mat4(m.matrix)
-										// 						.transpose();
-										// e.Obj3.combined.mi = new mat4();
-										Affine.startTweens(e.Obj3.combined);
-									}
-
-									// first update mesh matrix, then apply affine transformation to it
-									// Three.js docs about the order:
-									// Convenience properties and matrixAutoUpdate,
-									// https://threejs.org/docs/#manual/en/introduction/Matrix-transformations
-									Affine.combine(tween.affines, e.Obj3.combined);
-									*/
-									Affine.combineUpdate(tween.affines, e.Obj3.combined, e.Obj3.mesh);
-								}
-							}
-							if (tween &amp;&amp; tween.isCompleted) {
-								// finished, start next
-								e.CmpTweens.twindx[seqx] = twnx + 1;
-								if (twnx + 1 &lt; e.CmpTweens.tweens[seqx].length
-									&amp;&amp; e.CmpTweens.tweens[seqx][twnx + 1]) {
-									// XTweener.startween(e.CmpTweens.tweens[seqx][twnx + 1]);
-									const nxtween = e.CmpTweens.tweens[seqx][twnx + 1];
-									XTweener.startween(nxtween);
-									// if (nxtween.affineCombine)
-									// 	// keep snapshot m0
-									// 	// touchedAffines = true;
-									// 	e.Obj3.combined.isPlaying = true;
+									e.Obj3.combined.m0 = new mat4(e.Obj3.mesh.matrix);
 								}
 							}
 						}
-					// }
-					// else {
-					// 	// FIXME we need some flag to stop empty runing if all animation finished
-					// }
-
-					// if (startwith &amp;&amp; startwith.starterx.seqx === seqx &amp;&amp; startwith.starterx.twnx === twnx) {
+					}
 					if (beingStartwiths) {
 						XTweener.startTriggered(e.CmpTweens, beingStartwiths, this.resolvingStarts);
 					}
@@ -237,25 +237,117 @@ export default class XTweener extends ECS.System {
 
 				Affine.combineEnd(e.Obj3.combined, e.Obj3.mesh); // mi combining finished
 				if (!e.Obj3.combined.isPlaying) // reset by combineBegin(), flipped by combineUpdate()
+					// FIXME bug: this branch will reached and m0 been cleared
+					// because when tweens[0][0] finished - which will update affines and tweens[1][0] not started,
+					// then the e.Obj3.combined.isPlaying == false (reset before the for loop)
 					Affine.tweenStop(e.Obj3.combined, e.Obj3.mesh);
-				// if (e.Obj3.combined.isPlaying) {
-				// 	// e.Obj3.mesh.applyMatrix(m4.js());
-				// 	/* Source of THREE.Object3D
-				// 	applyMatrix4: function ( matrix ) {
-				// 		if ( this.matrixAutoUpdate ) this.updateMatrix();
-				// 		this.matrix.premultiply( matrix );
-				// 		this.matrix.decompose( this.position, this.quaternion, this.scale );
-				// 	},
-				// 	*/
-				// 	// m.matrixAutoUpdate = false;
-				// 	// e.Obj3.combined.mi.put2js(m.matrix);
-				// 	// m.matrix.decompose( m.position, m.quaternion, m.scale );
-				// 	Affine.combineEnd(e.Obj3.combined, e.Obj3.mesh);
-				// }
-				// else
-				// 	// this branch can't reached at the last affine updated loop
-				// 	// e.Obj3.combined.m0 = undefined; // delete is meomery inefficient?
-				// 	Affine.tweenStop(e.Obj3.combined);
+			}
+		}
+	}
+	*/
+
+	update (tick, entities) {
+		var time = TWEEN.now();
+		for (const e of entities) {
+			if (e.CmpTweens &amp;&amp; e.CmpTweens.tweens) {
+				if (e.CmpTweens.startCmds.length > 0) {
+					for (var cmdx of e.CmpTweens.startCmds) {
+						if (0 &lt;= cmdx &amp;&amp; cmdx &lt; e.CmpTweens.tweens.length) {
+							var twSeq = e.CmpTweens.tweens[cmdx];
+							// debug note: important!
+							// don't let it set startTime after "now" - won't start
+							XTweener.startween(twSeq[0], 0);
+							e.CmpTweens.twindx[cmdx] = 0;
+						}
+					}
+					e.CmpTweens.startCmds.splice(0, e.CmpTweens.startCmds.length);
+				}
+
+				// for the entity, resolve startings triggered by Animizer startWith or followBy
+				var beingStartwiths = this.resolvingStarts[e.id];
+
+				// TODO 4
+					// Affine.combineBegin(e.Obj3.combined);
+
+				for (var seqx = 0; seqx &lt; e.CmpTweens.twindx.length; seqx ++) {
+					var dirty = false;
+					var twnx = e.CmpTweens.twindx[seqx];
+					if (twnx >= e.CmpTweens.tweens[seqx].length) {
+						// FIXME we need optimize this (with CmpTweens.isPlaying?)
+					}
+					else {
+						const tween = e.CmpTweens.tweens[seqx][twnx];
+						if (tween &amp;&amp; tween.isPlaying) {
+							dirty = true;
+							tween.isPlaying = XTweener.updateTween(tween, time, this.resolvingStarts);
+							if (e.preserve === false) {
+								// what's here?
+							}
+							// TODO 3
+								// if (tween.affineCombine) {
+								// 	/*
+								// 	e.Obj3.combined.isPlaying = true;
+								// 	var m = e.Obj3.mesh; // for short
+								//
+								// 	// take snapshot - most scripts are supposed to have affines
+								// 	if (!e.Obj3.combined.m0) {
+								// 		// m.updateMatrix();
+								// 		// e.Obj3.combined.m0 = new mat4(m.matrix)
+								// 		// 						.transpose();
+								// 		// e.Obj3.combined.mi = new mat4();
+								// 		Affine.startTweens(e.Obj3.combined);
+								// 	}
+								//
+								// 	// first update mesh matrix, then apply affine transformation to it
+								// 	// Three.js docs about the order:
+								// 	// Convenience properties and matrixAutoUpdate,
+								// 	// https://threejs.org/docs/#manual/en/introduction/Matrix-transformations
+								// 	Affine.combine(tween.affines, e.Obj3.combined);
+								// 	*/
+								// 	Affine.combineUpdate(tween.affines, e.Obj3.combined, e.Obj3.mesh);
+								// }
+						}
+						if (tween &amp;&amp; tween.isCompleted) {
+							// finished, start next
+							e.CmpTweens.twindx[seqx] = twnx + 1;
+							if (twnx + 1 &lt; e.CmpTweens.tweens[seqx].length
+								&amp;&amp; e.CmpTweens.tweens[seqx][twnx + 1]) {
+								// XTweener.startween(e.CmpTweens.tweens[seqx][twnx + 1]);
+								const nxtween = e.CmpTweens.tweens[seqx][twnx + 1];
+								XTweener.startween(nxtween);
+
+								// TODO 2
+									// // FIXME debug notes:
+									// // Affine snapshot for m0 here is still a bug:
+									// // If another tween sequence finished, say tweens[1][0] (length = 1)
+									// // it has no chance to push it's results for further tweening.
+									// // - [1][0].mi lost it's results as it's not pushed into m0
+									// if (nxtween.affineCombine) {
+									// 	// keep snapshot m0
+									// 	// touchedAffines = true;
+									// 	e.Obj3.combined.isPlaying = true;
+									// 	e.Obj3.combined.m0 = new mat4(e.Obj3.mesh.matrix);
+									// }
+							}
+						}
+					}
+					if (dirty &amp;&amp; e.CmpTweens.onZinc)
+						e.CmpTweens.onZinc();
+					if (beingStartwiths) {
+						XTweener.startTriggered(e.CmpTweens, beingStartwiths, this.resolvingStarts);
+					}
+				}
+				// this.resolvingStarts[e.id] a.k.a beingStartwiths
+				if (this.resolvingStarts[e.id] &amp;&amp; this.resolvingStarts[e.id].length === 0)
+					delete this.resolvingStarts[e.id];
+
+				// TODO 1
+					// Affine.combineEnd(e.Obj3.combined, e.Obj3.mesh); // mi combining finished
+					// if (!e.Obj3.combined.isPlaying) // reset by combineBegin(), flipped by combineUpdate()
+					// 	// FIXME bug: this branch will reached and m0 been cleared
+					// 	// because when tweens[0][0] finished - which will update affines and tweens[1][0] not started,
+					// 	// then the e.Obj3.combined.isPlaying == false (reset before the for loop)
+					// 	Affine.tweenStop(e.Obj3.combined, e.Obj3.mesh);
 			}
 		}
 	}
@@ -266,8 +358,8 @@ export default class XTweener extends ECS.System {
 		if (time &lt; cmp.startTime) return true;
 
 		if (cmp.onStartCallbackFired === false) {
-			if (cmp.onStartHander &amp;&amp;
-				typeof cmp.onStartHander.onStart === 'function') {
+			if (cmp.onStartHandler &amp;&amp;
+				typeof cmp.onStartHandler.onStart === 'function') {
 				cmp.onStartHandler.onStart(cmp.object);
 			}
 			cmp.onStartCallbackFired = true;
@@ -396,6 +488,8 @@ export default class XTweener extends ECS.System {
 		cmp.isPlaying = true;
 		cmp.isPaused = false;
 		cmp.isCompleted = false;
+		// ody:
+		cmp.onStartCallbackFired = false;
 
 		cmp.startTime = time !== undefined ? TWEEN.now() + (typeof time === 'string' ? parseFloat(time) : time) : TWEEN.now();
 		cmp.startTime += cmp.delayTime;
@@ -1371,13 +1465,13 @@ export { TWEEN, XEasing };
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GlowEffect.html">GlowEffect</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="Orthocclude.html">Orthocclude</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="xv.ecs.sys.module_tween-Tween.html">Tween</a></li><li><a href="xv.ecs.sys.module_tween-XTweener.html">XTweener</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 13 2020 23:54:02 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Mar 18 2020 13:56:40 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

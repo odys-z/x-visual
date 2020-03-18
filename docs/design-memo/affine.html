@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Extensions" href="extensions/index.html"/>
@@ -97,7 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Affine Tweening</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Affine Tweening</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#affine-combination">Affine Combination</a></li>
 </ul>
 </li>
@@ -157,49 +154,51 @@
 <div class="admonition attention">
 <p class="first admonition-title">Attention</p>
 <p>Design and API for affine combination is not stable in current version.</p>
-<p class="last">Affine combination is planed to be upgraded.</p>
+<p class="last">It is planed to be upgraded.</p>
 </div>
-<p>To make affine tweening start from where it’s finished, and can be combined from
-all tweens of the object (component Obj3), it’s updated in XTweener like this:</p>
-<p>let <span class="math notranslate nohighlight">\(f(\cdot), g(\cdot)\)</span> stand for independent transformations, and
+<p>Affine combination collect all orthogonal transformation from tweening results,
+typically an array of transformation data, and combine into a martrix4.</p>
+<p>To make affine tweening start from where it&#8217;s finished, and can be combined from
+all tweens of the object (component Obj3), it&#8217;s updated in XTweener like this:</p>
+<p>let <span class="math">\(f(\cdot), g(\cdot)\)</span> stand for independent transformations, and
 z-transform for time expansion, such that</p>
-<p><span class="math notranslate nohighlight">\(m_{0_{f}}, m_{0_{g}} = mesh.matrix \cdot z^{0}, mesh.matrix \cdot z^{\alpha}\)</span></p>
-<p><span class="math notranslate nohighlight">\(m_{1} = f^{1}(m_{0_{f}}) z^{1}\)</span></p>
-<p><span class="math notranslate nohighlight">\(m_{i} = f^{i}(m_{0_{f}}) z^{i} + g^{i - \alpha}(m_{0_{g}}) z^{i - \alpha}\)</span></p>
-<p>where <span class="math notranslate nohighlight">\(\alpha \in Z^{+}\)</span>.</p>
+<p><span class="math">\(m_{0_{f}}, m_{0_{g}} = mesh.matrix \cdot z^{0}, mesh.matrix \cdot z^{\alpha}\)</span></p>
+<p><span class="math">\(m_{1} = f^{1}(m_{0_{f}}) z^{1}\)</span></p>
+<p><span class="math">\(m_{i} = f^{i}(m_{0_{f}}) z^{i} + g^{i - \alpha}(m_{0_{g}}) z^{i - \alpha}\)</span></p>
+<p>where <span class="math">\(\alpha \in Z^{+}\)</span>.</p>
 <p><a class="reference external" href="https://matplotlib.org/tutorials/text/mathtext.html">[mathjax cheat sheet]</a></p>
 <p>Algorithm:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Animizer</span><span class="p">:</span>
-   <span class="n">compose</span> <span class="nb">all</span> <span class="n">scripts</span> <span class="n">into</span> <span class="n">every</span> <span class="n">CmpTween</span><span class="s1">&#39;s affine field;</span>
-   <span class="nb">set</span> <span class="n">CmpTweens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">m0</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
+<div class="highlight-python"><div class="highlight"><pre>1. Animizer:
+   compose all scripts into every CmpTween&#39;s affine field;
+   set CmpTweens[i].m0 = undefined;
 
-<span class="mf">2.</span> <span class="n">XTweener</span><span class="o">.</span><span class="n">update</span><span class="p">():</span>
-   <span class="k">for</span> <span class="n">each</span> <span class="n">entity</span>
-     <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span> <span class="n">sequence</span>
-       <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span>
-         <span class="k">if</span> <span class="n">starting</span> <span class="n">a</span> <span class="n">tween</span><span class="p">:</span>
-           <span class="n">event</span><span class="p">:</span> <span class="n">onStart</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">clear</span> <span class="n">m0</span><span class="p">;</span>
-         <span class="n">update</span> <span class="n">tween</span><span class="p">;</span>
+2. XTweener.update():
+   for each entity
+     for each tween sequence
+       for each tween
+         if starting a tween:
+           event: onStart() =&gt; clear m0;
+         update tween;
 
-<span class="mf">3.</span> <span class="n">Affine</span><span class="o">.</span><span class="n">update</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span> <span class="ow">in</span> <span class="n">CmpTweens</span><span class="p">,</span>
-      <span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">how</span> <span class="n">Tween</span><span class="o">.</span><span class="n">js</span> <span class="n">works</span> <span class="o">-</span> <span class="n">tweened</span> <span class="n">value</span> <span class="n">got</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">beginning</span><span class="o">.</span>
-      <span class="mf">3.1</span> <span class="k">if</span> <span class="n">starting</span> <span class="n">a</span> <span class="n">sequence</span> <span class="p">(</span><span class="n">tween</span><span class="o">.</span><span class="n">m0</span> <span class="o">==</span> <span class="n">undefied</span><span class="p">),</span> <span class="n">take</span> <span class="n">snapshot</span><span class="p">:</span>
-          <span class="n">tween</span><span class="o">.</span><span class="n">m0</span> <span class="o">-&gt;</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">matrix</span>
-      <span class="mf">3.2</span> <span class="n">combine</span> <span class="n">affine</span> <span class="n">transformation</span> <span class="n">when</span> <span class="n">the</span> <span class="n">tween</span> <span class="ow">is</span> <span class="n">updated</span>
-          <span class="n">Obj3</span><span class="o">.</span><span class="n">mi</span> <span class="o">&lt;-</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">mi</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span> <span class="n">f</span><span class="p">(</span> <span class="n">tween</span><span class="o">.</span><span class="n">m0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="p">)</span>
-      <span class="mf">3.3</span> <span class="k">if</span> <span class="n">the</span> <span class="n">tween</span> <span class="ow">is</span> <span class="n">finished</span><span class="p">,</span> <span class="n">keep</span> <span class="n">tween</span><span class="o">.</span><span class="n">m0</span>
+3. Affine.update():
+    for each tween in CmpTweens,
+      // This is how Tween.js works - tweened value got from the beginning.
+      3.1 if starting a sequence (tween.m0 == undefied), take snapshot:
+          tween.m0 -&gt; Obj3.mesh.matrix
+      3.2 combine affine transformation when the tween is updated
+          Obj3.mi &lt;- Obj3.mi.mul( f( tween.m0 ) * z )
+      3.3 if the tween is finished, keep tween.m0
 </pre></div>
 </div>
 <p>Affine transformation are accumulated in Obj3.mi:</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
 5
 6
 7
-8</pre></div></td><td class="code"><div class="highlight"><pre><span></span>        <span class="c1">// combine affines -&gt; combined</span>
+8</pre></div></td><td class="code"><div class="highlight"><pre>        <span class="c1">// combine affines -&gt; combined</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">affines</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">mi</span> <span class="o">=</span> <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">;</span>
             <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">ax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ax</span> <span class="o">&lt;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">ax</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -262,8 +261,7 @@ z-transform for time expansion, such that</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

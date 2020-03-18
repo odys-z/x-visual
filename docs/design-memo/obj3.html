@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Visual &amp; Renderers" href="renderer.html"/>
@@ -94,7 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Obj3 &amp; Scene</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Obj3 &amp; Scene</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#obj3-transform">Obj3.transform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#obj3-affines-combined">Obj3.affines &amp; combined</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#affine-transformation-references">Affine Transformation References:</a></li>
@@ -167,41 +164,41 @@ object. Any further updating for animation are processed via Obj3.mesh propertie
 <p>Initial object transform. (TODO re-implement rotation animation using this.)</p>
 <p>Supported transform properties include 5 affine transformation in the exactly
 following sequence:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">translate</span><span class="p">,</span> <span class="n">rotate</span><span class="p">,</span> <span class="n">reflect</span><span class="p">,</span> <span class="n">shear</span><span class="p">,</span> <span class="n">scale</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">translate</span><span class="p">,</span> <span class="n">rotate</span><span class="p">,</span> <span class="n">reflect</span><span class="p">,</span> <span class="n">shear</span><span class="p">,</span> <span class="n">scale</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/002-transformatrix.svg"><img alt="../_images/002-transformatrix.svg" src="../_images/002-transformatrix.svg" width="600px" /></a>
+<a class="reference internal image-reference" href="../_images/002-transformatrix.svg"><img src="../_images/002-transformatrix.svg" width="600px" /></a>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg">from Wikipedia [CC BY-SA 3.0]</a></p>
 <p>TODO Example</p>
 <p>Shear is defined as:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="err">x_y,</span> <span class="err">x_z,</span> <span class="err">y_x,</span> <span class="err">y_z,</span> <span class="err">z_x,</span> <span class="err">z_y</span><span class="p">}</span>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span><span class="err">x_y,</span> <span class="err">x_z,</span> <span class="err">y_x,</span> <span class="err">y_z,</span> <span class="err">z_x,</span> <span class="err">z_y</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>where x_y stands for shear x with y, a.k.a x is changed wile increasing y in scale
-x_y, a.k.a mat4[1, 2] = x_y, a.k.a x’ = m11 * x + x_y * y.</p>
+x_y, a.k.a mat4[1, 2] = x_y, a.k.a x&#8217; = m11 * x + x_y * y.</p>
 <p>The 3D shear matrix is defined as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span>
-<span class="mi">11</span>   <span class="n">x_y</span>  <span class="n">x_z</span>  <span class="n">tx</span>
-<span class="n">y_x</span>  <span class="mi">22</span>   <span class="n">y_z</span>  <span class="n">ty</span>
-<span class="n">z_x</span>  <span class="n">z_y</span>  <span class="mi">33</span>   <span class="n">tz</span>
-<span class="mi">41</span>   <span class="mi">42</span>   <span class="mi">43</span>   <span class="n">w</span>
+<div class="highlight-python"><div class="highlight"><pre>m =
+11   x_y  x_z  tx
+y_x  22   y_z  ty
+z_x  z_y  33   tz
+41   42   43   w
 </pre></div>
 </div>
 </div>
 <div class="section" id="obj3-affines-combined">
 <h2>Obj3.affines &amp; combined<a class="headerlink" href="#obj3-affines-combined" title="Permalink to this headline">¶</a></h2>
-<p>This 2 properties ara similar to the mesh.matrix4, except that it’s created by
+<p>This 2 properties ara similar to the mesh.matrix4, except that it&#8217;s created by
 animizer and tweened by XTtweener.</p>
 <p>Affines is an array of affine object, where affine can be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">translate</span><span class="p">:</span> <span class="n">vec3</span>
-<span class="n">rotate</span><span class="p">:</span> <span class="n">radian</span>
-<span class="n">scale</span><span class="p">:</span> <span class="n">number</span>
+<div class="highlight-python"><div class="highlight"><pre>translate: vec3
+rotate: radian
+scale: number
 </pre></div>
 </div>
 <p>Reflect and Shear are not supported as THREE.Matrix4 seams can only been decomposed into
 rotation, translation and scale.</p>
 <p>See <a class="reference external" href="https://github.com/mrdoob/three.js/blob/master/src/math/Matrix4.js">Three.js Matrix4 Source Code</a>.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span> <span class="nx">Matrix4</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span> <span class="nx">Matrix4</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span>
   <span class="nx">decompose</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">position</span><span class="p">,</span> <span class="nx">quaternion</span><span class="p">,</span> <span class="nx">scale</span> <span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">te</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">sx</span> <span class="o">=</span> <span class="nx">_v1</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">1</span> <span class="p">],</span> <span class="nx">te</span><span class="p">[</span> <span class="mi">2</span> <span class="p">]</span> <span class="p">).</span><span class="nx">length</span><span class="p">();</span>
@@ -229,7 +226,7 @@ rotation, translation and scale.</p>
 </pre></div>
 </div>
 <p>and Object3D</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Object3D</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="nx">EventDispatcher</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">),</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Object3D</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="nx">EventDispatcher</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">),</span> <span class="p">{</span>
   <span class="nx">constructor</span><span class="o">:</span> <span class="nx">Object3D</span><span class="p">,</span>
   <span class="nx">isObject3D</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="nx">onBeforeRender</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
@@ -244,10 +241,10 @@ rotation, translation and scale.</p>
 </pre></div>
 </div>
 <p>Combined is an array parsed and combined operation represented as a mat4.</p>
-<p>Obj3.Combined is the XTweener’s tweening target and been set to Obj3.mesh.matrix4 directly.
+<p>Obj3.Combined is the XTweener&#8217;s tweening target and been set to Obj3.mesh.matrix4 directly.
 Not using Object3D.applyMatrix() because the mesh matrix will accumulate ratation etc. at
 each updating &amp; applying matrix, making rotation steps getting increased.</p>
-<p>User shouldn’t modify <em>affines</em> and <em>combined</em> fields.</p>
+<p>User shouldn&#8217;t modify <em>affines</em> and <em>combined</em> fields.</p>
 </div>
 <div class="section" id="affine-transformation-references">
 <h2>Affine Transformation References:<a class="headerlink" href="#affine-transformation-references" title="Permalink to this headline">¶</a></h2>
@@ -308,8 +305,7 @@ each updating &amp; applying matrix, making rotation steps getting increased.</p
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
