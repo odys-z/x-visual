@@ -75,7 +75,7 @@ AssetType
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 6-19
+   :lines: 4-31
    :linenos:
 
 ShaderFlag
@@ -83,7 +83,7 @@ ShaderFlag
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 24-30
+   :lines: 32-44
    :linenos:
 
 Visual Component
@@ -91,7 +91,7 @@ Visual Component
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 32-39
+   :lines: 45-54
    :linenos:
 
 
