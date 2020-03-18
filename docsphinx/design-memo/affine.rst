@@ -8,8 +8,11 @@ Affine Combination
 
 .. attention:: Design and API for affine combination is not stable in current version.
 
-    Affine combination is planed to be upgraded.
+    It is planed to be upgraded.
 ..
+
+Affine combination collect all orthogonal transformation from tweening results,
+typically an array of transformation data, and combine into a martrix4.
 
 To make affine tweening start from where it's finished, and can be combined from
 all tweens of the object (component Obj3), it's updated in XTweener like this:
