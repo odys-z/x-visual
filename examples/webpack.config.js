@@ -8,7 +8,9 @@
  module.exports = {
    mode: v,
    devtool: 'source-map',
-   entry: {cube: './cube/app.js'},
+   entry: { cube: './cube/app.js',
+            mesh: './mesh/app.js'
+          },
 
    output: {
      filename: "[name].min.js",
@@ -22,17 +24,19 @@
    plugins: [
    ],
 
+   externals: { three: 'THREE'},
+
    module: {
- 	rules: [
-		{test: /tiles-worker\.js$/,
-		 use: { loader: 'raw-loader' } },
-		{test: /\.js$/, exclude: /node_modules/, loader: "babel-loader",
-			options: { plugins: [] }},
- 		{test: /\.css$/,
-		 use: [ 'style-loader',
-				'css-loader',
-				'postcss-loader',
-			  ] },
-	],
+     rules: [
+        {test: /tiles-worker\.js$/,
+         use: { loader: 'raw-loader' } },
+        {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader",
+            options: { plugins: [] }},
+         {test: /\.css$/,
+         use: [ 'style-loader',
+                'css-loader',
+                'postcss-loader',
+              ] },
+    ],
   },
 }
