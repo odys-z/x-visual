@@ -1,0 +1,50 @@
+{ "sankey": {
+    "grid": [2, 2, 2],
+    "coordinates": [{"Active-coord": [0, 1]}, {"Inactive": [0, 1]}],
+    "scale": ["memo: x scaled by 'values' - (vectors[i][4] is not presentedin dimesions). Currently only x can be scaled"],
+    "total": 21,
+    "extrudings": [ {
+        "Active-coord": {
+            "parallels": ["Inactive"] },
+            "serials":[
+              { "label": "Front",
+                "value": 14,
+                "pivot": [0, 0, 0],
+                "plane": [{"Inactive": ["Inactive", ""]}],
+                "vec-desc": "in the plane of Inactive, x = 1 (first coord), bar[y = 0, z = 1] = 8, bar[y = 1, z = 1] = 6,
+                where z = 1 such that all bars in 'Front' plane",
+                "vectors": [[1, 0, 1, 8], [1, 1, 1, 6]]},
+              { "label": "Back",
+                "value": 7,
+                "pivot": [0, 0, 1],
+                "vec-desc": "in the plane of Inactive, bar[y = 0, z = 0] = 2, bar[y = 1, z = 0] = 3,
+                where z = 0 such that all bars in 'Back' plane",
+                "vectors": [[1, 0, 1, 2], [1, 1, 1, 3]]}
+            ]
+    } ],
+    "vetors": [
+       [ 1, 1, 6 ],
+       [ 1, 0, 8 ],
+       [ 0, 1, 5 ],
+       [ 0, 0, 2 ],
+    ],
+
+    "_comment": "following data are correct by presenting here?",
+    "id": "sankey1",
+    "script": [
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 1.1,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }],
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 5.2,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }],
+    ],
+    "paras": {
+        "node": "box",
+        "onOverNode": 0,
+        "onOverFlow": 1,
+    } },
+  }
+}
