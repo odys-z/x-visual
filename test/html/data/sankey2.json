@@ -1,0 +1,32 @@
+{ "sankey": {
+    "comments": "same as sankey1, but another parallel axis, which makes vectors doubled
+    - a comparation to clearify flow v.s. vectors. see docsphinx/design-memo/003-sankey-vectors.png",
+    "grid": [3, 3, 2],
+    "coordinates": [{"Active-coord": [0, 1]}, {"Inactive": [0, 1]}, {"Inact2": [0, 1, 3]}],
+    "scale": ["memo: x scaled by 'values' - (vectors[i][4] is not presentedin dimesions). Currently only x can be scaled"],
+    "total": 21,
+    "groups": [ {
+        "Active-coord": {
+            "parallels": ["Inactive", "Inact2"] },
+            "Front": {
+                "y": 14,
+                "vectors": [ 0, 1, 2, 3 ] },
+            "Back": {
+                "y": 7,
+                "vectors": [ 4, 5, 6, 7 ] }
+    } ],
+    "vetors": [
+       [ 1, 1, 1, 2 ],
+       [ 1, 1, 0, 4 ],
+
+       [ 1, 0, 1, 2 ],
+       [ 1, 0, 1, 6 ],
+
+       [ 0, 1, 1, 1 ],
+       [ 0, 1, 1, 4 ],
+
+       [ 0, 0, 1, 1 ],
+       [ 0, 0, 0, 1 ]
+    ]
+  }
+}

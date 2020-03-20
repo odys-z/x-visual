@@ -100,7 +100,7 @@ See `Three.js Matrix4 Source Code <https://github.com/mrdoob/three.js/blob/maste
     }
 ..
 
-and Object3D
+and `Object3D <https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js>`_
 
 .. code-block:: javascript
 
@@ -136,3 +136,8 @@ Affine Transformation References:
 `[3] Affine Transformation, wikipedia <https://en.wikipedia.org/wiki/Affine_transformation>`_
 
 `[4] What is the difference between linear and affine function, Mathematics <https://math.stackexchange.com/questions/275310/what-is-the-difference-between-linear-and-affine-function>`_
+
+Obj3 Geometry Parameters
+------------------------
+
+See Thrender.threeGeometryCase()
