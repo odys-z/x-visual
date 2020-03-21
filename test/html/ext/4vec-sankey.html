@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>XTest.ext - XSankey</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../node_modules/jquery/dist/jquery-3.4.1.js'></script>
     <script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
 </head>
 <body>
@@ -16,10 +17,11 @@
         constructor(ecs, options) {
             super(ecs);
             this.ecs = ecs;
-            this.initPaths(ecs, options.xworld);
+            this.confg = this.initSankey(ecs, options.xworld,
+                '../data/shanke1.json');
         }
 
-        initSankey(ecs, xworld) {
+        static conf() {
             var chartConf = {
                 id: 'sankey1',
                 script: [
@@ -33,28 +35,31 @@
                             ease: xv.XEasing.Elastic.In} }],
                     ],
                 paras: {
-                    data: {file: '../data/sankey1.json'},
                     node: 'box',
                     onOverNode: 0,  // tweens[0]
                     onOverFlow: 1,  // tweens[1]
-                    // onClickNode: 2, // onClick is handled by function
-                } },
+                } };
+            return charConf;
+        }
 
-            var sankey = new XSankey(ecs, {chart: chartConf});
-            xworld.addSystem('sankey', sankey);
+        update() {
         }
     }
 
-    CustLine.query = { iffall: ['CmdFlag', 'Sankey'] };
+    ChartSankey.query = { iffall: ['CmdFlag', 'Sankey'] };
 
     const xworld = new xv.XWorld(document.getElementById('canv'), window,
                                 {effects: true});
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 
-    xworld.addSystem('test', new ChartSankey(ecs, {xworld}));
+    $.getJSON('../data/shankey1.json', (json) => {
+        var sankey = new XSankey(ecs, {chart: ChartSankey.conf()}, json);
+        xworld.addSystem('sankey', sankey);
 
-    xworld.startUpdate();
+        xworld.addSystem('test', new ChartSankey(ecs, {xworld}));
+        xworld.startUpdate();
+    });
   </script>
   </body>
 </html>
