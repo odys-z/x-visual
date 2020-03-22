@@ -33,11 +33,16 @@
                     paras: {duration: 5.2,
                             alpha: [0.3, 0.9],
                             ease: xv.XEasing.Elastic.In} }],
+                 [{ mtype: xv.XComponent.AnimType.POSITION,
+                    paras: {duration: 5.2,
+                            positions: [0.3, 0.9],
+                            ease: xv.XEasing.Elastic.In} }],
                     ],
                 paras: {
-                    node: 'box',
-                    onOverNode: 0,  // tweens[0]
-                    onOverFlow: 1,  // tweens[1]
+                    geomType: xv.Obj3Type.Cylinder,
+                    onOverNode: 0,       // tweens[0]
+                    onOverFlow: 1,
+                    onClickNode:2
                 } };
             return charConf;
         }
