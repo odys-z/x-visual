@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>XTest.ext - XSankey</title>
-    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../node_modules/jquery/dist/jquery-3.4.1.js'></script>
-    <script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../node_modules/jquery/dist/jquery-3.4.1.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.2.0.min.js'></script>
 </head>
 <body>
   <img id='splash'></img>
@@ -18,7 +18,7 @@
             super(ecs);
             this.ecs = ecs;
             this.confg = this.initSankey(ecs, options.xworld,
-                '../data/shanke1.json');
+                '../data/shankey-1parallel.json');
         }
 
         static conf() {
@@ -58,7 +58,7 @@
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 
-    $.getJSON('../data/shankey1.json', (json) => {
+    $.getJSON('../data/sankey-1parallel.json', (json) => {
         var sankey = new XSankey(ecs, {chart: ChartSankey.conf()}, json);
         xworld.addSystem('sankey', sankey);
 
