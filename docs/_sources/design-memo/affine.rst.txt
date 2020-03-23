@@ -8,13 +8,17 @@ Affine Combination
 
 .. attention:: Design and API for affine combination is not stable in current version.
 
-    Affine combination is planed to be upgraded.
+    It is planed to be upgraded.
 ..
+
+Affine combination collect all orthogonal transformation from tweening results,
+typically an array of transformation data, and combine into a martrix4.
 
 To make affine tweening start from where it's finished, and can be combined from
 all tweens of the object (component Obj3), it's updated in XTweener like this:
 
 ..
+    backup old version
     1. Animizer:
        compose all scripts into every CmpTween's affine field.
     2. XTweener.update(): for each tweening update
@@ -64,11 +68,20 @@ Algorithm: ::
               Obj3.mi <- Obj3.mi.mul( f( tween.m0 ) * z )
           3.3 if the tween is finished, keep tween.m0
 
-Affine transformation are accumulated in Obj3.mi:
+Affine transformation are accumulated in Obj3. :math:`m_{i}` :
 
-.. literalinclude:: ../../lib/xmath/affine.js
+.. literalinclude:: ../../lib/sys/tween/affinecombiner.js
    :language: javascript
-   :lines: 66-73
+   :lines: 84-98
    :linenos:
 
 .. _affine-issue:
+
+Issue
+-----
+
+Tween.js start tween again, it will restore saved starting object for the beginning
+of interpolation. This makes AffineCombiner can't drive tween animation from where
+it stopped.
+
+See effects of test/html/script-linear-combination.html.

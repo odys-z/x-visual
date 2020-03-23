@@ -110,12 +110,12 @@ An x-visual application includes:
 
 Basically x-visual is not intended to be a well round data visualization framework.
 It's only used to verifying some idea required by a commercial system and as a
-personal arsenal for consolidate any creative thoughts.
+personal arsenal for consolidating any creative thoughts.
 
 It would been eventually useful if it could trigger any further innovation, when
 math met arts.
 
-So currently there is no more documents about it's function details, jsut feel
+So currently there is no more documents about it's function details, just feel
 free to try it.
 
 5. Next Step
