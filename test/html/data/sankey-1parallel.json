@@ -5,24 +5,22 @@
     "total": 21,
     "groups": [ {
         "Active-coord": {
-            "parallels": ["Inactive"] },
+            "parallels": ["Inactive"],
             "serials":[
               { "label": "Front",
                 "value": 14,
                 "pivot": [0, 0, 0],
                 "plane": [{"Inactive": ["Inactive", ""]}],
-                "vec-desc": "in the plane of Inactive,(x = 1, first parallel coord), bar[y = 0, z = 1] = 8, bar[y = 1, z = 1] = 6,
-                where z = 1 such that all bars in 'Front' plane. Vectors are in form of [ith-parallel-coord, parallel-val, z = 1, value]",
+                "vec-desc": "in the plane of Inactive,(x = 1, first parallel coord), bar[y = 0, z = 1] = 8, bar[y = 1, z = 1] = 6, where z = 1 such that all bars in 'Front' plane. Vectors are in form of [ith-parallel-coord, parallel-val, z = 1, value]",
                 "vectors": [[1, 0, 1, 8], [1, 1, 1, 6]]},
               { "label": "Back",
                 "value": 7,
                 "pivot": [0, 0, 1],
-                "vec-desc": "in the plane of Inactive, bar[y = 0, z = 0] = 2, bar[y = 1, z = 0] = 5,
-                where z = 0 such that all bars in 'Back' plane. Vectors are in form of [ith-parallel-coord, parallel-val, z = 1, value]",
+                "vec-desc": "in the plane of Inactive, bar[y = 0, z = 0] = 2, bar[y = 1, z = 0] = 5, where z = 0 such that all bars in 'Back' plane. Vectors are in form of [ith-parallel-coord, parallel-val, z = 1, value]",
                 "vectors": [[1, 0, 0, 5], [1, 1, 0, 2]]}
-            ]
+            ] }
     } ],
-    "vetors": [
+    "vectors": [
        [ 1, 1, 6 ],
        [ 1, 0, 8 ],
        [ 0, 1, 5 ],
@@ -45,6 +43,6 @@
         "node": "box",
         "onOverNode": 0,
         "onOverFlow": 1
-    } }
+    }
   }
 }

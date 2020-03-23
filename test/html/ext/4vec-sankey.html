@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>XTest.ext - XSankey</title>
     <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../../node_modules/jquery/dist/jquery-3.4.1.js'></script>
+    <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
     <script type='text/javascript' src='../../../dist/xv-0.2.0.min.js'></script>
 </head>
 <body>
@@ -17,8 +17,8 @@
         constructor(ecs, options) {
             super(ecs);
             this.ecs = ecs;
-            this.confg = this.initSankey(ecs, options.xworld,
-                '../data/shankey-1parallel.json');
+            // this.confg = this.initSankey(ecs, options.xworld,
+            //     './data/shankey-1parallel.json');
         }
 
         static conf() {
@@ -39,12 +39,12 @@
                             ease: xv.XEasing.Elastic.In} }],
                     ],
                 paras: {
-                    geomType: xv.Obj3Type.Cylinder,
+                    geomType: xv.XComponent.Obj3Type.Cylinder,
                     onOverNode: 0,       // tweens[0]
                     onOverFlow: 1,
                     onClickNode:2
                 } };
-            return charConf;
+            return chartConf;
         }
 
         update() {
@@ -58,12 +58,14 @@
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 
-    $.getJSON('../data/sankey-1parallel.json', (json) => {
-        var sankey = new XSankey(ecs, {chart: ChartSankey.conf()}, json);
+    $.getJSON('../data/sankey-1parallel.json', function(json){
+        var sankey = new xv.XSankey(ecs, {chart: ChartSankey.conf()}, json.sankey);
         xworld.addSystem('sankey', sankey);
 
         xworld.addSystem('test', new ChartSankey(ecs, {xworld}));
         xworld.startUpdate();
+    }).fail(function(jqXhr, textStatus, error) {
+            console.log(jqXhr, textStatus, error);
     });
   </script>
   </body>
