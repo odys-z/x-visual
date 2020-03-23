@@ -73,7 +73,7 @@ describe('case: [affine] affines array', function() {
             ModelSeqs: { script: [[
                   { mtype: AnimType.POSITION,
                     paras: {start: 0,        // auto start,
-                            duration: 0.5,
+                            duration: 0.4,
                             translate: [[0, 0, -1], [0, 0, 2]],
                             ease: null} }
                   ]] },
@@ -83,14 +83,22 @@ describe('case: [affine] affines array', function() {
 		debugger
         xworld.startUpdate();
             var wp = new THREE.Vector3();
+            xworld.update(); // onZinc called (mesh.mat updated) after affine applied
             cube.Obj3.mesh.getWorldPosition(wp);
-			console.log(wp);
-            assert.isTrue(new vec3(wp).eq([0, 0, -1]), "0, 0, -1");
+            assert.isTrue(new vec3(wp).eq([0, 0, -1], 0.1), "0, 0, -1");
 
-            await sleep(300);
+            await sleep(200);
             xworld.update();
+            xworld.update(); // onZinc called (mesh.mat updated) after affine applied
             cube.Obj3.mesh.getWorldPosition(wp);
 			console.log(wp);
-            assert.isTrue(new vec3(wp).eq([0, 0, 1]), "0, 0, 1");
+            assert.isFalse(new vec3(wp).eq([0, 0, 2]), "0.2s: 0, 0, 1");
+
+            await sleep(400);
+            xworld.update();
+            xworld.update(); // onZinc called (mesh.mat updated) after affine applied
+            cube.Obj3.mesh.getWorldPosition(wp);
+			console.log(wp);
+            assert.isTrue(new vec3(wp).eq([0, 0, 2]), "0.4s: 0, 0, 1");
     });
 });
