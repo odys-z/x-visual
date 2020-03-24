@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>XTest.ext - XSankey</title>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.2.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <script>
+    "use strict";
+
+    class ChartSankey extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+        }
+
+        static conf() {
+            var chartConf = {
+                id: 'sankey1',
+                script: [
+                 [{ mtype: xv.XComponent.AnimType.ALPHA,
+                    paras: {duration: 1.1,     // seconds
+                            alpha: [0.3, 0.9],
+                            ease: xv.XEasing.Elastic.In} }],
+                 [{ mtype: xv.XComponent.AnimType.ALPHA,
+                    paras: {duration: 5.2,
+                            alpha: [0.3, 0.9],
+                            ease: xv.XEasing.Elastic.In} }],
+                 [{ mtype: xv.XComponent.AnimType.POSITION,
+                    paras: {duration: 5.2,
+                            positions: [0.3, 0.9],
+                            ease: xv.XEasing.Elastic.In} }],
+                    ],
+                paras: {
+                    geomType: xv.XComponent.Obj3Type.Cylinder,
+                    onOverNode: 0,       // tweens[0]
+                    onOverFlow: 1,
+                    onClickNode:2
+                } };
+            return chartConf;
+        }
+
+        update() {
+        }
+    }
+
+    ChartSankey.query = { iffall: ['CmdFlag', 'Sankey'] };
+
+    const xworld = new xv.XWorld(document.getElementById('canv'), window,
+                                {effects: true});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
+
+    $.getJSON('../data/sankey-1parallel.json', function(json){
+        var sankey = new xv.XSankey(ecs, {chart: ChartSankey.conf()}, json.sankey);
+        xworld.addSystem('sankey', sankey);
+
+        xworld.addSystem('test', new ChartSankey(ecs, {xworld}));
+        xworld.startUpdate();
+    }).fail(function(jqXhr, textStatus, error) {
+            console.log(jqXhr, textStatus, error);
+    });
+  </script>
+  </body>
+</html>

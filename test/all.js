@@ -13,9 +13,9 @@
 // context = require.context('.', true, /api-script-affines.case\.js$/);
 
 // context = require.context('.', true, /basic-affines-.*.case\.js$/);
-// context = require.context('.', true, /basic-affines-array.case\.js$/);
+context = require.context('.', true, /basic-affines-array.case\.js$/);
 // context = require.context('.', true, /basic-affines-orbit.case\.js$/);
-context = require.context('.', true, /basic-affines-parallel-issue.case\.js$/);
+// context = require.context('.', true, /basic-affines-parallel-issue.case\.js$/);
 
 // context.keys().forEach(context)
 // module.exports = context;

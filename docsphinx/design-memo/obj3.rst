@@ -102,8 +102,7 @@ Here is the code snippet of Matrix4.decompose:
     }
 ..
 
-
-and of Object3D.applyMatrix:
+and `Object3D <https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js>`_
 
 .. code-block:: javascript
 
@@ -132,7 +131,7 @@ User shouldn't modify *affines* and *combined* fields.
 In addition to basic affine transformation, x-visual provide some combined transformation
 from these basic transformations, like orbiting and interpolated translating.
 
-See :ref:`Affine Combiner Design <affine-design-mem>` for more details.
+See :ref:`Affine Combiner Design <affine-design-memo>` for more details.
 
 Affine Transformation References:
 ---------------------------------
@@ -144,3 +143,8 @@ Affine Transformation References:
 `[3] Affine Transformation, wikipedia <https://en.wikipedia.org/wiki/Affine_transformation>`_
 
 `[4] What is the difference between linear and affine function, Mathematics <https://math.stackexchange.com/questions/275310/what-is-the-difference-between-linear-and-affine-function>`_
+
+Obj3 Geometry Parameters
+------------------------
+
+See Thrender.threeGeometryCase()
