@@ -91,14 +91,14 @@ describe('case: [affine] affines array', function() {
             xworld.update();
             xworld.update(); // onZinc called (mesh.mat updated) after affine applied
             cube.Obj3.mesh.getWorldPosition(wp);
-			console.log(wp);
-            assert.isFalse(new vec3(wp).eq([0, 0, 2]), "0.2s: 0, 0, 1");
+			console.log('0.2s', wp);
+            assert.isFalse(new vec3(wp).eq([0, 0, 2]), "0.2s: 0, 0, 2");
 
             await sleep(400);
             xworld.update();
             xworld.update(); // onZinc called (mesh.mat updated) after affine applied
             cube.Obj3.mesh.getWorldPosition(wp);
-			console.log(wp);
-            assert.isTrue(new vec3(wp).eq([0, 0, 2]), "0.4s: 0, 0, 1");
+			console.log('0.4s', wp);
+            assert.isTrue(new vec3(wp).eq([0, 0, 2]), "0.4s: 0, 0, 2");
     });
 });
