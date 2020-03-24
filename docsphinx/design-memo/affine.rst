@@ -60,18 +60,25 @@ where :math:`\alpha \in Z^{+}`.
 
 There are two level of combination:
 
-1. transformation that grouped into a combined one, like orbit moving.
+::
 
-2. at a parallel tween sequences updating, transformation are combined across
-multiple sequences.
+    1. transformation that grouped into a combined one, like orbit moving.
 
-..
+    2. at a parallel tween sequences updating, transformation are combined across
+       multiple sequences.
+
+TODO refine these structure and debug the problem of results been reset after
+previous tween finished (:math:`m_{i_{f,g}}` needing been keept as snapshots).
+
+.. code-block:: javascript
+
     Core structure - Affine
 
     class Affine {
         m_f: mat4,
         aff: array<AffineType>
     }
+..
 
 Algorithm: ::
 
@@ -110,7 +117,7 @@ Affine transformation are accumulated in Obj3. :math:`m_{i}` :
 
 .. literalinclude:: ../../lib/sys/tween/affinecombiner.js
    :language: javascript
-   :lines: 94-108
+   :lines: 80-93
    :linenos:
 
 .. _affine-issue:

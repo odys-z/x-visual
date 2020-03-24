@@ -164,7 +164,7 @@
 <p class="first admonition-title">Note</p>
 <p>Also a hard learnt lesson:</p>
 <p>Let different systems cooperate purely only upon components, don’t trigger
-each other. There should be only one ruler.</p>
+each other. There should be only one signal issuer.</p>
 <p>Trigger combination events in XTweener makes things complicate.</p>
 <p class="last">If a system changed something useful for flowing updating, leave them in
 components.</p>
@@ -183,11 +183,22 @@ z-transform for time expansion, such that</p>
 <p><span class="math notranslate nohighlight">\(mesh.matrix = m_{i} \cdot m_{0}\)</span></p>
 <p><a class="reference external" href="https://matplotlib.org/tutorials/text/mathtext.html">[mathjax cheat sheet]</a></p>
 <p>There are two level of combination:</p>
-<ol class="arabic simple">
-<li>transformation that grouped into a combined one, like orbit moving.</li>
-</ol>
-<p>2. at a parallel tween sequences updating, transformation are combined across
-multiple sequences.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">transformation</span> <span class="n">that</span> <span class="n">grouped</span> <span class="n">into</span> <span class="n">a</span> <span class="n">combined</span> <span class="n">one</span><span class="p">,</span> <span class="n">like</span> <span class="n">orbit</span> <span class="n">moving</span><span class="o">.</span>
+
+<span class="mf">2.</span> <span class="n">at</span> <span class="n">a</span> <span class="n">parallel</span> <span class="n">tween</span> <span class="n">sequences</span> <span class="n">updating</span><span class="p">,</span> <span class="n">transformation</span> <span class="n">are</span> <span class="n">combined</span> <span class="n">across</span>
+   <span class="n">multiple</span> <span class="n">sequences</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>TODO refine these structure and debug the problem of results been reset after
+previous tween finished (<span class="math notranslate nohighlight">\(m_{i_{f,g}}\)</span> needing been keept as snapshots).</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Core</span> <span class="nx">structure</span> <span class="o">-</span> <span class="nx">Affine</span>
+
+<span class="kr">class</span> <span class="nx">Affine</span> <span class="p">{</span>
+    <span class="nx">m_f</span><span class="o">:</span> <span class="nx">mat4</span><span class="p">,</span>
+    <span class="nx">aff</span><span class="o">:</span> <span class="nx">array</span><span class="o">&lt;</span><span class="nx">AffineType</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>Algorithm:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Animizer</span><span class="p">:</span>
    <span class="n">compose</span> <span class="nb">all</span> <span class="n">scripts</span> <span class="n">into</span> <span class="n">every</span> <span class="n">CmpTween</span><span class="s1">&#39;s affine field;</span>
@@ -235,22 +246,20 @@ multiple sequences.</p>
 11
 12
 13
-14
-15</pre></div></td><td class="code"><div class="highlight"><pre><span></span>					<span class="c1">// 		// so there are chance such that twn.isPlaying = true but e.Obj3.mi is not initialized.</span>
-					<span class="c1">// 		// Shall we revise Tween.js?</span>
-					<span class="c1">// 		&amp;&amp; e.Obj3.mi !== undefined) {</span>
-					<span class="c1">// 		this.combineUpdate(e.Obj3, twn.affines, e.CmpTweens.m0s[seqx]);</span>
-					<span class="c1">// 	}</span>
-					<span class="c1">// }</span>
-					<span class="kd">var</span> <span class="nx">twindx</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">twindx</span><span class="p">[</span><span class="nx">seqx</span><span class="p">];</span>
-					<span class="k">if</span> <span class="p">(</span><span class="nx">twindx</span> <span class="o">&lt;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">tweens</span><span class="p">[</span><span class="nx">seqx</span><span class="p">].</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-						<span class="kd">var</span> <span class="nx">tw</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">tweens</span><span class="p">[</span><span class="nx">seqx</span><span class="p">][</span><span class="nx">twindx</span><span class="p">];</span>
-						<span class="k">this</span><span class="p">.</span><span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">,</span> <span class="nx">tw</span><span class="p">.</span><span class="nx">affines</span><span class="p">);</span>
-					<span class="p">}</span>
-				<span class="p">}</span>
-				<span class="k">this</span><span class="p">.</span><span class="nx">combineEnd</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">);</span>
-			<span class="p">}</span>
-			<span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">idleRising</span><span class="p">)</span> <span class="p">{</span>
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="cm">/**Update affine combination for the object.</span>
+<span class="cm">     * @param {Obj3} combined target object with mi</span>
+<span class="cm">     * @param {array&lt;Affine&gt;} affines</span>
+<span class="cm">     * @param {mat4} m0 m0_g, m0_f, ...</span>
+<span class="cm">     * @member AffineCombiner#combineUpdate</span>
+<span class="cm">     */</span>
+    <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">combined</span><span class="p">,</span> <span class="nx">affines</span><span class="p">,</span> <span class="nx">m0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">affines</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">mi</span> <span class="o">=</span> <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">ax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ax</span> <span class="o">&lt;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">ax</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">mi</span><span class="p">.</span><span class="nx">appAffine</span><span class="p">(</span><span class="nx">affines</span><span class="p">[</span><span class="nx">ax</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
