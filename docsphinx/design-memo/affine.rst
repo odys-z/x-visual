@@ -122,11 +122,27 @@ Affine transformation are accumulated in Obj3. :math:`m_{i}` :
 
 .. _affine-issue:
 
-Issue
------
+A Note on Tween.js Behaviour
+----------------------------
 
-When Tween.js start tween again, it will restore saved starting object for the beginning
-of interpolation. This makes AffineCombiner can't drive tween animation from where
-it stopped.
+When Tween.js start a tween animation again, it will restore saved starting object
+for the beginning of interpolation. This makes AffineCombiner can't drive tween
+animation from where it stopped.
 
-See effects of test/html/script-linear-combination.html.
+- Test
+
+test/html/script-linear-combination.html.
+
+- x-visual way
+
+To handle this, x-visual save :math:`m_{f}` in each CmpTween, as a bridge between
+2 combination levels. Each :math:`m_{f}` is independent to each other and to :math:`m_{0}`.
+
+When a tween is completed inside a sequence, :math:`m_{f}` has been kept, having
+combined tween sequences updating keeping use it to update the final :math:`m_{i}`.
+
+.. image:: imgs/003-ortho-mfs.png
+    :width: 420px
+
+The key point of x-visual way is that all finger print of tween driven transformation
+are saved in each tween for being combined later, orthogonally.
