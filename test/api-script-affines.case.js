@@ -58,7 +58,7 @@ describe('case: [affine] orbit combine', function() {
         debugger
         xworld.startUpdate();
             cube.CmpTweens.startCmds.push(0);
-            cube.CmpTweens.startCmds.push(1);
+            // cube.CmpTweens.startCmds.push(1);
             xworld.update();
             await sleep(300);
             xworld.update();
