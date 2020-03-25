@@ -60,8 +60,12 @@ describe('case: [affine] orbit combine', function() {
             cube.CmpTweens.startCmds.push(0);
             // cube.CmpTweens.startCmds.push(1);
             xworld.update();
+			// debug notes: in above update, tween value = 0
             await sleep(300);
             xworld.update();
+			// FIXME
+			// debug notes: in above update, tween value = 1, but all tween indices are out of boundary
+			// so no affine transform can be updated back to mesh in affine combeiner.
             await sleep(200);
             xworld.update();
             var mjs = cube.Obj3.mesh.matrix;
