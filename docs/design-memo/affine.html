@@ -97,6 +97,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="">Affine Tweening</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#affine-combination">Affine Combination</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#a-note-on-tween-js-behaviour">A Note on Tween.js Behaviour</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-notes">Debug Notes:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
@@ -162,7 +163,9 @@
 <p>Also a hard learnt lesson:</p>
 <p>Let different systems cooperate purely only upon components, don&#8217;t trigger
 each other. There should be only one signal issuer.</p>
-<p>Trigger combination events in XTweener makes things complicate.</p>
+<p>Trigger combination events in XTweener makes things complicate. E.g. startween()
+set <em>isPlaying</em> = true, but call onStart() handler at next update when tween
+update() been called.</p>
 <p class="last">If a system changed something useful for flowing updating, leave them in
 components.</p>
 </div>
@@ -199,8 +202,11 @@ previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been 
 <p>Algorithm:</p>
 <div class="highlight-python"><div class="highlight"><pre>1. Animizer:
    compose all scripts into every CmpTween&#39;s affine field;
-   m0 = I;
-   idle = true;
+   Obj3.m0, mi, mi_z = I
+   # mi_z is a copy of mi, to prevent mi been reseted before idle state fired.
+   # z ^ 1 stands for span of time affines updated.
+   each tween.mf = new mat4()
+   idle = true
 
 2. XTweener.update():
    // setup idle as the flag of some tween updated (needing combined later)
@@ -211,22 +217,34 @@ previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been 
          if starting a tween:
            // event: onStart() =&gt; clear m0;
            if idle:
-             m0 = mesh.matrix
+             idle-edge = lowing, i.g. play-risging
            idle = false;
          update tween;
 
      if none updated:
         idle = true
+        if prev-idle = true:
+            idle-edge = rising
 
 3. Affine.update():
-    if not idle:
+    A. if not idle:
       for each tween in CmpTweens:
         // This is how Tween.js works - tweened value got from the beginning.
-        3.1 if starting a sequence (tween.m0 == undefied), take snapshot:
-            tween.m0 &lt;- Obj3.mesh.matrix
-        3.2 combine affine transformation when the tween is updated
+        A.1 if play-rising:
+            Obj3.m0 = mesh.matrix, i.g. the all tweens&#39; starting point.
+
+        A.2 if starting a consecutive:
+            tween._mf &lt;- previous-tween.mf
+             i.g. save previous mf for where this tween started to tween.
+        A.3 combine affine transformation for all tweens in all sequence currently updatings
             Obj3.mi &lt;- Obj3.mi.mul( fi( m0 ) * zi )
-        3.3 if the tween is finished, keep tween.m0
+        A.4 if the tween is finished, keep tween.m0
+            i.g. if all tween is affine and used for combine:
+            mf_z = mf
+    B. if idle rising:
+        mesh.matrix = mf_z
+        # this makes comination results been set to mesh, permanently,
+        # open for other updating, and can be re-taken snapshot as m0.
 </pre></div>
 </div>
 <p>Affine transformation are accumulated in Obj3. <span class="math">\(m_{i}\)</span> :</p>
@@ -243,20 +261,32 @@ previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been 
 11
 12
 13
-14</pre></div></td><td class="code"><div class="highlight"><pre>            <span class="p">}</span>
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="cm">/**Update affine combination for the object.</span>
+<span class="cm">     * @param {Obj3} combined target object with mi</span>
+<span class="cm">     * @param {array&lt;Affine&gt;} affines e.g. [{mi, translate: [x, y, z]}]</span>
+<span class="cm">     * @member AffineCombiner#combineUpdate</span>
+<span class="cm">     */</span>
+    <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">combined</span><span class="p">,</span> <span class="nx">tween</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">affines</span> <span class="o">=</span> <span class="nx">tween</span><span class="p">.</span><span class="nx">affines</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">i</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">ax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ax</span> <span class="o">&lt;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">ax</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">appAffine</span><span class="p">(</span><span class="nx">affines</span><span class="p">[</span><span class="nx">ax</span><span class="p">]);</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-		<span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mul</span><span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">);</span>
-    <span class="p">}</span>
+        <span class="c1">// apply mf of previous tween (in same sequence)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">_mf</span> <span class="k">instanceof</span> <span class="nx">mat4</span><span class="p">)</span>
+            <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">_mf</span><span class="p">);</span>
 
-    <span class="o">/**</span><span class="nx">Update</span> <span class="nx">combined</span> <span class="nx">object</span> <span class="nx">transform</span> <span class="nx">to</span> <span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="p">.</span>
-     <span class="o">*</span>
-     <span class="o">*</span> <span class="nx">Must</span> <span class="nx">been</span> <span class="nx">called</span> <span class="nx">when</span> <span class="nx">z</span> <span class="nx">is</span> <span class="nx">really</span> <span class="nx">increased</span> <span class="o">-</span> <span class="nx">tweens</span> <span class="nx">updated</span> <span class="k">in</span> <span class="nx">one</span> <span class="nx">loop</span><span class="p">.</span>
-     <span class="o">*</span> <span class="o">-</span> <span class="nx">needing</span> <span class="nx">first</span> <span class="nx">updating</span> <span class="nx">mesh</span> <span class="nx">matrix</span><span class="p">,</span> <span class="nx">then</span> <span class="nx">apply</span> <span class="nx">affine</span> <span class="nx">transformation</span> <span class="nx">to</span> <span class="nx">it</span><span class="p">.</span>
-     <span class="o">*</span>
-     <span class="o">*</span> <span class="nx">Three</span><span class="p">.</span><span class="nx">js</span> <span class="nx">docs</span> <span class="nx">about</span> <span class="nx">the</span> <span class="nx">order</span><span class="o">:</span>
-     <span class="o">*</span>
-     <span class="o">*</span> <span class="nx">Convenience</span> <span class="nx">properties</span> <span class="nx">and</span> <span class="nx">matrixAutoUpdate</span><span class="p">,</span>
-     <span class="o">*</span>
+        <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">combined</span><span class="p">.</span><span class="nx">m0</span><span class="p">);</span>
+        <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mul</span><span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">);</span>
+    <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -279,6 +309,16 @@ combined tween sequences updating keeping use it to update the final <span class
 <a class="reference internal image-reference" href="../_images/003-ortho-mfs.png"><img alt="../_images/003-ortho-mfs.png" src="../_images/003-ortho-mfs.png" style="width: 420px;" /></a>
 <p>The key point of x-visual way is that all finger print of tween driven transformation
 are saved in each tween for being combined later, orthogonally.</p>
+</div>
+<div class="section" id="debug-notes">
+<h2>Debug Notes:<a class="headerlink" href="#debug-notes" title="Permalink to this headline">¶</a></h2>
+<p>1. There do has an <span class="math">\(m_{0}\)</span>, set at all tweens sequences started, triggered by
+<em>playRising</em>, and at each cross update, post applied to <span class="math">\(m_{i}\)</span>.</p>
+<ol class="arabic simple" start="2">
+<li>In x-visual v0.2, <span class="math">\(m_{f}\)</span> is been taken snapshot by onStart handler.</li>
+</ol>
+<p><strong>Issue</strong>: This is not following the rule learnt through the hard lesson, but looks
+like an easy way to update <span class="math">\(m_{f'_{1}}\)</span> before Tween.js is upgraded.</p>
 </div>
 </div>
 

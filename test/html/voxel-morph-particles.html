@@ -33,7 +33,7 @@
                 box: [260, 20, 200],
                 mesh: undefined,
                 // invisible: true,
-                 uniforms: {opacity: 0.1}},
+                uniforms: {opacity: 0.1}},
         Visual:{vtype: xv.AssetType.wireframe,
                 paras: {alpha: 0.1},
                 asset: null },
@@ -45,7 +45,7 @@
                 box: [200, 10, 20],
                 mesh: undefined,
                 invisible: true,
-                 uniforms: {opacity: 0.1}},
+                uniforms: {opacity: 0.1}},
         Visual:{vtype: xv.AssetType.wireframe,
                 paras: {alpha: 0.1},
                 asset: null },
@@ -55,8 +55,8 @@
         id: 'points',
         Obj3: { geom: xv.XComponent.Obj3Type.NA,    // use the geometry of ent1
                 box: [200, 2, 1],
-                transform: {translate: [100, 0, 0],
-                            rotate: [45, 0, 0]},
+                transform: [{translate: [100, 0, 0],
+                            rotate: [45, 0, 0]}],
                 mesh: undefined,                    // THREE.Points
                 invisible: false },                 // It's visible, but alpha 0?
         Visual:{vtype: xv.AssetType.cubeVoxel,

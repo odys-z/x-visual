@@ -16,7 +16,9 @@ Affine Combination
     Let different systems cooperate purely only upon components, don't trigger
     each other. There should be only one signal issuer.
 
-    Trigger combination events in XTweener makes things complicate.
+    Trigger combination events in XTweener makes things complicate. E.g. startween()
+    set *isPlaying* = true, but call onStart() handler at next update when tween
+    update() been called.
 
     If a system changed something useful for flowing updating, leave them in
     components.
@@ -84,8 +86,11 @@ Algorithm: ::
 
     1. Animizer:
        compose all scripts into every CmpTween's affine field;
-       m0 = I;
-       idle = true;
+       Obj3.m0, mi, mi_z = I
+       # mi_z is a copy of mi, to prevent mi been reseted before idle state fired.
+       # z ^ 1 stands for span of time affines updated.
+       each tween.mf = new mat4()
+       idle = true
 
     2. XTweener.update():
        // setup idle as the flag of some tween updated (needing combined later)
@@ -96,28 +101,40 @@ Algorithm: ::
              if starting a tween:
                // event: onStart() => clear m0;
                if idle:
-                 m0 = mesh.matrix
+                 idle-edge = lowing, i.g. play-risging
                idle = false;
              update tween;
 
          if none updated:
             idle = true
+            if prev-idle = true:
+                idle-edge = rising
 
     3. Affine.update():
-        if not idle:
+        A. if not idle:
           for each tween in CmpTweens:
             // This is how Tween.js works - tweened value got from the beginning.
-            3.1 if starting a sequence (tween.m0 == undefied), take snapshot:
-                tween.m0 <- Obj3.mesh.matrix
-            3.2 combine affine transformation when the tween is updated
+            A.1 if play-rising:
+                Obj3.m0 = mesh.matrix, i.g. the all tweens' starting point.
+
+            A.2 if starting a consecutive:
+                tween._mf <- previous-tween.mf
+                 i.g. save previous mf for where this tween started to tween.
+            A.3 combine affine transformation for all tweens in all sequence currently updatings
                 Obj3.mi <- Obj3.mi.mul( fi( m0 ) * zi )
-            3.3 if the tween is finished, keep tween.m0
+            A.4 if the tween is finished, keep tween.m0
+                i.g. if all tween is affine and used for combine:
+                mf_z = mf
+        B. if idle rising:
+            mesh.matrix = mf_z
+            # this makes comination results been set to mesh, permanently,
+            # open for other updating, and can be re-taken snapshot as m0.
 
 Affine transformation are accumulated in Obj3. :math:`m_{i}` :
 
 .. literalinclude:: ../../lib/sys/tween/affinecombiner.js
    :language: javascript
-   :lines: 80-93
+   :lines: 89-108
    :linenos:
 
 .. _affine-issue:
@@ -146,3 +163,14 @@ combined tween sequences updating keeping use it to update the final :math:`m_{i
 
 The key point of x-visual way is that all finger print of tween driven transformation
 are saved in each tween for being combined later, orthogonally.
+
+Debug Notes:
+------------
+
+1. There do has an :math:`m_{0}`, set at all tweens sequences started, triggered by
+*playRising*, and at each cross update, post applied to :math:`m_{i}`.
+
+2. In x-visual v0.2, :math:`m_{f}` is been taken snapshot by onStart handler.
+
+**Issue**: This is not following the rule learnt through the hard lesson, but looks
+like an easy way to update :math:`m_{f'_{1}}` before Tween.js is upgraded.
