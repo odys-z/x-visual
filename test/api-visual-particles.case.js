@@ -17,6 +17,8 @@ import {AnimType} from '../lib/component/morph'
 
 const {performance} = require('perf_hooks');
 
+global.performance = performance;
+
 describe('case: [Particles] VisualType.points', function() {
 	this.timeout(1000000); // for debug
 	x.log = 4;
@@ -57,6 +59,7 @@ describe('case: [Particles] VisualType.points', function() {
 			CmpTweens: { twindx: [], tweens: [] }
 		});
 
+		debugger
 		xworld.startUpdate();
 		assert.isOk(points.Obj3.mesh);
 		assert.isOk(points.Obj3.mesh.geometry.attributes.position);

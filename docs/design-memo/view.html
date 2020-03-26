@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Assets Loader" href="assets.html"/>
@@ -91,7 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">MVC View</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">MVC View</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#view">View</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gpupicking">GpuPicking</a></li>
@@ -154,7 +151,7 @@
             
   <div class="section" id="mvc-view">
 <h1>MVC View<a class="headerlink" href="#mvc-view" title="Permalink to this headline">¶</a></h1>
-<p>To the author’s knowledge, the ECS framework still needs an MVC pattern to handle
+<p>To the author&#8217;s knowledge, the ECS framework still needs an MVC pattern to handle
 user interactions.</p>
 <div class="section" id="view">
 <h2>View<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h2>
@@ -164,9 +161,9 @@ user command must query UserCmd.</p>
 <p>The intuition for this is there may be more user interaction handler, such as a websocket
 client.</p>
 <p>handling process:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Inputs</span><span class="p">:</span> <span class="n">mouse</span> <span class="o">|</span> <span class="n">key</span> <span class="n">events</span> <span class="o">-&gt;</span> <span class="n">UserCmd</span>
-<span class="n">WebClient</span><span class="p">:</span> <span class="n">web</span><span class="o">-</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="n">UserCmd</span>
-<span class="n">GpuPicker</span><span class="p">:</span> <span class="n">UserCmd</span><span class="o">.</span><span class="n">clietxy</span> <span class="o">-&gt;</span> <span class="n">GpuPickable</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre>Inputs: mouse | key events -&gt; UserCmd
+WebClient: web-message -&gt; UserCmd
+GpuPicker: UserCmd.clietxy -&gt; GpuPickable(entity.id)
 </pre></div>
 </div>
 </div>
@@ -174,7 +171,7 @@ client.</p>
 <h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h2>
 <p>Input system always been created by xworld for handling user input.</p>
 <p>User interaction been converted into UserCmd component for subsequent system handling.</p>
-<p>On each updating iteration, the command’s buffer (UserCmd) is cleared. If no new
+<p>On each updating iteration, the command&#8217;s buffer (UserCmd) is cleared. If no new
 user action, a flag, CmdFlag will be set to prevent unnecessary iteration.</p>
 </div>
 <div class="section" id="gpupicking">
@@ -238,8 +235,7 @@ and can prevent entities with GpuPickable to be picked if they are rendered clos
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
