@@ -19,26 +19,12 @@
             this.ecs = ecs;
         }
 
-        static conf() {
-            var chartConf = {
-                id: 'pie1',
-                script: [
-                 [{ mtype: xv.XComponent.AnimType.ALPHA,
-                    paras: {duration: 1.1,     // seconds
-                            alpha: [0.3, 0.9],
-                            ease: xv.XEasing.Elastic.In} }],
-                 [{ mtype: xv.XComponent.AnimType.ALPHA,
-                    paras: {duration: 5.2,
-                            alpha: [0.3, 0.9],
-                            ease: xv.XEasing.Elastic.In} }],
-                ],
-                paras: {
-                    geomType: xv.XComponent.Obj3Type.PLANE,
-                } };
-            return chartConf;
-        }
-
-        update() {
+        update(tick, entities) {
+            for (const e of entities) {
+                if (e.Pie && e.Pie.dirty) {
+                    this.pie.load
+                }
+            }
         }
     }
 
@@ -50,9 +36,9 @@
     const xscene = xworld.xscene;
 
     $.getJSON('../data/pie.json', function(json){
-        var pie = new xv.D3Pie(ecs, {chart: ChartSankey.conf()}, json.sankey);
-        xworld.addSystem('chart', pie);
-        xworld.addSystem('test', new TestD3Pie(ecs, {xworld}));
+        var d3pie = new xv.XChart.D3Pie(ecs, {chart: ChartSankey.conf()}, json.pie);
+        xworld.addSystem('chart', d3pie);
+        xworld.addSystem('test', new TestD3Pie(ecs, {xworld, d3pie}));
         xworld.startUpdate();
     }).fail(function(jqXhr, textStatus, error) {
         console.log(jqXhr, textStatus, error);
