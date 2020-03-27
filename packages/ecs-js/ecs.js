@@ -62,9 +62,14 @@ class ECS {
   }
 
   // Change Log:
-  /* Extending fouction: when a type of component is found, it's better to give
-   * the caller a chance to triggere something for the component.
+  /* Extending fouction:
+   *
+   * when a type of component is found, it's better to give the caller a chance
+   * to triggere something for the component.
+   *
    * Call this to setup the event handler.
+   *
+   * Currrently only xworld use this to setup post effect's flags.
    * @param {string | array} cnames component name
    * @param {function} onFound event handler
    * @return {ECS} this

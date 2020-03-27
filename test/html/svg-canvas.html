@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>XTest-Htmltex</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -54,10 +54,10 @@
 	// TODO doc: domId, obj3, width / height
 	const entDefines = xv.Htmltex.createEntityDefs({objcanvas: [
 			{domId: 'h5-content',
-			 texsize: {width: 512, height: 512}}
+			 texsize: {width: 256, height: 256}}
 		 ]});
 	xworld.addEntities(entDefines);
-	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines});
+	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines });
 	xworld.addSystem('test', canvsys);
 
 	xworld.startUpdate();
