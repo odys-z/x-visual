@@ -54,10 +54,10 @@
 	// TODO doc: domId, obj3, width / height
 	const entDefines = xv.Htmltex.createEntityDefs({objcanvas: [
 			{domId: 'h5-content',
-			 texsize: {width: 512, height: 512}}
+			 texsize: {width: 256, height: 256}}
 		 ]});
 	xworld.addEntities(entDefines);
-	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines});
+	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines });
 	xworld.addSystem('test', canvsys);
 
 	xworld.startUpdate();
