@@ -14,30 +14,31 @@
   <script>
     "use strict";
 
-    class TestD3Pie extends xv.XSys {
+    class PieSankey extends xv.XSys {
         constructor(ecs, options) {
             super(ecs);
             this.ecs = ecs;
         }
 
         update(tick, entities) {
-            // for (const e of entities) {
-            //     if (e.Pie && e.Pie.dirty) {
-            //     }
-            // }
+            for (const e of entities) {
+                if (e.Pie && e.Pie.dirty) {
+                }
+            }
         }
     }
 
-    TestD3Pie.query = { iffall: ['CmdFlag', 'Pie'] };
+    TestD3Pie.query = { iffall: ['CmdFlag', 'Pie', 'Sankey'] };
 
-    $.getJSON('../data/pie.json', function(json){
+    $.getJSON('../data/pie-sankey.json', function(json) {
         const xworld = new xv.XWorld(document.getElementById('canv'), window);
         const ecs = xworld.xecs;
         const xscene = xworld.xscene;
 
         var d3pie = new xv.chart.D3Pie(ecs, {}, json.pie);
         xworld.addSystem('chart', d3pie);
-        xworld.addSystem('test', new TestD3Pie(ecs, {xworld, d3pie}));
+
+        xworld.addSystem('test', new PieSankey(ecs, {xworld, d3pie}));
         xworld.startUpdate();
     })
     .fail(function(jqXhr, textStatus, error) {

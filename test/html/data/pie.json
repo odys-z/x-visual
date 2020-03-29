@@ -1,4 +1,5 @@
-{ "pie": {
+{ "pie": [{
+    "pivot": [0, 0, 1],
     "rows": [
         {"browser": "Chrome", "percent": "73.70"},
         {"browser": "IE/Edge", "percent": "4.90"},
@@ -7,5 +8,5 @@
         {"browser": "Opera", "percent": "1.00"}
     ],
     "columns": ["browser", "percent"]
-  }
+  }]
 }

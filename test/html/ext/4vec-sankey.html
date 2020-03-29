@@ -51,8 +51,7 @@
 
     ChartSankey.query = { iffall: ['CmdFlag', 'Sankey'] };
 
-    const xworld = new xv.XWorld(document.getElementById('canv'), window,
-                                {effects: true});
+    const xworld = new xv.XWorld(document.getElementById('canv'), window);
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 
