@@ -53,7 +53,7 @@ describe('case: [affine] orbit combine', function() {
         xworld.startUpdate();
             cube.CmpTweens.startCmds.push(0);
             xworld.update(); // rotate = 0
-            assert.isOk(cube.Obj3.combined.m0);
+            assert.isOk(cube.Obj3.combined.m0, "m0 ok");
             assert.isTrue(cube.Obj3.combined.m0.eq(new mat4()), "m0, 0");
             assert.isTrue(cube.Obj3.combined.mi.eq(new mat4()), "mi, 0");
 

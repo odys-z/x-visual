@@ -96,7 +96,7 @@ collection of common global methods when using jsdoc generating API doc.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line18">line 18</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -142,74 +142,20 @@ collection of common global methods when using jsdoc generating API doc.</p>
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<h4 class="name" id=".cubeVoxels"><span class="type-signature">(static) </span>cubeVoxels<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create vertex &amp; fragment shaders that can morphing between multiple box positions.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
 
     
 
     
-
+    <h4 class="name" id=".cubeVoxels"><span class="type-signature">(static) </span>cubeVoxels<span class="signature">(vparas)</span><span class="type-signature"> &rarr; {THREE.BufferGeometry}</span></h4>
     
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line307">line 307</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".cubeVoxels"><span class="type-signature">(static) </span>cubeVoxels<span class="type-signature"></span></h4>
-
 
 
 
@@ -223,6 +169,61 @@ collection of common global methods when using jsdoc generating API doc.</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vparas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -252,7 +253,7 @@ collection of common global methods when using jsdoc generating API doc.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line380">line 380</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line388">line 388</a>
     </li></ul></dd>
     
 
@@ -268,10 +269,213 @@ collection of common global methods when using jsdoc generating API doc.</p>
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>the geometry buffer.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.BufferGeometry</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".cubeVoxels9"><span class="type-signature">(static) </span>cubeVoxels9<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".cubeVoxels"><span class="type-signature">(static) </span>cubeVoxels<span class="signature">(paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create vertex &amp; fragment shaders that can morphing between multiple box positions.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>paras.uniforms.u_cubes array of boxes
+param.uniforms.u_box1, 2, ... vec3 for position index (voxel index, not position)
+param.uniforms.u_morph, morph animation, 0 - 1</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line314">line 314</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{vertexShader, fragmentShader}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".cubeVoxels9"><span class="type-signature">(static) </span>cubeVoxels9<span class="signature">(paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
 
@@ -285,6 +489,61 @@ collection of common global methods when using jsdoc generating API doc.</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -314,7 +573,7 @@ collection of common global methods when using jsdoc generating API doc.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line245">line 245</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line251">line 251</a>
     </li></ul></dd>
     
 
@@ -330,10 +589,52 @@ collection of common global methods when using jsdoc generating API doc.</p>
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{vertexShader, fragmentShader}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".flameLight"><span class="type-signature">(static) </span>flameLight<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".flameLight"><span class="type-signature">(static) </span>flameLight<span class="signature">(paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
 
@@ -348,6 +649,61 @@ See docs/design memoe/shader samples</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>paras.vert_scale: point scale</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -377,7 +733,7 @@ See docs/design memoe/shader samples</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line429">line 429</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line439">line 439</a>
     </li></ul></dd>
     
 
@@ -393,10 +749,52 @@ See docs/design memoe/shader samples</p>
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{vertexShader, fragmentShader}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".flameLight"><span class="type-signature">(static) </span>flameLight<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".flameLight"><span class="type-signature">(static) </span>flameLight<span class="signature">(vparas)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
@@ -411,6 +809,61 @@ See docs/design memoe/shader samples</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vparas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>visual paras, same as Visual.paras</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -440,7 +893,7 @@ See docs/design memoe/shader samples</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line419">line 419</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line428">line 428</a>
     </li></ul></dd>
     
 
@@ -456,10 +909,30 @@ See docs/design memoe/shader samples</p>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
             
-<h4 class="name" id=".formatUniforms"><span class="type-signature">(static) </span>formatUniforms<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".formatUniforms"><span class="type-signature">(static) </span>formatUniforms<span class="signature">(cmpVisual, cmpObj3)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
 
@@ -473,6 +946,84 @@ See docs/design memoe/shader samples</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpVisual</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Visual">Visual</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>not used?</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -502,7 +1053,7 @@ See docs/design memoe/shader samples</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line20">line 20</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -518,10 +1069,52 @@ See docs/design memoe/shader samples</p>
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>uniforms for THREE.Mesh - properties are in format of name: {value}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".obj2uniforms"><span class="type-signature">(static) </span>obj2uniforms<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".obj2uniforms"><span class="type-signature">(static) </span>obj2uniforms<span class="signature">(properties, uniforms)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
 
@@ -535,6 +1128,84 @@ See docs/design memoe/shader samples</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>properties</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>uniforms</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">THREE.Uniforms</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -564,7 +1235,7 @@ See docs/design memoe/shader samples</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line60">line 60</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -580,13 +1251,156 @@ See docs/design memoe/shader samples</p>
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>uniforms for THREE.Mesh - properties are in format of name: {value}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".particlesGeom"><span class="type-signature">(static) </span>particlesGeom<span class="type-signature"></span></h4>
+
+    
+
+    
+    <h4 class="name" id=".particlesGeom"><span class="type-signature">(static) </span>particlesGeom<span class="signature">(vparas, meshSrc, meshTarget)</span><span class="type-signature"> &rarr; {THREE.BufferGeometry}</span></h4>
+    
+
+    
 
 
 
 
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vparas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Visual.paras</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>meshSrc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">TREE.Mesh</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>meshTarget</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">TREE.Mesh</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -626,7 +1440,7 @@ If shader type is randomParticles, the buffer also has attributes color and size
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line187">line 187</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line190">line 190</a>
     </li></ul></dd>
     
 
@@ -642,10 +1456,48 @@ If shader type is randomParticles, the buffer also has attributes color and size
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.BufferGeometry</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".pointGeom"><span class="type-signature">(static) </span>pointGeom<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".pointGeom"><span class="type-signature">(static) </span>pointGeom<span class="signature">(point)</span><span class="type-signature"> &rarr; {THREE.Geometry}</span></h4>
+    
+
+    
 
 
 
@@ -653,6 +1505,61 @@ If shader type is randomParticles, the buffer also has attributes color and size
     <p>Get points geometry buffer for simulating flowing path.</p>
 </div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">THREE.Vector3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -688,7 +1595,7 @@ If shader type is randomParticles, the buffer also has attributes color and size
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line491">line 491</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line503">line 503</a>
     </li></ul></dd>
     
 
@@ -704,13 +1611,299 @@ If shader type is randomParticles, the buffer also has attributes color and size
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>point geometry</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.Geometry</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".randomRarticl"><span class="type-signature">(static) </span>randomRarticl<span class="type-signature"></span></h4>
+
+    
+
+    
+    <h4 class="name" id=".randomRarticl"><span class="type-signature">(static) </span>randomRarticl<span class="signature">(paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Get shader for ShaderFlag.randomParticles.
+If u_morph is animated, must providing uniform vec3 &amp;amp a_target.
+Used variables: position, color, size.
+gl_position = mix(pos, taget, morph) + noise * dist;</p>
+</div>
 
 
 
 
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>paras.u_dist {float} in world
+paras.u_morph {float}
+paras.a_dest {vec3} in world
+paras.a_noise {float}
+paras.size_scale {float}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line137">line 137</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{vertexShader, fragmentShader}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".randomRarticl"><span class="type-signature">(static) </span>randomRarticl<span class="signature">(flag, vparas)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>flag</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>@see ShaderFlag</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vparas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Visual.paras</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>@see Visual</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -762,66 +1955,41 @@ If shader type is randomParticles, the buffer also has attributes color and size
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
-            
-<h4 class="name" id=".randomRarticl"><span class="type-signature">(static) </span>randomRarticl<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Get shader for ShaderFlag.randomParticles.
-If u_morph is animated, must providing uniform vec3 &amp;amp a_target.
-Used variables: position, color, size.
-gl_position = mix(pos, taget, morph) + noise * dist;</p>
+<div class="param-desc">
+    <p>{vertexShader, fragmentShader}<br>
+The shaders for THREE.ShaderMaterial (using variables supported by Three.js)<br>
+where<br>
+return.vertextShader {string}<br>
+return.vertextShader {string}</p>
 </div>
 
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
 
 
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line135">line 135</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
+    </dd>
 </dl>
 
+    
 
 
 
@@ -829,8 +1997,14 @@ gl_position = mix(pos, taget, morph) + noise * dist;</p>
 
         
             
-<h4 class="name" id=".script2uniforms"><span class="type-signature">(static) </span>script2uniforms<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".script2uniforms"><span class="type-signature">(static) </span>script2uniforms<span class="signature">(sval, uniforms)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
 
@@ -846,6 +2020,84 @@ uniforms value - required by Tween.</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>uniforms</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>not used?</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -875,7 +2127,7 @@ uniforms value - required by Tween.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line75">line 75</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -891,10 +2143,52 @@ uniforms value - required by Tween.</p>
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>uniforms for THREE.Mesh - properties are in format of name: {value}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".testPnt"><span class="type-signature">(static) </span>testPnt<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".testPnt"><span class="type-signature">(static) </span>testPnt<span class="signature">(paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
 
@@ -908,6 +2202,61 @@ uniforms value - required by Tween.</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>paras.vert_scale [optional] number scale of vertices</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -937,7 +2286,7 @@ uniforms value - required by Tween.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line230">line 230</a>
+        <a href="xutils_xglsl.js.html">xutils/xglsl.js</a>, <a href="xutils_xglsl.js.html#line234">line 234</a>
     </li></ul></dd>
     
 
@@ -953,9 +2302,43 @@ uniforms value - required by Tween.</p>
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
+<div class="param-desc">
+    <p>{vertexShader, fragmentShader}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
     
 
+
+
+
+
+        
     
 
     
@@ -971,13 +2354,13 @@ uniforms value - required by Tween.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.chart.module_xsankey.html">xsankey</a></li><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.chart.module_xsankey-XSankey.html">XSankey</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="xv.ecs.sys.module_tween-Tween.html">Tween</a></li><li><a href="xv.ecs.sys.module_tween-XTweener.html">XTweener</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.chart.html">chart</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="xv.ecs.sys.module_tween-Tween.html">Tween</a></li><li><a href="xv.ecs.sys.module_tween-XTweener.html">XTweener</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.chart.html">chart</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 27 2020 15:32:51 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 27 2020 16:33:26 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

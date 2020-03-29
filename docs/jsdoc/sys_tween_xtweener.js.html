@@ -66,7 +66,8 @@ export default class XTweener extends ECS.System {
 		this.resolvingStarts = startingTrigged || {};
 	}
 
-	/** @member XTweener#initTweens */
+	/** @member XTweener#initTweens
+	 * @function */
 	initTweens (ecs, entities) {
 		for (const e of entities) {
 			if (e.CmpTween) {
@@ -85,6 +86,7 @@ export default class XTweener extends ECS.System {
 	/** Validating the entity can be animized
 	 * @param {ECS.Entity} entity
 	 * @return {bool} ok or not
+	 * @function
 	 */
 	static validate (entity) {
 		if (entity.ModelSeqs &amp;&amp; (entity.CmpTweens.tweens === undefined
@@ -98,7 +100,8 @@ export default class XTweener extends ECS.System {
 		return true;
 	}
 
-	/** @member XTweener.initween */
+	/** @member XTweener.initween
+	 * @function */
 	static initween (cmp) {
 		if (Array.isArray(cmp)) {
 			for (const compt of cmp)
@@ -136,6 +139,12 @@ export default class XTweener extends ECS.System {
 		delete this._tweensAddedDuringUpdate[tween.getId()];
 	}
 
+	/**
+	 * @param {int} tick
+	 * @param {array&lt;Entity>} entities
+	 * @member XTweener.update
+	 * @function
+	 */
 	update (tick, entities) {
 		var time = TWEEN.now();
 		for (const e of entities) {
@@ -178,6 +187,9 @@ export default class XTweener extends ECS.System {
 								&amp;&amp; e.CmpTweens.tweens[seqx][twnx + 1]) {
 								const nxtween = e.CmpTweens.tweens[seqx][twnx + 1];
 								XTweener.startween(nxtween);
+								if (typeof nxtween.onFollowed === 'function') {
+									nxtween.onFollowed(tween);
+								}
 							}
 						}
 					}
@@ -224,6 +236,7 @@ export default class XTweener extends ECS.System {
 	 * @param {object} resolvingStarts
 	 * @return {bool} always true (compitibility with TWEEN.js?)
 	 * @member XTweener.updateTween
+	 * @function
 	 */
 	static updateTween (cmp, time, resolvingStarts) {
 		var property, elapsed, value;
@@ -249,7 +262,7 @@ export default class XTweener extends ECS.System {
 			var start = cmp.valuesStart[property] || 0;
 			var end = cmp.valuesEnd[property];
 
-			// forr three.js uniforms - FIXME not perfectly fit to the design?
+			// for three.js uniforms - FIXME not perfectly fit to the design?
 			var hasValue = false;
 			if (typeof end.value === 'number') {
 				start = start.value;
@@ -424,6 +437,8 @@ export default class XTweener extends ECS.System {
 	 * @param {CmpTween} cmpStarter component triggered the event
 	 * @param {object} resolvingBuff all triggering tween are put into here
 	 * @param {array&lt;startWith|followBy>} withs scripts array defining tweens to be started
+	 * @member XTweener.pushTriggerings
+	 * @function
 	 */
 	static pushTriggerings (start_or_follow, now, cmpStarter, resolvingBuff, withs) {
 		if (withs &amp;&amp; withs.length > 0) {
@@ -738,136 +753,6 @@ TWEEN.Tween = function(cmpTween, tweenee) {
 			return this;
 		}
 	}
-
-	/* repaced by sys.updateTween()
-	update (time) {
-
-		var property;
-		var elapsed;
-		var value;
-
-		if (time &lt; this.startTime) {
-			return true;
-		}
-
-		if (this.onStartCallbackFired === false) {
-
-			if (this.onStartCallback !== null) {
-				this.onStartCallback(this.object);
-			}
-
-			this.onStartCallbackFired = true;
-		}
-
-		elapsed = (time - this.startTime) / this.duration;
-		elapsed = (this.duration === 0 || elapsed > 1) ? 1 : elapsed;
-
-		value = this.easingFunction(elapsed);
-
-		for (property in this.valuesEnd) {
-
-			// Don't update properties that do not exist in the source object
-			if (this.valuesStart[property] === undefined) {
-				continue;
-			}
-
-			var start = this.valuesStart[property] || 0;
-			var end = this.valuesEnd[property];
-
-			if (end instanceof Array) {
-
-				this.object[property] = this.interpolationFunction(end, value);
-
-			} else {
-
-				// Parses relative end values with start as base (e.g.: +10, -3)
-				if (typeof (end) === 'string') {
-
-					if (end.charAt(0) === '+' || end.charAt(0) === '-') {
-						end = start + parseFloat(end);
-					} else {
-						end = parseFloat(end);
-					}
-				}
-
-				// Protect against non numeric properties.
-				if (typeof (end) === 'number') {
-					this.object[property] = start + (end - start) * value;
-				}
-
-			}
-
-		}
-
-		if (this.onUpdateCallback !== null) {
-			this.onUpdateCallback(this.object, elapsed);
-		}
-
-		if (elapsed === 1) {
-
-			if (this.repeat > 0) {
-
-				if (isFinite(this.repeat)) {
-					this.repeat--;
-				}
-
-				// Reassign starting values, restart by making startTime = now
-				for (property in this.valuesStartRepeat) {
-
-					if (typeof (this.valuesEnd[property]) === 'string') {
-						this.valuesStartRepeat[property] = this.valuesStartRepeat[property] + parseFloat(this.valuesEnd[property]);
-					}
-
-					if (this.yoyo) {
-						var tmp = this.valuesStartRepeat[property];
-
-						this.valuesStartRepeat[property] = this.valuesEnd[property];
-						this.valuesEnd[property] = tmp;
-					}
-
-					this.valuesStart[property] = this.valuesStartRepeat[property];
-
-				}
-
-				if (this.yoyo) {
-					this.reversed = !this.reversed;
-				}
-
-				if (this.repeatDelayTime !== undefined) {
-					this.startTime = time + this.repeatDelayTime;
-				} else {
-					this.startTime = time + this.delayTime;
-				}
-
-				if (this.onRepeatCallback !== null) {
-					this.onRepeatCallback(this.object);
-				}
-
-				return true;
-
-			} else {
-
-				if (this.onCompleteCallback !== null) {
-
-					this.onCompleteCallback(this.object);
-				}
-
-				for (var i = 0, numChainedTweens = this.chainedTweens.length; i &lt; numChainedTweens; i++) {
-					// Make the chained tweens start exactly at the time they should,
-					// even if the `update()` method was called way past the duration of the tween
-					this.chainedTweens[i].start(this.startTime + this.duration);
-				}
-
-				return false;
-
-			}
-
-		}
-
-		return true;
-
-	}
-	*/
 };
 
 /**Tween easing function
@@ -1338,13 +1223,13 @@ export { TWEEN, XEasing };
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.chart.module_xsankey.html">xsankey</a></li><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.chart.module_xsankey-XSankey.html">XSankey</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="xv.ecs.sys.module_tween-Tween.html">Tween</a></li><li><a href="xv.ecs.sys.module_tween-XTweener.html">XTweener</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.chart.html">chart</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="xv.ecs.sys.module_tween-Tween.html">Tween</a></li><li><a href="xv.ecs.sys.module_tween-XTweener.html">XTweener</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.chart.html">chart</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 27 2020 15:32:50 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 27 2020 16:33:26 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
