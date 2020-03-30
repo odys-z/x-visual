@@ -51,13 +51,12 @@
 
     ChartSankey.query = { iffall: ['CmdFlag', 'Sankey'] };
 
-    const xworld = new xv.XWorld(document.getElementById('canv'), window,
-                                {effects: true});
+    const xworld = new xv.XWorld(document.getElementById('canv'), window);
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 
     $.getJSON('../data/sankey-1parallel.json', function(json){
-        var sankey = new xv.XSankey(ecs, {chart: ChartSankey.conf()}, json.sankey);
+        var sankey = new xv.chart.XSankey(ecs, {chart: ChartSankey.conf()}, json.sankey);
         xworld.addSystem('sankey', sankey);
 
         xworld.addSystem('test', new ChartSankey(ecs, {xworld}));

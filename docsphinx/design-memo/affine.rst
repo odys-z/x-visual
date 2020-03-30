@@ -177,9 +177,9 @@ like an easy way to update :math:`m_{f'_{1}}` before Tween.js is upgraded.
 
 3. Test case shows this way have significantly larger error in combined results.
 
-Guess: this may comes from 2 point:
+Guess: this may comes from 2 sources:
 
 i. The last affine combination is not updated as the XTweener changed sequence
 index, makes last affine update skipped the iteration.
 
-ii. The multiple mat4 multiplication incurred precision error. 
+ii. The multiple mat4 multiplication incurred precision error.

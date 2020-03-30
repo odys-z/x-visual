@@ -1,0 +1,67 @@
+{ "chart": "2pie-sankey vec4",
+  "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z",
+  "grid": [2, 2, 2],
+  "sankey": {
+    "coordinates": [{"1-coord": [0, 1]}, {"2-coord": [0, 1]}],
+    "bars": [
+      { "xy": [0, 0], "xy-desc": "grid index, all z",
+        "v": 0, "v-dessc": "vector index, (1, 1, 6)"
+      },
+      { "xy": [0, 1],
+        "v": 1
+      },
+      { "xy": [1, 0],
+        "v": 2,
+      },
+      { "xy": [1, 1],
+        "v": 3
+      }
+    ],
+    "vectors": [
+       [ 1, 1, 6 ],
+       [ 1, 0, 8 ],
+       [ 0, 1, 5 ],
+       [ 0, 0, 2 ]
+    ],
+
+    "_comment": "following data are correct by presenting here?",
+    "id": "sankey1",
+    "script": [
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 1.1,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }],
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 5.2,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }]
+    ],
+    "paras": {
+        "node": "box",
+        "onOverNode": 0,
+        "onOverFlow": 1
+    }
+  },
+
+  "pie": [
+  { "pivot": [1, 2, 1], "pivot-desc": "grid index",
+    "rows": [
+        {"browser": "Chrome", "percent": "73.70"},
+        {"browser": "IE/Edge", "percent": "4.90"},
+        {"browser": "Firefox", "percent": "15.40"},
+        {"browser": "Safari", "percent": "3.60"},
+        {"browser": "Opera", "percent": "1.00"}
+    ],
+    "columns": ["browser", "percent"],
+  },
+  { "pivot": [1, 2, 0],
+    "rows": [
+        {"co": "BBC", "percent": "57.70"},
+        {"co": "FOX", "percent": "14.90"},
+        {"co": "CBC", "percent": "15.40"},
+        {"co": "CNBC", "percent": "7.60"},
+        {"co": "ABC", "percent": "3.00"}
+    ],
+    "columns": ["co", "percent"],
+  } ]
+}
