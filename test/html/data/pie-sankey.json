@@ -1,6 +1,7 @@
 { "chart": "2pie-sankey vec4",
   "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z",
   "grid": [2, 2, 2],
+  "grid-space": 200,
   "sankey": {
     "coordinates": [{"1-coord": [0, 1]}, {"2-coord": [0, 1]}],
     "bars": [
@@ -11,17 +12,11 @@
         "v": 1
       },
       { "xy": [1, 0],
-        "v": 2,
+        "v": 2
       },
       { "xy": [1, 1],
         "v": 3
       }
-    ],
-    "vectors": [
-       [ 1, 1, 6 ],
-       [ 1, 0, 8 ],
-       [ 0, 1, 5 ],
-       [ 0, 0, 2 ]
     ],
 
     "_comment": "following data are correct by presenting here?",
@@ -46,22 +41,30 @@
   "pie": [
   { "pivot": [1, 2, 1], "pivot-desc": "grid index",
     "rows": [
-        {"browser": "Chrome", "percent": "73.70"},
-        {"browser": "IE/Edge", "percent": "4.90"},
-        {"browser": "Firefox", "percent": "15.40"},
-        {"browser": "Safari", "percent": "3.60"},
-        {"browser": "Opera", "percent": "1.00"}
+        {"browser": "Chrome", "percent": "73.79"},
+        {"browser": "IE/Edge", "percent": "4.99"},
+        {"browser": "Firefox", "percent": "15.49"},
+        {"browser": "Safari", "percent": "3.24"},
+        {"browser": "Opera", "percent": "1.09"}
     ],
-    "columns": ["browser", "percent"],
+    "columns": ["browser", "percent"]
   },
   { "pivot": [1, 2, 0],
     "rows": [
-        {"co": "BBC", "percent": "57.70"},
-        {"co": "FOX", "percent": "14.90"},
-        {"co": "CBC", "percent": "15.40"},
-        {"co": "CNBC", "percent": "7.60"},
-        {"co": "ABC", "percent": "3.00"}
+        {"co": "BBC", "percent": "57.66"},
+        {"co": "FOX", "percent": "14.91"},
+        {"co": "CBC", "percent": "15.41"},
+        {"co": "CNBC", "percent": "7.61"},
+        {"co": "ABC", "percent": "3.01"}
     ],
-    "columns": ["co", "percent"],
-  } ]
+    "columns": ["co", "percent"]
+  } ],
+
+  "vector-desc": "should be optional",
+  "vectors": [
+    [ 1, 1, 6 ],
+    [ 1, 0, 8 ],
+    [ 0, 1, 5 ],
+    [ 0, 0, 2 ]
+  ]
 }
