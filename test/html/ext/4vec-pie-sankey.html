@@ -28,17 +28,23 @@
         }
     }
 
-    TestD3Pie.query = { iffall: ['CmdFlag', 'Pie', 'Sankey'] };
+    PieSankey.query = { iffall: ['CmdFlag', 'Pie', 'Sankey'] };
 
     $.getJSON('../data/pie-sankey.json', function(json) {
         const xworld = new xv.XWorld(document.getElementById('canv'), window);
         const ecs = xworld.xecs;
         const xscene = xworld.xscene;
 
-        var d3pie = new xv.chart.D3Pie(ecs, {}, json.pie);
+        var d3pie = new xv.chart.D3Pie(ecs, {
+				xworld,
+				gridSpace: json["grid-space"]
+			}, json.pie);
         xworld.addSystem('chart', d3pie);
 
-        xworld.addSystem('test', new PieSankey(ecs, {xworld, d3pie}));
+		var xsankey = new xv.chart.XSankey(ecs, {}, json.sankey, json.vectors);
+        xworld.addSystem('chart', xsankey);
+
+        xworld.addSystem('test', new PieSankey(ecs, {xworld}));
         xworld.startUpdate();
     })
     .fail(function(jqXhr, textStatus, error) {
