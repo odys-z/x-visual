@@ -199,9 +199,9 @@ class ECS {
   }
 
   _updateCache(entity) {
-
+    // e.g. this.queryCache = Map(2) {D3Pie => QueryCache, XSankey => QueryCache}
     for (const query of this.queryCache) {
-      query[1].updateEntity(entity);
+      query[1].updateEntity(entity); // e.g. query = [D3Pie, QueryCache]
     }
   }
 

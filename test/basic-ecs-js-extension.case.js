@@ -17,6 +17,7 @@ class Armor {
         this.id = ++ auid;
     }
 }
+
 describe('case: [ecs ext] component instance reference', () => {
 
   const ecs = new ECS.ECS();
@@ -71,6 +72,62 @@ describe('case: [ecs ext] component instance reference', () => {
     assert.equal(e1.Exclusive.hp, 3, 'E ---');
     assert.equal(e2.Exclusive.armor.id, 3, 'F ---');
     assert.equal(e2.Exclusive.hp, 4, 'G ---');
+  });
+
+});
+
+
+describe('case: [ecs ext] any v.s iffall', () => {
+
+  const ecs = new ECS.ECS();
+
+  ecs.registerComponent('xview', {
+    properties: {
+      cmd: 1,
+      flag: 0,
+    }
+  });
+
+  ecs.registerComponent('Pie', {
+    properties: {
+      w: 25,
+      h: 25,
+    }
+  });
+
+  ecs.registerComponent('Sankey', {
+    properties: {
+      max: 25,
+      min: 5,
+    }
+  });
+
+  it('component property instance', () => {
+    ecs.createEntity({
+      id: 'pie1'
+      xview: {cmd: -1, flag: -1}
+      Pie: {w: 1, h: 1}
+    });
+
+    ecs.createEntity({
+      id: 'sk1'
+      xview: {cmd: -1, flag: -1}
+      Sankey: {max: 26, min: 6}
+    });
+
+
+    ecs.createEntity({
+      xview: {cmd: 1, flag: 1}
+    });
+
+    var results = ecs.queryEntities({ any: ['Pie', 'Sankey'] });
+    expect(results.size).to.equal(2);
+    var itor = results.values();
+    var s1 = itor.next().value;
+    var s2 = itor.next().value;
+    assert.equal(s1.id, 'pie1', 'pie1 ---');
+    assert.equal(s2.id, 'sk1', 'sk1 ---');
+
   });
 
 });

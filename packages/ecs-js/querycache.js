@@ -208,38 +208,47 @@ updateEntity(entity) {
 		// sometimes the user provided names is broken
 		if (anyEnts === undefined || !(Symbol.iterator in Object(anyEnts)))
 			continue;
-		for (const ae in anyEnts) {
-			if (anyEnts.has(id)) {
-				foundAny = true;
-				break;
-			}
+		// for (const ae in anyEnts) {
+		// 	if (anyEnts.has(id)) {
+		// 		foundAny = true;
+		// 		break;
+		// 	}
+		// }
+		// if (foundAny) break;
+		if (anyEnts.has(id)) {
+			foundAny = true;
+			break;
 		}
-		if (foundAny) break;
 	}
 
-    // iffall
-	let foundIffall = true;
-    if (!foundAny) {
-    	for (const cname of this.iffall) {
-    	  const iffSet = this.ecs.entityComponents.get(cname);
-	      if (!iffSet.has(id)) {
-	        foundIffall = false;
-	        break;
-	      }
+    // iffall (April 1, 2020)
+    // any || iffall
+    let foundIffall; // = false;
+    for (const cname of this.iffall) {
+		const iffSet = this.ecs.entityComponents.get(cname);
+		if (!iffSet.has(id)) {
+			foundIffall = false;
+			break;
+		}
+		foundIffall = true;
+    }
+	if (foundIffall === undefined)
+		foundIffall = false;
+
+    // has (April 1, 2020)
+	// any || [iffall | has]  - only one of 'iffall' and 'has'
+    let foundHas; // = false;
+    if (!foundAny && !foundIffall) {
+        for (const cname of this.has) {
+          const hasSet = this.ecs.entityComponents.get(cname);
+          if (!hasSet.has(id)) {
+            foundHas = false;
+            break;
+          }
         }
     }
-
-	// has (logical error here?)
-	let foundHas = true;
-	if (!foundAny && !foundIffall) {
-	    for (const cname of this.has) {
-	      const hasSet = this.ecs.entityComponents.get(cname);
-	      if (!hasSet.has(id)) {
-	        foundHas = false;
-	        break;
-	      }
-	    }
-	}
+	if (foundHas === undefined)
+		foundHas = false;
 
     if ( !foundAny && !foundHas && !foundIffall ) {
       this.results.delete(entity);
