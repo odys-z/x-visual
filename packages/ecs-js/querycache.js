@@ -208,13 +208,17 @@ updateEntity(entity) {
 		// sometimes the user provided names is broken
 		if (anyEnts === undefined || !(Symbol.iterator in Object(anyEnts)))
 			continue;
-		for (const ae in anyEnts) {
-			if (anyEnts.has(id)) {
-				foundAny = true;
-				break;
-			}
+		// for (const ae in anyEnts) {
+		// 	if (anyEnts.has(id)) {
+		// 		foundAny = true;
+		// 		break;
+		// 	}
+		// }
+		// if (foundAny) break;
+		if (anyEnts.has(id)) {
+			foundAny = true;
+			break;
 		}
-		if (foundAny) break;
 	}
 
     // iffall
