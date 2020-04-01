@@ -44,6 +44,10 @@
 		var xsankey = new xv.chart.XSankey(ecs, {}, json.sankey, json.vectors);
         xworld.addSystem('chart', xsankey);
 
+		var axis = new xv.chart.Axisys(ecs, {},
+                    {grid: json.grid, "grid-space": json["grid-space"]});
+        xworld.addSystem('chart', axis);
+
         xworld.addSystem('test', new PieSankey(ecs, {xworld}));
         xworld.startUpdate();
     })
