@@ -312,13 +312,22 @@ are saved in each tween for being combined later, orthogonally.</p>
 </div>
 <div class="section" id="debug-notes">
 <h2>Debug Notes:<a class="headerlink" href="#debug-notes" title="Permalink to this headline">¶</a></h2>
-<p>1. There do has an <span class="math">\(m_{0}\)</span>, set at all tweens sequences started, triggered by
-<em>playRising</em>, and at each cross update, post applied to <span class="math">\(m_{i}\)</span>.</p>
+<p>1. There do has an <span class="math">\(m_{0}\)</span>, set at all tweens sequences started, triggered
+by <em>playRising</em>, and at each cross update, post applied to <span class="math">\(m_{i}\)</span>.</p>
 <ol class="arabic simple" start="2">
 <li>In x-visual v0.2, <span class="math">\(m_{f}\)</span> is been taken snapshot by onStart handler.</li>
 </ol>
 <p><strong>Issue</strong>: This is not following the rule learnt through the hard lesson, but looks
 like an easy way to update <span class="math">\(m_{f'_{1}}\)</span> before Tween.js is upgraded.</p>
+<ol class="arabic simple" start="3">
+<li>Test case shows this way have significantly larger error in combined results.</li>
+</ol>
+<p>Guess: this may comes from 2 sources:</p>
+<p>i. The last affine combination is not updated as the XTweener changed sequence
+index, makes last affine update skipped the iteration.</p>
+<ol class="lowerroman simple" start="2">
+<li>The multiple mat4 multiplication incurred precision error.</li>
+</ol>
 </div>
 </div>
 

@@ -167,10 +167,19 @@ are saved in each tween for being combined later, orthogonally.
 Debug Notes:
 ------------
 
-1. There do has an :math:`m_{0}`, set at all tweens sequences started, triggered by
-*playRising*, and at each cross update, post applied to :math:`m_{i}`.
+1. There do has an :math:`m_{0}`, set at all tweens sequences started, triggered
+by *playRising*, and at each cross update, post applied to :math:`m_{i}`.
 
 2. In x-visual v0.2, :math:`m_{f}` is been taken snapshot by onStart handler.
 
 **Issue**: This is not following the rule learnt through the hard lesson, but looks
 like an easy way to update :math:`m_{f'_{1}}` before Tween.js is upgraded.
+
+3. Test case shows this way have significantly larger error in combined results.
+
+Guess: this may comes from 2 sources:
+
+i. The last affine combination is not updated as the XTweener changed sequence
+index, makes last affine update skipped the iteration.
+
+ii. The multiple mat4 multiplication incurred precision error.
