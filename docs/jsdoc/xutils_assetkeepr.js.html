@@ -27,10 +27,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @namespace xv.xutils
- */
-import * as THREE from 'three';
+            <pre class="prettyprint source linenums"><code>import * as THREE from 'three';
 
 // For why using source instead of npm package, see packages/three/README.md
 import x from '../xapp/xworld'
@@ -46,8 +43,9 @@ const assets = {
 	canvs: {}	// {domId: Components.Canvas} buffer of Canvas components.
 }
 
-/**
- * Note it's "keepr", not "keeper", to avoid name confliction.
+/**Assets Manager
+ *
+ * Note it's spelled "keepr", not "keeper".
  * @class AssetKeepr
  */
 export default class AssetKeepr {
@@ -158,7 +156,9 @@ export default class AssetKeepr {
 
 	/**
 	 * Initialize a Canvas component with a THREE.CanvasTexture from canvas, which
-	 * is not initialized when return. The component will be updated when ready
+	 * is not initialized when return.
+	 *
+	 * The component will be updated when it's ready
 	 *
 	 * **DESIGN-MEMO**
 	 *
@@ -182,10 +182,11 @@ export default class AssetKeepr {
 	 * @param {function} onUpdate optional, callback when html canvas texture updated.
 	 * parameter: canvas {HTML.Canvas}, texture {THREE.CanvasTexture}
 	 * @return {Canvas} the Canvas component referencing object:&lt;br>
-	 * tex: THREE.CanvasTexture when html canvas is initialized. But before this is undefined.&lt;br>
-	 * canvas: HTML canvas when html canvas is initialized. But before this is undefined.&lt;br>
-	 * ctx2d: HTML canvas 2d context when html canvas is initialized.&lt;br>
-	 * But before this is undefined - can not been used for sampling before onUpdate called.
+	 * where&lt;br>
+	 * **tex**: THREE.CanvasTexture when html canvas is initialized. But before this is undefined.&lt;br>
+	 * **canvas**: HTML canvas when html canvas is initialized. But before this is undefined.&lt;br>
+	 * **ctx2d**: HTML canvas 2d context when html canvas is initialized.&lt;br>
+	 * But before this its is undefined - can not been used for sampling before onUpdate called.
 	 * @member AssetKeepr.loadCanvtex
 	 * @function
 	 */
@@ -219,12 +220,41 @@ export default class AssetKeepr {
 					cmpCanv.ctx2d = drawingContext;
 					// set dirty flag now to avoid updating by renderer before this texture is ready
 					cmpCanv.dirty = true;
+					// Memo:
+					// reference entity.Obje in wrong way, but this method is to be deprecated
+					cmpCanv.entity.Obj3.mesh.visible = true;
 
 					if (typeof onUpdate === 'function')
 						onUpdate(canvas, cmpCanv.tex);
 				});
 			}
 		}
+		return cmpCanv;
+	}
+
+	static loadCanvtex2(cmpCanv, options, obj3, onUpdate) {
+		var opts = Object.assign({
+				width: 512, height: 512,
+				// https://github.com/niklasvh/html2canvas/issues/1164
+				allowTaint: true,
+				useCORS: true,
+				backgroundColor: "rgba(0,0,0,0)",
+				removeContainer: true,
+				x: 0, y: 0
+			}, options);
+		var dom = document.getElementById(cmpCanv.domId);
+
+		html2canvas(dom, opts).then( function(canvas) {
+			var drawingContext = canvas.getContext( '2d' );
+
+			cmpCanv.canvas = drawingContext.canvas;
+			cmpCanv.tex = new THREE.CanvasTexture(drawingContext.canvas);
+			cmpCanv.ctx2d = drawingContext;
+			cmpCanv.dirty = true;
+
+			if (typeof onUpdate === 'function')
+				onUpdate(canvas, cmpCanv.tex);
+		});
 		return cmpCanv;
 	}
 
@@ -319,7 +349,8 @@ export default class AssetKeepr {
  * @param {function} xworker the long rounner
  * @param {string} src image
  *
- * @memberof! xv.xutils
+ * @memberof xutils
+ * @function
  */
 export function splash(splashImgId, xworker, src) {
     var splashImg = document.getElementById(splashImgId)
@@ -343,13 +374,13 @@ export function splash(splashImgId, xworker, src) {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.chart.module_xsankey.html">xsankey</a></li><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.chart.module_xsankey-XSankey.html">XSankey</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.chart.html">chart</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axis.html">Axis</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#debugPie3">debugPie3</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#Obj3">Obj3</a></li><li><a href="global.html#Pie">Pie</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#Sankey">Sankey</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 02 2020 21:48:38 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 02 2020 21:50:59 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
