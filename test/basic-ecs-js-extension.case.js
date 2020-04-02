@@ -17,6 +17,7 @@ class Armor {
         this.id = ++ auid;
     }
 }
+
 describe('case: [ecs ext] component instance reference', () => {
 
   const ecs = new ECS.ECS();
@@ -73,4 +74,85 @@ describe('case: [ecs ext] component instance reference', () => {
     assert.equal(e2.Exclusive.hp, 4, 'G ---');
   });
 
+});
+
+describe('case: [ecs ext, query] any v.s iffall', () => {
+
+  const ecs = new ECS.ECS();
+
+  ecs.registerComponent('xview', {
+    properties: {
+      cmd: 1,
+      flag: 0,
+    }
+  });
+
+  ecs.registerComponent('Pie', {
+    properties: {
+      w: 25,
+      h: 25,
+    }
+  });
+
+  ecs.registerComponent('Sankey', {
+    properties: {
+      max: 25,
+      min: 5,
+    }
+  });
+
+  it('logics iff v.s any', () => {
+    ecs.createEntity({
+      id: 'pie+x',
+      xview: {cmd: -1, flag: -1},
+      Pie: {w: 1, h: 1}
+    });
+
+    ecs.createEntity({
+      id: 'sk+x',
+      xview: {cmd: -2, flag: -2},
+      Sankey: {max: 22, min: 2}
+    });
+
+    ecs.createEntity({
+      id: 'sk-pie+x',
+      xview: {cmd: -3, flag: -3},
+      Sankey: {max: 33, min: 3},
+      Pie: {w: 333, h: 33}
+    });
+
+    ecs.createEntity({
+      id: 'x',
+      xview: {cmd: 4, flag: 4}
+    });
+
+    ecs.createEntity({
+      id: 'sk-pie',
+      Sankey: {max: 55, min: 5},
+      Pie: {w: 5555, h: 555}
+    });
+
+    var results = ecs.queryEntities({ any: ['Pie', 'Sankey'] });
+    expect(results.size).to.equal(4);
+    var itor = results.values();
+    var s1 = itor.next().value;
+    var s2 = itor.next().value;
+    var s3 = itor.next().value;
+    var s4 = itor.next().value;
+    assert.equal(s1.id, 'pie+x', 'pie+x ---');
+    assert.equal(s2.id, 'sk-pie+x', 'sk-pie+x ---');
+    assert.equal(s3.id, 'sk-pie', 'sk-pie ---');
+    assert.equal(s4.id, 'sk+x', 'sk+x ---');
+
+    var results = ecs.queryEntities({ any: ['xview'] });
+    expect(results.size).to.equal(4);
+
+    var results = ecs.queryEntities({ iffall: ['xview', 'Pie'] });
+    expect(results.size).to.equal(2);
+    itor = results.values();
+    s1 = itor.next().value;
+    s2 = itor.next().value;
+    assert.equal(s1.id, 'pie+x', 'pie+x ---');
+    assert.equal(s2.id, 'sk-pie+x', 'sk-pie+x ---');
+  });
 });

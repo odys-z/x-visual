@@ -197,8 +197,10 @@ scale: number
 </pre></div>
 </div>
 <p>Reflect and Shear are not supported as THREE.Matrix4 seams can only been decomposed into
-rotation, translation and scale.</p>
-<p>See <a class="reference external" href="https://github.com/mrdoob/three.js/blob/master/src/math/Matrix4.js">Three.js Matrix4 Source Code</a>.</p>
+rotation, translation and scale. For details about this, see
+<a class="reference external" href="https://github.com/mrdoob/three.js/blob/master/src/math/Matrix4.js">Three.js Matrix4 Source Code</a>
+and Object3D.</p>
+<p>Here is the code snippet of Matrix4.decompose:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span> <span class="nx">Matrix4</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span>
   <span class="nx">decompose</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">position</span><span class="p">,</span> <span class="nx">quaternion</span><span class="p">,</span> <span class="nx">scale</span> <span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">te</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">;</span>
@@ -246,6 +248,9 @@ rotation, translation and scale.</p>
 Not using Object3D.applyMatrix() because the mesh matrix will accumulate ratation etc. at
 each updating &amp; applying matrix, making rotation steps getting increased.</p>
 <p>User shouldn&#8217;t modify <em>affines</em> and <em>combined</em> fields.</p>
+<p>In addition to basic affine transformation, x-visual provide some combined transformation
+from these basic transformations, like orbiting and interpolated translating.</p>
+<p>See <a class="reference internal" href="affine.html#affine-design-memo"><span>Affine Combiner Design</span></a> for more details.</p>
 </div>
 <div class="section" id="affine-transformation-references">
 <h2>Affine Transformation References:<a class="headerlink" href="#affine-transformation-references" title="Permalink to this headline">¶</a></h2>
