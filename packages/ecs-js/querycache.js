@@ -236,23 +236,24 @@ updateEntity(entity) {
 		foundIffall = false;
 
     // has (April 1, 2020)
-	// any || [iffall | has]  - only one of 'iffall' and 'has'
+	// any || [iffall > has]  - 'iffall' override 'has'
     let foundHas; // = false;
-    if (!foundAny && !foundIffall) {
+    if (!foundIffall) {
         for (const cname of this.has) {
           const hasSet = this.ecs.entityComponents.get(cname);
           if (!hasSet.has(id)) {
             foundHas = false;
             break;
           }
+		  foundHas = true;
         }
     }
 	if (foundHas === undefined)
 		foundHas = false;
 
     if ( !foundAny && !foundHas && !foundIffall ) {
-      this.results.delete(entity);
-      return;
+		this.results.delete(entity);
+		return;
     }
 
     let foundHasnt = false;
