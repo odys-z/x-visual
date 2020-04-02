@@ -36,15 +36,15 @@
         const xscene = xworld.xscene;
 
         var d3pie = new xv.chart.D3Pie(ecs, {
-				xworld,
-				gridSpace: json["grid-space"]
-			}, json.pie);
+                xworld,
+                gridSpace: json["grid-space"]
+            }, json.pie);
         xworld.addSystem('chart', d3pie);
 
-		var xsankey = new xv.chart.XSankey(ecs, {}, json.sankey, json.vectors);
+        var xsankey = new xv.chart.XSankey(ecs, {}, json.sankey, json.vectors);
         xworld.addSystem('chart', xsankey);
 
-		var axis = new xv.chart.Axisys(ecs, {},
+        var axis = new xv.chart.Axisys(ecs, {},
                     {grid: json.grid, "grid-space": json["grid-space"]});
         xworld.addSystem('chart', axis);
 
