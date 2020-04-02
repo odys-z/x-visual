@@ -1,5 +1,3 @@
-/** @namespace xv.example.hello */
-
 import * as xv from 'x-visual'
 import * as THREE from 'three'
 
