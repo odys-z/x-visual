@@ -43,7 +43,7 @@
 						box: [200, 200, 320],
 						transform: [{translate: [-120, 0, 0]}],
 						mesh: undefined },		// Thrender will handle this
-				GpuPickable: {pickid: 1},
+				GpuPickable: {},
 				Visual: {vtype: xv.AssetType.mesh, asset: 'tex/ruler256.png'}
 			});
 
@@ -52,13 +52,13 @@
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 						box: [60, 60, 30],
 						mesh: undefined },
-				GpuPickable: {pickid: 2},
+				GpuPickable: {},
 				Visual: {vtype: xv.AssetType.mesh, asset: 'tex/rgb2x2.png'}
 			});
 		}
 	}
 
-	Cubesys.query = { iffall: ['CmdFlag', 'GpuPickable', 'Obj3'] };
+	Cubesys.query = { iffall: ['GpuPickable', 'Obj3'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
