@@ -1,6 +1,5 @@
 /**Test ECS extension.
- *
- * @namespace xv.test.ecs */
+ */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'

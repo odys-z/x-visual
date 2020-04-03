@@ -3,7 +3,7 @@
  * Original source @ github:
  * https://github.com/fritzy/ecs-js/blob/master/tests/index.js
  *
- * @namespace xv.test.ecs */
+ */
 
 import chai from 'chai'
 import { expect, assert } from 'chai'
