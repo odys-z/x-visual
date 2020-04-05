@@ -11,10 +11,37 @@
   <script>
     "use strict";
 
+    var dir = -1;
+    class TestDynamicPos extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+        }
+
+        update(tick, entities) {
+            if (xworld.xview.flag > 0) {
+                for (const e of entities) {
+                    if (!xv.XTweener.isPlaying(e, 0)) {
+                        // see animizer
+                        // cmp.affines.push({interpos: {positions, t}, vec3: new vec3()}); // vec3 is a buffer
+                        if (xworld.xview.cmds[0].cmd = 'left') {
+                            MorphingAnim.changePosition(e.CmpTweens.tweens[0], [100 * dir, 0, 0]); // change first interpos.position[1]
+                            dir = -dir;
+                            e.CmpTweens.startCmds.push(0);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    TestDynamicPos.query = { iffall: ['Obj3', 'CmpTweens'] };
+
     // initiating xworld
     const xworld = new xv.XWorld(document.getElementById('canv'),
                         window, {canvasize: [480, 320]});
     const ecs = xworld.xecs;
+
+    xworld.addSystem('test', new TestDynamicPos(ecs, {}));
 
     const ent1 = {
         id: 'entity1',
@@ -24,7 +51,7 @@
                 asset: 'tex/byr0.png' },
         ModelSeqs: { script: [ [
             { mtype: xv.XComponent.AnimType.POSITION,
-              paras: { start: Infinity,
+              paras: { start: 0,
                        translate: [[0, 0, 0], [100, 0, 0]],
                        ease: undefined} }] ] },
         CmpTweens: {}
