@@ -11,6 +11,7 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
 </head>
 
 <body>
@@ -92,21 +93,28 @@ export default class Thrender extends ECS.System {
 				// texture and mesh types
 				var tex, mat;
 				var uniforms = Object.assign({}, e.Obj3.uniforms);
-				var uniforms = Object.assign(uniforms, e.Visual.uniforms);
+					uniforms = Object.assign(uniforms, e.Visual.uniforms);
 				switch (e.Visual.vtype) {
 					case AssetType.canvas:
+						var alp = e.Visual.paras !== undefined &amp;&amp; e.Visual.paras.tex_alpha !== undefined ?
+							e.Visual.paras.tex_alpha : 1;
 						// create texture of canvas
-						AssetKeepr.loadCanvtex(e.Canvas);
+						AssetKeepr.loadCanvtex2(e.Canvas);
 						tex = e.Canvas.tex; // should be undefined now
 						mat = new THREE.MeshBasicMaterial({
+								opacity: alp,
 								// debug note!!! This map must created here for later changing
-								map: new THREE.CanvasTexture(document.getElementById('stub')),
+								// map: new THREE.CanvasTexture(document.getElementById('stub')),
+								map: new THREE.CanvasTexture(document.getElementById(e.Canvas.domId)),
 								transparent: true,
 								side: THREE.DoubleSide,
 							});
-						// Thrender.setUniforms(mat, uniforms);
-						Object.assign(mat, uniforms);
+						// mat.setUniforms(mat, uniforms);
+						// Object.assign(mat, uniforms);
 						var m = Thrender.createObj3mesh(e.Obj3, e.Obj3.geom, mat);
+						// can not been used for rendering until html canvas texture is ready,
+						// when Canvas.dirty = true
+						m.visible = false;
 						mes.push(m);
 						break;
 					case AssetType.mesh:
@@ -205,11 +213,32 @@ export default class Thrender extends ECS.System {
 						mes.push(curve);
 						if (e.ModelSeqs) {
 							// For geomCurve, it's hightly likely this path is needed by MorphingAnim &amp; XTweener
-							// FIXME what's the better practice for this in ECS pattern?
+							// Design MEMO
+							// what's the better practice for this in ECS pattern?
 							if (!e.ModelSeqs.cache)
 								e.ModelSeqs.cache = {};
 							e.ModelSeqs.cache.path = path;
 						}
+						break;
+					case AssetType.arrow:
+						var dir = new THREE.Vector3( e.Visual.paras.dir[0],
+									e.Visual.paras.dir[1], e.Visual.paras.dir[2]);
+						var org = new THREE.Vector3( e.Visual.paras.origin[0],
+									e.Visual.paras.origin[1], e.Visual.paras.origin[2]);
+						/*
+						ArrowHelper(dir : Vector3, origin : Vector3, length : Number, hex : Number, headLength : Number, headWidth : Number )
+						dir -- direction from origin. Must be a unit vector.
+						origin -- Point at which the arrow starts.
+						length -- length of the arrow. Default is 1.
+						hex -- hexadecimal value to define color. Default is 0xffff00.
+						headLength -- The length of the head of the arrow. Default is 0.2 * length.
+						headWidth -- The width of the head of the arrow. Default is 0.2 * headLength.
+						*/
+						var a = new THREE.ArrowHelper( dir, org,
+									e.Visual.paras.length, e.Visual.paras.color,
+								 	e.Visual.paras.headLength, e.Visual.paras.headWidth);
+						e.Obj3.mesh = a;
+						mes.push(a);
 						break;
 					default:
 						console.error('TODO AssetType: ', e.Visual.vtype);
@@ -286,7 +315,10 @@ export default class Thrender extends ECS.System {
 		return {curve: line, path: points};
 	}
 
-	/**
+	/**Create object mesh, put int *cmpObj3*.
+	 * @param {Obj3} cmpObj3
+	 * @param {Obj3Type} geomType
+	 * @param {THREE.Materail} material
 	 * @member Thrender.createObj3mesh
 	 */
 	static createObj3mesh(cmpObj3, geomType, material) {
@@ -578,6 +610,9 @@ export default class Thrender extends ECS.System {
 		this.camera = x.xcam.XCamera.cam;
 		// renderer
 		var renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true});
+		if (x.log >= 3)
+			logGlInfo(renderer);
+
 		var wh;
 		if (x.options.canvasize) {
 			wh = x.options.canvasize;
@@ -652,6 +687,11 @@ export default class Thrender extends ECS.System {
 }
 
 Thrender.query = {any};
+
+function logGlInfo (renderer) {
+	var gl = renderer.getContext();
+	console.log('[3]', gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
+}
 </code></pre>
         </article>
     </section>
@@ -662,13 +702,13 @@ Thrender.query = {any};
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.chart.module_xsankey.html">xsankey</a></li><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.chart.module_xsankey-XSankey.html">XSankey</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="xv.ecs.sys.module_tween-Tween.html">Tween</a></li><li><a href="xv.ecs.sys.module_tween-XTweener.html">XTweener</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.chart.html">chart</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axis.html">Axis</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.layer.html">layer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#Obj3">Obj3</a></li><li><a href="global.html#Pie">Pie</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#Sankey">Sankey</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 27 2020 15:32:50 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 02 2020 22:05:42 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

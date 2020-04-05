@@ -1,5 +1,4 @@
 /**Test case of xcommon/vec.js with mocha and chai.
- * @namespace xv.test.vec
  */
 
 import chai from 'chai'

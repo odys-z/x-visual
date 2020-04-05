@@ -11,3 +11,4 @@ Contents:
    effects
    htmltex
    svg
+   chart

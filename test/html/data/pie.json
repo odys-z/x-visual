@@ -1,0 +1,12 @@
+{ "pie": [{
+    "pivot": [0, 0, 1],
+    "rows": [
+        {"browser": "Chrome", "percent": "73.70"},
+        {"browser": "IE/Edge", "percent": "4.90"},
+        {"browser": "Firefox", "percent": "15.40"},
+        {"browser": "Safari", "percent": "3.60"},
+        {"browser": "Opera", "percent": "1.00"}
+    ],
+    "columns": ["browser", "percent"]
+  }]
+}
