@@ -33,7 +33,8 @@ import * as THREE from 'three'
 
 // npm i --save-dev babel-plugin-wildcard
 // .babelrc: { "plugins": ["wildcard"] }
-import AssetKeepr from '../xutils/assetkeepr.js';
+import {vec3} from '../xmath/vec'
+import AssetKeepr from '../xutils/assetkeepr.js'
 import Input from '../sys/input'
 import GpuPicker from '../sys/gpupicker'
 import Mapctrl from '../sys/mapctrl'
@@ -48,7 +49,7 @@ import FilmEffect from '../sys/ext/filmeffect'
 import GlowEffect from '../sys/ext/gloweffect'
 
 import {CmpCluster} from '../chart/clusters'
-import * as vises from '../component/visual'
+import * as visual from '../component/visual'
 import {Obj3} from '../component/obj3'
 import {GpuPickable} from '../component/pickable'
 import * as Tweens from '../component/tween'
@@ -56,14 +57,18 @@ import * as CAnims from '../component/morph'
 import * as CmpMvc from '../component/mvc'
 import * as Composers from '../component/ext/effects'
 
-/** Global singleton, xworld, options, ...
+/**Global singleton, xworld, options, ...
+ *
  * FIXME merge with x.js/x
+ * @type x
  */
 const x = {
 	ver: 'v0.1',
 	log: 5,
 	lastUpdate: -Infinity,
 	assets: undefined,
+
+	up: new THREE.Vector3(0, 1, 0),
 };
 
 // Patches
@@ -86,7 +91,6 @@ const x = {
 		return msk;
 	}
 
-x.up = new THREE.Vector3(0, 1, 0);
 
 /**
  * x-visual world
@@ -96,10 +100,17 @@ export default class XWorld {
 
 	get xecs() { return x.ecs; }
 	get xscene() { return x.scene; }
+	get xview() { return x.xview; }
 	get stamp() { return x.lastUpdate; }
 	get lastick() { return x.ecs.lastick; }
 
-	/** @constructor XWorld */
+	/**Create x-world.
+	 * @param {Canvas} canvas html dom canvas
+	 * @param {Window} wind
+	 * @param {object} options &lt;br>
+	 * options.frustum: { fov, ratio, near, far },&lt;br>
+	 * options.camera: { position, lookAt }, where value in [x, y, z]&lt;br>
+	 * @constructor XWorld */
 	constructor(canvas, wind, opts) {
 		if (opts &amp;&amp; opts.log > 0) x.log = opts.log;
 		x.options = opts || {};
@@ -107,7 +118,7 @@ export default class XWorld {
 		x.window = wind;
     	x.container = canvas;
     	const ecs = new ECS.ECS();
-		// cons of ECS, how to be polymorhpism? Extends a new ECS?
+		// Cons of ECS - how to be polymorhpism? Extends a new ECS?
 		ecs.componentTriggered (['FlowingPath', 'GlowingEdge'],
 			(def) => x.options.pathEffect = true);
 		ecs.componentTriggered (['Glow'],
@@ -121,28 +132,47 @@ export default class XWorld {
 
 		Object.assign(x.options, {canvas});
 
-		this.registerComponents(CmpMvc);	// UserCmd
+		this.registerComponents(CmpMvc);	// Input
 		this.registerComponents({GpuPickable});
-		this.registerComponents(vises);
+		this.registerComponents(visual);
 
-		x.xview = ecs.createEntity({
-			id: 'xview',
-			Input: {},
+		x.xview = {
+			tick: -1,
+			Input: undefined,
 			// e.g. [ {code: 'key', cmd: 'left'}, {code: 'mouse', cmd: 'click'} ]
-			UserCmd: {cmds:[]},
-			CmdFlag: {flag: 0}
-		});
+			cmds: [],
+			flag: 0 };
+		x.xview.Input = new Input(ecs, x, x.xview);
 
-		var camopt = {fov: 30, ratio: 2.0, near: 1, far: 5000};
+		var camopt = Object.assign( {fov: 30, ratio: 2.0, near: 1, far: 5000},
+									x.options.frustum );
 		if (x.options &amp;&amp; x.options.camera) {
 			Object.assign(camopt, x.options.camera);
 		}
 		var camera = new THREE.PerspectiveCamera(
 						camopt.fov, camopt.ratio,
 						camopt.near, camopt.far );
-		camera.position.z = 400;
-		camera.position.y = 50;
-		camera.lookAt(0, 0, 0);
+
+		if (x.options.camera &amp;&amp; x.options.camera.position) {
+			camera.position.x = options.camera.position[0];
+			camera.position.y = options.camera.position[1];
+			camera.position.z = options.camera.position[2];
+		}
+		else {
+			camera.position.z = 400;
+			camera.position.y = 50;
+		}
+
+		if (x.options.camera &amp;&amp; x.options.camera.lookAt) {
+			var l = x.options.camera.lookAt;
+			// camera.lookAt is overriden by Mapctrl or Camctrl
+			camera.lookAt(l[0], l[1], l[2]);
+			camera.xtarget = new vec3(l);
+		}
+		else {
+			camera.lookAt(0, 50, 0);
+			camera.xtarget = new vec3(0, 50, 0);
+		}
 
 		x.xcam = ecs.createEntity({
 			id: 'xcam',
@@ -166,7 +196,7 @@ export default class XWorld {
 
 	/** ecs.registerComponent(name, ComponentExports[name]);
 	 * @param {object | Component} comps a component or an object of {comp-name, comp}
-	 * @member XWorld.registerComponents
+	 * @member XWorld#registerComponents
 	 * @function
 	 */
 	registerComponents(comps) {
@@ -179,7 +209,7 @@ export default class XWorld {
 	}
 
 	/**
-	 * @member XWorld.startUpdate
+	 * @member XWorld#startUpdate
 	 * @function
 	 */
 	startUpdate() {
@@ -217,7 +247,7 @@ export default class XWorld {
 		}
 
 		// add subsystems
-		ecs.addSystem('mvc', new Input(ecs, x));
+		ecs.addSystem('mvc', x.xview.Input);
 		ecs.addSystem('mvc', new GpuPicker(ecs, x));
 
 		if (x.options.mapcontrol) {
@@ -246,8 +276,9 @@ export default class XWorld {
 		this.update();
 	}
 
-	/**this.ecs.runSystemGroup('input');
-	 * this.ecs.runSystemGroup('render');
+	/**this.ecs.runSystemGroup('input');&lt;br>
+	 * this.ecs.runSystemGroup('render');&lt;br>
+	 * ...
 	 * @param {number} time
 	 * @member XWorld.update
 	 * @function
@@ -272,15 +303,14 @@ export default class XWorld {
 		}
 	}
 
-	/**
-	 * Add a ECS system.
+	/**Add systems.
 	 * @param {string} group group name
-	 * @param {System} sys ecs system
-	 * @member XWorld.addSystem
+	 * @param {System} sys ECS system
+	 * @member XWorld#addSystem
 	 * @function
 	 */
 	addSystem(group, sys) {
-		if (x.userSysGroup === undefined){
+		if (x.userSysGroup === undefined) {
 			x.userSysGroup = {};
 		}
 		x.userSysGroup[group] = group;
@@ -288,10 +318,11 @@ export default class XWorld {
 		x.ecs.addSystem(group, sys);
 	}
 
-	/**
-	 * Add entities defined with *defs*.
-	 * @param {array|object} defs
-	 * @member XWorld.addEntities
+	/**Add entities.
+	 * @param {array | object} defs e.g.&lt;br>
+	 * [{ Obj3: {...}, ... }]
+	 * @return {array} entities been added
+	 * @member XWorld#addEntities
 	 * @function
 	 */
 	addEntities(defs) {
@@ -316,13 +347,13 @@ export {x}
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axis.html">Axis</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Grid.html">Grid</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#getExtrudePos">getExtrudePos</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 02 2020 22:40:15 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 06 2020 17:56:26 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
