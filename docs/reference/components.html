@@ -263,35 +263,33 @@
 24
 25
 26
-27
-28</pre></div></td><td class="code"><div class="highlight"><pre><span></span>const AssetType = {
-    gltf: 0,	   // gltf asset file
-    materail: 1,
-    mat: 1,        // short for material
-    shader: 2,     // shaders provide by xglsl
-    cust: 3,       // customer
-    mesh: 4,       // mesh created like THREE.Mesh(), usually loaded from gltf asset
+27</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** texture | basic material | custom shader ...</span>
+<span class="cm"> * @type AssetType */</span>
+<span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>	   <span class="c1">// gltf asset file</span>
+    <span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>        <span class="c1">// short for material</span>
+    <span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>     <span class="c1">// shaders provide by xglsl</span>
+    <span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>       <span class="c1">// customer</span>
+    <span class="nx">mesh</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>       <span class="c1">// mesh created like THREE.Mesh(), usually loaded from gltf asset</span>
 
-    point: 5,      // THREE.Points. Note Obj3Type.POINTS is an array of vertices buffer.
-    refPoint: 6,   // THREE.Points created from referencing model, with asset = entity id.
-    cubeVoxel: 7,  // voxel generated for Obj3.box
-    cubeVoxels: 7, // ShaderFlag has a similar name, makes this error proven
+    <span class="nx">point</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>      <span class="c1">// THREE.Points. Note Obj3Type.POINTS is an array of vertices buffer.</span>
+    <span class="nx">refPoint</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>   <span class="c1">// THREE.Points created from referencing model, with asset = entity id.</span>
+    <span class="nx">cubeVoxel</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1">// voxel generated for Obj3.box</span>
+    <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="c1">// ShaderFlag has a similar name, makes this error proven</span>
 
-    canvas: 8,     // html DOM as texture, test/example: htmltex.html
+    <span class="nx">canvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>     <span class="c1">// html DOM as texture, test/example: htmltex.html</span>
 
-    wireframe: 9,  // opengl / webgl wireframe
+    <span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>  <span class="c1">// opengl / webgl wireframe</span>
 
-    geomCurve: 10, // THREE.Curve, rendered as opengl / webgl line, created form Obj3.geom
-    // pointSect: 11, // THREE.Curve, with section points provided by user
-    // pointGrid: 12,// same as pointSect, but converted to THREE.CatmullRomCurve3
-    // pointCurve: 13,// same as pointSect, but converted to THREE.CatmullRomCurve3
+    <span class="nx">geomCurve</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// THREE.Curve, rendered as opengl / webgl line, created form Obj3.geom</span>
+    <span class="c1">// pointSect: 11, // THREE.Curve, with section points provided by user</span>
+    <span class="c1">// pointGrid: 12,// same as pointSect, but converted to THREE.CatmullRomCurve3</span>
+    <span class="c1">// pointCurve: 13,// same as pointSect, but converted to THREE.CatmullRomCurve3</span>
 
-    svg: 14,
-    sprite: 15,
-}
-
-/** javascript operators uses 32 bits signed integers
- * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
+    <span class="nx">svg</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="nx">sprite</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -308,44 +306,40 @@
  9
 10
 11
-12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span> * @type ShaderFlag */
-const ShaderFlag = {
-    mask: 0xffff,       // 16 bits for types
-    defaultex: 1 &lt;&lt; 16, // use default texture
-    testPoints: 1,      // default
-    randomParticles: 2,
-    cubeVoxels: 3,
-    throbStar: 4,
-    flameLight: 5,
-}
-
-/** @type Visual */
-const Visual = {
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** javascript operators uses 32 bits signed integers</span>
+<span class="cm"> * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators</span>
+<span class="cm"> * @type ShaderFlag */</span>
+<span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">mask</span><span class="o">:</span> <span class="mh">0xffff</span><span class="p">,</span>       <span class="c1">// 16 bits for types</span>
+    <span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span> <span class="c1">// use default texture</span>
+    <span class="nx">testPoints</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1">// default</span>
+    <span class="nx">randomParticles</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nx">throbStar</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nx">flameLight</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
 <div class="section" id="visual-component">
 <h3>Visual Component<a class="headerlink" href="#visual-component" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>  properties: {
-    vtype: 0,
-    shader: ShaderFlag.testPoints,
-    asset: &#39;&#39;, // texture path, mesh, sprite, shader, materail, ...
-    paras: {},
-  }
-};
-
-/**This component can only work with Visaul and make sure
- * Visual.vtype = AssetType.canvas
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** @type Visual */</span>
+<span class="kr">const</span> <span class="nx">Visual</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">vtype</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">shader</span><span class="o">:</span> <span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">testPoints</span><span class="p">,</span>
+    <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// texture path, mesh, sprite, shader, materail, ...</span>
+    <span class="nx">paras</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -384,40 +378,66 @@ const Visual = {
 31
 32
 33
-34</pre></div></td><td class="code"><div class="highlight"><pre><span></span> * TODO rename as GeomType
- * @type Obj3Type
- * @memberof XComponent
- *
- */
-const Obj3Type = {
-	// custom or undefined
-	USER: 0,
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/**Types of THREE.Geometry, in addition to some extensions like wireframe</span>
+<span class="cm"> *</span>
+<span class="cm"> * TODO rename as GeomType</span>
+<span class="cm"> * @type Obj3Type</span>
+<span class="cm"> * @memberof XComponent</span>
+<span class="cm"> *</span>
+<span class="cm"> */</span>
+<span class="kr">const</span> <span class="nx">Obj3Type</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="c1">// custom or undefined</span>
+	<span class="nx">USER</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
 
-	// geometry
-	BOX: 1,
-	PLANE: 2,
-	SPHERE: 3,
-	TORUS: 4,
-	CONE: 5,
-	Cylinder: 6,
-	TETRAHEDRON: 0x10,	//https://threejs.org/docs/index.html#api/en/geometries/TetrahedronGeometry
-	DODECAHEDRON: 0x11,	// https://threejs.org/docs/index.html#api/en/geometries/DodecahedronBufferGeometry
-	OCTAHEDRON: 0x12,	// https://threejs.org/docs/index.html#api/en/geometries/OctahedronBufferGeometry
-	ICOSAHEDRON: 0x13,	// https://threejs.org/docs/index.html#api/en/geometries/IcosahedronGeometry
-	SHAPE: 0x20,		// https://threejs.org/docs/index.html#api/en/geometries/ShapeGeometry
-	RING: 0X21,			// https://threejs.org/docs/index.html#api/en/geometries/RingGeometry
-	POLYHEDRON: 0x22,	// THREE.PolyhedronBufferGeometry, not supported
-	LATHE: 0x23,		// https://threejs.org/docs/index.html#api/en/geometries/LatheGeometry
+	<span class="c1">// geometry</span>
+	<span class="nx">BOX</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+	<span class="nx">PLANE</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+	<span class="nx">SPHERE</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+	<span class="nx">TORUS</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+	<span class="nx">CONE</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+	<span class="nx">Cylinder</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+	<span class="nx">TETRAHEDRON</span><span class="o">:</span> <span class="mh">0x10</span><span class="p">,</span>	<span class="c1">//https://threejs.org/docs/index.html#api/en/geometries/TetrahedronGeometry</span>
+	<span class="nx">DODECAHEDRON</span><span class="o">:</span> <span class="mh">0x11</span><span class="p">,</span>	<span class="c1">// https://threejs.org/docs/index.html#api/en/geometries/DodecahedronBufferGeometry</span>
+	<span class="nx">OCTAHEDRON</span><span class="o">:</span> <span class="mh">0x12</span><span class="p">,</span>	<span class="c1">// https://threejs.org/docs/index.html#api/en/geometries/OctahedronBufferGeometry</span>
+	<span class="nx">ICOSAHEDRON</span><span class="o">:</span> <span class="mh">0x13</span><span class="p">,</span>	<span class="c1">// https://threejs.org/docs/index.html#api/en/geometries/IcosahedronGeometry</span>
+	<span class="nx">SHAPE</span><span class="o">:</span> <span class="mh">0x20</span><span class="p">,</span>		<span class="c1">// https://threejs.org/docs/index.html#api/en/geometries/ShapeGeometry</span>
+	<span class="nx">RING</span><span class="o">:</span> <span class="mh">0X21</span><span class="p">,</span>			<span class="c1">// https://threejs.org/docs/index.html#api/en/geometries/RingGeometry</span>
+	<span class="nx">POLYHEDRON</span><span class="o">:</span> <span class="mh">0x22</span><span class="p">,</span>	<span class="c1">// THREE.PolyhedronBufferGeometry, not supported</span>
+	<span class="nx">LATHE</span><span class="o">:</span> <span class="mh">0x23</span><span class="p">,</span>		<span class="c1">// https://threejs.org/docs/index.html#api/en/geometries/LatheGeometry</span>
 
-	// morph FIXME wrong?
-	MORPH: 0x40,		// https://threejs.org/examples/?q=Geometry#webgl_buffergeometry_morphtargets
+	<span class="c1">// morph FIXME wrong?</span>
+	<span class="nx">MORPH</span><span class="o">:</span> <span class="mh">0x40</span><span class="p">,</span>		<span class="c1">// https://threejs.org/examples/?q=Geometry#webgl_buffergeometry_morphtargets</span>
 
-	// line
-	// For gl.LINE_STRip vs. gl.LINES, see https://www.tutorialspoint.com/webgl/webgl_modes_of_drawing.htm
-	CIRCLE: 0x82,
-	HILBERT: 0x83,
-	RandomCurve: 0x84,
-	RandomSects: 0x85,
+	<span class="c1">// line</span>
+	<span class="c1">// For gl.LINE_STRip vs. gl.LINES, see https://www.tutorialspoint.com/webgl/webgl_modes_of_drawing.htm</span>
+	<span class="nx">CIRCLE</span><span class="o">:</span> <span class="mh">0x82</span><span class="p">,</span>
+	<span class="nx">HILBERT</span><span class="o">:</span> <span class="mh">0x83</span><span class="p">,</span>
+	<span class="nx">RandomCurve</span><span class="o">:</span> <span class="mh">0x84</span><span class="p">,</span>
+	<span class="nx">RandomSects</span><span class="o">:</span> <span class="mh">0x85</span><span class="p">,</span>
+    <span class="nx">PointSect</span><span class="o">:</span> <span class="mh">0x86</span><span class="p">,</span>    <span class="c1">// THREE.Curve, with section points provided by user</span>
+    <span class="nx">PointGrid</span><span class="o">:</span> <span class="mh">0x87</span><span class="p">,</span>    <span class="c1">// same as pointSect, but converted to THREE.CatmullRomCurve3</span>
+    <span class="nx">PointCurve</span><span class="o">:</span> <span class="mh">0x88</span><span class="p">,</span>   <span class="c1">// same as pointSect, but connected in 2D direction - helbert?</span>
+
+    <span class="nx">CatmullRom</span><span class="o">:</span> <span class="mh">0x89</span><span class="p">,</span>
+
+    <span class="nx">Spline</span><span class="o">:</span> <span class="mh">0x91</span><span class="p">,</span>
+    <span class="nx">XyHyperbola</span><span class="o">:</span> <span class="mh">0x92</span><span class="p">,</span>
+    <span class="nx">XyParabola</span><span class="o">:</span> <span class="mh">0x93</span><span class="p">,</span>
+    <span class="nx">XyEllipse</span><span class="o">:</span> <span class="mh">0x94</span><span class="p">,</span>
+<span class="p">};</span>
 </pre></div>
 </td></tr></table></div>
 </div>
