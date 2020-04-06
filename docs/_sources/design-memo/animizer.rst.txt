@@ -141,6 +141,24 @@ Start animation with script in other entities.
 
 Object has same properties of :ref:`paras.followBy<script-followby>`.
 
+AnimType.POSITION paras
+_______________________
+
+The *POSITION* animation type is used to update object's position, in world (xscnene).
+
+- translate
+
+A 2D array with major length = 2 specifying to position moving section. As this is an
+affine transformation, it's designed as start from where it is. So the first one is 
+usually an array of zero vector, i. e. [0, 0, 0].
+
+The second vector is for target position.
+
+.. note:: In version 0.2, the target position can be dynamically updated
+    - the only one can be updated dynamicall.
+    see test/html/dynamic-position-tween.html for usage example.
+..
+
 AnimType.ROTATEX paras
 ______________________
 
