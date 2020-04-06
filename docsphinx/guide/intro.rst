@@ -34,7 +34,7 @@ repeatedly.
 
 .. literalinclude:: ../../examples/cube/hellocube.js
    :language: javascript
-   :lines: 1-49
+   :lines: 1-47
    :linenos:
 
 A cube entity has been defined above, with id, Obj3, Visual components.
