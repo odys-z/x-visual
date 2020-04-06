@@ -10,6 +10,12 @@ D3 Charts
 D3Pie
 _____
 
+Draw a pie chart on a 3D plane in xworld.
+
+test: html/ext/4vec-pie.html
+
+data: html/data/pie.json
+
 Resources & References
 ----------------------
 

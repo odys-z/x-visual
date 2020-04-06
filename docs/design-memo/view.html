@@ -159,30 +159,44 @@ user interactions.</p>
 <div class="section" id="view">
 <h2>View<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h2>
 <p>The xview is used as default mvc view.</p>
-<p>Xview is an entity has components CmdFlag and UserCmd. All system that can response to
-user command must query UserCmd.</p>
-<p>The intuition for this is there may be more user interaction handler, such as a websocket
-client.</p>
+<p>Xview is a singleton filed with properties <em>cmds</em> for commands queue and <em>flag</em>
+for commands length. All system that response to user action can access this cmds
+directly.</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>Only Input system can write the <em>xview.cmds</em> and <em>xview.flag</em>.</p>
+<p class="last">This rule are not enforced by x-visual.</p>
+</div>
+<p>At each update beginning, <em>xview.cmds</em> and <em>xview.flag</em> are cleared.</p>
+<p>Input may not the only system parsing user input and generate cmds. The intuition
+for this is there may be more user interaction handler, such as a websocket client.</p>
 <p>handling process:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Inputs</span><span class="p">:</span> <span class="n">mouse</span> <span class="o">|</span> <span class="n">key</span> <span class="n">events</span> <span class="o">-&gt;</span> <span class="n">UserCmd</span>
-<span class="n">WebClient</span><span class="p">:</span> <span class="n">web</span><span class="o">-</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="n">UserCmd</span>
-<span class="n">GpuPicker</span><span class="p">:</span> <span class="n">UserCmd</span><span class="o">.</span><span class="n">clietxy</span> <span class="o">-&gt;</span> <span class="n">GpuPickable</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Inputs</span><span class="p">:</span> <span class="n">mouse</span> <span class="o">|</span> <span class="n">key</span> <span class="n">events</span> <span class="o">-&gt;</span> <span class="n">xview</span><span class="o">.</span><span class="n">cmds</span>
+<span class="n">WebClient</span><span class="p">:</span> <span class="n">web</span><span class="o">-</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="n">xview</span><span class="o">.</span><span class="n">cmds</span>
+<span class="n">GpuPicker</span><span class="p">:</span> <span class="n">Cmd</span><span class="o">.</span><span class="n">clietxy</span> <span class="o">-&gt;</span> <span class="n">GpuPickable</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="inputs">
 <h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h2>
 <p>Input system always been created by xworld for handling user input.</p>
-<p>User interaction been converted into UserCmd component for subsequent system handling.</p>
-<p>On each updating iteration, the command’s buffer (UserCmd) is cleared. If no new
-user action, a flag, CmdFlag will be set to prevent unnecessary iteration.</p>
+<p>User interaction been converted into User-Cmd for subsequent system handling.</p>
+<p>On each updating iteration, the command’s buffer (xview.cmds) is cleared. This
+only happening at at the update() beening called. User action are buffered in an
+internal buffer.</p>
+<p>If no new user action, a flag, <em>xview.flag</em> will be set to help to prevent
+unnecessary iteration.</p>
 </div>
 <div class="section" id="gpupicking">
 <h2>GpuPicking<a class="headerlink" href="#gpupicking" title="Permalink to this headline">¶</a></h2>
 <p>If an entity has a GpuPickable component, GpuPicker subsystem will create another
 object for rendering the picking scene.</p>
-<p>So if there are entities with Obj3, they can be rendered as visible but not pickable,
-and can prevent entities with GpuPickable to be picked if they are rendered closer.</p>
+<p>So if there are entities only with Obj3, they can be rendered as visible but not
+pickable, and can preventing entities with GpuPickable to be picked if they are
+rendered closer to camera.</p>
+<p><strong>Note:</strong></p>
+<p>The GpuPickable component has a <em>pickid</em> property, it’s immediately been updated by
+x-visual.GpuPicker. Users can not depend on this.</p>
 <p>[1] <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-picking.html">Three.js Picking (with GPU)</a></p>
 <p>[2] <a class="reference external" href="https://github.com/mrdoob/three.js/issues/2599">Changing Materials at Runtime #2599</a></p>
 </div>

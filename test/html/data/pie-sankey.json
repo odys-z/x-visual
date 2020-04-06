@@ -18,6 +18,8 @@
         "v": 3
       }
     ],
+    "vscale": 12.5,
+    "geometry": [5, 5, 1, 20],
 
     "_comment": "following data are correct by presenting here?",
     "id": "sankey1",

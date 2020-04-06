@@ -29,17 +29,10 @@ export default class Parallel extends xv.XSys {
 
     update(tick, entities) {
         for (const e of entities) {
-            // if (e.CmdFlag) {
-            //      if (e.CmdFlag.flag > 0) {
-            //         // handling command like start an animation here
-            //         this.cmd = e.UserCmd.cmds[0].cmd;
-            //     }
-            //     else this.cmd = undefined;
-            // }
         }
     }
 }
 
 Cube.query = {
-    iffall: ['Visual', 'CmdFlag']
+    iffall: ['Visual']
 };
