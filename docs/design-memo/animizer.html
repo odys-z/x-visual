@@ -161,61 +161,28 @@
 <div class="section" id="mesh-animiation-script">
 <h2>Mesh Animiation Script<a class="headerlink" href="#mesh-animiation-script" title="Permalink to this headline">¶</a></h2>
 <p>Example:</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27</pre></div></td><td class="code"><div class="highlight"><pre><span></span>                    <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
-            <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
-                    <span class="nx">asset</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>        <span class="c1">// let thrender create a ram texture.</span>
-            <span class="c1">// ModelSeq is an array of animation sequences.</span>
-            <span class="c1">// Each sequence is an array.</span>
-            <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">ROTATEX</span><span class="p">,</span>
-                            <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>        <span class="c1">// auto start</span>
-                                    <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.801</span><span class="p">,</span>   <span class="c1">// seconds</span>
-                                    <span class="nx">cmd</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-                                    <span class="nx">deg</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span>    <span class="c1">// from, to</span>
-                                    <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="c1">// default linear</span>
-                          <span class="p">},</span>
-                          <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">ROTAXIS</span><span class="p">,</span>
-                            <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span> <span class="c1">// auto start, follow previous</span>
-                                    <span class="nx">duration</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>     <span class="c1">// seconds</span>
-                                    <span class="nx">axis</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                                    <span class="nx">deg</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>    <span class="c1">// from, to</span>
-                                    <span class="nx">ease</span><span class="o">:</span> <span class="nx">XEasing</span><span class="p">.</span><span class="nx">Elastic</span><span class="p">.</span><span class="nx">InOut</span><span class="p">,</span>
-                                    <span class="nx">onComplete</span><span class="o">:</span> <span class="nx">assertComplete</span><span class="p">(</span><span class="nx">completeflags</span><span class="p">)}</span> <span class="p">}</span>
-                         <span class="p">]]</span> <span class="p">},</span>
-            <span class="nx">CmpTweens</span><span class="o">:</span> <span class="p">{}</span>
-        <span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;fade-out&#39;</span><span class="p">,</span>
+    <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
+            <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>
+            <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
+    <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+            <span class="c1">// Three use document to load assets, which doesn&#39;t exist whil testing</span>
+            <span class="c1">// null acts as a flag to let thrender create a ram texture.</span>
+            <span class="nx">asset</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
 
-        <span class="nx">xworld</span><span class="p">.</span><span class="nx">startUpdate</span><span class="p">();</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span> <span class="nx">cube</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">twindx</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;twindx != 1&#39;</span><span class="p">);</span>
-            <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span> <span class="nx">cube</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">tweens</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;tweens != 1&#39;</span><span class="p">);</span>
+    <span class="c1">// in version 1.0, only type of sequence animation is supported</span>
+    <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
+                    <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>         <span class="c1">// auto start, only alpha tween in v0.2</span>
+                            <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.8</span><span class="p">,</span>    <span class="c1">// seconds</span>
+                            <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="nx">opa0</span><span class="p">,</span> <span class="nx">opa1</span><span class="p">],</span>
+                            <span class="nx">ease</span><span class="o">:</span> <span class="nx">XEasing</span><span class="p">.</span><span class="nx">Elastic</span><span class="p">.</span><span class="nx">InOut</span><span class="p">}</span>
+                <span class="p">}]]</span> <span class="p">},</span>
+    <span class="nx">CmpTweens</span><span class="o">:</span> <span class="p">{}</span>
+<span class="p">});</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>In the above example, the entity is defined with 2 components, ModelSeqs &amp; CmpTweens.</p>
 <p>ModelSeqs is the animation defining animation process that animated by the x-visual’s
 tweening system, XTweener.</p>
@@ -421,7 +388,7 @@ see test/html/dynamic-position-tween.html for usage example.</p>
         <span class="kd">var</span> <span class="nx">te</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">;</span>
 
         <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">quaternion</span><span class="p">.</span><span class="nx">_x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">quaternion</span><span class="p">.</span><span class="nx">_y</span><span class="p">,</span> <span class="nx">z</span> <span class="o">=</span> <span class="nx">quaternion</span><span class="p">.</span><span class="nx">_z</span><span class="p">,</span> <span class="nx">w</span> <span class="o">=</span> <span class="nx">quaternion</span><span class="p">.</span><span class="nx">_w</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">x2</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">,</span>     <span class="nx">y2</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z2</span> <span class="o">=</span> <span class="nx">z</span> <span class="o">+</span> <span class="nx">z</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">x2</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">,</span>    <span class="nx">y2</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z2</span> <span class="o">=</span> <span class="nx">z</span> <span class="o">+</span> <span class="nx">z</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">xx</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x2</span><span class="p">,</span> <span class="nx">xy</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">y2</span><span class="p">,</span> <span class="nx">xz</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">z2</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">yy</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">y2</span><span class="p">,</span> <span class="nx">yz</span> <span class="o">=</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">z2</span><span class="p">,</span> <span class="nx">zz</span> <span class="o">=</span> <span class="nx">z</span> <span class="o">*</span> <span class="nx">z2</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">wx</span> <span class="o">=</span> <span class="nx">w</span> <span class="o">*</span> <span class="nx">x2</span><span class="p">,</span> <span class="nx">wy</span> <span class="o">=</span> <span class="nx">w</span> <span class="o">*</span> <span class="nx">y2</span><span class="p">,</span> <span class="nx">wz</span> <span class="o">=</span> <span class="nx">w</span> <span class="o">*</span> <span class="nx">z2</span><span class="p">;</span>
