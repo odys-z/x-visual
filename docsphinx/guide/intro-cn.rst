@@ -31,7 +31,7 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 
 .. literalinclude:: ../../examples/cube/hellocube.js
    :language: javascript
-   :lines: 1-49
+   :lines: 1-47
    :linenos:
 
 在Cube中定义了一个立方体, zh: and id, Obj3, Visual, update(), query...
