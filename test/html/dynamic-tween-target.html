@@ -11,7 +11,6 @@
   <script>
     "use strict";
 
-    var dir = -1;
     class TestDynamicPos extends xv.XSys {
         constructor(ecs, options) {
             super(ecs);
@@ -19,14 +18,24 @@
         }
 
         update(tick, entities) {
-            if (xworld.xview.flag > 0) {
-                for (const e of entities) {
-                    if (!xv.XTweener.isPlaying(e, 0)) {
-                        // see animizer
-                        // cmp.affines.push({interpos: {positions, t}, vec3: new vec3()}); // vec3 is a buffer
-                        if (xworld.xview.cmds[0].cmd = 'left') {
-                            MorphingAnim.changePosition(e.CmpTweens.tweens[0], [100 * dir, 0, 0]); // change first interpos.position[1]
-                            dir = -dir;
+            if (xworld.xview.flag > 0 && xworld.xview.cmds[0].code === 'key') {
+                var cmd = xworld.xview.cmds[0].cmd
+                if (cmd) {
+                    for (const e of entities) {
+                        if (!xv.XTweener.isPlaying(e.CmpTweens, 0)) {
+                            // see animizer
+                            // cmp.affines.push({interpos: {positions, t}, vec3: new vec3()}); // vec3 is a buffer
+                            var dir = 0;
+                            if (cmd === 'left') {
+                                dir = -1;
+                            }
+                            else if (cmd === 'right') {
+                                dir = 1;
+                            }
+                            else continue;
+
+                            xv.MorphingAnim.changePosition(e.CmpTweens.tweens[0],
+                                        [100 * dir, 0, 0]); // change first interpos.position[1]
                             e.CmpTweens.startCmds.push(0);
                         }
                     }
