@@ -75,7 +75,7 @@ AssetType
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 4-31
+   :lines: 4-29
    :linenos:
 
 ShaderFlag
