@@ -12,7 +12,7 @@ import {Affine} from '../lib/xmath/affine'
 
 describe('case: [vec3] operator basics', () => {
 
-    it('vec3 instance operator', () => {
+    it('vec3 instance operator eq, add, mul, dot, js', () => {
         var v1 = new vec3();
         var v2 = new vec3([1, 2, 3]);
         var v3 = new vec3(2, 4, 6);
@@ -22,6 +22,19 @@ describe('case: [vec3] operator basics', () => {
         assert.closeTo(v3.length() * v3.length(), v2.div(0.5).dot(v2), 0.01, "3 ---");
         assert.isTrue(v2.js() instanceof THREE.Vector3, "4 ---");
         assert.equal(v3.js().z, 6, "5 ---");
+    });
+
+    it('vec3 instance operator mulArr', () => {
+        var v2 = new vec3([1, 2, 3]);
+        var v3 = new vec3(2, 4, 6);
+
+        debugger
+        var c = [0, 0, 0];
+        vec3.mulArr(v2, 2, c)
+        assert.isTrue(v3.eq(c), "1 ---");
+
+        vec3.mulArr(v2, [1, 0.5, 1 / 3], c)
+        assert.isTrue(new vec3(1, 1, 1).eq(c), "1 ---");
     });
 
 });
