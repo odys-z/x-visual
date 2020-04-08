@@ -25,13 +25,17 @@
     "vscale": 12.5,
     "geometry": [5, 5, 1, 20],
 
-    "pivoting-desc": "v-idx, h (for readable), grid[x, y, z], ... , same order with bar index, for the activie coord, y also can be 0 at z = 1",
-    "pivoting": [
-        [ 0, 6, [0, 1, 1], [1, 1, 1] ],
-        [ 1, 8, [0, 1, 1], [1, 0, 1] ],
-        [ 2, 5, [0, 0, 1], [1, 1, 0] ],
-        [ 3, 2, [0, 0, 1], [1, 0, 0] ]
-    ],
+	"extruding": {
+		"coord": 0,
+    	"pivoting-desc1": "v-idx, h (for readable), grid[x, y, z], ... ,",
+		"pivoting-desc2": "same order with bar index, for the activie coord, y also can be 0 at z = 1",
+	    "pivoting": [
+	        [ 0, 6, [0, 1, 1], [1, 1, 1] ],
+	        [ 1, 8, [0, 1, 1], [1, 0, 1] ],
+	        [ 2, 5, [0, 0, 1], [1, 1, 0] ],
+	        [ 3, 2, [0, 0, 1], [1, 0, 0] ]
+	    ],
+	},
 
     "_comment": "following data are correct by presenting here?",
     "id": "sankey1",
