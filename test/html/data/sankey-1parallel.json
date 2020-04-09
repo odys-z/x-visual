@@ -5,7 +5,7 @@
     "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z"
   },
   "sankey": {
-    "coordinates": [{"lable": "Active-coord", "range": [0, 1, 2]}, {"lable": "Inactive", "range": [0, 1]}],
+    "coordinates": [{"label": "Active-coord", "range": [0, 1, 2]}, {"label": "Inactive", "range": [0, 1]}],
     "scale": ["memo: x scaled by 'values' - (vectors[i][4] is not presentedin dimesions). Currently only x can be scaled"],
     "totalValue": 21,
     "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",

@@ -35,7 +35,8 @@
         const xscene = xworld.xscene;
 
         // pie and sankey will share ChartGrid with this
-        var options = {chart: json.chart, xworld};
+        var options = {chart: json.chart, xworld,
+						texture: '../../assets/tex/byr0.png'};
 
         var d3pie = new xv.chart.D3Pie(ecs, options, json.pie);
         xworld.addSystem('chart', d3pie);

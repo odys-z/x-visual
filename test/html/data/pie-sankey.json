@@ -1,13 +1,13 @@
 { "chart": {
 	"name": "2pie-sankey vec4",
     "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z",
-	"domain": [[0, 2], [0, 2], [0, 21]],
+	"domain": [[0, 2], [0, 21], [0, 2]],
 	"range": [[0, 160], [0, 200], [0, 100]],
     "grid": [2, 2, 2],
     "grid-space": 20
   },
   "sankey": {
-    "coordinates": [{"lable": "1-coord", "range": [0, 1]}, {"lable": "2-coord", "range": [0, 1]}],
+    "coordinates": [{"label": "1-coord", "range": [0, 1]}, {"label": "2-coord", "range": [0, 1]}],
     "totalValue": 21,
     "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",
     "bar-desc": "[ vec-idx: [coord-idx, coord-enum, h, y] ]",
@@ -16,10 +16,10 @@
           [ 1, 1, 6, 15 ] ],
 
         [ [ 0, 1, 8, 7 ],
-          [ 1, 0, 8, 7 ] ],
+          [ 1, 0, 8, 2 ] ],
 
         [ [ 0, 0, 5, 2 ],
-          [ 1, 1, 5, 10] ],
+          [ 1, 1, 5, 7] ],
 
         [ [ 0, 0, 2, 0 ],
           [ 1, 0, 2, 0 ] ]
@@ -60,7 +60,8 @@
   },
 
   "pie": [
-  { "pivot": [1, 2, 1], "pivot-desc": "grid index",
+  { "pivot": [0, 4, 0], "pivot-desc": "grid index",
+	"wh": [0.5, 0.5],
     "rows": [
         {"browser": "Chrome", "percent": "73.79"},
         {"browser": "IE/Edge", "percent": "4.99"},
@@ -70,7 +71,16 @@
     ],
     "columns": ["browser", "percent"]
   },
-  { "pivot": [1, 2, 0],
+  { "pivot": [-1, 1.5, 0],
+	"wh": [0.5, 0.5],
+    "rows": [
+        {"nc": "001", "percent": "73.01"},
+        {"nc": "086", "percent": "26.99"}
+    ],
+    "columns": ["nc", "percent"]
+  },
+  { "pivot": [1, 4, 0],
+	"wh": [0.5, 0.5],
     "rows": [
         {"co": "BBC", "percent": "57.66"},
         {"co": "FOX", "percent": "14.91"},
