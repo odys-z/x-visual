@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/sys/ext/finalcomposer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/sys/ext/finalcomposer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+// import * as THREE from 'three'
+import * as ECS from '../../../packages/ecs-js/index'
+
+import {ShaderPass} from  '../../../packages/three/postprocessing/ShaderPass'
+import {ShaderMaterial} from '../../../packages/three/three.module.js';
+import {EffectComposer} from  '../../../packages/three/postprocessing/EffectComposer'
+import {RenderPass} from  '../../../packages/three/postprocessing/RenderPass'
+import {FilmPass} from  '../../../packages/three/postprocessing/FilmPass'
+
+import XSys from '../xsys';
+import AssetKeepr from '../../xutils/assetkeepr';
+import {ramTexture} from '../../xutils/xcommon';
+
+/**
+ * @class FinalComposer
+ */
+export default class FinalComposer extends XSys {
+	constructor(ecs, x) {
+		super(ecs);
+		this.ecs = ecs;
+
+		this.layers = [];
+		if (x.options.effects
+			&amp;&amp; x.composer) // testing
+			this.effects(x);
+	}
+
+	effects(x) {
+		var unis = {};
+		this.effectComposer = x.composer[0];
+		// this.effectComposer = new EffectComposer( x.renderer );
+		// var target1 = true;
+		// for (var effect of x.composer) {
+		// 	effect.renderToScreen = false;
+		// 	this.effectComposer.addPass(effect);
+		// 	target1 = !target1;
+		// }
+		var target1 = false;
+
+		// FIXME bug: final composer should be the Thrender.composer
+		// this.finalComposer = new EffectComposer( x.renderer ); // with scene and outline by Thrender
+		// var renderPass = new RenderPass( x.scene, x.xcam.XCamera.cam );
+		// renderPass.renderToScreen = false;
+		// this.finalComposer.addPass(renderPass);
+		this.finalComposer = x.thrender;
+
+		var finalPass = new ShaderPass(
+			// Debug Notes: Tricky!
+			// This class comes from packages/three.module.js, not the same as THREE.ShaderMaterial
+			// See docs/design-memo/extendsions/post-effects
+			new ShaderMaterial( {
+				uniforms: {
+					texScene: { value: null },
+					texEffects: { value: target1 ?
+						this.effectComposer.renderTarget1.texture :
+						this.effectComposer.renderTarget2.texture },
+					texTest: { value: new ramTexture(3, 2, 0.25) }
+				},
+				vertexShader: finalVert,
+				fragmentShader: finalFrag('0.2'),
+				defines: {} } ),
+			"texScene");
+		finalPass.renderToScreen = true;
+		this.finalComposer.addPass( finalPass );
+	}
+
+	update(tick, entities) {
+		// if (this.finalComposer) // in case of testing
+		// 	this.finalComposer.render();
+	}
+}
+
+const finalVert = `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+  }`;
+
+const finalFrag = (alphaTest) => `
+  uniform sampler2D texScene;
+  uniform sampler2D texEffects;
+  uniform sampler2D texTest;
+  uniform float alphTest;
+
+  varying vec2 vUv;
+  vec4 getTexture( sampler2D tex ) {
+    return mapTexelToLinear( texture2D( tex, vUv ) );
+  }
+  void main() {
+    gl_FragColor = ( getTexture( texScene ) + vec4( 1.0 ) * getTexture( texEffects ) );
+	gl_FragColor += getTexture( texTest ) * ${alphaTest};
+  }`;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Axes">Axes</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#debug1">debug1</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xscene">xscene</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 09 2020 23:34:13 GMT+0800 (Hong Kong Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
