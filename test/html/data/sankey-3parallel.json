@@ -7,7 +7,7 @@
     "bars": [
       { "g": [0, 0], "g-desc": "grid index, z always 0 (at parallel coordinates)",
         "v": 0, "v-dessc": "vector value",
-        "y_ex": [0, 0], "y_ex-desc": "VIRTUAL y grid index at z=1, ... . If grid-y = 4, max-y = 2, y1(0) = 0, y1(1) = 1, y2(2) = 2, see xmath/ChartGrid#getExtrudePos"
+        "y_ex": [0, 0], "y_ex-desc": "VIRTUAL y grid index at z=1, ... . If grid-y = 4, max-y = 2, y1(0) = 0, y1(1) = 1, y2(2) = 2, see xmath/CoordsGrid#getExtrudePos"
       },
       { "g": [0, 1],
         "v": 1,
@@ -25,7 +25,6 @@
         "v": 5
       }
     ],
-    "vscale": 12.5,
     "geometry": [5, 5, 1, 20],
   },
 
