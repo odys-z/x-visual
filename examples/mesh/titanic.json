@@ -13,10 +13,10 @@
                 "vectors": [ 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 ] }
     } ],
     "dimensions": [
-        {"lable": "Perised/Survival", "range": [0, 1]},
-        {"lable": "Male/Female", "range": [0, 1]},
-        {"lable": "Adult/Child", "range": [0, 1]},
-        {"lable": "Class", "range": [0, 1]} ],
+        {"label": "Perised/Survival", "range": [0, 1]},
+        {"label": "Male/Female", "range": [0, 1]},
+        {"label": "Adult/Child", "range": [0, 1]},
+        {"label": "Class", "range": [0, 1]} ],
     "grid": [3, 3, 3],
     "bars": [
       { "g": [0, 1], "g-desc": "grid index, z always 0 (at parallel coordinates)",
@@ -40,7 +40,6 @@
         "v": 5
       }
     ],
-    "vscale": 12.5,
     "geometry": [5, 5, 1, 20],
     "bar-count": "4 x 32",
   },

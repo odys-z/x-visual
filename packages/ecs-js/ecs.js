@@ -12,7 +12,7 @@ const componentMethods = new Set(['stringify', 'clone', 'getObject', Symbol.iter
  */
 class ECS {
 
-  /**@constructor */
+  /**@constructor ECS */
   constructor() {
 
     this.ticks = 0;

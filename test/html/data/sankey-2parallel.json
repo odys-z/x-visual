@@ -2,7 +2,7 @@
     "comments": "same as sankey1, but another parallel axis, which makes vectors doubled
     - a comparation to clearify flow v.s. vectors. see docsphinx/design-memo/003-sankey-vectors.png",
     "grid": [3, 2, 2],
-    "coordinates": [{"lable": "coord1", "range": [0, 1]}, {"lable": "coord2", "range": [0, 1]}, {"lable": "coord3", "range": [0, 1]}],
+    "coordinates": [{"label": "coord1", "range": [0, 1]}, {"label": "coord2", "range": [0, 1]}, {"label": "coord3", "range": [0, 1]}],
     "bars": [
       { "g": [0, 0], "g-desc": "grid index, z always 0 (at parallel coordinates)",
         "v": 0, "v-dessc": "vector index, (1, 1, 6)",
@@ -24,7 +24,6 @@
         "v": 5
       }
     ],
-    "vscale": 12.5,
     "geometry": [5, 5, 1, 20],
   },
 
