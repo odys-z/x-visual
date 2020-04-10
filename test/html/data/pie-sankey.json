@@ -72,10 +72,11 @@
   { "pivot": [-1, 1.5, 0],
     "wh": [0.5, 0.5],
     "rows": [
-        {"nc": "001", "percent": "73.01"},
-        {"nc": "086", "percent": "26.99"}
+        {"nc": "001", "percent": "75.01"},
+        {"nc": "086", "percent": "24.99"}
     ],
-    "columns": ["nc", "percent"]
+    "columns": ["nc", "percent"],
+    "color": ["#555555","#ffffff"]
   },
   { "pivot": [1, 4, 0],
     "wh": [0.5, 0.5],
