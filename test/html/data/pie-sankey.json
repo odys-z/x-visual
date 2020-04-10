@@ -7,7 +7,8 @@
     "grid-space": 20
   },
   "sankey": {
-    "geometry": [5, 5, 1, 20],
+    "geometry-desc": "the sankey bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
+    "geometry": [0.1, 0.1, 1, 4, 1, 90],
     "coordinates": [{"label": "1-coord", "range": [0, 1]}, {"label": "2-coord", "range": [0, 1]}],
     "totalValue": 21,
     "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",

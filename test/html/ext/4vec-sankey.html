@@ -55,15 +55,22 @@
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 
-    $.getJSON('../data/sankey-1parallel.json', function(json){
-        var sankey = new xv.chart.XSankey(ecs, {chart: json.chart}, json.sankey, json.vectors);
-        xworld.addSystem('sankey', sankey);
+    var json = '../data/sankey-1parallel.json';
+    // var json = '../data/sankey-2parallel.json';
+    // var json = '../data/pie-sankey.json';
+    $.getJSON( json,
+        function(json){
+            var sankey = new xv.chart.XSankey(ecs, {chart: json.chart}, json.sankey, json.vectors);
+            xworld.addSystem('sankey', sankey);
 
-        xworld.addSystem('test', new ChartSankey(ecs, {xworld}));
-        xworld.startUpdate();
-    }).fail(function(jqXhr, textStatus, error) {
-        console.error(jqXhr, textStatus, error);
-    });
+            xworld.addSystem('test', new ChartSankey(ecs, {xworld}));
+            xworld.startUpdate();
+        }
+    ).fail(
+        function(jqXhr, textStatus, error) {
+            console.error(json, jqXhr, textStatus, error);
+        }
+    );
   </script>
   </body>
 </html>
