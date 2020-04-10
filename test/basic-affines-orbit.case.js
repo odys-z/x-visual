@@ -1,6 +1,4 @@
 
-/** @namespace xv.test.tween */
-
 import chai from 'chai'
 import { expect, assert } from 'chai'
 

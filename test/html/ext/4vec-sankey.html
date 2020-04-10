@@ -19,31 +19,31 @@
             this.ecs = ecs;
         }
 
-        static conf() {
-            var chartConf = {
-                id: 'sankey1',
-                script: [
-                 [{ mtype: xv.XComponent.AnimType.ALPHA,
-                    paras: {duration: 1.1,     // seconds
-                            alpha: [0.3, 0.9],
-                            ease: xv.XEasing.Elastic.In} }],
-                 [{ mtype: xv.XComponent.AnimType.ALPHA,
-                    paras: {duration: 5.2,
-                            alpha: [0.3, 0.9],
-                            ease: xv.XEasing.Elastic.In} }],
-                 [{ mtype: xv.XComponent.AnimType.POSITION,
-                    paras: {duration: 5.2,
-                            positions: [0.3, 0.9],
-                            ease: xv.XEasing.Elastic.In} }],
-                    ],
-                paras: {
-                    geomType: xv.XComponent.Obj3Type.Cylinder,
-                    onOverNode: 0,       // tweens[0]
-                    onOverFlow: 1,
-                    onClickNode:2
-                } };
-            return chartConf;
-        }
+        // static conf() {
+        //     var chartConf = {
+        //         id: 'sankey1',
+        //         script: [
+        //          [{ mtype: xv.XComponent.AnimType.ALPHA,
+        //             paras: {duration: 1.1,     // seconds
+        //                     alpha: [0.3, 0.9],
+        //                     ease: xv.XEasing.Elastic.In} }],
+        //          [{ mtype: xv.XComponent.AnimType.ALPHA,
+        //             paras: {duration: 5.2,
+        //                     alpha: [0.3, 0.9],
+        //                     ease: xv.XEasing.Elastic.In} }],
+        //          [{ mtype: xv.XComponent.AnimType.POSITION,
+        //             paras: {duration: 5.2,
+        //                     positions: [0.3, 0.9],
+        //                     ease: xv.XEasing.Elastic.In} }],
+        //             ],
+        //         paras: {
+        //             geomType: xv.XComponent.Obj3Type.Cylinder,
+        //             onOverNode: 0,       // tweens[0]
+        //             onOverFlow: 1,
+        //             onClickNode:2
+        //         } };
+        //     return chartConf;
+        // }
 
         update() {
         }
@@ -56,13 +56,13 @@
     const xscene = xworld.xscene;
 
     $.getJSON('../data/sankey-1parallel.json', function(json){
-        var sankey = new xv.chart.XSankey(ecs, {chart: ChartSankey.conf()}, json.sankey, json.vectors);
+        var sankey = new xv.chart.XSankey(ecs, {chart: json.chart}, json.sankey, json.vectors);
         xworld.addSystem('sankey', sankey);
 
         xworld.addSystem('test', new ChartSankey(ecs, {xworld}));
         xworld.startUpdate();
     }).fail(function(jqXhr, textStatus, error) {
-            console.log(jqXhr, textStatus, error);
+        console.error(jqXhr, textStatus, error);
     });
   </script>
   </body>

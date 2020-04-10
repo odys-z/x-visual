@@ -34,24 +34,26 @@
         const ecs = xworld.xecs;
         const xscene = xworld.xscene;
 
-        var d3pie = new xv.chart.D3Pie(ecs, {
-				xworld,
-				gridSpace: json["grid-space"]
-			}, json.pie);
+        // pie and sankey will share CoordsGrid with this variable.
+        var options = {chart: json.chart, xworld,
+						texture: '../../assets/tex/byr0.png'};
+
+        var d3pie = new xv.chart.D3Pie(ecs, options, json.pie);
         xworld.addSystem('chart', d3pie);
 
-		var xsankey = new xv.chart.XSankey(ecs, {}, json.sankey, json.vectors);
+        var xsankey = new xv.chart.XSankey(ecs, options, json.sankey, json.vectors);
         xworld.addSystem('chart', xsankey);
 
-		var axis = new xv.chart.Axisys(ecs, {},
-                    {grid: json.grid, "grid-space": json["grid-space"]});
+        var axis = new xv.chart.Axisys(ecs, options,
+                    // {grid: json.grid, "grid-space": json["grid-space"]});
+                    json.chart);
         xworld.addSystem('chart', axis);
 
-        xworld.addSystem('test', new PieSankey(ecs, {xworld}));
+        xworld.addSystem('test', new PieSankey(ecs, options));
         xworld.startUpdate();
     })
     .fail(function(jqXhr, textStatus, error) {
-        console.log(jqXhr, textStatus, error);
+        console.error(jqXhr, textStatus, error);
     });
   </script>
   </body>

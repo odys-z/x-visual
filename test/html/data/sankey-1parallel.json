@@ -1,25 +1,50 @@
-{ "sankey": {
+{ "chart": {
+    "name": "2pie-sankey vec4",
     "grid": [2, 2, 2],
-    "coordinates": [{"Active-coord": [0, 1]}, {"Inactive": [0, 1]}],
+    "grid-space": 20,
+    "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z"
+  },
+  "sankey": {
+    "coordinates": [{"label": "Active-coord", "range": [0, 1, 2]}, {"label": "Inactive", "range": [0, 1]}],
     "scale": ["memo: x scaled by 'values' - (vectors[i][4] is not presentedin dimesions). Currently only x can be scaled"],
-    "total": 21,
-    "groups": [ {
-        "Active-coord": {
-            "parallels": ["Inactive"],
-            "serials":[
-              { "label": "Front",
-                "value": 14,
-                "pivot": [0, 0, 0],
-                "plane": [{"Inactive": ["Inactive", ""]}],
-                "vec-desc": "in the plane of Inactive,(x = 1, first parallel coord), bar[y = 0, z = 1] = 8, bar[y = 1, z = 1] = 6, where z = 1 such that all bars in 'Front' plane. Vectors are in form of [ith-parallel-coord, parallel-val, z = 1, value]",
-                "vectors": [[1, 0, 1, 8], [1, 1, 1, 6]]},
-              { "label": "Back",
-                "value": 7,
-                "pivot": [0, 0, 1],
-                "vec-desc": "in the plane of Inactive, bar[y = 0, z = 0] = 2, bar[y = 1, z = 0] = 5, where z = 0 such that all bars in 'Back' plane. Vectors are in form of [ith-parallel-coord, parallel-val, z = 1, value]",
-                "vectors": [[1, 0, 0, 5], [1, 1, 0, 2]]}
-            ] }
-    } ],
+    "totalValue": 21,
+    "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",
+    "bar-desc": "[ vec-idx: [coord-idx, coord-enum, h, y] ]",
+    "bars": [
+        [ [ 0, 1, 6, 15 ],
+          [ 1, 1, 6, 15 ] ],
+
+        [ [ 0, 1, 8, 7 ],
+          [ 1, 0, 8, 7 ] ],
+
+        [ [ 0, 0, 5, 2 ],
+          [ 1, 1, 5, 10] ],
+
+        [ [ 0, 0, 2, 0 ],
+          [ 1, 0, 2, 0 ] ]
+    ],
+    "pivoting-desc": "extruding active-coord 14, i. e. v[0] (6) & v[1] (8)",
+    "pivoting-format": "p: target[x, y, z], bar[idx-major, idx-minor], val for clearify",
+    "pivoting": [
+        {"p": [0, 1, 1], "bar": [0, 0], "val": 6},
+        {"p": [0, 1, 1], "bar": [1, 0], "val": 8},
+
+        {"p": [0, 0, 0], "bar": [2, 0], "val": 5},
+        {"p": [0, 0, 0], "bar": [3, 0], "val": 2},
+
+        {"p": [1, 1, 1], "bar": [0, 1], "val": 6},
+        {"p": [1, 0, 0], "bar": [3, 1], "val": 8},
+
+        {"p": [1, 1, 1], "bar": [2, 1], "val": 5},
+        {"p": [1, 0, 0], "bar": [3, 1], "val": 2}
+    ],
+    "pivoting-format-2": "grid[x, y, z], h, same with bar index, for the activie coord, y also can be 0 at z = 1",
+    "pivoting-2": [
+        [ [0, 1, 1], [1, 1, 1], 6 ],
+        [ [0, 1, 1], [1, 0, 1], 8 ],
+        [ [0, 0, 1], [1, 1, 0], 5 ],
+        [ [0, 0, 1], [1, 0, 0], 2 ]
+    ],
 
     "_comment": "following data are correct by presenting here?",
     "id": "sankey1",
