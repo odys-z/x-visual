@@ -29,13 +29,13 @@
 
     "extruding": {
         "coord": 0,
-        "pivoting-desc1": "v-idx, h (for readable), grid[x, y, z], ... ,",
-        "pivoting-desc2": "same order with bar index, for the activie coord, y also can be 0 at z = 1",
+        "pivot-1": "[ v-idx: [ coord-idx: [grid-x, grid-y, grid-z, y0, h (ignored for readable)] ] ]",
+        "pivot-2": "Same order with bar index, for the activie coord. As extrued, y also can be 0 at z = 1",
         "pivoting": [
-            [ 0, 6, [0, 1, 1], [1, 1, 1] ],
-            [ 1, 8, [0, 1, 1], [1, 0, 1] ],
-            [ 2, 5, [0, 0, 1], [1, 1, 0] ],
-            [ 3, 2, [0, 0, 1], [1, 0, 0] ]
+            [ [ 0, 0, 1, 8], [ 1, 1, 1, 0 ] ],
+            [ [ 0, 0, 1, 0], [ 1, 0, 1, 0 ] ],
+            [ [ 0, 0, 0, 2], [ 1, 1, 0, 0 ] ],
+            [ [ 0, 0, 0, 0], [ 1, 0, 0, 0 ] ]
         ]
     },
 

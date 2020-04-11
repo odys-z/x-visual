@@ -51,6 +51,9 @@
 
         xworld.addSystem('test', new PieSankey(ecs, options));
         xworld.startUpdate();
+
+        // suppose we get chance to update extruding positions
+        xsankey.setPivoting(json.sankey.extruding);
     })
     .fail(function(jqXhr, textStatus, error) {
         console.error(jqXhr, textStatus, error);
