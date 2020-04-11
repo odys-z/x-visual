@@ -7,7 +7,8 @@
     "grid-space": 20
   },
   "sankey": {
-    "geometry": [5, 5, 1, 20],
+    "geometry-desc": "the sankey bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
+    "geometry": [0.1, 0.1, 1, 4, 1, 90],
     "coordinates": [{"label": "1-coord", "range": [0, 1]}, {"label": "2-coord", "range": [0, 1]}],
     "totalValue": 21,
     "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",
@@ -28,13 +29,13 @@
 
     "extruding": {
         "coord": 0,
-        "pivoting-desc1": "v-idx, h (for readable), grid[x, y, z], ... ,",
-        "pivoting-desc2": "same order with bar index, for the activie coord, y also can be 0 at z = 1",
+        "pivot-1": "[ v-idx: [ coord-idx: [grid-x, grid-y, grid-z, y0, h (ignored for readable)] ] ]",
+        "pivot-2": "Same order with bar index, for the activie coord. As extrued, y also can be 0 at z = 1",
         "pivoting": [
-            [ 0, 6, [0, 1, 1], [1, 1, 1] ],
-            [ 1, 8, [0, 1, 1], [1, 0, 1] ],
-            [ 2, 5, [0, 0, 1], [1, 1, 0] ],
-            [ 3, 2, [0, 0, 1], [1, 0, 0] ]
+            [ [ 0, 0, 1, 8], [ 1, 1, 1, 0 ] ],
+            [ [ 0, 0, 1, 0], [ 1, 0, 1, 0 ] ],
+            [ [ 0, 0, 0, 2], [ 1, 1, 0, 0 ] ],
+            [ [ 0, 0, 0, 0], [ 1, 0, 0, 0 ] ]
         ]
     },
 
@@ -72,10 +73,11 @@
   { "pivot": [-1, 1.5, 0],
     "wh": [0.5, 0.5],
     "rows": [
-        {"nc": "001", "percent": "73.01"},
-        {"nc": "086", "percent": "26.99"}
+        {"nc": "001", "percent": "75.01"},
+        {"nc": "086", "percent": "24.99"}
     ],
-    "columns": ["nc", "percent"]
+    "columns": ["nc", "percent"],
+    "color": ["#555555","#ffffff"]
   },
   { "pivot": [1, 4, 0],
     "wh": [0.5, 0.5],
