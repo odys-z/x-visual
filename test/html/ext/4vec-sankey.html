@@ -55,16 +55,20 @@
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 
-    var json = '../data/sankey-1parallel.json';
-    // var json = '../data/sankey-2parallel.json';
+    // var json = '../data/sankey-1parallel.json';
+    var json = '../data/sankey-2parallel.json';
     // var json = '../data/pie-sankey.json';
     $.getJSON( json,
-        function(json){
-            var sankey = new xv.chart.XSankey(ecs, {chart: json.chart}, json.sankey, json.vectors);
+        function(json) {
+            var sankey = new xv.chart.XSankey(ecs,
+                        { chart: json.chart },
+                        json.sankey, json.vectors);
             xworld.addSystem('sankey', sankey);
 
             xworld.addSystem('test', new ChartSankey(ecs, {xworld}));
             xworld.startUpdate();
+
+            sankey.setPivoting(json.sankey.extruding);
         }
     ).fail(
         function(jqXhr, textStatus, error) {

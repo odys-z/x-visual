@@ -1,10 +1,15 @@
-{ "sankey": {
-    "comments": "same as sankey1, but another parallel axis, which makes vectors doubled
-    - a comparation to clearify flow v.s. vectors. see docsphinx/design-memo/003-sankey-vectors.png",
+{ "chart": {
+    "name": "sankey vec8 coord 3",
+    "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z",
+    "domain": [[0, 2], [0, 21], [0, 2]],
+    "range": [[0, 160], [0, 200], [0, 100]],
     "grid": [3, 2, 2],
-    "bars": [
-    ],
-    "geometry": [0.1, 0.2, 1, 10],
+    "grid-space": 20
+  },
+  "sankey": {
+    "comments":   "This json is the same as sankey1, but extended another parallel axis, which makes vectors doubled.",
+    "comments.2": "A comparation to clearify bars v.s. vectors. see docsphinx/design-memo/003-sankey-vectors.png",
+    "geometry": [0.1, 0.15, 1, 10],
     "texture": "../../assets/tex/rgb2x2.png",
     "coordinates": [{"label": "coord1", "range": [0, 1]}, {"label": "coord2", "range": [0, 1]}, {"label": "coord3", "range": [0, 1]}],
     "totalValue": 21,
@@ -33,17 +38,28 @@
 
         [ [ 0, 0, 4, 2 ],
           [ 1, 1, 4, 0 ],
-          [ 2, 0, 4, 2 ] ]
+          [ 2, 0, 4, 2 ] ],
 
         [ [ 0, 0, 1, 1 ],
           [ 1, 0, 1, 1 ],
-          [ 2, 1, 1, 1 ] ]
+          [ 2, 1, 1, 1 ] ],
 
         [ [ 0, 0, 1, 0 ],
           [ 1, 0, 1, 0 ],
           [ 2, 0, 1, 0 ] ]
     ],
 
+    "extruding": {
+        "coord": 0,
+        "pivoting-desc1": "v-idx: [grid-x, grid-y, grid-z, h (for readable)], ... ,",
+        "pivoting-desc2": "same order with bar index, for the activie coord, y also can be 0 at z = 1",
+        "pivoting": [
+            [ [ 0, 1, 1, 2 ], [ 1, 1, 1, 2 ] ],
+            [ [ 0, 1, 1, 4 ], [ 1, 0, 1, 4 ] ],
+            [ [ 0, 0, 1, 2 ], [ 1, 1, 0, 2 ] ],
+            [ [ 0, 0, 1, 6 ], [ 1, 0, 0, 6 ] ]
+        ]
+    }
   },
 
   "vectors": [
@@ -58,5 +74,5 @@
 
     [ 0, 0, 1, 1 ],
     [ 0, 0, 0, 1 ]
-  ],
+  ]
 }
