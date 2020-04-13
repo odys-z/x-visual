@@ -110,7 +110,7 @@ dist
 
 # user - jsdoc
 temp
-docs/jsdoc
+# docs/jsdoc
 
 # user - examples
 !examples/dist

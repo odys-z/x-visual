@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="X-visual Guide" href="index.html"/>
         <link rel="next" title="X-visual应用程序基本结构" href="intro-cn.html"/>
@@ -86,7 +89,7 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">X-visual Guide</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">X-visual App Architecture</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">X-visual App Architecture</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#x-visual-startup">1. x-visual startup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hello-xworld">2. Hello XWorld</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#about-system">About System</a></li>
@@ -164,7 +167,7 @@ For quick start, see x-visual/examples readme.</p>
 <div class="section" id="hello-xworld">
 <h2>2. Hello XWorld<a class="headerlink" href="#hello-xworld" title="Permalink to this headline">¶</a></h2>
 <p>Here is as simple application using x-visual for data representation.</p>
-<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -186,9 +189,7 @@ For quick start, see x-visual/examples readme.</p>
 20
 21
 22
-23
-24</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** Example: Hello XWorld</span>
-<span class="cm"> * @namespace xv.example.hello</span>
+23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** Example: Hello XWorld</span>
 <span class="cm"> */</span>
 
 <span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
@@ -217,7 +218,7 @@ For quick start, see x-visual/examples readme.</p>
 Afther create the xworld, a cube also been created, which representing some user
 data been visualized. After this, call xworld.startUpdate() and render the scene
 repeatedly.</p>
-<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -261,11 +262,7 @@ repeatedly.</p>
 42
 43
 44
-45
-46
-47</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** @namespace xv.example.hello */</span>
-
-<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
+45</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
 <span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">THREE</span> <span class="nx">from</span> <span class="s1">&#39;three&#39;</span>
 
 <span class="cm">/**</span>
@@ -320,7 +317,7 @@ repeatedly.</p>
 </ul>
 <p>ECS.System is a base class of all x-visual built-in systems, like renderer, x-view
 and tween animation driver.</p>
-<p>ECS.XSys is a base class for users to extend. It&#8217;s nothing now but a coding convention.
+<p>ECS.XSys is a base class for users to extend. It’s nothing now but a coding convention.
 Application systems should extends this class in case some common helping functions
 added to this system in the future.</p>
 <ul class="simple">
@@ -328,7 +325,7 @@ added to this system in the future.</p>
 </ul>
 <p>In the <em>Hello XWorld</em> example, there is a line of code reflecting key concept of
 ECS, the query condition:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Cube</span><span class="p">.</span><span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Cube</span><span class="p">.</span><span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">iffall</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Visual&#39;</span><span class="p">,</span> <span class="s1">&#39;CmdFlag&#39;</span><span class="p">]</span>
 <span class="p">};</span>
 </pre></div>
@@ -341,8 +338,8 @@ The argument <em>entities</em> is passed to it according to the <em>query</em> l
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
 <p>All examples are using Webpack for transpiling.</p>
-<div class="highlight-python"><div class="highlight"><pre>npm i
-webpack
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">i</span>
+<span class="n">webpack</span>
 </pre></div>
 </div>
 <p>If everything goes well, open the examples/cube/index.html and it will show
@@ -368,8 +365,8 @@ of data and System actions scripts.</p>
 </li>
 <li><p class="first">Systems</p>
 <blockquote>
-<div><p>Systems update components&#8217; state, changing how data been rendered. A user system
-can change object&#8217;s position, moving path or color etc.</p>
+<div><p>Systems update components’ state, changing how data been rendered. A user system
+can change object’s position, moving path or color etc.</p>
 </div></blockquote>
 </li>
 </ul>
@@ -377,17 +374,17 @@ can change object&#8217;s position, moving path or color etc.</p>
 <div class="section" id="framework-functions-api">
 <h2>4. Framework Functions &amp; API<a class="headerlink" href="#framework-functions-api" title="Permalink to this headline">¶</a></h2>
 <p>Basically x-visual is not intended to be a well round data visualization framework.
-It&#8217;s only used to verifying some idea required by a commercial system and as a
+It’s only used to verifying some idea required by a commercial system and as a
 personal arsenal for consolidating any creative thoughts.</p>
 <p>It would been eventually useful if it could trigger any further innovation, when
 math met arts.</p>
-<p>So currently there is no more documents about it&#8217;s function details, just feel
+<p>So currently there is no more documents about it’s function details, just feel
 free to try it.</p>
 </div>
 <div class="section" id="next-step">
 <h2>5. Next Step<a class="headerlink" href="#next-step" title="Permalink to this headline">¶</a></h2>
 <p>There are some html test cases can be useful, see <a class="reference external" href="https://github.com/odys-z/x-visual">x-visual/test/html</a>.</p>
-<p>Details is up coming...</p>
+<p>Details is up coming…</p>
 </div>
 </div>
 
@@ -441,7 +438,8 @@ free to try it.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

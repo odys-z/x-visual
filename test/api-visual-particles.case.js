@@ -1,7 +1,4 @@
 
-/** @namespace xv.test.tween */
-
-// import chai from 'chai'
 import { chai, expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
 

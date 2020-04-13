@@ -11,6 +11,7 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
 </head>
 
 <body>
@@ -89,7 +90,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line26">line 26</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -179,7 +180,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line470">line 470</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line537">line 537</a>
     </li></ul></dd>
     
 
@@ -202,6 +203,14 @@
 
 
 
+<div class="description">
+    <ol>
+<li>use <a href="xgeom.html#.generateCurve"><code>xgeom.generateCurve</code></a> to generate points</li>
+<li>create the THREE.line,</li>
+<li>set line to Obj3.mesh</li>
+</ol>
+</div>
+
 
 
 
@@ -237,7 +246,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line223">line 223</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line262">line 262</a>
     </li></ul></dd>
     
 
@@ -260,6 +269,10 @@
 
 
 
+<div class="description">
+    <p>Create object mesh, put int <em>cmpObj3</em>.</p>
+</div>
+
 
 
 
@@ -295,7 +308,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line251">line 251</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line288">line 288</a>
     </li></ul></dd>
     
 
@@ -357,7 +370,71 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line417">line 417</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line484">line 484</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Create THREE.Points from cmpObj3.mesh.
+Difference to createObj3particles: createObj3points create points according
+to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line238">line 238</a>
     </li></ul></dd>
     
 
@@ -422,71 +499,7 @@ points (vertices) can basically rendered.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line350">line 350</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create THREE.Points from cmpObj3.mesh.
-Difference to createObj3particles: createObj3points create points according
-to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line199">line 199</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line417">line 417</a>
     </li></ul></dd>
     
 
@@ -548,7 +561,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line48">line 48</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -570,6 +583,10 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
 
 
 
+
+<div class="description">
+    <p>UPDATING: geometry parameters: design-memo/obj3.rst</p>
+</div>
 
 
 
@@ -606,7 +623,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line268">line 268</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line308">line 308</a>
     </li></ul></dd>
     
 
@@ -664,7 +681,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line518">line 518</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line585">line 585</a>
     </li></ul></dd>
     
 
@@ -686,6 +703,13 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
 
 
 
+
+<div class="description">
+    <ol>
+<li>Show picked object outline.<br></li>
+<li>Render with composer or scene render.</li>
+</ol>
+</div>
 
 
 
@@ -722,7 +746,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line568">line 568</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line638">line 638</a>
     </li></ul></dd>
     
 
@@ -825,7 +849,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line22">line 22</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -915,7 +939,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line470">line 470</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line537">line 537</a>
     </li></ul></dd>
     
 
@@ -938,6 +962,14 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
 
 
 
+<div class="description">
+    <ol>
+<li>use <a href="xgeom.html#.generateCurve"><code>xgeom.generateCurve</code></a> to generate points</li>
+<li>create the THREE.line,</li>
+<li>set line to Obj3.mesh</li>
+</ol>
+</div>
+
 
 
 
@@ -973,7 +1005,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line223">line 223</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line262">line 262</a>
     </li></ul></dd>
     
 
@@ -996,6 +1028,10 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
 
 
 
+<div class="description">
+    <p>Create object mesh, put int <em>cmpObj3</em>.</p>
+</div>
+
 
 
 
@@ -1031,7 +1067,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line251">line 251</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line288">line 288</a>
     </li></ul></dd>
     
 
@@ -1093,7 +1129,71 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line417">line 417</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line484">line 484</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Create THREE.Points from cmpObj3.mesh.
+Difference to createObj3particles: createObj3points create points according
+to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line238">line 238</a>
     </li></ul></dd>
     
 
@@ -1158,71 +1258,7 @@ points (vertices) can basically rendered.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line350">line 350</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create THREE.Points from cmpObj3.mesh.
-Difference to createObj3particles: createObj3points create points according
-to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line199">line 199</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line417">line 417</a>
     </li></ul></dd>
     
 
@@ -1284,7 +1320,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line48">line 48</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -1306,6 +1342,10 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
 
 
 
+
+<div class="description">
+    <p>UPDATING: geometry parameters: design-memo/obj3.rst</p>
+</div>
 
 
 
@@ -1342,7 +1382,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line268">line 268</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line308">line 308</a>
     </li></ul></dd>
     
 
@@ -1400,7 +1440,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line518">line 518</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line585">line 585</a>
     </li></ul></dd>
     
 
@@ -1422,6 +1462,13 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
 
 
 
+
+<div class="description">
+    <ol>
+<li>Show picked object outline.<br></li>
+<li>Render with composer or scene render.</li>
+</ol>
+</div>
 
 
 
@@ -1458,7 +1505,7 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sys_thrender.js.html">sys/thrender.js</a>, <a href="sys_thrender.js.html#line568">line 568</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line638">line 638</a>
     </li></ul></dd>
     
 
@@ -1492,13 +1539,13 @@ to Obj3.geomType (<code>Obj3Type</code>) and Obj3.box.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Namespaces</h3><ul><li><a href="map3.html">map3</a></li><li><a href="xv.html">xv</a></li><li><a href="xv.anim.html">anim</a></li><li><a href="xv.chart.html">chart</a></li><li><a href="xv.ecs.comp.anim.html">anim</a></li><li><a href="xv.ecs.comp.ext.effect.html">effect</a></li><li><a href="xv.ecs.comp.obj.html">obj</a></li><li><a href="xv.ecs.comp.view.html">view</a></li><li><a href="xv.ecs.comp.visual.html">visual</a></li><li><a href="xv.ecs.sys.html">sys</a></li><li><a href="xv.ecs.sys.ext.html">ext</a></li><li><a href="xv.ecs.sys.tween.html">tween</a></li><li><a href="xv.map3.html">map3</a></li><li><a href="xv.map3.tiles.html">tiles</a></li><li><a href="xv.map3.utils.html">utils</a></li><li><a href="xv.particle.html">particle</a></li><li><a href="xv.xapp.html">xapp</a></li><li><a href="xv.xmath.html">xmath</a></li><li><a href="xv.xmath.layer.html">layer</a></li><li><a href="xv.xutils.html">xutils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#CmpTween">CmpTween</a></li><li><a href="global.html#CmpTweens">CmpTweens</a></li><li><a href="global.html#createEntityDefs">createEntityDefs</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#pushTriggerings">pushTriggerings</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#TweenScript">TweenScript</a></li><li><a href="global.html#UserTween">UserTween</a></li><li><a href="global.html#validate">validate</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Axes">Axes</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#debug1">debug1</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xscene">xscene</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 13 2020 23:54:02 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 13 2020 09:09:19 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
