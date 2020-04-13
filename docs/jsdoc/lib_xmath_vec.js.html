@@ -32,6 +32,8 @@
  */
 
 import * as THREE from 'three'
+import {XError} from '../xutils/xcommon'
+
 
 /**
  * @type AffineType
@@ -46,7 +48,9 @@ export const AffineType = {
 }
 
 /**Afine transformation definition.&lt;br>
- * Type:&lt;br>
+ * This is only a type declaration for generating API docs and clarifying OOP concept.
+ * Daty structure: {AffineType: para}&lt;br>
+ * Where affine type is defined with {@link AffineType}:&lt;br>
  * translate: {translate: {x, y, z}}&lt;br>
  * interpos: {positions, t}, where position is a 2 elements array of vec3&lt;br>
  * rotate: {rotate: degree}&lt;br>
@@ -312,6 +316,19 @@ vec3.prototype = {
         return new THREE.Vector3(xyz.x, xyz.y, xyz.z);
     }
 
+    vec3.eq = function(a, b, delta) {
+        if (!delta) delta = 0.001;
+
+        if (Array.isArray(a))
+            return Math.abs(a[0] - b[0]) &lt;= delta
+                    &amp;&amp; Math.abs(a[1] - b[1]) &lt;= delta
+                    &amp;&amp; Math.abs(a[2] - b[2]) &lt;= delta;
+        else
+            return Math.abs(this.x - v.x) &lt;= delta
+                &amp;&amp; Math.abs(this.y - v.y) &lt;= delta
+                &amp;&amp; Math.abs(this.z - v.z) &lt;= delta;
+    },
+
     vec3.neg = function(a, b) {
       if (b) {
         b.x = -a.x; b.y = -a.y; b.z = -a.z;
@@ -347,6 +364,14 @@ vec3.prototype = {
       return c;
     };
 
+	/**c = a * b
+	 * @param {array | vec3} a
+	 * @param {vec3 | number} b
+	 * @param {vec3} [c] result buffer
+	 * @return {vec3} c
+	 * @member vec3.mul
+	 * @function
+	 */
     vec3.mul = function(a, b, c) {
       if (! (c instanceof vec3))
           c = new vec3(c);
@@ -356,6 +381,34 @@ vec3.prototype = {
           c.x = a.x * b.x; c.y = a.y * b.y; c.z = a.z * b.z;
       }
       else { c.x = a.x * b; c.y = a.y * b; c.z = a.z * b; }
+      return c;
+    };
+
+	/**c = a * b
+	 * @param {array | vec3} a
+	 * @param {vec3 | number | array} b
+	 * @param {array} c result buffer
+	 * @return {array} c
+	 * @member vec3.mulArr
+	 * @function
+	 */
+    vec3.mulArr = function(a, b, c) {
+      if (! Array.isArray(c))
+          throw new XError("argument c must be an array");
+      var x0, y0, z0;
+      if (Array.isArray(a)) {
+          x0 = a[0]; y0 = a[1]; z0 = a[2];
+	  }
+      else {
+          x0 = a.x; y0 = a.y; z0 = a.z;
+      }
+      if (b instanceof vec3) {
+          c[0] = x0 * b.x; c[1] = y0 * b.y; c[2] = z0 * b.z;
+      }
+	  else if (Array.isArray(b)) {
+          c[0] = x0 * b[0]; c[1] = y0 * b[1]; c[2] = z0 * b[2];
+	  }
+      else { c[0] = x0 * b; c[1] = y0 * b; c[2] = z0 * b; }
       return c;
     };
 
@@ -1104,13 +1157,13 @@ mat4.prototype = {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axis.html">Axis</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Axes">Axes</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#debug1">debug1</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xscene">xscene</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 02 2020 22:40:15 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 13 2020 09:09:19 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

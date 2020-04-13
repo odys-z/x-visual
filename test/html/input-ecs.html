@@ -20,20 +20,13 @@
 		}
 
 		update(tick, entities) {
-			if (log) {
-				log = false;
-				console.log('cube-sys');
+		 	if (xworld.xview.flag > 0) {
+				this.cmd = xworld.xview.cmds[0].cmd;
 			}
+			else this.cmd = undefined;
 
 			for (const e of entities) {
-				if (e.CmdFlag) {
-				 	if (e.CmdFlag.flag > 0) {
-						// console.log(e.UserCmd);
-						this.cmd = e.UserCmd.cmds[0].cmd;
-					}
-					else this.cmd = undefined;
-				}
-				else if (e.Obj3) {
+				if (e.Obj3) {
 					switch (this.cmd) {
 						case 'up':
 							e.Obj3.mesh.rotateX(0.125 * Math.PI);
