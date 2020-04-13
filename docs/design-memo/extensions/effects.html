@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../genindex.html"/>
-        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../../index.html"/>
         <link rel="up" title="Extensions" href="index.html"/>
         <link rel="next" title="HTML Texture" href="htmltex.html"/>
@@ -99,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Extensions</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Post Effects</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Post Effects</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#x-visual-passes-composer">x-visual Passes &amp; Composer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#about-the-three-module-issue">About the Three Module Issue</a></li>
 </ul>
@@ -178,7 +175,7 @@ and Passes. See <a class="reference external" href="https://threejsfundamentals.
 <li>pack up Passes as an effect composer</li>
 <li>ask subclass.getEffectPass() for {effects, layers}, where effects is an
 array of Pass elements</li>
-<li>render with composer in update() - subclass shouldn’t render by themselves</li>
+<li>render with composer in update() - subclass shouldn&#8217;t render by themselves</li>
 </ol>
 </dd>
 </dl>
@@ -188,11 +185,12 @@ array of Pass elements</li>
 <p>For example, in FlowingPath</p>
 <dl class="docutils">
 <dt>::</dt>
-<dd><ol class="first last arabic simple">
-<li>compact several effect passes like render pass, blooming pass, etc.,</li>
+<dd><ol class="first last arabic">
+<li><p class="first">compact several effect passes like render pass, blooming pass, etc.,</p>
+</li>
 <li><dl class="first docutils">
 <dt>setup a layer mask,</dt>
-<dd><ol class="first last arabic" start="3">
+<dd><ol class="first last arabic simple" start="3">
 <li>then enable object mask saved to entities Obj3.layers.</li>
 </ol>
 </dd>
@@ -210,20 +208,20 @@ array of Pass elements</li>
 <li>add functions to THREE.Layers (used in Object3D, e.g. Obj3.mesh)</li>
 <li>add call backs to ECS.ECS.createEntity(), makes some added components trigger
 some options, and creating some subsystem like PathEffect and FinalComposer</li>
-<li>thrender will use final composer rendering scene in update() if it’s triggered</li>
+<li>thrender will use final composer rendering scene in update() if it&#8217;s triggered</li>
 </ol>
 </dd>
 </dl>
 <p>[<a class="reference external" href="https://threejs.org/docs/#examples/en/postprocessing/EffectComposer">EffectComposer</a>]
 [<a class="reference external" href="https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js">Pass.js (no docs)</a>]</p>
-<p>TODO docs …</p>
+<p>TODO docs ...</p>
 </div>
 </div>
 <div class="section" id="about-the-three-module-issue">
 <h2>About the Three Module Issue<a class="headerlink" href="#about-the-three-module-issue" title="Permalink to this headline">¶</a></h2>
 <div class="admonition attention">
 <p class="first admonition-title">Attention</p>
-<p class="last">It’s worth to have a note after days of debugging.</p>
+<p class="last">It&#8217;s worth to have a note after days of debugging.</p>
 </div>
 <p>EffectComposer and its depending passes are not included in the threejs bundle.
 This makes x-visual have to import these modules via both by npm <em>three/examples/</em>
@@ -232,13 +230,13 @@ or by copying directly the source files.</p>
 (see the <em>packages/README</em>,) which makes the latter method the only plausible way
 - as to his knowledge limitation.</p>
 <p>But the using threejs module source presented another issue, classes supposed to
-be the same class are not as expected when checking with “instanceof”.</p>
+be the same class are not as expected when checking with &#8220;instanceof&#8221;.</p>
 <p>There is a good example showing this issue.</p>
 <p>In lib/sys/ext/finalcomposer.js, the system create a <em>ShaderPass</em> with a
 THREE.ShaderMaterial will makes <em>ShaderPass</em> failed to check the the instance.</p>
 <p>There are similar issue like <a class="reference external" href="https://stackoverflow.com/questions/47481703/three-effectcomposer-is-not-a-constructor/49211046">this question</a>.</p>
 <p>The code snippet causing the issue in lib/sys/ext/finalComposer.js/FinalComposer:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">THREE</span> <span class="nx">from</span> <span class="s1">&#39;three&#39;</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">THREE</span> <span class="nx">from</span> <span class="s1">&#39;three&#39;</span>
 <span class="kr">import</span> <span class="p">{</span><span class="nx">ShaderPass</span><span class="p">}</span> <span class="nx">from</span>  <span class="s1">&#39;../../../packages/three/postprocessing/ShaderPass&#39;</span>
 <span class="kr">import</span> <span class="p">{</span><span class="nx">EffectComposer</span><span class="p">}</span> <span class="nx">from</span>  <span class="s1">&#39;../../../packages/three/postprocessing/EffectComposer&#39;</span>
 
@@ -271,9 +269,9 @@ THREE.ShaderMaterial will makes <em>ShaderPass</em> failed to check the the inst
 target is essential to the result.</p>
 <p><strong>Here is where the problem comes from</strong>:</p>
 <p>The packages/three/postprocessing/ShaderPass constructor check the <em>shader</em> arguments
-with “<em>insanceof ShaderMaterial</em>” which is actually another class from ../three.module.js,
+with &#8220;<em>insanceof ShaderMaterial</em>&#8221; which is actually another class from ../three.module.js,
 leading to an unexpected result.</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -308,7 +306,7 @@ leading to an unexpected result.</p>
 33
 34
 35
-36</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span>
+36</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">import</span> <span class="p">{</span>
 	<span class="nx">ShaderMaterial</span><span class="p">,</span>
 	<span class="nx">UniformsUtils</span>
 <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;../three.module.js&quot;</span><span class="p">;</span>
@@ -399,8 +397,7 @@ leading to an unexpected result.</p>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
