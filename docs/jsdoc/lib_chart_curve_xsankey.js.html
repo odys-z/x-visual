@@ -33,6 +33,7 @@ import {x} from '../../xapp/xworld'
 import {XError} from '../../xutils/xcommon'
 
 import XSys from '../../sys/xsys'
+import {MorphingAnim} from '../../sys/tween/animizer'
 import {CoordsGrid} from '../../xmath/chartgrid'
 import {vec3} from '../../xmath/vec'
 
@@ -79,10 +80,10 @@ export default class XSankey extends XSys {
 		 * @property barmap */
 		this.barmap = undefined;
 
-		/**Bars' pivoting (extruding) positions (grid index).
-		 * @member XSankey#coordmap
-		 * @property coordmap
-		this.coordmap = undefined; */
+		/**vectors
+		 * @member XSankey#vectors
+		 * @property vectors */
+		this.vectors = vectors;
 
 		ecs.registerComponent('Sankey', Sankey);
 
@@ -119,8 +120,8 @@ export default class XSankey extends XSys {
 	 * texture: string, bar texture, e.g. './tex/byr0.png', default is ram texture&lt;br>
 	 * geom: Obj3Type&lt;br> otpinal, default Cylinder&lt;br>
 	 * box: geometry parameters, [radiusTop, radiusBottom, height(ignored), radialSegments = 4]
-	 * @return {object} {map, defs} where &lt;br>
-	 * vectorIdx: map of [vector-index, bar-entity]&lt;br>
+	 * @return {object} {barmap, defs} where &lt;br>
+	 * barmap: map of [coord-index => [bar-entity]]&lt;br>
 	 * defs: array of entity definition of sankey bars
 	 *
 	 * @member XSankey.sankey
@@ -129,31 +130,40 @@ export default class XSankey extends XSys {
 	static sankey( ecs, grid, json, options ) {
 		var geom = options.geom === undefined ?
 					Obj3Type.Cylinder : options.geom;
-		var asset = options.texture;
+		var asset = json.texture || options.texture;
 
 		var vectors = json.vectors;
 		var scl = json["grid-space"] || 10;
 		var ixVal = json.coordinates.length;
 
 		var defs = [];
-		var map = new Array(json.bars.length);
+		var barmap = new Array(json.bars.length);
+
+		if (Array.isArray(json.geometry))
+			// handle inconvenient of json file - turn string like 'Math.PI' into number
+			for (var bx = 0; bx &lt; json.geometry.length; bx++) {
+				if (typeof json.geometry[bx] === 'string')
+					json.geometry[bx] = eval(json.geometry[bx]);
+			}
 
 		for (var vidx = 0; vidx &lt; json.bars.length; vidx++) {
 			var vect =  json.bars[vidx];
-			map[vidx] = new Array(vect.length);
+			barmap[vidx] = new Array(vect.length);
 			for (var bidx = 0; bidx &lt; vect.length; bidx++) {
 				// bar = [ coord-idx, enum-val, h, y0 ], e.g. [0, 1, 6, 15]
 				var bar = vect[bidx];
 				// init pos: x, y, z=0
-				var {pos0, h} = grid.pos( bar );
-				// var h = vectors[b.v][ixVal] * scl;
-				// var h = grid.barHeight( bar[2] );
+				var {pos0, h} = grid.coordPos( bar );
 
 				// radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength
-				var box = [ options.box ? options.box[0] : grid.space(0.1),
-							options.box ? options.box[1] : grid.space(0.1),
-							h,
-							options.box &amp;&amp; options.box.length > 3 ? options.box[3] : 4 ];
+				var box = Array.from(json.geometry);
+				if (!box)
+					box = [grid.space(0.1), grid.space(0.1), h, 4];
+				else {
+					box[0] = grid.space(box[0]);
+					box[1] = grid.space(box[1]);
+					box[2] = h;
+				}
 
 				var animSeqs = [];
 					animSeqs.push( [{
@@ -189,6 +199,7 @@ export default class XSankey extends XSys {
 							asset},
 					Sankey:{vecIx: vidx,
 							coordIx: bidx,
+							translated: [0, 0, 0],
 							onOver: 0,        // tweens[0], blinking
 							onClick:[1, 2] }, // forth &amp; back
 					GpuPickable: {},
@@ -196,17 +207,10 @@ export default class XSankey extends XSys {
 					CmpTweens: {}
 				});
 
-				map[vidx][bidx] = bar;
+				barmap[vidx][bidx] = bar;
 			}
 		}
-		return {map, defs};
-	}
-
-	setPivoting(coordIx, pivotings) {
-		// TODO load online data
-		if (!this.pivotings)
-			this.pivotings = new Map();
-		this.pivotings.set(coordIx, pivotings);
+		return {barmap, defs};
 	}
 
 	update(tick, entities) {
@@ -260,6 +264,8 @@ export default class XSankey extends XSys {
 	 *
 	 * **Note:** In x-visual 1.0, all sankey bars can only move back and forth,
 	 * without moving elsewhere, e.g. from z = 1 to z = 2.
+	 *
+	 * TODO ignore new translate when tweening
 	 * @param {Sankey} e the selected entity
 	 * @member XSankey.extrudextr
 	 * @function
@@ -267,40 +273,52 @@ export default class XSankey extends XSys {
 	extrudextr(e, entities) {
 		if ( this.extrudingCoord >= 0 ) {
 			// de-extruding
-			var vix = this.pivotings[exVecs];
-			// var extrudeds = this.barmap.get(vix);
+			// var vix = this.pivotings[this.extrudingCoord];
+			// var extrudeds = this.barmap[this.extrudingCoord];
 			for (const en of entities) {
-				if ( en.Sankey &amp;&amp; en.Sankey.pivotIx[2] > 0 )
+				// if ( en.Sankey &amp;&amp; en.Sankey.pivotIx[2] > 0 )
+				if ( en.Sankey &amp;&amp; !vec3.eq(en.Sankey.translated, [0, 0, 0]) )
 					en.CmpTweens.startCmds.push(2);
 			}
 			// TODO if not now, but when ?
-			this.extrudingCoord === -1;
+			this.extrudingCoord = -1;
 		}
 		else {
-			// extrude
-			this.extrudingCoord === e.Sankey.coordIx;
-			this.getPivotings(e.Sankey, (sys, pivots) => {
+			// extrude = this.pinvotings[this.extrudingCoord]
+			this.getPivotings(e.Sankey, (sys, extrude) => {
+				// var c = extrude.coordIx;
+				sys.extrudingCoord = extrude.coord;
+				var p = extrude.pivoting;
 				for (const e of entities) {
 					var sk = e.Sankey;
-					if (sys.lastExtruding !== sys.extrudingCoord) {
-						var grdx = pivots[sk.vecIx][sk.coordIx];
+					// some bars may not extrudable
+					if (sk.vecIx &lt; p.length &amp;&amp; sk.coordIx &lt; p[sk.vecIx].length) {
+						var grdx = p[sk.vecIx][sk.coordIx];
 						var bufArr = e.Sankey.translated;
-						grid.pos( grdx, bufArr );
-						MorphingAnim.changePosition( e.CmpTweens[1], bufArr );
+						var val = sys.vectors[sk.vecIx][sys.vectors[sk.vecIx].length - 1];
+						sys.grid.extrudePos( val, grdx, bufArr );
+						MorphingAnim.changePosition( e.CmpTweens.tweens[1], bufArr );
 
-						vec3.mulArr( pos, -1, bufArr );
-						MorphingAnim.changePosition( e.CmpTweens[2], bufArr );
+						vec3.mulArr( bufArr, -1, bufArr );
+						MorphingAnim.changePosition( e.CmpTweens.tweens[2], bufArr );
+
+						e.CmpTweens.startCmds.push(1);
 					}
-					e.CmpTweens.startCmds.push(1);
 				}
-				sys.lastExtruding = sys.extrudingCoord;
 			});
 		}
 	}
 
+	setPivoting(extruding) {
+		// TODO load online data
+		if (!this.pivotings)
+			this.pivotings = new Map();
+		this.pivotings.set(extruding.coord, extruding);
+	}
+
 	getPivotings( sankey, onload ) {
 		// TODO manage buffer
-		if ( this.pivotings &amp;&amp; this.pivotings[sankey.coordIx] )
+		if ( this.pivotings &amp;&amp; this.pivotings.has(sankey.coordIx) )
 			onload( this, this.pivotings.get(sankey.coordIx) );
 	}
 
@@ -476,13 +494,13 @@ function skUId() {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Axes">Axes</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#debug1">debug1</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xscene">xscene</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Axes">Axes</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#debug1">debug1</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xscene">xscene</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 09 2020 23:34:13 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 13 2020 09:09:19 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
