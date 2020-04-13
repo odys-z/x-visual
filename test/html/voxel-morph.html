@@ -4,9 +4,11 @@
 	<meta charset="utf-8">
 	<title>XTest-Morph</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
 </head>
 <body>
+  <p>Same as <a href='./voxel-morph-particles.html'>test: voxel particles</a>
+	  only diffent of some uniforms parameters.</p>
   <canvas id='canv'></canvas>
   <script>
 	"use strict";
@@ -52,16 +54,16 @@
 
 	defs.push({
 		id: 'points',
-		Obj3: { geom: xv.XComponent.Obj3Type.NA,	// use the geometry of ent1
+		Obj3: { geom: xv.XComponent.Obj3Type.NA,    // use the geometry of ent1
 				box: [200, 2, 1],
-				mesh: undefined,					// THREE.Points
-				invisible: false },					// It's visible, but alpha 0?
+				mesh: undefined,                    // THREE.Points
+				invisible: false },                 // It's visible, but alpha 0?
 		Visual:{vtype: xv.AssetType.cubeVoxel,
 				asset: 'ent1',
 				shader: xv.XComponent.ShaderFlag.cubeVoxels,
-				paras: {vert_scale: '0.3',
+				paras: {vert_scale: '20.',          // NOTE "." is neccessary as this is a string in glsl source.
 						uniforms:{u_cubes: ['ent1', 'ent2', 'ent3'],// ent2.Obj3.mesh, matrix, etc.
-								  u_sects: [12, 8, 5],				// sections in x, y, z
+								  u_sects: [12, 8, 5],              // sections in x, y, z
 								  u_tex: 'tex/spark1.png' } }},
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.U_VERTS_TRANS,

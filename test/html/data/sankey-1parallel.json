@@ -1,0 +1,67 @@
+{ "chart": {
+    "name": "sankey vec4 (1)",
+    "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z",
+    "domain": [[0, 2], [0, 21], [0, 2]],
+    "range": [[0, 160], [0, 200], [0, 100]],
+    "grid": [2, 2, 2],
+    "grid-space": 20
+  },
+  "sankey": {
+    "geometry-desc": "the sankey bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
+    "geometry": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"],
+    "coordinates": [{"label": "1-coord", "range": [0, 1]}, {"label": "2-coord", "range": [0, 1]}],
+    "totalValue": 21,
+    "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",
+    "bar-desc": "[ vec-idx: [coord-idx, coord-enum, h, y] ]",
+    "bars": [
+        [ [ 0, 1, 6, 15 ],
+          [ 1, 1, 6, 15 ] ],
+
+        [ [ 0, 1, 8, 7 ],
+          [ 1, 0, 8, 2 ] ],
+
+        [ [ 0, 0, 5, 2 ],
+          [ 1, 1, 5, 7] ],
+
+        [ [ 0, 0, 2, 0 ],
+          [ 1, 0, 2, 0 ] ]
+    ],
+
+    "extruding": {
+        "coord": 0,
+        "pivoting-desc1": "v-idx, h (for readable), grid[x, y, z], ... ,",
+        "pivoting-desc2": "same order with bar index, for the activie coord, y also can be 0 at z = 1",
+        "pivoting": [
+            [ 0, 6, [0, 1, 1], [1, 1, 1] ],
+            [ 1, 8, [0, 1, 1], [1, 0, 1] ],
+            [ 2, 5, [0, 0, 1], [1, 1, 0] ],
+            [ 3, 2, [0, 0, 1], [1, 0, 0] ]
+        ]
+    },
+
+    "_comment": "following data are correct by presenting here?",
+    "id": "sankey1",
+    "script": [
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 1.1,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }],
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 5.2,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }]
+    ],
+    "paras": {
+        "node": "box",
+        "onOverNode": 0,
+        "onOverFlow": 1
+    }
+  },
+
+  "vectors": [
+    [ 1, 1, 6 ],
+    [ 1, 0, 8 ],
+    [ 0, 1, 5 ],
+    [ 0, 0, 2 ]
+  ]
+}

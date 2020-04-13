@@ -1,0 +1,83 @@
+{ "chart": {
+    "name": "sankey vec8 coord 3",
+    "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z",
+    "domain": [[0, 2], [0, 21], [0, 2]],
+    "range": [[0, 160], [0, 200], [0, 100]],
+    "grid": [3, 2, 2],
+    "grid-space": 20
+  },
+  "sankey": {
+    "comments":   "This json is the same as sankey1, but extended another parallel axis, which makes vectors doubled.",
+    "comments.2": "A comparation to clearify bars v.s. vectors. see docsphinx/design-memo/003-sankey-vectors.png",
+    "geometry": [0.1, 0.15, 1, 10],
+    "texture": "../../assets/tex/rgb2x2.png",
+    "coordinates": [{"label": "coord1", "range": [0, 1]}, {"label": "coord2", "range": [0, 1]}, {"label": "coord3", "range": [0, 1]}],
+    "totalValue": 21,
+    "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",
+    "bar-desc": "[ vec-idx: [coord-idx (ignored), coord-enum, h, y0] ]",
+    "bars": [
+        [ [ 0, 1, 2, 19 ],
+          [ 1, 1, 2, 19 ],
+          [ 2, 1, 2, 19 ] ],
+
+        [ [ 0, 1, 4, 8  ],
+          [ 1, 1, 4, 5  ],
+          [ 2, 0, 4, 11 ] ],
+
+        [ [ 0, 1, 2, 6 ],
+          [ 1, 0, 2, 8 ],
+          [ 2, 0, 2, 8 ] ],
+
+        [ [ 0, 1, 6, 0 ],
+          [ 1, 0, 6, 2 ],
+          [ 2, 0, 6, 2 ] ],
+
+        [ [ 0, 0, 1, 6 ],
+          [ 1, 1, 1, 4 ],
+          [ 2, 1, 1, 4 ] ],
+
+        [ [ 0, 0, 4, 2 ],
+          [ 1, 1, 4, 0 ],
+          [ 2, 0, 4, 2 ] ],
+
+        [ [ 0, 0, 1, 1 ],
+          [ 1, 0, 1, 1 ],
+          [ 2, 1, 1, 1 ] ],
+
+        [ [ 0, 0, 1, 0 ],
+          [ 1, 0, 1, 0 ],
+          [ 2, 0, 1, 0 ] ]
+    ],
+
+    "extruding": {
+        "coord": 0,
+        "pivot-1": "[ v-idx: [ coord-idx: [grid-x, grid-y, grid-z, y0, h (ignored for readable)] ] ]",
+        "pivot-2": "Same order with bar index, for the activie coord. As extrued, y also can be 0 at z = 1",
+        "pivoting": [
+            [ [ 0, 0, 1,12, 2 ], [ 1, 1, 1, 4 ], [ 2, 1, 1, 2 ] ],
+            [ [ 0, 0, 1, 8, 4 ], [ 1, 1, 1, 0 ], [ 2, 0, 1, 3 ] ],
+            [ [ 0, 0, 1, 6, 2 ], [ 1, 0, 1, 6 ], [ 2, 1, 1, 4 ] ],
+            [ [ 0, 0, 1, 6, 6 ], [ 1, 0, 1, 6 ], [ 2, 1, 1, 5 ] ],
+
+            [ [ 0, 0, 0, 6, 1 ], [ 1, 1, 0, 4 ], [ 2, 1, 0, 1] ],
+            [ [ 0, 0, 0, 2, 4 ], [ 1, 1, 0, 0 ], [ 2, 0, 0, 1] ],
+            [ [ 0, 0, 0, 1, 1 ], [ 1, 0, 0, 1 ], [ 2, 1, 0, 0] ],
+            [ [ 0, 0, 0, 0, 1 ], [ 1, 0, 0, 0 ], [ 2, 0, 0, 0] ]
+        ]
+    }
+  },
+
+  "vectors": [
+    [ 1, 1, 1, 2 ],
+    [ 1, 1, 0, 4 ],
+
+    [ 1, 0, 1, 2 ],
+    [ 1, 0, 0, 6 ],
+
+    [ 0, 1, 1, 1 ],
+    [ 0, 1, 1, 4 ],
+
+    [ 0, 0, 1, 1 ],
+    [ 0, 0, 0, 1 ]
+  ]
+}

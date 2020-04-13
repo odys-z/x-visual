@@ -2,7 +2,6 @@
  * Copied from three/three-orbitcontrols/OrbitControls.
  * Copyrights and authour ect. are removed for new comments. For details, see
  * [npm package page](https://www.npmjs.com/package/three-orbitcontrols)
- * @namespace xv.ecs.sys.contrl
  */
 import * as THREE from 'three';
 // import * as X from '../../x.js';
@@ -37,7 +36,10 @@ export default function XOrbitControls ( object, domElement ) {
 	this.enabled = true;
 
 	// "target" sets the location of focus, where the object orbits around
-	this.target = new THREE.Vector3();
+	if (object.xtarget)
+		this.target = object.xtarget.js();
+	else
+		this.target = new THREE.Vector3();
 
 	// How far you can dolly in and out ( PerspectiveCamera only )
 	this.minDistance = 0;

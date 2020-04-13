@@ -1,0 +1,50 @@
+{ "sankey": {
+    "comments": "same as sankey1, but another parallel axis, which makes vectors doubled
+    - a comparation to clearify flow v.s. vectors. see docsphinx/design-memo/003-sankey-vectors.png",
+    "grid": [3, 3, 3],
+    "coordinates": [{"label": "coord1", "range": [0, 1, 2]}, {"label": "coord2", "range": [0, 1]}, {"label": "coord3", "range": [0, 1]}],
+    "coord-desc": "Total 3x2x2 = 12 vectors. When coord1 extruded, coord2 have bars at zy=[0, 0], [1, 0], [2, 0]; [0, 1], [1, 1], [2, 1], where each bar is a sum of 2 values, coord3 = 0 and 1",
+    "bars": [
+      { "g": [0, 0], "g-desc": "grid index, z always 0 (at parallel coordinates)",
+        "v": 0, "v-dessc": "vector value",
+        "y_ex": [0, 0], "y_ex-desc": "VIRTUAL y grid index at z=1, ... . If grid-y = 4, max-y = 2, y1(0) = 0, y1(1) = 1, y2(2) = 2, see xmath/CoordsGrid#getExtrudePos"
+      },
+      { "g": [0, 1],
+        "v": 1,
+      },
+      { "g": [1, 0],
+        "v": 2
+      },
+      { "g": [1, 1],
+        "v": 3
+      },
+      { "g": [2, 0],
+        "v": 4
+      },
+      { "g": [2, 1],
+        "v": 5
+      }
+    ],
+    "geometry": [5, 5, 1, 20],
+  },
+
+  "vectors": [
+    [ 2, 1, 1, 2 ],
+    [ 2, 1, 0, 4 ],
+
+    [ 2, 0, 1, 2 ],
+    [ 2, 0, 1, 6 ],
+
+    [ 1, 1, 1, 2 ],
+    [ 1, 1, 0, 4 ],
+
+    [ 1, 0, 1, 2 ],
+    [ 1, 0, 1, 6 ],
+
+    [ 0, 1, 1, 1 ],
+    [ 0, 1, 1, 4 ],
+
+    [ 0, 0, 1, 1 ],
+    [ 0, 0, 0, 1 ]
+  ]
+}

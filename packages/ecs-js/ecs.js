@@ -4,8 +4,15 @@ const Entity = require('./entity');
 const QueryCache = require('./querycache');
 
 const componentMethods = new Set(['stringify', 'clone', 'getObject', Symbol.iterator]);
+
+/**
+ * ECS main class.
+ * see <a href='https://github.com/fritzy/ecs-js/README.md'>frityz/ecs-js</a>
+ * @class ECS
+ */
 class ECS {
 
+  /**@constructor ECS */
   constructor() {
 
     this.ticks = 0;
@@ -19,11 +26,15 @@ class ECS {
     this.refs = {};
   }
 
+  /**@property tick */
   tick() {
     this.ticks++;
     return this.ticks;
   }
 
+  /**
+   * last tick
+   * @property lastick */
   get lastick() {
 	  return this.ticks;
   }
@@ -62,12 +73,18 @@ class ECS {
   }
 
   // Change Log:
-  /* Extending fouction: when a type of component is found, it's better to give
-   * the caller a chance to triggere something for the component.
+  /** Extending fouction:
+   *
+   * when a type of component is found, it's better to give the caller a chance
+   * to triggere something for the component.
+   *
    * Call this to setup the event handler.
+   *
+   * Currrently only xworld use this to setup post effect's flags.
    * @param {string | array} cnames component name
    * @param {function} onFound event handler
    * @return {ECS} this
+   * @function
    */
   componentTriggered(cnames, onFound) {
     if (Array.isArray(cnames)) {
@@ -194,9 +211,9 @@ class ECS {
   }
 
   _updateCache(entity) {
-
+    // e.g. this.queryCache = Map(2) {D3Pie => QueryCache, XSankey => QueryCache}
     for (const query of this.queryCache) {
-      query[1].updateEntity(entity);
+      query[1].updateEntity(entity); // e.g. query = [D3Pie, QueryCache]
     }
   }
 

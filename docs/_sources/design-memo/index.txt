@@ -9,8 +9,10 @@ Contents:
    ecs
    view
    assets
+   shaders/index
    obj3
    renderer
    animizer
+   affine
    extensions/index
    todo

@@ -1,5 +1,3 @@
-/** @namespace xv.test.ext */
-
 import chai from 'chai'
 import { expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
@@ -49,7 +47,7 @@ describe('case: Layers', function() {
 	it('occluded', function() {
 		var xworld = new XWorld(undefined, 'window', {effects: true});
 		var ecs = xworld.xecs;
-		xworld.registerComponents(ecs, Composers);
+		xworld.registerComponents(Composers);
 
 		var v1 = ecs.createEntity({
 			id: 'v1',

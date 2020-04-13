@@ -108,5 +108,9 @@ dist
 .classpath
 .settings
 
-# user
+# user - jsdoc
 temp
+# docs/jsdoc
+
+# user - examples
+!examples/dist

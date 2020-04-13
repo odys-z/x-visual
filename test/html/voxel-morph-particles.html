@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>XTest-Morph</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../dist/xv-0.1.0.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -33,7 +33,7 @@
                 box: [260, 20, 200],
                 mesh: undefined,
                 // invisible: true,
-                 uniforms: {opacity: 0.1}},
+                uniforms: {opacity: 0.1}},
         Visual:{vtype: xv.AssetType.wireframe,
                 paras: {alpha: 0.1},
                 asset: null },
@@ -45,7 +45,7 @@
                 box: [200, 10, 20],
                 mesh: undefined,
                 invisible: true,
-                 uniforms: {opacity: 0.1}},
+                uniforms: {opacity: 0.1}},
         Visual:{vtype: xv.AssetType.wireframe,
                 paras: {alpha: 0.1},
                 asset: null },
@@ -55,14 +55,14 @@
         id: 'points',
         Obj3: { geom: xv.XComponent.Obj3Type.NA,    // use the geometry of ent1
                 box: [200, 2, 1],
-                transform: {translate: [100, 0, 0],
-                            rotate: [45, 0, 0]},
+                transform: [{translate: [100, 0, 0],
+                            rotate: [45, 0, 0]}],
                 mesh: undefined,                    // THREE.Points
                 invisible: false },                 // It's visible, but alpha 0?
         Visual:{vtype: xv.AssetType.cubeVoxel,
                 asset: 'ent1',
                 shader: xv.XComponent.ShaderFlag.cubeVoxels,
-                paras: {vert_scale: '30.',
+                paras: {vert_scale: '30.',          // NOTE "." is neccessary as this is a string in glsl source.
                         u_tex: 'tex/spark1.png',
                         uniforms:{u_cubes: ['ent1', 'ent2', 'ent3'],// ent2.Obj3.mesh, matrix, etc.
                                   u_alpha: 0.5,
@@ -84,8 +84,8 @@
               { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
                 paras: {start: 0,
                         duration: 0.203,
-                        uniforms: { u_morph0: [0, 0],
-                                    u_morph1: [0, 1],    // clear 0, FIXME should not useful now
+                        uniforms: { u_morph0: [0, 0],    // clear 0, FIXME should not useful now
+                                    u_morph1: [0, 1],
                                     a_noise: [0.2, 0.02] },
                          ease: undefined} },
               { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,

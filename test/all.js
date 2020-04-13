@@ -6,10 +6,13 @@
 	npm test</pre>
  */
 
-context = require.context('.', true, /\.case\.js$/);
+// context = require.context('.', true, /\.case\.js$/);
+// context = require.context('.', true, /basic-ecs-js-extension.case\.js$/);
+// context = require.context('.', true, /basic-ecs-js.case\.js$/);
 // context = require.context('.', true, /tweener.case\.js$/);
-// context = require.context('.', true, /basic-vec3.case\.js$/);
+context = require.context('.', true, /basic-vec3.case\.js$/);
 // context = require.context('.', true, /api-script-affines.case\.js$/);
+// context = require.context('.', true, /api-visual-particles.case\.js$/);
 
 // context = require.context('.', true, /basic-affines-.*.case\.js$/);
 // context = require.context('.', true, /basic-affines-array.case\.js$/);
