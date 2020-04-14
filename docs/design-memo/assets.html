@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Shader Samples" href="shaders/index.html"/>
@@ -92,10 +89,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Assets Loader</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#default-texture-asset">Default Texture Asset</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
@@ -152,11 +146,15 @@
             
   <div class="section" id="assets-loader">
 <h1>Assets Loader<a class="headerlink" href="#assets-loader" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="default-texture-asset">
-<h2>Default Texture Asset<a class="headerlink" href="#default-texture-asset" title="Permalink to this headline">¶</a></h2>
+<p>Manage all texture assets.</p>
 <p>If Visual components.assetId is null (not undefined), Thrender will initialize it
-with a default texture.</p>
-</div>
+with a default texture, then keepingt the static copy.</p>
+<p>[<a class="reference external" href="../jsdoc/AssetKeepr.html">Jsdoc API</a>]</p>
+<ul class="simple">
+<li>AssetKeepr#loadGltf</li>
+</ul>
+<p>Load gltf file, path = Visual.asset.</p>
+<p>Gltf scene loaded can be applied with Obj3.transform.</p>
 </div>
 
 
@@ -209,8 +207,7 @@ with a default texture.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

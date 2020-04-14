@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Animizers" href="animizer.html"/>
@@ -95,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Visual &amp; Renderers</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Visual &amp; Renderers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#thrender-the-default">Thrender the Default</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#visual-vtype-obj3-geom-handling">Visual.vtype &amp; Obj3.geom Handling</a></li>
 </ul>
@@ -167,12 +164,12 @@ object.</p>
 <li>Obj3</li>
 </ul>
 <p>The Obj3 Component specify the geometry or shape such as plane, box or path type.</p>
-<p>See <a class="reference internal" href="obj3.html#obj3-transform-guide"><span class="std std-ref">Obj3.transform</span></a></p>
+<p>See <a class="reference internal" href="obj3.html#obj3-transform-guide"><span>Obj3.transform</span></a></p>
 <div class="section" id="thrender-the-default">
 <h2>Thrender the Default<a class="headerlink" href="#thrender-the-default" title="Permalink to this headline">¶</a></h2>
 <p>Thrender is the xv default renderer, handling Visual and Obj3 components. Created by xworld.startUpdate().</p>
 <p>Example:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
     <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
     <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
             <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>    <span class="c1">// bounding box</span>
@@ -188,7 +185,7 @@ object.</p>
 <h3>Visual.vtype &amp; Obj3.geom Handling<a class="headerlink" href="#visual-vtype-obj3-geom-handling" title="Permalink to this headline">¶</a></h3>
 <p>Visual.vtype specify an AssetType;</p>
 <p>Obe3.geom specify shape or model type.</p>
-<p>When Thrender is created by xworld.startUpdate(), all entities’ Obj3 components
+<p>When Thrender is created by xworld.startUpdate(), all entities&#8217; Obj3 components
 will been converted to a scene object, with visual effect of Visual component.</p>
 <p>Model geometry and materail are good examples to get this idea. Another is the
 point visual and points object, where point is a visual effect a points array,
@@ -200,13 +197,13 @@ the scene object consists many points.</p>
 </ul>
 <p>The created <a class="reference external" href="https://threejs.org/docs/#api/en/core/Object3D">THREE.Object3D</a>
 will be rendered as an array of WebGl points.</p>
-<p>The point type’s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
+<p>The point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
 <ul class="simple" id="vtype-refpoint">
 <li>AssetType.refPoint</li>
 </ul>
 <p>Same as <em>point</em>, except that this type use the <em>asset</em> property specifying entity id
-of which the vertices’ position is copied from, the entity’s Obj3.mesh.</p>
-<p>The refPoint type’s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
+of which the vertices&#8217; position is copied from, the entity&#8217;s Obj3.mesh.</p>
+<p>The refPoint type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
 </div>
 <div class="section" id="visual-paras">
 <h4>Visual.paras<a class="headerlink" href="#visual-paras" title="Permalink to this headline">¶</a></h4>
@@ -218,22 +215,22 @@ of which the vertices’ position is copied from, the entity’s Obj3.mesh.</p>
 </div>
 <div class="section" id="for-point-refpoint">
 <h5>For point &amp; refPoint<a class="headerlink" href="#for-point-refpoint" title="Permalink to this headline">¶</a></h5>
-<p>It’s been used for vtype = <a class="reference internal" href="#vtype-refpoint"><span class="std std-ref">AssetType.refPoint</span></a> or
-<a class="reference internal" href="#vtype-point"><span class="std std-ref">AssetType.point</span></a>.</p>
-<p>For these vtype, it’s usually used together with <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span class="std std-ref">AnimType.U_VERTS_TRANS paras</span></a>
-and <a class="reference internal" href="animizer.html#animtype-uniform"><span class="std std-ref">AnimType.UNIFORM paras</span></a>.</p>
+<p>It&#8217;s been used for vtype = <a class="reference internal" href="#vtype-refpoint"><span>AssetType.refPoint</span></a> or
+<a class="reference internal" href="#vtype-point"><span>AssetType.point</span></a>.</p>
+<p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType.U_VERTS_TRANS paras</span></a>
+and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType.UNIFORM paras</span></a>.</p>
 <p>Check it for how Visual.paras and ModelSeqs.script.paras work together to change
 glsl/shaders behaviour.</p>
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
 <p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
 by Thrender using this entity.Visual.paras.obj3type, which can be one of
-<a class="reference internal" href="../reference/components.html#api-component-obj3type"><span class="std std-ref">Obj3Type component</span></a> value.</p>
-<p>– paras.nodes</p>
-<p>This parameter used only for creating mesh from gltf assets. It’s a string array
-of node’s name in gltf. Model of these nodes will be converted into points.</p>
-<p>– paras.paths</p>
-<p>This parameter used only for creating mesh from svg assets. It’s a string array
+<span class="xref std std-ref">Obj3Type component</span> value.</p>
+<p>&#8211; paras.nodes</p>
+<p>This parameter used only for creating mesh from gltf assets. It&#8217;s a string array
+of node&#8217;s name in gltf. Model of these nodes will be converted into points.</p>
+<p>&#8211; paras.paths</p>
+<p>This parameter used only for creating mesh from svg assets. It&#8217;s a string array
 of path names in svg.</p>
 <ul class="simple">
 <li>AssetType.refPoint</li>
@@ -244,33 +241,33 @@ of path names in svg.</p>
 </ul>
 <p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Voxel">Voxel</a> is handled in x-visual as a single
 WebGl point.</p>
-<p>– paras.noise</p>
-<p>If true, the generated Object3D object will have a ‘a_noise’ attribute. For animation
-type <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span class="std std-ref">AnimType U_VERTS_TRANS</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span class="std std-ref">AnimType UNIFORM</span></a>,
+<p>&#8211; paras.noise</p>
+<p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. For animation
+type <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType U_VERTS_TRANS</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType UNIFORM</span></a>,
 this value is used for scale the distance.</p>
-<p>– paras.vert_scale</p>
+<p>&#8211; paras.vert_scale</p>
 <p>A string for vertex size scale. Here is how the default particles vertex shader
 handling this parameter.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">gl_PointSize</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">*</span> <span class="sb">`</span><span class="si">${</span><span class="nx">paras</span><span class="p">.</span><span class="nx">vert_scale</span> <span class="o">||</span> <span class="s1">&#39;10.0&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">gl_PointSize</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">*</span> <span class="sb">`</span><span class="si">${</span><span class="nx">paras</span><span class="p">.</span><span class="nx">vert_scale</span> <span class="o">||</span> <span class="s1">&#39;10.0&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>– paras.u_tex</p>
-<p>A string pointing to file in ‘asset’ folder. If the is not undefined, the vtype’s
+<p>&#8211; paras.u_tex</p>
+<p>A string pointing to file in &#8216;asset&#8217; folder. If the is not undefined, the vtype&#8217;s
 flag, ShaderFlag.defaultex is ignored.</p>
-<p>u_tex is a shader’s uniforms parameter, which means only Visual using THREE.ShaderMaterial
+<p>u_tex is a shader&#8217;s uniforms parameter, which means only Visual using THREE.ShaderMaterial
 can has a u_tex parameter.</p>
 </div>
 </div>
 <div class="section" id="visual-asset">
 <h4>Visual.asset<a class="headerlink" href="#visual-asset" title="Permalink to this headline">¶</a></h4>
 <p>Specify a gltf asset file, e.g. int the test case of html/gltf:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">gitf</span><span class="o">-</span><span class="n">city</span><span class="o">.</span><span class="n">html</span><span class="o">/</span><span class="n">script</span><span class="o">/</span><span class="n">Citysys</span><span class="o">.</span><span class="n">initCity</span><span class="p">(),</span>
+<div class="highlight-python"><div class="highlight"><pre>test/html/gitf-city.html/script/Citysys.initCity(),
 
-<span class="n">Visual</span><span class="o">.</span><span class="n">asset</span><span class="p">:</span> <span class="s1">&#39;city/scene.gltf&#39;</span>
+Visual.asset: &#39;city/scene.gltf&#39;
 </pre></div>
 </div>
-<p>The file located in ‘assets/city/scene.gltf’ and referenced bin file together with
-texture files are loaded by <a class="reference internal" href="../reference/gltf.html#xv-gltf-loader"><span class="std std-ref">The X-visual Edition</span></a> of gltf loader.</p>
+<p>The file located in &#8216;assets/city/scene.gltf&#8217; and referenced bin file together with
+texture files are loaded by <a class="reference internal" href="../reference/gltf.html#xv-gltf-loader"><span>The X-visual Edition</span></a> of gltf loader.</p>
 </div>
 </div>
 </div>
@@ -326,8 +323,7 @@ texture files are loaded by <a class="reference internal" href="../reference/glt
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

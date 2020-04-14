@@ -75,7 +75,7 @@ AssetType
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 4-31
+   :lines: 2-29
    :linenos:
 
 ShaderFlag
@@ -83,32 +83,15 @@ ShaderFlag
 
 .. literalinclude:: ../../lib/component/visual.js
    :language: javascript
-   :lines: 32-44
+   :lines: 30-42
    :linenos:
 
-Visual Component
-++++++++++++++++
+API Doc: XComponent
+===================
 
-.. literalinclude:: ../../lib/component/visual.js
-   :language: javascript
-   :lines: 45-54
-   :linenos:
+See `API doc / XComponent <../jsdoc/XComponent.html>`_.
 
-
-.. _api-component-obj3type:
-
-Obj3Type const
-++++++++++++++
-
-.. literalinclude:: ../../lib/component/obj3.js
-   :language: javascript
-   :lines: 5-38
-   :linenos:
-
-Obj3 Component
-++++++++++++++
-
-.. literalinclude:: ../../lib/component/obj3.js
-   :language: javascript
-   :lines: 41-62
-   :linenos:
+.. raw:: html
+    <embed>
+        <iframe src='../jsdoc/XComponent.html' style="width:100%; height: 800px"></iframe>
+	<embed>
