@@ -16,6 +16,7 @@ Design Pattern v0.1
 - Abstratct Base Class: Orthocclude
 
 ::
+
     1. pack up Passes as an effect composer
     2. ask subclass.getEffectPass() for {effects, layers}, where effects is an
        array of Pass elements
@@ -26,6 +27,7 @@ Design Pattern v0.1
 For example, in FlowingPath
 
 ::
+
     1. compact several effect passes like render pass, blooming pass, etc.,
     2. setup a layer mask,
 	3. then enable object mask saved to entities Obj3.layers.
@@ -33,6 +35,7 @@ For example, in FlowingPath
 - Helping steps in XWorld & Thrender
 
 ::
+
     1. add functions to THREE.Layers (used in Object3D, e.g. Obj3.mesh)
     2. add call backs to ECS.ECS.createEntity(), makes some added components trigger
        some options, and creating some subsystem like PathEffect and FinalComposer
