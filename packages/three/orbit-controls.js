@@ -4,7 +4,6 @@
  * [npm package page](https://www.npmjs.com/package/three-orbitcontrols)
  */
 import * as THREE from 'three';
-// import * as X from '../../x.js';
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -21,7 +20,7 @@ import * as THREE from 'three';
  *    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
  *    Pan - right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two-finger move
  * XMapControls and XOrbitControls will be replaced with tween animation control later
- * @class
+ * @class XOrbitControls
  */
 export default function XOrbitControls ( object, domElement ) {
 	if ( domElement === undefined )
@@ -1030,11 +1029,12 @@ Object.assign( XOrbitControls.prototype, THREE.EventDispatcher.prototype );
 
 /**Map Control.
  * XMapControls and XOrbitControls will be replaced with tween animation control later
- * @class
+ * @class XMapControls
  */
 export class XMapControls extends XOrbitControls {
-	/*
+	/**
 	 * ECS.sys don't handle window events directly, but via ax xview Entity.
+	 * @constructor
 	 */
 	constructor ( object, domElement ) {
 		// THREE.OrbitControls.call( this, object, domElement );

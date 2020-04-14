@@ -51,6 +51,7 @@
 
 <div class="description">
     <p>Package of components exposed by x-visual.</p>
+<p><strong>Components can not created directly. See example for how to use.</strong></p>
 </div>
 
 
@@ -132,6 +133,67 @@
     
 
     
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="XComponent.Canvas.html">Canvas</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.CmdFlag.html">CmdFlag</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.CmpTween.html">CmpTween</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.CmpTweens.html">CmpTweens</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.Filming.html">Filming</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.FlowingPath.html">FlowingPath</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.Glow.html">Glow</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.GlowingEdge.html">GlowingEdge</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.GpuPickable.html">GpuPickable</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.Input.html">Input</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.ModelSeqs.html">ModelSeqs</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.Obj3.html">Obj3</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.Occluder.html">Occluder</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.RayCastee.html">RayCastee</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.TweenScript.html">TweenScript</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.UserCmd.html">UserCmd</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.UserTween.html">UserTween</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.Visual.html">Visual</a></dt>
+            <dd></dd>
+        
+            <dt><a href="XComponent.XCamera.html">XCamera</a></dt>
+            <dd></dd>
+        </dl>
+    
 
     
 
@@ -148,6 +210,10 @@
 
 
 
+
+<div class="description">
+    <p>COMBINE_AFFINE, MASK</p>
+</div>
 
 
 
@@ -194,7 +260,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_morph.js.html">lib/component/morph.js</a>, <a href="lib_component_morph.js.html#line6">line 6</a>
+        <a href="lib_component_morph.js.html">lib/component/morph.js</a>, <a href="lib_component_morph.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -262,7 +328,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_morph.js.html">lib/component/morph.js</a>, <a href="lib_component_morph.js.html#line13">line 13</a>
+        <a href="lib_component_morph.js.html">lib/component/morph.js</a>, <a href="lib_component_morph.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -280,15 +346,13 @@
 
         
             
-<h4 class="name" id=".CmdFlag"><span class="type-signature">(static, constant) </span>CmdFlag<span class="type-signature"> :CmdFlag</span></h4>
+<h4 class="name" id=".AssetType"><span class="type-signature">(static, constant) </span>AssetType<span class="type-signature"> :AssetType</span></h4>
 
 
 
 
 <div class="description">
-    <ul>
-<li>Component</li>
-</ul>
+    <p>texture | basic material | custom shader ...</p>
 </div>
 
 
@@ -297,7 +361,7 @@
     <ul>
         <li>
             
-<span class="param-type">CmdFlag</span>
+<span class="param-type">AssetType</span>
 
 
         </li>
@@ -324,8 +388,6 @@
     
 
     
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
 
     
 
@@ -338,7 +400,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_mvc.js.html">lib/component/mvc.js</a>, <a href="lib_component_mvc.js.html#line33">line 33</a>
+        <a href="lib_component_visual.js.html">lib/component/visual.js</a>, <a href="lib_component_visual.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -356,13 +418,14 @@
 
         
             
-<h4 class="name" id=".CmpTween"><span class="type-signature">(static, constant) </span>CmpTween<span class="type-signature"> :CmpTween</span></h4>
+<h4 class="name" id=".ShaderFlag"><span class="type-signature">(static, constant) </span>ShaderFlag<span class="type-signature"> :ShaderFlag</span></h4>
 
 
 
 
 <div class="description">
-    <p>TODO script detail</p>
+    <p>javascript operators uses 32 bits signed integers
+see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators</p>
 </div>
 
 
@@ -371,7 +434,7 @@
     <ul>
         <li>
             
-<span class="param-type">CmpTween</span>
+<span class="param-type">ShaderFlag</span>
 
 
         </li>
@@ -410,1226 +473,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_tween.js.html">lib/component/tween.js</a>, <a href="lib_component_tween.js.html#line40">line 40</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".CmpTweens"><span class="type-signature">(static, constant) </span>CmpTweens<span class="type-signature"> :CmpTweens</span></h4>
-
-
-
-
-<div class="description">
-    <p>Mainly an array of tween sequence. Each sequence represent an animation
-sequence driven by XTweener.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">CmpTweens</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_tween.js.html">lib/component/tween.js</a>, <a href="lib_component_tween.js.html#line87">line 87</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".Filming"><span class="type-signature">(static, constant) </span>Filming<span class="type-signature"> :Filming</span></h4>
-
-
-
-
-<div class="description">
-    <p>Filming effect component</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Filming</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_ext_effects.js.html">lib/component/ext/effects.js</a>, <a href="lib_component_ext_effects.js.html#line36">line 36</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".FlowingPath"><span class="type-signature">(static, constant) </span>FlowingPath<span class="type-signature"> :FlowingPath</span></h4>
-
-
-
-
-<div class="description">
-    <p>FlowingPath effect component</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">FlowingPath</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_ext_effects.js.html">lib/component/ext/effects.js</a>, <a href="lib_component_ext_effects.js.html#line6">line 6</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".Glow"><span class="type-signature">(static, constant) </span>Glow<span class="type-signature"> :Glow</span></h4>
-
-
-
-
-<div class="description">
-    <p>Glow effect component</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Glow</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_ext_effects.js.html">lib/component/ext/effects.js</a>, <a href="lib_component_ext_effects.js.html#line26">line 26</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".GlowingEdge"><span class="type-signature">(static, constant) </span>GlowingEdge<span class="type-signature"> :GlowingEdge</span></h4>
-
-
-
-
-<div class="description">
-    <p>GlowingEdge effect component</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">GlowingEdge</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_ext_effects.js.html">lib/component/ext/effects.js</a>, <a href="lib_component_ext_effects.js.html#line16">line 16</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".GpuPickable"><span class="type-signature">(static, constant) </span>GpuPickable<span class="type-signature"> :GpuPickable</span></h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">GpuPickable</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_pickable.js.html">lib/component/pickable.js</a>, <a href="lib_component_pickable.js.html#line7">line 7</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".Input"><span class="type-signature">(static, constant) </span>Input<span class="type-signature"> :<a href="Input.html">Input</a></span></h4>
-
-
-
-
-<div class="description">
-    <ul>
-<li>Component</li>
-</ul>
-<p>Nothing but a component indicating only an input sys should use the entity.
-Notes 0.2.1: reserved for multiple views</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><a href="Input.html">Input</a></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_mvc.js.html">lib/component/mvc.js</a>, <a href="lib_component_mvc.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".ModelSeqs"><span class="type-signature">(static, constant) </span>ModelSeqs<span class="type-signature"> :ModelSeqs</span></h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">ModelSeqs</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_morph.js.html">lib/component/morph.js</a>, <a href="lib_component_morph.js.html#line32">line 32</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".Obj3"><span class="type-signature">(static, constant) </span>Obj3<span class="type-signature"> :Obj3</span></h4>
-
-
-
-
-<div class="description">
-    <p>If Visual.vtype is mesh, sys.Thrender will create a THREE.Object3D according
-to this component.</p>
-<p>See also xv.ecs.sys.Thrender.createObj3s().</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Obj3</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_obj3.js.html">lib/component/obj3.js</a>, <a href="lib_component_obj3.js.html#line60">line 60</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".Occluder"><span class="type-signature">(static, constant) </span>Occluder<span class="type-signature"> :Occluder</span></h4>
-
-
-
-
-<div class="description">
-    <p>Not used?</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Occluder</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_ext_effects.js.html">lib/component/ext/effects.js</a>, <a href="lib_component_ext_effects.js.html#line46">line 46</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".Pie"><span class="type-signature">(static, constant) </span>Pie<span class="type-signature"> :Pie</span></h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Pie</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_ext_chart.js.html">lib/component/ext/chart.js</a>, <a href="lib_component_ext_chart.js.html#line45">line 45</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".RayCastee"><span class="type-signature">(static, constant) </span>RayCastee<span class="type-signature"> :RayCastee</span></h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">RayCastee</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_pickable.js.html">lib/component/pickable.js</a>, <a href="lib_component_pickable.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".Sankey"><span class="type-signature">(static, constant) </span>Sankey<span class="type-signature"> :Sankey</span></h4>
-
-
-
-
-<div class="description">
-    <p>Sankey bar, the data element of Sankey chart.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Sankey</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_ext_chart.js.html">lib/component/ext/chart.js</a>, <a href="lib_component_ext_chart.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".TweenScript"><span class="type-signature">(static, constant) </span>TweenScript<span class="type-signature"> :TweenScript</span></h4>
-
-
-
-
-<div class="description">
-    <p>Tween animation script type.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">TweenScript</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_tween.js.html">lib/component/tween.js</a>, <a href="lib_component_tween.js.html#line7">line 7</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".UserCmd"><span class="type-signature">(static, constant) </span>UserCmd<span class="type-signature"> :UserCmd</span></h4>
-
-
-
-
-<div class="description">
-    <ul>
-<li>Component</li>
-</ul>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">UserCmd</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_mvc.js.html">lib/component/mvc.js</a>, <a href="lib_component_mvc.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".UserTween"><span class="type-signature">(static, constant) </span>UserTween<span class="type-signature"> :UserTween</span></h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">UserTween</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_tween.js.html">lib/component/tween.js</a>, <a href="lib_component_tween.js.html#line26">line 26</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".XCamera"><span class="type-signature">(static, constant) </span>XCamera<span class="type-signature"> :XCamera</span></h4>
-
-
-
-
-<div class="description">
-    <p>Camera Component</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">XCamera</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_component_mvc.js.html">lib/component/mvc.js</a>, <a href="lib_component_mvc.js.html#line44">line 44</a>
+        <a href="lib_component_visual.js.html">lib/component/visual.js</a>, <a href="lib_component_visual.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -1663,13 +507,13 @@ to this component.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Axes">Axes</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#debug1">debug1</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xscene">xscene</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 13 2020 09:09:19 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Apr 14 2020 15:26:47 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
