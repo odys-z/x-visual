@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-ECS</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	var log = true;
+	class Cubesys extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCube(ecs, options.xscene);
+		}
+
+		update(tick, entities) {
+		 	if (xworld.xview.flag > 0) {
+				this.cmd = xworld.xview.cmds[0].cmd;
+			}
+			else this.cmd = undefined;
+
+			for (const e of entities) {
+				if (e.Obj3) {
+					switch (e.cmd) {
+						case '1':
+							// e.Obj3.mesh.rotateX(0.125 * Math.PI);
+							break;
+						case '2':
+							// e.Obj3.mesh.rotateY(0.125 * Math.PI);
+							break;
+						case '3':
+							// e.Obj3.mesh.rotateX(-0.125 * Math.PI);
+							break;
+						case '4':
+							// e.Obj3.mesh.rotateY(-0.125 * Math.PI);
+							break;
+						default:
+					}
+				}
+			}
+		}
+
+		initCube(ecs, scene) {
+			if (ecs) {
+				var cube = ecs.createEntity({
+					id: '1',
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [80, 80, 80],
+							transform: [{translate: [-100, 0, 0]}],
+							mesh: undefined },		// Thrender will handle this
+					GpuPickable: {pickid: 1},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
+				});
+
+				cube = ecs.createEntity({
+					id: '2',
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [80, 80, 80],
+							transform: [{translate: [0, 0, 100]}],
+							mesh: undefined },		// Thrender will handle this
+					GpuPickable: {pickid: 1},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
+				});
+
+				cube = ecs.createEntity({
+					id: '3',
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [80, 80, 80],
+							transform: [{translate: [0, -100, 0]}],
+							mesh: undefined },		// Thrender will handle this
+					GpuPickable: {pickid: 1},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
+				});
+
+				cube = ecs.createEntity({
+					id: '4',
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [80, 80, 80],
+							transform: [{translate: [0, 100, 0]}],
+							mesh: undefined },		// Thrender will handle this
+					GpuPickable: {pickid: 1},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
+				});
+			}
+		}
+	}
+
+	Cubesys.query = { any: ['Visual', 'CmdFlag'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {log: 6});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+
+	xworld.startUpdate();
+  </script>
+</body>
+</html>

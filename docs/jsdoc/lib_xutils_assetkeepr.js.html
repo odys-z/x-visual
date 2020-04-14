@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/xutils/assetkeepr.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/xutils/assetkeepr.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as THREE from 'three';
+
+// For why using source instead of npm package, see packages/three/README.md
+import {GLTFLoader} from '../../packages/three/GLTFLoader'
+import {SVGLoader} from '../../packages/three/SVGLoader'
+import html2canvas from '../../packages/misc/html2canvas.esm.js'
+
+import x from '../xapp/xworld'
+import {mat4} from '../xmath/vec'
+
+/**Assets buffer for global resource management
+ * @memberof AssetKeepr
+ */
+const assets = {
+	loaders: {},
+	canvs: {}	// {domId: Components.Canvas} buffer of Canvas components.
+}
+
+/**Assets Manager
+ *
+ * Note it's spelled "keepr", not "keeper".
+ * @class AssetKeepr
+ */
+export default class AssetKeepr {
+	/**Initialize
+	 * @param {object} x singleton
+	 * @member AssetKeepr.init
+	 * @function */
+	static init(x) {
+		x.assetKeepr = this;
+		x.assets = assets;
+		assets.xref = x;
+	}
+
+	/**@member AssetKeepr#canvs
+	 * @property {THREE.Container} canvs - container canvas */
+	static get canvs() { return assets.canvs; }
+	/**@member AssetKeepr#assets
+	 * @property {object} assets - global assets map */
+	static get assets() { return assets; }
+	/**@member AssetKeepr#log
+	 * @property {number} log - log level */
+	static get log() { return assets.log; }
+
+	/**Get a spark texture, in 'data:image/png;base64'.
+	 * @return {THREE.Texture}
+	 * @member AssetKeepr.defaultex
+	 * @function */
+	static defaultex() {
+		if (!assets.sparktex)
+		assets.sparktex = new THREE.TextureLoader().load(
+			// https://onlinepngtools.com/convert-png-to-base64
+			// 16x16 version of spark1.png
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5AIKBwk6Rv00TgAAAaVJREFUOMvVkk9rE1EUxc99b0ycpFJqwAgNARFc6a7gNhs/UbbDhDBhCPk8LlvIJi7diFrEKS5iikrQaekkzrx3jytDUv9uXHi2l/Pj3HMv8N9LfjXo9/uo1+sGgDjndDKZMIoijEajPwPiOA5U9QBAS1Ubxpgrkp9I5mma+t8CoigKRORQVY9E5AGAGoA1gNcAnnvvFyR1PB4DAIJtc5qmKIritqo+FpEnInJfRG6q6gLAXQA3RORERHIA/AFQVZUFcCgiD40xj8IwPGq1Wna1WhXL5fJEVT+LyEvv/cV3gLkGEJL7APaCIDhot9u22+2i0+k0rLUdAPsAboVhuPHsAEQEAEoATlUvarUarLXI8xze+5WIlCLinHOb7nZWsNYqyQ8AFt770yzL9ubz+Z31en1O8i3J9wA+JkmyuYTdBkynU/Z6va8APMkGyS9lWWYkM5JvADyrqupsNpv5nyYYDAaw1hZVVb1Q1UtjzD0AIclCVc+ste+azWa17dnpYDgcwjmHJEkuAbwyxhyTfGqMOTbGnCZJcuW951/9eBzHuJ7un+gbY1HV8WP17N0AAAAASUVORK5CYII=	'
+		);
+
+		return assets.sparktex;
+	}
+
+    /**load gltf module&lt;br>
+	 * If obj3 is provided, then after loaded, set the scene transform according
+	 * to obj3.transfrom, set obj3.mesh = gltf.scene.&lt;br>
+     * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader|Three.js example - GLTFLoader}
+	 * @see {@link https://threejsfundamentals.org/threejs/lessons/threejs-load-gltf.html|Three.js tuturial}
+	 * @param {THREE.Scene} [scene] if provided, add the loaded gltf.scene to it.
+	 * @param {Obj3} [obj3] [in out] after loaded, set the scene transform according
+	 * to obj3.transfrom, set obj3.mesh = gltf.scene
+	 * @param {stirng} url A string containing the path/URL of the .gltf or .glb file.
+	 * @param {function} onload callback on assets loaded
+	 * see &lt;a href='https://threejs.org/docs/index.html#examples/en/loaders/GLTFLoader'>
+	 * THREE.GltfLoader&lt;/a>
+	 * @member AssetKeepr.loadGltf
+	 * @function */
+	static loadGltf(scene, obj3, url, onload) {
+		if (assets.loaders[url] === undefined)
+			assets.loaders[url] = new GLTFLoader();
+			assets.loaders[url].load(url, function(gltf, nodeMap) {
+				if (typeof onload === 'function')
+					onload(gltf, nodeMap);
+
+				if (obj3 &amp;&amp; obj3.transform) {
+					var m4 = new mat4();
+					for (var trs of obj3.transform)
+						m4.appAffine(trs);
+
+					gltf.scene.matrixAutoUpdate = false;
+					m4.put2js(gltf.scene.matrix);
+					obj3.mesh = gltf.scene;
+				}
+
+				if (scene) {
+					scene.add( gltf.scene );
+				}
+
+				if (!scene &amp;&amp; !onload)
+					console.warn(
+						'AssetKeepr.loadGltf(): Loaded gltf assets without THREE.Scene instance: ',
+						gltf.scene);
+		},
+		function ( xhr ) {
+			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		},
+		// called when loading has errors
+		function ( error ) {
+			console.error( 'AssetKeepr.loadGltf(): ', error );
+		});
+	}
+
+	// deprecated?
+	static loadGltfNode(url, nname, onParsed) {
+		AssetKeepr.loadGltf(undefined, url, function(gltf, nodeMap) {
+			var nix;
+			if (typeof nname === 'number')
+			 	nix = nname;
+			else nix = nodeMap[nname];
+			if (nix)
+				onParsed( gltf.nedes[nix] );
+			else onParsed( undefined );
+		});
+	}
+
+	/**
+	 * @param {string} url
+	 * @param {array&lt;string>} nnames
+	 * @param {function} onParsed
+	 * @member AssetKeepr.loadGltfNodes
+	 * @function */
+	static loadGltfNodes(url, nnames, onParsed) {
+		if (!nnames) onParsed(undefined);
+		else {
+			AssetKeepr.loadGltf(undefined, url, function(gltf, nodeMap) {
+				var nods = [];
+				for (var nname of nnames) {
+					var nix;
+					if (typeof nname === 'number')
+					 	nix = nname;
+					else nix = nodeMap[nname];
+					if (nix)
+						nods.push(gltf.nodes[nix]);
+				}
+				onParsed( nods );
+			});
+		}
+	}
+
+	/**
+	 * Initialize a Canvas component with a THREE.CanvasTexture from canvas, which
+	 * is not initialized when return.
+	 *
+	 * The component will be updated when it's ready
+	 *
+	 * **DESIGN-MEMO**
+	 *
+	 * 1. This function maintance dirty with tick flag. Referenced cavase won't
+	 * been updated if the component's stamp less than the asset's stamp
+	 * 2. Texture canvas are sharable.
+	 *
+	 * *Reference*
+	 *
+	 * https://stackoverflow.com/questions/3768565/drawing-an-svg-file-on-a-html5-canvas&lt;br>
+	 * https://jsfiddle.net/Wijmo5/h2L3gw88/&lt;br>
+	 * https://bl.ocks.org/mbostock/1276463&lt;br>
+	 * threejs example: https://threejs.org/examples/?q=canvas#webgl_materials_texture_canvas&lt;br>
+	 * example source: https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_texture_canvas.html&lt;br>
+	 * threejs doc CanvasTexture: https://threejs.org/docs/index.html#api/en/textures/CanvasTexture
+	 *
+	 * @param {Canvas} cmpCanv Canvas component
+	 * @param {number} stamp optional, if stamp is less than x.lastUpdate, ignore
+	 * the request; if undefined, always update. So set this carefully for performance
+	 * optimization - updating canvas is a heavy work load.
+	 * @param {function} onUpdate optional, callback when html canvas texture updated.
+	 * parameter: canvas {HTML.Canvas}, texture {THREE.CanvasTexture}
+	 * @return {Canvas} the Canvas component referencing object:&lt;br>
+	 * where&lt;br>
+	 * **tex**: THREE.CanvasTexture when html canvas is initialized. But before this is undefined.&lt;br>
+	 * **canvas**: HTML canvas when html canvas is initialized. But before this is undefined.&lt;br>
+	 * **ctx2d**: HTML canvas 2d context when html canvas is initialized.&lt;br>
+	 * But before this its is undefined - can not been used for sampling before onUpdate called.
+	 * @member AssetKeepr.loadCanvtex
+	 * @function
+	 */
+	static loadCanvtex(cmpCanv, stamp, onUpdate) {
+		const x = assets.xref;
+		if (stamp === undefined)
+			stamp = x.lastUpdate;
+		// if stamp handled, no more update
+		if (stamp &lt; x.lastUpdate)
+			return cmpCanv;
+
+		var h5 = assets.canvs[cmpCanv.domId];
+		if (!h5) {
+			h5 = {domId: cmpCanv.domId,
+				  stamp: assets.xref.lastUpdate};
+			assets.canvs[cmpCanv.domId] = h5;
+		}
+		if (h5.stamp &lt;= x.lastUpdate) {
+			if (typeof document !== 'object')
+				;	// testing ?
+			else {
+				var dom = document.getElementById(cmpCanv.domId);
+				var opts = Object.assign({width: 256, height: 256},
+										 cmpCanv.options);
+
+				html2canvas(dom, opts).then( function(canvas) {
+					var drawingContext = canvas.getContext( '2d' );
+
+					cmpCanv.canvas = drawingContext.canvas;
+					cmpCanv.tex = new THREE.CanvasTexture(drawingContext.canvas);
+					cmpCanv.ctx2d = drawingContext;
+					// set dirty flag now to avoid updating by renderer before this texture is ready
+					cmpCanv.dirty = true;
+					// Memo:
+					// reference entity.Obje in wrong way, but this method is to be deprecated
+					cmpCanv.entity.Obj3.mesh.visible = true;
+
+					if (typeof onUpdate === 'function')
+						onUpdate(canvas, cmpCanv.tex);
+				});
+			}
+		}
+		return cmpCanv;
+	}
+
+	static loadCanvtex2(cmpCanv, options, obj3, onUpdate) {
+		var width = options &amp;&amp; options.width ? options.width : 256;
+		var height = options &amp;&amp; options.heigth ? options.heigth : 256;
+		var opts = Object.assign({
+				width, height,
+				// https://github.com/niklasvh/html2canvas/issues/1164
+				allowTaint: true,
+				useCORS: true,
+				backgroundColor: "rgba(0,0,0,0)",
+				removeContainer: true,
+				x: 0, y: 0
+			}, options);
+		var dom = document.getElementById(cmpCanv.domId);
+
+		html2canvas(dom, opts).then( function(canvas) {
+			var drawingContext = canvas.getContext( '2d' );
+
+			cmpCanv.canvas = drawingContext.canvas;
+			cmpCanv.tex = new THREE.CanvasTexture(drawingContext.canvas);
+			cmpCanv.ctx2d = drawingContext;
+			cmpCanv.dirty = true;
+
+			if (typeof onUpdate === 'function')
+				onUpdate(canvas, cmpCanv.tex);
+		});
+		return cmpCanv;
+	}
+
+	/**
+	 * Load svg
+	 *
+	 * @param {string} url string
+	 * @member AssetKeepr.loadSVG
+	 * @function
+	 */
+	static loadSVG( url, opts, onload ) {
+		// scene = new THREE.Scene();
+		// scene.background = new THREE.Color( 0xb0b0b0 );
+		//
+		// //
+		// var helper = new THREE.GridHelper( 160, 10 );
+		// helper.rotation.x = Math.PI / 2;
+		// scene.add( helper );
+
+		//
+		if (assets.loaders[url] === undefined)
+			assets.loaders[url] = new SVGLoader();
+		assets.loaders[url] = new SVGLoader();
+		var loader = assets.loaders[url];
+		loader.load( url, function ( data ) {
+			var paths = data.paths;
+			var group = new THREE.Group();
+			group.scale.multiplyScalar( 0.25 );
+			group.position.x = - 70;
+			group.position.y = 70;
+			group.scale.y *= - 1;
+
+			for ( var i = 0; i &lt; paths.length; i ++ ) {
+				var path = paths[ i ];
+				var fillColor = path.userData.style.fill;
+				if ( opts.drawFillShapes &amp;&amp; fillColor !== undefined &amp;&amp; fillColor !== 'none' ) {
+					var material = new THREE.MeshBasicMaterial( {
+						color: new THREE.Color().setStyle( fillColor ),
+						opacity: path.userData.style.fillOpacity,
+						transparent: path.userData.style.fillOpacity &lt; 1,
+						side: THREE.DoubleSide,
+						depthWrite: false,
+						wireframe: opts.wireframe
+					} );
+
+					var shapes = path.toShapes( true );
+
+					for ( var j = 0; j &lt; shapes.length; j ++ ) {
+						var shape = shapes[ j ];
+						var geometry = new THREE.ShapeBufferGeometry( shape );
+						var mesh = new THREE.Mesh( geometry, material );
+						group.add( mesh );
+					}
+				}
+
+				var strokeColor = path.userData.style.stroke;
+
+				if ( opts.stroke &amp;&amp; strokeColor !== undefined &amp;&amp; strokeColor !== 'none' ) {
+					var material = new THREE.MeshBasicMaterial( {
+						color: new THREE.Color().setStyle( strokeColor ),
+						opacity: path.userData.style.strokeOpacity,
+						transparent: path.userData.style.strokeOpacity &lt; 1,
+						side: THREE.DoubleSide,
+						depthWrite: false,
+						wireframe: opts.wireframe
+					} );
+
+					for ( var j = 0, jl = path.subPaths.length; j &lt; jl; j ++ ) {
+						var subPath = path.subPaths[ j ];
+						var geometry = SVGLoader.pointsToStroke( subPath.getPoints(), path.userData.style );
+						if ( geometry ) {
+							var mesh = new THREE.Mesh( geometry, material );
+							group.add( mesh );
+						}
+					}
+				}
+			}
+
+			onload( group );
+		} );
+	}
+}
+
+/**Splashing screean helper.
+ * &lt;br>See &lt;a href='https://stackoverflow.com/questions/647440/showing-a-splash-screen-during-script-execution'>AnthonyWJones' Answer @ stackoverflow&lt;/a>
+ * @example
+ * splash("mySplashDiv", longRunner)
+ * function longRunner() {
+ *    //This may take a while
+ * }
+ * @param {string} splashImgId
+ * @param {function} xworker the long rounner
+ * @param {string} src image
+ *
+ * @memberof xutils
+ * @function
+ */
+export function splash(splashImgId, xworker, src) {
+    var splashImg = document.getElementById(splashImgId)
+    splashImg.style.display = "block";
+	if (src)
+		splashImg.src = src;
+	else
+		splashImg.src = 'assets/splash.gif';
+    setTimeout(function() {
+       xworker()
+       splashImg.style.display = "none";
+    }, 100);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Apr 14 2020 14:52:25 GMT+0800 (Hong Kong Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
