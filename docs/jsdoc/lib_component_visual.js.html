@@ -29,7 +29,8 @@
         <article>
             <pre class="prettyprint source linenums"><code>
 /** texture | basic material | custom shader ...
- * @type AssetType */
+ * @type AssetType
+ * @memberof XComponent */
 const AssetType = {
     gltf: 0,	   // gltf asset file
     materail: 1,
@@ -58,7 +59,8 @@ const AssetType = {
 
 /** javascript operators uses 32 bits signed integers
  * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators
- * @type ShaderFlag */
+ * @type ShaderFlag
+ * @memberof XComponent */
 const ShaderFlag = {
     mask: 0xffff,       // 16 bits for types
     defaultex: 1 &lt;&lt; 16, // use default texture
@@ -69,29 +71,64 @@ const ShaderFlag = {
     flameLight: 5,
 }
 
-/** @type Visual */
+/**Object visual parameters, like texture assets, object type of line, frame, etc.
+ * @class Visual
+ * @memberof XComponent */
 const Visual = {
   properties: {
+	/**@member Visual#vtype
+	 * @property {AssetType} vtype - VisualType
+	 * @memberof XComponent */
     vtype: 0,
+	/**@member Visual#shader
+	 * @property {string} shader - x-visual shader id
+	 * @memberof XComponent */
     shader: ShaderFlag.testPoints,
-    asset: '', // texture path, mesh, sprite, shader, materail, ...
+	/**@member Visual#asset
+	 * @property {string} asset - texture path, mesh, sprite, shader, materail, ...
+	 * @memberof XComponent */
+    asset: undefined,
+	/**@member Visual#paras
+	 * @property {object} paras - see docs for detials
+	 * @memberof XComponent */
     paras: undefined,
-	material: undefined // customer material if default is not usable
+	/**@member Visual#material
+	 * @property {THREE.Material} material - customer material if default is not usable
+	 * @memberof XComponent */
+	material: undefined
   }
 };
 
 /**This component can only work with Visaul and make sure
  * Visual.vtype = AssetType.canvas
- * @type Canvas
- */
+ * @class Canvas
+ * @memberof XComponent */
 const Canvas = {
   properties: {
-    domId: '',			// dom id
-    tex: undefined,		// THREE.CanvasTexture
-    canvas: undefined,	// html canvas
-    ctx2d: undefined,	// html canvas 2d context
+	/**@member Canvas#domId
+	 * @property {string} domId - dom id
+	 * @memberof XComponent */
+    domId: '',
+	/**@member Canvas#tex
+	 * @property {string} tex - THREE.CanvasTexture
+	 * @memberof XComponent */
+    tex: undefined,
+	/**@member Canvas#canvas
+	 * @property {string} canvas - html canvas
+	 * @memberof XComponent */
+    canvas: undefined,
+	/**@member Canvas#ctx2d
+	 * @property {string} ctx2d - html canvas 2d context
+	 * @memberof XComponent */
+    ctx2d: undefined,
     dirty: false,
-    stamp: -1,			// last tick when updating
+	/**@member Canvas#stamp
+	 * @property {string} stamp - last tick when updating
+	 * @memberof XComponent */
+    stamp: -1,
+	/**@member Canvas#options
+	 * @property {string} options - see docs
+	 * @memberof XComponent */
     options: {},
   }
 }
@@ -107,13 +144,13 @@ export {Visual, Canvas, AssetType, ShaderFlag};
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports.html">exports</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#assets">assets</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#Axes">Axes</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#debug1">debug1</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 13 2020 17:40:28 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Apr 14 2020 14:40:10 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
