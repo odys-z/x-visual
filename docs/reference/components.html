@@ -258,8 +258,10 @@
 24
 25
 26
-27</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** texture | basic material | custom shader ...</span>
-<span class="cm"> * @type AssetType */</span>
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** texture | basic material | custom shader ...</span>
+<span class="cm"> * @type AssetType</span>
+<span class="cm"> * @memberof XComponent */</span>
 <span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>	   <span class="c1">// gltf asset file</span>
     <span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -303,7 +305,8 @@
 11
 12</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** javascript operators uses 32 bits signed integers</span>
 <span class="cm"> * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators</span>
-<span class="cm"> * @type ShaderFlag */</span>
+<span class="cm"> * @type ShaderFlag</span>
+<span class="cm"> * @memberof XComponent */</span>
 <span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">mask</span><span class="o">:</span> <span class="mh">0xffff</span><span class="p">,</span>       <span class="c1">// 16 bits for types</span>
     <span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span> <span class="c1">// use default texture</span>
@@ -312,7 +315,6 @@
     <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="nx">throbStar</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
     <span class="nx">flameLight</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
-<span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
