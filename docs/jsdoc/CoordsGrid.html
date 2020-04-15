@@ -29,1050 +29,6 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>CoordsGrid<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="CoordsGrid"><span class="type-signature"></span>new CoordsGrid<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Grid space helper for parallel coordinates chart, including XSankey.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="cent"><span class="type-signature"></span>cent<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Grid center index.</p>
-</div>
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>grid center, in grid index</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line26">line 26</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="grid"><span class="type-signature"></span>grid<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Grid bounds</p>
-</div>
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>grid</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array.&lt;int></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>grid bounds, [w, h, d]</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line20">line 20</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="scale"><span class="type-signature"></span>scale<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Scales convert 1 to world size.<br>
-x (coord), y (value), z (extrude), w (value)<br>
-where w = grid-yscale * range / domain</p>
-</div>
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>scale</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array.&lt;int></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>x, y, z scale</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line41">line 41</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="coordPos"><span class="type-signature"></span>coordPos<span class="signature">(idx, buf)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Get world position and height stick to parallel coords.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>idx</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>grid index, [ coord-idx, enum-val, h, y0 ]</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>buf</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>position buffer</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line52">line 52</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>{pos0, h} position z = 0 (buf) and bar height</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="extrudePos"><span class="type-signature"></span>extrudePos<span class="signature">(v, idx, buf)</span><span class="type-signature"> &rarr; {array}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Get world position and height at extruded pivoting.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>vector value</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>idx</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>grid index, [ x, y, z, y0, h(optional, will use the vector value) ]</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>buf</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>position buffer</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line71">line 71</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>position (buf)</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="space"><span class="type-signature"></span>space<span class="signature">(v)</span><span class="type-signature"> &rarr; {array|number}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Scale grid index value to world position.<br>
-E.g. if v = [0.2], grid scale is [5, 5, 1], return [1, 1, 0.2].</p>
-<p><strong>Note: [design MEMO]</strong><br>
-User must take care of how the grid is scaled. It's y scale is usually
-useless as the scale is calculated from value range.<br>
-See <a href="D3Pie.html#.pies"><code>D3Pie.pies</code></a> source for how it's handled by user - scale for pie's
-width and height, set in Obj3.box.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>v</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-|
-
-<span class="param-type"><a href="vec3_.html">vec3</a></span>
-|
-
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>value in grid</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line96">line 96</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>value in world</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">array</span>
-|
-
-<span class="param-type">number</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
         <h2><span class="attribs"><span class="type-signature"></span></span>CoordsGrid<span class="signature">(chart)</span><span class="type-signature"></span></h2>
         
     
@@ -2038,7 +994,1051 @@ width and height, set in Obj3.box.</p>
 <span class="param-type">array</span>
 |
 
-<span class="param-type"><a href="vec3_.html">vec3</a></span>
+<span class="param-type"><a href="vec3.html">vec3</a></span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>value in grid</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>value in world</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+|
+
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>CoordsGrid<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    
+    <h4 class="name" id="CoordsGrid"><span class="type-signature"></span>new CoordsGrid<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Grid space helper for parallel coordinates chart, including XSankey.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="cent"><span class="type-signature"></span>cent<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Grid center index.</p>
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>grid center, in grid index</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="grid"><span class="type-signature"></span>grid<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Grid bounds</p>
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>grid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array.&lt;int></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>grid bounds, [w, h, d]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="scale"><span class="type-signature"></span>scale<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Scales convert 1 to world size.<br>
+x (coord), y (value), z (extrude), w (value)<br>
+where w = grid-yscale * range / domain</p>
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>scale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array.&lt;int></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>x, y, z scale</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="coordPos"><span class="type-signature"></span>coordPos<span class="signature">(idx, buf)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Get world position and height stick to parallel coords.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>idx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>grid index, [ coord-idx, enum-val, h, y0 ]</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>buf</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>position buffer</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{pos0, h} position z = 0 (buf) and bar height</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="extrudePos"><span class="type-signature"></span>extrudePos<span class="signature">(v, idx, buf)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Get world position and height at extruded pivoting.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>vector value</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>idx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>grid index, [ x, y, z, y0, h(optional, will use the vector value) ]</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>buf</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>position buffer</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xmath_chartgrid.js.html">lib/xmath/chartgrid.js</a>, <a href="lib_xmath_chartgrid.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>position (buf)</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="space"><span class="type-signature"></span>space<span class="signature">(v)</span><span class="type-signature"> &rarr; {array|number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Scale grid index value to world position.<br>
+E.g. if v = [0.2], grid scale is [5, 5, 1], return [1, 1, 0.2].</p>
+<p><strong>Note: [design MEMO]</strong><br>
+User must take care of how the grid is scaled. It's y scale is usually
+useless as the scale is calculated from value range.<br>
+See <a href="D3Pie.html#.pies"><code>D3Pie.pies</code></a> source for how it's handled by user - scale for pie's
+width and height, set in Obj3.box.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+|
+
+<span class="param-type"><a href="vec3.html">vec3</a></span>
 |
 
 <span class="param-type">number</span>
@@ -2163,13 +2163,13 @@ width and height, set in Obj3.box.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Apr 15 2020 20:00:33 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Apr 15 2020 20:03:47 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

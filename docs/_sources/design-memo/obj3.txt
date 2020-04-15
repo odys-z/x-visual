@@ -147,4 +147,4 @@ Affine Transformation References:
 Obj3 Geometry Parameters
 ------------------------
 
-See Thrender.threeGeometryCase()
+See `Thrender.threeGeometryCase() <../jsdoc/Thrender.html#api-threeGeometryCase>`_.
