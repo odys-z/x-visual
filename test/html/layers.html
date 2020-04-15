@@ -16,16 +16,19 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
+			this.visible = [true, true, true, true];
+
 			this.initCube(ecs, options.xscene);
 		}
 
 		update(tick, entities) {
-		 	if (xworld.xview.flag > 0) {
+		 	if (xworld.xview.flag > 0
+				&& xworld.xview.cmds[0].code === 'key') {
 				var cmd = xworld.xview.cmds[0].cmd;
-				if (e.Obj3) {
-					var c = eval(cmd);
-					if (1 <= c && c <= 4)
-						xv.xworld.channel(c);
+				// var c = eval(cmd);
+				if (1 <= cmd && cmd <= 4) {
+					xworld.channel(cmd, this.visible[cmd - 1]);
+					this.visible[cmd - 1] = !this.visible[cmd - 1];
 				}
 			}
 		}
