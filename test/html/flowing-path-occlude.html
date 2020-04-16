@@ -64,6 +64,17 @@
                         asset: null },
                 Occluder: {FlowingPath: true}
             });
+
+            // for debug
+            ecs.createEntity({
+                id: 'frame',
+                Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                        box: [360, 240, 0],
+                        mesh: undefined,
+                        uniforms: {opacity: 0.9}},
+                Visual:{vtype: xv.AssetType.wireframe,
+                        asset: null }
+            });
         }
     }
 
