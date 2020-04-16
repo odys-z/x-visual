@@ -51,24 +51,32 @@ describe('case: [affine] orbit combine', function() {
         xworld.startUpdate();
             cube.CmpTweens.startCmds.push(0);
             xworld.update(); // rotate = 0
-            assert.isOk(cube.Obj3.combined.m0, "m0 ok");
-            assert.isTrue(cube.Obj3.combined.m0.eq(new mat4()), "m0, 0");
-            assert.isTrue(cube.Obj3.combined.mi.eq(new mat4()), "mi, 0");
+            // assert.isOk(cube.Obj3.combined.m0, "m0 ok");
+            assert.isOk(cube.Obj3.m0, "m0 ok");
+            assert.isTrue(cube.Obj3.m0.eq(new mat4()), "m0, 0");
+            assert.isTrue(cube.Obj3.mi.eq(new mat4()), "mi, 0");
 
-            await sleep(500);
-            xworld.update(); // rotate = PI
-            assert.closeTo(cube.CmpTweens.tweens[0][0].affines[1].rotate.rad, Math.PI, 0.1, "PI ++");
-            assert.isTrue(cube.Obj3.combined.m0.eq(new mat4()), "m0, 500");
-            assert.isFalse(cube.Obj3.combined.mi.eq(new mat4()), "mi, 500");
-            assert.isTrue(cube.Obj3.combined.isPlaying, "500 tweening combination");
-            var mat = new mat4(cube.Obj3.combined.mi);
+            // await sleep(500);
+            // xworld.update(); // rotate = PI
+            for (var l = 0; l < 5; l++) {
+                xworld.update();
+                await sleep(10);
+            }
+            assert.closeTo(cube.CmpTweens.tweens[0][0].affines[1].rotate.rad, Math.PI * 0.1, 0.1, "PI ++");
+            assert.isTrue(cube.Obj3.m0.eq(new mat4()), "m0, 50");
+            assert.isFalse(cube.Obj3.mi.eq(new mat4()), "mi, 50");
+            // assert.isTrue(cube.Obj3.CmpTweens[0][0].isPlaying, "50 tweening combination");
+            var mat = new mat4(cube.Obj3.mi);
 
-            debugger
-            xworld.update();// reset combined.m0 === undefined
-            assert.isFalse(cube.Obj3.combined.isPlaying, "500(2) tweening combination");
-            assert.equal(cube.Obj3.combined.m0, undefined, "m0, 500(2)");
-            assert.isTrue(cube.Obj3.combined.mi.eq(new mat4()), "mi aready cleared - not useful trait, 500(2)");
-            assert.isFalse(new mat4(cube.Obj3.mesh.matrix).eq(new mat4()), "js matrix must been kept");
+            // debugger
+            // xworld.update();// reset combined.m0 === undefined
+            // assert.equal(cube.Obj3.m0, undefined, "m0, 500(2)");
+            // assert.isTrue(cube.Obj3.mi.eq(new mat4()), "mi aready cleared - not useful trait, 500(2)");
+            // assert.isFalse(new mat4(cube.Obj3.mesh.matrix).eq(new mat4()), "js matrix must been kept");
+            for (var l = 0; l < 75; l++) {
+                xworld.update();
+                await sleep(10);
+            }
 
             var mt4 = new mat4().translate(-120, 0, 0)
                         .rotate(xmath.radian(180), 0, 1, 0)
@@ -85,9 +93,13 @@ describe('case: [affine] orbit combine', function() {
             xworld.update();
             assert.isFalse(new mat4(cube.Obj3.mesh.matrix).eq(new mat4()), "2nd round: js matrix must been kept");
 
-            await sleep(500);
-            xworld.update();// reset combined.m0 === undefined, mi = I
-            assert.isTrue(cube.Obj3.combined.mi.eq(new mat4()), "2nd round: mi = I, 500(3)");
+            // await sleep(500);
+            // xworld.update();// reset combined.m0 === undefined, mi = I
+            for (var l = 0; l < 50; l++) {
+                xworld.update();
+                await sleep(10);
+            }
+            assert.isTrue(cube.Obj3.mi.eq(new mat4()), "2nd round: mi = I, 500(3)");
 
             mat = cube.Obj3.mesh.matrix;
             mt4 = new mat4();
