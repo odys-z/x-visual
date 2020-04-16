@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>XTest-Flowing Path</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <img id='splash'></img>
@@ -25,7 +25,7 @@
                 Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
                         box: [7],
                         mesh: undefined },
-                Visual:{vtype: xv.AssetType.geomCurve,
+                Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
                 FlowingPath: { paras: [
@@ -37,7 +37,7 @@
                 Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
                         box: [6],
                         mesh: undefined },
-                Visual:{vtype: xv.AssetType.geomCurve,
+                Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 50, 0, 200, 50, 0],  // static p0, p1
                                 segments: 5} },
                 FlowingPath: { paras: [
@@ -49,7 +49,7 @@
                 Obj3: { geom: xv.XComponent.Obj3Type.RandomSects,
                         box: [5],
                         mesh: undefined },
-                Visual:{vtype: xv.AssetType.geomCurve,
+                Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 80, 0, 200, -80, 0],  // static p0, p1
                                 segments: 5} },
             });
@@ -63,6 +63,17 @@
                 Visual:{vtype: xv.AssetType.mesh,
                         asset: null },
                 Occluder: {FlowingPath: true}
+            });
+
+            // for debug
+            ecs.createEntity({
+                id: 'frame',
+                Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                        box: [360, 240, 0],
+                        mesh: undefined,
+                        uniforms: {opacity: 0.9}},
+                Visual:{vtype: xv.AssetType.wireframe,
+                        asset: null }
             });
         }
     }
