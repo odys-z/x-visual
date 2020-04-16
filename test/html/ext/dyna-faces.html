@@ -51,6 +51,16 @@
 				Visual:{vtype: xv.AssetType.UserMesh}
 			});
 
+			var def = { opacity: 1,
+						transparent: true,
+						side: THREE.DoubleSide,
+						depthWrite: true,
+						depthTest: true };
+			var material = new THREE.MeshPhongMaterial(def);
+
+			// a helper to create mesh, or set any THREE.Mesh to Obj3.mesh
+			xv.Thrender.createObj3mesh(flame.Obj3, xv.XComponent.Obj3Type.PLANE, material);
+
 			return flame;
 		}
 	}
