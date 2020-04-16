@@ -1,8 +1,15 @@
 Assets Loader
 =============
 
-Default Texture Asset
----------------------
+Manage all texture assets.
 
 If Visual components.assetId is null (not undefined), Thrender will initialize it
-with a default texture.
+with a default texture, then keepingt the static copy.
+
+[`Jsdoc API <../jsdoc/AssetKeepr.html>`_]
+
+- AssetKeepr#loadGltf
+
+Load gltf file, path = Visual.asset.
+
+Gltf scene loaded can be applied with Obj3.transform.

@@ -105,7 +105,7 @@ describe('case: [tween] tweener basics', function() {
 
         var tetra = ecs.createEntity({
             id: 'cube0',
-            Obj3: { geom: Obj3Type.TETRAHEDRON,
+            Obj3: { geom: Obj3Type.Tetrahedron,
                     box: [200, 2, 1],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,

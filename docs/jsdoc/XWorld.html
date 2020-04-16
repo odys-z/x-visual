@@ -49,6 +49,10 @@
 
 
 
+<div class="description">
+    <p>x-visual world</p>
+</div>
+
 
 
 
@@ -90,7 +94,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line73">line 73</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -146,7 +150,7 @@
     
 
     
-    <h4 class="name" id=".addEntities"><span class="type-signature">(static) </span>addEntities<span class="signature">(defs)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".update"><span class="type-signature">(static) </span>update<span class="signature">(time)</span><span class="type-signature"></span></h4>
     
 
     
@@ -154,7 +158,146 @@
 
 
 <div class="description">
-    <p>Add entities defined with <em>defs</em>.</p>
+    <p>this.ecs.runSystemGroup('input');<br>
+this.ecs.runSystemGroup('render');<br>
+...</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>time</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line263">line 263</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addEntities"><span class="type-signature"></span>addEntities<span class="signature">(defs)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Add entities.</p>
 </div>
 
 
@@ -209,7 +352,8 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>e.g.<br>
+[{ Obj3: {...}, ... }]</p></td>
         </tr>
 
     
@@ -250,7 +394,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line262">line 262</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line305">line 305</a>
     </li></ul></dd>
     
 
@@ -275,6 +419,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>entities been added</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -286,7 +452,7 @@
     
 
     
-    <h4 class="name" id=".addSystem"><span class="type-signature">(static) </span>addSystem<span class="signature">(group, sys)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addSystem"><span class="type-signature"></span>addSystem<span class="signature">(group, sys)</span><span class="type-signature"></span></h4>
     
 
     
@@ -294,7 +460,7 @@
 
 
 <div class="description">
-    <p>Add a ECS system.</p>
+    <p>Add systems.</p>
 </div>
 
 
@@ -369,7 +535,7 @@
 
             
 
-            <td class="description last"><p>ecs system</p></td>
+            <td class="description last"><p>ECS system</p></td>
         </tr>
 
     
@@ -410,7 +576,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line246">line 246</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line290">line 290</a>
     </li></ul></dd>
     
 
@@ -446,7 +612,7 @@
     
 
     
-    <h4 class="name" id=".registerComponents"><span class="type-signature">(static) </span>registerComponents<span class="signature">(comps)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="registerComponents"><span class="type-signature"></span>registerComponents<span class="signature">(comps)</span><span class="type-signature"></span></h4>
     
 
     
@@ -550,7 +716,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line138">line 138</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line178">line 178</a>
     </li></ul></dd>
     
 
@@ -586,91 +752,7 @@
     
 
     
-    <h4 class="name" id=".startUpdate"><span class="type-signature">(static) </span>startUpdate<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line152">line 152</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".update"><span class="type-signature">(static) </span>update<span class="signature">(time)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setChannel"><span class="type-signature"></span>setChannel<span class="signature">(ch, pass)</span><span class="type-signature"> &rarr; {<a href="XWorld.html">XWorld</a>}</span></h4>
     
 
     
@@ -678,8 +760,7 @@
 
 
 <div class="description">
-    <p>this.ecs.runSystemGroup('input');
-this.ecs.runSystemGroup('render');</p>
+    <p>Set channel state.</p>
 </div>
 
 
@@ -715,13 +796,36 @@ this.ecs.runSystemGroup('render');</p>
 
         <tr>
             
-                <td class="name"><code>time</code></td>
+                <td class="name"><code>ch</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>channel number 0 ~ 31, where 0 is all visible</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
 
 
             
@@ -772,7 +876,113 @@ this.ecs.runSystemGroup('render');</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line220">line 220</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line322">line 322</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>this</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="XWorld.html">XWorld</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="startUpdate"><span class="type-signature"></span>startUpdate<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -822,7 +1032,7 @@ this.ecs.runSystemGroup('render');</p>
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>XWorld<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>XWorld<span class="signature">(canvas, wind, options)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -835,7 +1045,7 @@ this.ecs.runSystemGroup('render');</p>
     
 
     
-    <h4 class="name" id="XWorld"><span class="type-signature"></span>new XWorld<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="XWorld"><span class="type-signature"></span>new XWorld<span class="signature">(canvas, wind, options)</span><span class="type-signature"></span></h4>
     
 
     
@@ -843,7 +1053,7 @@ this.ecs.runSystemGroup('render');</p>
 
 
 <div class="description">
-    <p>x-visual world</p>
+    <p>Create x-world.</p>
 </div>
 
 
@@ -852,6 +1062,103 @@ this.ecs.runSystemGroup('render');</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>canvas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Canvas</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>html dom canvas</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>wind</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Window</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><br>
+options.frustum: { fov, ratio, near, far },<br>
+options.camera: { position, lookAt }, where value in [x, y, z]<br></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -887,7 +1194,7 @@ this.ecs.runSystemGroup('render');</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line62">line 62</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -943,7 +1250,7 @@ this.ecs.runSystemGroup('render');</p>
     
 
     
-    <h4 class="name" id=".addEntities"><span class="type-signature">(static) </span>addEntities<span class="signature">(defs)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".update"><span class="type-signature">(static) </span>update<span class="signature">(time)</span><span class="type-signature"></span></h4>
     
 
     
@@ -951,7 +1258,146 @@ this.ecs.runSystemGroup('render');</p>
 
 
 <div class="description">
-    <p>Add entities defined with <em>defs</em>.</p>
+    <p>this.ecs.runSystemGroup('input');<br>
+this.ecs.runSystemGroup('render');<br>
+...</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>time</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line263">line 263</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addEntities"><span class="type-signature"></span>addEntities<span class="signature">(defs)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Add entities.</p>
 </div>
 
 
@@ -1006,7 +1452,8 @@ this.ecs.runSystemGroup('render');</p>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>e.g.<br>
+[{ Obj3: {...}, ... }]</p></td>
         </tr>
 
     
@@ -1047,7 +1494,7 @@ this.ecs.runSystemGroup('render');</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line262">line 262</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line305">line 305</a>
     </li></ul></dd>
     
 
@@ -1072,6 +1519,28 @@ this.ecs.runSystemGroup('render');</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>entities been added</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1083,7 +1552,7 @@ this.ecs.runSystemGroup('render');</p>
     
 
     
-    <h4 class="name" id=".addSystem"><span class="type-signature">(static) </span>addSystem<span class="signature">(group, sys)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addSystem"><span class="type-signature"></span>addSystem<span class="signature">(group, sys)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1091,7 +1560,7 @@ this.ecs.runSystemGroup('render');</p>
 
 
 <div class="description">
-    <p>Add a ECS system.</p>
+    <p>Add systems.</p>
 </div>
 
 
@@ -1166,7 +1635,7 @@ this.ecs.runSystemGroup('render');</p>
 
             
 
-            <td class="description last"><p>ecs system</p></td>
+            <td class="description last"><p>ECS system</p></td>
         </tr>
 
     
@@ -1207,7 +1676,7 @@ this.ecs.runSystemGroup('render');</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line246">line 246</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line290">line 290</a>
     </li></ul></dd>
     
 
@@ -1243,7 +1712,7 @@ this.ecs.runSystemGroup('render');</p>
     
 
     
-    <h4 class="name" id=".registerComponents"><span class="type-signature">(static) </span>registerComponents<span class="signature">(comps)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="registerComponents"><span class="type-signature"></span>registerComponents<span class="signature">(comps)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1347,7 +1816,7 @@ this.ecs.runSystemGroup('render');</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line138">line 138</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line178">line 178</a>
     </li></ul></dd>
     
 
@@ -1383,91 +1852,7 @@ this.ecs.runSystemGroup('render');</p>
     
 
     
-    <h4 class="name" id=".startUpdate"><span class="type-signature">(static) </span>startUpdate<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line152">line 152</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".update"><span class="type-signature">(static) </span>update<span class="signature">(time)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setChannel"><span class="type-signature"></span>setChannel<span class="signature">(ch, pass)</span><span class="type-signature"> &rarr; {<a href="XWorld.html">XWorld</a>}</span></h4>
     
 
     
@@ -1475,8 +1860,7 @@ this.ecs.runSystemGroup('render');</p>
 
 
 <div class="description">
-    <p>this.ecs.runSystemGroup('input');
-this.ecs.runSystemGroup('render');</p>
+    <p>Set channel state.</p>
 </div>
 
 
@@ -1512,13 +1896,36 @@ this.ecs.runSystemGroup('render');</p>
 
         <tr>
             
-                <td class="name"><code>time</code></td>
+                <td class="name"><code>ch</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>channel number 0 ~ 31, where 0 is all visible</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
 
 
             
@@ -1569,7 +1976,113 @@ this.ecs.runSystemGroup('render');</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line220">line 220</a>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line322">line 322</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>this</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="XWorld.html">XWorld</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="startUpdate"><span class="type-signature"></span>startUpdate<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_xapp_xworld.js.html">lib/xapp/xworld.js</a>, <a href="lib_xapp_xworld.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -1615,13 +2128,13 @@ this.ecs.runSystemGroup('render');</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Modules</h3><ul><li><a href="xv.ecs.module_sys.html">sys</a></li><li><a href="xv.ecs.sys.module_tween.html">tween</a></li></ul><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axis.html">Axis</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XError.html">XError</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="xv.ecs.module_sys-Thrender.html">Thrender</a></li><li><a href="xv.ecs.sys.module_tween-AffineCombiner.html">AffineCombiner</a></li><li><a href="xv.ecs.sys.module_tween-MorphingAnim.html">MorphingAnim</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#AssetType">AssetType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#canvs">canvs</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#ShaderFlag">ShaderFlag</a></li><li><a href="global.html#startTriggered">startTriggered</a></li><li><a href="global.html#Visual">Visual</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#XEasing">XEasing</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 02 2020 22:40:15 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Apr 15 2020 20:03:47 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
