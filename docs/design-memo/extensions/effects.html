@@ -103,6 +103,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="htmltex.html">HTML Texture</a></li>
 <li class="toctree-l3"><a class="reference internal" href="svg.html">SVG Texture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chart.html">Charts</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../todo.html">Wish List</a></li>
@@ -163,54 +164,43 @@ and Passes. See <a class="reference external" href="https://threejsfundamentals.
 <div class="section" id="x-visual-passes-composer">
 <h2>x-visual Passes &amp; Composer<a class="headerlink" href="#x-visual-passes-composer" title="Permalink to this headline">¶</a></h2>
 <p>Currently x-visual is trying to make these effects can be plugged in orthogonally.</p>
-<div class="section" id="design-pattern-v0-1">
-<h3>Design Pattern v0.1<a class="headerlink" href="#design-pattern-v0-1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="design-pattern-v0-2">
+<h3>Design Pattern v0.2<a class="headerlink" href="#design-pattern-v0-2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Abstratct Base Class: Orthocclude</li>
 </ul>
-<dl class="docutils">
-<dt>::</dt>
-<dd><ol class="first last arabic simple">
-<li>pack up Passes as an effect composer</li>
-<li>ask subclass.getEffectPass() for {effects, layers}, where effects is an
-array of Pass elements</li>
-<li>render with composer in update() - subclass shouldn&#8217;t render by themselves</li>
-</ol>
-</dd>
-</dl>
+<div class="highlight-python"><div class="highlight"><pre>1. pack up Passes as an effect composer
+2. ask subclass.getEffectPass() for {effects, layers}, where effects is an
+   array of Pass elements. Layers in Obj3 are already ready for rendering
+   effects or used for occluding. E.g. in PathEffect#getEffectPass():
+
+   if (e.Occluder &amp;&amp; e.Occluder.FlowingPath)
+       e.Obj3.occluding |= 1 &lt;&lt; LayerChannel.FLOWING_PATH ;
+   e.Obj3.layers |= 1 &lt;&lt; LayerChannel.FLOWING_PATH ;
+
+3. render with composer in update() - subclass shouldn&#39;t rendering by themselves
+   3.1 use obj3&#39;s layers replacing mesh&#39;s layers
+   3.2 render with composer (camera.layers = this.layers)
+</pre></div>
+</div>
 <ul class="simple">
 <li>Orthogonal Effects, e.g. FlowingPath</li>
 </ul>
 <p>For example, in FlowingPath</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd><ol class="first last arabic">
-<li><p class="first">compact several effect passes like render pass, blooming pass, etc.,</p>
-</li>
-<li><dl class="first docutils">
-<dt>setup a layer mask,</dt>
-<dd><ol class="first last arabic simple" start="3">
-<li>then enable object mask saved to entities Obj3.layers.</li>
-</ol>
-</dd>
-</dl>
-</li>
-</ol>
-</dd>
-</dl>
+<div class="highlight-python"><div class="highlight"><pre>1. compact several effect passes like render pass, blooming pass, etc.,
+2. setup a layer mask,
+3. then enable object mask saved to entities Obj3.layers.
+</pre></div>
+</div>
 <ul class="simple">
 <li>Helping steps in XWorld &amp; Thrender</li>
 </ul>
-<dl class="docutils">
-<dt>::</dt>
-<dd><ol class="first last arabic simple">
-<li>add functions to THREE.Layers (used in Object3D, e.g. Obj3.mesh)</li>
-<li>add call backs to ECS.ECS.createEntity(), makes some added components trigger
-some options, and creating some subsystem like PathEffect and FinalComposer</li>
-<li>thrender will use final composer rendering scene in update() if it&#8217;s triggered</li>
-</ol>
-</dd>
-</dl>
+<div class="highlight-python"><div class="highlight"><pre>1. add functions to THREE.Layers (used in Object3D, e.g. Obj3.mesh)
+2. add call backs to ECS.ECS.createEntity(), makes some added components trigger
+   some options, and creating some subsystem like PathEffect and FinalComposer
+3. thrender will use final composer rendering scene in update() if it&#39;s triggered
+</pre></div>
+</div>
 <p>[<a class="reference external" href="https://threejs.org/docs/#examples/en/postprocessing/EffectComposer">EffectComposer</a>]
 [<a class="reference external" href="https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js">Pass.js (no docs)</a>]</p>
 <p>TODO docs ...</p>

@@ -24,7 +24,7 @@
    plugins: [
    ],
 
-   externals: { three: 'THREE'},
+   externals: { three: 'THREE', d3: 'd3'},
 
    module: {
      rules: [

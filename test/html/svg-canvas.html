@@ -21,8 +21,6 @@
 	 */
 	"use strict";
 
-	/**Senario: suppose you have some shape for your business. */
-
 	function drawPie() {
 		var ctx = document.getElementById('stub').getContext('2d');
 		ctx.fillStyle = xv.xutils.randomColor();
@@ -54,10 +52,10 @@
 	// TODO doc: domId, obj3, width / height
 	const entDefines = xv.Htmltex.createEntityDefs({objcanvas: [
 			{domId: 'h5-content',
-			 texsize: {width: 512, height: 512}}
+			 texsize: {width: 256, height: 256}}
 		 ]});
 	xworld.addEntities(entDefines);
-	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines});
+	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines });
 	xworld.addSystem('test', canvsys);
 
 	xworld.startUpdate();

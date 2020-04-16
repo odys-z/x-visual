@@ -267,26 +267,26 @@ previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been 
 17
 18
 19
-20</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="cm">/**Update affine combination for the object.</span>
-<span class="cm">     * @param {Obj3} combined target object with mi</span>
-<span class="cm">     * @param {array&lt;Affine&gt;} affines e.g. [{mi, translate: [x, y, z]}]</span>
-<span class="cm">     * @member AffineCombiner#combineUpdate</span>
-<span class="cm">     */</span>
-    <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">combined</span><span class="p">,</span> <span class="nx">tween</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">affines</span> <span class="o">=</span> <span class="nx">tween</span><span class="p">.</span><span class="nx">affines</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">i</span><span class="p">();</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">ax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ax</span> <span class="o">&lt;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">ax</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">appAffine</span><span class="p">(</span><span class="nx">affines</span><span class="p">[</span><span class="nx">ax</span><span class="p">]);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="c1">// apply mf of previous tween (in same sequence)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">_mf</span> <span class="k">instanceof</span> <span class="nx">mat4</span><span class="p">)</span>
-            <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">_mf</span><span class="p">);</span>
+20</pre></div></td><td class="code"><div class="highlight"><pre>     * @param {Obj3} combined target object with mi
+     * @param {array&lt;AffineTrans&gt;} affines e.g. [{mi, translate: [x, y, z]}]
+     * @member AffineCombiner#combineUpdate
+     */
+    combineUpdate(combined, tween) {
+        var affines = tween.affines;
+        if (tween.isPlaying &amp;&amp; affines &amp;&amp; affines.length &gt; 0) {
+            tween.mf.i();
+            for (var ax = 0; ax &lt; affines.length; ax++) {
+                tween.mf.appAffine(affines[ax]);
+            }
+        }
+        // apply mf of previous tween (in same sequence)
+        if (tween._mf instanceof mat4)
+            tween.mf.mulpost(tween._mf);
 
-        <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">combined</span><span class="p">.</span><span class="nx">m0</span><span class="p">);</span>
-        <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mul</span><span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">);</span>
-    <span class="p">}</span>
+        combined.mi.mulpost(combined.m0);
+        combined.mi.mul(tween.mf);
+    }
+
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -312,13 +312,22 @@ are saved in each tween for being combined later, orthogonally.</p>
 </div>
 <div class="section" id="debug-notes">
 <h2>Debug Notes:<a class="headerlink" href="#debug-notes" title="Permalink to this headline">¶</a></h2>
-<p>1. There do has an <span class="math">\(m_{0}\)</span>, set at all tweens sequences started, triggered by
-<em>playRising</em>, and at each cross update, post applied to <span class="math">\(m_{i}\)</span>.</p>
+<p>1. There do has an <span class="math">\(m_{0}\)</span>, set at all tweens sequences started, triggered
+by <em>playRising</em>, and at each cross update, post applied to <span class="math">\(m_{i}\)</span>.</p>
 <ol class="arabic simple" start="2">
 <li>In x-visual v0.2, <span class="math">\(m_{f}\)</span> is been taken snapshot by onStart handler.</li>
 </ol>
 <p><strong>Issue</strong>: This is not following the rule learnt through the hard lesson, but looks
 like an easy way to update <span class="math">\(m_{f'_{1}}\)</span> before Tween.js is upgraded.</p>
+<ol class="arabic simple" start="3">
+<li>Test case shows this way have significantly larger error in combined results.</li>
+</ol>
+<p>Guess: this may comes from 2 sources:</p>
+<p>i. The last affine combination is not updated as the XTweener changed sequence
+index, makes last affine update skipped the iteration.</p>
+<ol class="lowerroman simple" start="2">
+<li>The multiple mat4 multiplication incurred precision error.</li>
+</ol>
 </div>
 </div>
 

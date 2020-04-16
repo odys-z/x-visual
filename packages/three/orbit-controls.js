@@ -2,10 +2,8 @@
  * Copied from three/three-orbitcontrols/OrbitControls.
  * Copyrights and authour ect. are removed for new comments. For details, see
  * [npm package page](https://www.npmjs.com/package/three-orbitcontrols)
- * @namespace xv.ecs.sys.contrl
  */
 import * as THREE from 'three';
-// import * as X from '../../x.js';
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -22,7 +20,7 @@ import * as THREE from 'three';
  *    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
  *    Pan - right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two-finger move
  * XMapControls and XOrbitControls will be replaced with tween animation control later
- * @class
+ * @class XOrbitControls
  */
 export default function XOrbitControls ( object, domElement ) {
 	if ( domElement === undefined )
@@ -37,7 +35,10 @@ export default function XOrbitControls ( object, domElement ) {
 	this.enabled = true;
 
 	// "target" sets the location of focus, where the object orbits around
-	this.target = new THREE.Vector3();
+	if (object.xtarget)
+		this.target = object.xtarget.js();
+	else
+		this.target = new THREE.Vector3();
 
 	// How far you can dolly in and out ( PerspectiveCamera only )
 	this.minDistance = 0;
@@ -1028,11 +1029,12 @@ Object.assign( XOrbitControls.prototype, THREE.EventDispatcher.prototype );
 
 /**Map Control.
  * XMapControls and XOrbitControls will be replaced with tween animation control later
- * @class
+ * @class XMapControls
  */
 export class XMapControls extends XOrbitControls {
-	/*
+	/**
 	 * ECS.sys don't handle window events directly, but via ax xview Entity.
+	 * @constructor
 	 */
 	constructor ( object, domElement ) {
 		// THREE.OrbitControls.call( this, object, domElement );

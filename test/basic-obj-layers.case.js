@@ -1,5 +1,3 @@
-/** @namespace xv.test.ext */
-
 import chai from 'chai'
 import { expect, assert } from 'chai'
 import chaiStats from 'chai-stats'

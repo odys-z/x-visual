@@ -1,5 +1,3 @@
-/** @namespace xv.example.hello */
-
 import * as xv from 'x-visual'
 import * as THREE from 'three'
 
@@ -33,17 +31,15 @@ export default class Cube extends xv.XSys {
         }
 
         for (const e of entities) {
-            if (e.CmdFlag) {
-                 if (e.CmdFlag.flag > 0) {
-                    // handling command like start an animation here
-                    this.cmd = e.UserCmd.cmds[0].cmd;
-                }
-                else this.cmd = undefined;
+             if (e.flag > 0) {
+                // handling command like start an animation here
+                this.cmd = x.xview.cmds[0].cmd;
             }
+            else this.cmd = undefined;
         }
     }
 }
 
 Cube.query = {
-    iffall: ['Visual', 'CmdFlag']
+    iffall: ['Visual']
 };

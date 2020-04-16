@@ -1,6 +1,9 @@
 const BaseComponent = require('./component');
 const UUID = require('uuid/v1');
 
+/**ECS Entity
+ * @class Entity
+ */
 class Entity {
 
   constructor(ecs, definition = {}) {

@@ -67,9 +67,11 @@ Affines is an array of affine object, where affine can be:
     scale: number
 
 Reflect and Shear are not supported as THREE.Matrix4 seams can only been decomposed into
-rotation, translation and scale.
+rotation, translation and scale. For details about this, see
+`Three.js Matrix4 Source Code <https://github.com/mrdoob/three.js/blob/master/src/math/Matrix4.js>`__
+and Object3D.
 
-See `Three.js Matrix4 Source Code <https://github.com/mrdoob/three.js/blob/master/src/math/Matrix4.js>`__.
+Here is the code snippet of Matrix4.decompose:
 
 .. code-block:: javascript
 
@@ -126,6 +128,11 @@ each updating & applying matrix, making rotation steps getting increased.
 
 User shouldn't modify *affines* and *combined* fields.
 
+In addition to basic affine transformation, x-visual provide some combined transformation
+from these basic transformations, like orbiting and interpolated translating.
+
+See :ref:`Affine Combiner Design <affine-design-memo>` for more details.
+
 Affine Transformation References:
 ---------------------------------
 
@@ -140,4 +147,4 @@ Affine Transformation References:
 Obj3 Geometry Parameters
 ------------------------
 
-See Thrender.threeGeometryCase()
+See `Thrender.threeGeometryCase() <../jsdoc/Thrender.html#api-threeGeometryCase>`_.

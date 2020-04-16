@@ -1,6 +1,6 @@
 {
   "name": "x-visual",
-  "version": "0.2.0",
+  "version": "0.2.6",
   "description": "x-visual is a hi dimensional data visualization tool kit.",
   "main": "./lib/xv.js",
   "directories": {
@@ -43,6 +43,7 @@
     "chai": "^4.2.0",
     "chai-arrays": "^2.0.0",
     "chai-stats": "^0.3.0",
+    "d3": "^5.15.0",
     "jquery": "^3.4.1",
     "jsdoc": "^3.6.3",
     "mocha": "^6.2.2",
