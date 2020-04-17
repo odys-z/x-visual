@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Danymic Mesh</title>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	class Flame extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCube(ecs);
+		}
+
+		update(tick, entities) {
+		 	if (xworld.xview.flag > 0) {
+				this.cmd = xworld.xview.cmds[0].cmd;
+			}
+			else this.cmd = undefined;
+
+	    	for (const e of entities) {
+			}
+		}
+
+		initCube(ecs) {
+			var flame = ecs.createEntity({
+				id: 'cube0',
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [100, 30, 80],
+						transform: [{translate: [0, 80, 0]}],
+						mesh: undefined },  // THREE.Mesh
+				GpuPickable: {},
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: '../../assets/tex/ruler256.png'
+					}
+			});
+
+			// flame = ecs.createEntity({
+			// 	id: 'cube1',
+			// 	Obj3: { geom: xv.XComponent.Obj3Type.NA,
+			// 			box: [100, 100, 0],
+			// 			transform: [{translate: [0, 0, -120]}],
+			// 			mesh: undefined },  // THREE.Mesh
+			// 	GpuPickable: {},
+			// 	Visual:{vtype: xv.AssetType.UserMesh,
+			// 			shader: xv.XComponent.ShaderFlag.flameLight }
+			// });
+			//
+			// var def = { opacity: 1,
+			// 			transparent: true,
+			// 			side: THREE.DoubleSide,
+			// 			depthWrite: true,
+			// 			depthTest: true };
+			// var material = new THREE.MeshPhongMaterial(def);
+			//
+			// // a helper to create mesh, or set any THREE.Mesh to Obj3.mesh
+			// xv.Thrender.createObj3mesh(flame.Obj3, xv.XComponent.Obj3Type.PLANE, material);
+
+			return flame;
+		}
+	}
+
+	Flame.query = { iffall: ['Obj3'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new Flame(ecs, {xscene}));
+	xworld.startUpdate();
+  </script>
+</body>
+</html>

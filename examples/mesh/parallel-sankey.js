@@ -18,7 +18,7 @@ export default class Parallel extends xv.XSys {
                 id: 'parallel-sankey',
                 Obj3: { geom: xv.XComponent.Obj3Type.PATH,
                         box: [] },    // geometry parameters, for BOX, it's bounding box
-                Visual:{vtype: xv.AssetType.geomCurve,
+                Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
             });

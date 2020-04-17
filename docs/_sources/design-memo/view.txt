@@ -57,7 +57,7 @@ rendered closer to camera.
 
 **Note:**
 
-The GpuPickable component has a pickid property, it's immediately been updated by
+The GpuPickable component has a *pickid* property, it's immediately been updated by
 x-visual.GpuPicker. Users can not depend on this.
 
 [1] `Three.js Picking (with GPU) <https://threejsfundamentals.org/threejs/lessons/threejs-picking.html>`__

@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="MVC View" href="view.html"/>
@@ -90,7 +87,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ECS Framework</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">ECS Framework</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#query-conditions">query conditions</a></li>
 </ul>
 </li>
@@ -159,10 +156,10 @@
 <p>X-visual is inspired by fritz/ECS.</p>
 <p>In x-visual v1.0, all object are handled in static way - no new object can be created
 during scene updating process. Each subsystem is implement assuming that entity
-won’t been changed during entire rendering life cycle.</p>
+won&#8217;t been changed during entire rendering life cycle.</p>
 <p>Reason: there are many other more important concepts to be verified, this decision
-can largely simplify x-visual, and it’s highly probably impose limited modification
-when it’s needed in the future.</p>
+can largely simplify x-visual, and it&#8217;s highly probably impose limited modification
+when it&#8217;s needed in the future.</p>
 <div class="section" id="query-conditions">
 <h2>query conditions<a class="headerlink" href="#query-conditions" title="Permalink to this headline">¶</a></h2>
 <p>The query condition of entity set that a system updating upon.</p>
@@ -170,7 +167,7 @@ when it’s needed in the future.</p>
 <p class="first admonition-title">Attention</p>
 <p>All these type of conditions are recommended to use only one of it
 for each query. Any combination of these are not tested and debugged - though
-it’s designed in this way.</p>
+it&#8217;s designed in this way.</p>
 <p class="last"><em>Is it reasonable to suppose that defining components carefully will eliminate
 the needing of logic combination - no such requirements?</em></p>
 </div>
@@ -179,10 +176,10 @@ the needing of logic combination - no such requirements?</em></p>
 </ul>
 <p>The <em>has</em> query condition is what fritzy provided in the original <a class="reference external" href="https://github.com/fritzy/ecs-js">ECS framework</a>.</p>
 <p>In x-visual, this means query entities with all the provided components:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">provide</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span> <span class="n">are</span> <span class="n">components</span><span class="p">,</span>
-<span class="nb">set</span> <span class="n">sys</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="p">{</span><span class="n">has</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">,</span> <span class="s1">&#39;c2&#39;</span><span class="p">]},</span>
-<span class="n">e</span> <span class="o">=</span> <span class="p">{</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">},</span> <span class="n">f</span> <span class="o">=</span> <span class="p">{</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">},</span>
-<span class="n">ecs</span><span class="o">.</span><span class="n">queryEntities</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre>provide c1, c2, c3 are components,
+set sys.query = {has: [&#39;c1&#39;, &#39;c2&#39;]},
+e = {c1, c2}, f = {c1, c2, c3},
+ecs.queryEntities() =&gt; result = [e]
 </pre></div>
 </div>
 <p><a class="reference external" href="https://github.com/fritzy/ecs-js/issues/6">Related Issue</a></p>
@@ -191,20 +188,20 @@ the needing of logic combination - no such requirements?</em></p>
 </ul>
 <p>The <em>iffall</em> query condition get entities with all required components if it
 prestend, no matter any other components in the entity.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">provide</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span> <span class="n">are</span> <span class="n">components</span><span class="p">,</span>
-<span class="nb">set</span> <span class="n">sys</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="p">{</span><span class="n">iffall</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">,</span> <span class="s1">&#39;c2&#39;</span><span class="p">]},</span>
-<span class="n">e</span> <span class="o">=</span> <span class="p">{</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">},</span> <span class="n">f</span> <span class="o">=</span> <span class="p">{</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">},</span>
-<span class="n">ecs</span><span class="o">.</span><span class="n">queryEntities</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre>provide c1, c2, c3 are components,
+set sys.query = {iffall: [&#39;c1&#39;, &#39;c2&#39;]},
+e = {c1, c2}, f = {c1, c2, c3},
+ecs.queryEntities() =&gt; result = [e, f]
 </pre></div>
 </div>
 <ul class="simple">
 <li>any</li>
 </ul>
 <p>The <em>any</em> query condition is will get entities with any of the defined components.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">provide</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span> <span class="n">are</span> <span class="n">components</span><span class="p">,</span>
-<span class="nb">set</span> <span class="n">sys</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="p">{</span><span class="nb">any</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">,</span> <span class="s1">&#39;c3&#39;</span><span class="p">]},</span>
-<span class="n">e</span> <span class="o">=</span> <span class="p">{</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">},</span> <span class="n">f</span> <span class="o">=</span> <span class="p">{</span><span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">},</span> <span class="n">g</span> <span class="o">=</span> <span class="p">{</span><span class="n">c2</span><span class="p">}</span>
-<span class="n">ecs</span><span class="o">.</span><span class="n">queryEntities</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre>provide c1, c2, c3 are components,
+set sys.query = {any: [&#39;c1&#39;, &#39;c3&#39;]},
+e = {c1, c2}, f = {c2, c3}, g = {c2}
+ecs.queryEntities() =&gt; result = [e, f]
 </pre></div>
 </div>
 </div>
@@ -260,8 +257,7 @@ prestend, no matter any other components in the entity.:</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
