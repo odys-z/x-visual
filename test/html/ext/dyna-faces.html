@@ -41,26 +41,25 @@
 					}
 			});
 
-			// flame = ecs.createEntity({
-			// 	id: 'cube1',
-			// 	Obj3: { geom: xv.XComponent.Obj3Type.NA,
-			// 			box: [100, 100, 0],
-			// 			transform: [{translate: [0, 0, -120]}],
-			// 			mesh: undefined },  // THREE.Mesh
-			// 	GpuPickable: {},
-			// 	Visual:{vtype: xv.AssetType.UserMesh,
-			// 			shader: xv.XComponent.ShaderFlag.flameLight }
-			// });
-			//
-			// var def = { opacity: 1,
-			// 			transparent: true,
-			// 			side: THREE.DoubleSide,
-			// 			depthWrite: true,
-			// 			depthTest: true };
-			// var material = new THREE.MeshPhongMaterial(def);
-			//
-			// // a helper to create mesh, or set any THREE.Mesh to Obj3.mesh
-			// xv.Thrender.createObj3mesh(flame.Obj3, xv.XComponent.Obj3Type.PLANE, material);
+			flame = ecs.createEntity({
+				id: 'cube1',
+				Obj3: { geom: xv.XComponent.Obj3Type.NA,
+						box: [100, 100, 0],
+						transform: [{translate: [0, 0, -120]}],
+						mesh: undefined },  // THREE.Mesh
+				GpuPickable: {},
+				Visual:{vtype: xv.AssetType.UserMesh}
+			});
+
+			var def = { opacity: 1,
+						transparent: true,
+						side: THREE.DoubleSide,
+						depthWrite: true,
+						depthTest: true };
+			var material = new THREE.MeshPhongMaterial(def);
+
+			// a helper to create mesh, or set any THREE.Mesh to Obj3.mesh
+			xv.Thrender.createObj3mesh(flame.Obj3, xv.XComponent.Obj3Type.PLANE, material);
 
 			return flame;
 		}
