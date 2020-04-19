@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-Danymic Mesh</title>
-    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -35,9 +35,10 @@
 						box: [160, 120, 0],
 						transform: [{translate: [-100, -80, 0]}],
 						mesh: undefined },
-				Visual:{vtype: xv.AssetType.HudGroup,
+				Visual:{vtype: xv.AssetType.mesh,
 						paras: {alpha: 0.3},
-						asset: '../../assets/tex/bry0.png'}
+						asset: 'tex/byr0.png'},
+				HudGroup: { }
 			});
 
 			var box = ecs.createEntity({
@@ -46,9 +47,9 @@
 						box: [60, 60, 40],
 						group: 'hud0',
 						mesh: undefined },
-				GpuPickable: {},
+				GpuPickable: {},	// FIXME Not supported
 				Visual:{vtype: xv.AssetType.mesh,
-						asset: '../../assets/tex/ruler256.png'
+						asset: 'tex/ruler256.png'
 					}
 			});
 
@@ -56,7 +57,7 @@
 		}
 	}
 
-	HudTest.query = { iffall: ['HudGroup'] };
+	HudTest.query = { iffall: ['Obj3'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
