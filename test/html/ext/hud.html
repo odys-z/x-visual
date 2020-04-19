@@ -11,7 +11,7 @@
   <script>
 	"use strict";
 
-	class Hud extends xv.XSys {
+	class HudTest extends xv.XSys {
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
@@ -34,9 +34,9 @@
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 						box: [160, 120, 0],
 						transform: [{translate: [-100, -80, 0]}],
-						mesh: undefined },  // THREE.Mesh
-				GpuPickable: {},
+						mesh: undefined },
 				Visual:{vtype: xv.AssetType.HudGroup,
+						paras: {alpha: 0.3},
 						asset: '../../assets/tex/bry0.png'}
 			});
 
@@ -44,10 +44,10 @@
 				id: 'cube0',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 						box: [60, 60, 40],
-						mesh: undefined },  // THREE.Mesh
+						group: 'hud0',
+						mesh: undefined },
 				GpuPickable: {},
 				Visual:{vtype: xv.AssetType.mesh,
-						HudGroup: 'hud0',
 						asset: '../../assets/tex/ruler256.png'
 					}
 			});
@@ -56,13 +56,13 @@
 		}
 	}
 
-	UserMeshObj.query = { iffall: ['Obj3'] };
+	HudTest.query = { iffall: ['HudGroup'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	xworld.addSystem('test', new UserMeshObj(ecs, {xscene}));
+	xworld.addSystem('test', new HudTest(ecs, {xscene}));
 	xworld.startUpdate();
   </script>
 </body>
