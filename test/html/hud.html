@@ -25,6 +25,23 @@
 			else this.cmd = undefined;
 
 	    	for (const e of entities) {
+				if (e.id === 'cube0') {
+					switch (this.cmd) {
+						case 'up':
+							e.Obj3.mesh.rotateX(0.125 * Math.PI);
+							break;
+						case 'left':
+							e.Obj3.mesh.rotateY(0.125 * Math.PI);
+							break;
+						case 'down':
+							e.Obj3.mesh.rotateX(-0.125 * Math.PI);
+							break;
+						case 'right':
+							e.Obj3.mesh.rotateY(-0.125 * Math.PI);
+							break;
+						default:
+					}
+				}
 			}
 		}
 
@@ -32,7 +49,7 @@
 			var hud = ecs.createEntity({
 				id: 'hud0',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [160, 120, 0],
+						box: [40, 30, 0],
 						transform: [{translate: [-100, -80, 0]}],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.mesh,
@@ -44,7 +61,7 @@
 			var box = ecs.createEntity({
 				id: 'cube0',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-						box: [60, 60, 40],
+						box: [16, 16, 16],
 						group: 'hud0',
 						mesh: undefined },
 				GpuPickable: {},	// FIXME Not supported
