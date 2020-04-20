@@ -70,6 +70,18 @@
 					}
 			});
 
+			var ground = ecs.createEntity({
+				id: 'ground',
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [160, 160, 0],
+						transform: [{rotate: {deg: 90, axis: [1, 0, 0]}}],
+						mesh: undefined },
+				GpuPickable: {},
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/ruler256.png'
+					}
+			});
+
 			return [hud, box];
 		}
 	}
