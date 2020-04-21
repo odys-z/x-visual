@@ -110,6 +110,7 @@ dist
 
 # user - jsdoc
 temp
+packages/three/geometries
 docs/jsdoc
 
 # user - examples
