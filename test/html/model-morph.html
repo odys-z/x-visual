@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>XTest-Morph</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -54,13 +54,13 @@
         ModelSeqs: {
             script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
                         paras: {start: Infinity,        // follow points[0][1]
-                                duration: 1.2,            // seconds
+                                duration: 1.2,          // seconds
                                 alpha: [0.95, 0.05],    // from, to
                                 ease: xv.XEasing.Elastic.In},
                      }],
                      [{ mtype: xv.XComponent.AnimType.ALPHA,
                         paras: {start: Infinity,
-                                duration: 3.2,            // seconds
+                                duration: 3.2,          // seconds
                                 alpha: [0.05, 0.95],
                                 ease: undefined }}]
                     ]},
@@ -70,10 +70,10 @@
 
     const points = {
         id: 'points',
-        Obj3: { geom: xv.XComponent.Obj3Type.NA,// use the geometry of entity1
+        Obj3: { geom: xv.XComponent.Obj3Type.NA, // use the geometry of entity1
                 box: [200, 2, 1],
-                mesh: undefined,                // THREE.Points
-                invisible: false },            // It's visible, but alpha 0?
+                mesh: undefined,                 // THREE.Points
+                invisible: false },              // It's visible, but alpha 0?
         Visual:{vtype: xv.AssetType.refPoint,
                 asset: 'entity1',
                 shader: xv.XComponent.ShaderFlag.randomParticles | xv.XComponent.ShaderFlag.defaultex,

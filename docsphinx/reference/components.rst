@@ -89,7 +89,10 @@ ShaderFlag
 API Doc: XComponent
 ===================
 
+All components provided by x-visual are exported in xv.XComponent.
 See `API doc / XComponent <../jsdoc/XComponent.html>`_.
+
+For extension components, see `chart <../jsdoc/chart.html>`_.
 
 .. raw:: html
     <embed>
