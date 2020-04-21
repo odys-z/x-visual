@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>XTest-Morph</title>
+    <title>XTest-Morph Color</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
     <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
@@ -11,12 +11,13 @@
   <script>
     "use strict";
 
-    /**Senario: suppose you have 2 models to be morphed (animated). */
+    /**Senario: suppose you have a model changing colors. */
     // initiating xworld
     const xworld = new xv.XWorld(document.getElementById('canv'),
                         window, {canvasize: [480, 320]});
     const ecs = xworld.xecs;
 
+    // a box can changing colors
     const ent1 = {
         id: 'color1',
         Obj3: { geom: xv.XComponent.Obj3Type.BOX,
@@ -25,22 +26,36 @@
                 mesh: undefined,
                 uniforms: {opacity: 0.1}},
         Visual:{vtype: xv.AssetType.mesh,
-                paras:{ uniforms:{ u_colors:
-                    [[2, 120, 255], [255, 0, 0]] } }},
+                shader: xv.XComponent.ShaderFlag.colorArray,
+                paras:{
+                    uniforms:{ u_colors:
+                      // colors' morphing weight variable name: u_morph0, u_morph1, ...
+                      [ [0, 0, 255],
+                        [255, 0, 0],
+                        [0, 255, 0]
+                      ] } }},
         ModelSeqs: { script:
-            [[{ mtype: xv.XComponent.AnimType.SHADER_COLOR,
+            [ [{mtype: xv.XComponent.AnimType.SHADER_COLOR,
                 paras: {start: 0,            // auto start
-                        duration: 0.2,       // seconds
+                        duration: 0.21,      // seconds
                         uniforms: {
                             u_morph0: [0.95, 0.05],
                             u_morph1: [0, 0] },
-                        ease: xv.XEasing.Elastic.Elastic} ],
-             [{ mtype: xv.XComponent.AnimType.SHADER_COLOR,
+                        ease: xv.XEasing.Elastic.Elastic} }],
+              [{mtype: xv.XComponent.AnimType.SHADER_COLOR,
                 paras: {start: Infinity,
+                        duration: 0.22,
                         uniforms: {
                             u_morph0: [0, 0],
                             u_morph1: [0.05, 0.95] },
-                        ease: undefined}, }] ] },
+                        ease: undefined} }],
+              [{mtype: xv.XComponent.AnimType.SHADER_COLOR,
+                paras: {start: Infinity,
+                        duration: 0.23,
+                        uniforms: {
+                            u_morph1: [0, 0],
+                            u_morph2: [0.95, 0.05] },
+                        ease: undefined} }] ] },
         CmpTweens: {}
     };
     xworld.addEntities(ent1);
