@@ -29,6 +29,7 @@ global.performance = performance;
 describe('case: Layers', function() {
 	let canvas;
     x.log = 4;
+	x.test = true;
 
 	before(function() {
 		// set up equivolent function to THREE.Layers, which is used by Orthocclud.layerpass

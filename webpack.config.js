@@ -3,7 +3,7 @@
  var webpack = require('webpack')
 
  var v = 'development';// "production" | "development" | "none"
- var version = "0.2.0";
+ var version = "0.3.0";
 
  module.exports = {
    mode: v,

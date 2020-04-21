@@ -17,6 +17,8 @@ x-visual effectiently.
 x-visual is a npm package, together with a bundle can be used in plain javascript.
 For quick start, see x-visual/examples readme.
 
+.. _guide-hello-xworld:
+
 2. Hello XWorld
 ---------------
 

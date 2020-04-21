@@ -1,10 +1,8 @@
-Obj3 & Scene
-============
+Obj3 & Transformation
+=====================
 
-This component is used for `THREE.Object3D <https://threejs.org/docs/index.html#api/en/core/Object3D>`__
-definition.
-
-Obj3 is defined in component/obj3.js.
+Component Obj3 is used for `THREE.Object3D <https://threejs.org/docs/index.html#api/en/core/Object3D>`__
+definition, declared in component/obj3.js.
 
 .. _obj3-transform-guide:
 
@@ -147,4 +145,4 @@ Affine Transformation References:
 Obj3 Geometry Parameters
 ------------------------
 
-See Thrender.threeGeometryCase()
+See `Thrender.threeGeometryCase() <../jsdoc/Thrender.html#api-threeGeometryCase>`_.

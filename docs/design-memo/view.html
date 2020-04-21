@@ -95,11 +95,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
 </ul>
@@ -191,9 +192,14 @@ object for rendering the picking scene.</p>
 <p>So if there are entities only with Obj3, they can be rendered as visible but not
 pickable, and can preventing entities with GpuPickable to be picked if they are
 rendered closer to camera.</p>
+<p>In version 0.3, Entity with GpuPickable need a texture to work, so GpuPicker will
+create a defualt if it&#8217;s not provided.</p>
+<p>Gpu picking is used for picking object&#8217;s with texture hole, so model with such
+texture should been specified by user with Visual.asset or GpuPickable.tex.</p>
+<p>See AssetKeepr.initMyPickings().</p>
 <p><strong>Note:</strong></p>
-<p>The GpuPickable component has a <em>pickid</em> property, it&#8217;s immediately been updated by
-x-visual.GpuPicker. Users can not depend on this.</p>
+<p>The GpuPickable component has a <em>pickid</em> property, it&#8217;s been managed by x-visual
+GpuPicker subsystem. Users can not depend on this and must not update it.</p>
 <p>[1] <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-picking.html">Three.js Picking (with GPU)</a></p>
 <p>[2] <a class="reference external" href="https://github.com/mrdoob/three.js/issues/2599">Changing Materials at Runtime #2599</a></p>
 </div>

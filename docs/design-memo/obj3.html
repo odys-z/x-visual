@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Obj3 &amp; Scene &mdash; x-visual 0.3 documentation</title>
+  <title>Obj3 &amp; Transformation &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Visual &amp; Renderers" href="renderer.html"/>
-        <link rel="prev" title="Shadertoy Flame" href="shaders/flame.html"/> 
+        <link rel="prev" title="Scene &amp; HUD" href="scene.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -90,8 +90,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Obj3 &amp; Scene</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Obj3 &amp; Transformation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#obj3-transform">Obj3.transform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#obj3-affines-combined">Obj3.affines &amp; combined</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#affine-transformation-references">Affine Transformation References:</a></li>
@@ -101,6 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
 </ul>
@@ -138,7 +139,7 @@
       
           <li><a href="index.html">Design Memo</a> &raquo;</li>
       
-    <li>Obj3 &amp; Scene</li>
+    <li>Obj3 &amp; Transformation</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -150,11 +151,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="obj3-scene">
-<h1>Obj3 &amp; Scene<a class="headerlink" href="#obj3-scene" title="Permalink to this headline">¶</a></h1>
-<p>This component is used for <a class="reference external" href="https://threejs.org/docs/index.html#api/en/core/Object3D">THREE.Object3D</a>
-definition.</p>
-<p>Obj3 is defined in component/obj3.js.</p>
+  <div class="section" id="obj3-transformation">
+<h1>Obj3 &amp; Transformation<a class="headerlink" href="#obj3-transformation" title="Permalink to this headline">¶</a></h1>
+<p>Component Obj3 is used for <a class="reference external" href="https://threejs.org/docs/index.html#api/en/core/Object3D">THREE.Object3D</a>
+definition, declared in component/obj3.js.</p>
 <div class="section" id="obj3-transform">
 <span id="obj3-transform-guide"></span><h2>Obj3.transform<a class="headerlink" href="#obj3-transform" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
@@ -261,7 +261,7 @@ from these basic transformations, like orbiting and interpolated translating.</p
 </div>
 <div class="section" id="obj3-geometry-parameters">
 <h2>Obj3 Geometry Parameters<a class="headerlink" href="#obj3-geometry-parameters" title="Permalink to this headline">¶</a></h2>
-<p>See Thrender.threeGeometryCase()</p>
+<p>See <a class="reference external" href="../jsdoc/Thrender.html#api-threeGeometryCase">Thrender.threeGeometryCase()</a>.</p>
 </div>
 </div>
 
@@ -275,7 +275,7 @@ from these basic transformations, like orbiting and interpolated translating.</p
         <a href="renderer.html" class="btn btn-neutral float-right" title="Visual &amp; Renderers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="shaders/flame.html" class="btn btn-neutral" title="Shadertoy Flame" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="scene.html" class="btn btn-neutral" title="Scene &amp; HUD" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
