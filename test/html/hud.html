@@ -48,11 +48,11 @@
 		initCube(ecs) {
 			var hud = ecs.createEntity({
 				id: 'hud0',
-				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [40, 30, 0],
-						transform: [{translate: [-100, -80, 0]}],
+				Obj3: { geom: undefined,     // ignored, always PLANE
+						box: [60, 20, 0],
+						transform: [{translate: [-100, 80, -100]}],
 						mesh: undefined },
-				Visual:{vtype: xv.AssetType.mesh,
+				Visual:{vtype: undefined,    // ignored, always mesh
 						paras: {alpha: 0.3},
 						asset: 'tex/byr0.png'},
 				HudGroup: { }
@@ -67,14 +67,17 @@
 				GpuPickable: {},	// FIXME Not supported
 				Visual:{vtype: xv.AssetType.mesh,
 						asset: 'tex/ruler256.png'
-					}
+					},
+				HudChild: { hud: 'hud0' }
 			});
 
 			var ground = ecs.createEntity({
 				id: 'ground',
-				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 						box: [160, 160, 0],
-						transform: [{rotate: {deg: 90, axis: [1, 0, 0]}}],
+						transform: [
+							{translate: [0, 100, 10]},
+							{rotate: {deg: 90, axis: [1, 0, 0]}}],
 						mesh: undefined },
 				GpuPickable: {},
 				Visual:{vtype: xv.AssetType.mesh,
