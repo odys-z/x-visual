@@ -11,7 +11,7 @@
   <script>
 	"use strict";
 
-	class Flame extends xv.XSys {
+	class UserMeshObj extends xv.XSys {
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
@@ -29,7 +29,7 @@
 		}
 
 		initCube(ecs) {
-			var flame = ecs.createEntity({
+			var usermesh = ecs.createEntity({
 				id: 'cube0',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 						box: [100, 30, 80],
@@ -41,7 +41,7 @@
 					}
 			});
 
-			flame = ecs.createEntity({
+			usermesh = ecs.createEntity({
 				id: 'cube1',
 				Obj3: { geom: xv.XComponent.Obj3Type.NA,
 						box: [100, 100, 0],
@@ -59,19 +59,19 @@
 			var material = new THREE.MeshPhongMaterial(def);
 
 			// a helper to create mesh, or set any THREE.Mesh to Obj3.mesh
-			xv.Thrender.createObj3mesh(flame.Obj3, xv.XComponent.Obj3Type.PLANE, material);
+			xv.Thrender.createObj3mesh(usermesh.Obj3, xv.XComponent.Obj3Type.PLANE, material);
 
-			return flame;
+			return usermesh;
 		}
 	}
 
-	Flame.query = { iffall: ['Obj3'] };
+	UserMeshObj.query = { iffall: ['Obj3'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	xworld.addSystem('test', new Flame(ecs, {xscene}));
+	xworld.addSystem('test', new UserMeshObj(ecs, {xscene}));
 	xworld.startUpdate();
   </script>
 </body>

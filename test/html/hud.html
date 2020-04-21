@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Danymic Mesh</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	class HudTest extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCube(ecs);
+		}
+
+		update(tick, entities) {
+		 	if (xworld.xview.flag > 0) {
+				this.cmd = xworld.xview.cmds[0].cmd;
+			}
+			else this.cmd = undefined;
+
+	    	for (const e of entities) {
+				if (e.id === 'cube0') {
+					switch (this.cmd) {
+						case 'up':
+							e.Obj3.mesh.rotateX(0.125 * Math.PI);
+							break;
+						case 'left':
+							e.Obj3.mesh.rotateY(0.125 * Math.PI);
+							break;
+						case 'down':
+							e.Obj3.mesh.rotateX(-0.125 * Math.PI);
+							break;
+						case 'right':
+							e.Obj3.mesh.rotateY(-0.125 * Math.PI);
+							break;
+						default:
+					}
+				}
+			}
+		}
+
+		initCube(ecs) {
+			var hud = ecs.createEntity({
+				id: 'hud0',
+				Obj3: { geom: undefined,     // ignored, always PLANE
+						box: [60, 20, 0],
+						transform: [{translate: [-100, 80, -100]}],
+						mesh: undefined },
+				Visual:{vtype: undefined,    // ignored, always mesh
+						paras: {alpha: 0.3},
+						asset: 'tex/byr0.png'},
+				HudGroup: { }
+			});
+
+			var box = ecs.createEntity({
+				id: 'cube0',
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [16, 16, 16],
+						group: 'hud0',
+						mesh: undefined },
+				GpuPickable: {},	// FIXME Not supported
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/ruler256.png'
+					},
+				HudChild: { hud: 'hud0' }
+			});
+
+			var ground = ecs.createEntity({
+				id: 'ground',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [160, 160, 0],
+						transform: [
+							{translate: [0, 100, 10]},
+							{rotate: {deg: 90, axis: [1, 0, 0]}}],
+						mesh: undefined },
+				GpuPickable: {},
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/ruler256.png'
+					}
+			});
+
+			return [hud, box];
+		}
+	}
+
+	HudTest.query = { iffall: ['Obj3'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new HudTest(ecs, {xscene}));
+	xworld.startUpdate();
+  </script>
+</body>
+</html>
