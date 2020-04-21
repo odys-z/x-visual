@@ -502,13 +502,13 @@ update-tick)。</p>
         <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
             <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
                         <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>        <span class="c1">// follow points[0][1]</span>
-                                <span class="nx">duration</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">,</span>            <span class="c1">// seconds</span>
+                                <span class="nx">duration</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">,</span>          <span class="c1">// seconds</span>
                                 <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>    <span class="c1">// from, to</span>
                                 <span class="nx">ease</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XEasing</span><span class="p">.</span><span class="nx">Elastic</span><span class="p">.</span><span class="nx">In</span><span class="p">},</span>
                      <span class="p">}],</span>
                      <span class="p">[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
                         <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>
-                                <span class="nx">duration</span><span class="o">:</span> <span class="mf">3.2</span><span class="p">,</span>            <span class="c1">// seconds</span>
+                                <span class="nx">duration</span><span class="o">:</span> <span class="mf">3.2</span><span class="p">,</span>          <span class="c1">// seconds</span>
                                 <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">],</span>
                                 <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">}}]</span>
                     <span class="p">]},</span>
@@ -555,8 +555,8 @@ update-tick)。</p>
 32
 33
 34</pre></div></td><td class="code"><div class="highlight"><pre>                <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>                <span class="c1">// THREE.Points</span>
-                <span class="nx">invisible</span><span class="o">:</span> <span class="kc">false</span> <span class="p">},</span>            <span class="c1">// It&#39;s visible, but alpha 0?</span>
+                <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>                 <span class="c1">// THREE.Points</span>
+                <span class="nx">invisible</span><span class="o">:</span> <span class="kc">false</span> <span class="p">},</span>              <span class="c1">// It&#39;s visible, but alpha 0?</span>
         <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">refPoint</span><span class="p">,</span>
                 <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;entity1&#39;</span><span class="p">,</span>
                 <span class="nx">shader</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">randomParticles</span> <span class="o">|</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">defaultex</span><span class="p">,</span>
