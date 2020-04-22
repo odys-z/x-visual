@@ -194,8 +194,8 @@
 3
 4
 5</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">ANIMTYPE_0</span> <span class="o">=</span> <span class="mh">0x40</span><span class="p">;</span>
-<span class="cm">/**COMBINE_AFFINE, MASK</span>
-<span class="cm"> * @type AnimCate</span>
+<span class="cm">/**Animation type ({@link AnimType}) category / mask.</span>
+<span class="cm"> * @enum {int}</span>
 <span class="cm"> * @memberof XComponent */</span>
 <span class="kr">const</span> <span class="nx">AnimCate</span> <span class="o">=</span> <span class="p">{</span>
 </pre></div>
@@ -215,18 +215,18 @@
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre>	<span class="nx">MASK</span><span class="o">:</span> <span class="mh">0xffff</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+12</pre></div></td><td class="code"><div class="highlight"><pre>	<span class="nx">COMBINE_AFFINE</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+	<span class="cm">/** cate mask */</span>
+	<span class="nx">MASK</span><span class="o">:</span> <span class="mh">0xffff</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
 <span class="p">}</span>
 
-<span class="cm">/**@type AnimType</span>
+<span class="cm">/**</span>
+<span class="cm"> * @readonly</span>
+<span class="cm"> * @enum {number}</span>
 <span class="cm"> * @memberof XComponent  */</span>
 <span class="kr">const</span> <span class="nx">AnimType</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="cm">/** User defined animation - not supported in v1.0 */</span>
 	<span class="nx">USER</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-
-	<span class="nx">POSITION</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">|</span> <span class="nx">AnimCate</span><span class="p">.</span><span class="nx">COMBINE_AFFINE</span><span class="p">,</span>
-	<span class="nx">ALPHA</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
-	<span class="nx">UNIFORMS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span>
-	<span class="nx">U_VERTS_TRANS</span><span class="o">:</span> <span class="nx">ANIMTYPE_0</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -259,34 +259,34 @@
 25
 26
 27
-28</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** texture | basic material | custom shader ...</span>
-<span class="cm"> * @type AssetType</span>
+28</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/**Visual effects supported by x-visual,</span>
+<span class="cm"> * texture | basic material | custom shader ...</span>
+<span class="cm"> * @enum {int}</span>
 <span class="cm"> * @memberof XComponent */</span>
 <span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>	   <span class="c1">// gltf asset file</span>
+    <span class="cm">/** gltf asset file */</span>
+    <span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+	<span class="cm">/** not used? */</span>
     <span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>        <span class="c1">// short for material</span>
-    <span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>     <span class="c1">// shaders provide by xglsl</span>
-    <span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>       <span class="c1">// customer</span>
-    <span class="nx">mesh</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>       <span class="c1">// mesh created like THREE.Mesh(), usually loaded from gltf asset</span>
-
-    <span class="nx">point</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>      <span class="c1">// THREE.Points. Note Obj3Type.POINTS is an array of vertices buffer.</span>
-    <span class="nx">refPoint</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>   <span class="c1">// THREE.Points created from referencing model, with asset = entity id.</span>
-    <span class="nx">cubeVoxel</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1">// voxel generated for Obj3.box</span>
-    <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span> <span class="c1">// ShaderFlag has a similar name, makes this error proven</span>
-
-    <span class="nx">canvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>     <span class="c1">// html DOM as texture, test/example: htmltex.html</span>
-
-    <span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>  <span class="c1">// opengl / webgl wireframe</span>
-
-    <span class="nx">geomCurve</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// THREE.Curve, rendered as opengl / webgl line, created form Obj3.geom</span>
-    <span class="c1">// pointSect: 11, // THREE.Curve, with section points provided by user</span>
-    <span class="c1">// pointGrid: 12,// same as pointSect, but converted to THREE.CatmullRomCurve3</span>
-    <span class="c1">// pointCurve: 13,// same as pointSect, but converted to THREE.CatmullRomCurve3</span>
-
-    <span class="nx">svg</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
-    <span class="nx">sprite</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
-<span class="p">}</span>
+    <span class="cm">/** short for material */</span>
+    <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="cm">/** shaders provide by xglsl */</span>
+    <span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="cm">/** customer */</span>
+    <span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="cm">/** mesh created like THREE.Mesh(), usually loaded from gltf asset */</span>
+    <span class="nx">mesh</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="cm">/** THREE.Points. Note Obj3Type.POINTS is an array of vertices buffer. */</span>
+    <span class="nx">point</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="cm">/** THREE.Points created from referencing model, with asset = entity id. */</span>
+    <span class="nx">refPoint</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="cm">/** voxel generated for Obj3.box */</span>
+    <span class="nx">cubeVoxel</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="cm">/** ShaderFlag has a similar name, makes this error proven */</span>
+    <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="cm">/** html DOM as texture, test/example: htmltex.html */</span>
+    <span class="nx">DomCanvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="cm">/** opengl / webgl wireframe */</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -303,18 +303,20 @@
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** javascript operators uses 32 bits signed integers</span>
-<span class="cm"> * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators</span>
-<span class="cm"> * @type ShaderFlag</span>
-<span class="cm"> * @memberof XComponent */</span>
-<span class="kr">const</span> <span class="nx">ShaderFlag</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">mask</span><span class="o">:</span> <span class="mh">0xffff</span><span class="p">,</span>       <span class="c1">// 16 bits for types</span>
-    <span class="nx">defaultex</span><span class="o">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span> <span class="c1">// use default texture</span>
-    <span class="nx">testPoints</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>      <span class="c1">// default</span>
-    <span class="nx">randomParticles</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="nx">throbStar</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="nx">flameLight</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="cm">/** THREE.Curve, rendered as opengl / webgl line, created form Obj3.geom */</span>
+    <span class="nx">GeomCurve</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="cm">/** Daynamic polygon, extruded and the top vertices can be animated,</span>
+<span class="cm">     * with customer shader (not in v0.3) */</span>
+	<span class="nx">DynaPolygon</span><span class="o">:</span><span class="mi">11</span><span class="p">,</span>
+    <span class="cm">/** used by axis */</span>
+    <span class="nx">arrow</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="nx">SVG</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="nx">Sprite</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="cm">/** User provide mesh in Obj3.mesh */</span>
+	<span class="nx">UserMesh</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span>
+<span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -322,7 +324,9 @@
 </div>
 <div class="section" id="api-doc-xcomponent">
 <h1>API Doc: XComponent<a class="headerlink" href="#api-doc-xcomponent" title="Permalink to this headline">¶</a></h1>
-<p>See <a class="reference external" href="../jsdoc/XComponent.html">API doc / XComponent</a>.</p>
+<p>All components provided by x-visual are exported in xv.XComponent.
+See <a class="reference external" href="../jsdoc/XComponent.html">API doc / XComponent</a>.</p>
+<p>For extension components, see <a class="reference external" href="../jsdoc/chart.html">chart</a>.</p>
 </div>
 
 

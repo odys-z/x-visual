@@ -20,40 +20,44 @@
     // a box can changing colors
     const ent1 = {
         id: 'color1',
-        Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-                box: [200, 120, 80],
+        Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
+                box:   [200, 120, 80],
                 // mesh is inited by thrender, can be ignored here - MorphSwitch's target
-                mesh: undefined,
-                shader: xv.XComponent.ColorArray,
+                mesh:   undefined,
                 uniforms: {opacity: 0.1}},
-        Visual:{vtype: xv.AssetType.mesh,
+        Visual:{vtype:  xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
-                paras:{
-                    uniforms:{ u_colors:
-                      // colors' morphing weight variable name: u_morph0, u_morph1, ...
-                      [ [0, 0, 255],
-                        [255, 0, 0],
-                        [0, 255, 0]
-                      ] } }},
-        ModelSeqs: { script:
-            [ [{mtype: xv.XComponent.AnimType.SHADER_COLOR,
+                paras:{ uniforms: {u_alpha: 0.8},
+                    // colors' morphing weight variable name: u_morph0, u_morph1, ...
+                    colors: [
+                        [1, 0, 0],
+                        [0, 0, 1],
+                        [0, 1, 0]
+                    ] } },
+        ModelSeqs: {script:
+            [ [{mtype:  xv.XComponent.AnimType.U_VERTS_TRANS,
                 paras: {start: 0,            // auto start
-                        duration: 0.21,      // seconds
+                        duration: 1.71,      // seconds
                         uniforms: {
-                            u_morph0: [0.95, 0.05],
-                            u_morph1: [0, 0] },
+                            u_morph0: [0.05, 0.95],
+                            u_morph1: [0, 0],
+                            u_morph2: [0, 0]
+                        },
                         ease: xv.XEasing.Elastic.Elastic} }],
-              [{mtype: xv.XComponent.AnimType.SHADER_COLOR,
+              [{mtype:  xv.XComponent.AnimType.U_VERTS_TRANS,
                 paras: {start: Infinity,
-                        duration: 0.22,
+                        duration: 3.22,
                         uniforms: {
                             u_morph0: [0, 0],
-                            u_morph1: [0.05, 0.95] },
+                            u_morph1: [0.05, 0.95],
+                            u_morph2: [0, 0]
+                        },
                         ease: undefined} }],
-              [{mtype: xv.XComponent.AnimType.SHADER_COLOR,
+              [{mtype:  xv.XComponent.AnimType.U_VERTS_TRANS,
                 paras: {start: Infinity,
-                        duration: 0.23,
+                        duration: 4.23,
                         uniforms: {
+                            u_morph0: [0, 0],
                             u_morph1: [0, 0],
                             u_morph2: [0.95, 0.05] },
                         ease: undefined} }] ] },
