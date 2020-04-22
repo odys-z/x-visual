@@ -134,7 +134,7 @@ Affine transformation are accumulated in Obj3. :math:`m_{i}` :
 
 .. literalinclude:: ../../lib/sys/tween/affinecombiner.js
    :language: javascript
-   :lines: 89-108
+   :lines: 88-131
    :linenos:
 
 .. _affine-issue:
