@@ -218,15 +218,15 @@ of which the vertices&#8217; position is copied from, the entity&#8217;s Obj3.me
 <h5>For point &amp; refPoint<a class="headerlink" href="#for-point-refpoint" title="Permalink to this headline">¶</a></h5>
 <p>It&#8217;s been used for vtype = <a class="reference internal" href="#vtype-refpoint"><span>AssetType.refPoint</span></a> or
 <a class="reference internal" href="#vtype-point"><span>AssetType.point</span></a>.</p>
-<p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType.U_VERTS_TRANS paras</span></a>
+<p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-morphi"><span>AnimType.U_MORPHi paras</span></a>
 and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType.UNIFORM paras</span></a>.</p>
 <p>Check it for how Visual.paras and ModelSeqs.script.paras work together to change
 glsl/shaders behaviour.</p>
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
 <p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
-by Thrender using this entity.Visual.paras.obj3type, which can be one of
-<span class="xref std std-ref">Obj3Type component</span> value.</p>
+by Thrender using this entity.Visual.paras.obj3type, which can be one of geometry
+type of <a class="reference internal" href="../reference/components.html#api-xcomponents"><span>XComponent</span></a> value.</p>
 <p>&#8211; paras.nodes</p>
 <p>This parameter used only for creating mesh from gltf assets. It&#8217;s a string array
 of node&#8217;s name in gltf. Model of these nodes will be converted into points.</p>
@@ -244,7 +244,7 @@ of path names in svg.</p>
 WebGl point.</p>
 <p>&#8211; paras.noise</p>
 <p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. For animation
-type <a class="reference internal" href="animizer.html#animtype-u-verts-trans"><span>AnimType U_VERTS_TRANS</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType UNIFORM</span></a>,
+type <a class="reference internal" href="animizer.html#animtype-u-morphi"><span>AnimType.U_MORPHi</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType UNIFORM</span></a>,
 this value is used for scale the distance.</p>
 <p>&#8211; paras.vert_scale</p>
 <p>A string for vertex size scale. Here is how the default particles vertex shader

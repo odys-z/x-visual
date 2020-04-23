@@ -259,12 +259,14 @@
 25
 26
 27
-28</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** texture | basic material | custom shader ...</span>
+28</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/**Visual effects supported by x-visual,</span>
+<span class="cm"> * texture | basic material | custom shader ...</span>
 <span class="cm"> * @enum {int}</span>
 <span class="cm"> * @memberof XComponent */</span>
 <span class="kr">const</span> <span class="nx">AssetType</span> <span class="o">=</span> <span class="p">{</span>
     <span class="cm">/** gltf asset file */</span>
     <span class="nx">gltf</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+	<span class="cm">/** not used? */</span>
     <span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="cm">/** short for material */</span>
     <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -285,8 +287,6 @@
     <span class="cm">/** html DOM as texture, test/example: htmltex.html */</span>
     <span class="nx">DomCanvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
     <span class="cm">/** opengl / webgl wireframe */</span>
-    <span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
-    <span class="cm">/** THREE.Curve, rendered as opengl / webgl line, created form Obj3.geom */</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -304,26 +304,26 @@
 10
 11
 12
-13</pre></div></td><td class="code"><div class="highlight"><pre>    GeomCurve: 10,
-    /** Daynamic polygon, extruded and the top vertices can be animated,
-     * with customer shader (not in v0.3) */
-	DynaPolygon:11,
-    /** used by axis */
-    arrow: 12,
-    SVG: 14,
-    Sprite: 15,
-    /** User provide mesh in Obj3.mesh */
-	UserMesh: 16,
-}
-
-/** javascript operators uses 32 bits signed integers
+13</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="cm">/** THREE.Curve, rendered as opengl / webgl line, created form Obj3.geom */</span>
+    <span class="nx">GeomCurve</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="cm">/** Daynamic polygon, extruded and the top vertices can be animated,</span>
+<span class="cm">     * with customer shader (not in v0.3) */</span>
+	<span class="nx">DynaPolygon</span><span class="o">:</span><span class="mi">11</span><span class="p">,</span>
+    <span class="cm">/** used by axis */</span>
+    <span class="nx">arrow</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="nx">SVG</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="nx">Sprite</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="cm">/** User provide mesh in Obj3.mesh */</span>
+	<span class="nx">UserMesh</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span>
+<span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
 </div>
 </div>
 <div class="section" id="api-doc-xcomponent">
-<h1>API Doc: XComponent<a class="headerlink" href="#api-doc-xcomponent" title="Permalink to this headline">¶</a></h1>
+<span id="api-xcomponents"></span><h1>API Doc: XComponent<a class="headerlink" href="#api-doc-xcomponent" title="Permalink to this headline">¶</a></h1>
 <p>All components provided by x-visual are exported in xv.XComponent.
 See <a class="reference external" href="../jsdoc/XComponent.html">API doc / XComponent</a>.</p>
 <p>For extension components, see <a class="reference external" href="../jsdoc/chart.html">chart</a>.</p>
