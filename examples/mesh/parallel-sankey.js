@@ -41,6 +41,6 @@ export default class Parallel extends xv.XSys {
     }
 }
 
-Cube.query = {
+Parallel.query = {
     iffall: ['Visual']
 };
