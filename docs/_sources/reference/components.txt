@@ -2,7 +2,7 @@ Components
 ==========
 
 Example
------------------------------------------------
+-------
 
 using components to defining an Entity
 
@@ -86,6 +86,8 @@ ShaderFlag
    :lines: 30-42
    :linenos:
 
+.. _api-xcomponents:
+
 API Doc: XComponent
 ===================
 
@@ -93,8 +95,3 @@ All components provided by x-visual are exported in xv.XComponent.
 See `API doc / XComponent <../jsdoc/XComponent.html>`_.
 
 For extension components, see `chart <../jsdoc/chart.html>`_.
-
-.. raw:: html
-    <embed>
-        <iframe src='../jsdoc/XComponent.html' style="width:100%; height: 800px"></iframe>
-	<embed>
