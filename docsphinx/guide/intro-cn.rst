@@ -150,7 +150,7 @@ AnimType.UNIFORMS
 
 这段首先定义了两个用于做位置参照的模型：
 
-.. literalinclude:: ../../test/html/model-morph.html
+.. literalinclude:: ../../test/html/morph-model.html
    :language: javascript
    :lines: 20-72
    :linenos:
@@ -167,7 +167,7 @@ AnimType.UNIFORMS
 7. Particles动画
 ----------------
 
-AnimType.U_VERT_TRANS
+AnimType.U_MORPHi
 
 示例： see `test/html/voxel-morph-particles.html <https://github.com/odys-z/x-visual/blob/master/test/html/voxel-morph-particles.html>`_
 

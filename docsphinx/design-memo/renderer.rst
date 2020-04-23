@@ -125,7 +125,7 @@ WebGl point.
 -- paras.noise
 
 If true, the generated Object3D object will have a 'a_noise' attribute. For animation
-type :ref:`AnimType U_VERTS_TRANS<animtype-u-verts-trans>` and :ref:`AnimType UNIFORM<animtype-uniform>`,
+type :ref:`AnimType U_MORPHi<animtype-u-verts-trans>` and :ref:`AnimType UNIFORM<animtype-uniform>`,
 this value is used for scale the distance.
 
 -- paras.vert_scale
