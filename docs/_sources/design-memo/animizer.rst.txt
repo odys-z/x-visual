@@ -64,7 +64,15 @@ AnimType defined in component/morph.js.
 AnimType
 ________
 
-:ref:`AnimType<animtype>` define supported Animation types are defined in x-visual/component/morph.js.
+:ref:`AnimType<animtype>` declares supported Animation types.
+
+Currently animation a all driven by a modified version of Tween.js module, XTweener.
+
+X-visual is struggling to divide animations into some orthogonal types, but not
+always the case.
+
+Test shows some animation do show this character. For example, AnimType.U_MORPHi
+can be combined together with more than one visual type.
 
 AnimCate
 ________
@@ -173,9 +181,10 @@ usually an array of zero vector, i. e. [0, 0, 0].
 
 The second vector is for target position.
 
-.. note:: In version 0.2, the target position can be dynamically updated
-    - the only one can be updated dynamicall.
-    see test/html/dynamic-position-tween.html for usage example.
+.. note:: From version 0.2, the target position can be dynamically updated, which
+    is the only one can be updated dynamically.
+
+    see test/html/dynamic-position-tween.html for example.
 ..
 
 AnimType.ROTATEX paras
@@ -410,10 +419,19 @@ ______________________
 AnimType.U_MORPHi paras
 _______________________
 
-- u_morph:
+The shader uniforms are:
 
-The vertix position will be mixed with attribute target, *a_target*.
+- u_morph[i]:
+
+This is an array of weights in between array elements. If used form morphing
+between vertices, positions, the vertex positions will be mixed with all target,
+the *a_target* attributes.
+
 For a_target, See VisualType.point.
+
+In version 0.3, there are two tests showing the usage:
+
+test/html/morph-color.html and test/html/morph-model.html.
 
 - u_dist:
 
