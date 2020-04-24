@@ -6,10 +6,29 @@ Mesh Animiation Script
 
 Example:
 
-.. literalinclude:: ../../test/api-scripts-anim.case.js
-   :language: javascript
-   :lines: 88-114
-   :linenos:
+.. code-block:: javascript
+
+    var cube = ecs.createEntity({
+        id: 'fade-out',
+        Obj3: { geom: Obj3Type.BOX,
+                box: [200, 120, 80],
+                mesh: undefined },
+        Visual:{vtype: AssetType.mesh,
+                // Three use document to load assets, which doesn't exist whil testing
+                // null acts as a flag to let thrender create a ram texture.
+                asset: null },
+
+        // in version 1.0, only type of sequence animation is supported
+        ModelSeqs: {
+            script: [[{ mtype: AnimType.ALPHA,
+                        paras: {start: 0,         // auto start, only alpha tween in v0.2
+                                duration: 0.8,    // seconds
+                                alpha: [opa0, opa1],
+                                ease: XEasing.Elastic.InOut}
+                    }]] },
+        CmpTweens: {}
+    });
+..
 
 In the above example, the entity is defined with 2 components, ModelSeqs & CmpTweens.
 
@@ -141,6 +160,24 @@ Start animation with script in other entities.
 
 Object has same properties of :ref:`paras.followBy<script-followby>`.
 
+AnimType.POSITION paras
+_______________________
+
+The *POSITION* animation type is used to update object's position, in world (xscnene).
+
+- translate
+
+A 2D array with major length = 2 specifying to position moving section. As this is an
+affine transformation, it's designed as start from where it is. So the first one is
+usually an array of zero vector, i. e. [0, 0, 0].
+
+The second vector is for target position.
+
+.. note:: In version 0.2, the target position can be dynamically updated
+    - the only one can be updated dynamicall.
+    see test/html/dynamic-position-tween.html for usage example.
+..
+
 AnimType.ROTATEX paras
 ______________________
 
@@ -216,7 +253,7 @@ Three.js implementation
 
     //////////////////////////////////////////////////////////////////////
     function Matrix4() {
-    	this.elements = [ 1, 0, 0, 0,
+        this.elements = [ 1, 0, 0, 0,
                           0, 1, 0, 0,
                           0, 0, 1, 0,
                           0, 0, 0, 1 ];
@@ -231,7 +268,7 @@ Three.js implementation
             var te = this.elements;
 
             var x = quaternion._x, y = quaternion._y, z = quaternion._z, w = quaternion._w;
-            var x2 = x + x,	y2 = y + y, z2 = z + z;
+            var x2 = x + x,    y2 = y + y, z2 = z + z;
             var xx = x * x2, xy = x * y2, xz = x * z2;
             var yy = y * y2, yz = y * z2, zz = z * z2;
             var wx = w * x2, wy = w * y2, wz = w * z2;
@@ -258,7 +295,7 @@ Three.js implementation
             te[ 14 ] = position.z;
             te[ 15 ] = 1;
             return this;
-    	},
+        },
 
     decompose: function ( position, quaternion, scale ) {
         var te = this.elements;
@@ -368,10 +405,10 @@ type, the alpha tween is been handled by shader.
 AnimType.UNIFORM paras
 ______________________
 
-.. _animtype-u-verts-trans:
+.. _animtype-u-morphi:
 
-AnimType.U_VERTS_TRANS paras
-____________________________
+AnimType.U_MORPHi paras
+_______________________
 
 - u_morph:
 
@@ -386,11 +423,11 @@ For a_noise, See VisualType.point.
 Script Example:
 ---------------
 
-The test case 'html/model-morph.html' is an html page using transpiled results,
+The test case 'html/morph-model.html' is an html page using transpiled results,
 defining 2 box object, with the 3rd as points referencing the boxes' vertices and
 moving the poings, changing the alpha.
 
-.. literalinclude:: ../../test/html/model-morph.html
+.. literalinclude:: ../../test/html/morph-model.html
    :language: javascript
    :lines: 12-109
    :linenos:

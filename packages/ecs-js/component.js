@@ -5,6 +5,9 @@ const CoreProperties = new Set([
   'updated', 'constructor', 'stringify', 'clone', 'getObject'
 ]);
 
+/**ECS base class of component
+ * @class BaseComponent
+ */
 class BaseComponent {
 
   constructor(ecs, entity, initialValues) {

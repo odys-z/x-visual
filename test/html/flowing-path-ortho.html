@@ -2,9 +2,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest-Flowing Path</title>
+	<title>XTest-Flowing Path Orthogonal</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <img id='splash'></img>
@@ -22,10 +22,10 @@
         initPaths(ecs, scene) {
             ecs.createEntity({
                 id: 'p1',
-                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
                         box: [],
                         mesh: undefined },
-                Visual:{vtype: xv.AssetType.geomCurve,
+                Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
                 Glow: { paras: [ ] },
@@ -33,10 +33,10 @@
 
             ecs.createEntity({
                 id: 'p2',
-                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
+                Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
                         box: [],
                         mesh: undefined },
-                Visual:{vtype: xv.AssetType.geomCurve,
+                Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
                 Filming: { paras: [
@@ -46,7 +46,7 @@
             ecs.createEntity({
                 id: 'plane',
                 Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-                        box: [480, 360, 0],
+                        box: [180, 160, 0],
                         mesh: undefined,
                         uniforms: {opacity: 0.9}},
                 Visual:{vtype: xv.AssetType.mesh,

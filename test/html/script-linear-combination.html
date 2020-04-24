@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>XTest-Script Linear Combination</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -22,16 +22,13 @@
         }
 
         update(tick, entities) {
-            for (const e of entities) {
-                if (e.CmdFlag) {
-                     if (e.CmdFlag.flag > 0) {
-                        // console.log(e.UserCmd);
-                        this.cmd.push(...e.UserCmd.cmds);
-                    }
-                    else this.cmd = [];
-                    continue;
-                }
+            if (xworld.xview.flag > 0) {
+                // console.log(e.UserCmd);
+                this.cmd.push(...xworld.xview.cmds);
+            }
+            else this.cmd = [];
 
+            for (const e of entities) {
                 if (e.id === 'sphere') {
                     for (var cmd of this.cmd) {
                         if (cmd.code === 'key' && sphereCmdHandler(cmd.cmd, e))
@@ -105,13 +102,13 @@
             ModelSeqs: { script:[
                 [{ mtype: xv.XComponent.AnimType.ROTAXIS,
                     paras: {start: Infinity,
-                            duration: 2.001,   // seconds
+                            duration: 1.001,   // seconds
                             axis: [1, 0, 0],
                             deg: [0, 115],      // from, to
                             ease: undefined}},  // default linear
                   { mtype: xv.XComponent.AnimType.ROTAXIS,
                     paras: {start: Infinity,
-                            duration: 2.002,
+                            duration: 4.002,
                             axis: [0, 1, 0],
                             deg: [0, -90],
                             ease: undefined}}

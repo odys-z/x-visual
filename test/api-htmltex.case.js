@@ -1,5 +1,3 @@
-/** @namespace xv.test.ext */
-
 import chai from 'chai'
 import { expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
@@ -55,7 +53,7 @@ describe('case: Htmltex (CanvasTexture)', function() {
 
 		def.forEach(function (d, x) {
 			assert.isOk(d.Visual);
-			assert.equal(d.Visual.vtype, AssetType.canvas);
+			assert.equal(d.Visual.vtype, AssetType.DomCanvas);
 
 			assert.isOk(d.Obj3);
 			assert.equal(d.Obj3.geom, Obj3Type.PLANE);
@@ -86,7 +84,7 @@ describe('case: Htmltex (CanvasTexture)', function() {
 			console.log('entity id', d.id);
 
 			assert.isOk(d.Visual);
-			assert.equal(d.Visual.vtype, AssetType.canvas);
+			assert.equal(d.Visual.vtype, AssetType.DomCanvas);
 
 			assert.isOk(d.Obj3);
 			assert.equal(d.Obj3.geom, Obj3Type.PLANE);
