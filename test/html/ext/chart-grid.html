@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>XTest.ext - Chart Grid</title>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <script>
+    "use strict";
+
+    class ChartTest extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+        }
+
+        // static conf() {
+        //     var chartConf = {
+        //         id: 'sankey1',
+        //         script: [
+        //          [{ mtype: xv.XComponent.AnimType.ALPHA,
+        //             paras: {duration: 1.1,     // seconds
+        //                     alpha: [0.3, 0.9],
+        //                     ease: xv.XEasing.Elastic.In} }],
+        //          [{ mtype: xv.XComponent.AnimType.ALPHA,
+        //             paras: {duration: 5.2,
+        //                     alpha: [0.3, 0.9],
+        //                     ease: xv.XEasing.Elastic.In} }],
+        //          [{ mtype: xv.XComponent.AnimType.POSITION,
+        //             paras: {duration: 5.2,
+        //                     positions: [0.3, 0.9],
+        //                     ease: xv.XEasing.Elastic.In} }],
+        //             ],
+        //         paras: {
+        //             geomType: xv.XComponent.Obj3Type.Cylinder,
+        //             onOverNode: 0,       // tweens[0]
+        //             onOverFlow: 1,
+        //             onClickNode:2
+        //         } };
+        //     return chartConf;
+        // }
+
+        update() {
+        }
+    }
+
+    ChartTest.query = { iffall: ['CmdFlag', 'Sankey'] };
+
+    const xworld = new xv.XWorld(document.getElementById('canv'), window, {orbitControl});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
+
+    // var json = '../data/sankey-1parallel.json';
+    var json = '../data/sankey-2parallel.json';
+    // var json = '../data/pie-sankey.json';
+    $.getJSON( json,
+        function(json) {
+            var sankey = new xv.chart.XChartSpace(ecs,
+                        { chart: json.chart },
+                        json.sankey, json.vectors);
+            xworld.addSystem('sankey', sankey);
+
+            xworld.addSystem('test', new ChartTest(ecs, {xworld}));
+            xworld.startUpdate();
+
+            sankey.setPivoting(json.sankey.extruding);
+        }
+    ).fail(
+        function(jqXhr, textStatus, error) {
+            console.error(json, jqXhr, textStatus, error);
+        }
+    );
+  </script>
+  </body>
+</html>
