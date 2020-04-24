@@ -2,7 +2,7 @@ Components
 ==========
 
 Example
------------------------------------------------
+-------
 
 using components to defining an Entity
 
@@ -86,29 +86,12 @@ ShaderFlag
    :lines: 30-42
    :linenos:
 
-Visual Component
-++++++++++++++++
+.. _api-xcomponents:
 
-.. literalinclude:: ../../lib/component/visual.js
-   :language: javascript
-   :lines: 43-51
-   :linenos:
+API Doc: XComponent
+===================
 
+All components provided by x-visual are exported in xv.XComponent.
+See `API doc / XComponent <../jsdoc/XComponent.html>`_.
 
-.. _api-component-obj3type:
-
-Obj3Type const
-++++++++++++++
-
-.. literalinclude:: ../../lib/component/obj3.js
-   :language: javascript
-   :lines: 2-50
-   :linenos:
-
-Obj3 Component
-++++++++++++++
-
-.. literalinclude:: ../../lib/component/obj3.js
-   :language: javascript
-   :lines: 41-62
-   :linenos:
+For extension components, see `chart <../jsdoc/chart.html>`_.

@@ -168,7 +168,7 @@ The *POSITION* animation type is used to update object's position, in world (xsc
 - translate
 
 A 2D array with major length = 2 specifying to position moving section. As this is an
-affine transformation, it's designed as start from where it is. So the first one is 
+affine transformation, it's designed as start from where it is. So the first one is
 usually an array of zero vector, i. e. [0, 0, 0].
 
 The second vector is for target position.
@@ -405,10 +405,10 @@ type, the alpha tween is been handled by shader.
 AnimType.UNIFORM paras
 ______________________
 
-.. _animtype-u-verts-trans:
+.. _animtype-u-morphi:
 
-AnimType.U_VERTS_TRANS paras
-____________________________
+AnimType.U_MORPHi paras
+_______________________
 
 - u_morph:
 
@@ -423,11 +423,11 @@ For a_noise, See VisualType.point.
 Script Example:
 ---------------
 
-The test case 'html/model-morph.html' is an html page using transpiled results,
+The test case 'html/morph-model.html' is an html page using transpiled results,
 defining 2 box object, with the 3rd as points referencing the boxes' vertices and
 moving the poings, changing the alpha.
 
-.. literalinclude:: ../../test/html/model-morph.html
+.. literalinclude:: ../../test/html/morph-model.html
    :language: javascript
    :lines: 12-109
    :linenos:

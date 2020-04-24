@@ -72,15 +72,18 @@ The argument *entities* is passed to it according to the *query* logics.
 Examples
 ________
 
-All examples are using Webpack for transpiling.
+X-visual examples is a part of source repository, but also a separate webpack project.
+
+All examples are using Webpack for transpiling. To run examples, download the source,
+then install dependencies and transpile.
 
 ::
 
     npm i
     webpack
 
-If everything goes well, open the examples/cube/index.html and it will show
-a cube.
+If everything goes well, open the examples/cube/index.html, linked page of the
+first example will show a cube.
 
 .. image:: imgs/001-hellocube.png
     :width: 300px
