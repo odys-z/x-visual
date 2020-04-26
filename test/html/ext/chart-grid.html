@@ -19,39 +19,13 @@
             this.ecs = ecs;
         }
 
-        // static conf() {
-        //     var chartConf = {
-        //         id: 'sankey1',
-        //         script: [
-        //          [{ mtype: xv.XComponent.AnimType.ALPHA,
-        //             paras: {duration: 1.1,     // seconds
-        //                     alpha: [0.3, 0.9],
-        //                     ease: xv.XEasing.Elastic.In} }],
-        //          [{ mtype: xv.XComponent.AnimType.ALPHA,
-        //             paras: {duration: 5.2,
-        //                     alpha: [0.3, 0.9],
-        //                     ease: xv.XEasing.Elastic.In} }],
-        //          [{ mtype: xv.XComponent.AnimType.POSITION,
-        //             paras: {duration: 5.2,
-        //                     positions: [0.3, 0.9],
-        //                     ease: xv.XEasing.Elastic.In} }],
-        //             ],
-        //         paras: {
-        //             geomType: xv.XComponent.Obj3Type.Cylinder,
-        //             onOverNode: 0,       // tweens[0]
-        //             onOverFlow: 1,
-        //             onClickNode:2
-        //         } };
-        //     return chartConf;
-        // }
-
         update() {
         }
     }
 
     ChartTest.query = { iffall: ['CmdFlag', 'Sankey'] };
 
-    const xworld = new xv.XWorld(document.getElementById('canv'), window, {orbitControl});
+    const xworld = new xv.XWorld(document.getElementById('canv'), window, {orbitControl: true});
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 
@@ -60,15 +34,13 @@
     // var json = '../data/pie-sankey.json';
     $.getJSON( json,
         function(json) {
-            var sankey = new xv.chart.XChartSpace(ecs,
-                        { chart: json.chart },
-                        json.sankey, json.vectors);
-            xworld.addSystem('sankey', sankey);
+            var chv = new xv.chart.GridVisuals ( ecs,
+                        { chart: json.chart, lines: {color: 0x77ccff} },
+                        json.sankey, json.vectors );
+            xworld.addSystem('test', chv);
 
             xworld.addSystem('test', new ChartTest(ecs, {xworld}));
             xworld.startUpdate();
-
-            sankey.setPivoting(json.sankey.extruding);
         }
     ).fail(
         function(jqXhr, textStatus, error) {
