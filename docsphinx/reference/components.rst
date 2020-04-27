@@ -2,7 +2,7 @@ Components
 ==========
 
 Example
------------------------------------------------
+-------
 
 using components to defining an Entity
 
@@ -48,53 +48,62 @@ Or in plain js:
 Components Definitions
 ----------------------
 
+Common Enums
+____________
+
+X-visual defined some consts used as a contract between application and x-visual.
+
+These consts is documented as enum in `API doc / XComponent <../jsdoc/XComponent.html>`__.
+
 .. _animcate:
 
 AnimCate
 ++++++++
 
-.. literalinclude:: ../../lib/component/morph.js
-   :language: javascript
-   :lines: 3-7
-   :linenos:
+Mask of affine transformation related animation.
+
+declared in: lib/component/morph.js
 
 .. _animtype:
 
 AnimType
 ++++++++
 
-Supported Animation types are defined in x-visual/component/morph.js:
+Supported Animation types.
 
-.. literalinclude:: ../../lib/component/morph.js
-   :language: javascript
-   :lines: 9-20
-   :linenos:
+defined in: lib/component/morph.js
 
 AssetType
 +++++++++
 
-.. literalinclude:: ../../lib/component/visual.js
-   :language: javascript
-   :lines: 2-29
-   :linenos:
+Visual form.
+
+xv.Thrender use this to create THREE.Object3D.
+
+declared in: lib/component/visual.js
+
+Obj3Type
+++++++++
+
+Mesh geometry type.
+
+xv.Thrender use this to create THREE.BufferGeometry.
+
+TODO renamed as GeomType.
 
 ShaderFlag
 ++++++++++
 
-.. literalinclude:: ../../lib/component/visual.js
-   :language: javascript
-   :lines: 30-42
-   :linenos:
+A code for which shader provided by x-visual can be used.
+
+declared in: lib/component/visual.js
+
+.. _api-xcomponents:
 
 API Doc: XComponent
 ===================
 
 All components provided by x-visual are exported in xv.XComponent.
-See `API doc / XComponent <../jsdoc/XComponent.html>`_.
+See `API doc / XComponent <../jsdoc/XComponent.html>`__.
 
 For extension components, see `chart <../jsdoc/chart.html>`_.
-
-.. raw:: html
-    <embed>
-        <iframe src='../jsdoc/XComponent.html' style="width:100%; height: 800px"></iframe>
-	<embed>

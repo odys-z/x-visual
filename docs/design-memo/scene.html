@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Obj3 &amp; Transformation" href="obj3.html"/>
@@ -90,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Scene &amp; HUD</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Scene &amp; HUD</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#hud-example">HUD Example</a></li>
 </ul>
 </li>
@@ -151,17 +154,17 @@
   <div class="section" id="scene-hud">
 <h1>Scene &amp; HUD<a class="headerlink" href="#scene-hud" title="Permalink to this headline">¶</a></h1>
 <p>Objects including mesh, line &amp; points are rendered in main scene, except one component,
-HudGroup and it&#8217;s children.</p>
-<p>The <a class="reference internal" href="../guide/intro.html#guide-hello-xworld"><span>Hello XWorld in guide page</span></a> is a simple example for
+HudGroup and it’s children.</p>
+<p>The <a class="reference internal" href="../guide/intro.html#guide-hello-xworld"><span class="std std-ref">Hello XWorld in guide page</span></a> is a simple example for
 how to create main scene objects.</p>
 <p>If an entity has HudGroup, x-visual will create a HUD of plane object, and all
 HudChild entities.</p>
-<p>A HudChild must has a HudChild.hud parameter equals parent group&#8217;s entity id. i.e.
-entity id defined in HudGroup&#8217;s entity.</p>
+<p>A HudChild must has a HudChild.hud parameter equals parent group’s entity id. i.e.
+entity id defined in HudGroup’s entity.</p>
 <div class="section" id="hud-example">
 <h2>HUD Example<a class="headerlink" href="#hud-example" title="Permalink to this headline">¶</a></h2>
 <p>These 2 objects are created as an HUD plane and a box in it.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">hud</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">hud</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
     <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;hud0&#39;</span><span class="p">,</span>
     <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>     <span class="c1">// ignored, always PLANE</span>
             <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
@@ -241,7 +244,8 @@ entity id defined in HudGroup&#8217;s entity.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
