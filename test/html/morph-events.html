@@ -9,8 +9,7 @@
 <body>
   <canvas id='canv'></canvas>
   <p>Press spacebar to start again.</p>
-  <p>Press ctrl to navigate to the left.</p>
-  <p>Press shift to navigate to the right.</p>
+  <p>Press shift to flash left.</p>
   <script>
     "use strict";
 
@@ -20,37 +19,42 @@
             super(ecs);
             this.ecs = ecs;
             this.seqx = 1;
-            options.xworld.addEntities( this.initEnts() );
+			this.cmd = 0;
+			var ents = options.xworld.addEntities( this.initEnts() );
+			this.nav = ents[0];
+			this.left = ents[1];
+			this.right = ents[2];
         }
 
         update(tick, entities) {
-             if (xworld.xview.flag > 0) {
-                this.cmd = xworld.xview.cmds[0].cmd;
-            }
-            else this.cmd = undefined;
-
-            if (this.cmd === 'fire') {
-                this.seqx++;
-                this.seqx %= 3;
-            }
-            else return;
-
-            for (const e of entities) {
-                e.CmpTweens.startCmds.push(this.seqx);
+            if (xworld.xview.flag > 0) {
+				for (const cmd of xworld.xview.cmds) {
+					if (cmd.code === 'key') {
+						this.naving = -1;
+						if ((cmd.keyflag & xv.KeyFlag.shift) > 0) {
+					 		this.naving = 1;
+							break;
+						}
+						else if (cmd.cmd === 'fire') {
+							xv.XTweener.startSeq(this.nav.CmpTweens, 0);
+							break;
+						}
+					}
+				}
             }
         }
 
 		triggerI(cmpTweens, seqx) {
-			if (this.ending === cmpTweens.entity.id) {
-				this.ending = undefined;
-				XTweener.startSeq(this.nextEnt.cmpTweens, seqx);
-				this.nextEnt = undefined;
+			if (that.naving < 0) {
+				xv.XTweener.startSeq(that.right.CmpTweens, seqx);
 			}
+			else
+				xv.XTweener.startSeq(that.left.CmpTweens, seqx);
 		}
 
         initEnts() {
-            const disp = {
-                id: 'dispatcher',
+            const nav = {
+                id: 'nav',
                 Obj3: { geom:   xv.XComponent.Obj3Type.Tetrahedron,
                         box:   [80, 0],
 						transform: [{translate: [0, 120, 0]}],
@@ -164,7 +168,7 @@
                                 ease: undefined} }] ] },
                 CmpTweens: {}
             };
-            return [disp, ent1, ent2];
+            return [nav, ent1, ent2];
         }
     }
 
@@ -175,7 +179,8 @@
                         window, {canvasize: [480, 320]});
     const ecs = xworld.xecs;
 
-    xworld.addSystem('test', new EvtMorphing(ecs, {xworld}));
+	var that = new EvtMorphing(ecs, {xworld});
+    xworld.addSystem('test', that);
     xworld.startUpdate();
   </script>
 </body>
