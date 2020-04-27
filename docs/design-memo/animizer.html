@@ -95,6 +95,8 @@
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-scene">Obj3 &amp; Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Animizers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sequence-the-animation-structure">Sequence the Animation Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#start-tween-sequence">Start Tween Sequence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mesh-animiation-script">Mesh Animiation Script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#modleseqs-script">ModleSeqs.script</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mtype">mtype</a></li>
@@ -156,6 +158,35 @@
             
   <div class="section" id="animizers">
 <h1>Animizers<a class="headerlink" href="#animizers" title="Permalink to this headline">¶</a></h1>
+<p>Animizers convert ModelSeqs, the animation sequences scripts into Tween objects
+that can be played by XTweener.</p>
+<p>Animation scripts are a 2D array in an entity definition, ModelSeqs.script.</p>
+<div class="section" id="sequence-the-animation-structure">
+<h2>Sequence the Animation Structure<a class="headerlink" href="#sequence-the-animation-structure" title="Permalink to this headline">¶</a></h2>
+<p>Tween animations are organized as a 2D array, with major order the index of animation
+sequences&#8217; order. Each sequence is an array of <em>CmpTween</em> component.</p>
+<p>API Reference:</p>
+<ul class="simple">
+<li><a class="reference external" href="../jsdoc/XComponent.ModelSeqs.html">ModelSeqs</a></li>
+<li><a class="reference external" href="../jsdoc/XComponent.CmpTweens.html">CmpTweens</a></li>
+<li><a class="reference external" href="../jsdoc/XComponent.CmpTween.html">CmpTween</a></li>
+</ul>
+</div>
+<div class="section" id="start-tween-sequence">
+<h2>Start Tween Sequence<a class="headerlink" href="#start-tween-sequence" title="Permalink to this headline">¶</a></h2>
+<p>There are 3 way to start a tween animation:</p>
+<ol class="arabic simple">
+<li>Set start = 0 in the script, let ModelMorph start the sequence automatically.</li>
+<li>Triggered by other scripts, with <em>startWith</em> &amp; <em>followBy</em> command in script.</li>
+<li>Use start command, CmpTween.startCmds. Which is an array buffering commands to
+start a sequence. It&#8217;s index is the same as tween sequences&#8217; index. The following
+code start the second sequence of entity e.</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span><span class="o">.</span><span class="n">CmpTweens</span><span class="o">.</span><span class="n">startCmds</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A more elegant way to do this is use the XTweener.startSeq() API.</p>
+</div>
 <div class="section" id="mesh-animiation-script">
 <h2>Mesh Animiation Script<a class="headerlink" href="#mesh-animiation-script" title="Permalink to this headline">¶</a></h2>
 <p>Example:</p>
@@ -657,7 +688,7 @@ moving the poings, changing the alpha.</p>
         <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
             <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
                         <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>            <span class="c1">// auto start</span>
-                                <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.7</span><span class="p">,</span>       <span class="c1">// seconds</span>
+                                <span class="nx">duration</span><span class="o">:</span> <span class="mf">1.7</span><span class="p">,</span>       <span class="c1">// seconds</span>
                                 <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span> <span class="c1">// from, to</span>
                                 <span class="nx">ease</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XEasing</span><span class="p">.</span><span class="nx">Elastic</span><span class="p">.</span><span class="nx">Elastic</span><span class="p">},</span>
                         <span class="nx">startWith</span><span class="o">:</span><span class="p">[{</span><span class="nx">entity</span><span class="o">:</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span>
