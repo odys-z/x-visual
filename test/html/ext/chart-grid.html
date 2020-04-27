@@ -20,35 +20,69 @@
         }
 
         update() {
+            if (xview.flag > 0) {
+                this.cmd = 0;
+                if (xview.cmds[0].cmd === 'left')
+                    movex(-1);
+                else if (xview.cmds[0].cmd === 'right')
+                    movex(1);
+                else if (xview.cmds[0].cmd === 'up')
+                    movey(1);
+                else if (xview.cmds[0].cmd === 'down')
+                    movey(-1);
+                else if (xview.cmds[0].cmd === 'forth')
+                    movez(-1);
+                else if (xview.cmds[0].cmd === 'back')
+                    movez(1);
+            }
         }
     }
 
     ChartTest.query = { iffall: ['CmdFlag', 'Sankey'] };
 
-    const xworld = new xv.XWorld(document.getElementById('canv'), window, {orbitControl});
+    const xworld = new xv.XWorld(document.getElementById('canv'), window, {orbitControl: true});
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
+    const xview = xworld.xview;
+    var chartvisuals;
 
-    // var json = '../data/sankey-1parallel.json';
+    // Only the json.chart object is used in this test.
     var json = '../data/sankey-2parallel.json';
-    // var json = '../data/pie-sankey.json';
     $.getJSON( json,
         function(json) {
-            var sankey = new xv.chart.XChartSpace(ecs,
-                        { chart: json.chart },
-                        json.sankey, json.vectors);
-            xworld.addSystem('sankey', sankey);
+            chartvisuals = new xv.chart.GridVisuals ( ecs,
+                    {chart: json.chart, lines: {color: 0x77ccff},
+                     planes: {tex: '../../assets/tex/grey-pixel.png'},
+                     lines: {color: 0x8888bb},
+                             ix0: [1, 2, 1]}    // initial position, in grid index
+                    },
+                    json.sankey, json.vectors );
+            xworld.addSystem('test', chartvisuals);
 
             xworld.addSystem('test', new ChartTest(ecs, {xworld}));
             xworld.startUpdate();
-
-            sankey.setPivoting(json.sankey.extruding);
         }
     ).fail(
         function(jqXhr, textStatus, error) {
             console.error(json, jqXhr, textStatus, error);
         }
     );
+
+    var grid = [1, 1, 1];
+    function movex(dir) {
+        grid[0] += dir;
+        chartvisuals.strechLines(grid);
+    }
+
+    function movey(dir) {
+        grid[1] += dir;
+        chartvisuals.strechLines(grid);
+    }
+
+    function movez(dir) {
+        grid[2] += dir;
+        chartvisuals.strechLines(grid);
+    }
   </script>
   </body>
 </html>
