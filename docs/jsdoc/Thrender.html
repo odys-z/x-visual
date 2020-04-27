@@ -212,389 +212,6 @@
 
         
             
-<h4 class="name" id=".createCubeVoxel"><span class="type-signature">(static) </span>createCubeVoxel<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create cube voxel. (points evenly dividing in cube).</p>
-<p><code>AssetType</code>: AssetType.refPoint; AssetType.cubeVoxel</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line589">line 589</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createCurve"><span class="type-signature">(static) </span>createCurve<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <ol>
-<li>use <a href="xgeom.html#.generateCurve"><code>xgeom.generateCurve</code></a> to generate points</li>
-<li>create the THREE.line,</li>
-<li>set line to Obj3.mesh</li>
-</ol>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line323">line 323</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3mesh"><span class="type-signature">(static) </span>createObj3mesh<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create object mesh, put int <em>cmpObj3</em>.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line349">line 349</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3particles"><span class="type-signature">(static) </span>createObj3particles<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create particles (THREE.Points) from vertices of mesh.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line532">line 532</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Clone and combine gltf nodes' geometry[position] buffer - the modules vertices.</p>
-<p>This method can only handling Visual.vtype == AssetType.point, making
-points (vertices) can basically rendered.</p>
-<p>This is not enough. Animizer would added more components to animize points.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line465">line 465</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create THREE.Points from cmpObj3.mesh.</p>
-<p>Difference to createObj3particles which createing vertices from referenced
-mesh, this method create points according to Obj3.geomType (<code>Obj3Type</code>)
-with Obj3.box as constructor parameters.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line297">line 297</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
 <h4 class="name" id=".createObj3s"><span class="type-signature">(static) </span>createObj3s<span class="type-signature"></span></h4>
 
 
@@ -656,191 +273,6 @@ with Obj3.box as constructor parameters.</p>
 
 
         
-            
-<h4 class="name" id=".threeGeometryCase"><span class="type-signature">(static) </span>threeGeometryCase<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <div id='api-threeGeometryCase'>Create geometry for different cases.</div>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line369">line 369</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="init"><span class="type-signature"></span>init<span class="type-signature"></span></h4>
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line642">line 642</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="update"><span class="type-signature"></span>update<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <ol>
-<li>Show picked object outline.<br></li>
-<li>Render with composer or scene render.</li>
-</ol>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line702">line 702</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
     
 
     
@@ -852,7 +284,7 @@ with Obj3.box as constructor parameters.</p>
     
 
     
-    <h4 class="name" id=".add_push"><span class="type-signature">(static) </span>add_push<span class="signature">(arr, mesh, chld, ecs)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    <h4 class="name" id=".createCubeVoxel"><span class="type-signature">(static) </span>createCubeVoxel<span class="signature">(cmpObj3, cmpVisual)</span><span class="type-signature"> &rarr; {THREE.Mesh}</span></h4>
     
 
     
@@ -860,8 +292,8 @@ with Obj3.box as constructor parameters.</p>
 
 
 <div class="description">
-    <p>Add the mesh into <em>arr</em>, the buffer of objects to be added into main scene, or
-add as a chuild into the group, if the child entity has a 'group' paras in Obj3.</p>
+    <p>Create cube voxel. (points evenly dividing in cube).</p>
+<p><code>AssetType</code>: AssetType.refPoint; AssetType.cubeVoxel</p>
 </div>
 
 
@@ -897,36 +329,13 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
 
         <tr>
             
-                <td class="name"><code>arr</code></td>
+                <td class="name"><code>cmpObj3</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>objects buffer</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mesh</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">THREE.Mesh</span>
+<span class="param-type">Obj3</span>
 
 
             
@@ -943,36 +352,13 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
 
         <tr>
             
-                <td class="name"><code>chld</code></td>
+                <td class="name"><code>cmpVisual</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Entity.html">Entity</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ecs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="ECS.html">ECS</a></span>
+<span class="param-type">Visual</span>
 
 
             
@@ -1011,8 +397,6 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
     
 
     
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
 
     
 
@@ -1025,7 +409,7 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line739">line 739</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line626">line 626</a>
     </li></ul></dd>
     
 
@@ -1048,42 +432,13 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
 
 
 
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        <p>arguments invalid</p>
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type"><a href="XError.html">XError</a></span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>arr</p>
+    <p>mesh object can be rendered by <a href="Thrender.html"><code>Thrender</code></a>.</p>
 </div>
 
 
@@ -1094,13 +449,1677 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
     </dt>
     <dd>
         
-<span class="param-type">array</span>
+<span class="param-type">THREE.Mesh</span>
 
 
     </dd>
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createCurve"><span class="type-signature">(static) </span>createCurve<span class="signature">(cmpObj3, paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Handling <code>AssetType.GeomCurve</code>, generate curve of
+type of HILBERT, RandomCurve, RandomSects, PointSect,
+CatmullRom, Spline from <a href="XComponent.html#.Obj3Type"><code>XComponent.Obj3Type</code></a>.</p>
+<ol>
+<li>use <a href="xgeom.html#.generateCurve"><code>xgeom.generateCurve</code></a> to generate points</li>
+<li>create the THREE.line,</li>
+<li>set line to Obj3.mesh</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Visual.paras, @see <a href="xgeom.html#.generateCurve"><code>xgeom.generateCurve</code></a></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line328">line 328</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{curve, path}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createDynaSegments"><span class="type-signature">(static) </span>createDynaSegments<span class="signature">(cmpObj3, paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Handling <code>AssetType.DynaSects</code>, generate lines of
+type of RandomSects, PointSect from <a href="XComponent.html#.Obj3Type"><code>XComponent.Obj3Type</code></a>.</p>
+<ol>
+<li>use <code>xgeom.generateSegments</code> to generate lines</li>
+<li>create the THREE.line,</li>
+<li>set line to Obj3.mesh</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Visual.paras, @see xgeom.generateCurve</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line355">line 355</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{curve, path}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj3mesh"><span class="type-signature">(static) </span>createObj3mesh<span class="signature">(cmpObj3, geomType, material)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create object mesh, put int <em>cmpObj3</em>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>geomType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3Type</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>material</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">THREE.Materail</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line382">line 382</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj3particles"><span class="type-signature">(static) </span>createObj3particles<span class="signature">(cmpObj3, fromesh, cmpVisual)</span><span class="type-signature"> &rarr; {THREE.Points}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create particles (THREE.Points) from vertices of mesh.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>this enitiy's Obj3 component, uniforms merged to target mesh</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fromesh</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">THREE.Mesh</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>referencing mesh</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpVisual</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Visual</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>this entity's Visual component.
+cmVisual.paras.u_tex: texture path
+cmVisual.shader: parameters for generate vertex and framgment shaders. see xglsl.xvShader().</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line568">line 568</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>where geometry is generated by <code>xglsl.particlesGeom()</code>,
+material is THREE.ShaderMaterial.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.Points</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="signature">(nodes)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Clone and combine gltf nodes' geometry[position] buffer - the modules vertices.</p>
+<p>This method can only handling Visual.vtype == AssetType.point, making
+points (vertices) can basically rendered.</p>
+<p>This is not enough. Animizer would added more components to animize points.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code></code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">xv.Components.Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>nodes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>nodes loaded from gltf.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Visual.paras,</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">paras</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>define, size, color...</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line500">line 500</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="signature">(cmpObj3, geomType, material)</span><span class="type-signature"> &rarr; {THREE.Mesh}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create THREE.Points from cmpObj3.mesh.</p>
+<p>Difference to createObj3particles which createing vertices from referenced
+mesh, this method create points according to Obj3.geomType (<code>Obj3Type</code>)
+with Obj3.box as constructor parameters.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Obj3 for the mesh</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>geomType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">AssetType</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Visual.vtype</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>material</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">THREE.Material</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[optional] default is THREE.ShaderMaterail.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line301">line 301</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>mesh (already set in cmpObj3)</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.Mesh</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".threeGeometryCase"><span class="type-signature">(static) </span>threeGeometryCase<span class="signature">(geomType, geomParaArr)</span><span class="type-signature"> &rarr; {THREE.BufferGeometry}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <div id='api-threeGeometryCase'>Create geometry for different cases.</div>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>geomType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3Type</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p><code>Obj3Type</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>geomParaArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>geometry parameters for the given type.
+See <code>Obj3Type</code> for parameters details.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line403">line 403</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>any subclass of three-js BufferGeometry.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.BufferGeometry</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="init"><span class="type-signature"></span>init<span class="signature">(canvas, x)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>canvas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Canvas</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#x">x</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{options, ...}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line680">line 680</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(tick, entities)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <ol>
+<li>Show picked object outline.<br></li>
+<li>Render with composer or scene render.</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tick</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>entities</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array.&lt;ECS.Entity></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line740">line 740</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1241,389 +2260,6 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
 
         
             
-<h4 class="name" id=".createCubeVoxel"><span class="type-signature">(static) </span>createCubeVoxel<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create cube voxel. (points evenly dividing in cube).</p>
-<p><code>AssetType</code>: AssetType.refPoint; AssetType.cubeVoxel</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line589">line 589</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createCurve"><span class="type-signature">(static) </span>createCurve<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <ol>
-<li>use <a href="xgeom.html#.generateCurve"><code>xgeom.generateCurve</code></a> to generate points</li>
-<li>create the THREE.line,</li>
-<li>set line to Obj3.mesh</li>
-</ol>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line323">line 323</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3mesh"><span class="type-signature">(static) </span>createObj3mesh<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create object mesh, put int <em>cmpObj3</em>.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line349">line 349</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3particles"><span class="type-signature">(static) </span>createObj3particles<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create particles (THREE.Points) from vertices of mesh.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line532">line 532</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Clone and combine gltf nodes' geometry[position] buffer - the modules vertices.</p>
-<p>This method can only handling Visual.vtype == AssetType.point, making
-points (vertices) can basically rendered.</p>
-<p>This is not enough. Animizer would added more components to animize points.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line465">line 465</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>Create THREE.Points from cmpObj3.mesh.</p>
-<p>Difference to createObj3particles which createing vertices from referenced
-mesh, this method create points according to Obj3.geomType (<code>Obj3Type</code>)
-with Obj3.box as constructor parameters.</p>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line297">line 297</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
 <h4 class="name" id=".createObj3s"><span class="type-signature">(static) </span>createObj3s<span class="type-signature"></span></h4>
 
 
@@ -1685,191 +2321,6 @@ with Obj3.box as constructor parameters.</p>
 
 
         
-            
-<h4 class="name" id=".threeGeometryCase"><span class="type-signature">(static) </span>threeGeometryCase<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <div id='api-threeGeometryCase'>Create geometry for different cases.</div>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line369">line 369</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="init"><span class="type-signature"></span>init<span class="type-signature"></span></h4>
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line642">line 642</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="update"><span class="type-signature"></span>update<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <ol>
-<li>Show picked object outline.<br></li>
-<li>Render with composer or scene render.</li>
-</ol>
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line702">line 702</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
     
 
     
@@ -1881,7 +2332,7 @@ with Obj3.box as constructor parameters.</p>
     
 
     
-    <h4 class="name" id=".add_push"><span class="type-signature">(static) </span>add_push<span class="signature">(arr, mesh, chld, ecs)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    <h4 class="name" id=".createCubeVoxel"><span class="type-signature">(static) </span>createCubeVoxel<span class="signature">(cmpObj3, cmpVisual)</span><span class="type-signature"> &rarr; {THREE.Mesh}</span></h4>
     
 
     
@@ -1889,8 +2340,8 @@ with Obj3.box as constructor parameters.</p>
 
 
 <div class="description">
-    <p>Add the mesh into <em>arr</em>, the buffer of objects to be added into main scene, or
-add as a chuild into the group, if the child entity has a 'group' paras in Obj3.</p>
+    <p>Create cube voxel. (points evenly dividing in cube).</p>
+<p><code>AssetType</code>: AssetType.refPoint; AssetType.cubeVoxel</p>
 </div>
 
 
@@ -1926,36 +2377,13 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
 
         <tr>
             
-                <td class="name"><code>arr</code></td>
+                <td class="name"><code>cmpObj3</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>objects buffer</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mesh</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">THREE.Mesh</span>
+<span class="param-type">Obj3</span>
 
 
             
@@ -1972,36 +2400,13 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
 
         <tr>
             
-                <td class="name"><code>chld</code></td>
+                <td class="name"><code>cmpVisual</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Entity.html">Entity</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ecs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="ECS.html">ECS</a></span>
+<span class="param-type">Visual</span>
 
 
             
@@ -2040,8 +2445,6 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
     
 
     
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
 
     
 
@@ -2054,7 +2457,7 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line739">line 739</a>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line626">line 626</a>
     </li></ul></dd>
     
 
@@ -2077,42 +2480,13 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
 
 
 
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        <p>arguments invalid</p>
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type"><a href="XError.html">XError</a></span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>arr</p>
+    <p>mesh object can be rendered by <a href="Thrender.html"><code>Thrender</code></a>.</p>
 </div>
 
 
@@ -2123,13 +2497,1677 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
     </dt>
     <dd>
         
-<span class="param-type">array</span>
+<span class="param-type">THREE.Mesh</span>
 
 
     </dd>
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createCurve"><span class="type-signature">(static) </span>createCurve<span class="signature">(cmpObj3, paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Handling <code>AssetType.GeomCurve</code>, generate curve of
+type of HILBERT, RandomCurve, RandomSects, PointSect,
+CatmullRom, Spline from <a href="XComponent.html#.Obj3Type"><code>XComponent.Obj3Type</code></a>.</p>
+<ol>
+<li>use <a href="xgeom.html#.generateCurve"><code>xgeom.generateCurve</code></a> to generate points</li>
+<li>create the THREE.line,</li>
+<li>set line to Obj3.mesh</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Visual.paras, @see <a href="xgeom.html#.generateCurve"><code>xgeom.generateCurve</code></a></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line328">line 328</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{curve, path}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createDynaSegments"><span class="type-signature">(static) </span>createDynaSegments<span class="signature">(cmpObj3, paras)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Handling <code>AssetType.DynaSects</code>, generate lines of
+type of RandomSects, PointSect from <a href="XComponent.html#.Obj3Type"><code>XComponent.Obj3Type</code></a>.</p>
+<ol>
+<li>use <code>xgeom.generateSegments</code> to generate lines</li>
+<li>create the THREE.line,</li>
+<li>set line to Obj3.mesh</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>paras</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Visual.paras, @see xgeom.generateCurve</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line355">line 355</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{curve, path}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj3mesh"><span class="type-signature">(static) </span>createObj3mesh<span class="signature">(cmpObj3, geomType, material)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create object mesh, put int <em>cmpObj3</em>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>geomType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3Type</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>material</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">THREE.Materail</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line382">line 382</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj3particles"><span class="type-signature">(static) </span>createObj3particles<span class="signature">(cmpObj3, fromesh, cmpVisual)</span><span class="type-signature"> &rarr; {THREE.Points}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create particles (THREE.Points) from vertices of mesh.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>this enitiy's Obj3 component, uniforms merged to target mesh</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fromesh</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">THREE.Mesh</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>referencing mesh</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpVisual</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Visual</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>this entity's Visual component.
+cmVisual.paras.u_tex: texture path
+cmVisual.shader: parameters for generate vertex and framgment shaders. see xglsl.xvShader().</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line568">line 568</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>where geometry is generated by <code>xglsl.particlesGeom()</code>,
+material is THREE.ShaderMaterial.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.Points</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="signature">(nodes)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Clone and combine gltf nodes' geometry[position] buffer - the modules vertices.</p>
+<p>This method can only handling Visual.vtype == AssetType.point, making
+points (vertices) can basically rendered.</p>
+<p>This is not enough. Animizer would added more components to animize points.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code></code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">xv.Components.Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>nodes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>nodes loaded from gltf.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Visual.paras,</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">paras</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>define, size, color...</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line500">line 500</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj3points"><span class="type-signature">(static) </span>createObj3points<span class="signature">(cmpObj3, geomType, material)</span><span class="type-signature"> &rarr; {THREE.Mesh}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create THREE.Points from cmpObj3.mesh.</p>
+<p>Difference to createObj3particles which createing vertices from referenced
+mesh, this method create points according to Obj3.geomType (<code>Obj3Type</code>)
+with Obj3.box as constructor parameters.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmpObj3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Obj3 for the mesh</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>geomType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">AssetType</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Visual.vtype</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>material</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">THREE.Material</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[optional] default is THREE.ShaderMaterail.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line301">line 301</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>mesh (already set in cmpObj3)</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.Mesh</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".threeGeometryCase"><span class="type-signature">(static) </span>threeGeometryCase<span class="signature">(geomType, geomParaArr)</span><span class="type-signature"> &rarr; {THREE.BufferGeometry}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <div id='api-threeGeometryCase'>Create geometry for different cases.</div>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>geomType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Obj3Type</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p><code>Obj3Type</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>geomParaArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>geometry parameters for the given type.
+See <code>Obj3Type</code> for parameters details.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line403">line 403</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>any subclass of three-js BufferGeometry.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">THREE.BufferGeometry</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="init"><span class="type-signature"></span>init<span class="signature">(canvas, x)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>canvas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Canvas</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#x">x</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{options, ...}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line680">line 680</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(tick, entities)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <ol>
+<li>Show picked object outline.<br></li>
+<li>Render with composer or scene render.</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tick</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>entities</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array.&lt;ECS.Entity></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_sys_thrender.js.html">lib/sys/thrender.js</a>, <a href="lib_sys_thrender.js.html#line740">line 740</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2151,13 +4189,13 @@ add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="Vec3.html">Vec3</a></li><li><a href="vec3_.html">vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Apr 24 2020 09:58:56 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 27 2020 23:36:06 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
