@@ -1,6 +1,44 @@
 Animizers
 =========
 
+Animizers convert ModelSeqs, the animation sequences scripts into Tween objects
+that can be played by XTweener.
+
+Animation scripts are a 2D array in an entity definition, ModelSeqs.script.
+
+Sequence the Animation Structure
+--------------------------------
+
+Tween animations are organized as a 2D array, with major order the index of animation
+sequences' order. Each sequence is an array of *CmpTween* component.
+
+API Reference:
+
+- `ModelSeqs <../jsdoc/XComponent.ModelSeqs.html>`_
+
+- `CmpTweens <../jsdoc/XComponent.CmpTweens.html>`_
+
+- `CmpTween <../jsdoc/XComponent.CmpTween.html>`_
+
+Start Tween Sequence
+--------------------
+
+There are 3 way to start a tween animation:
+
+1. Set start = 0 in the script, let ModelMorph start the sequence automatically.
+
+2. Triggered by other scripts, with *startWith* & *followBy* command in script.
+
+3. Use start command, CmpTween.startCmds. Which is an array buffering commands to
+   start a sequence. It's index is the same as tween sequences' index. The following
+   code start the second sequence of entity e.
+
+::
+
+    e.CmpTweens.startCmds.push(1);
+
+A more elegant way to do this is use the XTweener.startSeq() API.
+
 Mesh Animiation Script
 ----------------------
 

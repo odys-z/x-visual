@@ -97,6 +97,8 @@
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Animizers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sequence-the-animation-structure">Sequence the Animation Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#start-tween-sequence">Start Tween Sequence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mesh-animiation-script">Mesh Animiation Script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#modleseqs-script">ModleSeqs.script</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mtype">mtype</a></li>
@@ -159,6 +161,35 @@
             
   <div class="section" id="animizers">
 <h1>Animizers<a class="headerlink" href="#animizers" title="Permalink to this headline">¶</a></h1>
+<p>Animizers convert ModelSeqs, the animation sequences scripts into Tween objects
+that can be played by XTweener.</p>
+<p>Animation scripts are a 2D array in an entity definition, ModelSeqs.script.</p>
+<div class="section" id="sequence-the-animation-structure">
+<h2>Sequence the Animation Structure<a class="headerlink" href="#sequence-the-animation-structure" title="Permalink to this headline">¶</a></h2>
+<p>Tween animations are organized as a 2D array, with major order the index of animation
+sequences’ order. Each sequence is an array of <em>CmpTween</em> component.</p>
+<p>API Reference:</p>
+<ul class="simple">
+<li><a class="reference external" href="../jsdoc/XComponent.ModelSeqs.html">ModelSeqs</a></li>
+<li><a class="reference external" href="../jsdoc/XComponent.CmpTweens.html">CmpTweens</a></li>
+<li><a class="reference external" href="../jsdoc/XComponent.CmpTween.html">CmpTween</a></li>
+</ul>
+</div>
+<div class="section" id="start-tween-sequence">
+<h2>Start Tween Sequence<a class="headerlink" href="#start-tween-sequence" title="Permalink to this headline">¶</a></h2>
+<p>There are 3 way to start a tween animation:</p>
+<ol class="arabic simple">
+<li>Set start = 0 in the script, let ModelMorph start the sequence automatically.</li>
+<li>Triggered by other scripts, with <em>startWith</em> &amp; <em>followBy</em> command in script.</li>
+<li>Use start command, CmpTween.startCmds. Which is an array buffering commands to
+start a sequence. It’s index is the same as tween sequences’ index. The following
+code start the second sequence of entity e.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">e</span><span class="o">.</span><span class="n">CmpTweens</span><span class="o">.</span><span class="n">startCmds</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A more elegant way to do this is use the XTweener.startSeq() API.</p>
+</div>
 <div class="section" id="mesh-animiation-script">
 <h2>Mesh Animiation Script<a class="headerlink" href="#mesh-animiation-script" title="Permalink to this headline">¶</a></h2>
 <p>Example:</p>
@@ -168,11 +199,11 @@
             <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>
             <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
     <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
-            <span class="c1">// Three use document to load assets, which doesn&#39;t exist whil testing</span>
-            <span class="c1">// null acts as a flag to let thrender create a ram texture.</span>
+            <span class="c1">// Three use document to load assets, which doesn&#39;t exist while testing.</span>
+            <span class="c1">// null | undefined acts as a flag to let thrender create a ram texture.</span>
             <span class="nx">asset</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
 
-    <span class="c1">// in version 1.0, only type of sequence animation is supported</span>
+    <span class="c1">// in version 1.0, only type of sequential animation is supported</span>
     <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
                     <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>         <span class="c1">// auto start, only alpha tween in v0.2</span>
@@ -215,15 +246,16 @@ AnimType defined in component/morph.js.</p>
 <h4>AnimType<a class="headerlink" href="#animtype" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference internal" href="../reference/components.html#animtype"><span class="std std-ref">AnimType</span></a> declares supported Animation types.</p>
 <p>Currently animation a all driven by a modified version of Tween.js module, XTweener.</p>
-<p>X-visual is struggling to divide animations into some orthogonal types, but not
-always the case.</p>
-<p>Test shows some animation do show this character. For example, AnimType.U_MORPHi
-can be combined together with more than one visual type.</p>
+<p>X-visual is struggling to divide animations into a group of orthogonal calculations,
+but not always the case.</p>
+<p>Tests shows some animation do showing this character. The AnimType.U_MORPHi type
+for example, can be combined together with more than one visual types.</p>
 </div>
 <div class="section" id="animcate">
 <h4>AnimCate<a class="headerlink" href="#animcate" title="Permalink to this headline">¶</a></h4>
 <p>mtype also has a flag indicating what kind of the animation is. Currently there
-is only one special flag, AnimCate.COMBINE_AFFINE, defined in <a class="reference internal" href="../reference/components.html#animcate"><span class="std std-ref">AnimCate</span></a>.</p>
+is only one special flag, AnimCate.COMBINE_AFFINE, defined in <a class="reference internal" href="../reference/components.html#animcate"><span class="std std-ref">AnimCate</span></a>,
+indicating that the animation should been handled by AffineCombiner.</p>
 <p>See <a class="reference internal" href="affine.html#affine-design-memo"><span class="std std-ref">Affine Combination</span></a> for details.</p>
 </div>
 </div>
