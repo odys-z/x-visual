@@ -1,0 +1,44 @@
+{ "chart": {
+    "name": "x-bar vec4 (1)",
+    "domain": [[0, 2], [0, 21], [0, 2]],
+    "range": [[0, 160], [0, 200], [0, 100]],
+    "grid": [4, 1, 3],
+    "grid-space": [40, 120, 40],
+	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world."
+  },
+  "bar": {
+    "id": "bar1",
+    "geometry-desc": "the bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
+    "geometry": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"],
+    "coordinates": [{"label": "1-coord", "range": [0, 1]}, {"label": "2-coord", "range": [0, 1]}],
+    "totalBar": 4, "totalBar-desc": "discret-coords x vector-num",
+
+    "_comment": "support in the future?",
+    "script": [
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 1.1,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }],
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 5.2,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }]
+    ],
+    "bars": "", "bars-desc": "use this to define layer overlapping?"
+  },
+
+  "vectors": [
+    [ 0, 0, 2 ],
+    [ 0, 1, 3 ],
+    [ 0, 2, 4 ],
+    [ 1, 0, 3 ],
+    [ 1, 1, 4 ],
+    [ 1, 2, 5 ],
+    [ 2, 0, 4 ],
+    [ 2, 1, 5 ],
+    [ 2, 2, 6 ],
+    [ 3, 0, 5 ],
+    [ 3, 1, 6 ],
+    [ 3, 2, 7 ]
+  ]
+}
