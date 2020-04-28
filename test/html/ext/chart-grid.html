@@ -19,7 +19,7 @@
             this.ecs = ecs;
         }
 
-        update() {
+        update(tick, entities) {
             if (xview.flag > 0) {
                 this.cmd = 0;
                 if (xview.cmds[0].cmd === 'left')
@@ -38,8 +38,6 @@
         }
     }
 
-    ChartTest.query = { iffall: ['CmdFlag', 'Sankey'] };
-
     const xworld = new xv.XWorld(document.getElementById('canv'), window, {orbitControl: true});
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
@@ -51,12 +49,11 @@
     $.getJSON( json,
         function(json) {
             chartvisuals = new xv.chart.GridVisuals ( ecs,
-                    {chart: json.chart, lines: {color: 0x77ccff},
-                     planes: {tex: '../../assets/tex/grey-pixel.png'},
-                     lines: {color: 0x70a0bb},
-                             ix0: [1, 2, 1]}    // initial position, in grid index
-                    },
-                    json.sankey, json.vectors );
+                  { chart: json.chart, lines: {color: 0x77ccff},
+                    planes: {tex: '../../assets/tex/grey-pixel.png'},
+                    lines: {color: 0x30a0ff},
+                            ix0: [1, 2, 1] },    // initial position, in grid index
+                  json.sankey, json.vectors );
             xworld.addSystem('test', chartvisuals);
 
             xworld.addSystem('test', new ChartTest(ecs, {xworld}));
