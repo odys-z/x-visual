@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/sys/input.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/sys/input.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as ECS from '../../packages/ecs-js/index';
+import {x} from '../xapp/xworld';
+import {XError} from '../xutils/xcommon';
+
+const any = ['Input'];
+
+export
+/**Key flags.
+ * @enum {int}
+ * */
+const KeyFlag = {
+	/** ctrl key down */
+	ctrl: 1 &lt;&lt; 0,
+	/** shift key down */
+	shift: 1 &lt;&lt; 1,
+	/** alt key down */
+	alt: 1 &lt;&lt; 2,
+}
+
+/**
+ * &lt;h4>User inputs handler.&lt;/h4>
+ * This sybsystem registers Input compoments, listening to all user inputs and
+ * interpret events into UserCmds.
+ *
+ * &lt;h5>1. Commands Handling Process&lt;/h5>
+ * This class is always updated by x-visual frame. Each time updated, the buffering
+ * UI events will be converted to commands and saved in xview's command queue.
+ * The next time updating, the command queue will be cleared.
+ *
+ * In x-visual 0.2, the xview is changed to a global accessable singleton.
+ * The command queue must not been modified other than by Input.
+ *
+ * Xview is also exported as xworld property, xv.xworld.xview.
+ *
+ * &lt;h5>2. About Gpu Picking&lt;/h5>
+ * If there is a GpuPickable component in an entity, his class also put mouse
+ * position into it.
+ *
+ * TODO If GPU picking is not needed, user should provide x parameter of constructor
+ * a dummy mouse event handler.
+ *
+ * @class Input
+ */
+export default class Input extends ECS.System {
+	/**
+	 * Create Input handler of 'xview'.
+	 * @param {ECS} ecs
+	 * @param {object} x xworld.x
+	 * @constructor Input
+	 */
+	constructor(ecs, x, view) {
+		super(ecs);
+		var wind = x.window;
+		// this.xview = ecs.getEntity('xview')
+		this.xview = view;
+		view.Input = this;
+		if (typeof this.xview !== 'object') {
+			console.error('Sys.Input need an xview to work!')
+			return
+		}
+
+		var qcmd = []
+		var interpretor = typeof x.interpretor === 'function'?
+						x.inerpretor : this.interpret;
+
+		if (wind &amp;&amp; wind.addEventListener) {
+			var me = this;
+			wind.addEventListener('keydown', (e) => {
+				me.dirty = true;
+				var cmd = interpretor('key', e);
+				qcmd.push(cmd);
+			});
+
+			var mousehandler = (e) => {
+				me.dirty = true;
+				if (x.picker) {
+					// shouldn't reach here befor v1.0
+					var cmd = x.picker('mouse', e)
+				}
+				else {
+					var cmd = interpretor('mouse', e);
+				}
+				if (cmd)
+					qcmd.push(cmd);
+			};
+			wind.addEventListener('mousemove', mousehandler);
+			wind.addEventListener('mouseup', mousehandler);
+		}
+		else {
+			if (x.log >= 5)
+			console.warn('[5] Sys.Input: window object is not correct, testing?');
+		}
+
+		this.qcmd = qcmd;
+		this.dirty = false; // waiting inputs
+	}
+
+	update(tick, entities) {
+		var v = this.xview; // for shorter expression
+		var cmds = this.xview.cmds;
+		if (cmds.length > 0 &amp;&amp; v.tick &lt; tick) {
+			cmds.splice(0, cmds.length);
+			v.tick = tick;
+			v.flag = 0;
+		}
+
+		if (!this.dirty) return;
+
+		if (this.qcmd.length > 0) {
+			v.keflag = 0;
+			this.qcmd.forEach(function(cmd, cx) {
+				cmds.push(cmd);
+				v.keflag |= cmd.flag;
+			});
+			v.flag = cmds.length;
+
+			this.qcmd.splice(0, this.qcmd.length);
+		}
+		this.dirty = false;
+	}
+
+	/** default input events interpretor.
+	 * @param {string} code
+	 * @param {MouseEvent} e
+	 * @return {object} {code, cmd, client, e}&lt;br>
+	 * where&lt;br>
+	 * code = 'key' | 'mouse'&lt;br>
+	 * cmd = Cmd | MouseEvent.type&lt;br>
+	 * client: [x, y] only for mouse event&lt;br>
+	 * e: MouseEvent, only for mouse event&lt;br>
+	 * @function
+	 */
+	interpret(code, e) {
+		var cmd;
+		if (code === 'key') {
+			cmd = {code, 'key': e.keyCode, e};
+			// numbers
+			if (0x30 &lt;= e.keyCode &amp;&amp; e.keyCode &lt;= 0x3a )
+				cmd.cmd = e.keyCode - 0x30;
+			//
+			else if (e.keyCode === 0x57 || e.keyCode === 0x77) // w
+				cmd.cmd = 'up';
+			else if (e.keyCode === 0x41 || e.keyCode === 0x61) // a
+				cmd.cmd = 'left';
+			else if (e.keyCode === 0x53 || e.keyCode === 0x73) // s
+				cmd.cmd = 'down';
+			else if (e.keyCode === 0x44 || e.keyCode === 0x64) // d
+				cmd.cmd = 'right';
+			else if (e.keyCode === 0x58 || e.keyCode === 0x78) // x
+				cmd.cmd = 'back';
+			else if (e.keyCode === 0x43 || e.keyCode === 0x63) // c
+				cmd.cmd = 'forth';
+			else if (e.keyCode === 0x20)    // space
+				cmd.cmd = 'fire';
+			else if (e.keyCode === 0x09)    // tab
+				cmd.cmd = 'tab';
+			else if (e.keyCode === 20)      // CapsLock
+				cmd.cmd = 'cap';
+			else if (e.keyCode === 27)      // esc
+				cmd.cmd = 'esc';
+			else if (e.keyCode === 93)      // context menu
+				cmd.cmd = 'menu';
+			else if (e.keyCode === 92)      // meta
+				cmd.cmd = 'meta';
+
+			cmd.keyflag = 0;
+			if (e.ctrlKey)
+				cmd.keyflag |= KeyFlag.ctrl;     // 1 &lt;&lt; 0;
+			if (e.shiftKey)
+				cmd.keyflag |= KeyFlag.shift;    // 1 &lt;&lt; 1;
+			if (e.altKey)
+				cmd.keyflag |= KeyFlag.alt;      // 1 &lt;&lt; 2;
+		}
+		else if (code === 'mouse') {
+			if (e.type === 'mousemove'
+				&amp;&amp; e.offsetX === offsetxy.x &amp;&amp; e.offsetY === offsetxy.y)
+				return true;
+			else {
+				offsetxy.x = e.offsetX;
+				offsetxy.y = e.offsetY;
+				cmd = { code,
+						cmd: e.type,
+						client: [e.offsetX, e.offsetY],
+						e };
+			}
+		}
+		else throw new XError(`Input(): what's here for code ${code}`);
+
+		return cmd;
+	}
+}
+
+const offsetxy = {};
+
+Input.query = { any };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Apr 28 2020 09:05:12 GMT+0800 (Hong Kong Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

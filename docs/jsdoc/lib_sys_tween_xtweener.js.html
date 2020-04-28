@@ -1,4 +1,33 @@
-/**Modified to adapting to ECS.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/sys/tween/xtweener.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/sys/tween/xtweener.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**Modified to adapting to ECS.
  * Source from:
  * Tween.js - Licensed under the MIT license
  * https://github.com/tweenjs/tween.js
@@ -52,7 +81,7 @@ export default class XTweener extends ECS.System {
 			if (e.CmpTween) {
 				XTweener.initween(e.CmpTween);
 			}
-			if (e.CmpTweens && e.CmpTweens.tweens) {
+			if (e.CmpTweens &amp;&amp; e.CmpTweens.tweens) {
 				if (XTweener.validate(e)) {
 					for (const ctwn of e.CmpTweens.tweens) {
 						XTweener.initween(ctwn);
@@ -69,7 +98,7 @@ export default class XTweener extends ECS.System {
 	 * @function
 	 */
 	static validate (entity) {
-		if (entity.ModelSeqs && (entity.CmpTweens.tweens === undefined
+		if (entity.ModelSeqs &amp;&amp; (entity.CmpTweens.tweens === undefined
 			|| entity.CmpTweens.tweens.length === 0)) {
 			console.warn(
 				'CmpTweens shouldn\'t be null if there are scripts to be animized: ',
@@ -123,17 +152,17 @@ export default class XTweener extends ECS.System {
 
 	/**
 	 * @param {int} tick
-	 * @param {array<Entity>} entities
+	 * @param {array&lt;Entity>} entities
 	 * @member XTweener#update
 	 * @function
 	 */
 	update (tick, entities) {
 		var time = TWEEN.now();
 		for (const e of entities) {
-			if (e.CmpTweens && e.CmpTweens.tweens) {
+			if (e.CmpTweens &amp;&amp; e.CmpTweens.tweens) {
 				if (e.CmpTweens.startCmds.length > 0) {
 					for (var cmdx of e.CmpTweens.startCmds) {
-						if (0 <= cmdx && cmdx < e.CmpTweens.tweens.length) {
+						if (0 &lt;= cmdx &amp;&amp; cmdx &lt; e.CmpTweens.tweens.length) {
 							var twSeq = e.CmpTweens.tweens[cmdx];
 							// debug note: important!
 							// don't let it set startTime after "now" - won't start
@@ -148,25 +177,25 @@ export default class XTweener extends ECS.System {
 				var beingStartwiths = this.resolvingStarts[e.id];
 
 				var dirty = false;
-				for (var seqx = 0; seqx < e.CmpTweens.twindx.length; seqx ++) {
+				for (var seqx = 0; seqx &lt; e.CmpTweens.twindx.length; seqx ++) {
 					var twnx = e.CmpTweens.twindx[seqx];
 					if (twnx >= e.CmpTweens.tweens[seqx].length) {
 						// FIXME we need optimize this (with CmpTweens.isPlaying?)
 					}
 					else {
 						const tween = e.CmpTweens.tweens[seqx][twnx];
-						if (tween && tween.isPlaying) {
+						if (tween &amp;&amp; tween.isPlaying) {
 							dirty = true;
 							tween.isPlaying = XTweener.updateTween(tween, time, this.resolvingStarts);
 							if (e.preserve === false) {
 								// what's here?
 							}
 						}
-						if (tween && tween.isCompleted) {
+						if (tween &amp;&amp; tween.isCompleted) {
 							// finished, start next
 							e.CmpTweens.twindx[seqx] = twnx + 1;
-							if (twnx + 1 < e.CmpTweens.tweens[seqx].length
-								&& e.CmpTweens.tweens[seqx][twnx + 1]) {
+							if (twnx + 1 &lt; e.CmpTweens.tweens[seqx].length
+								&amp;&amp; e.CmpTweens.tweens[seqx][twnx + 1]) {
 								const nxtween = e.CmpTweens.tweens[seqx][twnx + 1];
 								XTweener.startween(nxtween);
 								if (typeof nxtween.onFollowed === 'function') {
@@ -176,7 +205,7 @@ export default class XTweener extends ECS.System {
 							else if (twnx + 1 >= e.CmpTweens.tweens[seqx].length) {
 								// sequence finished
 								if (e.CmpTweens.eFinished
-									&& typeof e.CmpTweens.eFinished[seqx] === 'function')
+									&amp;&amp; typeof e.CmpTweens.eFinished[seqx] === 'function')
 									e.CmpTweens.eFinished[seqx](e.CmpTweens, seqx);
 							}
 							else {
@@ -209,7 +238,7 @@ export default class XTweener extends ECS.System {
 				}
 
 				// this.resolvingStarts[e.id] a.k.a beingStartwiths
-				if (this.resolvingStarts[e.id] && this.resolvingStarts[e.id].length === 0)
+				if (this.resolvingStarts[e.id] &amp;&amp; this.resolvingStarts[e.id].length === 0)
 					delete this.resolvingStarts[e.id];
 			}
 		}
@@ -233,10 +262,10 @@ export default class XTweener extends ECS.System {
 	static updateTween (cmp, time, resolvingStarts) {
 		var property, elapsed, value;
 
-		if (time < cmp.startTime) return true;
+		if (time &lt; cmp.startTime) return true;
 
 		if (cmp.onStartCallbackFired === false) {
-			if (cmp.onStartHandler &&
+			if (cmp.onStartHandler &amp;&amp;
 				typeof cmp.onStartHandler.onStart === 'function') {
 				cmp.onStartHandler.onStart(cmp.object);
 			}
@@ -291,7 +320,7 @@ export default class XTweener extends ECS.System {
 			}
 		}
 
-		if (cmp.onUpdateHandler &&
+		if (cmp.onUpdateHandler &amp;&amp;
 			typeof cmp.onUpdateHandler.onUpdate === 'function') {
 			cmp.onUpdateHandler.onUpdate(cmp.object, elapsed);
 		}
@@ -335,7 +364,7 @@ export default class XTweener extends ECS.System {
 			else {
 				cmp.isCompleted = true;	// added by ody
 				cmp.isPlaying = false;	// added by ody
-				if (cmp.onCompleteHandler &&
+				if (cmp.onCompleteHandler &amp;&amp;
 					typeof cmp.onCompleteHandler.onComplete === 'function') {
 					cmp.onCompleteHandler.onComplete(cmp.object, cmp);
 				}
@@ -343,7 +372,7 @@ export default class XTweener extends ECS.System {
 				// deprecated branch
 				// chained tweens is not used
 				if (cmp.chainedTweens) {
-					for (var i = 0, numChainedTweens = cmp.chainedTweens.length; i < numChainedTweens; i++) {
+					for (var i = 0, numChainedTweens = cmp.chainedTweens.length; i &lt; numChainedTweens; i++) {
 						// Make the chained tweens start exactly at the time they should,
 						// even if the `update()` method was called way past the duration of the tween
 						cmp.chainedTweens[i].start(cmp.startTime + cmp.duration);
@@ -352,7 +381,7 @@ export default class XTweener extends ECS.System {
 
 				// added by ody, handle followBy
 				var folls = cmp.followBy;
-				if (folls && folls.length > 0) {
+				if (folls &amp;&amp; folls.length > 0) {
 					XTweener.pushTriggerings(TriggerEvent.FOLLOWBY, time, cmp, resolvingStarts, folls);
 				}
 
@@ -394,7 +423,7 @@ export default class XTweener extends ECS.System {
 				continue;
 			}
 
-			// ody: why we don't reset the value before startTime? (time < startTiem)
+			// ody: why we don't reset the value before startTime? (time &lt; startTiem)
 			else if (cmp.valuesStartRepeat[property] !== undefined) {
 				if (typeof cmp.object[property].value !== 'undefined') // include case of number 0
 					cmp.object[property].value = cmp.valuesStartRepeat[property];
@@ -434,12 +463,12 @@ export default class XTweener extends ECS.System {
 	 * @param {number} now current time
 	 * @param {CmpTween} cmpStarter component triggered the event
 	 * @param {object} resolvingBuff all triggering tween are put into here
-	 * @param {array<startWith|followBy>} withs scripts array defining tweens to be started
+	 * @param {array&lt;startWith|followBy>} withs scripts array defining tweens to be started
 	 * @member XTweener.pushTriggerings
 	 * @function
 	 */
 	static pushTriggerings (start_or_follow, now, cmpStarter, resolvingBuff, withs) {
-		if (withs && withs.length > 0) {
+		if (withs &amp;&amp; withs.length > 0) {
 			// we don't have the entity's CmpTweens here, can only start it in update()
 			for (var wx of withs) {
 				wx.starter = cmpStarter;
@@ -466,18 +495,18 @@ export default class XTweener extends ECS.System {
 	static startTriggered (cmpTweens, triggerings, resolvingBuff) {
 		var slicings = [];
 		var now = TWEEN.now();
-		for (var i = 0; i < triggerings.length; i++) {
+		for (var i = 0; i &lt; triggerings.length; i++) {
 			var beingStart = triggerings[i];
 			if (beingStart.triggerAt == TriggerEvent.BEGINNING
-				|| beingStart.triggerAt === TriggerEvent.STARTWITH && beingStart.starter.isPlaying
-				|| beingStart.triggerAt === TriggerEvent.FOLLOWBY && beingStart.starter.isCompleted) {
+				|| beingStart.triggerAt === TriggerEvent.STARTWITH &amp;&amp; beingStart.starter.isPlaying
+				|| beingStart.triggerAt === TriggerEvent.FOLLOWBY &amp;&amp; beingStart.starter.isCompleted) {
 				var tweens = cmpTweens.tweens[beingStart.seqx];
 				if (!tweens || !tweens[0]) {
 					console.error("XTweener.update(): StartWith or followBy's script index is out of range.",
 						"\nSeq Index: ", beingStart.seqx, "\nTweens: ", cmpTweens.tweens);
 				}
-				// else if (!tweens[0].isPlaying && !tweens[0].isCompleted) {
-				else if (tweens && tweens[0] && beingStart.startime <= now) {
+				// else if (!tweens[0].isPlaying &amp;&amp; !tweens[0].isCompleted) {
+				else if (tweens &amp;&amp; tweens[0] &amp;&amp; beingStart.startime &lt;= now) {
 					// console.log(tweens[0].delay + beingStart.start * 1000);
 					XTweener.startween(tweens[0], beingStart.start * 1000);
 					cmpTweens.twindx[beingStart.seqx] = 0;
@@ -505,7 +534,7 @@ export default class XTweener extends ECS.System {
 	 */
 	static isPlaying (cmpTweens, seqx) {
 		var twnx = cmpTweens.twindx[seqx];
-		return 0 <= twnx && twnx < cmpTweens.tweens[seqx].length;
+		return 0 &lt;= twnx &amp;&amp; twnx &lt; cmpTweens.tweens[seqx].length;
 	}
 
 	/**Start animation sequence
@@ -527,7 +556,7 @@ export default class XTweener extends ECS.System {
 	 * @function
 	 */
 	static startAll (cmpTweens) {
-		for (var seqx = 0; cmpTweens && seqx < cmpTweens.twindx.length; seqx++) {
+		for (var seqx = 0; cmpTweens &amp;&amp; seqx &lt; cmpTweens.twindx.length; seqx++) {
 			this.startSeq(cmpTweens, seqx);
 		}
 	}
@@ -541,18 +570,18 @@ export default class XTweener extends ECS.System {
 	static pauseTween (cmpTweens, pause) {
 		var now = TWEEN.now();
 
-		for (var seqx = 0; cmpTweens && seqx < cmpTweens.twindx.length; seqx++) {
+		for (var seqx = 0; cmpTweens &amp;&amp; seqx &lt; cmpTweens.twindx.length; seqx++) {
 			var twnx = cmpTweens.twindx[seqx];
-			if (0 <= twnx && twnx < cmpTweens.tweens[seqx].length) {
+			if (0 &lt;= twnx &amp;&amp; twnx &lt; cmpTweens.tweens[seqx].length) {
 				var twn = cmpTweens.tweens[seqx][twnx];
-				// see Tween.pause & resume
-				if(!!pause && twn &&
+				// see Tween.pause &amp; resume
+				if(!!pause &amp;&amp; twn &amp;&amp;
 					!twn.isPaused || !twn.isPlaying) {
 					// pause
 					twn.isPaused = true;
 					twn.pauseStart = now;
 				}
-				else if(!pause && twn &&
+				else if(!pause &amp;&amp; twn &amp;&amp;
 					twn.isPaused || !twn.isPlaying) {
 					// resume
 					twn.isPaused = false;
@@ -583,7 +612,7 @@ TWEEN.nextId = function () {
 // Include a performance.now polyfill.
 // In node.js, use process.hrtime.
 // FIXME what's self used for?
-if (typeof (self) === 'undefined' && typeof (process) !== 'undefined' && process.hrtime) {
+if (typeof (self) === 'undefined' &amp;&amp; typeof (process) !== 'undefined' &amp;&amp; process.hrtime) {
 	TWEEN.now = function () {
 		var time = process.hrtime();
 
@@ -592,8 +621,8 @@ if (typeof (self) === 'undefined' && typeof (process) !== 'undefined' && process
 	};
 }
 // In a browser, use self.performance.now if it is available.
-else if (typeof (self) !== 'undefined' &&
-         self.performance !== undefined &&
+else if (typeof (self) !== 'undefined' &amp;&amp;
+         self.performance !== undefined &amp;&amp;
 		 self.performance.now !== undefined) {
 	// This must be bound, because directly assigning this function
 	// leads to an invocation exception in Chrome.
@@ -669,7 +698,7 @@ TWEEN.Tween = function(cmpTween, tweenee) {
 			cmp.isPlaying = false;
 			cmp.isPaused = false;
 
-			if (cmp.onStopHandler &&
+			if (cmp.onStopHandler &amp;&amp;
 				typeof cmp.onStopHandler.onStop === 'function') {
 				cmp.onStopHandler.onStop(cmp.object);
 			}
@@ -708,7 +737,7 @@ TWEEN.Tween = function(cmpTween, tweenee) {
 		}
 
 		this.stopChainedTweens = function () {
-			for (var i = 0, numChainedTweens = cmp.chainedTweens.length; i < numChainedTweens; i++) {
+			for (var i = 0, numChainedTweens = cmp.chainedTweens.length; i &lt; numChainedTweens; i++) {
 				cmp.chainedTweens[i].stop();
 			}
 		}
@@ -853,7 +882,7 @@ const XEasing = {
 
 		InOut: function (k) {
 
-			if ((k *= 2) < 1) {
+			if ((k *= 2) &lt; 1) {
 				return 0.5 * k * k;
 			}
 
@@ -880,7 +909,7 @@ const XEasing = {
 
 		InOut: function (k) {
 
-			if ((k *= 2) < 1) {
+			if ((k *= 2) &lt; 1) {
 				return 0.5 * k * k * k;
 			}
 
@@ -907,7 +936,7 @@ const XEasing = {
 
 		InOut: function (k) {
 
-			if ((k *= 2) < 1) {
+			if ((k *= 2) &lt; 1) {
 				return 0.5 * k * k * k * k;
 			}
 
@@ -934,7 +963,7 @@ const XEasing = {
 
 		InOut: function (k) {
 
-			if ((k *= 2) < 1) {
+			if ((k *= 2) &lt; 1) {
 				return 0.5 * k * k * k * k * k;
 			}
 
@@ -992,7 +1021,7 @@ const XEasing = {
 				return 1;
 			}
 
-			if ((k *= 2) < 1) {
+			if ((k *= 2) &lt; 1) {
 				return 0.5 * Math.pow(1024, k - 1);
 			}
 
@@ -1019,7 +1048,7 @@ const XEasing = {
 
 		InOut: function (k) {
 
-			if ((k *= 2) < 1) {
+			if ((k *= 2) &lt; 1) {
 				return - 0.5 * (Math.sqrt(1 - k * k) - 1);
 			}
 
@@ -1072,7 +1101,7 @@ const XEasing = {
 
 			k *= 2;
 
-			if (k < 1) {
+			if (k &lt; 1) {
 				return -0.5 * Math.pow(2, 10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI);
 			}
 
@@ -1105,7 +1134,7 @@ const XEasing = {
 
 			var s = 1.70158 * 1.525;
 
-			if ((k *= 2) < 1) {
+			if ((k *= 2) &lt; 1) {
 				return 0.5 * (k * k * ((s + 1) * k - s));
 			}
 
@@ -1126,11 +1155,11 @@ const XEasing = {
 
 		Out: function (k) {
 
-			if (k < (1 / 2.75)) {
+			if (k &lt; (1 / 2.75)) {
 				return 7.5625 * k * k;
-			} else if (k < (2 / 2.75)) {
+			} else if (k &lt; (2 / 2.75)) {
 				return 7.5625 * (k -= (1.5 / 2.75)) * k + 0.75;
-			} else if (k < (2.5 / 2.75)) {
+			} else if (k &lt; (2.5 / 2.75)) {
 				return 7.5625 * (k -= (2.25 / 2.75)) * k + 0.9375;
 			} else {
 				return 7.5625 * (k -= (2.625 / 2.75)) * k + 0.984375;
@@ -1140,7 +1169,7 @@ const XEasing = {
 
 		InOut: function (k) {
 
-			if (k < 0.5) {
+			if (k &lt; 0.5) {
 				return TWEEN.Easing.Bounce.In(k * 2) * 0.5;
 			}
 
@@ -1163,7 +1192,7 @@ TWEEN.Interpolation = {
 		var i = Math.floor(f);
 		var fn = TWEEN.Interpolation.Utils.Linear;
 
-		if (k < 0) {
+		if (k &lt; 0) {
 			return fn(v[0], v[1], f);
 		}
 
@@ -1182,7 +1211,7 @@ TWEEN.Interpolation = {
 		var pw = Math.pow;
 		var bn = TWEEN.Interpolation.Utils.Bernstein;
 
-		for (var i = 0; i <= n; i++) {
+		for (var i = 0; i &lt;= n; i++) {
 			b += pw(1 - k, n - i) * pw(k, i) * v[i] * bn(n, i);
 		}
 
@@ -1199,7 +1228,7 @@ TWEEN.Interpolation = {
 
 		if (v[0] === v[m]) {
 
-			if (k < 0) {
+			if (k &lt; 0) {
 				i = Math.floor(f = m * (1 + k));
 			}
 
@@ -1207,7 +1236,7 @@ TWEEN.Interpolation = {
 
 		} else {
 
-			if (k < 0) {
+			if (k &lt; 0) {
 				return v[0] - (fn(v[0], v[0], v[1], v[1], -f) - v[0]);
 			}
 
@@ -1215,7 +1244,7 @@ TWEEN.Interpolation = {
 				return v[m] - (fn(v[m], v[m], v[m - 1], v[m - 1], f - m) - v[m]);
 			}
 
-			return fn(v[i ? i - 1 : 0], v[i], v[m < i + 1 ? m : i + 1], v[m < i + 2 ? m : i + 2], f - i);
+			return fn(v[i ? i - 1 : 0], v[i], v[m &lt; i + 1 ? m : i + 1], v[m &lt; i + 2 ? m : i + 2], f - i);
 
 		}
 
@@ -1278,3 +1307,26 @@ TWEEN.Interpolation = {
 TWEEN.version = '0.8.0';
 
 export { TWEEN, XEasing };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Apr 28 2020 09:05:12 GMT+0800 (Hong Kong Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

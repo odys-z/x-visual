@@ -1,4 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/sys/thrender.js</title>
 
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/sys/thrender.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
 import * as THREE from 'three'
 import {EffectComposer} from '../../packages/three/postprocessing/EffectComposer'
 import {RenderPass} from  '../../packages/three/postprocessing/RenderPass'
@@ -51,7 +80,7 @@ export default class Thrender extends ECS.System {
 	/**Create three.js Object3D - create mesh of Obj3.geom (e.g Obj3Type.BOX).
 	 * @param {ECS} ecs
 	 * @param {THREE.Scene} scene
-	 * @param {array<ECS.Entity>} entities
+	 * @param {array&lt;ECS.Entity>} entities
 	 * @member Thrender.createObj3s
 	 */
 	static createObj3s(ecs, scene, entities) {
@@ -68,7 +97,7 @@ export default class Thrender extends ECS.System {
 					uniforms = Object.assign(uniforms, e.Visual.uniforms);
 				switch (e.Visual.vtype) {
 					case AssetType.DomCanvas:
-						var alp = e.Visual.paras !== undefined && e.Visual.paras.tex_alpha !== undefined ?
+						var alp = e.Visual.paras !== undefined &amp;&amp; e.Visual.paras.tex_alpha !== undefined ?
 							e.Visual.paras.tex_alpha : 1;
 						// create texture of canvas
 						AssetKeepr.loadCanvtex2(e.Canvas);
@@ -91,7 +120,7 @@ export default class Thrender extends ECS.System {
 						break;
 					case AssetType.mesh:
 						var alp = e.Visual.paras !== undefined
-									&& e.Visual.paras.tex_alpha !== undefined
+									&amp;&amp; e.Visual.paras.tex_alpha !== undefined
 									? e.Visual.paras.tex_alpha : 1;
 
 						if (!e.Visual.material) {
@@ -109,7 +138,7 @@ export default class Thrender extends ECS.System {
 									Object.assign(uniforms, xglsl.obj2uniforms(e.Visual.paras.uniforms));
 
 								if (e.Visual.shader === ShaderFlag.colorArray)
-									for (var i = 0; i < e.Visual.paras.colors.length; i++)
+									for (var i = 0; i &lt; e.Visual.paras.colors.length; i++)
 										uniforms[`u_color${i}`] = {value: new THREE.Vector3(...e.Visual.paras.colors[i])};
 
 								var {vertexShader, fragmentShader} = xglsl.xvShader(
@@ -138,7 +167,7 @@ export default class Thrender extends ECS.System {
 											depthTest: true
 										};
 
-								if (e.Visual.paras && e.Visual.paras.color)
+								if (e.Visual.paras &amp;&amp; e.Visual.paras.color)
 									Object.assign (def, {color: e.Visual.paras.color});
 
 								mat = new THREE.MeshPhongMaterial(def);
@@ -150,7 +179,7 @@ export default class Thrender extends ECS.System {
 						mes.push(m);
 						break;
 					case AssetType.wireframe:
-						var alp = e.Visual.paras !== undefined && e.Visual.paras.tex_alpha !== undefined ?
+						var alp = e.Visual.paras !== undefined &amp;&amp; e.Visual.paras.tex_alpha !== undefined ?
 							e.Visual.paras.tex_alpha : 1;
 
 						var def = {
@@ -161,7 +190,7 @@ export default class Thrender extends ECS.System {
 								depthTest: true,// - for transparent
 						};
 
-						if (e.Visual.paras && e.Visual.paras.color)
+						if (e.Visual.paras &amp;&amp; e.Visual.paras.color)
 							Object.assign (def, {color: e.Visual.paras.color});
 
 						mat = e.Visual.material || new THREE.MeshBasicMaterial(def);
@@ -189,7 +218,7 @@ export default class Thrender extends ECS.System {
 									// change gltf vertices to points buffer
 									var m = Thrender.combineGltfPoints(e.Obj3, nodes, e.Visual.paras);
 									// Too late to push mesh into mes now, add to scene directly
-									if (scene && m) scene.add(m);
+									if (scene &amp;&amp; m) scene.add(m);
 								});
 						}
 						break;
@@ -220,7 +249,7 @@ export default class Thrender extends ECS.System {
 						var {curve, path} = Thrender.createCurve(e.Obj3, e.Visual.paras);
 						mes.push(curve);
 						if (e.ModelSeqs) {
-							// For geomCurve, it's hightly likely this path is needed by MorphingAnim & XTweener
+							// For geomCurve, it's hightly likely this path is needed by MorphingAnim &amp; XTweener
 							// Design MEMO
 							// what's the better practice for this in ECS pattern?
 							if (!e.ModelSeqs.cache)
@@ -268,7 +297,7 @@ export default class Thrender extends ECS.System {
 						console.error('TODO AssetType: ', e.Visual.vtype);
 				}
 
-				if (e.Obj3.mesh && e.Obj3.transform) {
+				if (e.Obj3.mesh &amp;&amp; e.Obj3.transform) {
 					var m4 = new mat4();
 					for (var trs of e.Obj3.transform)
 						m4.appAffine(trs);
@@ -400,9 +429,9 @@ export default class Thrender extends ECS.System {
 			geomType);
 	}
 
-	/**<div id='api-threeGeometryCase'>Create geometry for different cases.</div>
+	/**&lt;div id='api-threeGeometryCase'>Create geometry for different cases.&lt;/div>
 	 * @param {Obj3Type} geomType {@link Obj3Type}
-	 * @param {array<number>} geomParaArr geometry parameters for the given type.
+	 * @param {array&lt;number>} geomParaArr geometry parameters for the given type.
 	 * See {@link Obj3Type} for parameters details.
 	 * @return {THREE.BufferGeometry} any subclass of three-js BufferGeometry.
 	 * @member Thrender.threeGeometryCase
@@ -410,7 +439,7 @@ export default class Thrender extends ECS.System {
 	 */
 	static threeGeometryCase(geomType, geomParaArr) {
 		var len = geomParaArr.length;
-		if (len < 2) {
+		if (len &lt; 2) {
 			console.error('threeGeometryCase(): Geometry needing at least 2 argument such as w/h.')
 			return new THREE.BoxBufferGeometry( 2, 2, 2 );
 		}
@@ -462,7 +491,7 @@ export default class Thrender extends ECS.System {
 		else if (geomType === Obj3Type.SHAPE) {
 			var shape = new THREE.Shape();
 			shape.moveTo( x, y );
-			for (var i = 2; i < len; i += 2) {
+			for (var i = 2; i &lt; len; i += 2) {
 				shape.bezierCurveTo( geomParaArr[i], geomParaArr[i + 1] );
 			}
 			g = new THREE.ShapeBufferGeometry( shape );
@@ -511,7 +540,7 @@ export default class Thrender extends ECS.System {
 	 * @function
 	 */
 	static combineGltfPoints(cmpObj3, nodes, paras) {
-		if (cmpObj3 && nodes) {
+		if (cmpObj3 &amp;&amp; nodes) {
 			/* for city/scene.gltf, paras.nodes = ['Tree-1-3'],
 			 * nodes[0].children[0].type == 'Mesh',
 			 * nodes[0].children[0].geometry is a BufferGeometry, with array of
@@ -581,13 +610,13 @@ export default class Thrender extends ECS.System {
 		var m0 = fromesh.geometry.attributes[ 'position' ];
 		var material;
 		var uniforms = {};
-		if (cmpVisual.paras && cmpVisual.paras.u_tex) {
+		if (cmpVisual.paras &amp;&amp; cmpVisual.paras.u_tex) {
 			uniforms = {
 				// pointTexture: { value: new THREE.TextureLoader().load( "./spark1.png" ) }
 				u_tex: { value: new THREE.TextureLoader().load(`assets/${cmpVisual.paras.u_tex}`) }
 			};
 		}
-		else if ((cmpVisual.shader & ShaderFlag.defaultex) === ShaderFlag.defaultex) {
+		else if ((cmpVisual.shader &amp; ShaderFlag.defaultex) === ShaderFlag.defaultex) {
 			uniforms = {
 				u_tex: { value: AssetKeepr.defaultex() }
 			};
@@ -595,7 +624,7 @@ export default class Thrender extends ECS.System {
 		var {vertexShader, fragmentShader} = xglsl.xvShader(cmpVisual.shader, cmpVisual.paras);
 
 		var shadr = cmpVisual.shader === undefined ? ShaderFlag.testPoints
-					: cmpVisual.shader & ShaderFlag.mask;
+					: cmpVisual.shader &amp; ShaderFlag.mask;
 		if (shadr === ShaderFlag.randomParticles
 			|| shadr === ShaderFlag.testPoints) {
 			Object.assign(uniforms, xglsl.obj2uniforms(cmpObj3.uniforms));
@@ -613,7 +642,7 @@ export default class Thrender extends ECS.System {
 
 		var destEnt = x.ecs.getEntity(cmpVisual.asset || cmpVisual.paras.dest || cmpVisual.paras.a_dest);
 		if ((cmpVisual.asset || cmpVisual.paras.dest || cmpVisual.paras.a_dest)
-			&& !destEnt)
+			&amp;&amp; !destEnt)
 			console.error("The entity referenced by Visual.asset or Visual.paras.dest not foound.");
 		else {
 			var geometry = xglsl.particlesGeom(cmpVisual.paras, m0,
@@ -640,19 +669,19 @@ export default class Thrender extends ECS.System {
 
 		var {vertexShader, fragmentShader} = xglsl.xvShader(cmpVisual.shader, cmpVisual.paras);
 
-		for (var bx = 0; bx < cmpVisual.paras.uniforms.u_cubes.length; bx++) {
+		for (var bx = 0; bx &lt; cmpVisual.paras.uniforms.u_cubes.length; bx++) {
 			var destcube = cmpVisual.paras.uniforms.u_cubes[bx];
 			if (!destcube) {
 				console.error(`The visual paras.u_cubes[${destcube}] entity can't been found:\n`, cmpVisual);
 				continue;
 			}
 			var entCube = x.ecs.getEntity(destcube);
-			if (destcube && (!entCube || !entCube.Obj3.mesh || !entCube.Obj3.mesh.geometry.attributes['position'])) {
+			if (destcube &amp;&amp; (!entCube || !entCube.Obj3.mesh || !entCube.Obj3.mesh.geometry.attributes['position'])) {
 				console.error(`The visual paras.u_cubes element is ${destcube}, but no target mesh was found.`);
 				continue;
 			}
 			else if ( !(entCube.Obj3.mesh.geometry instanceof THREE.BoxBufferGeometry)
-				&& !(entCube.Obj3.mesh.geometry instanceof THREE.BoxGeometry) ) {
+				&amp;&amp; !(entCube.Obj3.mesh.geometry instanceof THREE.BoxGeometry) ) {
 				if (x.log >= 3)
 					console.warn(`[3] Can't create cube voxel from geometry other than box. Visual.paras.a_cube = ${destcube}`);
 			}
@@ -737,10 +766,10 @@ export default class Thrender extends ECS.System {
 		return x;
 	}
 
-	/**1. Show picked object outline.<br>
+	/**1. Show picked object outline.&lt;br>
 	 * 2. Render with composer or scene render.
 	 * @param {number} tick
-	 * @param {array<ECS.Entity>} entities
+	 * @param {array&lt;ECS.Entity>} entities
 	 * @member Thrender#update
 	 * @function
 	 */
@@ -749,7 +778,7 @@ export default class Thrender extends ECS.System {
 			this.outlinePass.selectedObjects.splice(0);
 			for (var e of entities) { // high light picking, any better way?
 				var pk = e.GpuPickable;
-				if (pk && pk.picktick > 0 && pk.picked) {
+				if (pk &amp;&amp; pk.picktick > 0 &amp;&amp; pk.picked) {
 					this.outlinePass.selectedObjects.push(e.Obj3.mesh);
 					break;
 				}
@@ -799,3 +828,26 @@ function add_push(arr, mesh, chld, ecs) {
 	return arr;
 }
  */
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Apr 28 2020 09:05:12 GMT+0800 (Hong Kong Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
