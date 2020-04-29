@@ -10,6 +10,7 @@
   "pie": [{
     "pivot": [0, 2, 0],
 	"wh": [1.5, 1.5],
+	"lookScreen": true,
     "rows": [
         {"browser": "Chrome", "percent": "73.70"},
         {"browser": "IE/Edge", "percent": "4.90"},

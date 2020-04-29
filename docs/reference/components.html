@@ -270,9 +270,11 @@
     <span class="nx">materail</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="cm">/** short for material */</span>
     <span class="nx">mat</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="cm">/** shaders provide by xglsl */</span>
+    <span class="cm">/** &lt;b&gt;deprecated&lt;/b&gt;&lt;br&gt;</span>
+<span class="cm">     * shaders provide by xglsl */</span>
     <span class="nx">shader</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="cm">/** customer */</span>
+    <span class="cm">/** &lt;b&gt;deprecated&lt;/b&gt;&lt;br&gt;</span>
+<span class="cm">     *  customer */</span>
     <span class="nx">cust</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="cm">/** mesh created like THREE.Mesh(), usually loaded from gltf asset */</span>
     <span class="nx">mesh</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
@@ -285,8 +287,6 @@
     <span class="cm">/** ShaderFlag has a similar name, makes this error proven */</span>
     <span class="nx">cubeVoxels</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
     <span class="cm">/** html DOM as texture, test/example: htmltex.html */</span>
-    <span class="nx">DomCanvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="cm">/** opengl / webgl wireframe */</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -304,19 +304,19 @@
 10
 11
 12
-13</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="nx">wireframe</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
-    <span class="cm">/** THREE.Curve, rendered as opengl / webgl line, created form Obj3.geom */</span>
-    <span class="nx">GeomCurve</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+13</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="nx">DomCanvas</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="cm">/** lines group, with dynamic lines&#39; segment,</span>
+<span class="cm">     * with end points can be tweened and updated.</span>
+<span class="cm">     */</span>
+    <span class="nx">DynaSects</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="cm">/** opengl / webgl wireframe */</span>
+    <span class="nx">wireframe</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="cm">/** THREE.Curve, rendered as opengl / webgl line.</span>
+<span class="cm">     * Geometry is created with Obj3.geom.&lt;br&gt;</span>
+<span class="cm">     * So there are lines, curves and shape can use this visual type. */</span>
+    <span class="nx">GeomCurve</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span>
     <span class="cm">/** Daynamic polygon, extruded and the top vertices can be animated,</span>
 <span class="cm">     * with customer shader (not in v0.3) */</span>
-	<span class="nx">DynaPolygon</span><span class="o">:</span><span class="mi">11</span><span class="p">,</span>
-    <span class="cm">/** used by axis */</span>
-    <span class="nx">arrow</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
-    <span class="nx">SVG</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
-    <span class="nx">Sprite</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
-    <span class="cm">/** User provide mesh in Obj3.mesh */</span>
-	<span class="nx">UserMesh</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span>
-<span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
