@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Dynamic Text</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	class Textest extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCube(ecs);
+		}
+
+		update(tick, entities) {
+		}
+
+		initCube(ecs) {
+			var box = ecs.createEntity({
+				id: 'text0',
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [16, 16, 16],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.mesh},
+				Dynatex: {text: 'nothing'}
+			});
+
+			return [box];
+		}
+	}
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new Textest(ecs, {xscene}));
+	xworld.startUpdate();
+  </script>
+</body>
+</html>
