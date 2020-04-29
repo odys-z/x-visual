@@ -1,10 +1,20 @@
+Scene & HUD
+===========
+
+Objects including mesh, line & points are rendered in main scene, except one component,
+HudGroup and it's children.
+
+If an entity has HudGroup, x-visual will create a HUD of plane object, and all
+HudChild entities.
+
+A HudChild must has a HudChild.hud parameter equals parent group's entity id. i.e.
+entity id defined in HudGroup's entity.
+
 Obj3 & Scene
 ============
 
-This component is used for `THREE.Object3D <https://threejs.org/docs/index.html#api/en/core/Object3D>`__
-definition.
-
-Obj3 is defined in component/obj3.js.
+Component Obj3 is used for `THREE.Object3D <https://threejs.org/docs/index.html#api/en/core/Object3D>`__
+definition, declared in component/obj3.js.
 
 .. _obj3-transform-guide:
 
@@ -147,4 +157,4 @@ Affine Transformation References:
 Obj3 Geometry Parameters
 ------------------------
 
-See Thrender.threeGeometryCase()
+See `Thrender.threeGeometryCase() <../jsdoc/Thrender.html#api-threeGeometryCase>`_.

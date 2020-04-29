@@ -55,3 +55,7 @@ This needs implementing a point shader for GPU picking.
         gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
     }
 ..
+
+- Tween.affine
+
+Have tweening transformation combinable.

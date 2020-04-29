@@ -1,6 +1,4 @@
 
-/** @namespace xv.test.tween */
-
 import chai from 'chai'
 import { expect, assert } from 'chai'
 
@@ -256,7 +254,7 @@ describe('case: [script] anim sequence', function() {
                                     duration: 0.4,        // seconds
                                     alpha: [0.05, 0.92],// fade-in
                                     ease: XEasing.Elastic.In} },
-                          { mtype: AnimType.U_VERTS_TRANS,
+                          { mtype: AnimType.U_MORPHi,
                             paras: {start: Infinity,    // follow previous, 0.8
                                     duration: 0.4,        // seconds
                                     dest: 'plane',        // plane.Obj3.mesh

@@ -1,4 +1,3 @@
-/** @namespace xv.example.hello */
 
 import * as xv from 'x-visual'
 import * as THREE from 'three'
@@ -18,9 +17,9 @@ export default class Parallel extends xv.XSys {
         if (ecs) {
             var cube = ecs.createEntity({
                 id: 'paralchart',
-                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
-                        box: [20] },    // geometry parameters, for PATH, it's curve segments
-                Visual:{vtype: xv.AssetType.geomCurve,
+                Obj3: { geom: xv.XComponent.Obj3Type.PointSect,
+                        box: [20] },    
+                Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
                 Glow: { paras: [ ] },
@@ -34,6 +33,6 @@ export default class Parallel extends xv.XSys {
     }
 }
 
-Cube.query = {
+Parallel.query = {
     iffall: ['Visual']
 };

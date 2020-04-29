@@ -5,7 +5,7 @@
     <title>XTest.ext - D3 Pie</title>
     <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
     <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
-    <script type='text/javascript' src='../../../dist/xv-0.2.0.min.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <img id='splash'></img>
@@ -35,13 +35,13 @@
         const ecs = xworld.xecs;
         const xscene = xworld.xscene;
 
-        var d3pie = new xv.chart.D3Pie(ecs, {xworld}, json.pie);
+        var d3pie = new xv.chart.D3Pie(ecs, {xworld, chart: json.chart}, json.pie);
         xworld.addSystem('chart', d3pie);
         xworld.addSystem('test', new TestD3Pie(ecs, {xworld, d3pie}));
         xworld.startUpdate();
     })
     .fail(function(jqXhr, textStatus, error) {
-        console.log(jqXhr, textStatus, error);
+        console.error(jqXhr, textStatus, error);
     });
   </script>
   </body>

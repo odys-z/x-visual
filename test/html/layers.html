@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Layers</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	var log = true;
+	class Cubesys extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+
+			this.visible = [true, true, true, true];
+
+			this.initCube(ecs, options.xscene);
+		}
+
+		update(tick, entities) {
+		 	if (xworld.xview.flag > 0
+				&& xworld.xview.cmds[0].code === 'key') {
+				var cmd = xworld.xview.cmds[0].cmd - 1;
+
+				if (0 <= cmd && cmd < 4) {
+					xworld.setChannel(cmd, this.visible[cmd]);
+					this.visible[cmd] = !this.visible[cmd];
+				}
+			}
+		}
+
+		initCube(ecs, scene) {
+			if (ecs) {
+				var cube = ecs.createEntity({
+					id: '1',
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [80, 80, 80],
+							channels: [0],
+							transform: [{translate: [-100, 0, 0]}],
+							mesh: undefined },
+					GpuPickable: {},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
+				});
+
+				cube = ecs.createEntity({
+					id: '2',
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [80, 80, 80],
+							channels: [0, 1],
+							transform: [{translate: [0, 0, 100]}],
+							mesh: undefined },
+					GpuPickable: {},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
+				});
+
+				cube = ecs.createEntity({
+					id: '3',
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [80, 80, 80],
+							channels: [0, 2],
+							transform: [{translate: [0, -100, 0]}],
+							mesh: undefined },
+					GpuPickable: {},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
+				});
+
+				cube = ecs.createEntity({
+					id: '4',
+					Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+							box: [80, 80, 80],
+							channels: [0, 3],
+							transform: [{translate: [0, 100, 0]}],
+							mesh: undefined },
+					GpuPickable: {},
+					Visual: {vtype: xv.AssetType.mesh,
+							 asset: 'tex/gpupick-debug.png'}
+				});
+			}
+		}
+	}
+
+	Cubesys.query = { any: ['Visual', 'CmdFlag'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {channel: true});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new Cubesys(ecs, {xscene}));
+
+	xworld.startUpdate();
+		xworld.setChannel(0, true);
+		xworld.setChannel(1, true);
+		xworld.setChannel(2, true);
+		xworld.setChannel(3, true);
+
+  </script>
+</body>
+</html>

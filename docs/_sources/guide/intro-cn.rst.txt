@@ -31,7 +31,7 @@ x-visual可以用npm管理依赖包，也可以plain javascript方式引用。�
 
 .. literalinclude:: ../../examples/cube/hellocube.js
    :language: javascript
-   :lines: 1-49
+   :lines: 1-45
    :linenos:
 
 在Cube中定义了一个立方体, zh: and id, Obj3, Visual, update(), query...
@@ -146,18 +146,18 @@ ___________________________________
 
 AnimType.UNIFORMS
 
-示例： see `test/html/model-morph.html <https://github.com/odys-z/x-visual/blob/master/test/html/model-morph.html>`_
+示例： see `test/html/morph-model.html <https://github.com/odys-z/x-visual/blob/master/test/html/morph-model.html>`_
 
 这段首先定义了两个用于做位置参照的模型：
 
-.. literalinclude:: ../../test/html/model-morph.html
+.. literalinclude:: ../../test/html/morph-model.html
    :language: javascript
    :lines: 20-72
    :linenos:
 
 然后定义了若干顶点（points / vertices)，并且控制在这两个模型对应顶点间移动。
 
-.. literalinclude:: ../../test/html/model-morph.html
+.. literalinclude:: ../../test/html/morph-model.html
    :language: javascript
    :lines: 74-107
    :linenos:

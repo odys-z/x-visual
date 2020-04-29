@@ -1,12 +1,11 @@
 /** Example: Hello XWorld
- * @namespace xv.example.hello
  */
 
 import * as xv from 'x-visual'
 import Cube from './hellocube'
 
 /** Hollow XWorld Application.
- * add the user implemented system, Hello, into xworld, then show it.
+ * add the user implemented system, Cube, into xworld, then show it.
  * @class
  */
 class App {
