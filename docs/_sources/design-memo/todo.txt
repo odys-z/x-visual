@@ -1,3 +1,10 @@
+Tasks
+=====
+
+1. Optimize anti-aliasing
+
+see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-textures.html>`_.
+
 Wish List
 =========
 

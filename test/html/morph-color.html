@@ -12,90 +12,90 @@
     "use strict";
 
     /**Senario: suppose you have a model changing colors. */
-	class ColorMorphing extends xv.XSys {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-			this.seqx = 1;
-    		ecs.createEntity( this.initCube(ecs) );
-		}
+    class ColorMorphing extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.seqx = 1;
+            ecs.createEntity( this.initCube(ecs) );
+        }
 
-		update(tick, entities) {
-		 	if (xworld.xview.flag > 0) {
-				this.cmd = xworld.xview.cmds[0].cmd;
-			}
-			else this.cmd = undefined;
+        update(tick, entities) {
+             if (xworld.xview.flag > 0) {
+                this.cmd = xworld.xview.cmds[0].cmd;
+            }
+            else this.cmd = undefined;
 
-			if (this.cmd === 'fire') {
-				this.seqx++;
-				this.seqx %= 3;
-			}
-			else return;
+            if (this.cmd === 'fire') {
+                this.seqx++;
+                this.seqx %= 3;
+            }
+            else return;
 
-	    	for (const e of entities) {
-				e.CmpTweens.startCmds.push(this.seqx);
-			}
-		}
+            for (const e of entities) {
+                e.CmpTweens.startCmds.push(this.seqx);
+            }
+        }
 
-		initCube(ecs) {
-		    // a box can changing colors
-		    const ent1 = {
-		        id: 'color1',
-		        Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
-		                box:   [200, 120, 80],
-		                // mesh is inited by thrender, can be ignored here - MorphSwitch's target
-		                mesh:   undefined,
-		                uniforms: {opacity: 1.0}},
-		        Visual:{vtype:  xv.AssetType.mesh,
-		                shader: xv.XComponent.ShaderFlag.colorArray,
-		                paras:{
-		                    // colors' morphing weight variable name: u_morph0, u_morph1, ...
-		                    colors: [
-		                        [1, 0, 0],
-		                        [0, 0, 1],
-		                        [0, 1, 0]
-		                    ] } },
-		        ModelSeqs: {script:
-		            [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-		                paras: {start: 0,            // auto start
-		                        duration: 0.71,      // seconds
-		                        uniforms: {
-		                            u_morph0: [0, 1],
-		                            u_morph1: [0, 0],
-		                            u_morph2: [0, 0]
-		                        },
-		                        ease: xv.XEasing.Elastic.Elastic} }],
-		              [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-		                paras: {start: Infinity,
-		                        duration: 0.62,
-		                        uniforms: {
-		                            u_morph0: [0, 0],
-		                            u_morph1: [0, 1],
-		                            u_morph2: [0, 0]
-		                        },
-		                        ease: undefined} }],
-		              [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-		                paras: {start: Infinity,
-		                        duration: 0.53,
-		                        uniforms: {
-		                            u_morph0: [0, 0],
-		                            u_morph1: [0, 0],
-		                            u_morph2: [0, 1] },
-		                        ease: undefined} }] ] },
-		        CmpTweens: {}
-		    };
-			return ent1;
-		}
-	}
+        initCube(ecs) {
+            // a box can changing colors
+            const ent1 = {
+                id: 'color1',
+                Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
+                        box:   [200, 120, 80],
+                        // mesh is inited by thrender, can be ignored here - MorphSwitch's target
+                        mesh:   undefined,
+                        uniforms: {opacity: 1.0}},
+                Visual:{vtype:  xv.AssetType.mesh,
+                        shader: xv.XComponent.ShaderFlag.colorArray,
+                        paras:{
+                            // colors' morphing weight variable name: u_morph0, u_morph1, ...
+                            colors: [
+                                [1, 0, 0],
+                                [0, 0, 1],
+                                [0, 1, 0]
+                            ] } },
+                ModelSeqs: {script:
+                    [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+                        paras: {start: 0,            // auto start
+                                duration: 0.71,      // seconds
+                                uniforms: {
+                                    u_morph0: [0, 1],
+                                    u_morph1: [0, 0],
+                                    u_morph2: [0, 0]
+                                },
+                                ease: xv.XEasing.Elastic.Elastic} }],
+                      [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+                        paras: {start: Infinity,
+                                duration: 0.62,
+                                uniforms: {
+                                    u_morph0: [0, 0],
+                                    u_morph1: [0, 1],
+                                    u_morph2: [0, 0]
+                                },
+                                ease: undefined} }],
+                      [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+                        paras: {start: Infinity,
+                                duration: 0.53,
+                                uniforms: {
+                                    u_morph0: [0, 0],
+                                    u_morph1: [0, 0],
+                                    u_morph2: [0, 1] },
+                                ease: undefined} }] ] },
+                CmpTweens: {}
+            };
+            return ent1;
+        }
+    }
 
-	ColorMorphing.query = { iffall: ['Obj3'] };
+    ColorMorphing.query = { iffall: ['Obj3'] };
 
     // initiating xworld
     const xworld = new xv.XWorld(document.getElementById('canv'),
                         window, {canvasize: [480, 320]});
     const ecs = xworld.xecs;
 
-	xworld.addSystem('test', new ColorMorphing(ecs, {}));
+    xworld.addSystem('test', new ColorMorphing(ecs, {}));
     xworld.startUpdate();
   </script>
 </body>
