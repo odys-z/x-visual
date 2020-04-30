@@ -4,7 +4,8 @@
     "range": [[0, 160], [0, 200], [0, 100]],
     "grid": [4, 1, 3],
     "grid-space": [40, 120, 40],
-	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world."
+	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
+    "axes": ["1-coord", "y-label", "2-coord"]
   },
   "bar": {
     "id": "bar1",
