@@ -47,6 +47,10 @@
                   json.bar, json.vectors );
             xworld.addSystem('chart', bar);
 
+            var axes = new xv.chart.Axisys(ecs, { },
+                        json.chart);
+            xworld.addSystem('chart', axes);
+
             xworld.addSystem('test', new BarTest(ecs, {xworld}));
             xworld.startUpdate();
         }
