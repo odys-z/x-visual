@@ -1,9 +1,9 @@
 { "chart": {
     "name": "x-bar vec4 (1)",
-    "domain": [[0, 2], [0, 21], [0, 2]],
-    "range": [[0, 160], [0, 200], [0, 100]],
-    "grid": [4, 1, 3],
-    "grid-space": [40, 120, 40],
+    "domain": [[0, 2], [0, 7], [0, 2]],
+    "range": [[0, 160], [0, 70], [0, 100]],
+    "grid": [4, 7, 3],
+    "grid-space": [40, 10, 40],
 	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
     "axes": ["1-coord", "y-label", "2-coord"]
   },
@@ -11,8 +11,6 @@
     "id": "bar1",
     "geometry-desc": "the bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
     "geometry": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"],
-    "coordinates": [{"label": "1-coord", "range": [0, 1]}, {"label": "2-coord", "range": [0, 1]}],
-    "totalBar": 4, "totalBar-desc": "discret-coords x vector-num",
 
     "_comment": "support in the future?",
     "script": [
@@ -25,7 +23,11 @@
                 "alpha": [0.3, 0.9],
                 "ease": "xv.XEasing.Elastic.In"} }]
     ],
-    "bars": "", "bars-desc": "use this to define layer overlapping?"
+    "bars-desc": "use this to define layer overlapping?",
+    "bars": {
+        "offset": [1, 0, 1],
+        "grid": []
+    }
   },
 
   "vectors": [
@@ -38,8 +40,8 @@
     [ 2, 0, 5 ],
     [ 2, 1, 4 ],
     [ 2, 2, 3 ],
-    [ 3, 0, 4 ],
-    [ 3, 1, 3 ],
+    [ 3, 0, 8 ],
+    [ 3, 1, 7 ],
     [ 3, 2, 2 ]
   ]
 }
