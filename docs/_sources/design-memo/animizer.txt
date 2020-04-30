@@ -52,11 +52,11 @@ Example:
                 box: [200, 120, 80],
                 mesh: undefined },
         Visual:{vtype: AssetType.mesh,
-                // Three use document to load assets, which doesn't exist whil testing
-                // null acts as a flag to let thrender create a ram texture.
+                // Three use document to load assets, which doesn't exist while testing.
+                // null | undefined acts as a flag to let thrender create a ram texture.
                 asset: null },
 
-        // in version 1.0, only type of sequence animation is supported
+        // in version 1.0, only type of sequential animation is supported
         ModelSeqs: {
             script: [[{ mtype: AnimType.ALPHA,
                         paras: {start: 0,         // auto start, only alpha tween in v0.2
@@ -102,13 +102,22 @@ AnimType defined in component/morph.js.
 AnimType
 ________
 
-:ref:`AnimType<animtype>` define supported Animation types are defined in x-visual/component/morph.js.
+:ref:`AnimType<animtype>` declares supported Animation types.
+
+Currently animation a all driven by a modified version of Tween.js module, XTweener.
+
+X-visual is struggling to divide animations into a group of orthogonal calculations,
+but not always the case.
+
+Tests shows some animation do showing this character. The AnimType.U_MORPHi type
+for example, can be combined together with more than one visual types.
 
 AnimCate
 ________
 
 mtype also has a flag indicating what kind of the animation is. Currently there
-is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<animcate>`.
+is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<animcate>`,
+indicating that the animation should been handled by AffineCombiner.
 
 See :ref:`Affine Combination <affine-design-memo>` for details.
 
@@ -211,9 +220,10 @@ usually an array of zero vector, i. e. [0, 0, 0].
 
 The second vector is for target position.
 
-.. note:: In version 0.2, the target position can be dynamically updated
-    - the only one can be updated dynamicall.
-    see test/html/dynamic-position-tween.html for usage example.
+.. note:: From version 0.2, the target position can be dynamically updated, which
+    is the only one can be updated dynamically.
+
+    see test/html/dynamic-position-tween.html for example.
 ..
 
 AnimType.ROTATEX paras
