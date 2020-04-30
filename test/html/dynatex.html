@@ -15,31 +15,38 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			this.initCube(ecs);
+			this.box = this.initCube(ecs);
 		}
 
 		update(tick, entities) {
+			if (xworld.xview.flag > 0) {
+				if (xworld.xview.cmds[0].code === 'key') {
+					xv.CanvTex.setext(this.box, `tick: ${tick}`);
+				}
+			}
 		}
 
 		initCube(ecs) {
 			var box = ecs.createEntity({
 				id: 'text0',
-				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-						box: [16, 16, 16],
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [128, 128],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.mesh},
-				Dynatex: {text: 'nothing'}
+				Dynatex: {text: 'Hellow Dynatex!',
+						xywh: {x: 0, y: 20},
+						dirty: true,
+						style: 'red'}
 			});
 
-			return [box];
+			return box;
 		}
 	}
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
-	const xscene = xworld.xscene;
 
-	xworld.addSystem('test', new Textest(ecs, {xscene}));
+	xworld.addSystem('test', new Textest(ecs, {}));
 	xworld.startUpdate();
   </script>
 </body>
