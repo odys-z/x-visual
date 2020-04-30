@@ -130,9 +130,9 @@ and `Object3D <https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.
     }
 ..
 
-Combined is an array parsed and combined operation represented as a mat4.
+Obj3.Combined is an array parsed and combined operation represented as a mat4.
 
-Obj3.Combined is the XTweener's tweening target and been set to Obj3.mesh.matrix4 directly.
+Combined is the XTweener's tweening target and been set to Obj3.mesh.matrix4 directly.
 Not using Object3D.applyMatrix() because the mesh matrix will accumulate ratation etc. at
 each updating & applying matrix, making rotation steps getting increased.
 
@@ -142,6 +142,23 @@ In addition to basic affine transformation, x-visual provide some combined trans
 from these basic transformations, like orbiting and interpolated translating.
 
 See :ref:`Affine Combiner Design <affine-design-memo>` for more details.
+
+Issue: Quaternion Injection
+---------------------------
+
+Chart/D3Pie.update() use matrix decompose() and compose() to force object facing
+screen. Could this breaching the design doctrine?
+
+.. code-block:: javascript
+
+    if (e.Pie && e.Pie.lookScreen) {
+        var m = e.Obj3.mesh;
+        m.matrix.decompose( m.position, m.quaternion, m.scale );
+        m.quaternion.copy(this.camera.quaternion);
+        m.matrix.compose( m.position, m.quaternion, m.scale );
+        m.matrixAutoUpdate = false;
+    }
+..
 
 Affine Transformation References:
 ---------------------------------
