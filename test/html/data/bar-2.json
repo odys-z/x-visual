@@ -1,19 +1,30 @@
 { "chart": {
     "name": "x-bar vec4 (1)",
-    "domain": [[0, 2], [0, 21], [0, 2]],
-    "range": [[0, 160], [0, 200], [0, 100]],
-    "grid": [4, 1, 3],
-    "grid-space": [40, 120, 40],
+    "domain": [[0, 2], [0, 10], [0, 2]],
+    "range": [[0, 160], [0, 10], [0, 100]],
+    "grid": [4, 4, 3],
+    "grid-space": [30, 10, 30],
 	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
     "axes": ["1-coord", "y-label", "2-coord"]
   },
   "bar": {
-    "id": "bar1",
-    "Obj3": {"geom": "Obj3Type.BOX",
-             "box": [0.1, 0.2, 1]},
+    "id": "bar2",
+    "Obj3": {"geom": "xv.XComponent.Obj3Type.BOX",
+             "box": [0.1, 1, 0.1]},
     "Visual": {"asset": "../../tex/grey-pixel.png"},
 
-    "bars": "", "bars-desc": "use this to define layer overlapping?"
+    "bars-desc": "use this to define layer overlapping?",
+    "serials": {
+        "offset": [1, 0, 1],
+        "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
+        "docking-format2": "in this example, x = xv, z = zv, y = 0, 1",
+        "docking": [
+            [0, 0, 0, 0], [0, 0, 1, 1], [0, 0, 2, 2],
+            [1, 1, 0, 3], [1, 1, 1, 4], [1, 1, 2, 5],
+            [2, 0, 0, 6], [2, 0, 1, 7], [2, 0, 2, 8],
+            [3, 1, 0, 9], [3, 1, 1,10], [3, 1, 2,11]
+        ]
+    }
   },
 
   "vectors": [

@@ -32,14 +32,15 @@
     const xscene = xworld.xscene;
     const xview = xworld.xview;
 
-    var json = '../data/bar-1.json';
+    // var json = '../data/bar-1.json';
+    var json = '../data/bar-2.json';
     $.getJSON( json,
         function(json) {
             var vis = new xv.chart.GridVisuals ( ecs,
                   { chart: json.chart, lines: {color: 0x77ccff},
-                    planes: {tex: '../../assets/tex/grey-pixel.png'},
+                    planes:{tex: '../../assets/tex/grey-pixel.png'},
                     lines: {color: 0x30a0ff},
-                            ix0: [1, 2, 1]},    // initial position, in grid index
+                            ix0: [0, 0, 0]},    // initial position, in grid index
                   json.bar, json.vectors );
             xworld.addSystem('chart', vis);
 
