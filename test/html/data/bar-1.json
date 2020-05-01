@@ -11,6 +11,7 @@
     "id": "bar1",
     "geo-desc": "the bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
     "Obj3":{"geom": "Obj3Type.Cylinder",
+            "box-desc": "in space grid scale; y is set with value (ignored)",
             "box": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"]},
     "Visual": {"asset": "../../tex/grey-pixel.png"},
 
