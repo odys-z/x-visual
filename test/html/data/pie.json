@@ -9,12 +9,8 @@
   },
   "pie": [{
     "pivot": [0, 2, 0],
-<<<<<<< HEAD
 	"wh": [1.5, 1.5],
 	"lookScreen": true,
-=======
-    "wh": [1.5, 1.5],
->>>>>>> canvasys
     "rows": [
         {"browser": "Chrome", "percent": "73.70"},
         {"browser": "IE/Edge", "percent": "4.90"},
