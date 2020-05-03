@@ -17,6 +17,14 @@
     "bars-desc": "use this to define layer overlapping?",
     "serials": {
         "offset": [1, 0, 1],
+
+        "label-desc": "in bar serials, labels always an 2d array of stirng, with rows' cardinality as 3",
+        "labels": [
+            ["A", "B", "C"],
+            [],
+            ["- I -", "- II -", "- III -"]
+        ],
+
         "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
         "docking-format2": "in this example, x = xv, z = zv, y = 0, 1",
         "docking": [
