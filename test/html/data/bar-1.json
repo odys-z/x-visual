@@ -10,7 +10,8 @@
   "bar": {
     "id": "bar1",
     "geo-desc": "the bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
-    "Obj3":{"geom": "Obj3Type.Cylinder",
+    "Obj3":{"geom": "xv.XComponent.Obj3Type.Cylinder",
+            "box-desc": "in space grid scale; y is set with value (ignored)",
             "box": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"]},
     "Visual": {"asset": "../../tex/grey-pixel.png"},
 
@@ -31,6 +32,7 @@
         "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
         "docking-format2": "in this example, x = xv, z = zv, y = 0, 1",
         "docking": []
+    }
   },
 
   "vectors": [
