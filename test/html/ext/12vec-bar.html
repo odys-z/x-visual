@@ -44,6 +44,10 @@
                   json.bar, json.vectors );
             xworld.addSystem('chart', vis);
 
+            // var serl = new xv.chart.DataSerials ( ecs,
+            //         json.bar.serials,
+            //         {font: {size: 12}});
+
             var bar = new xv.chart.XBar ( ecs, { },
                   json.bar, json.vectors );
             xworld.addSystem('chart', bar);
