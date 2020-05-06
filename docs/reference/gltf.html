@@ -1,0 +1,558 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GLTF Format &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+        <link rel="up" title="Reference" href="index.html"/>
+        <link rel="next" title="SVG" href="svg.html"/>
+        <link rel="prev" title="Reference" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">GLTF Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#city-scene-gltf-representation">city/scene.gltf representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node-example">Node Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#three-js-gltfloader">Three.js GLTFLoader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-x-visual-edition">The X-visual Edition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exposing-raw-nodes-geometry-buffer">Exposing Raw Nodes/Geometry Buffer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svg.html#reference">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">Systems</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Reference</a> &raquo;</li>
+      
+    <li>GLTF Format</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gltf-format">
+<h1>GLTF Format<a class="headerlink" href="#gltf-format" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="city-scene-gltf-representation">
+<h2>city/scene.gltf representation<a class="headerlink" href="#city-scene-gltf-representation" title="Permalink to this headline">¶</a></h2>
+<p>Some parts of low poly city gltf assets:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span> <span class="nt">&quot;accessors&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="nt">&quot;bufferView&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;componentType&quot;</span><span class="p">:</span> <span class="mi">5126</span><span class="p">,</span> <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1762</span><span class="p">,</span>
+    <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">25.192995071411133</span><span class="p">,</span> <span class="mf">10.835280418395996</span><span class="p">,</span> <span class="mf">27.863927841186523</span> <span class="p">],</span>
+    <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-18.667209625244141</span><span class="p">,</span> <span class="mf">-29.31907844543457</span><span class="p">,</span> <span class="mf">-72.12615966796875</span> <span class="p">],</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VEC3&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nt">&quot;bufferView&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">21144</span><span class="p">,</span> <span class="nt">&quot;componentType&quot;</span><span class="p">:</span> <span class="mi">5126</span><span class="p">,</span> <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1762</span><span class="p">,</span>
+    <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.98781126737594604</span> <span class="p">],</span> <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">-1</span> <span class="p">],</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VEC3&quot;</span> <span class="p">},</span> <span class="p">],</span>
+  <span class="nt">&quot;asset&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;extras&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;antonmoek (https://sketchfab.com/antonmoek)&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;https://sketchfab.com/models/edd1c604e1e045a0a2a552ddd9a293e6&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Cartoon Lowpoly Small City Free Pack&quot;</span> <span class="p">},</span>
+      <span class="nt">&quot;generator&quot;</span><span class="p">:</span> <span class="s2">&quot;Sketchfab-3.25.5&quot;</span><span class="p">,</span> <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span> <span class="p">},</span>
+    <span class="nt">&quot;bufferViews&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">443160</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;floatBufferViews&quot;</span><span class="p">,</span> <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">34963</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">557656</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">443160</span><span class="p">,</span> <span class="nt">&quot;byteStride&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;floatBufferViews&quot;</span><span class="p">,</span> <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">34962</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">1672968</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">1000816</span><span class="p">,</span> <span class="nt">&quot;byteStride&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;floatBufferViews&quot;</span><span class="p">,</span> <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">34962</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;buffer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">1115312</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span> <span class="mi">2673784</span><span class="p">,</span> <span class="nt">&quot;byteStride&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;floatBufferViews&quot;</span><span class="p">,</span> <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">34962</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;byteLength&quot;</span><span class="p">:</span> <span class="mi">3789096</span><span class="p">,</span> <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;scene.bin&quot;</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nt">&quot;images&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;textures/World_ap.16_baseColor.jpeg&quot;</span> <span class="p">},</span>
+      <span class="err">...</span>
+      <span class="p">{</span> <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;textures/World_ap.11_baseColor.jpeg&quot;</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nt">&quot;materials&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;doubleSided&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;emissiveFactor&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">],</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;World_ap&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pbrMetallicRoughness&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;baseColorFactor&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span> <span class="nt">&quot;baseColorTexture&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nt">&quot;texCoord&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="nt">&quot;metallicFactor&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;roughnessFactor&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;doubleSided&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;emissiveFactor&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span>
+        <span class="s2">&quot;World_ap.8&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pbrMetallicRoughness&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;baseColorFactor&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span> <span class="nt">&quot;baseColorTexture&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nt">&quot;texCoord&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
+        <span class="nt">&quot;metallicFactor&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;roughnessFactor&quot;</span><span class="p">:</span> <span class="mf">0.59999999999999998</span> <span class="p">}</span> <span class="p">},</span>
+      <span class="err">...</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;meshes&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_1_World ap_0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span> <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;NORMAL&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;POSITION&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;TANGENT&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;TEXCOORD_0&quot;</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
+            <span class="nt">&quot;indices&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nt">&quot;material&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
+        <span class="p">]</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_World ap_0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;primitives&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span> <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;NORMAL&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nt">&quot;POSITION&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nt">&quot;TANGENT&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="nt">&quot;TEXCOORD_0&quot;</span><span class="p">:</span> <span class="mi">8</span> <span class="p">},</span>
+            <span class="nt">&quot;indices&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="nt">&quot;material&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="mi">4</span> <span class="p">}</span>
+        <span class="p">]</span> <span class="p">},</span>
+      <span class="err">...</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;nodes&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;RootNode (gltf orientation matrix)&quot;</span><span class="p">,</span> <span class="nt">&quot;rotation&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-0.70710678118654746</span><span class="p">,</span> <span class="mi">-0</span><span class="p">,</span> <span class="mi">-0</span><span class="p">,</span> <span class="mf">0.70710678118654757</span> <span class="p">]</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">2</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;RootNode (model correction matrix)&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">3</span> <span class="p">],</span> <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">-1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;4d4100bcb1c640e69699a87140df79d7.fbx&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">178</span><span class="p">,</span> <span class="mi">227</span><span class="p">,</span> <span class="mi">237</span> <span class="p">],</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;RootNode&quot;</span> <span class="p">},</span>
+      <span class="err">...</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">63</span> <span class="p">],</span> <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">-369.06906127929688</span><span class="p">,</span> <span class="mf">-90.703544616699219</span><span class="p">,</span> <span class="mf">-920.1591796875</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Cars&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">24</span> <span class="p">],</span> <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-1.1161040868103447</span><span class="p">,</span> <span class="mf">1.3668332938134597e-16</span><span class="p">,</span> <span class="mf">-1.002153514889434</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">-1.8070770596253361e-08</span><span class="p">,</span> <span class="mf">1.4999999999999998</span><span class="p">,</span> <span class="mf">2.0125520511237016e-08</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.002153514889434</span><span class="p">,</span> <span class="mf">2.7047907974381987e-08</span><span class="p">,</span> <span class="mf">-1.1161040868103445</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">22.131305694580078</span><span class="p">,</span> <span class="mf">14.663174629211426</span><span class="p">,</span> <span class="mf">-475.07095336914062</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_1&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_1_World ap_0&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">26</span> <span class="p">],</span> <span class="nt">&quot;matrix&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-0.039509975088762972</span><span class="p">,</span> <span class="mf">4.8385761910227429e-18</span><span class="p">,</span> <span class="mf">-1.4994795636715044</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.6096576513098873e-09</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">-4.2413066498289683e-11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.4994795636715044</span><span class="p">,</span> <span class="mf">-1.610216327898289e-09</span><span class="p">,</span> <span class="mf">-0.039509975088762972</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">-281.15509033203125</span><span class="p">,</span> <span class="mf">14.663183212280273</span><span class="p">,</span> <span class="mf">108.45243835449219</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03&quot;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CAR_03_World ap_0&quot;</span> <span class="p">},</span>
+      <span class="err">...</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;samplers&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;magFilter&quot;</span><span class="p">:</span> <span class="mi">9729</span><span class="p">,</span> <span class="nt">&quot;minFilter&quot;</span><span class="p">:</span> <span class="mi">9987</span><span class="p">,</span> <span class="nt">&quot;wrapS&quot;</span><span class="p">:</span> <span class="mi">10497</span><span class="p">,</span> <span class="nt">&quot;wrapT&quot;</span><span class="p">:</span> <span class="mi">10497</span> <span class="p">}</span> <span class="p">],</span>
+  <span class="nt">&quot;scene&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;scenes&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;OSG_Scene&quot;</span><span class="p">,</span> <span class="nt">&quot;nodes&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">}</span> <span class="p">],</span>
+  <span class="nt">&quot;textures&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;sampler&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
+      <span class="err">...</span>
+  <span class="p">]</span>
+</pre></div>
+</div>
+<p>Note: 21144 = 1762 x 12</p>
+</div>
+<div class="section" id="node-example">
+<h2>Node Example<a class="headerlink" href="#node-example" title="Permalink to this headline">¶</a></h2>
+<p>The loaded node example (name = &#8216;Tree-1-3&#8217;)</p>
+<div class="highlight-python"><div class="highlight"><pre>for city/scene.gltf, paras.nodes = [&#39;Tree-1-3&#39;],
+nodes[0].children[0].type == &#39;Mesh&#39;,
+nodes[0].children[0].geometry is a BufferGeometry, with array of
+BufferAttributes as &#39;attributes&#39;.
+nodes[0].children[0].geometry.attributes[&#39;position&#39;] ==
+   length: 2772
+   dynamic: false
+   name: &quot;&quot;
+   array: Float32Array(2772) [135.61163330078125, 31.193208694458008, -2.098475694656372, …]
+   itemSize: 3
+   count: 924
+   normalized: false
+   usage: 35044
+   updateRange: {offset: 0, count: -1}
+   version: 0
+</pre></div>
+</div>
+</div>
+<div class="section" id="three-js-gltfloader">
+<h2>Three.js GLTFLoader<a class="headerlink" href="#three-js-gltfloader" title="Permalink to this headline">¶</a></h2>
+<p>The gltf loader processing can be simplify and clarified if with some basic gltf
+knowledge.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="p">{</span> <span class="nx">manager</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">manager</span> <span class="p">}</span> <span class="p">);</span>
+        <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="nx">options</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">extensions</span> <span class="o">=</span> <span class="nx">extensions</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">||</span> <span class="p">{};</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">extensions</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">extensions</span><span class="p">;</span>
+        <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span> <span class="p">[</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;scene&#39;</span> <span class="p">),</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;animation&#39;</span> <span class="p">),</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;camera&#39;</span> <span class="p">),</span>
+        <span class="p">]</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dependencies</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">scene</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="nx">json</span><span class="p">.</span><span class="nx">scene</span> <span class="o">||</span> <span class="mi">0</span> <span class="p">],</span>
+                <span class="nx">asset</span><span class="o">:</span> <span class="nx">json</span><span class="p">.</span><span class="nx">asset</span><span class="p">,</span>
+                <span class="p">...</span>
+            <span class="p">};</span>
+            <span class="p">...</span>
+            <span class="nx">onLoad</span><span class="p">(</span> <span class="nx">result</span> <span class="p">);</span>
+        <span class="p">}</span> <span class="p">).</span><span class="k">catch</span><span class="p">(</span> <span class="nx">onError</span> <span class="p">);</span>
+    <span class="p">};</span>
+</pre></div>
+</div>
+<p>This loading and parsing is finished after multiple dependency like mesh, nodes,
+etc. been parsed.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="cm">/**Ody: Load mesh with vertices accessing via accessors.</span>
+<span class="cm"> * For a primitive.mode == WEBGL_CONSTANTS.TRIANGLES, it&#39;s</span>
+<span class="cm"> * new Mesh( geometry, material )</span>
+<span class="cm"> *</span>
+<span class="cm"> * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes</span>
+<span class="cm"> * @param {number} meshIndex</span>
+<span class="cm"> * @return {Promise&lt;Group|Mesh|SkinnedMesh&gt;}</span>
+<span class="cm"> */</span>
+<span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadMesh</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">meshIndex</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">meshDef</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">meshes</span><span class="p">[</span> <span class="nx">meshIndex</span> <span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">primitives</span> <span class="o">=</span> <span class="nx">meshDef</span><span class="p">.</span><span class="nx">primitives</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">pending</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">il</span> <span class="o">=</span> <span class="nx">primitives</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">il</span><span class="p">;</span> <span class="nx">i</span> <span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">material</span> <span class="o">=</span> <span class="nx">primitives</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">material</span> <span class="o">===</span> <span class="kc">undefined</span>
+            <span class="o">?</span> <span class="nx">createDefaultMaterial</span><span class="p">()</span>
+            <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDependency</span><span class="p">(</span> <span class="s1">&#39;material&#39;</span><span class="p">,</span> <span class="nx">primitives</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">material</span> <span class="p">);</span>
+        <span class="nx">pending</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">material</span> <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span> <span class="nx">pending</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">originalMaterials</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">loadGeometries</span><span class="p">(</span> <span class="nx">primitives</span> <span class="p">)</span>
+          <span class="c1">// Ody:</span>
+          <span class="c1">// geometries must be BufferGeometry. See GLTFParser.loadGeometries()</span>
+          <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">geometries</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">meshes</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">il</span> <span class="o">=</span> <span class="nx">geometries</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">il</span><span class="p">;</span> <span class="nx">i</span> <span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">geometry</span> <span class="o">=</span> <span class="nx">geometries</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                <span class="kd">var</span> <span class="nx">primitive</span> <span class="o">=</span> <span class="nx">primitives</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                <span class="c1">// 1. create Mesh</span>
+                <span class="kd">var</span> <span class="nx">mesh</span><span class="p">;</span>
+                <span class="kd">var</span> <span class="nx">material</span> <span class="o">=</span> <span class="nx">originalMaterials</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">primitive</span><span class="p">.</span><span class="nx">mode</span> <span class="o">===</span> <span class="nx">WEBGL_CONSTANTS</span><span class="p">.</span><span class="nx">TRIANGLES</span> <span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">mesh</span> <span class="o">=</span> <span class="nx">meshDef</span><span class="p">.</span><span class="nx">isSkinnedMesh</span> <span class="o">===</span> <span class="kc">true</span>
+                        <span class="o">?</span> <span class="k">new</span> <span class="nx">SkinnedMesh</span><span class="p">(</span> <span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span> <span class="p">)</span>
+                        <span class="o">:</span> <span class="k">new</span> <span class="nx">Mesh</span><span class="p">(</span> <span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span> <span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">primitive</span><span class="p">.</span><span class="nx">mode</span> <span class="o">===</span> <span class="nx">WEBGL_CONSTANTS</span><span class="p">.</span><span class="nx">LINES</span> <span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">mesh</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">LineSegments</span><span class="p">(</span> <span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">...</span>
+                <span class="nx">mesh</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">meshDef</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="p">(</span> <span class="s1">&#39;mesh_&#39;</span> <span class="o">+</span> <span class="nx">meshIndex</span> <span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">geometries</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span> <span class="nx">mesh</span><span class="p">.</span><span class="nx">name</span> <span class="o">+=</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+                <span class="p">...</span>
+                <span class="nx">meshes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">mesh</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">meshes</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+        <span class="p">}</span> <span class="p">);</span>
+    <span class="p">}</span> <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="cm">/**Requests the specified dependency asynchronously, with caching.</span>
+<span class="cm"> * Ody:</span>
+<span class="cm"> * Dependency means scene, node, mesh, materail etc., except scenes.</span>
+<span class="cm"> * Anything that can be dependend by others.</span>
+<span class="cm"> * @param {string} type</span>
+<span class="cm"> * @param {number} index</span>
+<span class="cm"> * @return {Promise&lt;Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object&gt;}</span>
+<span class="cm"> */</span>
+<span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getDependency</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">index</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cacheKey</span> <span class="o">=</span> <span class="nx">type</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">index</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">dependency</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">cache</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">cacheKey</span> <span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nx">dependency</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span> <span class="nx">type</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="s1">&#39;scene&#39;</span><span class="o">:</span>
+                <span class="nx">dependency</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadScene</span><span class="p">(</span> <span class="nx">index</span> <span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s1">&#39;camera&#39;</span><span class="o">:</span>
+                <span class="nx">dependency</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">loadCamera</span><span class="p">(</span> <span class="nx">index</span> <span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">...</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span> <span class="s1">&#39;Unknown type: &#39;</span> <span class="o">+</span> <span class="nx">type</span> <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">cache</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="nx">cacheKey</span><span class="p">,</span> <span class="nx">dependency</span> <span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">dependency</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-x-visual-edition">
+<span id="xv-gltf-loader"></span><h2>The X-visual Edition<a class="headerlink" href="#the-x-visual-edition" title="Permalink to this headline">¶</a></h2>
+<p>Which is an x-visual vision of GLTF loader modified from There.js GLTFLoader.</p>
+<p>Source: x-visual/packages/three/GLTFLoader</p>
+<p>The modification includes:</p>
+<div class="section" id="exposing-raw-nodes-geometry-buffer">
+<h3>Exposing Raw Nodes/Geometry Buffer<a class="headerlink" href="#exposing-raw-nodes-geometry-buffer" title="Permalink to this headline">¶</a></h3>
+<p>1. Add the scope (GLTFLoader stack) as the argument of GLTFParser constructor,
+which makes the GLTFLoader instance can be accessed while parsing nodes.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">nodeMap</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onProgress</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileLoader</span><span class="p">(</span> <span class="nx">scope</span><span class="p">.</span><span class="nx">manager</span> <span class="p">);</span>
+        <span class="nx">loader</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span> <span class="nx">url</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">data</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="nx">scope</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">resourcePath</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">gltf</span> <span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">onLoad</span><span class="p">(</span> <span class="nx">gltf</span><span class="p">,</span> <span class="nx">scope</span><span class="p">.</span><span class="nx">nodeMap</span> <span class="p">);</span>
+                <span class="p">},</span> <span class="nx">_onError</span><span class="p">,</span> <span class="nx">scope</span> <span class="p">);</span>
+            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+                <span class="nx">_onError</span><span class="p">(</span> <span class="nx">e</span> <span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="nx">onProgress</span><span class="p">,</span> <span class="nx">_onError</span> <span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span><span class="p">,</span> <span class="nx">loaderScope</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span>
+            <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+            <span class="nx">loaderScope</span> <span class="p">);</span>
+
+        <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">scope</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">loaderScope</span> <span class="o">=</span> <span class="nx">scope</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">json</span> <span class="o">=</span> <span class="nx">json</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The &#8216;node&#8217; dependency will get return and returned by parser.parse():</p>
+<div class="highlight-javascript" id="parse-promise"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">extensions</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">extensions</span><span class="p">;</span>
+
+    <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span> <span class="p">[</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;scene&#39;</span> <span class="p">),</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;animation&#39;</span> <span class="p">),</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;camera&#39;</span> <span class="p">),</span>
+        <span class="c1">// modification</span>
+        <span class="c1">// nodes[ix].children.geometry.attributes.position is a BufferAttribute</span>
+        <span class="c1">// nodes[ix].children.geometry.attributes.position.array is a Float32Array</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getDependencies</span><span class="p">(</span> <span class="s1">&#39;node&#39;</span> <span class="p">),</span>
+    <span class="p">]</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dependencies</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="p">...</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>2. When parsing nodes, update a map in &#8216;scope&#8217; so nodes name - index can be found
+out.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadNode</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">nodeIndex</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">}()</span>
+        <span class="c1">// then build node (Object3D etc.) with the objects</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">objects</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="p">...</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">node</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">nodeDef</span><span class="p">.</span><span class="nx">idx</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="nx">scope</span><span class="p">.</span><span class="nx">nodeMap</span><span class="p">[</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">nodeDef</span><span class="p">.</span><span class="nx">idx</span><span class="p">;</span>
+                    <span class="k">return</span> <span class="nx">node</span><span class="p">;</span>
+                <span class="p">}</span> <span class="p">);</span>
+        <span class="p">});</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>After every thing done, the nodes array also been taken out in gltf results.</li>
+</ol>
+<p>For promise returning &#8216;ndoes&#8217;, see <a class="reference internal" href="#parse-promise"><span>Parse Promise</span></a>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span>
+        <span class="p">...</span>
+    <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dependencies</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">scene</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="nx">json</span><span class="p">.</span><span class="nx">scene</span> <span class="o">||</span> <span class="mi">0</span> <span class="p">],</span>
+                <span class="nx">scenes</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span>
+                <span class="nx">animations</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">1</span> <span class="p">],</span>
+                <span class="nx">cameras</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span> <span class="mi">2</span> <span class="p">],</span>
+                <span class="c1">// odys-z</span>
+                <span class="nx">nodes</span><span class="o">:</span> <span class="nx">dependencies</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                <span class="nx">asset</span><span class="o">:</span> <span class="nx">json</span><span class="p">.</span><span class="nx">asset</span><span class="p">,</span>
+                <span class="nx">parser</span><span class="o">:</span> <span class="nx">parser</span><span class="p">,</span>
+                <span class="nx">userData</span><span class="o">:</span> <span class="p">{}</span>
+            <span class="p">};</span>
+        <span class="nx">onLoad</span><span class="p">(</span> <span class="nx">result</span> <span class="p">);</span> <span class="c1">// callback reporting results to caller</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.khronos.org/gltf/">GLTF Home Page</a></li>
+<li><a class="reference external" href="https://github.com/KhronosGroup/glTF-Tutorials">GLTF Github</a></li>
+<li><a class="reference external" href="https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md">GLTF Tutorial, Github</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="svg.html" class="btn btn-neutral float-right" title="SVG" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Reference" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ECS Framework &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+        <link rel="up" title="Design Memo" href="index.html"/>
+        <link rel="next" title="MVC View" href="view.html"/>
+        <link rel="prev" title="Design Memo" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">ECS Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#query-conditions">query conditions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#wish-list">Wish List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Design Memo</a> &raquo;</li>
+      
+    <li>ECS Framework</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ecs-framework">
+<h1>ECS Framework<a class="headerlink" href="#ecs-framework" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">doc stub</p>
+</div>
+<p>X-visual is inspired by fritz/ECS.</p>
+<p>In x-visual v1.0, all object are handled in static way - no new object can be created
+during scene updating process. Each subsystem is implement assuming that entity
+won&#8217;t been changed during entire rendering life cycle.</p>
+<p>Reason: there are many other more important concepts to be verified, this decision
+can largely simplify x-visual, and it&#8217;s highly probably impose limited modification
+when it&#8217;s needed in the future.</p>
+<div class="section" id="query-conditions">
+<h2>query conditions<a class="headerlink" href="#query-conditions" title="Permalink to this headline">¶</a></h2>
+<p>The query condition of entity set that a system updating upon.</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p>All these type of conditions are recommended to use only one of it
+for each query. Any combination of these are not tested and debugged - though
+it&#8217;s designed in this way.</p>
+<p class="last"><em>Is it reasonable to suppose that defining components carefully will eliminate
+the needing of logic combination - no such requirements?</em></p>
+</div>
+<ul class="simple">
+<li>has</li>
+</ul>
+<p>The <em>has</em> query condition is what fritzy provided in the original <a class="reference external" href="https://github.com/fritzy/ecs-js">ECS framework</a>.</p>
+<p>In x-visual, this means query entities with all the provided components:</p>
+<div class="highlight-python"><div class="highlight"><pre>provide c1, c2, c3 are components,
+set sys.query = {has: [&#39;c1&#39;, &#39;c2&#39;]},
+e = {c1, c2}, f = {c1, c2, c3},
+ecs.queryEntities() =&gt; result = [e]
+</pre></div>
+</div>
+<p><a class="reference external" href="https://github.com/fritzy/ecs-js/issues/6">Related Issue</a></p>
+<ul class="simple">
+<li>iffall</li>
+</ul>
+<p>The <em>iffall</em> query condition get entities with all required components if it
+prestend, no matter any other components in the entity.:</p>
+<div class="highlight-python"><div class="highlight"><pre>provide c1, c2, c3 are components,
+set sys.query = {iffall: [&#39;c1&#39;, &#39;c2&#39;]},
+e = {c1, c2}, f = {c1, c2, c3},
+ecs.queryEntities() =&gt; result = [e, f]
+</pre></div>
+</div>
+<ul class="simple">
+<li>any</li>
+</ul>
+<p>The <em>any</em> query condition is will get entities with any of the defined components.:</p>
+<div class="highlight-python"><div class="highlight"><pre>provide c1, c2, c3 are components,
+set sys.query = {any: [&#39;c1&#39;, &#39;c3&#39;]},
+e = {c1, c2}, f = {c2, c3}, g = {c2}
+ecs.queryEntities() =&gt; result = [e, f]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="view.html" class="btn btn-neutral float-right" title="MVC View" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Design Memo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
