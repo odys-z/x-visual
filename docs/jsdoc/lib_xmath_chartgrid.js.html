@@ -27,11 +27,12 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
-import {vec3} from './vec';
+            <pre class="prettyprint source linenums"><code>import {vec3} from './vec';
 
 /**
  * Grid space helper for parallel coordinates chart, including XSankey.
+ *
+ * &lt;b>Note: x, y, z in world space of THREE coordinates.&lt;/b>
  * @class CoordsGrid
  */
 export class CoordsGrid {
@@ -78,55 +79,87 @@ export class CoordsGrid {
 		this.scale[3] = this.scale[1] * g[1] / (d[1] - d[0]);
 	}
 
-	/**Get world position and height stick to parallel coords.
-	 * @param {array} idx grid index, [ x, y, z ]
+	/**Get world position of gird index.
+	 *
+	 * &lt;b>Note: x, y, z in world space of THREE coordinates.&lt;/b>
 	 * @param {array} buf position buffer
+	 * @param {array} gridx grid index, [ x, y = 0, z], if y ignored, return [x, 0, z] in world
+	 * @param {...array} offset [x, y, z], offset in grid
 	 * @return {object} position (buf)
 	 * @member CoordsGrid#worldPos
 	 * @function
 	 */
-	worldPos(idx, buf) {
+	worldPos(buf, gridx, ...offset) {
 		var p = buf || [0, 0, 0];
-		p[0] = idx[0] * this.scale[0];
-		p[1] = idx[1] * this.scale[1];
-		p[2] = idx[2] * this.scale[2];
+		if (gridx.length > 2) {
+			p[0] = gridx[0]; // * this.scale[0];
+			p[1] = gridx[1]; // * this.scale[1];
+			p[2] = gridx[2]; // * this.scale[2];
+		}
+		else {
+			p[0] = gridx[0]; // * this.scale[0];
+			p[1] = 0;
+			p[2] = gridx[1]; // * this.scale[2];
+		}
+		if (offset) {
+			for (var i = 0; i &lt; offset.length; i++) {
+				if (Array.isArray(offset[i])) {
+					p[0] += offset[i][0];
+					p[1] += offset[i][1];
+					p[2] += offset[i][2];
+				}
+				else if (typeof offset[i] === 'number'){
+					p[0] += offset[i];
+					p[1] += offset[i];
+					p[2] += offset[i];
+				}
+			}
+		}
+
+		p[0] *= this.scale[0];
+		p[1] *= this.scale[2];
+		p[2] *= this.scale[2];
+
 		return p;
+
 	}
 
-	/**Get world position and height stick to parallel coords.
-	 * @param {array} idx grid index, [ coord-idx, enum-val, h, y0 ]
+	/**Get world position and height stick to parallel coords (z = 0).
+	 *
+	 * &lt;b>Note: x, y, z in world space of THREE coordinates.&lt;/b>
+	 * @param {array} gridx grid index, [ coord-gridx, enum-val, h, y0 ]
 	 * @param {array} buf position buffer
 	 * @return {object} {pos0, h} position z = 0 (buf) and bar height
 	 * @member CoordsGrid#coordPos
 	 * @function
 	 */
-	coordPos(idx, buf) {
-		var h = this.barHeight(idx[2]);
+	coordPos(gridx, buf) {
+		var h = this.barHeight(gridx[2]);
 		var p = buf || [0, 0, 0];
-		p[0] = idx[0] * this.scale[0];
+		p[0] = gridx[0] * this.scale[0];
 		// y_enum * s + h * s / 2 + y0 * s
-		p[1] = idx[1] * this.scale[1] + h / 2 + this.barHeight(idx[3]);
+		p[1] = gridx[1] * this.scale[1] + h / 2 + this.barHeight(gridx[3]);
 		p[2] = 0;
 		return {pos0: p, h};
 	}
 
 	/**Get world position and height at extruded pivoting.
 	 * @param {int} v vector value
-	 * @param {array} idx grid index, [ x, y, z, y0, h(optional, will use the vector value) ]
+	 * @param {array} gridx grid index, [ x, y, z, y0, h(optional, will use the vector value) ]
 	 * @param {array} buf position buffer
 	 * @return {array} position (buf)
 	 * @member CoordsGrid#extrudePos
 	 * @function
 	 */
-	extrudePos(v, idx, buf) {
+	extrudePos(v, gridx, buf) {
 		var h = this.barHeight(v);
 		var p = buf || [0, 0, 0];
-		// p[0] = idx[0] * this.scale[0];
+		// p[0] = gridx[0] * this.scale[0];
 		p[0] = 0; // parallel coord's bar vertical extrude, keeping x without changed.
-		p[1] = idx[1] * this.scale[1] + h / 2;
-		if (idx.length > 4)
-			p[1] += this.barHeight(idx[3]);
-		p[2] = idx[2] * this.scale[2];
+		p[1] = gridx[1] * this.scale[1] + h / 2;
+		if (gridx.length > 4)
+			p[1] += this.barHeight(gridx[3]);
+		p[2] = gridx[2] * this.scale[2];
 		return p;
 	}
 
@@ -163,8 +196,39 @@ export class CoordsGrid {
 					v.y *= this.scale[1],
 					v.z *= this.scale[2] ];
 		}
-		else v *= this.scale[0];
+		else v *= this.scale[0]; // number
 		return v;
+	}
+
+	/** Get lerped posion in world .
+	 *
+	 * &lt;b>Note&lt;/b>: All position arrays, [x, y, z] are created in memory, user
+	 * should being aware of performance problem.
+	 * @param {array} cxyz, [x, y, z] position count
+	 * @param {...array} offset [x, y, z], offset in grid
+	 * @return {array} 4D array of positions, in [x, y, z] of x, y, z
+	 * @member CoordsGrid#lerposes
+	 * @function
+	 */
+	lerposes(cxyz, offset = [0, 0, 0]) {
+		var poses = new Array(cxyz[1]);
+		for (var iy = 0; iy &lt; cxyz[1]; iy++) {
+			var posxz = [];
+			for (var iz = 0; iz &lt; cxyz[2]; iz++) {
+				var posx = [];
+				for (var ix = 0; ix &lt; cxyz[0]; ix++) {
+					// TODO lerp with range x, y, z
+					// TODO lerp with range x, y, z
+					// TODO lerp with range x, y, z
+					// TODO lerp with range x, y, z
+					var p = this.worldPos(undefined, [ix, iy, iz], offset);
+					posx.push(p);
+				}
+				posxz.push(posx);
+			}
+			poses[iy] = posxz;
+		}
+		return poses;
 	}
 
 	/**Get the grid bounds in world.
@@ -188,13 +252,13 @@ export class CoordsGrid {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CamCtrl.html">CamCtrl</a></li><li><a href="CanvTex.html">CanvTex</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Bar.html">Bar</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="x.html">x</a></li><li><a href="X_.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Dynatex.html">Dynatex</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#threeGeomParas">threeGeomParas</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 27 2020 23:45:49 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed May 06 2020 18:16:02 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

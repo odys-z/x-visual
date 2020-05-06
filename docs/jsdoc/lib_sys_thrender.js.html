@@ -48,8 +48,9 @@ import xgeom from '../xmath/geom'
 
 const any = ['Obj3'];
 
-/**X renderer of ecs subsystem based on Three.js renderer.
- * @class Thrender
+/**@class Thrender
+ * @classdesc
+ * X renderer of ecs subsystem based on Three.js renderer.
  */
 export default class Thrender extends ECS.System {
 	/**
@@ -77,11 +78,14 @@ export default class Thrender extends ECS.System {
 		Thrender.createObj3s(ecs, scn, obj3Ents);
 	}
 
-	/**Create three.js Object3D - create mesh of Obj3.geom (e.g Obj3Type.BOX).
+	/**Create three.js Object3D
+	 *
+	 * - create mesh with geometry of Obj3.geom (e.g Obj3Type.BOX).
 	 * @param {ECS} ecs
 	 * @param {THREE.Scene} scene
-	 * @param {array&lt;ECS.Entity>} entities
+	 * @param {Array.&lt;Entity>} entities
 	 * @member Thrender.createObj3s
+	 * @function
 	 */
 	static createObj3s(ecs, scene, entities) {
 		var mes = [];
@@ -119,6 +123,7 @@ export default class Thrender extends ECS.System {
 						mes.push(m);
 						break;
 					case AssetType.mesh:
+					case AssetType.mesh_basic:
 						var alp = e.Visual.paras !== undefined
 									&amp;&amp; e.Visual.paras.tex_alpha !== undefined
 									? e.Visual.paras.tex_alpha : 1;
@@ -164,13 +169,17 @@ export default class Thrender extends ECS.System {
 											transparent: true,
 											side: THREE.DoubleSide,
 											depthWrite: true,
-											depthTest: true
+											depthTest: true,
+											blending: THREE.AdditiveBlending
 										};
 
 								if (e.Visual.paras &amp;&amp; e.Visual.paras.color)
 									Object.assign (def, {color: e.Visual.paras.color});
 
-								mat = new THREE.MeshPhongMaterial(def);
+								if (e.Visual.vtype === AssetType.mesh)
+									mat = new THREE.MeshPhongMaterial(def);
+								else // mesh_basic
+									mat = new THREE.MeshBasicMaterial(def);
 								Object.assign(mat, uniforms);
 							}
 						}
@@ -354,16 +363,16 @@ export default class Thrender extends ECS.System {
 			geomType);
 	}
 
-	/**Handling {@link AssetType.GeomCurve}, generate curve of
-	 * type of HILBERT, RandomCurve, RandomSects, PointSect,
-     * CatmullRom, Spline from {@link XComponent.Obj3Type}.
+	/**Handling {@link AssetType.GeomCurve}, generate curve of type of HILBERT,
+	 * RandomCurve, RandomSects, PointSect, CatmullRom, Spline from
+	 * {@link XComponent.Obj3Type}.
 	 *
 	 * 1. use {@link xgeom.generateCurve} to generate points
 	 * 2. create the THREE.line,
 	 * 3. set line to Obj3.mesh
 	 * @param {Obj3} cmpObj3
-	 * @param {object} paras Visual.paras, @see {@link xgeom.generateCurve}
-	 * @return {object} {curve, path}
+	 * @param {Object} paras Visual.paras, @see {@link xgeom.generateCurve}
+	 * @return {Object} {curve, path}
 	 * @member Thrender.createCurve
 	 * @function
 	 */
@@ -388,8 +397,8 @@ export default class Thrender extends ECS.System {
 	 * 2. create the THREE.line,
 	 * 3. set line to Obj3.mesh
 	 * @param {Obj3} cmpObj3
-	 * @param {object} paras Visual.paras, @see xgeom.generateCurve
-	 * @return {object} {curve, path}
+	 * @param {Object} paras Visual.paras, @see xgeom.generateCurve
+	 * @return {Object} {curve, path}
 	 * @member Thrender.createDynaSegments
 	 * @function
 	 */
@@ -430,9 +439,9 @@ export default class Thrender extends ECS.System {
 	}
 
 	/**&lt;div id='api-threeGeometryCase'>Create geometry for different cases.&lt;/div>
-	 * @param {Obj3Type} geomType {@link Obj3Type}
+	 * @param {XComponent.Obj3Type} geomType Obj3Type (geom types)
 	 * @param {array&lt;number>} geomParaArr geometry parameters for the given type.
-	 * See {@link Obj3Type} for parameters details.
+	 * See {@link XComponent.Obj3Type Obj3Type} for parameters details.
 	 * @return {THREE.BufferGeometry} any subclass of three-js BufferGeometry.
 	 * @member Thrender.threeGeometryCase
 	 * @function
@@ -655,10 +664,11 @@ export default class Thrender extends ECS.System {
 	/**
 	 * Create cube voxel. (points evenly dividing in cube).
 	 *
+	 * Return mesh object can be rendered by {@link Thrender}.&lt;br>
 	 * {@link AssetType}: AssetType.refPoint; AssetType.cubeVoxel
 	 * @param {Obj3} cmpObj3
 	 * @param {Visual} cmpVisual
-	 * @return {THREE.Mesh} mesh object can be rendered by {@link Thrender}.
+	 * @return {THREE.Mesh}
 	 * @member Thrender.createCubeVoxel
 	 * @function
 	 */
@@ -768,8 +778,8 @@ export default class Thrender extends ECS.System {
 
 	/**1. Show picked object outline.&lt;br>
 	 * 2. Render with composer or scene render.
-	 * @param {number} tick
-	 * @param {array&lt;ECS.Entity>} entities
+	 * @param {Number} tick
+	 * @param {Array.&lt;Entity>} entities
 	 * @member Thrender#update
 	 * @function
 	 */
@@ -803,31 +813,6 @@ function logGlInfo (renderer) {
 	var gl = renderer.getContext();
 	console.log('[3]', gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
 }
-
-/* Add the mesh into *arr*, the buffer of objects to be added into main scene, or
- * add as a chuild into the group, if the child entity has a 'group' paras in Obj3.
- * @param {array} arr objects buffer
- * @param {THREE.Mesh} mesh
- * @param {Entity} chld
- * @param {ECS} ecs
- * @return {array} arr
- * @exception {XError} arguments invalid
- * @member Thrender.add_push
- * @function
- * @deprecated
-function add_push(arr, mesh, chld, ecs) {
-	if (typeof chld.Obj3.group === 'string') {
-		const g = ecs.getEntity(chld.Obj3.group);
-		g.Obj3.mesh.add(mesh);
-	}
-	else if (Array.isArray(arr)) {
-		// simply push mesh int buffer (array)
-		arr.push(mesh);
-	}
-	else throw new XError('Mesh can not been appended. Arguments invalid:', arr, mesh, chld);
-	return arr;
-}
- */
 </code></pre>
         </article>
     </section>
@@ -838,13 +823,13 @@ function add_push(arr, mesh, chld, ecs) {
 </div>
 
 <nav>
-    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="X.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#x">x</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CamCtrl.html">CamCtrl</a></li><li><a href="CanvTex.html">CanvTex</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Bar.html">Bar</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="x.html">x</a></li><li><a href="X_.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Dynatex.html">Dynatex</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#threeGeomParas">threeGeomParas</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Apr 27 2020 23:45:49 GMT+0800 (Hong Kong Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed May 06 2020 18:16:02 GMT+0800 (Hong Kong Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
