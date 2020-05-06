@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: packages/ecs-js/ecs.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: packages/ecs-js/ecs.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const UUID = require('uuid/v1');
+const BaseComponent = require('./component');
+const Entity = require('./entity');
+const QueryCache = require('./querycache');
+
+const componentMethods = new Set(['stringify', 'clone', 'getObject', Symbol.iterator]);
+
+/**
+ * ECS main class.
+ * see &lt;a href='https://github.com/fritzy/ecs-js/README.md'>frityz/ecs-js&lt;/a>
+ * @class ECS
+ */
+class ECS {
+
+  /**@constructor ECS */
+  constructor() {
+
+    this.ticks = 0;
+    this.entities = new Map();
+    this.types = {};
+    this.entityComponents = new Map();
+    this.components = new Map();
+    this.queryCache = new Map();
+    this.subscriptions = new Map();
+    this.systems = new Map();
+    this.refs = {};
+  }
+
+  /**@property tick */
+  tick() {
+    this.ticks++;
+    return this.ticks;
+  }
+
+  /**
+   * last tick
+   * @property lastick */
+  get lastick() {
+	  return this.ticks;
+  }
+
+  addRef(target, entity, component, prop, sub) {
+    if (!this.refs[target]) {
+      this.refs[target] = new Set();
+    }
+    this.refs[target].add([entity, component, prop, sub].join('...'));
+  }
+
+  deleteRef(target, entity, component, prop, sub) {
+    /* $lab:coverage:off$ */
+    if (!this.refs[target]) return;
+    /* $lab:coverage:on$ */
+    this.refs[target].delete([entity, component, prop, sub].join('...'));
+    if (this.refs[target].size === 0) {
+      delete this.refs[target];
+    }
+  }
+
+  registerComponent(name, definition = {}) {
+
+    const klass = class Component extends BaseComponent {}
+    klass.definition = definition;
+    Object.defineProperty(klass, 'name', {value: name});
+    this.registerComponentClass(klass);
+    return klass;
+  }
+
+  registerComponentClass(klass) {
+
+    this.types[klass.name] = klass;
+    this.entityComponents.set(klass.name, new Set());
+    this.components.set(klass.name, new Set());
+  }
+
+  // Change Log:
+  /** Extending fouction:
+   *
+   * when a type of component is found, it's better to give the caller a chance
+   * to triggere something for the component.
+   *
+   * Call this to setup the event handler.
+   *
+   * Currrently only xworld use this to setup post effect's flags.
+   * @param {string | array} cnames component name
+   * @param {function} onFound event handler
+   * @return {ECS} this
+   * @function
+   */
+  componentTriggered(cnames, onFound) {
+    if (Array.isArray(cnames)) {
+      for (var cn of cnames)
+        this.componentTriggered(cn, onFound);
+    }
+    else {
+      if (!this.compoTriggers)
+        this.compoTriggers = new Set();
+      this.compoTriggers[cnames] = typeof onFound === 'stirng' ?
+        eval(onFound) : onFound;
+    }
+    return this;
+  }
+
+  createEntity(definition) {
+
+    if (this.compoTriggers) {
+        for (const type of Object.keys(definition)) {
+            if (typeof this.compoTriggers[type] === 'function')
+              this.compoTriggers[type](definition);
+        }
+    }
+
+    return new Entity(this, definition);
+  }
+
+  removeEntity(id) {
+
+    let entity;
+    if (id instanceof Entity) {
+      entity = id;
+      id = entity.id;
+    } else {
+      entity = this.getEntity(id);
+    }
+    entity.destroy();
+  }
+
+  getEntity(entityId) {
+
+    return this.entities.get(`${entityId}`);
+  }
+
+  queryEntities(args) {
+    /* e.g. args = {persist: CamCtrl, has: Array(2)}
+	 has = (2) ["UserCmd", "CmdFlag"],
+	 hasnt = [],
+	 persist = CamCtrl {ecs: ECS, changes: Array(0), lastTick: 0},
+	 updatedValues = 0, updatedComponents = 0
+	 */
+	// branch ANY (and IFFALL)
+    const { hasnt, has, iffall, any, persist, updatedValues, updatedComponents } = Object.assign({
+      hasnt: [],
+      has: [],
+      iffall: [],
+	  any: [],
+      persist: false,
+      updatedValues: 0,
+      updatedComponents: 0
+    }, args);
+
+    let query;
+    if (persist) {
+      query = this.queryCache.get(persist);
+    }
+    if (!query) {
+	  // branch ANY
+      query = new QueryCache(this, has, hasnt, any, iffall);
+    }
+    if (persist) {
+      this.queryCache.set(persist, query);
+    }
+    return query.filter(updatedValues, updatedComponents);
+  }
+
+  getComponents(name) {
+
+    return this.components.get(name);
+  }
+
+  subscribe(system, type) {
+
+    if (!this.subscriptions.has(type)) {
+      this.subscriptions.set(type, new Set());
+    }
+    this.subscriptions.get(type).add(system);
+  }
+
+  addSystem(group, system) {
+
+    if (typeof system === 'function') {
+      system = new system(this);
+    }
+    if (!this.systems.has(group)) {
+      this.systems.set(group, new Set());
+    }
+    this.systems.get(group).add(system);
+  }
+
+  runSystemGroup(group) {
+
+    const systems = this.systems.get(group);
+    if (!systems) return;
+    for (const system of systems) {
+      let entities;
+      if (this.queryCache.has(system)) {
+        entities = this.queryCache.get(system).filter();
+      }
+      system.update(this.ticks, entities ? entities : []);
+      system.lastTick = this.ticks;
+      if (system.changes.length !== 0) {
+        system.changes = [];
+      }
+    }
+  }
+
+  _clearEntityFromCache(entity) {
+
+    for (const query of this.queryCache) {
+      query[1].clearEntity(entity);
+    }
+
+  }
+
+  _updateCache(entity) {
+    // e.g. this.queryCache = Map(2) {D3Pie => QueryCache, XSankey => QueryCache}
+    for (const query of this.queryCache) {
+      query[1].updateEntity(entity); // e.g. query = [D3Pie, QueryCache]
+    }
+  }
+
+  _sendChange(component, op, key, old, value) {
+
+    if (!component._ready) return;
+    component.updated = component.entity.updatedValues = this.ticks;
+    const systems = this.subscriptions.get(component.type);
+    if (systems) {
+      const change = { component, op, key, old, value };
+      for (const system of systems) {
+        system._sendChange(change);
+      }
+    }
+  }
+
+}
+
+module.exports = ECS;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">x-visual API</a></h2><h3>Classes</h3><ul><li><a href="AbsCluster.html">AbsCluster</a></li><li><a href="Affine.html">Affine</a></li><li><a href="AffineCombiner.html">AffineCombiner</a></li><li><a href="AssetKeepr.html">AssetKeepr</a></li><li><a href="Axisys.html">Axisys</a></li><li><a href="BaseComponent.html">BaseComponent</a></li><li><a href="CamCtrl.html">CamCtrl</a></li><li><a href="CanvTex.html">CanvTex</a></li><li><a href="ChannelFilter.html">ChannelFilter</a></li><li><a href="chart.html">chart</a></li><li><a href="chart.Axes.html">Axes</a></li><li><a href="chart.Bar.html">Bar</a></li><li><a href="chart.GridElem.html">GridElem</a></li><li><a href="chart.Pie.html">Pie</a></li><li><a href="chart.Sankey.html">Sankey</a></li><li><a href="CoordsGrid.html">CoordsGrid</a></li><li><a href="D3Pie.html">D3Pie</a></li><li><a href="ECS.html">ECS</a></li><li><a href="Entity.html">Entity</a></li><li><a href="FilmEffect.html">FilmEffect</a></li><li><a href="FinalComposer.html">FinalComposer</a></li><li><a href="GpuPicker.html">GpuPicker</a></li><li><a href="GridVisuals.html">GridVisuals</a></li><li><a href="Htmltex.html">Htmltex</a></li><li><a href="Hud.html">Hud</a></li><li><a href="Input.html">Input</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Mapctrl.html">Mapctrl</a></li><li><a href="mat4.html">mat4</a></li><li><a href="MorphingAnim.html">MorphingAnim</a></li><li><a href="OSM3.html">OSM3</a></li><li><a href="OsmUtils.html">OsmUtils</a></li><li><a href="PathEffect.html">PathEffect</a></li><li><a href="pickuuid.html">pickuuid</a></li><li><a href="RayPicker.html">RayPicker</a></li><li><a href="rayuuid.html">rayuuid</a></li><li><a href="Request.html">Request</a></li><li><a href="System.html">System</a></li><li><a href="ThreeWrapper.html">ThreeWrapper</a></li><li><a href="Thrender.html">Thrender</a></li><li><a href="TilesKeeper.html">TilesKeeper</a></li><li><a href="Tween.html">Tween</a></li><li><a href="vec3.html">vec3</a></li><li><a href="Vec3_.html">Vec3</a></li><li><a href="x.html">x</a></li><li><a href="X_.html">X</a></li><li><a href="XComponent.html">XComponent</a></li><li><a href="XComponent.Canvas.html">Canvas</a></li><li><a href="XComponent.CmdFlag.html">CmdFlag</a></li><li><a href="XComponent.CmpTween.html">CmpTween</a></li><li><a href="XComponent.CmpTweens.html">CmpTweens</a></li><li><a href="XComponent.Dynatex.html">Dynatex</a></li><li><a href="XComponent.Filming.html">Filming</a></li><li><a href="XComponent.FlowingPath.html">FlowingPath</a></li><li><a href="XComponent.Glow.html">Glow</a></li><li><a href="XComponent.GlowingEdge.html">GlowingEdge</a></li><li><a href="XComponent.GpuPickable.html">GpuPickable</a></li><li><a href="XComponent.HudChild.html">HudChild</a></li><li><a href="XComponent.HudGroup.html">HudGroup</a></li><li><a href="XComponent.Input.html">Input</a></li><li><a href="XComponent.ModelSeqs.html">ModelSeqs</a></li><li><a href="XComponent.Obj3.html">Obj3</a></li><li><a href="XComponent.Occluder.html">Occluder</a></li><li><a href="XComponent.RayCastee.html">RayCastee</a></li><li><a href="XComponent.TweenScript.html">TweenScript</a></li><li><a href="XComponent.UserCmd.html">UserCmd</a></li><li><a href="XComponent.UserTween.html">UserTween</a></li><li><a href="XComponent.Visual.html">Visual</a></li><li><a href="XComponent.XCamera.html">XCamera</a></li><li><a href="XError.html">XError</a></li><li><a href="xgeom.html">xgeom</a></li><li><a href="xglsl.html">xglsl</a></li><li><a href="xmath.html">xmath</a></li><li><a href="XSankey.html">XSankey</a></li><li><a href="XSys.html">XSys</a></li><li><a href="XTweener.html">XTweener</a></li><li><a href="XTweenException.html">XTweenException</a></li><li><a href="xutils.html">xutils</a></li><li><a href="XWorld.html">XWorld</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AffineTrans">AffineTrans</a></li><li><a href="global.html#AffineType">AffineType</a></li><li><a href="global.html#browserVer">browserVer</a></li><li><a href="global.html#getEffectPass">getEffectPass</a></li><li><a href="global.html#interpret">interpret</a></li><li><a href="global.html#KeyFlag">KeyFlag</a></li><li><a href="global.html#LayerChannel">LayerChannel</a></li><li><a href="global.html#onMouse">onMouse</a></li><li><a href="global.html#R">R</a></li><li><a href="global.html#threeGeomParas">threeGeomParas</a></li><li><a href="global.html#xcam">xcam</a></li><li><a href="global.html#XEasing">XEasing</a></li><li><a href="global.html#xecs">xecs</a></li><li><a href="global.html#xscene">xscene</a></li><li><a href="global.html#xview">xview</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed May 06 2020 18:22:32 GMT+0800 (Hong Kong Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
