@@ -13,6 +13,7 @@
     "totalValue": 21,
     "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",
     "bar-desc": "[ vec-idx: [coord-idx, coord-enum, h, y] ]",
+    "texture": "../../assets/tex/grey-pixel.png",
     "bars": [
         [ [ 0, 1, 6, 15 ],
           [ 1, 1, 6, 15 ] ],
@@ -60,6 +61,7 @@
 
   "pie": [
   { "pivot": [0, 4, 0], "pivot-desc": "grid index",
+	"lookScreen": true,
     "wh": [0.5, 0.5],
     "rows": [
         {"browser": "Chrome", "percent": "73.79"},
@@ -71,6 +73,7 @@
     "columns": ["browser", "percent"]
   },
   { "pivot": [-1, 1.5, 0],
+	"lookScreen": true,
     "wh": [0.5, 0.5],
     "rows": [
         {"nc": "001", "percent": "75.01"},
@@ -80,6 +83,7 @@
     "color": ["#555555","#ffffff"]
   },
   { "pivot": [1, 4, 0],
+	"lookScreen": true,
     "wh": [0.5, 0.5],
     "rows": [
         {"co": "BBC", "percent": "57.66"},
