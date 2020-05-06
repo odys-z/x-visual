@@ -5,7 +5,7 @@
     "grid": [4, 4, 3],
     "grid-space": [30, 10, 30],
 	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
-    "axes": ["1-coord", "y-label", "2-coord"]
+    "axes": ["1-co", "y-lb", "2-co"]
   },
   "bar": {
     "id": "bar2",
@@ -20,9 +20,9 @@
 
         "label-desc": "in bar serials, labels always a 2d array of stirngs, with rows' cardinality of 3",
         "labels": [ ["A", "B", "C"],
-                    [],
+                    ["X"],
                     ["- I -", "- II -", "- III -"] ],
-        "label-colors": ["red", "0x0000ff", "0x00cccc"],
+        "label-colors": ["red", "white", "yellow"],
 
         "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
         "docking-format2": "in this example, x = xv, z = zv, y = 0, 1",
