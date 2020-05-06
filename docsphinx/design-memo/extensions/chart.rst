@@ -4,8 +4,24 @@ Charts
 XCharts
 -------
 
-D3 Charts
----------
+XBar
+____
+
+Using json object generating a 3D bar chart.
+
+test: html/ext/12vec-bar.html
+
+Data Serial Labels
+++++++++++++++++++
+
+Serial labels are text strings that shows along axis, etc.
+
+XBar currently support only 3 groups of labels, along x, y, z respectively.
+
+Json Example
+++++++++++++
+
+see test/html/data/bar-2.json
 
 D3Pie
 _____

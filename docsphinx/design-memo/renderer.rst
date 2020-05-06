@@ -159,3 +159,14 @@ Specify a gltf asset file, e.g. int the test case of html/gltf:
 
 The file located in 'assets/city/scene.gltf' and referenced bin file together with
 texture files are loaded by :ref:`xv-gltf-loader` of gltf loader.
+
+Dynamic Text
+------------
+
+In x-visual, 2D text are supported by system `CanvTex <../jsdco/CanvTex.html>`_
+using an html canvas as the dynamic texture, with an API function for updating
+text.
+
+test: test/html/dynatex.html
+
+TODO doc DyanTex.xywh and font options
