@@ -1,7 +1,7 @@
 { "chart": {
     "name": "x-bar vec4 (1)",
     "domain": [[0, 2], [0, 7], [0, 2]],
-    "range": [[0, 160], [0, 70], [0, 100]],
+    "range": [[0, 2], [0, 10], [0, 2]],
     "grid": [4, 7, 3],
     "grid-space": [40, 10, 40],
 	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
