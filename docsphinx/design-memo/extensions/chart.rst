@@ -17,11 +17,12 @@ Axis can be configured in json file's *chart* section:
 
 .. code-block:: json
 
- "chart": {
-    ...
-    "axes": ["1-coord", "y-label", "2-coord"],
-    "label-sytle": ["white", "white", "white"],
-    "label-font": "italic 8em \"Fira Sans\", serif"
+  { "chart": {
+      ...
+      "axes": ["1-coord", "y-label", "2-coord"],
+      "label-sytle": ["white", "white", "white"],
+      "label-font": "italic 8em \"Fira Sans\", serif"
+    }
   }
 
 The above configuration will produce the following font visualization.
@@ -61,10 +62,37 @@ Serial labels are text strings that shows along axis, etc.
 
 XBar currently support only 3 groups of labels, along x, y, z respectively.
 
-Json Example
-++++++++++++
+To configure XBar chart x, y, z labels serials, in the json.bar section:
 
-see test/html/data/bar-2.json
+.. code-block:: json
+
+  { "bar": {
+        "pos0": [1, 0, 1],
+		"offsets": [[0, -0.1, 0], [-0.1, 0.5, -0.1], [0, -0.1, 0]],
+
+        "label-desc": "in bar serials, labels always a 2d array of stirngs, with rows' cardinality of 3",
+        "labels": [ ["A", "B", "C"],
+                    ["X"],
+                    ["- I -", "- II -", "- III -"] ],
+        "label-colors": ["red", "green", "#24f"],
+        "label-font": "4em Arial",
+        "label-canvas": {"x": 0, "y": 280, "w": 256, "h": 256},
+        "label-box": [20, 20],
+    }
+  }
+
+In the above json data, the *labels* can only be a 3 elements array, each is an
+array of strings that will be showed in chart.
+
+The *pos0* defined offsets alone x, y, z respectively, i.e. offset[0] = 1 defined
+label ["A", "B", "C"] move alone x in one grid.
+
+The *offsets* defined offsets of each label plane, i.e. offset[0] = [0, -0.1, 0]
+defined label "A", "B" & "C" move alone -y in 0.1 grid space.
+
+The *label-box* parameters are in world unit, the same as Obj3.box parameter.
+
+Json Example: test/html/data/bar-2.json
 
 D3Pie
 _____

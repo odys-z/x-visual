@@ -16,13 +16,17 @@
 
     "bars-desc": "use this to define layer overlapping?",
     "serials": {
-        "offset": [1, 0, 1],
+        "pos0": [1, 0, 1],
+		"label-offsets": [[0, -0.1, 0], [-0.1, 0.5, -0.1], [0, -0.1, 0]],
 
         "label-desc": "in bar serials, labels always a 2d array of stirngs, with rows' cardinality of 3",
         "labels": [ ["A", "B", "C"],
                     ["X"],
                     ["- I -", "- II -", "- III -"] ],
-        "label-colors": ["red", "white", "yellow"],
+        "label-colors": ["red", "green", "#24f"],
+        "label-font": "4em Arial",
+        "label-canvas": {"x": 0, "y": 128, "w": 256, "h": 256},
+        "label-box": [20, 20],
 
         "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
         "docking-format2": "in this example, x = xv, z = zv, y = 0, 1",
@@ -30,8 +34,7 @@
             [0, 1, 0, 0], [0, 1, 1, 1], [0, 1, 2, 2],
             [1, 0, 0, 3], [1, 0, 1, 4], [1, 0, 2, 5],
             [2, 1, 0, 6], [2, 1, 1, 7], [2, 1, 2, 8],
-            [3, 0, 0, 9], [3, 0, 1,10], [3, 0, 2,11]
-        ]
+            [3, 0, 0, 9], [3, 0, 1,10], [3, 0, 2,11]]
     }
   },
 

@@ -188,3 +188,5 @@ Example:
         font: '64px Arial',
         xywh: {x: 2, y: 128, w: 256, h: 256}
     }
+
+Default text font is "100px Arial", wh is [256, 256], y = 128.
