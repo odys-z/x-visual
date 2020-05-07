@@ -97,13 +97,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#visual-vtype-obj3-geom-handling">Visual.vtype &amp; Obj3.geom Handling</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-text">Dynamic Text</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#wish-list">Wish List</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
@@ -271,6 +273,28 @@ Visual.asset: &#39;city/scene.gltf&#39;
 texture files are loaded by <a class="reference internal" href="../reference/gltf.html#xv-gltf-loader"><span>The X-visual Edition</span></a> of gltf loader.</p>
 </div>
 </div>
+</div>
+<div class="section" id="dynamic-text">
+<h2>Dynamic Text<a class="headerlink" href="#dynamic-text" title="Permalink to this headline">¶</a></h2>
+<p>test: test/html/dynatex.html</p>
+<p>In x-visual, 2D text are supported by system <a class="reference external" href="../jsdoc/XComponent.Dynatex.html">CanvTex</a>
+using an html canvas as the dynamic texture, with an API function for updating
+text.</p>
+<p>The <em>Dynatex.style</em> and <em>Dynatex.font</em> are used as canvas style and font attribute,
+the same as html canvas style, see <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle">MDN Canvas.style</a>
+and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font">css font</a>.</p>
+<p>Canvas size, font size and scene objects are working together to produce the 3D
+visualized effects.</p>
+<a class="reference internal image-reference" href="../_images/004-dynatex-size.jpg"><img alt="../_images/004-dynatex-size.jpg" src="../_images/004-dynatex-size.jpg" style="width: 420px;" /></a>
+<p>Example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Dynatex</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">style</span><span class="o">:</span> <span class="s1">&#39;#00c0c0&#39;</span><span class="p">,</span>
+    <span class="nx">font</span><span class="o">:</span> <span class="s1">&#39;64px Arial&#39;</span><span class="p">,</span>
+    <span class="nx">xywh</span><span class="o">:</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">128</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">256</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">256</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Default text font is &#8220;100px Arial&#8221;, wh is [256, 256], y = 128.</p>
 </div>
 </div>
 
