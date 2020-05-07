@@ -28,8 +28,6 @@ following sequence:
 
 `from Wikipedia [CC BY-SA 3.0] <https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg>`_
 
-TODO Example
-
 Shear is defined as:
 
 .. code-block:: json
@@ -50,11 +48,43 @@ The 3D shear matrix is defined as:
     z_x  z_y  33   tz
     41   42   43   w
 
+Using Obj3.transform
+--------------------
+
+Obj3.transform setup an Object3D's initial transformation. X-vsual supports 3 type
+of transforamtion that Three.js also supports:
+
+- rotate
+
+e.g.::
+
+    {rotate: {deg: 90, axis: [0, 1, 0]}}
+
+- translate
+
+e.g.::
+
+    {translate: [20, 0, 0]}
+
+- scale
+
+e.g.::
+
+    {scale: [1.2, 1, 2]}}
+
+Transformations can be combined into an array of Obj3's definition::
+
+    Obj3: {
+        transfrom: [{translate: [100, 0, 0]},
+                    {rotate: {deg: 45, axis: [1, 0, 0]}},
+                    {scale: [1, 0.5, 1]}]
+    }
+	
 Obj3.affines & combined
 ------------------------
 
-This 2 properties ara similar to the mesh.matrix4, except that it's created by
-animizer and tweened by XTtweener.
+This 2 properties are used to control object transformation, similar to the mesh.
+matrix4, but created by animizer and tweened by XTtweener, other than by Three.js.
 
 Affines is an array of affine object, where affine can be:
 
