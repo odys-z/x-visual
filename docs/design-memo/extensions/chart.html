@@ -101,7 +101,8 @@
 <li class="toctree-l3"><a class="reference internal" href="htmltex.html">HTML Texture</a></li>
 <li class="toctree-l3"><a class="reference internal" href="svg.html">SVG Texture</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="">Charts</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#xcharts">XCharts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chart-xcommon">Chart XCommon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chart-extensions">Chart Extensions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#resources-references">Resources &amp; References</a></li>
 </ul>
 </li>
@@ -160,8 +161,41 @@
             
   <div class="section" id="charts">
 <h1>Charts<a class="headerlink" href="#charts" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xcharts">
-<h2>XCharts<a class="headerlink" href="#xcharts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="chart-xcommon">
+<h2>Chart XCommon<a class="headerlink" href="#chart-xcommon" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="axis">
+<h3>Axis<a class="headerlink" href="#axis" title="Permalink to this headline">¶</a></h3>
+<p>To add axes x, y, z to a 3D chart, create <a class="reference external" href="../../jsdoc/Axisys.html">xv.chart.Axisys</a>
+together with <a class="reference external" href="../../jsdoc/chart.Axes.html">xv.XComponents.Axes</a> to add the
+arrow objects.</p>
+<p>test: html/ext/12vec-bar.html</p>
+<p>Axis can be configured in json file&#8217;s <em>chart</em> section:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="s2">&quot;chart&quot;</span><span class="err">:</span> <span class="p">{</span>
+   <span class="err">...</span>
+   <span class="nt">&quot;axes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1-coord&quot;</span><span class="p">,</span> <span class="s2">&quot;y-label&quot;</span><span class="p">,</span> <span class="s2">&quot;2-coord&quot;</span><span class="p">],</span>
+   <span class="nt">&quot;label-sytle&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">],</span>
+   <span class="nt">&quot;label-font&quot;</span><span class="p">:</span> <span class="s2">&quot;italic 8em \&quot;Fira Sans\&quot;, serif&quot;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>The above configuration will produce the following font visualization.</p>
+<img alt="../../_images/003-axes-font.jpeg" src="../../_images/003-axes-font.jpeg" />
+<p>The <em>label-style</em> and <em>label-font</em> are used as canvas style and font attribute,
+the same as html canvas style, see <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle">MDN Canvas.style</a>
+and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font">css font</a>.</p>
+<p>Also note that in version 0.3, all axis labels are using a 256x256 canvas for
+rendering, with text at x = 0, y = 128. Configuration for longer string will
+have to be adjusted by user.</p>
+</div>
+<div class="section" id="visual-auxiliaries">
+<h3>Visual Auxiliaries<a class="headerlink" href="#visual-auxiliaries" title="Permalink to this headline">¶</a></h3>
+<p>This includes showing a group of 3 axis planes and a group of value indicating
+lines that always start from the planes.</p>
+<p>test: html/ext/12vec-bar.html &amp; html/ext/chart-grid.html</p>
+</div>
+</div>
+<div class="section" id="chart-extensions">
+<h2>Chart Extensions<a class="headerlink" href="#chart-extensions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="xbar">
 <h3>XBar<a class="headerlink" href="#xbar" title="Permalink to this headline">¶</a></h3>
 <p>Using json object generating a 3D bar chart.</p>

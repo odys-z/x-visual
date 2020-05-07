@@ -163,10 +163,28 @@ texture files are loaded by :ref:`xv-gltf-loader` of gltf loader.
 Dynamic Text
 ------------
 
-In x-visual, 2D text are supported by system `CanvTex <../jsdco/CanvTex.html>`_
+test: test/html/dynatex.html
+
+In x-visual, 2D text are supported by system `CanvTex <../jsdoc/XComponent.Dynatex.html>`_
 using an html canvas as the dynamic texture, with an API function for updating
 text.
 
-test: test/html/dynatex.html
+The *Dynatex.style* and *Dynatex.font* are used as canvas style and font attribute,
+the same as html canvas style, see `MDN Canvas.style <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle>`_
+and `css font <https://developer.mozilla.org/en-US/docs/Web/CSS/font>`_.
 
-TODO doc DyanTex.xywh and font options
+Canvas size, font size and scene objects are working together to produce the 3D
+visualized effects.
+
+.. image:: imgs/004-dynatex-size.jpg
+    :width: 420px
+
+Example:
+
+.. code-block:: javascript
+
+    Dynatex: {
+        style: '#00c0c0',
+        font: '64px Arial',
+        xywh: {x: 2, y: 128, w: 256, h: 256}
+    }

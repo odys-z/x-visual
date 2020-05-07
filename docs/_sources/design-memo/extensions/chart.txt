@@ -1,8 +1,51 @@
 Charts
 ======
 
-XCharts
--------
+Chart XCommon
+-------------
+
+Axis
+____
+
+To add axes x, y, z to a 3D chart, create `xv.chart.Axisys <../../jsdoc/Axisys.html>`_
+together with `xv.XComponents.Axes <../../jsdoc/chart.Axes.html>`_ to add the
+arrow objects.
+
+test: html/ext/12vec-bar.html
+
+Axis can be configured in json file's *chart* section:
+
+.. code-block:: json
+
+ "chart": {
+    ...
+    "axes": ["1-coord", "y-label", "2-coord"],
+    "label-sytle": ["white", "white", "white"],
+    "label-font": "italic 8em \"Fira Sans\", serif"
+  }
+
+The above configuration will produce the following font visualization.
+
+.. image:: ../imgs/003-axes-font.jpeg
+
+The *label-style* and *label-font* are used as canvas style and font attribute,
+the same as html canvas style, see `MDN Canvas.style <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle>`_
+and `css font <https://developer.mozilla.org/en-US/docs/Web/CSS/font>`_.
+
+Also note that in version 0.3, all axis labels are using a 256x256 canvas for
+rendering, with text at x = 0, y = 128. Configuration for longer string will
+have to be adjusted by user.
+
+Visual Auxiliaries
+__________________
+
+This includes showing a group of 3 axis planes and a group of value indicating
+lines that always start from the planes.
+
+test: html/ext/12vec-bar.html & html/ext/chart-grid.html
+
+Chart Extensions
+----------------
 
 XBar
 ____
