@@ -17,7 +17,7 @@
     "bars-desc": "use this to define layer overlapping?",
     "serials": {
         "pos0": [1, 0, 1],
-		"label-offsets": [[0, -0.1, 0], [-0.1, 0.5, -0.1], [0, -0.1, 0]],
+		"label-offsets": [[0, -0.1, -0.2], [-0.1, 0.5, -0.1], [-0.25, -0.1, 0]],
 
         "label-desc": "in bar serials, labels always a 2d array of stirngs, with rows' cardinality of 3",
         "labels": [ ["A", "B", "C"],
@@ -25,7 +25,7 @@
                     ["- I -", "- II -", "- III -"] ],
         "label-colors": ["red", "green", "#24f"],
         "label-font": "4em Arial",
-        "label-canvas": {"x": 0, "y": 128, "w": 256, "h": 256},
+        "label-canvas": {"x": 24, "y": 144, "w": 256, "h": 256},
         "label-box": [20, 20],
 
         "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
