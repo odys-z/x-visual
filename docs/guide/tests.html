@@ -89,7 +89,11 @@
 <li class="toctree-l2"><a class="reference internal" href="intro.html">X-visual App Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intro-cn.html">X-visual应用程序基本结构</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Test Case Explained</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#morphing-transform-color">Morphing transform &amp; color</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#morphing-transform-color">Morphing transform &amp; color</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-animtype-alpha-uniforms-u-morphi">case: AnimType.ALPHA, UNIFORMS, U_MORPHi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-animtype-position">case: AnimType.POSITION</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -144,9 +148,9 @@
 <h1>Test Case Explained<a class="headerlink" href="#test-case-explained" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="morphing-transform-color">
 <span id="test-morph"></span><h2>Morphing transform &amp; color<a class="headerlink" href="#morphing-transform-color" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>case: test/html/morph-model.html</li>
-</ul>
+<div class="section" id="case-animtype-alpha-uniforms-u-morphi">
+<h3>case: AnimType.ALPHA, UNIFORMS, U_MORPHi<a class="headerlink" href="#case-animtype-alpha-uniforms-u-morphi" title="Permalink to this headline">¶</a></h3>
+<p>html file: test/html/morph-model.html</p>
 <p>The test defined 2 box object, with the 3rd as points referencing the boxes&#8217; vertices
 and moving the points while changing the alpha.</p>
 <a class="reference internal image-reference" href="../_images/002-case-morph-model.jpg"><img alt="../_images/002-case-morph-model.jpg" src="../_images/002-case-morph-model.jpg" style="width: 420px;" /></a>
@@ -235,6 +239,48 @@ object&#8217;s mesh vertices, defined with <em>asset</em> = &#8220;entity1&#8221
 been tweened in between values defined in <em>u_morph</em> = [0, 1]. This makes vertices
 of <em>points</em> will moving between box of <em>entity1</em> &amp; <em>entity2</em>.</p>
 <p>In this case only <em>u_morph</em> and <em>u_alpha</em> are supported by shader <em>randomParticles</em>.</p>
+</div>
+<div class="section" id="case-animtype-position">
+<h3>case: AnimType.POSITION<a class="headerlink" href="#case-animtype-position" title="Permalink to this headline">¶</a></h3>
+<p>html file: test/html/morph-model.html</p>
+<p>This test shows how to update target position and use a animation to move to there.</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="kr">const</span> <span class="nx">ent1</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;entity1&#39;</span><span class="p">,</span>
+        <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
+                <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span> <span class="p">},</span>
+        <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;tex/byr0.png&#39;</span> <span class="p">},</span>
+        <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span> <span class="nx">script</span><span class="o">:</span> <span class="p">[</span> <span class="p">[</span>
+            <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">POSITION</span><span class="p">,</span>
+              <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span> <span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                       <span class="nx">translate</span><span class="o">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+                       <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">}]</span> <span class="p">]</span> <span class="p">},</span>
+        <span class="nx">CmpTweens</span><span class="o">:</span> <span class="p">{}</span>
+    <span class="p">};</span>
+    <span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span><span class="nx">ent1</span><span class="p">);</span>
+
+
+    <span class="nx">xworld</span><span class="p">.</span><span class="nx">startUpdate</span><span class="p">();</span>
+</pre></div>
+</td></tr></table></div>
+<p>The user command interaction is handled in TestDynamicPos.update().</p>
+</div>
 </div>
 </div>
 

@@ -6,7 +6,10 @@ Test Case Explained
 Morphing transform & color
 --------------------------
 
-- case: test/html/morph-model.html
+case: AnimType.ALPHA, UNIFORMS, U_MORPHi
+________________________________________
+
+html file: test/html/morph-model.html
 
 The test defined 2 box object, with the 3rd as points referencing the boxes' vertices
 and moving the points while changing the alpha.
@@ -30,3 +33,17 @@ been tweened in between values defined in *u_morph* = [0, 1]. This makes vertice
 of *points* will moving between box of *entity1* & *entity2*.
 
 In this case only *u_morph* and *u_alpha* are supported by shader *randomParticles*.
+
+case: AnimType.POSITION
+_______________________
+
+html file: test/html/morph-model.html
+
+This test shows how to update target position and use a animation to move to there.
+
+.. literalinclude:: ../../test/html/dynamic-tween-target.html
+   :language: javascript
+   :lines: 56-73
+   :linenos:
+
+The user command interaction is handled in TestDynamicPos.update().
