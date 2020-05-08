@@ -55,8 +55,8 @@
         id: 'points',
         Obj3: { geom: xv.XComponent.Obj3Type.NA,    // use the geometry of ent1
                 box: [200, 2, 1],
-                transform: [{translate: [100, 0, 0],
-                            rotate: [45, 0, 0]}],
+                transform: [{translate: [0, 20, 0]},
+                            {rotate: {deg: 30, axis: [0, 1, 0]}}],
                 mesh: undefined,                    // THREE.Points
                 invisible: false },                 // It's visible, but alpha 0?
         Visual:{vtype: xv.AssetType.cubeVoxel,
