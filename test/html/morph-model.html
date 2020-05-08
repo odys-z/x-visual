@@ -77,31 +77,33 @@
         Visual:{vtype: xv.AssetType.refPoint,
                 asset: 'entity1',
                 shader: xv.XComponent.ShaderFlag.randomParticles | xv.XComponent.ShaderFlag.defaultex,
-                paras: {vert_scale: '60.0',
+                paras: {vert_scale: '120.0',
                         a_dest: 'entity2',      // entity2.Obj3.mesh
                         // u_tex: 'tex/spark1.png',
                         u_tex: 'tex/crosstar.png',
                         a_noise: false}},
-        ModelSeqs: {
-            script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
-                        paras: {start: Infinity,    // triggered by entity1
-                                duration: 1.2,      // seconds
-                                alpha: [0.06, 0.92],// from, to
-                                ease: xv.XEasing.Elastic.In} },
-                      { mtype: xv.XComponent.AnimType.U_MORPHi,
-                         paras: {start: Infinity,   // follow previous
-                                duration: 1.2,      // seconds
-                                uniforms: { u_morph: [0, 1],
-                                            u_alpha: [0.1, 0.9] }},
-                        followBy: [{entity: 'entity2',
-                                    seqx: 1,        // index of the fade-in
-                                    start: 0.3}] },
-                      { mtype: xv.XComponent.AnimType.ALPHA,
-                        paras: {start: Infinity,    // triggered by entity1
-                                duration: 1.2,      // seconds
-                                alpha: [0.9, 0.41], // from, to
-                                ease: xv.XEasing.Elastic.In} }
-                    ]] },
+        ModelSeqs: { script: [[
+              { mtype: xv.XComponent.AnimType.ALPHA,
+                paras: {start: Infinity,        // triggered by entity1
+                        duration: 1.2,          // seconds
+                        alpha: [0.06, 0.9],     // from, to
+                        ease: xv.XEasing.Elastic.In} },
+              // both UNIFORMS and U_MORPHi should works for ShaderFlag.randomParticles 
+              // { mtype: xv.XComponent.AnimType.UNIFORMS,
+              { mtype: xv.XComponent.AnimType.U_MORPHi,
+                paras: {start: Infinity,        // follow previous
+                        duration: 1.2,          // seconds
+                        uniforms: { u_morph: [0, 1],
+                                    u_alpha: [0.1, 0.9] }},
+                followBy: [{entity: 'entity2',
+                            seqx: 1,            // index of the fade-in
+                            start: 0.3}] },
+              { mtype: xv.XComponent.AnimType.ALPHA,
+                paras: {start: Infinity,        // triggered by entity1
+                        duration: 1.2,          // seconds
+                        alpha: [0.9, 0.41],     // from, to
+                        ease: xv.XEasing.Elastic.In} }
+            ]] },
         CmpTweens: {}
     };
     xworld.addEntities(points);
