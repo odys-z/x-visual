@@ -480,11 +480,4 @@ For a_noise, See VisualType.point.
 Script Example:
 ---------------
 
-The test case 'html/morph-model.html' is an html page using transpiled results,
-defining 2 box object, with the 3rd as points referencing the boxes' vertices and
-moving the poings, changing the alpha.
-
-.. literalinclude:: ../../test/html/morph-model.html
-   :language: javascript
-   :lines: 12-109
-   :linenos:
+see test case: :ref:`test-morph`.
