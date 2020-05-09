@@ -68,6 +68,10 @@
     };
     xworld.addEntities(ent2);
 
+    // pinned line: 73-115 guid/tests.rst
+
+
+
     const points = {
         id: 'points',
         Obj3: { geom: xv.XComponent.Obj3Type.NA, // use the geometry of entity1
@@ -88,7 +92,7 @@
                         duration: 1.2,          // seconds
                         alpha: [0.06, 0.9],     // from, to
                         ease: xv.XEasing.Elastic.In} },
-              // both UNIFORMS and U_MORPHi should works for ShaderFlag.randomParticles 
+              // both UNIFORMS and U_MORPHi should works for ShaderFlag.randomParticles
               // { mtype: xv.XComponent.AnimType.UNIFORMS,
               { mtype: xv.XComponent.AnimType.U_MORPHi,
                 paras: {start: Infinity,        // follow previous
@@ -106,6 +110,10 @@
             ]] },
         CmpTweens: {}
     };
+
+
+
+
     xworld.addEntities(points);
 
     xworld.startUpdate();

@@ -44,7 +44,8 @@ describe('case: [Particles] VisualType.points', function() {
 					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'cube0' },	// shader with default randomParticle flag
+					asset: 'cube0' ,	// shader with default randomParticle flag
+					paras: { a_dest: 'cube0' }},
 			ModelSeqs: {
 					script: [[{
 						mtype: AnimType.U_MORPHi,
@@ -93,7 +94,8 @@ describe('case: [Particles] VisualType.points', function() {
 					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'cube0' },	// shader with default randomParticle flag
+					asset: 'cube0' ,	// shader with default randomParticle flag
+					paras: { a_dest: 'cube0' }},
 			ModelSeqs: {
 					script: [[{
 						mtype: AnimType.ALPHA,
@@ -156,7 +158,8 @@ describe('case: [Particles] VisualType.points', function() {
 					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'cube0' },	// shader with default randomParticle flag
+					asset: 'cube0' ,	// shader with default randomParticle flag
+					paras: { a_dest: 'cube0' }},
 			ModelSeqs: {
 					script: [[{
 						mtype: AnimType.U_MORPHi,
