@@ -1,6 +1,76 @@
 GLTF Format
 ===========
 
+Recap assets/simple.gltf
+------------------------
+
+The Tutorial :sup:`[1]` explained the test/html/asset/simple.gltf.
+
+nodes & meshes
+______________
+
+The logic (virtual) object represented in gltf scene.
+
+.. code-block:: json
+
+    { "nodes" : [ { "mesh" : 0, "name": "simple-0" } ],
+      "meshes" : [
+        { "primitives" : [ { "attributes" : { "POSITION" : 1 }, "indices" : 0 } ] }
+      ],
+    }
+
+Mesh using data through *accessor* s.
+
+accessors & bufferViews
+_______________________
+
+The *bufferViews* are actually the raw data's logical view.
+
+.. code-block:: json
+
+    { "buffers" : [
+        { "uri" : "data:application/octet-stream;base64,AAABAAIAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAACAPwAAAAA=",
+          "byteLength" : 44 }
+      ],
+
+      "bufferViews" : [
+        { "buffer" : 0, "byteOffset" : 0, "byteLength" : 6, "target" : 34963 },
+        { "buffer" : 0, "byteOffset" : 8, "byteLength" : 36, "target" : 34962 }
+      ]
+    }
+
+In buffers[0].uri, a vertices array is provided. The buffer view split it into 2
+sections, vertex indexes and positions.
+
+Image from Buffers, BufferViews, and Accessors, Totorial :sup:`[1]`.
+
+.. image:: ./imgs/001-buffer-view.png
+
+Image 5b: The buffer views, referring to parts of the buffer,
+
+The way to use data array is exactly specified by *accessors*.
+
+.. code-block:: json
+
+    "accessors" : [
+        { "bufferView" : 0, "byteOffset" : 0, "componentType" : 5123, "count" : 3,
+          "type" : "SCALAR",
+          "max" : [ 2 ], "min" : [ 0 ] },
+        { "bufferView" : 1, "byteOffset" : 0, "componentType" : 5126, "count" : 3,
+          "type" : "VEC3",
+          "max" : [ 1.0, 1.0, 0.0 ], "min" : [ 0.0, 0.0, 0.0 ] }
+    ],
+
+Now it's natural to share mesh for different nodes:
+
+.. code-block:: json
+
+    "nodes" : [
+        { "mesh" : 0 },
+        { "mesh" : 0,
+          "translation" : [ 1.0, 0.0, 0.0 ] }
+      ],
+
 city/scene.gltf representation
 ------------------------------
 
@@ -247,10 +317,11 @@ Source: x-visual/packages/three/GLTFLoader
 The modification includes:
 
 Exposing Raw Nodes/Geometry Buffer
-++++++++++++++++++++++++++++++++++
+__________________________________
 
-1. Add the scope (GLTFLoader stack) as the argument of GLTFParser constructor,
-which makes the GLTFLoader instance can be accessed while parsing nodes.
+1. Add the scope (GLTFLoader function call stack) as the argument of GLTFParser
+constructor, which makes the GLTFLoader instance can be accessed while parsing
+nodes.
 
 .. code-block:: javascript
 
@@ -311,7 +382,7 @@ The 'node' dependency will get return and returned by parser.parse():
     }
 ..
 
-2. When parsing nodes, update a map in 'scope' so nodes name - index can be found
+2. When parsing nodes, update a map in 'scope' so nodes name - index can be find
 out.
 
 .. code-block:: javascript
@@ -319,17 +390,17 @@ out.
     GLTFParser.prototype.loadNode = function ( nodeIndex ) {
             ...
         }()
-            // then build node (Object3D etc.) with the objects
-            .then( function ( objects ) {
-                return ( function () {
-                        ...
-                        if (!node.name) {
-                            node.name = String(nodeDef.idx);
-                        }
-                        scope.nodeMap[node.name] = nodeDef.idx;
-                        return node;
-                    } );
-            });
+        // then build node (Object3D etc.) with the objects
+        .then( function ( objects ) {
+            return ( function () {
+                ...
+                if (!node.name) {
+                    node.name = String(nodeDef.idx);
+                }
+                scope.nodeMap[node.name] = nodeDef.idx;
+                return node;
+            } );
+        });
 ..
 
 3. After every thing done, the nodes array also been taken out in gltf results.
@@ -343,25 +414,25 @@ For promise returning 'ndoes', see :ref:`Parse Promise<parse-promise>`.
             ...
         ).then( function ( dependencies ) {
             var result = {
-                    scene: dependencies[ 0 ][ json.scene || 0 ],
-                    scenes: dependencies[ 0 ],
-                    animations: dependencies[ 1 ],
-                    cameras: dependencies[ 2 ],
-                    // odys-z
-                    nodes: dependencies[3],
-                    asset: json.asset,
-                    parser: parser,
-                    userData: {}
-                };
+                scene: dependencies[ 0 ][ json.scene || 0 ],
+                scenes: dependencies[ 0 ],
+                animations: dependencies[ 1 ],
+                cameras: dependencies[ 2 ],
+                // odys-z
+                nodes: dependencies[3],
+                asset: json.asset,
+                parser: parser,
+                userData: {}
+            };
             onLoad( result ); // callback reporting results to caller
-    };
+        };
 ..
 
 References
 ----------
 
-- `GLTF Home Page <https://www.khronos.org/gltf/>`_
+1 `GLTF Home Page <https://www.khronos.org/gltf/>`_
 
-- `GLTF Github <https://github.com/KhronosGroup/glTF-Tutorials>`_
+2 `GLTF Github <https://github.com/KhronosGroup/glTF-Tutorials>`_
 
-- `GLTF Tutorial, Github <https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md>`_
+3 `GLTF Tutorial, Github <https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md>`_
