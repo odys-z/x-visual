@@ -3,9 +3,11 @@
     "domain": [[0, 2], [0, 7], [0, 2]],
     "range": [[0, 2], [0, 10], [0, 2]],
     "grid": [4, 7, 3],
-    "grid-space": [40, 10, 40],
+    "grid-space": [40, 5, 40],
 	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
-    "axes": ["1-coord", "y-label", "2-coord"]
+    "axes": ["1-coord", "y-label", "2-coord"],
+    "label-sytle": ["white", "white", "white"],
+    "label-font": "italic 7.2em \"Fira Sans\", serif"
   },
   "bar": {
     "id": "bar1",

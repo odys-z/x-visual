@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../genindex.html"/>
-        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../../index.html"/>
         <link rel="up" title="Extensions" href="index.html"/>
         <link rel="next" title="Tasks" href="../todo.html"/>
@@ -93,19 +90,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">Assets Loader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../shaders/index.html">Shader Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../obj3.html">Scene &amp; HUD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../obj3.html#obj3-scene">Obj3 &amp; Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Extensions</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="effects.html">Post Effects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="htmltex.html">HTML Texture</a></li>
 <li class="toctree-l3"><a class="reference internal" href="svg.html">SVG Texture</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Charts</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#xcharts">XCharts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#d3-charts">D3 Charts</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Charts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chart-xcommon">Chart XCommon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chart-extensions">Chart Extensions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#resources-references">Resources &amp; References</a></li>
 </ul>
 </li>
@@ -164,11 +161,77 @@
             
   <div class="section" id="charts">
 <h1>Charts<a class="headerlink" href="#charts" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xcharts">
-<h2>XCharts<a class="headerlink" href="#xcharts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="chart-xcommon">
+<h2>Chart XCommon<a class="headerlink" href="#chart-xcommon" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="axis">
+<h3>Axis<a class="headerlink" href="#axis" title="Permalink to this headline">¶</a></h3>
+<p>To add axes x, y, z to a 3D chart, create <a class="reference external" href="../../jsdoc/Axisys.html">xv.chart.Axisys</a>
+together with <a class="reference external" href="../../jsdoc/chart.Axes.html">xv.XComponents.Axes</a> to add the
+arrow objects.</p>
+<p>test: html/ext/12vec-bar.html</p>
+<p>Axis can be configured in json file&#8217;s <em>chart</em> section:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span> <span class="nt">&quot;chart&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="err">...</span>
+    <span class="nt">&quot;axes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1-coord&quot;</span><span class="p">,</span> <span class="s2">&quot;y-label&quot;</span><span class="p">,</span> <span class="s2">&quot;2-coord&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;label-sytle&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;label-font&quot;</span><span class="p">:</span> <span class="s2">&quot;italic 8em \&quot;Fira Sans\&quot;, serif&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </div>
-<div class="section" id="d3-charts">
-<h2>D3 Charts<a class="headerlink" href="#d3-charts" title="Permalink to this headline">¶</a></h2>
+<p>The above configuration will produce the following font visualization.</p>
+<img alt="../../_images/003-axes-font.jpeg" src="../../_images/003-axes-font.jpeg" />
+<p>The <em>label-style</em> and <em>label-font</em> are used as canvas style and font attribute,
+the same as html canvas style, see <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle">MDN Canvas.style</a>
+and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font">css font</a>.</p>
+<p>Also note that in version 0.3, all axis labels are using a 256x256 canvas for
+rendering, with text at x = 0, y = 128. Configuration for longer string will
+have to be adjusted by user.</p>
+</div>
+<div class="section" id="visual-auxiliaries">
+<h3>Visual Auxiliaries<a class="headerlink" href="#visual-auxiliaries" title="Permalink to this headline">¶</a></h3>
+<p>This includes showing a group of 3 axis planes and a group of value indicating
+lines that always start from the planes.</p>
+<p>test: html/ext/12vec-bar.html &amp; html/ext/chart-grid.html</p>
+</div>
+</div>
+<div class="section" id="chart-extensions">
+<h2>Chart Extensions<a class="headerlink" href="#chart-extensions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="xbar">
+<h3>XBar<a class="headerlink" href="#xbar" title="Permalink to this headline">¶</a></h3>
+<p>Using json object generating a 3D bar chart.</p>
+<p>test: html/ext/12vec-bar.html</p>
+<div class="section" id="data-serial-labels">
+<h4>Data Serial Labels<a class="headerlink" href="#data-serial-labels" title="Permalink to this headline">¶</a></h4>
+<p>Serial labels are text strings that shows along axis, etc.</p>
+<p>XBar currently support only 3 groups of labels, along x, y, z respectively.</p>
+<p>To configure XBar chart x, y, z labels serials, in the json.bar section:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span> <span class="nt">&quot;bar&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;pos0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+      <span class="nt">&quot;offsets&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">-0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+
+      <span class="nt">&quot;label-desc&quot;</span><span class="p">:</span> <span class="s2">&quot;in bar serials, labels always a 2d array of stirngs, with rows&#39; cardinality of 3&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">],</span>
+                  <span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">],</span>
+                  <span class="p">[</span><span class="s2">&quot;- I -&quot;</span><span class="p">,</span> <span class="s2">&quot;- II -&quot;</span><span class="p">,</span> <span class="s2">&quot;- III -&quot;</span><span class="p">]</span> <span class="p">],</span>
+      <span class="nt">&quot;label-colors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;#24f&quot;</span><span class="p">],</span>
+      <span class="nt">&quot;label-font&quot;</span><span class="p">:</span> <span class="s2">&quot;4em Arial&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;label-canvas&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mi">280</span><span class="p">,</span> <span class="nt">&quot;w&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span> <span class="nt">&quot;h&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">},</span>
+      <span class="nt">&quot;label-box&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the above json data, the <em>labels</em> can only be a 3 elements array, each is an
+array of strings that will be showed in chart.</p>
+<p>The <em>pos0</em> defined offsets alone x, y, z respectively, i.e. offset[0] = 1 defined
+label [&#8220;A&#8221;, &#8220;B&#8221;, &#8220;C&#8221;] move alone x in one grid.</p>
+<p>The <em>offsets</em> defined offsets of each label plane, i.e. offset[0] = [0, -0.1, 0]
+defined label &#8220;A&#8221;, &#8220;B&#8221; &amp; &#8220;C&#8221; move alone -y in 0.1 grid space.</p>
+<p>The <em>label-box</em> parameters are in world unit, the same as Obj3.box parameter.</p>
+<p>Json Example: test/html/data/bar-2.json</p>
+</div>
+</div>
 <div class="section" id="d3pie">
 <h3>D3Pie<a class="headerlink" href="#d3pie" title="Permalink to this headline">¶</a></h3>
 <p>Draw a pie chart on a 3D plane in xworld.</p>
@@ -178,11 +241,13 @@
 </div>
 <div class="section" id="resources-references">
 <h2>Resources &amp; References<a class="headerlink" href="#resources-references" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><a class="reference external" href="https://www.tutorialsteacher.com/d3js/data-binding-in-d3js">D3 Data Binding (Tutorial)</a></li>
+<ul>
+<li><p class="first"><a class="reference external" href="https://www.tutorialsteacher.com/d3js/data-binding-in-d3js">D3 Data Binding (Tutorial)</a></p>
+</li>
 <li><dl class="first docutils">
 <dt><a class="reference external" href="https://thebookofshaders.com/05/">Shader Shape Functions</a></dt>
-<dd>&amp; <a class="reference external" href="https://thebookofshaders.com/07/">Shader Shape</a></dd>
+<dd><p class="first last">&amp; <a class="reference external" href="https://thebookofshaders.com/07/">Shader Shape</a></p>
+</dd>
 </dl>
 </li>
 </ul>
@@ -239,8 +304,7 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

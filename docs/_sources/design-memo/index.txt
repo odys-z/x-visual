@@ -9,10 +9,11 @@ Contents:
    ecs
    view
    assets
-   shaders/index
+   scene
    obj3
    renderer
    animizer
    affine
+   shaders/index
    extensions/index
    todo
