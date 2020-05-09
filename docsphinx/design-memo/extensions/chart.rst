@@ -68,7 +68,7 @@ To configure XBar chart x, y, z labels serials, in the json.bar section:
 
   { "bar": {
         "pos0": [1, 0, 1],
-		"offsets": [[0, -0.1, 0], [-0.1, 0.5, -0.1], [0, -0.1, 0]],
+        "offsets": [[0, -0.1, 0], [-0.1, 0.5, -0.1], [0, -0.1, 0]],
 
         "label-desc": "in bar serials, labels always a 2d array of stirngs, with rows' cardinality of 3",
         "labels": [ ["A", "B", "C"],
