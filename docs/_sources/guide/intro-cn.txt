@@ -90,6 +90,9 @@ x-visual封装了Three.js渲染引擎，全部包装在Thrender system中，是E
     取透明材质后面的模型对象。拾取对象放在Entity包含的Pickable.pickId中，(picktick =
     update-tick)。
 
+.. attention:: This is deprecated, docs is coming soon.
+..
+
 - GLTF载入
 
 - 初等几何体创建展示准备
