@@ -71,8 +71,12 @@ Now it's natural to share mesh for different nodes:
           "translation" : [ 1.0, 0.0, 0.0 ] }
       ],
 
+
+Lowpoly City Example
+--------------------
+
 city/scene.gltf representation
-------------------------------
+______________________________
 
 Some parts of low poly city gltf assets:
 
@@ -154,7 +158,7 @@ Some parts of low poly city gltf assets:
 Note: 21144 = 1762 x 12
 
 Node Example
-------------
+____________
 
 The loaded node example (name = 'Tree-1-3')
 
@@ -178,7 +182,7 @@ The loaded node example (name = 'Tree-1-3')
 
 
 Three.js GLTFLoader
--------------------
+___________________
 
 The gltf loader processing can be simplify and clarified if with some basic gltf
 knowledge.
@@ -307,8 +311,8 @@ etc. been parsed.
 
 .. _xv-gltf-loader:
 
-The X-visual Edition
---------------------
+The X-visual Loader
+-------------------
 
 Which is an x-visual vision of GLTF loader modified from There.js GLTFLoader.
 
