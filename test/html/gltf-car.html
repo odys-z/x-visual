@@ -42,31 +42,17 @@
 
 		initCity(ecs, scene) {
 			if (ecs) {
-				// var city = ecs.createEntity({
-				// 	id: 'city',
-				// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-				// 			box: [0, 0, 0],
-				// 			transform: [
-				// 				{scale: [0.1, .1, .1]},
-				// 				{translate: [0, 10, 0]},
-				// 			],
-				// 			mesh: undefined },		// Thrender will handle this
-				// 	Visual: {vtype: xv.AssetType.gltf,
-				// 			 asset: 'city/scene.gltf'}// see docs/design-memo/renderer/
-				// });
 				var car_3 = ecs.createEntity({
-					id: 'car1_3',
+					id: 'car_3',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],						// not used
 							transform: [
 								// { translate: [-369, -90, -920] },     //  see parent node (CARS) matrix
-								{ translate: [-0, -0, -920] },     //  see parent node (CARS) matrix
-								{ scale: [0.1, .1, .1] } ],
+								{ translate: [-0, -0, -0] },     //  see parent node (CARS) matrix
+								{ scale: [1, 1, 1] } ],
 							mesh: undefined },					// Thrender will handle this
 					Visual:{vtype: xv.AssetType.gltf,
-							paras: {nodes: ['CAR_03'],
-									color: undefined,			// random
-						 			size: 2},					// WEBGL POINT size
+							paras: {nodes: ['CAR_03']},
 							asset: 'city/scene.gltf'},
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
@@ -81,13 +67,11 @@
 							box: [0, 0, 0],						// not used
 							transform: [
 								// { translate: [-369, -90, -920] },     //  see parent node (CARS) matrix
-								{ translate: [-0, -0, -920] },     //  see parent node (CARS) matrix
-								{ scale: [0.1, .1, .1] } ],
+								{ translate: [-0, -0, -0] },     //  see parent node (CARS) matrix
+								{ scale: [1, 1, 1] } ],
 							mesh: undefined },					// Thrender will handle this
 					Visual:{vtype: xv.AssetType.gltf,
-							paras: {nodes: ['Car_04'],
-									color: undefined,			// random
-						 			size: 2},					// WEBGL POINT size
+							paras: {nodes: ['Car_04']},
 							asset: 'city/scene.gltf'},
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
@@ -96,19 +80,41 @@
 							ease: undefined} }] ] },
 				});
 
-				var car_3 = ecs.createEntity({
+				var car_4_1 = ecs.createEntity({
+					id: 'car_4.1',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],						// not used
+							transform: [
+								// { translate: [-369, -90, -920] },     //  see parent node (CARS) matrix
+								{ scale: [1, 1, 5] },     //  see parent node (CARS) matrix
+								{ translate: [300, -90, -780] } ],
+							mesh: undefined },					// Thrender will handle this
+					Visual:{vtype: xv.AssetType.gltf,
+							paras: {nodes: ['Car_04'],
+									color: undefined},			// random
+							asset: 'city/scene.gltf'},
+					ModelSeqs: { script: [ [
+						  { mtype: xv.XComponent.AnimType.POSITION,
+							paras: {
+								start: 0,
+                                duration: 2,
+								translate: [[0, 0, 0], [100, 0, 0]],
+								ease: undefined} }] ]
+					},
+				});
+
+				var road = ecs.createEntity({
 					id: 'road',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],						// not used
 							transform: [
 								// { translate: [-369, -90, -920] },     //  see parent node (CARS) matrix
-								{ translate: [-0, -0, -920] },     //  see parent node (CARS) matrix
-								{ scale: [0.1, .1, .1] } ],
+								{ translate: [-0, -0, -0] },     //  see parent node (CARS) matrix
+								{ scale: [1, 1, 1] } ],
 							mesh: undefined },					// Thrender will handle this
 					Visual:{vtype: xv.AssetType.gltf,
 							paras: {nodes: ['ROAD', 'Light_3'],
-									color: undefined,			// random
-						 			size: 2},					// WEBGL POINT size
+									color: undefined},			// random
 							asset: 'city/scene.gltf'},
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
