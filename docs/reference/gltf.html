@@ -97,10 +97,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#accessors-bufferviews">accessors &amp; bufferViews</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#city-scene-gltf-representation">city/scene.gltf representation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#node-example">Node Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#three-js-gltfloader">Three.js GLTFLoader</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-x-visual-edition">The X-visual Edition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lowpoly-city-example">Lowpoly City Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#city-scene-gltf-representation">city/scene.gltf representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#node-example">Node Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#three-js-gltfloader">Three.js GLTFLoader</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#the-x-visual-loader">The X-visual Loader</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#exposing-raw-nodes-geometry-buffer">Exposing Raw Nodes/Geometry Buffer</a></li>
 </ul>
 </li>
@@ -192,7 +195,7 @@
 </div>
 <p>In buffers[0].uri, a vertices array is provided. The buffer view split it into 2
 sections, vertex indexes and positions.</p>
-<p>Image from Buffers, BufferViews, and Accessors, Totorial <sup>[1]</sup>.</p>
+<p>Image from <em>Buffers, BufferViews, and Accessors</em>, Totorial <sup>[1]</sup>.</p>
 <img alt="../_images/001-buffer-view.png" src="../_images/001-buffer-view.png" />
 <p>Image 5b: The buffer views, referring to parts of the buffer,</p>
 <p>The way to use data array is exactly specified by <em>accessors</em>.</p>
@@ -206,7 +209,7 @@ sections, vertex indexes and positions.</p>
 <span class="p">]</span><span class="err">,</span>
 </pre></div>
 </div>
-<p>Now it’s natural to use mesh for different nodes:</p>
+<p>Now it’s natural to share mesh for different nodes:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;nodes&quot;</span> <span class="err">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
     <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -216,8 +219,10 @@ sections, vertex indexes and positions.</p>
 </div>
 </div>
 </div>
+<div class="section" id="lowpoly-city-example">
+<h2>Lowpoly City Example<a class="headerlink" href="#lowpoly-city-example" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="city-scene-gltf-representation">
-<h2>city/scene.gltf representation<a class="headerlink" href="#city-scene-gltf-representation" title="Permalink to this headline">¶</a></h2>
+<h3>city/scene.gltf representation<a class="headerlink" href="#city-scene-gltf-representation" title="Permalink to this headline">¶</a></h3>
 <p>Some parts of low poly city gltf assets:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;accessors&quot;</span><span class="p">:</span> <span class="p">[</span>
   <span class="p">{</span> <span class="nt">&quot;bufferView&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;componentType&quot;</span><span class="p">:</span> <span class="mi">5126</span><span class="p">,</span> <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1762</span><span class="p">,</span>
@@ -295,7 +300,7 @@ sections, vertex indexes and positions.</p>
 <p>Note: 21144 = 1762 x 12</p>
 </div>
 <div class="section" id="node-example">
-<h2>Node Example<a class="headerlink" href="#node-example" title="Permalink to this headline">¶</a></h2>
+<h3>Node Example<a class="headerlink" href="#node-example" title="Permalink to this headline">¶</a></h3>
 <p>The loaded node example (name = ‘Tree-1-3’)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for city/scene.gltf, paras.nodes = [&#39;Tree-1-3&#39;],
 nodes[0].children[0].type == &#39;Mesh&#39;,
@@ -316,7 +321,7 @@ nodes[0].children[0].geometry.attributes[&#39;position&#39;] ==
 </div>
 </div>
 <div class="section" id="three-js-gltfloader">
-<h2>Three.js GLTFLoader<a class="headerlink" href="#three-js-gltfloader" title="Permalink to this headline">¶</a></h2>
+<h3>Three.js GLTFLoader<a class="headerlink" href="#three-js-gltfloader" title="Permalink to this headline">¶</a></h3>
 <p>The gltf loader processing can be simplify and clarified if with some basic gltf
 knowledge.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
@@ -436,8 +441,9 @@ etc. been parsed.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="the-x-visual-edition">
-<span id="xv-gltf-loader"></span><h2>The X-visual Edition<a class="headerlink" href="#the-x-visual-edition" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="the-x-visual-loader">
+<span id="xv-gltf-loader"></span><h2>The X-visual Loader<a class="headerlink" href="#the-x-visual-loader" title="Permalink to this headline">¶</a></h2>
 <p>Which is an x-visual vision of GLTF loader modified from There.js GLTFLoader.</p>
 <p>Source: x-visual/packages/three/GLTFLoader</p>
 <p>The modification includes:</p>
@@ -543,9 +549,10 @@ out.</p>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p>1 <a class="reference external" href="https://www.khronos.org/gltf/">GLTF Home Page</a></p>
-<p>2 <a class="reference external" href="https://github.com/KhronosGroup/glTF-Tutorials">GLTF Github</a></p>
-<p>3 <a class="reference external" href="https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md">GLTF Tutorial, Github</a></p>
+<p>1 <a class="reference external" href="https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md">GLTF Tutorial, Github</a></p>
+<p>2 <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-load-gltf.html">Threejsfundamentals: Three.js Loading a .GLTF File</a></p>
+<p>3 <a class="reference external" href="https://www.khronos.org/gltf/">GLTF Home Page</a></p>
+<p>4 <a class="reference external" href="https://github.com/KhronosGroup/glTF-Tutorials">GLTF Github</a></p>
 </div>
 </div>
 
