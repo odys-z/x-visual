@@ -1,3 +1,10 @@
+Tasks
+=====
+
+1. Optimize anti-aliasing
+
+see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-textures.html>`_.
+
 Wish List
 =========
 
@@ -55,3 +62,7 @@ This needs implementing a point shader for GPU picking.
         gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
     }
 ..
+
+- Tween.affine
+
+Have tweening transformation combinable.

@@ -1,15 +1,72 @@
 Animizers
 =========
 
+Animizers convert ModelSeqs, the animation sequences scripts into Tween objects
+that can be played by XTweener.
+
+Animation scripts are a 2D array in an entity definition, ModelSeqs.script.
+
+Sequence the Animation Structure
+--------------------------------
+
+Tween animations are organized as a 2D array, with major order the index of animation
+sequences' order. Each sequence is an array of *CmpTween* component.
+
+API Reference:
+
+- `ModelSeqs <../jsdoc/XComponent.ModelSeqs.html>`_
+
+- `CmpTweens <../jsdoc/XComponent.CmpTweens.html>`_
+
+- `CmpTween <../jsdoc/XComponent.CmpTween.html>`_
+
+Start Tween Sequence
+--------------------
+
+There are 3 way to start a tween animation:
+
+1. Set start = 0 in the script, let ModelMorph start the sequence automatically.
+
+2. Triggered by other scripts, with *startWith* & *followBy* command in script.
+
+3. Use start command, CmpTween.startCmds. Which is an array buffering commands to
+   start a sequence. It's index is the same as tween sequences' index. The following
+   code start the second sequence of entity e.
+
+::
+
+    e.CmpTweens.startCmds.push(1);
+
+A more elegant way to do this is use the XTweener.startSeq() API.
+
 Mesh Animiation Script
 ----------------------
 
 Example:
 
-.. literalinclude:: ../../test/api-scripts-anim.case.js
-   :language: javascript
-   :lines: 88-114
-   :linenos:
+.. code-block:: javascript
+
+    var cube = ecs.createEntity({
+        id: 'fade-out',
+        Obj3: { geom: Obj3Type.BOX,
+                box: [200, 120, 80],
+                mesh: undefined },
+        Visual:{vtype: AssetType.mesh,
+                // Three use document to load assets, which doesn't exist while testing.
+                // null | undefined acts as a flag to let thrender create a ram texture.
+                asset: null },
+
+        // in version 1.0, only type of sequential animation is supported
+        ModelSeqs: {
+            script: [[{ mtype: AnimType.ALPHA,
+                        paras: {start: 0,         // auto start, only alpha tween in v0.2
+                                duration: 0.8,    // seconds
+                                alpha: [opa0, opa1],
+                                ease: XEasing.Elastic.InOut}
+                    }]] },
+        CmpTweens: {}
+    });
+..
 
 In the above example, the entity is defined with 2 components, ModelSeqs & CmpTweens.
 
@@ -45,13 +102,22 @@ AnimType defined in component/morph.js.
 AnimType
 ________
 
-:ref:`AnimType<animtype>` define supported Animation types are defined in x-visual/component/morph.js.
+:ref:`AnimType<animtype>` declares supported Animation types.
+
+Currently animation a all driven by a modified version of Tween.js module, XTweener.
+
+X-visual is struggling to divide animations into a group of orthogonal calculations,
+but not always the case.
+
+Tests shows some animation do showing this character. The AnimType.U_MORPHi type
+for example, can be combined together with more than one visual types.
 
 AnimCate
 ________
 
 mtype also has a flag indicating what kind of the animation is. Currently there
-is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<animcate>`.
+is only one special flag, AnimCate.COMBINE_AFFINE, defined in :ref:`AnimCate<animcate>`,
+indicating that the animation should been handled by AffineCombiner.
 
 See :ref:`Affine Combination <affine-design-memo>` for details.
 
@@ -141,6 +207,25 @@ Start animation with script in other entities.
 
 Object has same properties of :ref:`paras.followBy<script-followby>`.
 
+AnimType.POSITION paras
+_______________________
+
+The *POSITION* animation type is used to update object's position, in world (xscnene).
+
+- translate
+
+A 2D array with major length = 2 specifying to position moving section. As this is an
+affine transformation, it's designed as start from where it is. So the first one is
+usually an array of zero vector, i. e. [0, 0, 0].
+
+The second vector is for target position.
+
+.. note:: From version 0.2, the target position can be dynamically updated, which
+    is the only one can be updated dynamically.
+
+    see test/html/dynamic-position-tween.html for example.
+..
+
 AnimType.ROTATEX paras
 ______________________
 
@@ -216,7 +301,7 @@ Three.js implementation
 
     //////////////////////////////////////////////////////////////////////
     function Matrix4() {
-    	this.elements = [ 1, 0, 0, 0,
+        this.elements = [ 1, 0, 0, 0,
                           0, 1, 0, 0,
                           0, 0, 1, 0,
                           0, 0, 0, 1 ];
@@ -231,7 +316,7 @@ Three.js implementation
             var te = this.elements;
 
             var x = quaternion._x, y = quaternion._y, z = quaternion._z, w = quaternion._w;
-            var x2 = x + x,	y2 = y + y, z2 = z + z;
+            var x2 = x + x,    y2 = y + y, z2 = z + z;
             var xx = x * x2, xy = x * y2, xz = x * z2;
             var yy = y * y2, yz = y * z2, zz = z * z2;
             var wx = w * x2, wy = w * y2, wz = w * z2;
@@ -258,7 +343,7 @@ Three.js implementation
             te[ 14 ] = position.z;
             te[ 15 ] = 1;
             return this;
-    	},
+        },
 
     decompose: function ( position, quaternion, scale ) {
         var te = this.elements;
@@ -368,15 +453,24 @@ type, the alpha tween is been handled by shader.
 AnimType.UNIFORM paras
 ______________________
 
-.. _animtype-u-verts-trans:
+.. _animtype-u-morphi:
 
-AnimType.U_VERTS_TRANS paras
-____________________________
+AnimType.U_MORPHi paras
+_______________________
 
-- u_morph:
+The shader uniforms are:
 
-The vertix position will be mixed with attribute target, *a_target*.
+- u_morph[i]:
+
+This is an array of weights in between array elements. If used form morphing
+between vertices, positions, the vertex positions will be mixed with all target,
+the *a_target* attributes.
+
 For a_target, See VisualType.point.
+
+In version 0.3, there are two tests showing the usage:
+
+test/html/morph-color.html and test/html/morph-model.html.
 
 - u_dist:
 
@@ -386,11 +480,4 @@ For a_noise, See VisualType.point.
 Script Example:
 ---------------
 
-The test case 'html/model-morph.html' is an html page using transpiled results,
-defining 2 box object, with the 3rd as points referencing the boxes' vertices and
-moving the poings, changing the alpha.
-
-.. literalinclude:: ../../test/html/model-morph.html
-   :language: javascript
-   :lines: 12-109
-   :linenos:
+see test case: :ref:`test-morph`.

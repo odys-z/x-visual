@@ -1,7 +1,4 @@
 
-/** @namespace xv.test.tween */
-
-// import chai from 'chai'
 import { chai, expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
 
@@ -22,6 +19,7 @@ global.performance = performance;
 describe('case: [Particles] VisualType.points', function() {
 	this.timeout(1000000); // for debug
 	x.log = 4;
+	x.test = true;
 
 	before(() => { });
 
@@ -46,10 +44,11 @@ describe('case: [Particles] VisualType.points', function() {
 					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'cube0' },	// shader with default randomParticle flag
+					asset: 'cube0' ,	// shader with default randomParticle flag
+					paras: { a_dest: 'cube0' }},
 			ModelSeqs: {
 					script: [[{
-						mtype: AnimType.U_VERTS_TRANS,
+						mtype: AnimType.U_MORPHi,
 					 	paras: {start: 0,			// auto start
 								duration: 2.2,		// seconds
 								dest: 'cube0',		// cube0.Obj3.mesh
@@ -95,7 +94,8 @@ describe('case: [Particles] VisualType.points', function() {
 					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'cube0' },	// shader with default randomParticle flag
+					asset: 'cube0' ,	// shader with default randomParticle flag
+					paras: { a_dest: 'cube0' }},
 			ModelSeqs: {
 					script: [[{
 						mtype: AnimType.ALPHA,
@@ -128,7 +128,7 @@ describe('case: [Particles] VisualType.points', function() {
 		assert.closeTo(points.Obj3.mesh.material.uniforms.u_alpha.value, 0, 0.1, 'uniforms.u_alpha 0');
 	});
 
-	it('VisualType.refPoint & AnimType.U_VERTS_TRANS script animation', async function() {
+	it('VisualType.refPoint & AnimType.U_MORPHi script animation', async function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
@@ -158,10 +158,11 @@ describe('case: [Particles] VisualType.points', function() {
 					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'cube0' },	// shader with default randomParticle flag
+					asset: 'cube0' ,	// shader with default randomParticle flag
+					paras: { a_dest: 'cube0' }},
 			ModelSeqs: {
 					script: [[{
-						mtype: AnimType.U_VERTS_TRANS,
+						mtype: AnimType.U_MORPHi,
 					 	paras: {start: 0,			// auto start
 								duration: 0.399,	// seconds
 								uniforms: {

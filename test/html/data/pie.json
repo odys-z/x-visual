@@ -1,0 +1,23 @@
+{
+  "chart": {
+    "name": "2pie-sankey vec4",
+    "grid": [2, 2, 2],
+    "grid-desc": "2: 2 parallel coords, 2: max y grid, 2: max z grid, y always equals z",
+    "domain": [[0, 2], [0, 21], [0, 2]],
+    "range": [[0, 160], [0, 200], [0, 100]],
+    "grid-space": 20
+  },
+  "pie": [{
+    "pivot": [0, 2, 0],
+	"wh": [1.5, 1.5],
+	"lookScreen": true,
+    "rows": [
+        {"browser": "Chrome", "percent": "73.70"},
+        {"browser": "IE/Edge", "percent": "4.90"},
+        {"browser": "Firefox", "percent": "15.40"},
+        {"browser": "Safari", "percent": "3.60"},
+        {"browser": "Opera", "percent": "1.00"}
+    ],
+    "columns": ["browser", "percent"]
+  }]
+}

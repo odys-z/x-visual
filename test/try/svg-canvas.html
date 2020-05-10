@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Htmltex</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <div id='h5-content'>
+	<p>Radius <input placeholder='1.0' style='width: 30px'/><br></p>
+	<!-- draw your svg on this canvas, which works with providen html2canvas.ems.js -->
+	<svg id='stub' style='display: block; position: absolute'></svg>
+	<img style='height: 128px; width: 128px', src='../html/assets/tex/ruler256.png'></img>
+	<img style='height: 128px; width: 128px', src='../html/assets/tex/rgb2x2.png'></img>
+  </div>
+  <script>
+	/**TODO we can also animize letters:
+	 * https://www.html5rocks.com/en/tutorials/webgl/million_letters/#disqus_thread
+	 */
+	"use strict";
+
+	// function drawPie() {
+	// 	var ctx = document.getElementById('stub').getContext('2d');
+	// 	ctx.fillStyle = xv.xutils.randomColor();
+	// 	ctx.beginPath();
+	// 	ctx.arc(64, 64, 20, 0, 1.2 * Math.PI);
+	// 	ctx.stroke();
+	// 	ctx.fill();
+	// }
+
+	document.getElementById('stub')
+			.addEventListener('click', function() {
+				drawPie('stub', {});
+				// updating canvas -- TODO docs: how to update canvas
+				canvsys.refresh('h5-content', function(canvas) {
+					console.log("canvas-texture updated", canvas);
+				});
+			});
+
+	// render something in h5-content's canvas
+	drawPie('stub', {});
+
+	// initiating xworld
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+						window, {canvasize: [480, 320]});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	// the Htmltex convert html content to texture and render it as requested in what?
+	// TODO doc: domId, obj3, width / height
+	const entDefines = xv.Htmltex.createEntityDefs({objcanvas: [
+			{domId: 'h5-content',
+			 texsize: {width: 256, height: 256}}
+		 ]});
+	xworld.addEntities(entDefines);
+	const canvsys = new xv.Htmltex(ecs, { xscene, entDefines });
+	xworld.addSystem('test', canvsys);
+
+	xworld.startUpdate();
+
+/////////////////////////////////////////////////////////////////////////////
+	function drawPie (domId, json) {
+	    var w = 300,
+	        h = 200,
+	        radius = Math.min(w, h) / 2;
+	    var svg = d3.select("svg")
+	                .style("width", w).style("height", h + 100);
+	                // .style("display", "none");
+	    console.log( svg.attr("id"), svg );
+
+	    var g = svg.append("g")
+	               .attr("transform", `translate( ${w / 2}, ${h / 2 + 50} )`);
+
+	    var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
+
+	    var pie = d3.pie().value(function(d) {
+	            return d.percent;
+	        });
+
+	    var path = d3.arc()
+	                 .outerRadius(radius)
+	                 .innerRadius(radius / 4);
+
+	    var label = d3.arc()
+	                  .outerRadius(radius)
+	                  .innerRadius(radius - 40);
+
+	    var percent = d3.arc()
+	                  .outerRadius(radius + 20)
+	                  .innerRadius(radius);
+	    var data = [
+	        {browser: "Chrome", percent: "73.70"},
+	        {browser: "IE/Edge", percent: "4.90"},
+	        {browser: "Firefox", percent: "15.40"},
+	        {browser: "Safari", percent: "3.60"},
+	        {browser: "Opera", percent: "1.00"}];
+	    data.columns = ["browser", "percent"];
+	    // d3.csv("browseruse.csv", function(error, data) {
+	    //     if (error) {
+	    //         throw error;
+	    //     }
+	    //     console.log(data);
+	        var arc = g.selectAll(".arc")
+	                   .data(pie(data))
+	                   .enter().append("g")
+	                   .attr("class", "arc");
+
+	        arc.append("path")
+	           .attr("d", path)
+	           .attr("fill", function(d) { return color(d.data.browser); });
+
+	        console.log(arc)
+
+	        arc.append("text")
+	           .attr("transform", function(d) {
+	                return "translate(" + label.centroid(d) + ")";
+	            })
+	           .text(function(d) { return d.data.percent > 3 ? d.data.browser : ''; });
+
+	        arc.append("text")
+	           .attr("transform", function(d) {
+	                return "translate(" + percent.centroid(d) + ")";
+	            })
+	           .text(function(d) { return d.data.percent > 3 ? `${d.data.percent} %` : ''; });
+	    // });
+
+	    svg.append("g")
+	       .attr("transform", "translate(" + (w / 2 - 120) + "," + 20 + ")")
+	       .append("text")
+	       .text("Browser use statistics - Hello D3")
+	       .attr("class", "title")
+	}
+
+  </script>
+</body>
+</html>

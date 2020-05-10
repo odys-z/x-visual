@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Shader Instance Pool &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="x-visual 0.3 documentation" href="../../index.html"/>
+        <link rel="up" title="Shader Samples" href="index.html"/>
+        <link rel="next" title="WebGl Phong Material" href="phong.html"/>
+        <link rel="prev" title="Shader Samples" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ecs.html">ECS Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shader Samples</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Shader Instance Pool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#instance-management">Instance Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phong.html">WebGl Phong Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../extensions/index.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../todo.html#wish-list">Wish List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Design Memo</a> &raquo;</li>
+      
+          <li><a href="index.html">Shader Samples</a> &raquo;</li>
+      
+    <li>Shader Instance Pool</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="shader-instance-pool">
+<h1>Shader Instance Pool<a class="headerlink" href="#shader-instance-pool" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="instance-management">
+<h2>Instance Management<a class="headerlink" href="#instance-management" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>discussion about sharing shader program,</li>
+</ol>
+<p>see <a class="reference external" href="https://github.com/mrdoob/three.js/issues/330">Three.js issue 330</a></p>
+<ol class="arabic simple" start="2">
+<li>Three.js WebGLRenderer.js updating programCache:</li>
+</ol>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">initMaterial</span><span class="p">(</span> <span class="nx">material</span><span class="p">,</span> <span class="nx">fog</span><span class="p">,</span> <span class="nx">object</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">programChange</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">shaderID</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">shader</span> <span class="o">=</span> <span class="nx">ShaderLib</span><span class="p">[</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">shaderID</span> <span class="p">];</span>
+            <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">shader</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="nx">material</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span>
+                <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">cloneUniforms</span><span class="p">(</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">uniforms</span> <span class="p">),</span>
+                <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">vertexShader</span><span class="p">,</span>
+                <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">shader</span><span class="p">.</span><span class="nx">fragmentShader</span>
+            <span class="p">};</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">shader</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="nx">material</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span>
+                <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">material</span><span class="p">.</span><span class="nx">uniforms</span><span class="p">,</span>
+                <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">material</span><span class="p">.</span><span class="nx">vertexShader</span><span class="p">,</span>
+                <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">material</span><span class="p">.</span><span class="nx">fragmentShader</span>
+            <span class="p">};</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Three.js ShadderLib:</li>
+</ol>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @author alteredq / http://alteredqualia.com/</span>
+<span class="cm"> * @author mrdoob / http://mrdoob.com/</span>
+<span class="cm"> * @author mikael emtinger / http://gomo.se/</span>
+<span class="cm"> */</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">ShaderChunk</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./ShaderChunk.js&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">ShaderLib</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">basic</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">mergeUniforms</span><span class="p">(</span> <span class="p">[</span> <span class="p">...</span> <span class="p">]</span> <span class="p">),</span>
+        <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshbasic_vert</span><span class="p">,</span>
+        <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshbasic_frag</span>
+    <span class="p">},</span>
+
+    <span class="nx">lambert</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">mergeUniforms</span><span class="p">(</span> <span class="p">[</span> <span class="p">...</span> <span class="p">]</span> <span class="p">),</span>
+        <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshlambert_vert</span><span class="p">,</span>
+        <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshlambert_frag</span>
+    <span class="p">},</span>
+
+    <span class="nx">phong</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">mergeUniforms</span><span class="p">(</span> <span class="p">[</span>
+            <span class="p">...,</span>
+            <span class="p">{</span>
+                <span class="nx">emissive</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span> <span class="mh">0x000000</span> <span class="p">)</span> <span class="p">},</span>
+                <span class="nx">specular</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span> <span class="mh">0x111111</span> <span class="p">)</span> <span class="p">},</span>
+                <span class="nx">shininess</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="mi">30</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">]</span> <span class="p">),</span>
+
+        <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshphong_vert</span><span class="p">,</span>
+        <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshphong_frag</span>
+    <span class="p">},</span>
+
+    <span class="nx">standard</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">mergeUniforms</span><span class="p">(</span> <span class="p">[</span>
+            <span class="nx">UniformsLib</span><span class="p">.</span><span class="nx">common</span><span class="p">,</span>
+            <span class="nx">UniformsLib</span><span class="p">.</span><span class="nx">envmap</span><span class="p">,</span>
+            <span class="p">...,</span>
+            <span class="p">{</span>
+                <span class="nx">emissive</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span> <span class="mh">0x000000</span> <span class="p">)</span> <span class="p">},</span>
+                <span class="nx">roughness</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="mf">0.5</span> <span class="p">},</span>
+                <span class="nx">metalness</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="mf">0.5</span> <span class="p">},</span>
+                <span class="nx">envMapIntensity</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="c1">// temporary</span>
+            <span class="p">}</span>
+        <span class="p">]</span> <span class="p">),</span>
+
+        <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshphysical_vert</span><span class="p">,</span>
+        <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshphysical_frag</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">ShaderLib</span> <span class="p">};</span>
+</pre></div>
+</div>
+<p>ShaderChunk.js:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="kr">import</span> <span class="nx">meshbasic_vert</span> <span class="nx">from</span> <span class="s1">&#39;./ShaderLib/meshbasic_vert.glsl.js&#39;</span><span class="p">;</span>
+<span class="p">...</span>
+
+<span class="kr">export</span> <span class="kd">var</span> <span class="nx">ShaderChunk</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="nx">meshbasic_vert</span><span class="o">:</span> <span class="nx">meshbasic_vert</span><span class="p">,</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ShaderLib/meshbasic_vert.glsl.js</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="k">default</span> <span class="cm">/* glsl */</span><span class="sb">`</span>
+<span class="sb">    uniform float scale;</span>
+<span class="sb">    attribute float lineDistance;</span>
+
+<span class="sb">    varying float vLineDistance;</span>
+
+<span class="sb">    #include &lt;common&gt;</span>
+<span class="sb">    #include &lt;color_pars_vertex&gt;</span>
+<span class="sb">    #include &lt;fog_pars_vertex&gt;</span>
+<span class="sb">    #include &lt;logdepthbuf_pars_vertex&gt;</span>
+<span class="sb">    #include &lt;clipping_planes_pars_vertex&gt;</span>
+
+<span class="sb">    void main() {</span>
+
+<span class="sb">        #include &lt;color_vertex&gt;</span>
+
+<span class="sb">        vLineDistance = scale * lineDistance;</span>
+
+<span class="sb">        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );</span>
+<span class="sb">        gl_Position = projectionMatrix * mvPosition;</span>
+
+<span class="sb">        #include &lt;logdepthbuf_vertex&gt;</span>
+<span class="sb">        #include &lt;clipping_planes_vertex&gt;</span>
+<span class="sb">        #include &lt;fog_vertex&gt;</span>
+<span class="sb">    }</span>
+<span class="sb">`</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>ShaderChunk/common.glsl.js:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="k">default</span> <span class="cm">/* glsl */</span><span class="sb">`</span>
+<span class="sb">    #define PI 3.14159265359</span>
+<span class="sb">    ...</span>
+<span class="sb">    #define EPSILON 1e-6</span>
+
+<span class="sb">    #ifndef saturate</span>
+<span class="sb">    // &lt;tonemapping_pars_fragment&gt; may have defined saturate() already</span>
+<span class="sb">    #define saturate(a) clamp( a, 0.0, 1.0 )</span>
+<span class="sb">    #endif</span>
+<span class="sb">    #define whiteComplement(a) ( 1.0 - saturate( a ) )</span>
+
+<span class="sb">    float pow2( const in float x ) { return x*x; }</span>
+<span class="sb">    float pow3( const in float x ) { return x*x*x; }</span>
+<span class="sb">    float pow4( const in float x ) { float x2 = x*x; return x2*x2; }</span>
+<span class="sb">    float average( const in vec3 color ) { return dot( color, vec3( 0.3333 ) ); }</span>
+<span class="sb">    // expects values in the range of [0,1]x[0,1], returns values in the [0,1] range.</span>
+<span class="sb">    // do not collapse into a single function per: http://byteblacksmith.com/improvements-to-the-canonical-one-liner-glsl-rand-for-opengl-es-2-0/</span>
+<span class="sb">    highp float rand( const in vec2 uv );</span>
+
+<span class="sb">    struct IncidentLight {</span>
+<span class="sb">        vec3 color;</span>
+<span class="sb">        vec3 direction;</span>
+<span class="sb">        bool visible;</span>
+<span class="sb">    };</span>
+
+<span class="sb">    struct ReflectedLight {</span>
+<span class="sb">        vec3 directDiffuse;</span>
+<span class="sb">        vec3 directSpecular;</span>
+<span class="sb">        vec3 indirectDiffuse;</span>
+<span class="sb">        vec3 indirectSpecular;</span>
+<span class="sb">    };</span>
+
+<span class="sb">    struct GeometricContext {</span>
+<span class="sb">        vec3 position;</span>
+<span class="sb">        vec3 normal;</span>
+<span class="sb">        vec3 viewDir;</span>
+<span class="sb">    #ifdef CLEARCOAT</span>
+<span class="sb">        vec3 clearcoatNormal;</span>
+<span class="sb">    #endif</span>
+<span class="sb">    };</span>
+
+<span class="sb">    vec3 transformDirection( in vec3 dir, in mat4 matrix );</span>
+
+<span class="sb">    // http://en.wikibooks.org/wiki/GLSL_Programming/Applying_Matrix_Transformations</span>
+<span class="sb">    vec3 inverseTransformDirection( in vec3 dir, in mat4 matrix );</span>
+
+<span class="sb">    vec3 projectOnPlane(in vec3 point, in vec3 pointOnPlane, in vec3 planeNormal );</span>
+
+<span class="sb">    float sideOfPlane( in vec3 point, in vec3 pointOnPlane, in vec3 planeNormal );</span>
+
+<span class="sb">    vec3 linePlaneIntersect( in vec3 pointOnLine, in vec3 lineDirection,</span>
+<span class="sb">                             in vec3 pointOnPlane, in vec3 planeNormal );</span>
+
+<span class="sb">    mat3 transposeMat3( const in mat3 m );</span>
+
+<span class="sb">    // https://en.wikipedia.org/wiki/Relative_luminance</span>
+<span class="sb">    float linearToRelativeLuminance( const in vec3 color );</span>
+
+<span class="sb">    bool isPerspectiveMatrix( mat4 m );</span>
+<span class="sb">`</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>ShaderChunk/color_vertex.glsl.js</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="k">default</span> <span class="cm">/* glsl */</span><span class="sb">`</span>
+<span class="sb">#ifdef USE_COLOR</span>
+<span class="sb">    vColor.xyz = color.xyz;</span>
+<span class="sb">#endif</span>
+<span class="sb">`</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="phong.html" class="btn btn-neutral float-right" title="WebGl Phong Material" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Shader Samples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

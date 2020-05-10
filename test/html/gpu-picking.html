@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>XTest-GPU Picking</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -40,10 +40,13 @@
 			var cube = ecs.createEntity({
 				id: 'cube0',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-						box: [200, 200, 320],
-						transform: [{translate: [-120, 0, 0]}],
+						box: [200, 200, 400],
+						transform: [
+							{translate: [-120, 0, -100]},
+							{scale: [1, 1, 1]}
+						],
 						mesh: undefined },		// Thrender will handle this
-				GpuPickable: {pickid: 1},
+				GpuPickable: {},
 				Visual: {vtype: xv.AssetType.mesh, asset: 'tex/ruler256.png'}
 			});
 
@@ -52,13 +55,13 @@
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 						box: [60, 60, 30],
 						mesh: undefined },
-				GpuPickable: {pickid: 2},
+				GpuPickable: {},
 				Visual: {vtype: xv.AssetType.mesh, asset: 'tex/rgb2x2.png'}
 			});
 		}
 	}
 
-	Cubesys.query = { iffall: ['CmdFlag', 'GpuPickable', 'Obj3'] };
+	Cubesys.query = { iffall: ['GpuPickable', 'Obj3'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;

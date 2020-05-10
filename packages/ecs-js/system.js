@@ -1,3 +1,6 @@
+/**
+ * @class System
+ */
 class System {
 
   constructor(ecs) {

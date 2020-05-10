@@ -1,5 +1,3 @@
-/** @namespace xv.example.hello */
-
 import * as xv from 'x-visual'
 import * as THREE from 'three'
 
@@ -18,9 +16,9 @@ export default class Parallel extends xv.XSys {
         if (ecs) {
             var cube = ecs.createEntity({
                 id: 'parallel-sankey',
-                Obj3: { geom: xv.XComponent.Obj3Type.PATH,
-                        box: [] },    // geometry parameters, for BOX, it's bounding box
-                Visual:{vtype: xv.AssetType.geomCurve,
+                Obj3: { geom: xv.XComponent.Obj3Type.LINES,
+                        box: [] },
+                Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
             });
@@ -34,17 +32,15 @@ export default class Parallel extends xv.XSys {
         }
 
         for (const e of entities) {
-            if (e.CmdFlag) {
-                 if (e.CmdFlag.flag > 0) {
-                    // handling command like start an animation here
-                    this.cmd = e.UserCmd.cmds[0].cmd;
-                }
-                else this.cmd = undefined;
+             if (e.flag > 0) {
+                // handling command like start an animation here
+                this.cmd = e.UserCmd.cmds[0].cmd;
             }
+            else this.cmd = undefined;
         }
     }
 }
 
-Cube.query = {
-    iffall: ['Visual', 'CmdFlag']
+Parallel.query = {
+    iffall: ['Visual']
 };

@@ -1,6 +1,4 @@
 
-/** @namespace xv.test.tween */
-
 import chai from 'chai'
 import { expect, assert } from 'chai'
 
@@ -26,6 +24,7 @@ global.performance = performance;
 describe('case: [affine] orbit combine', function() {
     this.timeout(100000);
     x.log = 4;
+	x.test = true;
 
     it('affine combination: orbit + roate x', async function() {
         const xworld = new XWorld(undefined, 'window', {});

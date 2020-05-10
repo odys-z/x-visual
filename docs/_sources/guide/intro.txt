@@ -17,6 +17,8 @@ x-visual effectiently.
 x-visual is a npm package, together with a bundle can be used in plain javascript.
 For quick start, see x-visual/examples readme.
 
+.. _guide-hello-xworld:
+
 2. Hello XWorld
 ---------------
 
@@ -34,7 +36,7 @@ repeatedly.
 
 .. literalinclude:: ../../examples/cube/hellocube.js
    :language: javascript
-   :lines: 1-49
+   :lines: 1-45
    :linenos:
 
 A cube entity has been defined above, with id, Obj3, Visual components.
@@ -72,15 +74,18 @@ The argument *entities* is passed to it according to the *query* logics.
 Examples
 ________
 
-All examples are using Webpack for transpiling.
+X-visual examples is a part of source repository, but also a separate webpack project.
+
+All examples are using Webpack for transpiling. To run examples, download the source,
+then install dependencies and transpile.
 
 ::
 
     npm i
     webpack
 
-If everything goes well, open the examples/cube/index.html and it will show
-a cube.
+If everything goes well, open the examples/cube/index.html, linked page of the
+first example will show a cube.
 
 .. image:: imgs/001-hellocube.png
     :width: 300px
@@ -118,9 +123,11 @@ math met arts.
 So currently there is no more documents about it's function details, just feel
 free to try it.
 
-5. Next Step
+6. Next Step
 ------------
 
-There are some html test cases can be useful, see `x-visual/test/html <https://github.com/odys-z/x-visual>`_.
+There is an independent webpack example project can be useful, see *./examples*
+of `x-visual <https://github.com/odys-z/x-visual>`_.
 
-Details is up coming...
+Also test cases can be useful. Here are some explaination. More etails is up
+coming ...

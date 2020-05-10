@@ -1,6 +1,4 @@
 
-/** @namespace xv.test.tween */
-
 import chai from 'chai'
 import { expect, assert } from 'chai'
 
@@ -11,7 +9,7 @@ const {performance} = require('perf_hooks');
 import * as THREE from 'three';
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld'
-import x from '../lib/xapp/xworld'
+import {x} from '../lib/xapp/xworld'
 import {sleep} from '../lib/xutils/xcommon'
 
 import {Visual, Canvas, AssetType} from '../lib/component/visual'
@@ -27,6 +25,7 @@ global.performance = performance;
 describe('case: [Visual] points', function() {
 	this.timeout(10000);
 	x.log = 4;
+	x.test = true;
 
 	it('Thrender: Obj3Type.POINTS <- AssetType.refPoint etc.', function() {
 		const xworld = new XWorld(undefined, 'window', {});
@@ -47,7 +46,8 @@ describe('case: [Visual] points', function() {
 					box: [200, 120, 80],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'box1' },
+					asset: 'box1',
+					paras: { a_dest: 'box1' }},
 		});
 
 		// simple.gltf has 3 vertices
@@ -61,16 +61,17 @@ describe('case: [Visual] points', function() {
 					asset: undefined },
 		});
 
+		debugger
 		xworld.startUpdate();
-		assert.isOk( points.Obj3.mesh );
-		assert.isOk( points.Obj3.mesh instanceof THREE.Points );
-		assert.isOk( points.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
-		assert.equal( points.Obj3.mesh.geometry.attributes.position.count, 3 * 8 );
+			assert.isOk( points.Obj3.mesh, '1' );
+			assert.isOk( points.Obj3.mesh instanceof THREE.Points, '2' );
+			assert.isOk( points.Obj3.mesh.geometry instanceof THREE.BufferGeometry, '3' );
+			assert.equal( points.Obj3.mesh.geometry.attributes.position.count, 3 * 8, '4' );
 
-		assert.isOk( point4model.Obj3.mesh );
-		assert.isOk( point4model.Obj3.mesh instanceof THREE.Points );
-		assert.isOk( point4model.Obj3.mesh.geometry instanceof THREE.BufferGeometry);
-		assert.equal( point4model.Obj3.mesh.geometry.attributes.position.count, 147 * 3 );
+			assert.isOk( point4model.Obj3.mesh, '5' );
+			assert.isOk( point4model.Obj3.mesh instanceof THREE.Points, '6' );
+			assert.isOk( point4model.Obj3.mesh.geometry instanceof THREE.BufferGeometry, '7' );
+			assert.equal( point4model.Obj3.mesh.geometry.attributes.position.count, 147 * 3, '8' );
 	});
 
 	it('Thrender: Obj3 referencing box1.mesh (geom: Obj3Type.BOX)', function() {
@@ -92,7 +93,8 @@ describe('case: [Visual] points', function() {
 					box: [],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'box1' },
+					asset: 'box1',
+					paras: { a_dest: 'box1' }},
 		});
 
 		xworld.startUpdate();
@@ -121,7 +123,8 @@ describe('case: [Visual] points', function() {
 					box: [],
 					mesh: undefined },
 			Visual:{vtype: AssetType.refPoint,
-					asset: 'box2' },
+					asset: 'box2',
+					paras: { a_dest: 'box2' }},
 		});
 
 		var points2 = ecs.createEntity({

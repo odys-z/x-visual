@@ -1,0 +1,13 @@
+# https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes#_merge_strategies
+# https://stackoverflow.com/questions/15232000/git-ignore-files-during-merge
+# .gitattributes: docs/jsdoc merge=ours
+
+# git config --global merge.ours.driver true
+# git merge master
+
+# https://stackoverflow.com/questions/14369378/how-to-make-git-ignore-a-directory-while-merging
+
+# merge master while ignoring docs/jsdoc, rebuild doc
+rm -rf docs/jsdoc
+git merge --no-commit --no-ff master
+git reset -- docs/jsdoc

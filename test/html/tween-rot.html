@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>XTest-Rotate</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <img id='splash'></img>
@@ -44,8 +44,8 @@
             if (ecs) {
                 var cube = ecs.createEntity({
                     id: 'cube0',
-                    UserCmd: {},
-                    CmdFlag: {},
+                    // UserCmd: {},
+                    // CmdFlag: {},
                     Obj3: { geom: xv.XComponent.Obj3Type.BOX,
                             box: [200, 120, 80],
                             // mesh is inited by thrender, can be ignored here - CmpTween's target
@@ -79,7 +79,7 @@
         }
     }
 
-    Cubesys.query = { iffall: ['Visual', 'CmdFlag'] };
+    Cubesys.query = { iffall: ['Visual'] };
 
     xv.splash('splash', rock);
 

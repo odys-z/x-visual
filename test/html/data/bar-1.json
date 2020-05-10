@@ -1,0 +1,54 @@
+{ "chart": {
+    "name": "x-bar vec4 (1)",
+    "domain": [[0, 2], [0, 7], [0, 2]],
+    "range": [[0, 2], [0, 10], [0, 2]],
+    "grid": [4, 7, 3],
+    "grid-space": [40, 5, 40],
+	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
+    "axes": ["1-coord", "y-label", "2-coord"],
+    "label-sytle": ["white", "white", "white"],
+    "label-font": "italic 7.2em \"Fira Sans\", serif"
+  },
+  "bar": {
+    "id": "bar1",
+    "geo-desc": "the bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
+    "Obj3":{"geom": "xv.XComponent.Obj3Type.Cylinder",
+            "box-desc": "in space grid scale; y is set with value (ignored)",
+            "box": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"]},
+    "Visual": {"asset": "../../tex/grey-pixel.png"},
+
+    "_comment": "support in the future?",
+    "script": [
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 1.1,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }],
+      [{"mtype": "xv.XComponent.AnimType.ALPHA",
+        "paras": {"duration": 5.2,
+                "alpha": [0.3, 0.9],
+                "ease": "xv.XEasing.Elastic.In"} }]
+    ],
+    "serials-desc": "use this to define layer overlapping?",
+    "serials": {
+        "offset": [1, 0, 1],
+        "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
+        "docking-format2": "in this example, x = xv, z = zv, y = 0, 1",
+        "docking": []
+    }
+  },
+
+  "vectors": [
+    [ 0, 0, 7 ],
+    [ 0, 1, 6 ],
+    [ 0, 2, 5 ],
+    [ 1, 0, 6 ],
+    [ 1, 1, 5 ],
+    [ 1, 2, 4 ],
+    [ 2, 0, 5 ],
+    [ 2, 1, 4 ],
+    [ 2, 2, 3 ],
+    [ 3, 0, 8 ],
+    [ 3, 1, 7 ],
+    [ 3, 2, 2 ]
+  ]
+}

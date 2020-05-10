@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>XTest.ext - Bar Chart</title>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <script>
+    "use strict";
+
+    class BarTest extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+        }
+
+        update() {
+            if (xview.flag > 0) {
+            }
+        }
+    }
+
+    BarTest.query = { iffall: ['Obj3'] };
+
+    const xworld = new xv.XWorld(document.getElementById('canv'), window, {orbitControl: true});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
+    const xview = xworld.xview;
+
+    // var json = '../data/bar-1.json';
+    var json = '../data/bar-2.json';
+    $.getJSON( json,
+        function(json) {
+            var vis = new xv.chart.GridVisuals ( ecs,
+                  { chart: json.chart, lines: {color: 0x77ccff},
+                    planes:{tex: '../../assets/tex/grey-pixel.png'},
+                    lines: {color: 0x30a0ff},
+                            ix0: [0, 0, 0]},    // initial position, in grid index
+                  json.bar, json.vectors );
+            xworld.addSystem('chart', vis);
+
+            // var serl = new xv.chart.DataSerials ( ecs,
+            //         json.bar.serials,
+            //         {font: {size: 12}});
+
+            var bar = new xv.chart.XBar ( ecs, { },
+                  json.bar, json.vectors );
+            xworld.addSystem('chart', bar);
+
+            var axes = new xv.chart.Axisys(ecs, { },
+                        json.chart);
+            xworld.addSystem('chart', axes);
+
+            xworld.addSystem('test', new BarTest(ecs, {xworld}));
+            xworld.startUpdate();
+        }
+    ).fail(
+        function(jqXhr, textStatus, error) {
+            console.error(json, jqXhr, textStatus, error);
+        }
+    );
+
+  </script>
+  </body>
+</html>

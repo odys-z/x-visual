@@ -1,10 +1,8 @@
-Obj3 & Scene
-============
+Obj3 & Transformation
+=====================
 
-This component is used for `THREE.Object3D <https://threejs.org/docs/index.html#api/en/core/Object3D>`__
-definition.
-
-Obj3 is defined in component/obj3.js.
+Component Obj3 is used for `THREE.Object3D <https://threejs.org/docs/index.html#api/en/core/Object3D>`__
+definition, declared in component/obj3.js.
 
 .. _obj3-transform-guide:
 
@@ -30,8 +28,6 @@ following sequence:
 
 `from Wikipedia [CC BY-SA 3.0] <https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg>`_
 
-TODO Example
-
 Shear is defined as:
 
 .. code-block:: json
@@ -52,11 +48,43 @@ The 3D shear matrix is defined as:
     z_x  z_y  33   tz
     41   42   43   w
 
+Using Obj3.transform
+--------------------
+
+Obj3.transform setup an Object3D's initial transformation. X-vsual supports 3 type
+of transforamtion that Three.js also supports:
+
+- rotate
+
+e.g.::
+
+    {rotate: {deg: 90, axis: [0, 1, 0]}}
+
+- translate
+
+e.g.::
+
+    {translate: [20, 0, 0]}
+
+- scale
+
+e.g.::
+
+    {scale: [1.2, 1, 2]}}
+
+Transformations can be combined into an array of Obj3's definition::
+
+    Obj3: {
+        transfrom: [{translate: [100, 0, 0]},
+                    {rotate: {deg: 45, axis: [1, 0, 0]}},
+                    {scale: [1, 0.5, 1]}]
+    }
+	
 Obj3.affines & combined
 ------------------------
 
-This 2 properties ara similar to the mesh.matrix4, except that it's created by
-animizer and tweened by XTtweener.
+This 2 properties are used to control object transformation, similar to the mesh.
+matrix4, but created by animizer and tweened by XTtweener, other than by Three.js.
 
 Affines is an array of affine object, where affine can be:
 
@@ -67,9 +95,11 @@ Affines is an array of affine object, where affine can be:
     scale: number
 
 Reflect and Shear are not supported as THREE.Matrix4 seams can only been decomposed into
-rotation, translation and scale.
+rotation, translation and scale. For details about this, see
+`Three.js Matrix4 Source Code <https://github.com/mrdoob/three.js/blob/master/src/math/Matrix4.js>`__
+and Object3D.
 
-See `Three.js Matrix4 Source Code <https://github.com/mrdoob/three.js/blob/master/src/math/Matrix4.js>`__.
+Here is the code snippet of Matrix4.decompose:
 
 .. code-block:: javascript
 
@@ -118,13 +148,35 @@ and `Object3D <https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.
     }
 ..
 
-Combined is an array parsed and combined operation represented as a mat4.
+Obj3.Combined is an array parsed and combined operation represented as a mat4.
 
-Obj3.Combined is the XTweener's tweening target and been set to Obj3.mesh.matrix4 directly.
+Combined is the XTweener's tweening target and been set to Obj3.mesh.matrix4 directly.
 Not using Object3D.applyMatrix() because the mesh matrix will accumulate ratation etc. at
 each updating & applying matrix, making rotation steps getting increased.
 
 User shouldn't modify *affines* and *combined* fields.
+
+In addition to basic affine transformation, x-visual provide some combined transformation
+from these basic transformations, like orbiting and interpolated translating.
+
+See :ref:`Affine Combiner Design <affine-design-memo>` for more details.
+
+Issue: Quaternion Injection
+---------------------------
+
+Chart/D3Pie.update() use matrix decompose() and compose() to force object facing
+screen. Could this breaching the design doctrine?
+
+.. code-block:: javascript
+
+    if (e.Pie && e.Pie.lookScreen) {
+        var m = e.Obj3.mesh;
+        m.matrix.decompose( m.position, m.quaternion, m.scale );
+        m.quaternion.copy(this.camera.quaternion);
+        m.matrix.compose( m.position, m.quaternion, m.scale );
+        m.matrixAutoUpdate = false;
+    }
+..
 
 Affine Transformation References:
 ---------------------------------
@@ -140,4 +192,4 @@ Affine Transformation References:
 Obj3 Geometry Parameters
 ------------------------
 
-See Thrender.threeGeometryCase()
+See `Thrender.threeGeometryCase() <../jsdoc/Thrender.html#api-threeGeometryCase>`_.

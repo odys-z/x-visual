@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>XTest-Morph</title>
+    <title>XTest-Morph Model</title>
     <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../dist/xv-0.2.0.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -29,7 +29,7 @@
         ModelSeqs: {
             script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
                         paras: {start: 0,            // auto start
-                                duration: 0.7,       // seconds
+                                duration: 1.7,       // seconds
                                 alpha: [0.95, 0.05], // from, to
                                 ease: xv.XEasing.Elastic.Elastic},
                         startWith:[{entity: 'points',
@@ -54,13 +54,13 @@
         ModelSeqs: {
             script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
                         paras: {start: Infinity,        // follow points[0][1]
-                                duration: 1.2,            // seconds
+                                duration: 1.2,          // seconds
                                 alpha: [0.95, 0.05],    // from, to
                                 ease: xv.XEasing.Elastic.In},
                      }],
                      [{ mtype: xv.XComponent.AnimType.ALPHA,
                         paras: {start: Infinity,
-                                duration: 3.2,            // seconds
+                                duration: 3.2,          // seconds
                                 alpha: [0.05, 0.95],
                                 ease: undefined }}]
                     ]},
@@ -68,42 +68,52 @@
     };
     xworld.addEntities(ent2);
 
+    // pinned line: 73-115 guid/tests.rst
+
+
+
     const points = {
         id: 'points',
-        Obj3: { geom: xv.XComponent.Obj3Type.NA,// use the geometry of entity1
+        Obj3: { geom: xv.XComponent.Obj3Type.NA, // use the geometry of entity1
                 box: [200, 2, 1],
-                mesh: undefined,                // THREE.Points
-                invisible: false },            // It's visible, but alpha 0?
+                mesh: undefined,                 // THREE.Points
+                invisible: false },              // It's visible, but alpha 0?
         Visual:{vtype: xv.AssetType.refPoint,
                 asset: 'entity1',
                 shader: xv.XComponent.ShaderFlag.randomParticles | xv.XComponent.ShaderFlag.defaultex,
-                paras: {vert_scale: '60.0',
+                paras: {vert_scale: '120.0',
                         a_dest: 'entity2',      // entity2.Obj3.mesh
                         // u_tex: 'tex/spark1.png',
                         u_tex: 'tex/crosstar.png',
                         a_noise: false}},
-        ModelSeqs: {
-            script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
-                        paras: {start: Infinity,    // triggered by entity1
-                                duration: 1.2,      // seconds
-                                alpha: [0.06, 0.92],// from, to
-                                ease: xv.XEasing.Elastic.In} },
-                      { mtype: xv.XComponent.AnimType.U_VERTS_TRANS,
-                         paras: {start: Infinity,   // follow previous
-                                duration: 1.2,      // seconds
-                                uniforms: { u_morph: [0, 1],
-                                            u_alpha: [0.1, 0.9] }},
-                        followBy: [{entity: 'entity2',
-                                    seqx: 1,        // index of the fade-in
-                                    start: 0.3}] },
-                      { mtype: xv.XComponent.AnimType.ALPHA,
-                        paras: {start: Infinity,    // triggered by entity1
-                                duration: 1.2,      // seconds
-                                alpha: [0.9, 0.41], // from, to
-                                ease: xv.XEasing.Elastic.In} }
-                    ]] },
+        ModelSeqs: { script: [[
+              { mtype: xv.XComponent.AnimType.ALPHA,
+                paras: {start: Infinity,        // triggered by entity1
+                        duration: 1.2,          // seconds
+                        alpha: [0.06, 0.9],     // from, to
+                        ease: xv.XEasing.Elastic.In} },
+              // both UNIFORMS and U_MORPHi should works for ShaderFlag.randomParticles
+              // { mtype: xv.XComponent.AnimType.UNIFORMS,
+              { mtype: xv.XComponent.AnimType.U_MORPHi,
+                paras: {start: Infinity,        // follow previous
+                        duration: 1.2,          // seconds
+                        uniforms: { u_morph: [0, 1],
+                                    u_alpha: [0.1, 0.9] }},
+                followBy: [{entity: 'entity2',
+                            seqx: 1,            // index of the fade-in
+                            start: 0.3}] },
+              { mtype: xv.XComponent.AnimType.ALPHA,
+                paras: {start: Infinity,        // triggered by entity1
+                        duration: 1.2,          // seconds
+                        alpha: [0.9, 0.41],     // from, to
+                        ease: xv.XEasing.Elastic.In} }
+            ]] },
         CmpTweens: {}
     };
+
+
+
+
     xworld.addEntities(points);
 
     xworld.startUpdate();

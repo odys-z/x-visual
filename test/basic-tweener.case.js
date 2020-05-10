@@ -1,6 +1,4 @@
 
-/** @namespace xv.test.tween */
-
 import chai from 'chai'
 import { expect, assert } from 'chai'
 
@@ -27,6 +25,7 @@ global.performance = performance;
 describe('case: [tween] tweener basics', function() {
 	this.timeout(6000);
 	x.log = 4;
+	x.test = true;
 
 	before(() => {
 	});
@@ -107,7 +106,7 @@ describe('case: [tween] tweener basics', function() {
 
         var tetra = ecs.createEntity({
             id: 'cube0',
-            Obj3: { geom: Obj3Type.TETRAHEDRON,
+            Obj3: { geom: Obj3Type.Tetrahedron,
                     box: [200, 2, 1],
                     mesh: undefined },
             Visual:{vtype: AssetType.mesh,

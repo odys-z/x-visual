@@ -90,7 +90,7 @@ For point & refPoint
 It's been used for vtype = :ref:`AssetType.refPoint<vtype-refPoint>` or
 :ref:`AssetType.point<vtype-point>`.
 
-For these vtype, it's usually used together with :ref:`animtype-u-verts-trans`
+For these vtype, it's usually used together with :ref:`animtype-u-morphi`
 and :ref:`animtype-uniform`.
 
 Check it for how Visual.paras and ModelSeqs.script.paras work together to change
@@ -100,8 +100,8 @@ If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).
 
 If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
-by Thrender using this entity.Visual.paras.obj3type, which can be one of
-:ref:`Obj3Type component<api-component-obj3type>` value.
+by Thrender using this entity.Visual.paras.obj3type, which can be one of geometry
+type of :ref:`XComponent <api-xcomponents>` value.
 
 -- paras.nodes
 
@@ -125,7 +125,7 @@ WebGl point.
 -- paras.noise
 
 If true, the generated Object3D object will have a 'a_noise' attribute. For animation
-type :ref:`AnimType U_VERTS_TRANS<animtype-u-verts-trans>` and :ref:`AnimType UNIFORM<animtype-uniform>`,
+type :ref:`AnimType.U_MORPHi <animtype-u-morphi>` and :ref:`AnimType UNIFORM<animtype-uniform>`,
 this value is used for scale the distance.
 
 -- paras.vert_scale
@@ -159,3 +159,34 @@ Specify a gltf asset file, e.g. int the test case of html/gltf:
 
 The file located in 'assets/city/scene.gltf' and referenced bin file together with
 texture files are loaded by :ref:`xv-gltf-loader` of gltf loader.
+
+Dynamic Text
+------------
+
+test: test/html/dynatex.html
+
+In x-visual, 2D text are supported by system `CanvTex <../jsdoc/XComponent.Dynatex.html>`_
+using an html canvas as the dynamic texture, with an API function for updating
+text.
+
+The *Dynatex.style* and *Dynatex.font* are used as canvas style and font attribute,
+the same as html canvas style, see `MDN Canvas.style <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle>`_
+and `css font <https://developer.mozilla.org/en-US/docs/Web/CSS/font>`_.
+
+Canvas size, font size and scene objects are working together to produce the 3D
+visualized effects.
+
+.. image:: imgs/004-dynatex-size.jpg
+    :width: 420px
+
+Example:
+
+.. code-block:: javascript
+
+    Dynatex: {
+        style: '#00c0c0',
+        font: '64px Arial',
+        xywh: {x: 2, y: 128, w: 256, h: 256}
+    }
+
+Default text font is "100px Arial", wh is [256, 256], y = 128.
