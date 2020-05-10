@@ -42,7 +42,7 @@ The *bufferViews* are actually the raw data's logical view.
 In buffers[0].uri, a vertices array is provided. The buffer view split it into 2
 sections, vertex indexes and positions.
 
-Image from Buffers, BufferViews, and Accessors, Totorial :sup:`[1]`.
+Image from *Buffers, BufferViews, and Accessors*, Totorial :sup:`[1]`.
 
 .. image:: ./imgs/001-buffer-view.png
 
