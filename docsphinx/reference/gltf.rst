@@ -431,8 +431,10 @@ For promise returning 'ndoes', see :ref:`Parse Promise<parse-promise>`.
 References
 ----------
 
-1 `GLTF Home Page <https://www.khronos.org/gltf/>`_
+1 `GLTF Tutorial, Github <https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md>`_
 
-2 `GLTF Github <https://github.com/KhronosGroup/glTF-Tutorials>`_
+2 `Threejsfundamentals: Three.js Loading a .GLTF File <https://threejsfundamentals.org/threejs/lessons/threejs-load-gltf.html>`_
 
-3 `GLTF Tutorial, Github <https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/README.md>`_
+3 `GLTF Home Page <https://www.khronos.org/gltf/>`_
+
+4 `GLTF Github <https://github.com/KhronosGroup/glTF-Tutorials>`_

@@ -42,23 +42,39 @@
 
 		initCity(ecs, scene) {
 			if (ecs) {
-				var city = ecs.createEntity({
-					id: 'city',
+				// var city = ecs.createEntity({
+				// 	id: 'city',
+				// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+				// 			box: [0, 0, 0],
+				// 			transform: [
+				// 				{scale: [0.1, .1, .1]},
+				// 				{translate: [0, 10, 0]},
+				// 			],
+				// 			mesh: undefined },		// Thrender will handle this
+				// 	Visual: {vtype: xv.AssetType.gltf,
+				// 			 asset: 'city/scene.gltf'}// see docs/design-memo/renderer/
+				// });
+				var car1_3 = ecs.createEntity({
+					id: 'car1_3',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-							box: [0, 0, 0],
-							transform: [
-								{scale: [0.1, .1, .1]},
-								{translate: [0, 10, 0]},
-							],
-							mesh: undefined },		// Thrender will handle this
-					Visual: {vtype: xv.AssetType.gltf,
-							 asset: 'city/scene.gltf'}// see docs/design-memo/renderer/
+							box: [0, 0, 0],						// not used
+							mesh: undefined },					// Thrender will handle this
+					Visual:{vtype: xv.AssetType.gltf,
+							paras: {nodes: ['CAR_03'],
+									color: undefined,			// random
+						 			size: 2},					// WEBGL POINT size
+							asset: 'city/scene.gltf'},
+					ModelSeqs: { script: [ [
+						  { mtype: xv.XComponent.AnimType.POSITION,
+							paras: { start: 0,
+							translate: [[0, 0, 0], [100, 0, 0]],
+							ease: undefined} }] ] },
 				});
 			}
 		}
 	}
 
-	Citysys.query = { any: ['Visual', 'CmdFlag'] };
+	Citysys.query = { any: ['Visual', 'Obj3'] };
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
