@@ -48,11 +48,13 @@
 							box: [0, 0, 0],						// not used
 							transform: [
 								// { translate: [-369, -90, -920] },     //  see parent node (CARS) matrix
-								{ translate: [-0, -0, -0] },     //  see parent node (CARS) matrix
+								{ rotate: {deg: -90, axis: [0, 1, 0]} },
+								{ translate: [-80, -90, -380] },
 								{ scale: [1, 1, 1] } ],
 							mesh: undefined },					// Thrender will handle this
 					Visual:{vtype: xv.AssetType.gltf,
-							paras: {nodes: ['CAR_03']},
+							paras: {nodes: ['CAR_03'],
+									withTransform: false},
 							asset: 'city/scene.gltf'},
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
@@ -67,11 +69,13 @@
 							box: [0, 0, 0],						// not used
 							transform: [
 								// { translate: [-369, -90, -920] },     //  see parent node (CARS) matrix
-								{ translate: [-0, -0, -0] },     //  see parent node (CARS) matrix
+								{ rotate: {deg: -90, axis: [0, 1, 0]} },
+								{ translate: [120, -80, -360] },
 								{ scale: [1, 1, 1] } ],
 							mesh: undefined },					// Thrender will handle this
 					Visual:{vtype: xv.AssetType.gltf,
-							paras: {nodes: ['Car_04']},
+							paras: {nodes: ['Car_04'],
+									withTransform: false},
 							asset: 'city/scene.gltf'},
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
@@ -85,13 +89,13 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],						// not used
 							transform: [
-								// { translate: [-369, -90, -920] },     //  see parent node (CARS) matrix
-								{ scale: [1, 1, 5] },     //  see parent node (CARS) matrix
-								{ translate: [300, -90, -780] } ],
+								{ scale: [1, 1, 1.5] },
+								{ rotate: {deg: 90, axis: [0, 1, 0]} },
+								{ translate: [260, -80, -510] } ],
 							mesh: undefined },					// Thrender will handle this
 					Visual:{vtype: xv.AssetType.gltf,
 							paras: {nodes: ['Car_04'],
-									color: undefined},			// random
+									withTransform: false},
 							asset: 'city/scene.gltf'},
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
@@ -114,6 +118,7 @@
 							mesh: undefined },					// Thrender will handle this
 					Visual:{vtype: xv.AssetType.gltf,
 							paras: {nodes: ['ROAD', 'Light_3'],
+									withTransform: true,
 									color: undefined},			// random
 							asset: 'city/scene.gltf'},
 					ModelSeqs: { script: [ [
