@@ -9,8 +9,13 @@
 </head>
 <body>
   <img id='splash'></img>
-  <canvas id='canv'></canvas>
+  TODO add doc about this
+  TODO add doc about this
+  TODO add doc about this
+  TODO add doc about this
+  TODO add doc about this 
   <div id='stub'></div>
+  <canvas id='canv'></canvas>
   <script>
     "use strict";
 
@@ -35,7 +40,11 @@
         const ecs = xworld.xecs;
         const xscene = xworld.xscene;
 
-        var d3pie = new xv.chart.D3Pie(ecs, {xworld, chart: json.chart}, json.pie);
+        var d3pie = new xv.chart.D3Pie(ecs,
+			{ stub: 'stub',
+			  xy: [0, 25],   // texture start offset
+			  xworld, chart: json.chart
+			}, json.pie);
         xworld.addSystem('chart', d3pie);
         xworld.addSystem('test', new TestD3Pie(ecs, {xworld, d3pie}));
         xworld.startUpdate();
