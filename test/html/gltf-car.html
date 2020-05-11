@@ -47,11 +47,10 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],						// not used
 							transform: [
-								// { translate: [-369, -90, -920] },     //  see parent node (CARS) matrix
 								{ rotate: {deg: -90, axis: [0, 1, 0]} },
 								{ translate: [-80, -90, -380] },
 								{ scale: [1, 1, 1] } ],
-							mesh: undefined },					// Thrender will handle this
+							mesh: undefined },  // Thrender will load asynchronously
 					Visual:{vtype: xv.AssetType.gltf,
 							paras: {nodes: ['CAR_03'],
 									withTransform: false},
@@ -72,7 +71,7 @@
 								{ rotate: {deg: -90, axis: [0, 1, 0]} },
 								{ translate: [120, -80, -360] },
 								{ scale: [1, 1, 1] } ],
-							mesh: undefined },					// Thrender will handle this
+							mesh: undefined },  // Thrender will load asynchronously
 					Visual:{vtype: xv.AssetType.gltf,
 							paras: {nodes: ['Car_04'],
 									withTransform: false},
@@ -84,15 +83,16 @@
 							ease: undefined} }] ] },
 				});
 
-				var car_4_1 = ecs.createEntity({
-					id: 'car_4.1',
+				var car4_1 = ecs.createEntity({
+					id: 'car4.1',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],						// not used
 							transform: [
 								{ scale: [1, 1, 1.5] },
 								{ rotate: {deg: 90, axis: [0, 1, 0]} },
 								{ translate: [260, -80, -510] } ],
-							mesh: undefined },					// Thrender will handle this
+							mesh: undefined },  // Thrender will load asynchronously
+
 					Visual:{vtype: xv.AssetType.gltf,
 							paras: {nodes: ['Car_04'],
 									withTransform: false},
@@ -100,7 +100,7 @@
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
 							paras: {
-								start: 0,
+								start: Infinity,// can only be Infinity, see docs/design-memo/task/issues
                                 duration: 2,
 								translate: [[0, 0, 0], [100, 0, 0]],
 								ease: undefined} }] ]
