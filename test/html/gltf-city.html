@@ -24,20 +24,6 @@
 				log = false;
 				console.log('city-sys');
 			}
-
-	    	for (const e of entities) {
-				if (e.CmdFlag) {
-				 	if (e.CmdFlag.flag > 0) {
-						// console.log(e.UserCmd);
-						this.cmd = e.UserCmd.cmds[0].cmd;
-					}
-					else this.cmd = undefined;
-				}
-				else if (e.Visual) {
-					if (this.cmd)
-						console.log('visual changing: ', this.cmd);
-				}
-			}
 		}
 
 		initCity(ecs, scene) {
@@ -47,7 +33,7 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],
 							transform: [
-								{scale: [0.1, .2, .1]},
+								{scale: [0.1, .1, .1]},
 								{translate: [0, 10, 0]},
 							],
 							mesh: undefined },		// Thrender will handle this
