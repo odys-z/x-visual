@@ -1,12 +1,70 @@
 Tasks
 =====
 
+TODO
+----
+
 1. Optimize anti-aliasing
 
 see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-textures.html>`_.
 
+Issues
+------
+
+1. ModelSeqs can't handle asynchronously loaded mesh
+
+test case: html/gltf-car.html
+
+Problem: If setting animation sequence start at 0 (any but Infinity) on a gltf
+mesh, then the target Obj3.mesh won't being ready when playing started.
+
+Loading the gltf nodes is an asynchronous process, of which the node objects can
+only been ready for rendering latter.
+
+Code snippet of starting Tween animation in AffineCombiner.update():
+
+.. code-block:: javascript
+
+    if (!e.CmpTweens.idle) {
+        if (e.CmpTweens.playRising) {
+            e.Obj3.m0.setByjs(e.Obj3.mesh.matrix);
+        }
+        ...
+..
+
+Code snippet of Thrender.createObj3s() AssetType.gltf branch:
+
+.. code-block:: javascript
+
+    AssetKeepr.loadGltfNodes(e.Obj3, `assets/${e.Visual.asset}`,
+        nds,
+        (nodes) => {
+            // Too late to push mesh into mes now, add to scene directly
+            if (scene && nodes) {
+                for (var n of nodes) {
+                    if (e.Obj3 && e.Obj3.transform) {
+                        var m4 = new mat4();
+
+                        if (e.Visual.paras && e.Visual.paras.withTransform)
+                            m4.setByjs(n.matrix);
+
+                        for (var trs of e.Obj3.transform)
+                            m4.appAffine(trs);
+
+                        n.matrixAutoUpdate = false;
+                        m4.put2js(n.matrix);
+                        e.Obj3.mesh = n;
+                    }
+                    scene.add(n);
+                }
+            }
+        });
+..
+
+`Jsdoc API - AssetKeepr <../jsdoc/AssetKeepr.html>`_
+
 Wish List
-=========
+---------
 
 - Animize Letters
 
