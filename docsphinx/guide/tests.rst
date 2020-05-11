@@ -1,3 +1,5 @@
+.. _test-explained:
+
 Test Case Explained
 ===================
 
