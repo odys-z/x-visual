@@ -50,6 +50,9 @@ This test shows how to update target position and use a animation to move to the
 
 The user command interaction is handled in TestDynamicPos.update().
 
+case: GLTF Handling
+-------------------
+
 .. _test-gltf:
 
 case: AnimType.gltf
@@ -73,3 +76,23 @@ methods. The road is using the gltf transformation, withTransform = true; while
 cars completely ignored all transformation and configured with a new set of paras.
 
 .. image:: imgs/003-gltf-car.jpg
+
+case: GLTF transform
+____________________
+
+html file: test/html/gltf-city.html
+
+This file loaded the entire gltf scene, without any post handling, but only transformed.
+
+case: GLTF Nodes & Animation
+____________________________
+
+html file: test/html/gltf-car.html
+
+This file loaded the some nodes in gltf asset, specifying animation scripts.
+
+The animation can't auto-started for :ref:`the issue of asynchronous loading<issue-asych-gltf>`.
+
+To use and loading gltf nodes, user must have some basic idea of gltf format.
+X-visual is intend for users of programmer.
+Here is some information about :ref:`GLTF Format<gltf-format>`.
