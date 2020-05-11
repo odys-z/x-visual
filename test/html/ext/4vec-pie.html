@@ -9,11 +9,10 @@
 </head>
 <body>
   <img id='splash'></img>
-  TODO add doc about this
-  TODO add doc about this
-  TODO add doc about this
-  TODO add doc about this
-  TODO add doc about this 
+  <!-- This stub is essential for D3Pie to render a inner texture.
+       1. The div id must provided as a neccessary option.
+       2. The div must presented before canvas - the unknown behaviour of a depending pageckage, Html2Canvas
+    -->
   <div id='stub'></div>
   <canvas id='canv'></canvas>
   <script>
@@ -26,15 +25,13 @@
         }
 
         update(tick, entities) {
-            // for (const e of entities) {
-            //     if (e.Pie && e.Pie.dirty) {
-            //     }
-            // }
         }
     }
 
     TestD3Pie.query = { iffall: ['CmdFlag', 'Pie'] };
 
+    // oinned lines referenced by docsphinx/desig-memo/extensions/chart.rst
+    // line 35 - 48
     $.getJSON('../data/pie.json', function(json){
         const xworld = new xv.XWorld(document.getElementById('canv'), window);
         const ecs = xworld.xecs;
