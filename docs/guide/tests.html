@@ -324,6 +324,12 @@ cars completely ignored all transformation and configured with a new set of para
 <p>To use and loading gltf nodes, user must have some basic idea of gltf format.
 X-visual is intend for users of programmer.
 Here is some information about <a class="reference internal" href="../reference/gltf.html#gltf-format"><span>GLTF Format</span></a>.</p>
+<p>FYI, usually artists sometimes would not seriously care about how node&#8217;s matrices
+are working. In gltf scene, a nodes transformation is combined all of it&#8217;s ancestors,
+so the node&#8217;s transformation matrix itself will not makes what the objects should
+look like. X-visual provided a brutal way, just disable all the transformation in gltf
+with <em>Visual.paras.withTransform</em> = false, then set Obj3.transform as you, the
+programmer liked.</p>
 </div>
 </div>
 </div>
