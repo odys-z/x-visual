@@ -32,10 +32,13 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../../index.html"/>
         <link rel="up" title="Shader Samples" href="index.html"/>
         <link rel="next" title="Shadertoy Flame" href="flame.html"/>
-        <link rel="prev" title="Shader Samples" href="index.html"/> 
+        <link rel="prev" title="Shader Instance Pool" href="instance.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -90,16 +93,17 @@
 <li class="toctree-l2"><a class="reference internal" href="../ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">Assets Loader</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shader Samples</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">WebGl Phong Material</a></li>
-<li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../obj3.html">Scene &amp; HUD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../obj3.html#obj3-scene">Obj3 &amp; Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shader Samples</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">WebGl Phong Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../todo.html">Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../todo.html#wish-list">Wish List</a></li>
@@ -158,128 +162,128 @@
 bar in bar chart, with respect to light position.</p>
 <p>Phong material is provided by <a class="reference external" href="../../jsdoc/xglsl.html">xglsl</a>.meshColors(vparas).</p>
 <p>Reference: <a class="reference external" href="http://www.cs.toronto.edu/~jacobson/phong-demo/">WebGL - Phong Shading</a></p>
-<div class="highlight-glsl"><div class="highlight"><pre><span class="k">attribute</span> <span class="k">vec3</span> <span class="n">position</span><span class="p">;</span>
-<span class="k">attribute</span> <span class="k">vec3</span> <span class="n">normal</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">projection</span><span class="p">,</span> <span class="n">modelview</span><span class="p">,</span> <span class="n">normalMat</span><span class="p">;</span>
-<span class="k">varying</span> <span class="k">vec3</span> <span class="n">normalInterp</span><span class="p">;</span>
-<span class="k">varying</span> <span class="k">vec3</span> <span class="n">vertPos</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">int</span> <span class="n">mode</span><span class="p">;</span>   <span class="c1">// Rendering mode</span>
-<span class="k">uniform</span> <span class="k">float</span> <span class="n">Ka</span><span class="p">;</span>   <span class="c1">// Ambient reflection coefficient</span>
-<span class="k">uniform</span> <span class="k">float</span> <span class="n">Kd</span><span class="p">;</span>   <span class="c1">// Diffuse reflection coefficient</span>
-<span class="k">uniform</span> <span class="k">float</span> <span class="n">Ks</span><span class="p">;</span>   <span class="c1">// Specular reflection coefficient</span>
-<span class="k">uniform</span> <span class="k">float</span> <span class="n">shininessVal</span><span class="p">;</span> <span class="c1">// Shininess</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">attribute</span> <span class="kt">vec3</span> <span class="n">position</span><span class="p">;</span>
+<span class="k">attribute</span> <span class="kt">vec3</span> <span class="n">normal</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">projection</span><span class="p">,</span> <span class="n">modelview</span><span class="p">,</span> <span class="n">normalMat</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec3</span> <span class="n">normalInterp</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec3</span> <span class="n">vertPos</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">int</span> <span class="n">mode</span><span class="p">;</span>   <span class="c1">// Rendering mode</span>
+<span class="k">uniform</span> <span class="kt">float</span> <span class="n">Ka</span><span class="p">;</span>   <span class="c1">// Ambient reflection coefficient</span>
+<span class="k">uniform</span> <span class="kt">float</span> <span class="n">Kd</span><span class="p">;</span>   <span class="c1">// Diffuse reflection coefficient</span>
+<span class="k">uniform</span> <span class="kt">float</span> <span class="n">Ks</span><span class="p">;</span>   <span class="c1">// Specular reflection coefficient</span>
+<span class="k">uniform</span> <span class="kt">float</span> <span class="n">shininessVal</span><span class="p">;</span> <span class="c1">// Shininess</span>
 <span class="c1">// Material color</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">ambientColor</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">diffuseColor</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">specularColor</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">lightPos</span><span class="p">;</span> <span class="c1">// Light position</span>
-<span class="k">varying</span> <span class="k">vec4</span> <span class="n">color</span><span class="p">;</span> <span class="c1">//color</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">ambientColor</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">diffuseColor</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">specularColor</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">lightPos</span><span class="p">;</span> <span class="c1">// Light position</span>
+<span class="k">varying</span> <span class="kt">vec4</span> <span class="n">color</span><span class="p">;</span> <span class="c1">//color</span>
 
-<span class="k">void</span> <span class="n">main</span><span class="p">(){</span>
-  <span class="k">vec4</span> <span class="n">vertPos4</span> <span class="o">=</span> <span class="n">modelview</span> <span class="o">*</span> <span class="k">vec4</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
-  <span class="n">vertPos</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span><span class="n">vertPos4</span><span class="p">)</span> <span class="o">/</span> <span class="n">vertPos4</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
-  <span class="n">normalInterp</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span><span class="n">normalMat</span> <span class="o">*</span> <span class="k">vec4</span><span class="p">(</span><span class="n">normal</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">));</span>
-  <span class="n">gl_Position</span> <span class="o">=</span> <span class="n">projection</span> <span class="o">*</span> <span class="n">vertPos4</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="kt">vec4</span> <span class="n">vertPos4</span> <span class="o">=</span> <span class="n">modelview</span> <span class="o">*</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="n">vertPos</span> <span class="o">=</span> <span class="kt">vec3</span><span class="p">(</span><span class="n">vertPos4</span><span class="p">)</span> <span class="o">/</span> <span class="n">vertPos4</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
+  <span class="n">normalInterp</span> <span class="o">=</span> <span class="kt">vec3</span><span class="p">(</span><span class="n">normalMat</span> <span class="o">*</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">normal</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">));</span>
+  <span class="nb">gl_Position</span> <span class="o">=</span> <span class="n">projection</span> <span class="o">*</span> <span class="n">vertPos4</span><span class="p">;</span>
 
-  <span class="k">vec3</span> <span class="n">N</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">normalInterp</span><span class="p">);</span>
-  <span class="k">vec3</span> <span class="n">L</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">lightPos</span> <span class="o">-</span> <span class="n">vertPos</span><span class="p">);</span>
+  <span class="kt">vec3</span> <span class="n">N</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">normalInterp</span><span class="p">);</span>
+  <span class="kt">vec3</span> <span class="n">L</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">lightPos</span> <span class="o">-</span> <span class="n">vertPos</span><span class="p">);</span>
   <span class="c1">// Lambert&#39;s cosine law</span>
-  <span class="k">float</span> <span class="n">lambertian</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">L</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">);</span>
-  <span class="k">float</span> <span class="n">specular</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">lambertian</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">L</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="kt">float</span> <span class="n">specular</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
   <span class="k">if</span><span class="p">(</span><span class="n">lambertian</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">R</span> <span class="o">=</span> <span class="n">reflect</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="p">,</span> <span class="n">N</span><span class="p">);</span>      <span class="c1">// Reflected light vector</span>
-    <span class="k">vec3</span> <span class="n">V</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="o">-</span><span class="n">vertPos</span><span class="p">);</span> <span class="c1">// Vector to viewer</span>
+    <span class="kt">vec3</span> <span class="n">R</span> <span class="o">=</span> <span class="n">reflect</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="p">,</span> <span class="n">N</span><span class="p">);</span>      <span class="c1">// Reflected light vector</span>
+    <span class="kt">vec3</span> <span class="n">V</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="o">-</span><span class="n">vertPos</span><span class="p">);</span> <span class="c1">// Vector to viewer</span>
     <span class="c1">// Compute the specular term</span>
-    <span class="k">float</span> <span class="n">specAngle</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">V</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">specAngle</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">V</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">);</span>
     <span class="n">specular</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">specAngle</span><span class="p">,</span> <span class="n">shininessVal</span><span class="p">);</span>
   <span class="p">}</span>
-  <span class="n">color</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">Ka</span> <span class="o">*</span> <span class="n">ambientColor</span> <span class="o">+</span>
+  <span class="n">color</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">Ka</span> <span class="o">*</span> <span class="n">ambientColor</span> <span class="o">+</span>
                <span class="n">Kd</span> <span class="o">*</span> <span class="n">lambertian</span> <span class="o">*</span> <span class="n">diffuseColor</span> <span class="o">+</span>
                <span class="n">Ks</span> <span class="o">*</span> <span class="n">specular</span> <span class="o">*</span> <span class="n">specularColor</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 
   <span class="c1">// only ambient</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="n">color</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">Ka</span> <span class="o">*</span> <span class="n">ambientColor</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="n">color</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">Ka</span> <span class="o">*</span> <span class="n">ambientColor</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
   <span class="c1">// only diffuse</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="n">color</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">Kd</span> <span class="o">*</span> <span class="n">lambertian</span> <span class="o">*</span> <span class="n">diffuseColor</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="n">color</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">Kd</span> <span class="o">*</span> <span class="n">lambertian</span> <span class="o">*</span> <span class="n">diffuseColor</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
   <span class="c1">// only specular</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="n">color</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">Ks</span> <span class="o">*</span> <span class="n">specular</span> <span class="o">*</span> <span class="n">specularColor</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="n">color</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">Ks</span> <span class="o">*</span> <span class="n">specular</span> <span class="o">*</span> <span class="n">specularColor</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Sample: What&#8217;s actually the shader program generated by xglsl with ShaderFlag.colorArray.</p>
-<div class="highlight-python"><div class="highlight"><pre>1: precision highp float;
-2: precision highp int;
-3: #define HIGH_PRECISION
-4: #define SHADER_NAME ShaderMaterial
-5: #define VERTEX_TEXTURES
-6: #define GAMMA_FACTOR 2
-7: #define MAX_BONES 0
-8: #define BONE_TEXTURE
-9: uniform mat4 modelMatrix;
-10: uniform mat4 modelViewMatrix;
-11: uniform mat4 projectionMatrix;
-12: uniform mat4 viewMatrix;
-13: uniform mat3 normalMatrix;
-14: uniform vec3 cameraPosition;
-15: uniform bool isOrthographic;
-16: #ifdef USE_INSTANCING
-17:  attribute mat4 instanceMatrix;
-18: #endif
-19: attribute vec3 position;
-20: attribute vec3 normal;
-21: attribute vec2 uv;
-22: #ifdef USE_TANGENT
-23:     attribute vec4 tangent;
-24: #endif
-25: #ifdef USE_COLOR
-26:     attribute vec3 color;
-27: #endif
-28: #ifdef USE_MORPHTARGETS
-29:     attribute vec3 morphTarget0;
-30:     attribute vec3 morphTarget1;
-31:     attribute vec3 morphTarget2;
-32:     attribute vec3 morphTarget3;
-33:     #ifdef USE_MORPHNORMALS
-34:             attribute vec3 morphNormal0;
-35:             attribute vec3 morphNormal1;
-36:             attribute vec3 morphNormal2;
-37:             attribute vec3 morphNormal3;
-38:     #else
-39:             attribute vec3 morphTarget4;
-40:             attribute vec3 morphTarget5;
-41:             attribute vec3 morphTarget6;
-42:             attribute vec3 morphTarget7;
-43:     #endif
-44: #endif
-45: #ifdef USE_SKINNING
-46:     attribute vec4 skinIndex;
-47:     attribute vec4 skinWeight;
-48: #endif
-49:
-50: uniform float u_alpha;
-51:   //uniform vec3 u_color0; uniform float u_morph0;
-52:
-53: uniform vec3 u_color0; uniform float u_morph0;
-54: uniform vec3 u_color1; uniform float u_morph1;
-55: uniform vec3 u_color2; uniform float u_morph2;
-56:
-57:   varying vec4 vColor;
-58:   varying float vAlpha;
-59:
-60:   vec4 mixColor() {
-61:     vec3 morph = u_color0;
-62: morph = mix(morph, u_color1, u_morph0);
-63: morph = mix(morph, u_color2, u_morph1);
-64: morph = mix(morph, u_color0, u_morph2);
-65:     return vec4(morph, u_alpha);
-66:   }
-67:
-68:   void main() {
-69:     vColor = mixColor();
-70:     vAlpha = u_alpha;
-71:
-72:     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1);
-73:   }
+<p>Sample: What’s actually the shader program generated by xglsl with ShaderFlag.colorArray.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">:</span> <span class="n">precision</span> <span class="n">highp</span> <span class="nb">float</span><span class="p">;</span>
+<span class="mi">2</span><span class="p">:</span> <span class="n">precision</span> <span class="n">highp</span> <span class="nb">int</span><span class="p">;</span>
+<span class="mi">3</span><span class="p">:</span> <span class="c1">#define HIGH_PRECISION</span>
+<span class="mi">4</span><span class="p">:</span> <span class="c1">#define SHADER_NAME ShaderMaterial</span>
+<span class="mi">5</span><span class="p">:</span> <span class="c1">#define VERTEX_TEXTURES</span>
+<span class="mi">6</span><span class="p">:</span> <span class="c1">#define GAMMA_FACTOR 2</span>
+<span class="mi">7</span><span class="p">:</span> <span class="c1">#define MAX_BONES 0</span>
+<span class="mi">8</span><span class="p">:</span> <span class="c1">#define BONE_TEXTURE</span>
+<span class="mi">9</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">modelMatrix</span><span class="p">;</span>
+<span class="mi">10</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">modelViewMatrix</span><span class="p">;</span>
+<span class="mi">11</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">projectionMatrix</span><span class="p">;</span>
+<span class="mi">12</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">viewMatrix</span><span class="p">;</span>
+<span class="mi">13</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">mat3</span> <span class="n">normalMatrix</span><span class="p">;</span>
+<span class="mi">14</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">vec3</span> <span class="n">cameraPosition</span><span class="p">;</span>
+<span class="mi">15</span><span class="p">:</span> <span class="n">uniform</span> <span class="nb">bool</span> <span class="n">isOrthographic</span><span class="p">;</span>
+<span class="mi">16</span><span class="p">:</span> <span class="c1">#ifdef USE_INSTANCING</span>
+<span class="mi">17</span><span class="p">:</span>  <span class="n">attribute</span> <span class="n">mat4</span> <span class="n">instanceMatrix</span><span class="p">;</span>
+<span class="mi">18</span><span class="p">:</span> <span class="c1">#endif</span>
+<span class="mi">19</span><span class="p">:</span> <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">position</span><span class="p">;</span>
+<span class="mi">20</span><span class="p">:</span> <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">normal</span><span class="p">;</span>
+<span class="mi">21</span><span class="p">:</span> <span class="n">attribute</span> <span class="n">vec2</span> <span class="n">uv</span><span class="p">;</span>
+<span class="mi">22</span><span class="p">:</span> <span class="c1">#ifdef USE_TANGENT</span>
+<span class="mi">23</span><span class="p">:</span>     <span class="n">attribute</span> <span class="n">vec4</span> <span class="n">tangent</span><span class="p">;</span>
+<span class="mi">24</span><span class="p">:</span> <span class="c1">#endif</span>
+<span class="mi">25</span><span class="p">:</span> <span class="c1">#ifdef USE_COLOR</span>
+<span class="mi">26</span><span class="p">:</span>     <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">color</span><span class="p">;</span>
+<span class="mi">27</span><span class="p">:</span> <span class="c1">#endif</span>
+<span class="mi">28</span><span class="p">:</span> <span class="c1">#ifdef USE_MORPHTARGETS</span>
+<span class="mi">29</span><span class="p">:</span>     <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget0</span><span class="p">;</span>
+<span class="mi">30</span><span class="p">:</span>     <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget1</span><span class="p">;</span>
+<span class="mi">31</span><span class="p">:</span>     <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget2</span><span class="p">;</span>
+<span class="mi">32</span><span class="p">:</span>     <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget3</span><span class="p">;</span>
+<span class="mi">33</span><span class="p">:</span>     <span class="c1">#ifdef USE_MORPHNORMALS</span>
+<span class="mi">34</span><span class="p">:</span>             <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphNormal0</span><span class="p">;</span>
+<span class="mi">35</span><span class="p">:</span>             <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphNormal1</span><span class="p">;</span>
+<span class="mi">36</span><span class="p">:</span>             <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphNormal2</span><span class="p">;</span>
+<span class="mi">37</span><span class="p">:</span>             <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphNormal3</span><span class="p">;</span>
+<span class="mi">38</span><span class="p">:</span>     <span class="c1">#else</span>
+<span class="mi">39</span><span class="p">:</span>             <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget4</span><span class="p">;</span>
+<span class="mi">40</span><span class="p">:</span>             <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget5</span><span class="p">;</span>
+<span class="mi">41</span><span class="p">:</span>             <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget6</span><span class="p">;</span>
+<span class="mi">42</span><span class="p">:</span>             <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget7</span><span class="p">;</span>
+<span class="mi">43</span><span class="p">:</span>     <span class="c1">#endif</span>
+<span class="mi">44</span><span class="p">:</span> <span class="c1">#endif</span>
+<span class="mi">45</span><span class="p">:</span> <span class="c1">#ifdef USE_SKINNING</span>
+<span class="mi">46</span><span class="p">:</span>     <span class="n">attribute</span> <span class="n">vec4</span> <span class="n">skinIndex</span><span class="p">;</span>
+<span class="mi">47</span><span class="p">:</span>     <span class="n">attribute</span> <span class="n">vec4</span> <span class="n">skinWeight</span><span class="p">;</span>
+<span class="mi">48</span><span class="p">:</span> <span class="c1">#endif</span>
+<span class="mi">49</span><span class="p">:</span>
+<span class="mi">50</span><span class="p">:</span> <span class="n">uniform</span> <span class="nb">float</span> <span class="n">u_alpha</span><span class="p">;</span>
+<span class="mi">51</span><span class="p">:</span>   <span class="o">//</span><span class="n">uniform</span> <span class="n">vec3</span> <span class="n">u_color0</span><span class="p">;</span> <span class="n">uniform</span> <span class="nb">float</span> <span class="n">u_morph0</span><span class="p">;</span>
+<span class="mi">52</span><span class="p">:</span>
+<span class="mi">53</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">vec3</span> <span class="n">u_color0</span><span class="p">;</span> <span class="n">uniform</span> <span class="nb">float</span> <span class="n">u_morph0</span><span class="p">;</span>
+<span class="mi">54</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">vec3</span> <span class="n">u_color1</span><span class="p">;</span> <span class="n">uniform</span> <span class="nb">float</span> <span class="n">u_morph1</span><span class="p">;</span>
+<span class="mi">55</span><span class="p">:</span> <span class="n">uniform</span> <span class="n">vec3</span> <span class="n">u_color2</span><span class="p">;</span> <span class="n">uniform</span> <span class="nb">float</span> <span class="n">u_morph2</span><span class="p">;</span>
+<span class="mi">56</span><span class="p">:</span>
+<span class="mi">57</span><span class="p">:</span>   <span class="n">varying</span> <span class="n">vec4</span> <span class="n">vColor</span><span class="p">;</span>
+<span class="mi">58</span><span class="p">:</span>   <span class="n">varying</span> <span class="nb">float</span> <span class="n">vAlpha</span><span class="p">;</span>
+<span class="mi">59</span><span class="p">:</span>
+<span class="mi">60</span><span class="p">:</span>   <span class="n">vec4</span> <span class="n">mixColor</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">61</span><span class="p">:</span>     <span class="n">vec3</span> <span class="n">morph</span> <span class="o">=</span> <span class="n">u_color0</span><span class="p">;</span>
+<span class="mi">62</span><span class="p">:</span> <span class="n">morph</span> <span class="o">=</span> <span class="n">mix</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="n">u_color1</span><span class="p">,</span> <span class="n">u_morph0</span><span class="p">);</span>
+<span class="mi">63</span><span class="p">:</span> <span class="n">morph</span> <span class="o">=</span> <span class="n">mix</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="n">u_color2</span><span class="p">,</span> <span class="n">u_morph1</span><span class="p">);</span>
+<span class="mi">64</span><span class="p">:</span> <span class="n">morph</span> <span class="o">=</span> <span class="n">mix</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="n">u_color0</span><span class="p">,</span> <span class="n">u_morph2</span><span class="p">);</span>
+<span class="mi">65</span><span class="p">:</span>     <span class="k">return</span> <span class="n">vec4</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="n">u_alpha</span><span class="p">);</span>
+<span class="mi">66</span><span class="p">:</span>   <span class="p">}</span>
+<span class="mi">67</span><span class="p">:</span>
+<span class="mi">68</span><span class="p">:</span>   <span class="n">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">69</span><span class="p">:</span>     <span class="n">vColor</span> <span class="o">=</span> <span class="n">mixColor</span><span class="p">();</span>
+<span class="mi">70</span><span class="p">:</span>     <span class="n">vAlpha</span> <span class="o">=</span> <span class="n">u_alpha</span><span class="p">;</span>
+<span class="mi">71</span><span class="p">:</span>
+<span class="mi">72</span><span class="p">:</span>     <span class="n">gl_Position</span> <span class="o">=</span> <span class="n">projectionMatrix</span> <span class="o">*</span> <span class="n">modelViewMatrix</span> <span class="o">*</span> <span class="n">vec4</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="mi">73</span><span class="p">:</span>   <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -294,7 +298,7 @@ bar in bar chart, with respect to light position.</p>
         <a href="flame.html" class="btn btn-neutral float-right" title="Shadertoy Flame" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Shader Samples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="instance.html" class="btn btn-neutral" title="Shader Instance Pool" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -334,7 +338,8 @@ bar in bar chart, with respect to light position.</p>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

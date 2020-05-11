@@ -55,10 +55,18 @@ So if there are entities only with Obj3, they can be rendered as visible but not
 pickable, and can preventing entities with GpuPickable to be picked if they are
 rendered closer to camera.
 
+In version 0.3, Entity with GpuPickable need a texture to work, so GpuPicker will
+create a defualt if it's not provided.
+
+Gpu picking is used for picking object's with texture hole, so model with such
+texture should been specified by user with Visual.asset or GpuPickable.tex.
+
+See AssetKeepr.initMyPickings().
+
 **Note:**
 
-The GpuPickable component has a *pickid* property, it's immediately been updated by
-x-visual.GpuPicker. Users can not depend on this.
+The GpuPickable component has a *pickid* property, it's been managed by x-visual
+GpuPicker subsystem. Users can not depend on this and must not update it.
 
 [1] `Three.js Picking (with GPU) <https://threejsfundamentals.org/threejs/lessons/threejs-picking.html>`__
 

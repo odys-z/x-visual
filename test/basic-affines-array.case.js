@@ -24,6 +24,7 @@ global.performance = performance;
 describe('case: [affine] affines array', function() {
     this.timeout(100000);
     x.log = 4;
+	x.test = true;
     var tframe = 20; // ms
 
     it('affine array: trans, rotate, -trans', async function() {
