@@ -94,6 +94,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#case-animtype-position">case: AnimType.POSITION</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#case-gltf-handling">case: GLTF Handling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-animtype-gltf">case: AnimType.gltf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-gltf-transform">case: GLTF transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-gltf-nodes-animation">case: GLTF Nodes &amp; Animation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -145,7 +151,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="test-case-explained">
-<h1>Test Case Explained<a class="headerlink" href="#test-case-explained" title="Permalink to this headline">¶</a></h1>
+<span id="test-explained"></span><h1>Test Case Explained<a class="headerlink" href="#test-case-explained" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="morphing-transform-color">
 <span id="test-morph"></span><h2>Morphing transform &amp; color<a class="headerlink" href="#morphing-transform-color" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="case-animtype-alpha-uniforms-u-morphi">
@@ -242,7 +248,10 @@ of <em>points</em> will moving between box of <em>entity1</em> &amp; <em>entity2
 </div>
 <div class="section" id="case-animtype-position">
 <h3>case: AnimType.POSITION<a class="headerlink" href="#case-animtype-position" title="Permalink to this headline">¶</a></h3>
-<p>html file: test/html/morph-model.html</p>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">model</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
 <p>This test shows how to update target position and use a animation to move to there.</p>
 <div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -280,6 +289,47 @@ of <em>points</em> will moving between box of <em>entity1</em> &amp; <em>entity2
 </pre></div>
 </td></tr></table></div>
 <p>The user command interaction is handled in TestDynamicPos.update().</p>
+</div>
+</div>
+<div class="section" id="case-gltf-handling">
+<h2>case: GLTF Handling<a class="headerlink" href="#case-gltf-handling" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-animtype-gltf">
+<span id="test-gltf"></span><h3>case: AnimType.gltf<a class="headerlink" href="#case-animtype-gltf" title="Permalink to this headline">¶</a></h3>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">city</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">car</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">verts</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>About nodes&#8217; transformation:</p>
+<p>The gltf nodes include a property of matrix, which is usually set by assets&#8217; artists.
+As gltf nodes can be a tree structure, loading some nodes can cause problem if
+applying the node&#8217;s transformation.</p>
+<p>The x-visual provide a brutal solution for this - just ignore all transformation.
+User can specify each node&#8217;s transformation in Obj3. The gltf-car.html used both
+methods. The road is using the gltf transformation, withTransform = true; while
+cars completely ignored all transformation and configured with a new set of paras.</p>
+<img alt="../_images/003-gltf-car.jpg" src="../_images/003-gltf-car.jpg" />
+</div>
+<div class="section" id="case-gltf-transform">
+<h3>case: GLTF transform<a class="headerlink" href="#case-gltf-transform" title="Permalink to this headline">¶</a></h3>
+<p>html file: test/html/gltf-city.html</p>
+<p>This file loaded the entire gltf scene, without any post handling, but only transformed.</p>
+</div>
+<div class="section" id="case-gltf-nodes-animation">
+<h3>case: GLTF Nodes &amp; Animation<a class="headerlink" href="#case-gltf-nodes-animation" title="Permalink to this headline">¶</a></h3>
+<p>html file: test/html/gltf-car.html</p>
+<p>This file loaded the some nodes in gltf asset, specifying animation scripts.</p>
+<p>The animation can&#8217;t auto-started for <a class="reference internal" href="../design-memo/todo.html#issue-asych-gltf"><span>the issue of asynchronous loading</span></a>.</p>
+<p>To use and loading gltf nodes, user must have some basic idea of gltf format.
+X-visual is intend for users of programmer.
+Here is some information about <a class="reference internal" href="../reference/gltf.html#gltf-format"><span>GLTF Format</span></a>.</p>
+<p>FYI, usually artists sometimes would not seriously care about how node&#8217;s matrices
+are working. In gltf scene, a nodes transformation is combined all of it&#8217;s ancestors,
+so the node&#8217;s transformation matrix itself will not makes what the objects should
+look like. X-visual provided a brutal way, just disable all the transformation in gltf
+with <em>Visual.paras.withTransform</em> = false, then set Obj3.transform as you, the
+programmer liked.</p>
 </div>
 </div>
 </div>
