@@ -24,6 +24,8 @@
 			this.nav = ents[0];
 			this.left = ents[1];
 			this.right = ents[2];
+
+            this.pause = false;
         }
 
         update(tick, entities) {
@@ -34,6 +36,13 @@
 						if ((cmd.keyflag & xv.KeyFlag.shift) > 0) {
 					 		this.naving = 1;
 							break;
+						}
+                        else if ((cmd.keyflag & xv.KeyFlag.ctrl) > 0) {
+                            this.pause = !this.pause;
+					 		xv.XTweener.pauseTween(this.nav.CmpTweens, this.pause);
+					 		xv.XTweener.pauseTween(this.right.CmpTweens, this.pause);
+					 		xv.XTweener.pauseTween(this.left.CmpTweens, this.pause);
+                            break;
 						}
 						else if (cmd.cmd === 'fire') {
 							xv.XTweener.startSeq(this.nav.CmpTweens, 0);

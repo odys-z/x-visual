@@ -32,6 +32,7 @@ function assertComplete(buffer) {
 describe('case: [script] anim sequence', function() {
     this.timeout(100000);
     x.log = 4;
+	x.test = true;
 
     it('animizer: ModelSeq', async function() {
         const xworld = new XWorld(undefined, 'window', {});
@@ -242,17 +243,18 @@ describe('case: [script] anim sequence', function() {
 
         var points = ecs.createEntity({
             id: 'points',
-            Obj3: { geom: Obj3Type.NA,    // undefined
-                    box: [1, 1, 1],                        // not used, using entity1's
-                    mesh: undefined,                    // THREE.Points
-                     invisible: false },                    // It's visible, but alpha 0?
+            Obj3: { geom: Obj3Type.NA,                    // undefined
+                    box: [1, 1, 1],                       // not used, using entity1's
+                    mesh: undefined,                      // THREE.Points
+                    invisible: false },                   // It's visible, but alpha 0?
             Visual:{vtype: AssetType.refPoint,
-                    asset: 'cube0' },
+                    asset: 'cube0',                       // not used, using paras.dest
+                    paras:{dest: 'cube0'}},
             ModelSeqs: {
                 script: [[{ mtype: AnimType.ALPHA,
-                            paras: {start: Infinity,    // triggered by entity1 at 0.4s
+                            paras: {start: Infinity,      // triggered by entity1 at 0.4s
                                     duration: 0.4,        // seconds
-                                    alpha: [0.05, 0.92],// fade-in
+                                    alpha: [0.05, 0.92],  // fade-in
                                     ease: XEasing.Elastic.In} },
                           { mtype: AnimType.U_MORPHi,
                             paras: {start: Infinity,    // follow previous, 0.8
@@ -261,12 +263,12 @@ describe('case: [script] anim sequence', function() {
                                     uniforms: { u_morph: [0, 1],
                                                 u_alpha: [0.1, 0.9] } },
                             followBy: [{entity: 'plane',
-                                        seqx: 0,    // index of the fade-in
+                                        seqx: 0,          // index of the fade-in
                                         start: 0.0 }] },
                           { mtype: AnimType.ALPHA,
-                            paras: {start: Infinity,    // triggered by entity1
+                            paras: {start: Infinity,      // triggered by entity1
                                     duration: 0.4,        // seconds
-                                    alpha: [0.9, 0.05],    // fade out
+                                    alpha: [0.9, 0.05],   // fade out
                                     ease: XEasing.Elastic.In} }
                        ]] },
             CmpTweens: { twindx: [], tweens: [] }

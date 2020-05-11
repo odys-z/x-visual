@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Reference" href="../reference/index.html"/>
@@ -93,15 +90,19 @@
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="obj3.html">Scene &amp; HUD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-scene">Obj3 &amp; Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tasks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#wish-list">Wish List</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Tasks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#todo">TODO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issues">Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wish-list">Wish List</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
@@ -151,13 +152,61 @@
             
   <div class="section" id="tasks">
 <h1>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="todo">
+<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Optimize anti-aliasing</li>
 </ol>
 <p>see <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-textures.html">Three.js Texture</a>.</p>
 </div>
+<div class="section" id="issues">
+<h2>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple" id="issue-asych-gltf">
+<li>ModelSeqs can&#8217;t handle asynchronously loaded mesh</li>
+</ol>
+<p>test case: html/gltf-car.html</p>
+<p>Problem: If setting animation sequence start at 0 (any but Infinity) on a gltf
+mesh, then the target Obj3.mesh won&#8217;t being ready when playing started.</p>
+<p>Loading the gltf nodes is an asynchronous process, of which the node objects can
+only been ready for rendering latter.</p>
+<p>Code snippet of starting Tween animation in AffineCombiner.update():</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">idle</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">playRising</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">m0</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>Code snippet of Thrender.createObj3s() AssetType.gltf branch:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">AssetKeepr</span><span class="p">.</span><span class="nx">loadGltfNodes</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">,</span> <span class="sb">`assets/</span><span class="si">${</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">asset</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+    <span class="nx">nds</span><span class="p">,</span>
+    <span class="p">(</span><span class="nx">nodes</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Too late to push mesh into mes now, add to scene directly</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">scene</span> <span class="o">&amp;&amp;</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">n</span> <span class="k">of</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">transform</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">m4</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mat4</span><span class="p">();</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">paras</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">paras</span><span class="p">.</span><span class="nx">withTransform</span><span class="p">)</span>
+                        <span class="nx">m4</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">trs</span> <span class="k">of</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">transform</span><span class="p">)</span>
+                        <span class="nx">m4</span><span class="p">.</span><span class="nx">appAffine</span><span class="p">(</span><span class="nx">trs</span><span class="p">);</span>
+
+                    <span class="nx">n</span><span class="p">.</span><span class="nx">matrixAutoUpdate</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                    <span class="nx">m4</span><span class="p">.</span><span class="nx">put2js</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+                    <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span> <span class="o">=</span> <span class="nx">n</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="../jsdoc/AssetKeepr.html">Jsdoc API - AssetKeepr</a></p>
+</div>
 <div class="section" id="wish-list">
-<h1>Wish List<a class="headerlink" href="#wish-list" title="Permalink to this headline">¶</a></h1>
+<h2>Wish List<a class="headerlink" href="#wish-list" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Animize Letters</li>
 </ul>
@@ -174,7 +223,7 @@
 <li>Tween.glsl</li>
 </ul>
 <p><a class="reference external" href="https://stackoverflow.com/questions/35328937/how-to-tween-10-000-particles-in-three-js">Jet Blue already had tried this</a> :</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Vertex Shader</span>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="c1">// Vertex Shader</span>
 
 <span class="n">uniform</span> <span class="kt">float</span> <span class="n">elapsedTime</span><span class="p">;</span>
 <span class="n">uniform</span> <span class="kt">float</span> <span class="n">duration</span><span class="p">;</span>
@@ -215,6 +264,7 @@
 <li>Tween.affine</li>
 </ul>
 <p>Have tweening transformation combinable.</p>
+</div>
 </div>
 
 
@@ -267,8 +317,7 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

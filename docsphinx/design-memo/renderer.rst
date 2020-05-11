@@ -159,3 +159,34 @@ Specify a gltf asset file, e.g. int the test case of html/gltf:
 
 The file located in 'assets/city/scene.gltf' and referenced bin file together with
 texture files are loaded by :ref:`xv-gltf-loader` of gltf loader.
+
+Dynamic Text
+------------
+
+test: test/html/dynatex.html
+
+In x-visual, 2D text are supported by system `CanvTex <../jsdoc/XComponent.Dynatex.html>`_
+using an html canvas as the dynamic texture, with an API function for updating
+text.
+
+The *Dynatex.style* and *Dynatex.font* are used as canvas style and font attribute,
+the same as html canvas style, see `MDN Canvas.style <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle>`_
+and `css font <https://developer.mozilla.org/en-US/docs/Web/CSS/font>`_.
+
+Canvas size, font size and scene objects are working together to produce the 3D
+visualized effects.
+
+.. image:: imgs/004-dynatex-size.jpg
+    :width: 420px
+
+Example:
+
+.. code-block:: javascript
+
+    Dynatex: {
+        style: '#00c0c0',
+        font: '64px Arial',
+        xywh: {x: 2, y: 128, w: 256, h: 256}
+    }
+
+Default text font is "100px Arial", wh is [256, 256], y = 128.

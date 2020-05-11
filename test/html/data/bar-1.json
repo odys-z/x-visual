@@ -1,16 +1,21 @@
 { "chart": {
     "name": "x-bar vec4 (1)",
     "domain": [[0, 2], [0, 7], [0, 2]],
-    "range": [[0, 160], [0, 70], [0, 100]],
+    "range": [[0, 2], [0, 10], [0, 2]],
     "grid": [4, 7, 3],
-    "grid-space": [40, 10, 40],
+    "grid-space": [40, 5, 40],
 	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
-    "axes": ["1-coord", "y-label", "2-coord"]
+    "axes": ["1-coord", "y-label", "2-coord"],
+    "label-sytle": ["white", "white", "white"],
+    "label-font": "italic 7.2em \"Fira Sans\", serif"
   },
   "bar": {
     "id": "bar1",
-    "geometry-desc": "the bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
-    "geometry": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"],
+    "geo-desc": "the bar(THREE.Cylinder) geometry parameters: [radiusTop, radiusBottom, height(overriden by v-scale), radialSegments, heightSegments, openEnded, thetaStart, thetaLength]",
+    "Obj3":{"geom": "xv.XComponent.Obj3Type.Cylinder",
+            "box-desc": "in space grid scale; y is set with value (ignored)",
+            "box": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"]},
+    "Visual": {"asset": "../../tex/grey-pixel.png"},
 
     "_comment": "support in the future?",
     "script": [
@@ -23,10 +28,12 @@
                 "alpha": [0.3, 0.9],
                 "ease": "xv.XEasing.Elastic.In"} }]
     ],
-    "bars-desc": "use this to define layer overlapping?",
-    "bars": {
+    "serials-desc": "use this to define layer overlapping?",
+    "serials": {
         "offset": [1, 0, 1],
-        "grid": []
+        "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
+        "docking-format2": "in this example, x = xv, z = zv, y = 0, 1",
+        "docking": []
     }
   },
 
