@@ -94,6 +94,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#case-animtype-position">case: AnimType.POSITION</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#case-gltf-handling">case: GLTF Handling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-gltf-transform">case: GLTF transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-gltf-nodes-animation">case: GLTF Nodes &amp; Animation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -280,6 +285,23 @@ of <em>points</em> will moving between box of <em>entity1</em> &amp; <em>entity2
 </pre></div>
 </td></tr></table></div>
 <p>The user command interaction is handled in TestDynamicPos.update().</p>
+</div>
+</div>
+<div class="section" id="case-gltf-handling">
+<h2>case: GLTF Handling<a class="headerlink" href="#case-gltf-handling" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-gltf-transform">
+<h3>case: GLTF transform<a class="headerlink" href="#case-gltf-transform" title="Permalink to this headline">¶</a></h3>
+<p>html file: test/html/gltf-city.html</p>
+<p>This file loaded the entire gltf scene, without any post handling, but only transformed.</p>
+</div>
+<div class="section" id="case-gltf-nodes-animation">
+<h3>case: GLTF Nodes &amp; Animation<a class="headerlink" href="#case-gltf-nodes-animation" title="Permalink to this headline">¶</a></h3>
+<p>html file: test/html/gltf-car.html</p>
+<p>This file loaded the some nodes in gltf asset, specifying animation scripts.</p>
+<p>The animation can&#8217;t auto-started for <a class="reference internal" href="../design-memo/todo.html#issue-asych-gltf"><span>the issue of asynchronous loading</span></a>.</p>
+<p>To use and loading gltf nodes, user must have some basic idea of gltf format.
+X-visual is intend for users of programmer.
+Here is some information about <a class="reference internal" href="../reference/gltf.html#gltf-format"><span>GLTF Format</span></a>.</p>
 </div>
 </div>
 </div>

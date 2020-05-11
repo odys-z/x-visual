@@ -11,6 +11,8 @@ see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-t
 Issues
 ------
 
+.. _issue-asych-gltf:
+
 1. ModelSeqs can't handle asynchronously loaded mesh
 
 test case: html/gltf-car.html
