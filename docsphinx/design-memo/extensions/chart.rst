@@ -113,8 +113,8 @@ plane object.
 
 Note:
 
-In a page used a D3Pie, the html/body needs provide a special div before the canvas
-used for main scene, such as
+In a page using D3Pie, the html/body needs providing a special div before the
+canvas used for main scene, such as
 
 .. code-block:: html
 
@@ -123,6 +123,9 @@ used for main scene, such as
       <canvas id='canv'></canvas>
     </body>
 ..
+
+This is a tested results required by the depending Html2Texture plug in, and could
+be subtle to debug if not have a div like this.
 
 Resources & References
 ----------------------
