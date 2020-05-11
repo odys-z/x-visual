@@ -40,8 +40,11 @@
 			var cube = ecs.createEntity({
 				id: 'cube0',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-						box: [200, 200, 320],
-						transform: [{translate: [-120, 0, 0]}],
+						box: [200, 200, 400],
+						transform: [
+							{translate: [-120, 0, -100]},
+							{scale: [1, 1, 1]}
+						],
 						mesh: undefined },		// Thrender will handle this
 				GpuPickable: {},
 				Visual: {vtype: xv.AssetType.mesh, asset: 'tex/ruler256.png'}

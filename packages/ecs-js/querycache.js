@@ -227,7 +227,7 @@ updateEntity(entity) {
     for (const cname of this.iffall) {
         const iffSet = this.ecs.entityComponents.get(cname);
         if (cname && !iffSet) {
-            throw new XError( 'No entity components set found for ' + cname );
+            throw new Error( 'No entity components set found for ' + cname );
         }
         if (!iffSet.has(id)) {
             foundIffall = false;
@@ -245,7 +245,7 @@ updateEntity(entity) {
         for (const cname of this.has) {
           const hasSet = this.ecs.entityComponents.get(cname);
           if (cname && !hasSet) {
-            throw new XError( 'No entity components set found for ' + cname );
+            throw new Error( 'No entity components set found for ' + cname );
           }
           if (!hasSet.has(id)) {
             foundHas = false;
@@ -266,7 +266,7 @@ updateEntity(entity) {
     for (const cname of this.hasnt) {
       const hasntSet = this.ecs.entityComponents.get(cname);
       if (cname && !hasntSet) {
-        throw new XError( 'No entity components set found for ' + cname );
+        throw new Error( 'No entity components set found for ' + cname );
       }
       if (hasntSet.has(id)) {
         foundHasnt = true;

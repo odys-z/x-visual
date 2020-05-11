@@ -25,6 +25,7 @@ global.performance = performance;
 describe('case: [tween] tweener basics', function() {
 	this.timeout(6000);
 	x.log = 4;
+	x.test = true;
 
 	before(() => {
 	});
