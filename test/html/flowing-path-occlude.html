@@ -50,6 +50,8 @@
                         paras:{segments: 5} },
             });
 
+            /// pinned lines 55-65, test/test-effects.rst
+
             ecs.createEntity({
                 id: 'plane',
                 Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
@@ -72,16 +74,20 @@
                         asset: null }
             });
 
+            /// pinned lines 79-90, test/test-effects.rst
+
             ecs.createEntity({
                 id: 'squre',
                 Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
                         box: [5],  // curve division
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
-                        paras: {points: [[100, 80, 50], [100, -80, 50], [-100, -80, 50], [-100, 80, 50], [-100, 80, -50]],
+                        paras: {points: [[100, 80, 50], [100, -80, 50], [-100, -80, 50],
+                                         [-100, 80, 50], [-100, 80, -50]],
                                 color: 0xffff00, linewidth: 2} },
                 FlowingPath: { paras: [ ] }
             });
+
         }
     }
 

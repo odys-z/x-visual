@@ -79,7 +79,7 @@ Transformations can be combined into an array of Obj3's definition::
                     {rotate: {deg: 45, axis: [1, 0, 0]}},
                     {scale: [1, 0.5, 1]}]
     }
-	
+    
 Obj3.affines & combined
 ------------------------
 

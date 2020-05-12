@@ -1,9 +1,7 @@
-.. _test-explained:
-
-Test Case Explained
-===================
-
 .. _test-morph:
+
+Test - Morphing & Uniform
+=========================
 
 Morphing transform & color
 --------------------------
