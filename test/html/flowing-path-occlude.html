@@ -23,11 +23,10 @@
             ecs.createEntity({
                 id: 'p1',
                 Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
-                        box: [7],
+                        box: [7],  // curve division
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
-                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
-                                segments: 5} },
+                        paras:{segments: 5} },
                 FlowingPath: { paras: [
                 ] },
             });
@@ -35,23 +34,20 @@
             ecs.createEntity({
                 id: 'p2',
                 Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
-                        box: [6],
+                        box: [6],  // curve division
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
-                        paras: {points: [100, 50, 0, 200, 50, 0],  // static p0, p1
-                                segments: 5} },
-                FlowingPath: { paras: [
-                ] },
+                        paras:{segments: 5} },
+                FlowingPath: { paras: [ ] }
             });
 
             ecs.createEntity({
                 id: 'occ',
                 Obj3: { geom: xv.XComponent.Obj3Type.RandomSects,
-                        box: [5],
+                        box: [5],  // curve division
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
-                        paras: {points: [100, 80, 0, 200, -80, 0],  // static p0, p1
-                                segments: 5} },
+                        paras:{segments: 5} },
             });
 
             ecs.createEntity({
@@ -74,6 +70,17 @@
                         uniforms: {opacity: 0.9}},
                 Visual:{vtype: xv.AssetType.wireframe,
                         asset: null }
+            });
+
+            ecs.createEntity({
+                id: 'squre',
+                Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+                        box: [5],  // curve division
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.GeomCurve,
+                        paras: {points: [[100, 80, 50], [100, -80, 50], [-100, -80, 50], [-100, 80, 50], [-100, 80, -50]],
+                                color: 0xffff00, linewidth: 2} },
+                FlowingPath: { paras: [ ] }
             });
         }
     }
