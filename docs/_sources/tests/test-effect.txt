@@ -26,6 +26,6 @@ This file also show a user defined curve:
    :linenos:
 
 As The plane entity is specified as an FlowingPath Occluder, it has post effects
-on all entities of FlowingPath.
+on all entities of FlowingPath - part of yellow line's post processing is occluded.
 
 .. image:: imgs/004-post-flowingpath.jpg
