@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-Htmltex</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -12,9 +12,10 @@
 	<p>Radius <input placeholder='1.0' style='width: 30px'/><br></p>
 	<!-- draw your svg on this canvas, which works with providen html2canvas.ems.js -->
 	<canvas id='stub' style='display: block; position: absolute;'></canvas>
-	<img style='height: 128px; width: 128px', src='assets/tex/ruler256.png'></img>
-	<img style='height: 128px; width: 128px', src='assets/tex/rgb2x2.png'></img>
+	<img style='height: 128px; width: 128px', src='../../html/assets/tex/ruler256.png'></img>
+	<img style='height: 128px; width: 128px', src='../../html/assets/tex/rgb2x2.png'></img>
   </div>
+  <p>Click to change texture</p>
   <script>
 	/**TODO we can also animize letters:
 	 * https://www.html5rocks.com/en/tutorials/webgl/million_letters/#disqus_thread
