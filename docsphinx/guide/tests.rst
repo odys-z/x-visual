@@ -47,7 +47,7 @@ This test shows how to update target position and use a animation to move to the
 
 .. literalinclude:: ../../test/html/dynamic-tween-target.html
    :language: javascript
-   :lines: 56-73
+   :lines: 57-79
    :linenos:
 
 The user command interaction is handled in TestDynamicPos.update().
@@ -100,8 +100,8 @@ X-visual is intend for users of programmer.
 Here is some information about :ref:`GLTF Format<gltf-format>`.
 
 FYI, usually artists sometimes would not seriously care about how node's matrices
-are working. In gltf scene, a nodes transformation is combined all of it's ancestors,
-so the node's transformation matrix itself will not makes what the objects should
-look like. X-visual provided a brutal way, just disable all the transformation in gltf
-with *Visual.paras.withTransform* = false, then set Obj3.transform as you, the
-programmer liked.
+are working. In a GLTF scene, a node's transformation is combined all of it's
+ancestors. So the node's transformation matrix itself will not makes what the
+objects should look like. X-visual provided a brutal way, just disable all the
+transformation in GLTF assets, with *Visual.paras.withTransform* = false, then
+set Obj3.transform as you, the programmer like.
