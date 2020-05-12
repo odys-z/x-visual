@@ -9,7 +9,11 @@ Morphing transform & color
 case: AnimType.ALPHA, UNIFORMS, U_MORPHi
 ________________________________________
 
-html file: test/html/morph-model.html
+html file::
+
+    test/html/morph-model.html
+    test/html/voxel-morph.html
+    test/html/voxel-morph-particles.html
 
 The test defined 2 box object, with the 3rd as points referencing the boxes' vertices
 and moving the points while changing the alpha.

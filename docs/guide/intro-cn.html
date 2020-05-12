@@ -642,6 +642,7 @@ update-tick)。</p>
                 <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">,</span>         <span class="c1">// ignored</span>
                         <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.202</span><span class="p">,</span>
                         <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span> <span class="nx">u_morph0</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                    <span class="nx">u_alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
                                     <span class="nx">a_noise</span><span class="o">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span> <span class="p">},</span>
                         <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">},</span>
               <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_MORPHi</span><span class="p">,</span>
@@ -649,6 +650,7 @@ update-tick)。</p>
                         <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.203</span><span class="p">,</span>
                         <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span> <span class="nx">u_morph0</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>    <span class="c1">// clear 0, FIXME should not useful now</span>
                                     <span class="nx">u_morph1</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                    <span class="nx">u_alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
                                     <span class="nx">a_noise</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span> <span class="p">},</span>
                          <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">},</span>
               <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_MORPHi</span><span class="p">,</span>
@@ -656,12 +658,10 @@ update-tick)。</p>
                         <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.204</span><span class="p">,</span>
                         <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span> <span class="nx">u_morph1</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
                                     <span class="nx">u_morph2</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                    <span class="nx">u_alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
                                     <span class="nx">a_noise</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span> <span class="p">},</span>
                         <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
                 <span class="nx">followBy</span><span class="o">:</span> <span class="p">[{</span><span class="nx">entity</span><span class="o">:</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span><span class="c1">// repeat</span>
-                            <span class="nx">seqx</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="nx">start</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">}]</span> <span class="p">},</span>
-            <span class="p">]]</span> <span class="p">},</span>
 </pre></div>
 </td></tr></table></div>
 <p>这个动画脚本被解释为创建等距分布的顶点，并使顶点在不同目标位置间取权重。同时还不断更新颜色透明度。</p>
