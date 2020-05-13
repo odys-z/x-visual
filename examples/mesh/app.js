@@ -12,7 +12,8 @@ class XMesh {
 	constructor(canv) {
 		var c = document.getElementById(canv);
 		const xworld = new xv.XWorld(c, window, {
-			camera: {far: 10000} // default 5000
+			camera: {far: 10000},   // default 5000
+			effects: true           // enable post processing effects
 		});
 		var ecs = xworld.xecs;
 
