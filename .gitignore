@@ -5,6 +5,7 @@ docs/jsdoc
 
 # user - examples
 # !examples/dist
+examples/dist
 ################################################
 
 # Logs
