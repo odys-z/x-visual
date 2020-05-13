@@ -34,7 +34,7 @@
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="X-visual Guide" href="index.html"/>
-        <link rel="next" title="Test Case Explained" href="tests.html"/>
+        <link rel="next" title="Tests &amp; Example" href="../tests/index.html"/>
         <link rel="prev" title="X-visual App Architecture" href="intro.html"/> 
 
   
@@ -101,9 +101,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#id5">8. 示例</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html">Test Case Explained</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
 </ul>
@@ -522,7 +522,7 @@ update-tick)。</p>
     <span class="p">};</span>
     <span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span><span class="nx">ent2</span><span class="p">);</span>
 
-    <span class="c1">// pinned line: 73-115 guid/tests.rst</span>
+    <span class="c1">// pinned line: 73-115 tests/tests-morph.rst</span>
 </pre></div>
 </td></tr></table></div>
 <p>然后定义了若干顶点（points / vertices)，并且控制在这两个模型对应顶点间移动。</p>
@@ -642,6 +642,7 @@ update-tick)。</p>
                 <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">,</span>         <span class="c1">// ignored</span>
                         <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.202</span><span class="p">,</span>
                         <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span> <span class="nx">u_morph0</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                    <span class="nx">u_alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
                                     <span class="nx">a_noise</span><span class="o">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span> <span class="p">},</span>
                         <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">},</span>
               <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_MORPHi</span><span class="p">,</span>
@@ -649,6 +650,7 @@ update-tick)。</p>
                         <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.203</span><span class="p">,</span>
                         <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span> <span class="nx">u_morph0</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>    <span class="c1">// clear 0, FIXME should not useful now</span>
                                     <span class="nx">u_morph1</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                    <span class="nx">u_alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
                                     <span class="nx">a_noise</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span> <span class="p">},</span>
                          <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">},</span>
               <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_MORPHi</span><span class="p">,</span>
@@ -656,12 +658,10 @@ update-tick)。</p>
                         <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.204</span><span class="p">,</span>
                         <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span> <span class="nx">u_morph1</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
                                     <span class="nx">u_morph2</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                    <span class="nx">u_alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
                                     <span class="nx">a_noise</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span> <span class="p">},</span>
                         <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
                 <span class="nx">followBy</span><span class="o">:</span> <span class="p">[{</span><span class="nx">entity</span><span class="o">:</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span><span class="c1">// repeat</span>
-                            <span class="nx">seqx</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-                            <span class="nx">start</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">}]</span> <span class="p">},</span>
-            <span class="p">]]</span> <span class="p">},</span>
 </pre></div>
 </td></tr></table></div>
 <p>这个动画脚本被解释为创建等距分布的顶点，并使顶点在不同目标位置间取权重。同时还不断更新颜色透明度。</p>
@@ -686,7 +686,7 @@ update-tick)。</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tests.html" class="btn btn-neutral float-right" title="Test Case Explained" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../tests/index.html" class="btn btn-neutral float-right" title="Tests &amp; Example" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="intro.html" class="btn btn-neutral" title="X-visual App Architecture" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

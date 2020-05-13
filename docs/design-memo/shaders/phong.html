@@ -86,6 +86,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests/index.html">Tests &amp; Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
@@ -229,31 +230,31 @@ bar in bar chart, with respect to light position.</p>
 20: attribute vec3 normal;
 21: attribute vec2 uv;
 22: #ifdef USE_TANGENT
-23:     attribute vec4 tangent;
+23:         attribute vec4 tangent;
 24: #endif
 25: #ifdef USE_COLOR
-26:     attribute vec3 color;
+26:         attribute vec3 color;
 27: #endif
 28: #ifdef USE_MORPHTARGETS
-29:     attribute vec3 morphTarget0;
-30:     attribute vec3 morphTarget1;
-31:     attribute vec3 morphTarget2;
-32:     attribute vec3 morphTarget3;
-33:     #ifdef USE_MORPHNORMALS
-34:             attribute vec3 morphNormal0;
-35:             attribute vec3 morphNormal1;
-36:             attribute vec3 morphNormal2;
-37:             attribute vec3 morphNormal3;
-38:     #else
-39:             attribute vec3 morphTarget4;
-40:             attribute vec3 morphTarget5;
-41:             attribute vec3 morphTarget6;
-42:             attribute vec3 morphTarget7;
-43:     #endif
+29:         attribute vec3 morphTarget0;
+30:         attribute vec3 morphTarget1;
+31:         attribute vec3 morphTarget2;
+32:         attribute vec3 morphTarget3;
+33:         #ifdef USE_MORPHNORMALS
+34:                 attribute vec3 morphNormal0;
+35:                 attribute vec3 morphNormal1;
+36:                 attribute vec3 morphNormal2;
+37:                 attribute vec3 morphNormal3;
+38:         #else
+39:                 attribute vec3 morphTarget4;
+40:                 attribute vec3 morphTarget5;
+41:                 attribute vec3 morphTarget6;
+42:                 attribute vec3 morphTarget7;
+43:         #endif
 44: #endif
 45: #ifdef USE_SKINNING
-46:     attribute vec4 skinIndex;
-47:     attribute vec4 skinWeight;
+46:         attribute vec4 skinIndex;
+47:         attribute vec4 skinWeight;
 48: #endif
 49:
 50: uniform float u_alpha;

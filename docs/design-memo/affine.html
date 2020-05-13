@@ -86,6 +86,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
@@ -165,9 +166,9 @@
 <p>Let different systems cooperate purely only upon components, don&#8217;t trigger
 each other. There should be only one signal issuer.</p>
 <p>Trigger combination events in XTweener makes things complicate. E.g. startween()
-set <em>isPlaying</em> = true, but call onStart() handler at next update when tween
-update() been called.</p>
-<p class="last">If a system changed something useful for flowing updating, leave them in
+set <em>isPlaying</em> = true, but call onStart() handler of a component should happened
+at next update loop, this will signal two different starting events.</p>
+<p class="last">If a system changed something useful for following updating, leave them in
 components.</p>
 </div>
 <p>Affine combination collect all orthogonal transformation from tweening results,
