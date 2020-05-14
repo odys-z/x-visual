@@ -22,12 +22,15 @@
         initPaths(ecs, scene) {
             ecs.createEntity({
                 id: 'p1',
-                Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
+                Obj3: { geom: xv.XComponent.Obj3Type.PointSect,
                         box: [],
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
-                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
-                                segments: 5} },
+                        paras: {
+                            sects:[[[-100, 0, 0], [100, 0, 0]],
+                                   [[0, -100, 0], [0, 100, 0]],
+                                   [[0, 0, -100], [0, 0, 100]]],
+                            origin: [0, 0, 0] } },
                 Glow: { paras: [ ] },
             });
 
@@ -38,7 +41,8 @@
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
-                                segments: 5} },
+                                segments: 5,
+                                linewidth: 3} },
                 Filming: { paras: [
                 ] },
             });
