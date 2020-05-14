@@ -1,11 +1,31 @@
 Scene & HUD
 ===========
 
+Main Scene
+----------
+
 Objects including mesh, line & points are rendered in main scene, except one component,
 HudGroup and it's children.
 
 The :ref:`Hello XWorld in guide page<guide-hello-xworld>` is a simple example for
 how to create main scene objects.
+
+Main Scene Light
+________________
+
+Main scene use a Three.js `HemisphereLight <https://threejs.org/docs/#api/en/lights/HemisphereLight>`_.
+
+The default parameters::
+
+    skyColor: #xffffbb
+    groundColor: #x080820
+    intensity: 1.1
+    position: [0, 1, 0]
+
+To configure it, set parameters in XWorld.x.light.
+
+HUD
+---
 
 If an entity has HudGroup, x-visual will create a HUD of plane object, and all
 HudChild entities.
@@ -13,8 +33,13 @@ HudChild entities.
 A HudChild must has a HudChild.hud parameter equals parent group's entity id. i.e.
 entity id defined in HudGroup's entity.
 
+HUD Light
+_________
+
+TODO doc...
+
 HUD Example
------------
+___________
 
 These 2 objects are created as an HUD plane and a box in it.
 

@@ -1,3 +1,5 @@
+.. _gltf-format:
+
 GLTF Format
 ===========
 

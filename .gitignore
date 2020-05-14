@@ -1,3 +1,15 @@
+# user - jsdoc
+temp
+packages/three/geometries
+docs/jsdoc
+
+# user - examples
+# !examples/dist
+examples/dist
+
+*.blend
+################################################
+
 # Logs
 logs
 *.log
@@ -107,11 +119,3 @@ dist
 .project
 .classpath
 .settings
-
-# user - jsdoc
-temp
-packages/three/geometries
-docs/jsdoc
-
-# user - examples
-# !examples/dist

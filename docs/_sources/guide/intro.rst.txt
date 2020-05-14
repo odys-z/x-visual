@@ -129,5 +129,5 @@ free to try it.
 There is an independent webpack example project can be useful, see *./examples*
 of `x-visual <https://github.com/odys-z/x-visual>`_.
 
-Also test cases can be useful. Here are some explaination. More etails is up
-coming ...
+Also test cases can be useful. Here are :ref:`some explaination<test-explained>`.
+More etails is up coming ...

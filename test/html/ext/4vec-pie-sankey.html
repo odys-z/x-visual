@@ -8,6 +8,7 @@
     <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
+  <div id='stub'></div>
   <canvas id='canv'></canvas>
   <div id='stub'></div>
   <script>
@@ -36,6 +37,7 @@
 
         // pie and sankey will share CoordsGrid with this variable.
         var options = { chart: json.chart, xworld,
+						stub: 'stub',
 						texture: '../../assets/tex/byr0.png'};
 
         var d3pie = new xv.chart.D3Pie(ecs, options, json.pie);
