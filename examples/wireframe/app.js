@@ -8,7 +8,7 @@ import Parallel from './parallel-axis'
  * add the user implemented system, Hello, into xworld, then show it.
  * @class
  */
-class App {
+class XWire {
 	constructor(canv) {
 		var c = document.getElementById(canv);
 		const xworld = new xv.XWorld(c, window, {
@@ -24,4 +24,4 @@ class App {
 
 
 
-window.App = App;
+window.XWire = XWire;
