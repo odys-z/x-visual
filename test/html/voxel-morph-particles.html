@@ -79,6 +79,7 @@
                 paras: {start: 1.2,         // ignored
                         duration: 0.202,
                         uniforms: { u_morph0: [0.4, 1],
+                                    u_alpha: [1.0, 0.1],
                                     a_noise: [3, 0.02] },
                         ease: undefined} },
               { mtype: xv.XComponent.AnimType.U_MORPHi,
@@ -86,6 +87,7 @@
                         duration: 0.203,
                         uniforms: { u_morph0: [0, 0],    // clear 0, FIXME should not useful now
                                     u_morph1: [0, 1],
+                                    u_alpha: [0.1, 0.5],
                                     a_noise: [0.2, 0.02] },
                          ease: undefined} },
               { mtype: xv.XComponent.AnimType.U_MORPHi,
@@ -93,12 +95,17 @@
                         duration: 0.204,
                         uniforms: { u_morph1: [0, 0],
                                     u_morph2: [0, 1],
+                                    u_alpha: [0.5, 1.0],
                                     a_noise: [0.2, 0.02] },
                         ease: undefined },
                 followBy: [{entity: 'points',// repeat
                             seqx: 0,
-                            start: 0.0}] },
-            ]] },
+                            start: 0.0}] }, ],
+            [ { mtype: xv.XComponent.AnimType.U_MORPHi,
+                paras: {start: 0,
+                        duration: 3.2,
+                        uniforms: { u_alpha: [0.9, 0.1] }} }]
+            ] },
         CmpTweens: {}
     });
 

@@ -108,6 +108,14 @@ see [test/html/svg-canvas.html](./test/html/svg-canvas.html).
 
 - Test Case: Particle Animation Script
 
+# Documents
+
+All the documents are updating.
+
+[updating: Introduction, Guide & Reference](https://odys-z.github.io/x-visual/)
+
+[API jsdoc](https://odys-z.github.io/x-visual/jsdoc/index.html)
+
 # Acknowledgement
 
 ## [Three.js](https://threejs.org)
@@ -149,9 +157,9 @@ Used by [x-visual gltf mesh BuffereGeometry test case](./test/gltf-mesh.case.js)
 
 Referenced by [Gltf tutorial: A Minimal glTF File](https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/gltfTutorial_003_MinimalGltfFile.md)
 
-# Documents
+- Earth GLTF Assets
 
-All the documents are updating.
+By Bisnessniper, licensed under *Royalty Free License*, Can be
+[Downloaded @ CGTrader](https://www.cgtrader.com/items/2407021/download-page#)
 
-[updating: Introduction, Reference & Details](https://odys-z.github.io/x-visual/)
-& [jsdoc](https://odys-z.github.io/x-visual/jsdoc/index.html)
+It's texture also been used in another low polygon model.

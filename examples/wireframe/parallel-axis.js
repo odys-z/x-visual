@@ -17,7 +17,7 @@ export default class Parallel extends xv.XSys {
         if (ecs) {
             var cube = ecs.createEntity({
                 id: 'paralchart',
-                Obj3: { geom: xv.XComponent.Obj3Type.PointSect,
+                Obj3: { geom: xv.XComponent.Obj3Type.PointSects,
                         box: [20] },    
                 Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1

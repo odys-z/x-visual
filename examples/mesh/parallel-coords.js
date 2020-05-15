@@ -16,7 +16,7 @@ export default class Parallel extends xv.XSys {
         if (ecs) {
             var a = ecs.createEntity({
                 id: 'parallel-s',
-                Obj3: { geom:   xv.XComponent.Obj3Type.PointSect,
+                Obj3: { geom:   xv.XComponent.Obj3Type.PointSects,
                         box:   [10, 1, 1] },
                 Visual:{vtype:  xv.AssetType.DynaSects,
                         paras: {sects:[[[ 0, 0,  0], [ 0, 100,  0]],
