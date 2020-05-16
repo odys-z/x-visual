@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-GLTF xloader</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <p>Press spacebar to start.</p>
+  <script>
+	"use strict";
+
+	var log = true;
+	class Citysys extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCity(ecs, options.xscene);
+		}
+
+		update(tick, entities) {
+			if (log) {
+				log = false;
+				console.log('city-sys');
+			}
+			if (xworld.xview.flag > 0) {
+				var cmd = xworld.xview.cmds[0];
+				if (cmd.code === 'key' && cmd.cmd === 'fire')
+					xv.XTweener.startSeq(this.earth.CmpTweens, 0);
+			}
+		}
+
+		initCity(ecs, scene) {
+			if (ecs) {
+				var city = ecs.createEntity({
+					id: 'city',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],
+							transform: [
+								{scale: [0.1, .1, .1]},
+								{translate: [0, 10, 0]},
+							],
+							mesh: undefined },		// Thrender will handle this
+					Visual:{vtype: xv.AssetType.gltf,
+							asset: 'city/scene.gltf'}// see docs/design-memo/renderer/
+				});
+
+				var hud = ecs.createEntity({
+					id: 'hud0',
+					Obj3: { geom: undefined,	 // ignored, always PLANE
+							box: [180, 60, 0],
+							transform: [{translate: [0, 40, -100]}],
+							mesh: undefined },
+					Visual:{vtype: undefined,	// ignored, always mesh
+							paras:{tex_alpha: 0.2},
+							asset: undefined},
+					HudGroup: { light:
+						  { intensity: 4,
+				 			position: [0, 1, 1]} },
+				});
+
+				var earth = ecs.createEntity({
+					id: 'earth-detials',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],
+							transform: [
+								{scale: [40, 40, 40]},
+								{translate: [-30, 40, -50]},
+							],
+							mesh: undefined },
+					Visual:{vtype: xv.AssetType.gltf,
+							// https://www.cgtrader.com/items/2407021/download-page#
+							// asset: 'cgtrade_2407021_zemlia.glb'},
+							asset: 'earth/cgtrade_2407021_zemlia.gltf'},
+					HudChild: { hud: 'hud0' }
+				});
+
+				this.earth = ecs.createEntity({
+					id: 'earth-low',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],
+							transform: [
+								{scale: [18, 18, 18]},
+								{translate: [0, 32, 0]},
+							],
+							mesh: undefined },
+					Visual:{vtype: xv.AssetType.gltf,
+							asset: 'earth/earth-low.gltf'},
+					HudChild: { hud: 'hud0' },
+					ModelSeqs: { script: [[{
+							mtype:  xv.XComponent.AnimType.ROTAXIS,
+							paras: {start: Infinity,
+									duration: 7.2,
+									deg: [0, 360],
+									axis: [0, 1, 0],
+									ease: undefined},
+							followBy: [{
+									entity: 'earth-low',// repeat
+									seqx: 0,
+									start: 0}] }
+						]] },
+					CmpTweens: {}
+				});
+			}
+		}
+	}
+
+	Citysys.query = { any: ['Visual', 'CmdFlag'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new Citysys(ecs, {xscene}));
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

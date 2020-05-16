@@ -135,7 +135,7 @@ handling this parameter.
 
 .. code-block:: javascript
 
-	gl_PointSize = size * `${paras.vert_scale || '10.0'}`;
+    gl_PointSize = size * `${paras.vert_scale || '10.0'}`;
 ..
 
 -- paras.u_tex

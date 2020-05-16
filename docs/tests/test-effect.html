@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Test - Postprocessing &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+        <link rel="up" title="Tests &amp; Example" href="index.html"/>
+        <link rel="next" title="TODO Examples" href="examples.html"/>
+        <link rel="prev" title="Test - Morphing &amp; Uniform" href="test-morph.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tests &amp; Example</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="test-morph.html">Test - Morphing &amp; Uniform</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Test - Postprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#occluding-pointgeom">Occluding (PointGeom)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-flowingpath-occluding">case: FlowingPath Occluding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">TODO Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Tests &amp; Example</a> &raquo;</li>
+      
+    <li>Test - Postprocessing</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="test-postprocessing">
+<span id="test-effect"></span><h1>Test - Postprocessing<a class="headerlink" href="#test-postprocessing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="occluding-pointgeom">
+<h2>Occluding (PointGeom)<a class="headerlink" href="#occluding-pointgeom" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-flowingpath-occluding">
+<h3>case: FlowingPath Occluding<a class="headerlink" href="#case-flowingpath-occluding" title="Permalink to this headline">¶</a></h3>
+<p>html file: test/html/flowing-path-occluding.html</p>
+<p>The code snippet show flowing path effect is occluded with a plane.</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre>            <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+                <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;plane&#39;</span><span class="p">,</span>
+                <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">PLANE</span><span class="p">,</span>
+                        <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">360</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                        <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+                        <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span><span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.9</span><span class="p">}},</span>
+                <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                        <span class="nx">asset</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
+                <span class="nx">Occluder</span><span class="o">:</span> <span class="p">{</span><span class="nx">FlowingPath</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span>
+            <span class="p">});</span>
+</pre></div>
+</td></tr></table></div>
+<p>This file also show a user defined curve:</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre>            <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+                <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;squre&#39;</span><span class="p">,</span>
+                <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">PointCurve</span><span class="p">,</span>
+                        <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span>  <span class="c1">// curve division</span>
+                        <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
+                <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">GeomCurve</span><span class="p">,</span>
+                        <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">points</span><span class="o">:</span> <span class="p">[[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+                                         <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">]],</span>
+                                <span class="nx">color</span><span class="o">:</span> <span class="mh">0xffff00</span><span class="p">,</span> <span class="nx">linewidth</span><span class="o">:</span> <span class="mi">2</span><span class="p">}</span> <span class="p">},</span>
+                <span class="nx">FlowingPath</span><span class="o">:</span> <span class="p">{</span> <span class="nx">paras</span><span class="o">:</span> <span class="p">[</span> <span class="p">]</span> <span class="p">}</span>
+            <span class="p">});</span>
+</pre></div>
+</td></tr></table></div>
+<p>As The plane entity is specified as an FlowingPath Occluder, it has post effects
+on all entities of FlowingPath - part of yellow line&#8217;s post processing is occluded.</p>
+<img alt="../_images/004-post-flowingpath.jpg" src="../_images/004-post-flowingpath.jpg" />
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples.html" class="btn btn-neutral float-right" title="TODO Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="test-morph.html" class="btn btn-neutral" title="Test - Morphing &amp; Uniform" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

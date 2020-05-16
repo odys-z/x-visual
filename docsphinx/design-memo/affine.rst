@@ -18,7 +18,7 @@ Affine Combination
 
     Trigger combination events in XTweener makes things complicate. E.g. startween()
     set *isPlaying* = true, but call onStart() handler of a component should happened
-	at next update loop, this will signal two different starting events.
+    at next update loop, this will signal two different starting events.
 
     If a system changed something useful for following updating, leave them in
     components.
