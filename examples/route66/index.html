@@ -3,13 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<title>X-visual Examples - Route 66</title>
+	<script type='text/javascript' src='../dist/three/three.min.js'></script>
+	<script type='text/javascript' src='../dist/route66.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
-	<p><a href='https://odys-z.github.io/x-visual/guide/intro.html'>
-			x-visual doc: introduction</a><br>
-		<a href='https://blender.stackexchange.com/questions/161061/text-not-being-exported-to-gltf'>
+	<p><a href='https://blender.stackexchange.com/questions/161061/text-not-being-exported-to-gltf'>
 			Issue: Text in blender won't been exported as GLTF meshes</a>
 	</p>
 	<canvas id='canv'></canvas>
+	<script>
+		var App = new Route66('canv');
+	</script>
 </body>
 </html>

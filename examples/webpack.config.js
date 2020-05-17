@@ -10,7 +10,8 @@
    devtool: 'source-map',
    entry: { cube: './cube/app.js',
             wire: './wireframe/app.js',
-            mesh: './mesh/app.js'
+            mesh: './mesh/app.js',
+            route66: './route66/route66.js'
           },
 
    output: {
