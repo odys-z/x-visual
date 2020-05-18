@@ -100,7 +100,7 @@ scene come from 3 different gltf files::
     test/html/assets/earth/earth-low.gltf
     examples/route66/route66.gltf
 
-Here is a compare of how different for different assets artists like to do.
+Here is a comparison of how different for different assets artists like to do.
 
 .. image:: imgs/005-route66-car-size.jpg
     :width: 340px
