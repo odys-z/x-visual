@@ -10,20 +10,18 @@ export default class Route66 extends xv.XSys {
 		super(ecs);
 		this.ecs = ecs;
 
-		this.logcnt = 0;
-
 		if (ecs) {
 			var lit = ecs.createEntity({
 				id: 'light',
-				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// ignored
-						box: [],	     					// ignored
-						// transform: [{scale: [1, 0.1, 1]}],
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,  // ignored
+						box: [],                            // ignored
+						transform: [{scale: [20, 20, 20]}],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.gltf,
-						paras: {nodes: ['CAR'],
-						// paras: {nodes: ['route66 sign point light', 'GAS_text',
-						// 				'24 Hours Service_text', 'welcome panel'],
-								withTransform: false},
+						paras: {nodes: ['CAR', 'GAS_text', 'main-floor', 'route66 panel'],
+						// paras: {nodes: ['route66 panel', 'GAS_text',
+										// '24 Hours Service_text', 'welcome panel'],
+								withTransform: true},
 						asset: 'route66.gltf'},
 				// ModelSeqs: { script: [ [
 				// 	  { mtype: xv.XComponent.AnimType.SCALE,
@@ -34,24 +32,24 @@ export default class Route66 extends xv.XSys {
 				// CmpTweens: {}
 			});
 
-			var earth = ecs.createEntity({
-				id: 'earth',
-				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// ignored
-						box: [],	     					// ignored
-						// transform: [{scale: [1, 0.1, 1]}],
-						mesh: undefined },
-				Visual:{vtype: xv.AssetType.gltf,
-						paras: {nodes: ['Sphere'],
-								withTransform: false},
-						asset: 'earth/earth-low.gltf'},
-				// ModelSeqs: { script: [ [
-				// 	  { mtype: xv.XComponent.AnimType.SCALE,
-				// 		paras: {
-				// 			start: Infinity,  // can only be Infinity, see docs/design-memo/task/issues
-				// 			scale: [[1, 0.01, 1], [1, 1, 1]],
-				// 			ease: xv.XEasing.Elastic} }] ] },
-				// CmpTweens: {}
-			});
+			// var earth = ecs.createEntity({
+			// 	id: 'earth',
+			// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,	// ignored
+			// 			box: [],	     					// ignored
+			// 			// transform: [{scale: [1, 0.1, 1]}],
+			// 			mesh: undefined },
+			// 	Visual:{vtype: xv.AssetType.gltf,
+			// 			paras: {nodes: ['Sphere'],
+			// 					withTransform: false},
+			// 			asset: 'earth/earth-low.gltf'},
+			// 	// ModelSeqs: { script: [ [
+			// 	// 	  { mtype: xv.XComponent.AnimType.SCALE,
+			// 	// 		paras: {
+			// 	// 			start: Infinity,  // can only be Infinity, see docs/design-memo/task/issues
+			// 	// 			scale: [[1, 0.01, 1], [1, 1, 1]],
+			// 	// 			ease: xv.XEasing.Elastic} }] ] },
+			// 	// CmpTweens: {}
+			// });
 			// var b =ecs.createEntity({
 			// 	id: 'build',
 			// 	Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
@@ -67,11 +65,6 @@ export default class Route66 extends xv.XSys {
 	}
 
 	update(tick, entities) {
-		if (this.logcnt < 2) {
-			this.logcnt += 1;
-			console.log('cube.update(): ', tick, entities)
-		}
-
 		for (const e of entities) {
 			 if (e.flag > 0) {
 				// handling command like start an animation here

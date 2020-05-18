@@ -1,19 +1,11 @@
 # About
 
 X-visual is a lib for data visiualization using [Three.js](https://threejs.org)
-as renderer. It includes:
+for rendering. 
 
-- ECS framework
+Before v1.0, it's a part of a research project and a prototype of a comercial system used to verify and accumulate any usefull tech.
 
-- OSM3
-
-3D Osm with THREE.js lib, an [OSM](https://www.openstreetmap.org/)
-[tiles](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames)
-3D rendere based on [Three.js](http://threejs.org/).
-
-- Particle Cluster
-
-...
+Currently is focused on report chart implementation.
 
 It's also the npm package name.
 
@@ -159,7 +151,12 @@ Referenced by [Gltf tutorial: A Minimal glTF File](https://github.com/KhronosGro
 
 - Earth GLTF Assets
 
-By Bisnessniper, licensed under *Royalty Free License*, Can be
-[Downloaded @ CGTrader](https://www.cgtrader.com/items/2407021/download-page#)
+By Bisnessniper, Can be [Downloaded @ CGTrader](https://www.cgtrader.com/items/2407021/download-page#),
+licensed under *Royalty Free License*
 
 It's texture also been used in another low polygon model.
+
+- Simple Route 66 Low Poly Scene
+
+free 3D model by hj7880, download [@ CGTrader](https://www.cgtrader.com/free-3d-models/architectural/other/simple-route-66-low-poly-scene),
+licensed under *Royalty Free License*. 

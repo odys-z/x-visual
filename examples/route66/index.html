@@ -12,8 +12,28 @@
 	<p>On ubuntu tested with linked assets: ln -s ../../../test/html/assets/earth/</p>
 	<p>On Windows you might hard copy these into <i>examples/route66/assets/earth/</i> (not tested):<br>
 		x-visual/test/html/assets/earth/earth-low.*, Image_0.png</p>
-	<p><a href='https://blender.stackexchange.com/questions/161061/text-not-being-exported-to-gltf'>
-			Issue: Text in blender won't been exported as GLTF meshes</a>
+	<p>Issues:
+		<ol><li><a href='https://blender.stackexchange.com/questions/161061/text-not-being-exported-to-gltf'>
+				Text in blender won't been exported as GLTF meshes</a><br>
+				This means blender can't export all it's resource into GLTF.
+				So text objects in blender won't loaded.
+			</li>
+			<li><a href='https://github.com/mrdoob/three.js/issues/12956'>
+				Node's names are <i>sanitized</i></a><br>
+				In three.module.js:<pre>
+	/**
+	 * Replaces spaces with underscores and removes unsupported characters from
+	 * node names, to ensure compatibility with parseTrackName().
+	 *
+	 * @param {string} name Node name to be sanitized.
+	 * @return {string}
+	 */
+	sanitizeNodeName: function ( name ) {
+		return name.replace( /\s/g, '_' ).replace( _reservedRe, '' );
+	},</pre>This means node names like "route66 panel" can only been usable with
+			name "route66_panel" - x-visual also have to "sanitize" it.
+			</li>
+		</ol>
 	</p>
 	<script>
 		var App = new App('canv');
