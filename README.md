@@ -1,19 +1,11 @@
 # About
 
 X-visual is a lib for data visiualization using [Three.js](https://threejs.org)
-as renderer. It includes:
+for rendering. 
 
-- ECS framework
+Before v1.0, it's a part of a research projecta and a prototype of a comercial system used to verifying and accumulate any usefull tech.
 
-- OSM3
-
-3D Osm with THREE.js lib, an [OSM](https://www.openstreetmap.org/)
-[tiles](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames)
-3D rendere based on [Three.js](http://threejs.org/).
-
-- Particle Cluster
-
-...
+Currently is focused on report chart implementation.
 
 It's also the npm package name.
 
