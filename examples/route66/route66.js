@@ -11,17 +11,22 @@ export default class Route66 extends xv.XSys {
 		this.ecs = ecs;
 
 		if (ecs) {
-			var lit = ecs.createEntity({
-				id: 'light',
+			var panel = ecs.createEntity({
+				id: 'panel',
 				Obj3: { geom: xv.XComponent.Obj3Type.USER,  // ignored
 						box: [],                            // ignored
-						transform: [{scale: [20, 20, 20]}],
+						transform: [
+							{scale: [10, 10, 10]},
+							{rotate: {deg: 90, axis: [1, 0, 0]}},
+							{rotate: {deg: 35, axis: [0, 1, 0]}},
+							{translate: [-60, 57, -5]}],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.gltf,
-						paras: {nodes: ['CAR', 'GAS_text', 'main-floor', 'route66 panel'],
+						// paras: {nodes: ['CAR', 'GAS_text', 'main-floor', 'route66 panel'],
+						paras: {nodes: ['route66 panel'],
 						// paras: {nodes: ['route66 panel', 'GAS_text',
 										// '24 Hours Service_text', 'welcome panel'],
-								withTransform: true},
+								withTransform: false},
 						asset: 'route66.gltf'},
 				// ModelSeqs: { script: [ [
 				// 	  { mtype: xv.XComponent.AnimType.SCALE,
@@ -30,6 +35,51 @@ export default class Route66 extends xv.XSys {
 				// 			scale: [[1, 0.01, 1], [1, 1, 1]],
 				// 			ease: xv.XEasing.Elastic} }] ] },
 				// CmpTweens: {}
+			});
+
+			var car = ecs.createEntity({
+				id: 'car',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,  // ignored
+						box: [],                            // ignored
+						transform: [
+							{scale: [8, 8, 8]},
+							{rotate: {deg: 90, axis: [0, 1, 0]}},
+							{translate: [-50, 9.2, 30]}],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.gltf,
+						paras: {nodes: ['CAR'],
+								withTransform: false},
+						asset: 'route66.gltf'},
+			});
+
+			var gas = ecs.createEntity({
+				id: 'gas',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,  // ignored
+						box: [],                            // ignored
+						transform: [
+							{scale: [10, 10, 10]},
+							{rotate: {deg: 90, axis: [1, 0, 0]}},
+							{rotate: {deg: 30, axis: [0, 1, 0]}},
+							{translate: [-40, 80, -20]}
+						],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.gltf,
+						paras: {nodes: ['GAS_text'],
+								withTransform: false},
+						asset: 'route66.gltf'},
+			});
+
+			var lit = ecs.createEntity({
+				id: 'light',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,  // ignored
+						box: [],                            // ignored
+						transform: [
+							{scale: [20, 20, 20]}],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.gltf,
+						paras: {nodes: ['main-floor'],
+								withTransform: false},
+						asset: 'route66.gltf'},
 			});
 
 			// var earth = ecs.createEntity({
