@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>X-visual Examples - Route 66</title>
+	<script type='text/javascript' src='../dist/three/three.min.js'></script>
+	<script type='text/javascript' src='../dist/route66.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+	<canvas id='canv'></canvas>
+	<p>On ubuntu tested with linked assets: ln -s ../../../test/html/assets/earth/</p>
+	<p>On Windows you might hard copy these into <i>examples/route66/assets/earth/</i> (not tested):<br>
+		x-visual/test/html/assets/earth/earth-low.*, Image_0.png</p>
+	<p><a href='https://blender.stackexchange.com/questions/161061/text-not-being-exported-to-gltf'>
+			Issue: Text in blender won't been exported as GLTF meshes</a>
+	</p>
+	<script>
+		var App = new App('canv');
+	</script>
+</body>
+</html>
