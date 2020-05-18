@@ -12,38 +12,57 @@ export default class Route66 extends xv.XSys {
 
 		this.logcnt = 0;
 
-		// create a cube with options
 		if (ecs) {
 			var lit = ecs.createEntity({
 				id: 'light',
 				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// ignored
 						box: [],	     					// ignored
+						// transform: [{scale: [1, 0.1, 1]}],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.gltf,
-						transform: {scale: [1, 0.1, 1]},
-						paras: {nodes: ['route66 sign point light', 'GAS_text', '24 Hours Service_text', 'welcome panel'],
+						paras: {nodes: ['CAR'],
+						// paras: {nodes: ['route66 sign point light', 'GAS_text',
+						// 				'24 Hours Service_text', 'welcome panel'],
 								withTransform: false},
 						asset: 'route66.gltf'},
-				ModelSeqs: { script: [ [
-					  { mtype: xv.XComponent.AnimType.SCALE,
-						paras: {
-							start: Infinity,  // can only be Infinity, see docs/design-memo/task/issues
-							scale: [[1, 0.01, 1], [1, 1, 1]],
-							ease: xv.XEasing.Elastic} }] ] },
-				CmpTweens: {}
+				// ModelSeqs: { script: [ [
+				// 	  { mtype: xv.XComponent.AnimType.SCALE,
+				// 		paras: {
+				// 			start: Infinity,  // can only be Infinity, see docs/design-memo/task/issues
+				// 			scale: [[1, 0.01, 1], [1, 1, 1]],
+				// 			ease: xv.XEasing.Elastic} }] ] },
+				// CmpTweens: {}
 			});
 
-			var b =ecs.createEntity({
-				id: 'build',
-				Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
-						box: [9],  // curve division
+			var earth = ecs.createEntity({
+				id: 'earth',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// ignored
+						box: [],	     					// ignored
+						// transform: [{scale: [1, 0.1, 1]}],
 						mesh: undefined },
-				Visual:{vtype: xv.AssetType.GeomCurve,
-						paras: {points: [[0, 0, -50], [100, 0, -50]],
-								origin: [-60, 0, 0],
-								color: 0xffff00, linewidth: 1} },
-				FlowingPath: { paras: [ ] }
+				Visual:{vtype: xv.AssetType.gltf,
+						paras: {nodes: ['Sphere'],
+								withTransform: false},
+						asset: 'earth/earth-low.gltf'},
+				// ModelSeqs: { script: [ [
+				// 	  { mtype: xv.XComponent.AnimType.SCALE,
+				// 		paras: {
+				// 			start: Infinity,  // can only be Infinity, see docs/design-memo/task/issues
+				// 			scale: [[1, 0.01, 1], [1, 1, 1]],
+				// 			ease: xv.XEasing.Elastic} }] ] },
+				// CmpTweens: {}
 			});
+			// var b =ecs.createEntity({
+			// 	id: 'build',
+			// 	Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+			// 			box: [9],  // curve division
+			// 			mesh: undefined },
+			// 	Visual:{vtype: xv.AssetType.GeomCurve,
+			// 			paras: {points: [[0, 0, -50], [100, 0, -50]],
+			// 					origin: [-60, 0, 0],
+			// 					color: 0xffff00, linewidth: 1} },
+			// 	FlowingPath: { paras: [ ] }
+			// });
 		}
 	}
 

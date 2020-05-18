@@ -8,7 +8,7 @@ import Cube from './hellocube'
  * add the user implemented system, Cube, into xworld, then show it.
  * @class
  */
-class App {
+export class App {
 	constructor(canv) {
 		var c = document.getElementById(canv);
 		const xworld = new xv.XWorld(c, window, {
@@ -24,4 +24,4 @@ class App {
 
 
 
-window.App = App;
+//window.App = App;
