@@ -1,8 +1,8 @@
 Tasks
 =====
 
-TODO
-----
+TODOs
+-----
 
 1. Optimize anti-aliasing
 
