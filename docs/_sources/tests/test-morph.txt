@@ -84,14 +84,70 @@ cars completely ignored all transformation and configured with a new set of para
 case: GLTF transform
 ____________________
 
-html file: test/html/gltf-city.html
+html file::
 
-This file loaded the entire gltf scene, without any post handling, but only transformed.
+    test/html/gltf-city.html
+    test/html/gltf-car.html
+
+The 1st file loaded the entire gltf scene, without any post handling, but only
+transformed. Transformation are kept the same as the source assets, only within
+a single scene which is possible.
+
+The 2nd file is a test of different gltf scale transformation. Gltf assets for the
+scene come from 3 different gltf files::
+
+    test/html/assets/city/scene.gltf
+    test/html/assets/earth/earth-low.gltf
+    examples/route66/route66.gltf
+
+Here is a compare of how different for different assets artists like to do.
+
+.. image:: imgs/005-route66-car-size.jpg
+    :width: 340px
+
+.. image:: imgs/005-lowpoly-car-size.jpg
+    :width: 340px
+
+In the testing html, the 2 cars are using different transformation set by programmer.
+
+Left car:
+
+.. code-block:: javascript
+
+    var nostalgicar = ecs.createEntity({
+        id: 'car66',
+        Obj3: { transform: [
+                    { translate: [-530, -80, -700] },
+                    { scale: [30, 30, 30] } ] },
+        Visual:{vtype: xv.AssetType.gltf,
+                paras: {nodes: ['CAR'],
+                        withTransform: false},
+                asset: '../../../examples/route66/assets/route66.gltf'}
+    });
+
+Right car:
+
+.. code-block:: javascript
+
+    var car_4 = ecs.createEntity({
+        id: 'car4',
+        Obj3: { transform: [
+                    { rotate: {deg: -90, axis: [0, 1, 0]} },
+                    { translate: [120, -80, -360] },
+                    { scale: [1, 1, 1] } ] },
+        Visual:{vtype: xv.AssetType.gltf,
+                paras: {nodes: ['Car_04'],
+                        withTransform: false},
+                asset: 'city/scene.gltf'}
+    });
+
 
 case: GLTF Nodes & Animation
 ____________________________
 
-html file: test/html/gltf-car.html
+html file::
+
+    test/html/gltf-car.html
 
 This file loaded the some nodes in gltf asset, specifying animation scripts.
 

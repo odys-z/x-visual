@@ -511,6 +511,12 @@ out.</p>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">objects</span> <span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">(</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
             <span class="p">...</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">nodeDef</span><span class="p">.</span><span class="nx">name</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="p">)</span> <span class="p">{</span>
+                <span class="nx">node</span><span class="p">.</span><span class="nx">userData</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">nodeDef</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+                <span class="nx">node</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">PropertyBinding</span><span class="p">.</span><span class="nx">sanitizeNodeName</span><span class="p">(</span> <span class="nx">nodeDef</span><span class="p">.</span><span class="nx">name</span> <span class="p">);</span>
+            <span class="p">}</span>
+
             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">node</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nx">node</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">nodeDef</span><span class="p">.</span><span class="nx">idx</span><span class="p">);</span>
             <span class="p">}</span>
@@ -519,6 +525,15 @@ out.</p>
         <span class="p">}</span> <span class="p">);</span>
     <span class="p">});</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Debug Notes:
+The node name is been <em>sanitized</em>.
+Which means you can not use it like &#8220;node one&#8221;, it&#8217;s been replaced with &#8220;node_one&#8221;.</p>
+<p>See <a class="reference external" href="https://github.com/mrdoob/three.js/issues/12956">similar issue at github</a>
+&amp; tips in test/html/gltf-car.html.</p>
+<p class="last">Also, the AssetKeepr.loadGltfNodes() also access it using <em>sanitized</em> names.</p>
 </div>
 <ol class="arabic simple" start="3">
 <li>After every thing done, the nodes array also been taken out in gltf results.</li>
