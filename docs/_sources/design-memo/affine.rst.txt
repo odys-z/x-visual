@@ -17,10 +17,10 @@ Affine Combination
     each other. There should be only one signal issuer.
 
     Trigger combination events in XTweener makes things complicate. E.g. startween()
-    set *isPlaying* = true, but call onStart() handler at next update when tween
-    update() been called.
+    set *isPlaying* = true, but call onStart() handler of a component should happened
+    at next update loop, this will signal two different starting events.
 
-    If a system changed something useful for flowing updating, leave them in
+    If a system changed something useful for following updating, leave them in
     components.
 ..
 

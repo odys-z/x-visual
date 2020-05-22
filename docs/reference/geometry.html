@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Geometries &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+        <link rel="up" title="Reference" href="index.html"/>
+        <link rel="next" title="SVG" href="svg.html"/>
+        <link rel="prev" title="GLTF Format" href="gltf.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Geometries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#frenet-frame-dir-tube">Frenet Frame &amp; Dir Tube</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dirtubegeometry-of-x-visual">DirTubeGeometry of x-visual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">Systems</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Reference</a> &raquo;</li>
+      
+    <li>Geometries</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="geometries">
+<h1>Geometries<a class="headerlink" href="#geometries" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="frenet-frame-dir-tube">
+<h2>Frenet Frame &amp; Dir Tube<a class="headerlink" href="#frenet-frame-dir-tube" title="Permalink to this headline">¶</a></h2>
+<p>In three.js, <a class="reference external" href="https://en.wikipedia.org/wiki/Frenet%E2%80%93Serret_formulas">Frenet Frame</a>
+is used for generating <a class="reference external" href="https://threejs.org/docs/#api/en/geometries/TubeBufferGeometry">TubeGeometry</a>.</p>
+<p>To generate a tube, the TubeGeomerty calling Curve.computeFrenetFrames() to create
+parallel curves, then build mesh points with indecis.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">TubeBufferGeometry</span><span class="p">(</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">tubularSegments</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">radialSegments</span><span class="p">,</span> <span class="nx">closed</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">BufferGeometry</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;TubeBufferGeometry&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">,</span>
+        <span class="nx">tubularSegments</span><span class="o">:</span> <span class="nx">tubularSegments</span><span class="p">,</span>
+        <span class="nx">radius</span><span class="o">:</span> <span class="nx">radius</span><span class="p">,</span>
+        <span class="nx">radialSegments</span><span class="o">:</span> <span class="nx">radialSegments</span><span class="p">,</span>
+        <span class="nx">closed</span><span class="o">:</span> <span class="nx">closed</span>
+    <span class="p">};</span>
+
+    <span class="nx">tubularSegments</span> <span class="o">=</span> <span class="nx">tubularSegments</span> <span class="o">||</span> <span class="mi">64</span><span class="p">;</span>
+    <span class="nx">radius</span> <span class="o">=</span> <span class="nx">radius</span> <span class="o">||</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nx">radialSegments</span> <span class="o">=</span> <span class="nx">radialSegments</span> <span class="o">||</span> <span class="mi">8</span><span class="p">;</span>
+    <span class="nx">closed</span> <span class="o">=</span> <span class="nx">closed</span> <span class="o">||</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">frames</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">computeFrenetFrames</span><span class="p">(</span> <span class="nx">tubularSegments</span><span class="p">,</span> <span class="nx">closed</span> <span class="p">);</span>
+
+    <span class="c1">// expose internals</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">tangents</span> <span class="o">=</span> <span class="nx">frames</span><span class="p">.</span><span class="nx">tangents</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">normals</span> <span class="o">=</span> <span class="nx">frames</span><span class="p">.</span><span class="nx">normals</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">binormals</span> <span class="o">=</span> <span class="nx">frames</span><span class="p">.</span><span class="nx">binormals</span><span class="p">;</span>
+
+    <span class="c1">// helper variables</span>
+    <span class="kd">var</span> <span class="nx">vertex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vector3</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">normal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vector3</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">uv</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vector2</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">P</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vector3</span><span class="p">();</span>
+
+    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">;</span>
+
+    <span class="c1">// buffer</span>
+    <span class="kd">var</span> <span class="nx">vertices</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">var</span> <span class="nx">normals</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">var</span> <span class="nx">uvs</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">var</span> <span class="nx">indices</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="c1">// create buffer data</span>
+    <span class="nx">generateBufferData</span><span class="p">();</span>
+
+    <span class="c1">// build geometry</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setIndex</span><span class="p">(</span> <span class="nx">indices</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="s1">&#39;position&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Float32BufferAttribute</span><span class="p">(</span> <span class="nx">vertices</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Float32BufferAttribute</span><span class="p">(</span> <span class="nx">normals</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="s1">&#39;uv&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Float32BufferAttribute</span><span class="p">(</span> <span class="nx">uvs</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">);</span>
+
+    <span class="kd">function</span> <span class="nx">generateBufferData</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tubularSegments</span><span class="p">;</span> <span class="nx">i</span> <span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="nx">generateSegment</span><span class="p">(</span> <span class="nx">i</span> <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">generateSegment</span><span class="p">(</span> <span class="p">(</span> <span class="nx">closed</span> <span class="o">===</span> <span class="kc">false</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">tubularSegments</span> <span class="o">:</span> <span class="mi">0</span> <span class="p">);</span>
+        <span class="nx">generateUVs</span><span class="p">();</span>
+        <span class="nx">generateIndices</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="dirtubegeometry-of-x-visual">
+<h3>DirTubeGeometry of x-visual<a class="headerlink" href="#dirtubegeometry-of-x-visual" title="Permalink to this headline">¶</a></h3>
+<p>TODO …</p>
+</div>
+<div class="section" id="reference">
+<h3>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h3>
+<p>1. Three.js class: <em>TubeGeometry</em> <a class="reference external" href="https://threejs.org/docs/#api/en/geometries/TubeBufferGeometry">docs</a>
+&amp; <a class="reference external" href="https://github.com/mrdoob/three.js/blob/79edf22a345079dc6cf5d8c6ad38ee22e9edab3c/src/geometries/TubeGeometry.js#L55">src</a>.</p>
+<ol class="arabic simple" start="2">
+<li>Three.js class: <a class="reference external" href="https://github.com/mrdoob/three.js/blob/master/src/extras/core/Curve.js#L270">*Curve*</a></li>
+<li><a class="reference external" href="https://legacy.cs.indiana.edu/ftp/techreports/TR425.pdf">Andrew J. Hanson and Hui Ma, *Parallel Transport Approach to Curve Framing*</a>,
+Department of Computer Science, Indiana University</li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Frenet%E2%80%93Serret_formulas">*Frenet–Serret formulas*, wikipedia</a></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="svg.html" class="btn btn-neutral float-right" title="SVG" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gltf.html" class="btn btn-neutral" title="GLTF Format" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

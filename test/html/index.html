@@ -9,7 +9,7 @@
 	<br><a href='#' onclick='nxt(--ix)'>prev</a>
 	<input id='idx' style='width: 2em'></input>
 	<input id='lb'></input>
-	<a id='a' href=''></a>
+	<a id='a' href=''>go</a>
 	<a href='#' onclick='nxt(++ix)'>next</a>
 
 	<script>
@@ -29,7 +29,8 @@
 			document.getElementById('frm').src = lnk[i];
 			document.getElementById('idx').value = i;
 			document.getElementById('lb').value = lnk[i];
-			document.getElementById('a').innerHtml = lnk[i];
+			var a = document.getElementById('a')
+			a.href = lnk[i];
 		}
 		nxt(++ix);
 	</script>
