@@ -9,6 +9,9 @@ examples/dist
 
 *.blend
 *.blend[0-9]*
+
+# commercial
+greate-*
 ################################################
 
 # Logs

@@ -16,24 +16,24 @@
 			var tree1_2 = ecs.createEntity({
 				id: 'tree1_2points',
 				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-						box: [0, 0, 0],						// not used
-						mesh: undefined },					// Thrender will handle this
+						box: [],
+						mesh: undefined },                  // Thrender will handle this
 				Visual:{vtype: xv.AssetType.point,
 						paras: {nodes: ['Tree_1_2'],
-								color: undefined,			// random
-					 			size: 2},					// WEBGL POINT size
+								color: undefined,           // random
+					 			size: 8},                   // WEBGL POINT size
 						asset: 'city/scene.gltf'}
 			});
 
 			var car1_3 = ecs.createEntity({
 				id: 'car1_3points',
-				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-						box: [0, 0, 0],						// not used
-						mesh: undefined },					// Thrender will handle this
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,
+						box: [],
+						mesh: undefined },
 				Visual:{vtype: xv.AssetType.point,
 						paras: {nodes: ['CAR_03'],
-								color: undefined,			// random
-					 			size: 2},					// WEBGL POINT size
+								color: undefined,           // random
+					 			size: 2},                   // WEBGL POINT size
 						asset: 'city/scene.gltf'}
 			});
 			return tree1_2;

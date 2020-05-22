@@ -8,6 +8,19 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <ul>Credits
+	  <li>Simple Route 66 Low Poly Scene<br>
+		free 3D model by hj7880, <a href='https://www.cgtrader.com/free-3d-models/architectural/other/simple-route-66-low-poly-scene'>
+		download @ CGTrader</a>, licensed under *Royalty Free License*. </li>
+	  <li>Low Poly City<br>
+		Referenced by <a href='https://threejsfundamentals.org/threejs/lessons/threejs-load-gltf.html'>
+			Three.js tutorial: Three.js Loading a .GLTF File</a><br>
+		Download: <a href='https://threejsfundamentals.org/threejs/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf'>
+			scene.gltf @ threejsfundamentals</a> and together with referenced
+			resources like scene.bin and textures/*.png,<br>
+			or from <a href='https://sketchfab.com/3d-models/cartoon-lowpoly-small-city-free-pack-edd1c604e1e045a0a2a552ddd9a293e6'>
+			low poly city @ sketchfab</a></li>
+  </ul>
   <script>
 	"use strict";
 
@@ -24,6 +37,16 @@
 				log = false;
 				console.log('city-sys');
 			}
+			if (xworld.xview.flag > 0
+				&& xworld.xview.cmds[0].code === 'key') {
+				var c = xworld.xview.cmds[0];
+		    	for (const e of entities) {
+					if (c.cmd === 'fire' && e.id === 'greate-points') {
+						xv.XTweener.startSeq(e.CmpTweens, 0);
+						break;
+					}
+				}
+			}
 		}
 
 		initCity(ecs, scene) {
@@ -33,12 +56,103 @@
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],
 							transform: [
-								{scale: [0.1, .1, .1]},
+								// for route66: {scale: [31, 31, 31]},
+								{scale: [0.1, 0.1, 0.1]},
 								{translate: [0, 10, 0]},
 							],
 							mesh: undefined },		// Thrender will handle this
 					Visual: {vtype: xv.AssetType.gltf,
-							 asset: 'city/scene.gltf'}// see docs/design-memo/renderer/
+							// see docs/design-memo/renderer/
+							asset: 'city/scene.gltf'}
+							// asset: '../../../examples/route66/assets/route66.gltf'}
+							// asset: '../../../examples/route66/assets/route67.gltf'}
+				});
+
+				var rt66 = ecs.createEntity({
+					id: 'rt66',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],
+							transform: [
+								{scale: [10, 10, 10]},
+								{translate: [200, -20, -100]},
+							],
+							mesh: undefined },		// Thrender will handle this
+					Visual: {vtype: xv.AssetType.gltf,
+							asset: '../../../examples/route66/assets/route66.gltf'}
+							// route67.gltf has losted the car's PBR materials
+							// asset: '../../../examples/route66/assets/route67.gltf'}
+				});
+
+				// var clone = ecs.createEntity({
+				// 	id: 'clone',
+				// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,  // not used
+				// 			box: [],
+				// 			transform: [
+				// 				{ scale: [10, 10, 10] },
+				// 				// { translate: [-0, -20, -600] }
+				// 			],
+				// 			mesh: undefined },  // Thrender will load asynchronously
+				// 	Visual:{vtype: xv.AssetType.point,
+				// 			paras: {nodes: ['Block_1', 'House_2', 'House_3_World ap0', 'House_2_World ap0'],
+				// 					withTransform: false,
+				// 					color: undefined,           // point's color: random
+				// 		 			size: 5},                   // WEBGL POINT size
+				// 			asset: 'city/scene.gltf'},
+				// 	ModelSeqs: { script: [ [
+				// 		  { mtype: xv.XComponent.AnimType.SCALE,
+				// 			paras: {
+				// 				start: Infinity,// can only be Infinity, see docs/design-memo/task/issues
+				// 				scale: [[1, 0.1, 1], [1, 1, 1]],
+				// 				ease: undefined} }] ] },
+				// 	CmpTweens: {}
+				// });
+
+				/** For a comercial system debug */
+				var g2 = ecs.createEntity({
+					id: 'greate-wall',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,  // not used
+							box: [],                            // not used
+							transform: [
+								{ scale: [100, 100, 100] },
+								{ translate: [-0, -18, -600] },
+							],
+							mesh: undefined },
+					Visual:{vtype: xv.AssetType.gltf,
+							paras: {nodes: ['building_wall'],
+									withTransform: false},
+							asset: 'greate/greate-main.gltf'},
+				});
+
+				var g1 = ecs.createEntity({
+					id: 'greate-points',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,  // not used
+							box: [],
+							transform: [
+								{ scale: [101, 101, 101] },
+								{ translate: [-0, -20, -600] }
+							],
+							mesh: undefined },  // Thrender will load asynchronously
+					Visual:{vtype: xv.AssetType.point,
+							paras: {nodes: ['building_wall'],
+									withTransform: false,
+									color: undefined,           // point's color: random
+						 			size: 5},                   // WEBGL POINT size
+							asset: 'greate/greate-main.gltf'},
+					ModelSeqs: { script: [ [
+						  { mtype: xv.XComponent.AnimType.SCALE,
+							paras: {
+								start: Infinity,// can only be Infinity, see docs/design-memo/task/issues
+								scale: [[1, 0.1, 1], [1, 1, 1]],
+								ease: undefined} }] ] },
+					CmpTweens: {}
+				});
+
+				var cube = ecs.createEntity({
+				    id: 'cube0',
+				    Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				            box: [200, 120, 180] },    // geometry parameters, for BOX, it's bounding box
+				    Visual: {vtype: xv.AssetType.mesh},
+				    GpuPickable: {}
 				});
 			}
 		}

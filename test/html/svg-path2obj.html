@@ -27,10 +27,10 @@
   xworld.addEntities( {
 	id: 'e',
 	Obj3: { geom: xv.XComponent.Obj3Type.NA,
-			box: [320, 320, 5],
+			box: [120, 120, 5],
 			mesh: undefined,
 			uniforms: {opacity: 0.5}},
-	Visual:{vtype: xv.AssetType.svgPath,// 5 is used as line diameter
+	Visual:{vtype: xv.AssetType.mesh,
 			paras: {paths: ['e']},
 			asset: 'tex/uestc.svg' },
 	ModelSeqs: { script: [[
@@ -45,7 +45,8 @@
 					deg: [50, 0],		// from, to
 					ease: xv.XEasing.Elastic.InOut} },
 		]] },
-	CmpTweens: {} } );
+	CmpTweens: {}
+	} );
 
   xworld.startUpdate();
   </script>

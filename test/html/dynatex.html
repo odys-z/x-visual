@@ -34,9 +34,11 @@
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.mesh},
 				Dynatex: {text: 'Hellow Dynatex!',
-						xywh: {x: 0, y: 20},
+						xywh: {x: 0, y: 20, w: 128, h: 128},
 						dirty: true,
-						style: 'red'}
+						font: '256px',
+						style: 'red'},
+				GpuPickable: {}
 			});
 
 			return box;
