@@ -8,6 +8,9 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p>Press 1, 2, 3 to start.
+  See <a href='https://odys-z.github.io/x-visual/guide/tests.html#case-gltf-nodes-animation'>test explained</a>
+  and <a href='https://odys-z.github.io/x-visual/design-memo/todo.html#issues'>issue</a></p>
   <script>
 	"use strict";
 
@@ -20,77 +23,84 @@
 		}
 
 		update(tick, entities) {
-			if (log) {
-				log = false;
-				console.log('city-sys');
-			}
-
-	    	for (const e of entities) {
-				if (e.CmdFlag) {
-				 	if (e.CmdFlag.flag > 0) {
-						// console.log(e.UserCmd);
-						this.cmd = e.UserCmd.cmds[0].cmd;
+			if (xworld.xview.flag > 0
+				&& xworld.xview.cmds[0].code === 'key') {
+				var c = xworld.xview.cmds[0];
+		    	for (const e of entities) {
+					if (c.cmd === 1 && e.id === 'car4.1') {
+						xv.XTweener.startSeq(e.CmpTweens, 0);
+						break;
 					}
-					else this.cmd = undefined;
-				}
-				else if (e.Visual) {
-					if (this.cmd)
-						console.log('visual changing: ', this.cmd);
+					else if (c.cmd === 2 && e.id === 'car4') {
+						xv.XTweener.startSeq(e.CmpTweens, 0);
+						break;
+					}
+					else if (c.cmd === 3 && e.id === 'car3') {
+						xv.XTweener.startSeq(e.CmpTweens, 0);
+						break;
+					}
 				}
 			}
 		}
 
 		initCity(ecs, scene) {
 			if (ecs) {
-				var car_3 = ecs.createEntity({
-					id: 'car_3',
+				var earth = ecs.createEntity({
+					id: 'earth-low',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-							box: [0, 0, 0],						// not used
+							box: [],                            // not used
+							transform: [{scale: [48, 48, 48]}, {translate: [0, 0, -940]}],
+							mesh: undefined },
+					Visual:{vtype: xv.AssetType.gltf,
+							paras: {nodes: ['Sphere'],
+									withTransform: false},
+							asset: 'earth/earth-low.gltf'},
+					ModelSeqs: { script: [[{
+							mtype:  xv.XComponent.AnimType.ROTAXIS,
+							paras: {start: Infinity,
+									duration: 7.2,
+									deg: [0, 360],
+									axis: [0, 1, 0],
+									ease: undefined},
+							followBy: [{
+									entity: 'earth-low',// repeat
+									seqx: 0,
+									start: 0}] }
+						]] },
+					CmpTweens: {}
+				});
+
+				var car_3 = ecs.createEntity({
+					id: 'car3',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,  // not used
+							box: [],                            // not used
 							transform: [
 								{ rotate: {deg: -90, axis: [0, 1, 0]} },
 								{ translate: [-80, -90, -380] },
 								{ scale: [1, 1, 1] } ],
-							mesh: undefined },					// Thrender will handle this
+							mesh: undefined },  // Thrender will load asynchronously
 					Visual:{vtype: xv.AssetType.gltf,
 							paras: {nodes: ['CAR_03'],
 									withTransform: false},
 							asset: 'city/scene.gltf'},
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
-							paras: { start: 0,
-							translate: [[0, 0, 0], [100, 0, 0]],
-							ease: undefined} }] ] },
+							paras: {
+								start: Infinity,// can only be Infinity, see docs/design-memo/task/issues
+								translate: [[0, 0, 0], [100, 0, 0]],
+								ease: undefined} }] ] },
+					CmpTweens: {}
 				});
 
 				var car_4 = ecs.createEntity({
-					id: 'car_4',
+					id: 'car4',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],						// not used
 							transform: [
 								{ rotate: {deg: -90, axis: [0, 1, 0]} },
 								{ translate: [120, -80, -360] },
 								{ scale: [1, 1, 1] } ],
-							mesh: undefined },					// Thrender will handle this
-					Visual:{vtype: xv.AssetType.gltf,
-							paras: {nodes: ['Car_04'],
-									withTransform: false},
-							asset: 'city/scene.gltf'},
-					ModelSeqs: { script: [ [
-						  { mtype: xv.XComponent.AnimType.POSITION,
-							paras: { start: 0,
-							translate: [[0, 0, 0], [100, 0, 0]],
-							ease: undefined} }] ] },
-				});
-
-				var car_4_1 = ecs.createEntity({
-					id: 'car_4.1',
-					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-							box: [0, 0, 0],						// not used
-							transform: [
-								{ scale: [1, 1, 1.5] },
-								{ rotate: {deg: 90, axis: [0, 1, 0]} },
-								{ translate: [260, -80, -510] } ],
-							mesh: undefined },					// Thrender will handle this
+							mesh: undefined },  // Thrender will load asynchronously
 					Visual:{vtype: xv.AssetType.gltf,
 							paras: {nodes: ['Car_04'],
 									withTransform: false},
@@ -98,11 +108,35 @@
 					ModelSeqs: { script: [ [
 						  { mtype: xv.XComponent.AnimType.POSITION,
 							paras: {
-								start: 0,
-                                duration: 2,
+								start: Infinity,// can only be Infinity, see docs/design-memo/task/issues
 								translate: [[0, 0, 0], [100, 0, 0]],
+								ease: undefined} }] ] },
+					CmpTweens: {}
+				});
+
+				var car4_1 = ecs.createEntity({
+					id: 'car4.1',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],						// not used
+							transform: [
+								{ scale: [1, 1, 1.5] },
+								{ rotate: {deg: 90, axis: [0, 1, 0]} },
+								{ translate: [260, -80, -510] } ],
+							mesh: undefined },  // Thrender will load asynchronously
+
+					Visual:{vtype: xv.AssetType.gltf,
+							paras: {nodes: ['Car_04'],
+									withTransform: false},
+							asset: 'city/scene.gltf'},
+					ModelSeqs: { script: [ [
+						  { mtype: xv.XComponent.AnimType.POSITION,
+							paras: {
+								start: Infinity,// can only be Infinity, see docs/design-memo/task/issues
+                                duration: 2,
+								translate: [[0, 0, 0], [-240, 0, 0]],
 								ease: undefined} }] ]
 					},
+					CmpTweens: {}
 				});
 
 				var road = ecs.createEntity({
@@ -118,12 +152,38 @@
 							paras: {nodes: ['ROAD', 'Light_3'],
 									withTransform: true,
 									color: undefined},			// random
-							asset: 'city/scene.gltf'},
-					ModelSeqs: { script: [ [
-						  { mtype: xv.XComponent.AnimType.POSITION,
-							paras: { start: 0,
-							translate: [[0, 0, 0], [100, 0, 0]],
-							ease: undefined} }] ] },
+							asset: 'city/scene.gltf'}
+				});
+
+				var nostalgicar = ecs.createEntity({
+					id: 'car66',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],						// not used
+							transform: [
+								{ translate: [-530, -80, -700] },
+								{ scale: [30, 30, 30] } ],
+							mesh: undefined },
+					Visual:{vtype: xv.AssetType.gltf,
+							paras: {nodes: ['CAR'],
+									withTransform: false},
+							asset: '../../../examples/route66/assets/route66.gltf'}
+				});
+
+				var route66 = ecs.createEntity({
+					id: 'route66',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,
+							box: [0, 0, 0],
+							transform: [
+								{ scale: [30, 30, 30] },
+								{ rotate: {deg: 102, axis: [1, 0, 0]} },
+								{ rotate: {deg:  35, axis: [0, 1, 0]} },
+								{ translate: [-300, 30, -700] },
+							],
+							mesh: undefined },
+					Visual:{vtype: xv.AssetType.gltf,
+							paras: {nodes: ['route66 panel'],
+									withTransform: false },
+							asset: '../../../examples/route66/assets/route66.gltf'}
 				});
 			}
 		}

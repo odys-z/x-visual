@@ -103,6 +103,30 @@ test: html/ext/4vec-pie.html
 
 data: html/data/pie.json
 
+.. literalinclude:: ../../../test/html/ext/4vec-pie.html
+   :language: javascript
+   :lines: 35-48
+   :linenos:
+
+In above code, the D3Pie system is created for rendering a D3 pie chart as a 3D
+plane object.
+
+Note:
+
+In a page using D3Pie, the html/body needs providing a special div before the
+canvas used for main scene, such as
+
+.. code-block:: html
+
+    <body>
+      <div id='stub'></div>
+      <canvas id='canv'></canvas>
+    </body>
+..
+
+This is a tested results required by the depending Html2Texture plug in, and could
+be subtle to debug if not have a div like this.
+
 Resources & References
 ----------------------
 

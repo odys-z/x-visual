@@ -1,3 +1,19 @@
+# user - jsdoc
+temp
+packages/three/geometries
+docs/jsdoc
+
+# user - examples
+# !examples/dist
+examples/dist
+
+*.blend
+*.blend[0-9]*
+
+# commercial
+greate-*
+################################################
+
 # Logs
 logs
 *.log
@@ -107,11 +123,3 @@ dist
 .project
 .classpath
 .settings
-
-# user - jsdoc
-temp
-packages/three/geometries
-docs/jsdoc
-
-# user - examples
-# !examples/dist

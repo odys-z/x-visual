@@ -26,6 +26,7 @@ Contents:
    :maxdepth: 2
 
    guide/index
+   tests/index
    design-memo/index
    reference/index
 
