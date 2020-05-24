@@ -72,6 +72,9 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 	radialSegments = radialSegments || 8;
 	closed = closed || false;
 
+	// {tangents: tangents,
+	//	normals: normals,
+	//	binormals: binormals}
 	var frames = path.computeFrenetFrames( tubularSegments, closed );
 
 	// expose internals
@@ -96,6 +99,9 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 	var uvs = [];
 	var indices = [];
 
+	// ody
+	var dirs = [];
+
 	// create buffer data
 
 	generateBufferData();
@@ -112,9 +118,11 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 	function generateBufferData() {
 
 		for ( i = 0; i < tubularSegments; i ++ ) {
-
 			generateSegment( i );
 
+			// ody
+			var T = frames.tangents[i];
+			dirs.push ( T.x, T.y, T.z );
 		}
 
 		// if the geometry is not closed, generate the last row of vertices and normals
@@ -171,9 +179,7 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 			vertex.z = P.z + radius * normal.z;
 
 			vertices.push( vertex.x, vertex.y, vertex.z );
-
 		}
-
 	}
 
 	function generateIndices() {
@@ -199,20 +205,14 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 	}
 
 	function generateUVs() {
-
 		for ( i = 0; i <= tubularSegments; i ++ ) {
-
 			for ( j = 0; j <= radialSegments; j ++ ) {
-
 				uv.x = i / tubularSegments;
 				uv.y = j / radialSegments;
 
 				uvs.push( uv.x, uv.y );
-
 			}
-
 		}
-
 	}
 
 }
