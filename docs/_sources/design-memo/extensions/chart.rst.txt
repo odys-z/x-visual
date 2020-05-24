@@ -124,8 +124,8 @@ canvas used for main scene, such as
     </body>
 ..
 
-This is a behavior required by the depending Html2Texture plugin, and could be
-subtle to debug if not have a div like this.
+This is a tested results required by the depending Html2Texture plug in, and could
+be subtle to debug if not have a div like this.
 
 Resources & References
 ----------------------
