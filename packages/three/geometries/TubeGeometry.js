@@ -172,6 +172,8 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 
 			vertices.push( vertex.x, vertex.y, vertex.z );
 
+			// odys:
+			var T;
 		}
 
 	}
