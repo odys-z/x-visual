@@ -21,7 +21,7 @@ function DirTubeGeometry( path, tubularSegments, radius, radialSegments, closed 
 
 	Geometry.call( this );
 
-	this.type = 'TubeGeometry';
+	this.type = 'DirTubeGeometry';
 
 	this.parameters = {
 		path: path,
@@ -95,6 +95,8 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 	var normals = [];
 	var uvs = [];
 	var indices = [];
+	// odys: vertices' tangents
+	var vertans = [];
 
 	// create buffer data
 
@@ -106,6 +108,8 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 	this.setAttribute( 'position', new Float32BufferAttribute( vertices, 3 ) );
 	this.setAttribute( 'normal', new Float32BufferAttribute( normals, 3 ) );
 	this.setAttribute( 'uv', new Float32BufferAttribute( uvs, 2 ) );
+	// odys:
+	this.setAttribute( 'T', new Float32BufferAttribute( vertans, 3 ) );
 
 	// functions
 
@@ -145,6 +149,8 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 
 		var N = frames.normals[ i ];
 		var B = frames.binormals[ i ];
+		// odys
+		var T = frames.tangents[ i ];
 
 		// generate normals and vertices for the current segment
 
@@ -172,8 +178,8 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 
 			vertices.push( vertex.x, vertex.y, vertex.z );
 
-			// odys:
-			var T, U;
+			// odys: Why not do this in GPU?
+			vertans.push( T.x, T.y, T.z );
 		}
 
 	}
@@ -225,6 +231,7 @@ TubeBufferGeometry.prototype.constructor = TubeBufferGeometry;
 TubeBufferGeometry.prototype.toJSON = function () {
 
 	var data = BufferGeometry.prototype.toJSON.call( this );
+	// odys: what about vertans?
 
 	data.path = this.parameters.path.toJSON();
 

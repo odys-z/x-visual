@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Orbe in Tube</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <script>
+    "use strict";
+
+    class Tubesys extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.initTube(ecs, options.xscene);
+        }
+
+        update(tick, entities) {
+        }
+
+        initTube(ecs, scene) {
+            if (ecs) {
+                var tube = ecs.createEntity({
+                    id: 'tube0',
+                    Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+                            box: [3],
+                            mesh: undefined,
+                            uniforms: {opacity: 0.1} },
+                    Visual: {
+                        vtype: xv.AssetType.PathTube,
+                    	shader: xv.XComponent.ShaderFlag.DirOrb,
+                        paras: {
+                            points:[[-100, 0, 0], [100, 0, 0],
+                                    [0, -100, 0], [0, 100, 0],
+                                    [0, 0, -100], [0, 0, 100]],
+                            origin: [0, 0, 0],
+                            linewidth: 2,
+                            color: 0x00ff00,
+
+                            // DirOrbe will turn shape dir to path dir
+                            // shape up: [0, 1, 0], shape dir: [1, 0, 0]
+                            shapeScale: [1, 0.3, 0.1] }
+                } });
+            }
+        }
+    }
+
+    Tubesys.query = { iffall: ['Visual'] };
+
+    xv.splash('splash', rock);
+
+    function rock() {
+        const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
+        const ecs = xworld.xecs;
+        const xscene = xworld.xscene;
+
+        xworld.addSystem('test', new Tubesys(ecs, {xscene}));
+
+        xworld.startUpdate();
+    }
+  </script>
+</body>
+</html>

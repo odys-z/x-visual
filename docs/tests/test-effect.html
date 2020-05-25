@@ -32,13 +32,10 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Tests &amp; Example" href="index.html"/>
         <link rel="next" title="TODO Examples" href="examples.html"/>
-        <link rel="prev" title="Test - Morphing &amp; Uniform" href="test-morph.html"/> 
+        <link rel="prev" title="Test - Geometries" href="test-geom.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -91,8 +88,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tests &amp; Example</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="test-morph.html">Test - Morphing &amp; Uniform</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Test - Postprocessing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#occluding-pointgeom">Occluding (PointGeom)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="test-geom.html">Test - Geometries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Test - Postprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cate-occluding-pointgeom">Cate: Occluding (PointGeom)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#case-flowingpath-occluding">case: FlowingPath Occluding</a></li>
 </ul>
 </li>
@@ -149,13 +147,16 @@
             
   <div class="section" id="test-postprocessing">
 <span id="test-effect"></span><h1>Test - Postprocessing<a class="headerlink" href="#test-postprocessing" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="occluding-pointgeom">
-<h2>Occluding (PointGeom)<a class="headerlink" href="#occluding-pointgeom" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cate-occluding-pointgeom">
+<h2>Cate: Occluding (PointGeom)<a class="headerlink" href="#cate-occluding-pointgeom" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="case-flowingpath-occluding">
 <h3>case: FlowingPath Occluding<a class="headerlink" href="#case-flowingpath-occluding" title="Permalink to this headline">¶</a></h3>
-<p>html file: test/html/flowing-path-occluding.html</p>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">flowing</span><span class="o">-</span><span class="n">path</span><span class="o">-</span><span class="n">occluding</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
 <p>The code snippet show flowing path effect is occluded with a plane.</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -164,7 +165,7 @@
  7
  8
  9
-10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>            <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+10</pre></div></td><td class="code"><div class="highlight"><pre>            <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
                 <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;plane&#39;</span><span class="p">,</span>
                 <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">PLANE</span><span class="p">,</span>
                         <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">360</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
@@ -177,7 +178,7 @@
 </pre></div>
 </td></tr></table></div>
 <p>This file also show a user defined curve:</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -187,7 +188,7 @@
  8
  9
 10
-11</pre></div></td><td class="code"><div class="highlight"><pre><span></span>            <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+11</pre></div></td><td class="code"><div class="highlight"><pre>            <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
                 <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;squre&#39;</span><span class="p">,</span>
                 <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">PointCurve</span><span class="p">,</span>
                         <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span>  <span class="c1">// curve division</span>
@@ -201,7 +202,7 @@
 </pre></div>
 </td></tr></table></div>
 <p>As The plane entity is specified as an FlowingPath Occluder, it has post effects
-on all entities of FlowingPath - part of yellow line’s post processing is occluded.</p>
+on all entities of FlowingPath - part of yellow line&#8217;s post processing is occluded.</p>
 <img alt="../_images/004-post-flowingpath.jpg" src="../_images/004-post-flowingpath.jpg" />
 </div>
 </div>
@@ -217,7 +218,7 @@ on all entities of FlowingPath - part of yellow line’s post processing is occl
         <a href="examples.html" class="btn btn-neutral float-right" title="TODO Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="test-morph.html" class="btn btn-neutral" title="Test - Morphing &amp; Uniform" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="test-geom.html" class="btn btn-neutral" title="Test - Geometries" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -257,8 +258,7 @@ on all entities of FlowingPath - part of yellow line’s post processing is occl
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
