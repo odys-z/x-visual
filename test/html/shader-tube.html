@@ -27,12 +27,12 @@
                 var tube = ecs.createEntity({
                     id: 'tube0',
                     Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
-                            box: [3],
+                            box: [6],
                             mesh: undefined,
-                            uniforms: {opacity: 0.1} },
+                            uniforms: {opacity: 0.4} },
                     Visual: {
                         vtype: xv.AssetType.PathTube,
-                    	shader: xv.XComponent.ShaderFlag.DirOrb,
+                    	// shader: xv.XComponent.ShaderFlag.DirOrb,
                         paras: {
                             points:[[-100, 0, 0], [100, 0, 0],
                                     [0, -100, 0], [0, 100, 0],
@@ -40,10 +40,11 @@
                             origin: [0, 0, 0],
                             linewidth: 2,
                             color: 0x00ff00,
+                            tubularSegments: 50, radius: 6, radialSegments: 12,
 
                             // DirOrbe will turn shape dir to path dir
                             // shape up: [0, 1, 0], shape dir: [1, 0, 0]
-                            shapeScale: [1, 0.3, 0.1] }
+                            shapeScale: [1, 1.3, 5.1] }
                 } });
             }
         }
