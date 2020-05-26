@@ -32,37 +32,52 @@
                             uniforms: {opacity: 0.4} },
                     Visual: {
                         vtype: xv.AssetType.PathTube,
-                    	// shader: xv.XComponent.ShaderFlag.DirOrb,
+                        shader: xv.XComponent.ShaderFlag.dirOrb,
+                        // shader: xv.XComponent.ShaderFlag.testPoints,
                         paras: {
                             points:[[-100, 0, 0], [100, 0, 0],
                                     [0, -100, 0], [0, 100, 0],
                                     [0, 0, -100], [0, 0, 100]],
                             origin: [0, 0, 0],
-                            linewidth: 2,
                             color: 0x00ff00,
+                            side: THREE.FrontSide,
                             tubularSegments: 50, radius: 6, radialSegments: 12,
 
                             // DirOrbe will turn shape dir to path dir
                             // shape up: [0, 1, 0], shape dir: [1, 0, 0]
-                            shapeScale: [1, 1.3, 5.1] }
-                } });
+                            orbScale: [1, 1.3, 5.1] } },
+                    // GpuPickable: {}
+                });
+
+                var plane = ecs.createEntity({
+                    id: 'plane',
+                    Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                            box: [400, 240, 0],
+                            transform: [ { translate: [0, 0, -80] }],
+                            uniforms: {opacity: 0.4} },
+                    Visual: {
+                        vtype: xv.AssetType.mesh,
+                        shader: xv.XComponent.ShaderFlag.dirOrb,
+                        paras: {
+                            side: THREE.FrontSide,
+                            // DirOrbe will turn shape dir to path dir
+                            // shape up: [0, 1, 0], shape dir: [1, 0, 0]
+                            orbScale: [1, 1.3, 5.1] } },
+                    GpuPickable: {}
+                });
             }
         }
     }
 
     Tubesys.query = { iffall: ['Visual'] };
 
-    xv.splash('splash', rock);
+    const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
 
-    function rock() {
-        const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 480]});
-        const ecs = xworld.xecs;
-        const xscene = xworld.xscene;
+    xworld.addSystem('test', new Tubesys(ecs, {xscene}));
 
-        xworld.addSystem('test', new Tubesys(ecs, {xscene}));
-
-        xworld.startUpdate();
-    }
+    xworld.startUpdate();
   </script>
 </body>
 </html>
