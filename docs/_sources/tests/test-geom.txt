@@ -23,7 +23,7 @@ AssetType::
 
 Visual.paras:
 
-see jsdoc.
+see AssetType jsdoc.
 
 See reference section about :ref:`Three.js tube geometry algorithm of Frenet Frame<ref-frenet-frame>`.
 
