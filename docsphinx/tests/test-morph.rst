@@ -3,8 +3,8 @@
 Test - Morphing & Uniform
 =========================
 
-Morphing transform & color
---------------------------
+Cate: Morphing transform & color
+--------------------------------
 
 case: AnimType.ALPHA, UNIFORMS, U_MORPHi
 ________________________________________

@@ -7,5 +7,6 @@ Contents:
    :maxdepth: 2
 
    test-morph
+   test-geom
    test-effect
    examples

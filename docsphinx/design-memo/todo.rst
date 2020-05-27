@@ -4,7 +4,15 @@ Tasks
 TODOs
 -----
 
-1. Optimize anti-aliasing
+1. Fix self rotation axis
+
+2. Extend volumetric shader for tube geometry
+
+3. Dynamic faces
+
+Example: `Three.js Custom BufferGeometry <https://threejsfundamentals.org/threejs/lessons/threejs-custom-buffergeometry.html>`_
+
+4. Optimize anti-aliasing
 
 see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-textures.html>`_.
 
