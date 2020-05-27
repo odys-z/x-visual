@@ -300,11 +300,11 @@ of <em>points</em> will moving between box of <em>entity1</em> &amp; <em>entity2
             <span class="p">[</span> <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">POSITION</span><span class="p">,</span>
                 <span class="nx">paras</span><span class="o">:</span><span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
                        <span class="nx">translate</span><span class="o">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                       <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">}],</span>
-            <span class="p">[</span> <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">SCALE</span><span class="p">,</span>
-                <span class="nx">paras</span><span class="o">:</span><span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>
-                       <span class="nx">scale</span><span class="o">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                       <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">}</span> <span class="p">],</span>
+                       <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">},</span>
+                <span class="c1">// onComplete: function( tObj, twn ) {//bug?</span>
+                <span class="c1">//     let entity = twn.parent.entity;</span>
+                <span class="c1">//     xv.XTweener.startSeq(entity.CmpTweens, 1);</span>
+                <span class="c1">// }</span>
 </pre></div>
 </td></tr></table></div>
 <p>The user command interaction is handled in TestDynamicPos.update().</p>
