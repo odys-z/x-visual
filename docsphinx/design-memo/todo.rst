@@ -8,6 +8,8 @@ TODOs
 
 2. Extend volumetric shader for tube geometry
 
+Failed.
+
 3. Dynamic faces
 
 Example: `Three.js Custom BufferGeometry <https://threejsfundamentals.org/threejs/lessons/threejs-custom-buffergeometry.html>`_
@@ -15,6 +17,8 @@ Example: `Three.js Custom BufferGeometry <https://threejsfundamentals.org/threej
 4. Optimize anti-aliasing
 
 see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-textures.html>`_.
+
+5. SVG
 
 Issues
 ------

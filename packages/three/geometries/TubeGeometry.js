@@ -1,4 +1,4 @@
-/**
+/**Modified from three.js source.
  * @author oosmoxiecode / https://github.com/oosmoxiecode
  * @author WestLangley / https://github.com/WestLangley
  * @author zz85 / https://github.com/zz85
@@ -6,12 +6,6 @@
  * @author jonobr1 / https://github.com/jonobr1
  * @author Mugen87 / https://github.com/Mugen87
  *
-
-import { Geometry } from '../core/Geometry.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Float32BufferAttribute } from '../core/BufferAttribute.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Vector3 } from '../math/Vector3.js';
  */
 
 import { Geometry, BufferGeometry, Float32BufferAttribute, Vector2, Vector3 } from 'three';
@@ -187,31 +181,23 @@ function DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, c
 			vertices.push( vertex.x, vertex.y, vertex.z );
 
 			// odys: Why not do this in GPU?
-			// vertans.push( T.x, T.y, T.z );
-			vertans.push( 1, T.y, T.z );
+			vertans.push( T.x, T.y, T.z );
 		}
 	}
 
 	function generateIndices() {
-
 		for ( j = 1; j <= tubularSegments; j ++ ) {
-
 			for ( i = 1; i <= radialSegments; i ++ ) {
-
 				var a = ( radialSegments + 1 ) * ( j - 1 ) + ( i - 1 );
 				var b = ( radialSegments + 1 ) * j + ( i - 1 );
 				var c = ( radialSegments + 1 ) * j + i;
 				var d = ( radialSegments + 1 ) * ( j - 1 ) + i;
 
 				// faces
-
 				indices.push( a, b, d );
 				indices.push( b, c, d );
-
 			}
-
 		}
-
 	}
 
 	function generateUVs() {
