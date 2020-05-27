@@ -33,7 +33,7 @@ function DirTubeGeometry( path, tubularSegments, radius, radialSegments, closed 
 
 	// if ( taper !== undefined ) console.warn( 'THREE.TubeGeometry: taper has been removed.' );
 
-	var bufferGeometry = new TubeBufferGeometry( path, tubularSegments, radius, radialSegments, closed );
+	var bufferGeometry = new DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, closed );
 
 	// expose internals
 
@@ -48,16 +48,16 @@ function DirTubeGeometry( path, tubularSegments, radius, radialSegments, closed 
 
 }
 
-TubeGeometry.prototype = Object.create( Geometry.prototype );
-TubeGeometry.prototype.constructor = TubeGeometry;
+DirTubeGeometry.prototype = Object.create( Geometry.prototype );
+DirTubeGeometry.prototype.constructor = DirTubeGeometry;
 
 // TubeBufferGeometry
 
-function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, closed ) {
+function DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, closed ) {
 
 	BufferGeometry.call( this );
 
-	this.type = 'TubeBufferGeometry';
+	this.type = 'DirTubeBufferGeometry';
 
 	this.parameters = {
 		path: path,
@@ -109,7 +109,7 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 	this.setAttribute( 'normal', new Float32BufferAttribute( normals, 3 ) );
 	this.setAttribute( 'uv', new Float32BufferAttribute( uvs, 2 ) );
 	// odys:
-	this.setAttribute( 'T', new Float32BufferAttribute( vertans, 3 ) );
+	this.setAttribute( 'tan', new Float32BufferAttribute( vertans, 3 ) );
 
 	// functions
 
@@ -179,7 +179,8 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 			vertices.push( vertex.x, vertex.y, vertex.z );
 
 			// odys: Why not do this in GPU?
-			vertans.push( T.x, T.y, T.z );
+			// vertans.push( T.x, T.y, T.z );
+			vertans.push( 1, T.y, T.z );
 		}
 
 	}
@@ -225,10 +226,10 @@ function TubeBufferGeometry( path, tubularSegments, radius, radialSegments, clos
 
 }
 
-TubeBufferGeometry.prototype = Object.create( BufferGeometry.prototype );
-TubeBufferGeometry.prototype.constructor = TubeBufferGeometry;
+DirTubeBufferGeometry.prototype = Object.create( BufferGeometry.prototype );
+DirTubeBufferGeometry.prototype.constructor = DirTubeBufferGeometry;
 
-TubeBufferGeometry.prototype.toJSON = function () {
+DirTubeBufferGeometry.prototype.toJSON = function () {
 
 	var data = BufferGeometry.prototype.toJSON.call( this );
 	// odys: what about vertans?
@@ -239,4 +240,4 @@ TubeBufferGeometry.prototype.toJSON = function () {
 
 };
 
-export { TubeGeometry, TubeBufferGeometry };
+export { DirTubeGeometry, DirTubeBufferGeometry };
