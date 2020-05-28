@@ -30,12 +30,10 @@
                     Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
                             box: [6],
                             transform: [ { translate: [-160, 0, 0] }],
-                            mesh: undefined,
-                            uniforms: {opacity: 0.3} },
+                            mesh: undefined },
                     Visual: {
                         vtype: xv.AssetType.PathTube,
                         shader: xv.XComponent.ShaderFlag.scaleOrb,
-                        // shader: xv.XComponent.ShaderFlag.testPoints,
                         paras: {
                             points:[[0, 40, 0], [0, -40, 0]],
                             origin: [-0, 0, 0],
@@ -53,8 +51,7 @@
                     id: 'tube0',
                     Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
                             box: [6],
-                            mesh: undefined,
-                            uniforms: {opacity: 0.3} },
+                            mesh: undefined },
                     Visual: {
                         vtype: xv.AssetType.PathTube,
                         shader: xv.XComponent.ShaderFlag.scaleOrb,
@@ -68,16 +65,14 @@
 
                             // DirOrbe will turn shape dir to path dir
                             // shape up: [0, 1, 0], shape dir: [1, 0, 0]
-                            orbDebug: true,
-                            orbR: 30,
+                            orbDebug: false,
+                            orbR: 20,
                             whiteAlpha: 0.2,	// out of range alpha
-                            orbScale: [.1, .1, 1] } },
+                            orbScale: [.5, .5, 1] } },
                     ModelSeqs: { script: [[
                           { mtype: xv.XComponent.AnimType.U_PATH_MORPH,
                             paras: {start: 0,
                                     duration: 9.7,
-                                    count: 7,            // ?? total points
-                                    interval: 0.2,       // ?? new born after previous
                                     path: 'tube0',       // p1.Visual.vtype is a path
                                     ease: xv.XEasing.Elastic.Elastic} }
                     ]] },
@@ -88,8 +83,7 @@
                     id: 'sphere',
                     Obj3: { geom: xv.XComponent.Obj3Type.BOX,
                             box: [120, 50, 80],
-                            transform: [ { translate: [120, 0, -140] }],
-                            uniforms: {opacity: 0.4} },
+                            transform: [ { translate: [120, 0, -140] }] },
                     Visual: {
                         vtype: xv.AssetType.mesh,
                         shader: xv.XComponent.ShaderFlag.scaleOrb,

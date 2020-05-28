@@ -29,8 +29,7 @@
                     id: 'path0',
                     Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
                             box: [6],
-                            mesh: undefined,
-                            uniforms: {opacity: 0.3} },
+                            mesh: undefined },
                     Visual: {
                         vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
@@ -39,10 +38,9 @@
 
                 var orb = ecs.createEntity({
                     id: 'orb',
-                    Obj3: { geom: xv.XComponent.Obj3Type.CONE,
-                            box: [6, 7],
-                            mesh: undefined,
-                            uniforms: {opacity: 0.3} },
+                    Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                            box: [6, 6, 6],
+                            mesh: undefined },
                     Visual: {
                         vtype: xv.AssetType.mesh,
                         shader: xv.XComponent.ShaderFlag.ModelOrb,
@@ -51,14 +49,12 @@
                             orbR: 30,
                             whiteAlpha: 0.2,	// out of range alpha
                             orbScale: [1, .1, .1] } },
-                    ModelSeqs: { script: [[
-                          { mtype: xv.XComponent.AnimType.U_PATH_MORPH_Dir,
+                    ModelSeqs: {script: [[
+                          { mtype: xv.XComponent.AnimType.PATH_MOVE_Dir,
                             paras: {start: 0,
-                                    duration: 9.7,
-                                    count: 7,            // ?? total points
-                                    interval: 0.2,       // ?? new born after previous
-                                    path: 'path0',       // p1.Visual.vtype is a path
-                                    ease: xv.XEasing.Elastic.Elastic} }
+                                duration: 9.7,
+                                path: 'path0',       // p1.Visual.vtype is a path
+                                ease: xv.XEasing.Elastic.Elastic} }
                     ]] },
                     CmpTweens: {}
                 });
