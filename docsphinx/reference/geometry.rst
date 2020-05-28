@@ -104,6 +104,8 @@ ___________________________
 
 TODO ...
 
+see xmath/geom.js/computeFrenetFrames
+
 Reference
 _________
 
