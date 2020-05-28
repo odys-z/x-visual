@@ -36,6 +36,18 @@
 					 			size: 2},                   // WEBGL POINT size
 						asset: 'city/scene.gltf'}
 			});
+
+			var city = ecs.createEntity({
+				id: 'city',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,
+						box: [],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.point,
+						paras: { },
+						// asset: 'city/scene.gltf'}
+						asset: 'greate/cd01.gltf'}
+			});
+
 			return tree1_2;
 		}
 	}
