@@ -8,6 +8,18 @@ TODOs
 
 2. Extend volumetric shader for tube geometry
 
+Failed.
+
+Shader *scaleOrb* is using ray casting for distance calculating, which is not good
+at shape figuring like ray matching, a slow method.
+
+The *scaleOrb* shader use a scale inverse for finding ellipsoid distance, a simple
+version of inverse matrix. It's said that's expensive to calculate inverse matrix
+in GPU. So this shader stop here for now, with out direction rotation.
+
+*Is it possible to handle distance to model in vertex shader? Or simply update
+matrix uniform(s) for every vertex?*
+
 3. Dynamic faces
 
 Example: `Three.js Custom BufferGeometry <https://threejsfundamentals.org/threejs/lessons/threejs-custom-buffergeometry.html>`_
@@ -16,10 +28,12 @@ Example: `Three.js Custom BufferGeometry <https://threejsfundamentals.org/threej
 
 see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-textures.html>`_.
 
+5. SVG
+
 Issues
 ------
 
-.. _issue-asych-gltf:
+.. _issue-asynch-gltf:
 
 1. ModelSeqs can't handle asynchronously loaded mesh
 

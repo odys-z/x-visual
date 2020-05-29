@@ -159,6 +159,16 @@
 <ol class="arabic simple">
 <li>Fix self rotation axis</li>
 <li>Extend volumetric shader for tube geometry</li>
+</ol>
+<p>Failed.</p>
+<p>Shader <em>scaleOrb</em> is using ray casting for distance calculating, which is not good
+at shape figuring like ray matching, a slow method.</p>
+<p>The <em>scaleOrb</em> shader use a scale inverse for finding ellipsoid distance, a simple
+version of inverse matrix. It&#8217;s said that&#8217;s expensive to calculate inverse matrix
+in GPU. So this shader stop here for now, with out direction rotation.</p>
+<p><em>Is it possible to handle distance to model in vertex shader? Or simply update
+matrix uniform(s) for every vertex?</em></p>
+<ol class="arabic simple" start="3">
 <li>Dynamic faces</li>
 </ol>
 <p>Example: <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-custom-buffergeometry.html">Three.js Custom BufferGeometry</a></p>
@@ -166,10 +176,13 @@
 <li>Optimize anti-aliasing</li>
 </ol>
 <p>see <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-textures.html">Three.js Texture</a>.</p>
+<ol class="arabic simple" start="5">
+<li>SVG</li>
+</ol>
 </div>
 <div class="section" id="issues">
 <h2>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple" id="issue-asych-gltf">
+<ol class="arabic simple" id="issue-asynch-gltf">
 <li>ModelSeqs can&#8217;t handle asynchronously loaded mesh</li>
 </ol>
 <p>test case: html/gltf-car.html</p>

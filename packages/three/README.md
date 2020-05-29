@@ -1,6 +1,6 @@
 # ACW
 
-For webpack, SVGLoader can be referenced to node_modules/three/examples. But Mocha
+For webpack, SVGLoader can referencing to node_modules/three/examples. But Mocha
 won't tolerate this. It reports error like:
 
 ```
@@ -39,7 +39,7 @@ SyntaxError: Unexpected token {
 	...
 ```
 
-Guessing this is because js source not compiled into testBundle.js.
+Guessing this is due to js source not compiled into testBundle.js.
 
 So the temporary solution for this is copy it here and compile into testBundle.js.
 
