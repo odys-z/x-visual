@@ -4,5 +4,5 @@
    <feGaussianBlur stdDeviation="1.5" in="SourceGraphic"/>
   </filter>
  </defs>
- <circle filter="url(#blur0)" stroke="#355" r="128" id="svg_3" cy="200" cx="290" stroke-opacity="0.7" stroke-width="12.5" fill="#4f2f00" fill-opacity="0.8"/>
+ <circle id="svg_circle" filter="url(#blur0)" stroke="#355" r="128" cy="200" cx="290" stroke-opacity="0.7" stroke-width="12.5" fill="#4f2f00" fill-opacity="0.8"/>
 </svg>

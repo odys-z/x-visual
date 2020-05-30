@@ -1205,6 +1205,8 @@ SVGLoader.getStrokeStyle = function ( width, color, lineJoin, lineCap, miterLimi
 
 };
 
+// Odys: needs road alone path? Here it is!
+
 SVGLoader.pointsToStroke = function ( points, style, arcDivisions, minDistance ) {
 
 	// Generates a stroke with some witdh around the given path.
