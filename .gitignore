@@ -1,7 +1,8 @@
 # user - jsdoc
 temp
-packages/three/geometries
-docs/jsdoc
+packages/three/geometries/*
+!packages/three/geometries/TubeGeometry.js
+# docs/jsdoc
 
 # user - examples
 # !examples/dist

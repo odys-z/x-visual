@@ -3,8 +3,8 @@
 Test - Morphing & Uniform
 =========================
 
-Morphing transform & color
---------------------------
+Cate: Morphing transform & color
+--------------------------------
 
 case: AnimType.ALPHA, UNIFORMS, U_MORPHi
 ________________________________________
@@ -100,7 +100,7 @@ scene come from 3 different gltf files::
     test/html/assets/earth/earth-low.gltf
     examples/route66/route66.gltf
 
-Here is a compare of how different for different assets artists like to do.
+Here is a comparison of how different for different assets artists like to do.
 
 .. image:: imgs/005-route66-car-size.jpg
     :width: 340px
@@ -151,7 +151,7 @@ html file::
 
 This file loaded the some nodes in gltf asset, specifying animation scripts.
 
-The animation can't auto-started for :ref:`the issue of asynchronous loading<issue-asych-gltf>`.
+The animation can't auto-started for :ref:`the issue of asynchronous loading<issue-asynch-gltf>`.
 
 To use and loading gltf nodes, user must have some basic idea of gltf format.
 X-visual is intend for users of programmer.

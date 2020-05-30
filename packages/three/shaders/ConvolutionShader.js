@@ -6,9 +6,7 @@
  * http://o3d.googlecode.com/svn/trunk/samples/convolution.html
  */
 
-import {
-	Vector2
-} from "../three.module.js";
+import { Vector2 } from "three"
 
 var ConvolutionShader = {
 

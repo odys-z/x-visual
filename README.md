@@ -1,7 +1,7 @@
 # About
 
 X-visual is a lib for data visiualization using [Three.js](https://threejs.org)
-for rendering. 
+for rendering.
 
 Before v1.0, it's a part of a research project and a prototype of a comercial system used to verify and accumulate any usefull tech.
 
@@ -26,6 +26,17 @@ It's also the npm package name.
 ~~~
 
 ## test (without server)
+
+There html test pages in test/html, which can be opened directly from local file
+system:
+
+```
+    test/html/index.html
+```
+
+Some of them are explained in [doc/tests & examples](https://odys-z.github.io/x-visual/tests)
+
+**X-visual is considering reduce unit test cases.**
 
 The project uses Mocha and Chai for testing, imports like this.
 
@@ -159,4 +170,4 @@ It's texture also been used in another low polygon model.
 - Simple Route 66 Low Poly Scene
 
 free 3D model by hj7880, download [@ CGTrader](https://www.cgtrader.com/free-3d-models/architectural/other/simple-route-66-low-poly-scene),
-licensed under *Royalty Free License*. 
+licensed under *Royalty Free License*.
