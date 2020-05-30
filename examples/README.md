@@ -24,7 +24,7 @@ Use this line to open it from file system:
 
 # The Sample Applications
 
-Sample Applications based on x-visual must keeping [ECS](https://en.wikipedia.org/wiki/Entity_component_system)
+Applications based on x-visual must keeping [ECS](https://en.wikipedia.org/wiki/Entity_component_system)
 pattern in mind - essentially x-visual is inspired by this ideal.
 
 ## Hello XWorld
@@ -36,16 +36,26 @@ The hello xworld application has the following structure:
 
 There is [an updating introduction for developers](https://odys-z.github.io/x-visual/guide/index.html).
 
-## update failed
+## Route66
 
-tips:
+Upcoming a sample demonstrating gltf assets loading and structured applying,
+svg assets 3D visualizing, etc.
+
+
+# Troubleshooting
+
+## update failed
 
 ```
     npm update x-visual
     npm ERR! code Z_BUF_ERROR
     npm ERR! errno -5
     npm ERR! zlib: unexpected end of file
+```
 
+tips:
+
+```
     npm cache clean --force
     npm update x-visual
 ```
