@@ -2,83 +2,52 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest-GLTF Vertices</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	<title>XTest-Dynamic Text</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
   <script>
 	"use strict";
 
-	function initCity(ecs, scene) {
-		if (ecs) {
-			var tree1_2 = ecs.createEntity({
-				id: 'tree1_2points',
-				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-						box: [],
-						transform: [{rotate: {deg: 90, axis: [0, 0, 1]}}],
-						mesh: undefined },                  // Thrender will handle this
-				Visual:{vtype: xv.AssetType.point,
-						paras: {nodes: ['Tree_1_2'],
-								color: undefined,           // random
-					 			size: 8},                   // WEBGL POINT size
-						asset: 'city/scene.gltf'}
-			});
+	class Textest extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.box = this.initCube(ecs);
+		}
 
-			// var car1_3 = ecs.createEntity({
-			// 	id: 'car1_3points',
-			// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,
-			// 			box: [],
-			// 			mesh: undefined },
-			// 	Visual:{vtype: xv.AssetType.point,
-			// 			paras: {nodes: ['CAR_03'],
-			// 					color: undefined,           // random
-			// 		 			size: 2},                   // WEBGL POINT size
-			// 			asset: 'city/scene.gltf'}
-			// });
+		update(tick, entities) {
+			if (xworld.xview.flag > 0) {
+				if (xworld.xview.cmds[0].code === 'key') {
+					xv.CanvTex.setext(this.box, `tick: ${tick}`);
+				}
+			}
+		}
 
-			var city = ecs.createEntity({
-				id: 'cd',
-				Obj3: { geom: xv.XComponent.Obj3Type.USER,
-						box: [],
-						transform: [
-							{scale: [200, 200, 200]},
-							{translate: [0, -0, -100]}],
+		initCube(ecs) {
+			var box = ecs.createEntity({
+				id: 'text0',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [128, 128],
 						mesh: undefined },
-				Visual:{vtype: xv.AssetType.point,
-						paras: {size: 8},
-						asset: 'greate/cd01.gltf'}
+				Visual:{vtype: xv.AssetType.mesh},
+				Dynatex: {text: 'Hellow Dynatex!',
+						xywh: {x: 0, y: 20},
+						dirty: true,
+						style: 'red'}
 			});
 
-			var city = ecs.createEntity({
-				id: 'city',
-				Obj3: { geom: xv.XComponent.Obj3Type.USER,
-						box: [],
-						transform: [
-							{scale: [0.1, 0.1, 0.1]},
-							{translate: [0, 100, 0]} ],
-						mesh: undefined },
-				Visual:{vtype: xv.AssetType.point,
-						paras: {size: 1,
-								// keep original material, override meshes' attributes
-								keepMaterial: {
-									opacity: 0.3,
-									emissiveIntensity: 0.1
-								}},
-						asset: 'city/scene.gltf'}
-			});
+			return box;
 		}
 	}
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
-	const xscene = xworld.xscene;
 
-	initCity(ecs, xscene);
-
+	xworld.addSystem('test', new Textest(ecs, {}));
 	xworld.startUpdate();
-
   </script>
 </body>
 </html>
