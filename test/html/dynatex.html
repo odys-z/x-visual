@@ -8,6 +8,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p>Press key for update.</p>
   <script>
 	"use strict";
 
@@ -41,6 +42,26 @@
 				GpuPickable: {}
 			});
 
+			var bg1 = ecs.createEntity({
+				id: 'bg1',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [128, 128],
+						group: 'text0' },
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/uestc.svg'},
+				GpuPickable: {}
+			});
+
+			var bg2 = ecs.createEntity({
+				id: 'bg2',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [32, 32],
+						transform: [ {translate: [48, -36, 0] } ],
+						group: 'text0' },
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/uestc.svg'},
+				GpuPickable: {}
+			});
 			return box;
 		}
 	}
