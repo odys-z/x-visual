@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Dynamic Text</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <p>Press key for update.</p>
+  <img src='data:image/svg+xml;utf-8,<svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect style="fill:rgb(0, 12, 255)" x="0" width="100" height="100" rx="15" /></svg>'></img>
+  <script>
+	"use strict";
+
+	class Textest extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.box = this.initCube(ecs);
+		}
+
+		update(tick, entities) {
+			if (xworld.xview.flag > 0) {
+				if (xworld.xview.cmds[0].code === 'key') {
+					xv.CanvTex.setext(this.box, `tick: ${tick}`);
+				}
+			}
+		}
+
+		initCube(ecs) {
+			var box = ecs.createEntity({
+				id: 'text0',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [128, 128],
+						transform: [ {translate: [0, 60, 0] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.mesh},
+				Dynatex: {text: 'Hello Dynatex!',
+						xywh: {x: 0, y: 20, w: 128, h: 128},
+						dirty: true,
+						font: '256px',
+						style: 'red'},
+				GpuPickable: {}
+			});
+
+			var bg1 = ecs.createEntity({
+				id: 'bg1',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [128, 128],
+						group: 'text0' },
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/uestc.svg'},
+				GpuPickable: {}
+			});
+
+			var bg2 = ecs.createEntity({
+				id: 'bg2',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [32, 32],
+						transform: [ {translate: [48, -36, 0] } ],
+						group: 'text0' },
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/uestc.svg'},
+				GpuPickable: {}
+			});
+
+			var ground = ecs.createEntity({
+				id: 'grd',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [60, 60, 0],    // bug: not a squre?
+						transform: [
+							{rotate: {deg: -90, axis: [1, 0, 0]}},
+							{translate: [48, -36, 0] } ]
+					},
+				Visual:{vtype:  xv.AssetType.mesh,
+						// asset: 'tex/byr0.png' },
+						asset: `data:image/svg+xml;utf-8,
+							<svg  width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+								<rect style="fill:rgb(0, 12, 255)" x="0" width="100" height="100" rx="15" />
+							</svg>` },
+				GpuPickable: {}        // not work, bug
+			});
+			return box;
+		}
+	}
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+
+	xworld.addSystem('test', new Textest(ecs, {}));
+	xworld.startUpdate();
+  </script>
+</body>
+</html>
