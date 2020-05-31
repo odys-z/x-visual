@@ -15,7 +15,7 @@ import {
 	ShapePath,
 	Vector2,
 	Vector3
-} from "./three.module.js";
+} from "three"
 
 var SVGLoader = function ( manager ) {
 

@@ -1,4 +1,4 @@
-/**
+/**Modified from three.js source.
  * @author oosmoxiecode / https://github.com/oosmoxiecode
  * @author WestLangley / https://github.com/WestLangley
  * @author zz85 / https://github.com/zz85
@@ -6,12 +6,6 @@
  * @author jonobr1 / https://github.com/jonobr1
  * @author Mugen87 / https://github.com/Mugen87
  *
-
-import { Geometry } from '../core/Geometry.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Float32BufferAttribute } from '../core/BufferAttribute.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Vector3 } from '../math/Vector3.js';
  */
 
 import { Geometry, BufferGeometry, Float32BufferAttribute, Vector2, Vector3 } from 'three';
@@ -72,6 +66,9 @@ function DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, c
 	radialSegments = radialSegments || 8;
 	closed = closed || false;
 
+	// {tangents: tangents,
+	//	normals: normals,
+	//	binormals: binormals}
 	var frames = path.computeFrenetFrames( tubularSegments, closed );
 
 	// expose internals
@@ -98,6 +95,9 @@ function DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, c
 	// odys: vertices' tangents
 	var vertans = [];
 
+	// ody
+	var dirs = [];
+
 	// create buffer data
 
 	generateBufferData();
@@ -116,9 +116,11 @@ function DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, c
 	function generateBufferData() {
 
 		for ( i = 0; i < tubularSegments; i ++ ) {
-
 			generateSegment( i );
 
+			// ody
+			var T = frames.tangents[i];
+			dirs.push ( T.x, T.y, T.z );
 		}
 
 		// if the geometry is not closed, generate the last row of vertices and normals
@@ -179,49 +181,34 @@ function DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, c
 			vertices.push( vertex.x, vertex.y, vertex.z );
 
 			// odys: Why not do this in GPU?
-			// vertans.push( T.x, T.y, T.z );
-			vertans.push( 1, T.y, T.z );
+			vertans.push( T.x, T.y, T.z );
 		}
-
 	}
 
 	function generateIndices() {
-
 		for ( j = 1; j <= tubularSegments; j ++ ) {
-
 			for ( i = 1; i <= radialSegments; i ++ ) {
-
 				var a = ( radialSegments + 1 ) * ( j - 1 ) + ( i - 1 );
 				var b = ( radialSegments + 1 ) * j + ( i - 1 );
 				var c = ( radialSegments + 1 ) * j + i;
 				var d = ( radialSegments + 1 ) * ( j - 1 ) + i;
 
 				// faces
-
 				indices.push( a, b, d );
 				indices.push( b, c, d );
-
 			}
-
 		}
-
 	}
 
 	function generateUVs() {
-
 		for ( i = 0; i <= tubularSegments; i ++ ) {
-
 			for ( j = 0; j <= radialSegments; j ++ ) {
-
 				uv.x = i / tubularSegments;
 				uv.y = j / radialSegments;
 
 				uvs.push( uv.x, uv.y );
-
 			}
-
 		}
-
 	}
 
 }

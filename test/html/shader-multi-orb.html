@@ -25,28 +25,6 @@
 
         initTube(ecs, scene) {
             if (ecs) {
-                var tube1 = ecs.createEntity({
-                    id: 'tube1',
-                    Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
-                            box: [6],
-                            transform: [ { translate: [-160, 0, 0] }],
-                            mesh: undefined },
-                    Visual: {
-                        vtype: xv.AssetType.PathTube,
-                        shader: xv.XComponent.ShaderFlag.scaleOrb,
-                        paras: {
-                            points:[[0, 40, 0], [0, -40, 0]],
-                            origin: [-0, 0, 0],
-                            side: THREE.FrontSide,
-                            tubularSegments: 50, radius: 24, radialSegments: 12,
-
-                            // DirOrbe will turn shape dir to path dir
-                            // shape up: [0, 1, 0], shape dir: [1, 0, 0]
-                            orbDebug: true,
-                            orbR: 30,
-                            orbScale: [.1, .1, .1] } },
-                    });
-
                 var tube = ecs.createEntity({
                     id: 'tube0',
                     Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
@@ -61,7 +39,7 @@
                                     [100, 100, 0], [100, 100, -100]],
                             origin: [0, 0, 0],
                             side: THREE.FrontSide,
-                            tubularSegments: 50, radius: 12, radialSegments: 12,
+                            tubularSegments: 50, radius: 2, radialSegments: 12,
 
                             // DirOrbe will turn shape dir to path dir
                             // shape up: [0, 1, 0], shape dir: [1, 0, 0]
@@ -73,29 +51,12 @@
                           { mtype: xv.XComponent.AnimType.U_PATH_MORPH,
                             paras: {start: 0,
                                     duration: 9.7,
+                                    count: 7,            // ?? total points
+                                    interval: 0.2,       // ?? new born after previous
                                     path: 'tube0',       // p1.Visual.vtype is a path
                                     ease: xv.XEasing.Elastic.Elastic} }
                     ]] },
                     CmpTweens: {}
-                });
-
-                var sphere = ecs.createEntity({
-                    id: 'sphere',
-                    Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-                            box: [120, 50, 80],
-                            transform: [ { translate: [120, 0, -140] }] },
-                    Visual: {
-                        vtype: xv.AssetType.mesh,
-                        shader: xv.XComponent.ShaderFlag.scaleOrb,
-                        paras: {
-                            side: THREE.FrontSide,
-                            // DirOrbe will turn shape dir to path dir
-                            // shape up: [0, 1, 0], shape dir: [1, 0, 0]
-                            orbDebug: true,
-                            orbR: 80,
-                            whiteAlpha: 0.2,	// out of range alpha
-                            orbScale: [1, .1, .1] } },
-                    // GpuPickable: {}
                 });
             }
         }
