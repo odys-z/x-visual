@@ -2,9 +2,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest-Dynamic Text</title>
-    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	<title>XTest-GLTF Vertices</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -49,22 +49,39 @@
 							{scale: [200, 200, 200]},
 							{translate: [0, -40, -100]}],
 						mesh: undefined },
-				Visual:{vtype: xv.AssetType.mesh},
-				Dynatex: {text: 'Hellow Dynatex!',
-						xywh: {x: 0, y: 20},
-						dirty: true,
-						style: 'red'}
+				Visual:{vtype: xv.AssetType.point,
+						paras: {size: 8},
+						asset: 'greate/cd01.gltf'}
 			});
 
-			return box;
+			var city = ecs.createEntity({
+				id: 'city',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,
+						box: [],
+						transform: [
+							{scale: [0.1, 0.1, 0.1]},
+							{translate: [0, 100, 0]} ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.point,
+						paras: {size: 1,
+								// keep original material, override meshes' attributes
+								keepMaterial: {
+									opacity: 0.3,
+									emissiveIntensity: 0.1
+								}},
+						asset: 'city/scene.gltf'}
+			});
 		}
 	}
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
 	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
 
-	xworld.addSystem('test', new Textest(ecs, {}));
+	initCity(ecs, xscene);
+
 	xworld.startUpdate();
+
   </script>
 </body>
 </html>
