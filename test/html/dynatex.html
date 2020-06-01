@@ -21,7 +21,7 @@
 		update(tick, entities) {
 			if (xworld.xview.flag > 0) {
 				if (xworld.xview.cmds[0].code === 'key') {
-					xv.CanvTex.setext(this.box, `tick: ${tick}`);
+					xv.CanvTex.setext(this.box, `${tick}`);
 				}
 			}
 		}
@@ -30,14 +30,16 @@
 			var box = ecs.createEntity({
 				id: 'text0',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [128, 128],
+						box: [256, 32],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.mesh},
-				Dynatex: {text: 'Hellow Dynatex!',
-						xywh: {x: 0, y: 60, w: 512, h: 512},
-						dirty: true,
-						font: '64px Arial',
-						style: 'red'}
+				Dynatex: {text: 'Hello Dynatex!',
+						xywh: {x: 0, y: 0,
+							size: 32,     // text x, y, size(px)
+							margin: 4},   // text margin
+						font: 'Arial',
+						style: 'red'},
+				GpuPickable: {}
 			});
 
 			return box;
