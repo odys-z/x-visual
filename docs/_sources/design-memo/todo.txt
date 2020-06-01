@@ -1,17 +1,39 @@
 Tasks
 =====
 
-TODO
-----
+TODOs
+-----
 
-1. Optimize anti-aliasing
+1. Fix self rotation axis
+
+2. Extend volumetric shader for tube geometry
+
+Failed.
+
+Shader *scaleOrb* is using ray casting for distance calculating, which is not good
+at shape figuring like ray matching, a slow method.
+
+The *scaleOrb* shader use a scale inverse for finding ellipsoid distance, a simple
+version of inverse matrix. It's said that's expensive to calculate inverse matrix
+in GPU. So this shader stop here for now, with out direction rotation.
+
+*Is it possible to handle distance to model in vertex shader? Or simply update
+matrix uniform(s) for every vertex?*
+
+3. Dynamic faces
+
+Example: `Three.js Custom BufferGeometry <https://threejsfundamentals.org/threejs/lessons/threejs-custom-buffergeometry.html>`_
+
+4. Optimize anti-aliasing
 
 see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-textures.html>`_.
+
+5. SVG
 
 Issues
 ------
 
-.. _issue-asych-gltf:
+.. _issue-asynch-gltf:
 
 1. ModelSeqs can't handle asynchronously loaded mesh
 
@@ -62,6 +84,26 @@ Code snippet of Thrender.createObj3s() AssetType.gltf branch:
             }
         });
 ..
+
+2. Loaded GLTF makes outlined together with box mesh.
+
+And further, if used in an other project, the loaded GLTF modules crashes with box object::
+
+    three.module.js:16034 Uncaught TypeError: Cannot read property 'type' of undefined
+        at WebGLIndexedBufferRenderer.setIndex (three.module.js:16034)
+        at WebGLRenderer.renderBufferDirect (three.module.js:24169)
+        at renderObject (three.module.js:24886)
+        at renderObjects (three.module.js:24856)
+        at WebGLRenderer.render (three.module.js:24637)
+        at RenderPass.render (RenderPass.js:58)
+        at EffectComposer.render (EffectComposer.js:142)
+        at Thrender.update (thrender.js:920)
+        at ECS.runSystemGroup (ecs.js:197)
+        at XWorld.update (xworld.js:311)
+    THREE.REVISION
+    "113"
+
+There are `Three.js issue about the same error <https://github.com/mrdoob/three.js/pull/14367>`_.
 
 `Jsdoc API - AssetKeepr <../jsdoc/AssetKeepr.html>`_
 

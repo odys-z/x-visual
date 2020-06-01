@@ -2,17 +2,18 @@
  */
 
 import * as xv from 'x-visual'
-import Parallel from './parallel-axis'
+import Parallel from './parallel-coords'
 
 /** Hollow XWorld Application.
  * add the user implemented system, Hello, into xworld, then show it.
  * @class
  */
-class App {
+class XMesh {
 	constructor(canv) {
 		var c = document.getElementById(canv);
 		const xworld = new xv.XWorld(c, window, {
-			camera: {far: 10000} // default 5000
+			camera: {far: 10000},   // default 5000
+			effects: true           // enable post processing effects
 		});
 		var ecs = xworld.xecs;
 
@@ -24,4 +25,4 @@ class App {
 
 
 
-window.App = App;
+window.XMesh = XMesh;

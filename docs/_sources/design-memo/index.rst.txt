@@ -17,3 +17,4 @@ Contents:
    shaders/index
    extensions/index
    todo
+   debug
