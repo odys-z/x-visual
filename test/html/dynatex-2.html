@@ -37,9 +37,9 @@
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.mesh},
 				Dynatex: {text: 'Hello Dynatex!',
-						xywh: {x: 0, y: 20, w: 128, h: 128},
+						xywh: {x: 0, y: 80, w: 512, h: 512},
 						dirty: true,
-						font: '256px',
+						font: '64px Arial',
 						style: 'red'},
 				GpuPickable: {}
 			});
@@ -79,8 +79,24 @@
 							<svg  width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 								<rect style="fill:rgb(0, 12, 255)" x="0" width="100" height="100" rx="15" />
 							</svg>` },
-				GpuPickable: {}        // not work, bug
+				GpuPickable: {}
 			});
+
+			var ll = ecs.createEntity({
+				id: 'll',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [64, 64],
+						transform: [ {translate: [0, 60, 0] } ],
+						group: 'grd' },
+				Visual:{vtype: xv.AssetType.mesh},
+				Dynatex: {text: 'Lowerleft',
+						xywh: {x: 0, y: 80, w: 256, h: 256},
+						dirty: true,
+						font: '16px Arial',
+						style: 'green'},
+				GpuPickable: {}
+			});
+
 			return box;
 		}
 	}
