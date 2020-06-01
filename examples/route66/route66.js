@@ -82,26 +82,32 @@ export default class Route66 extends xv.XSys {
 						asset: 'route66.gltf'},
 			});
 
-			// var earth = ecs.createEntity({
-			// 	id: 'earth',
-			// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,	// ignored
-			// 			box: [],	     					// ignored
-			// 			// transform: [{scale: [1, 0.1, 1]}],
-			// 			mesh: undefined },
-			// 	Visual:{vtype: xv.AssetType.gltf,
-			// 			paras: {nodes: ['Sphere'],
-			// 					withTransform: false},
-			// 			asset: 'earth/earth-low.gltf'},
-			// 	// ModelSeqs: { script: [ [
-			// 	// 	  { mtype: xv.XComponent.AnimType.SCALE,
-			// 	// 		paras: {
-			// 	// 			start: Infinity,  // can only be Infinity, see docs/design-memo/task/issues
-			// 	// 			scale: [[1, 0.01, 1], [1, 1, 1]],
-			// 	// 			ease: xv.XEasing.Elastic} }] ] },
-			// 	// CmpTweens: {}
-			// });
-			// var b =ecs.createEntity({
-			// 	id: 'build',
+			var earth = ecs.createEntity({
+				id: 'earth',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,  // ignored
+						box: [],    // ignored
+						transform: [
+							{scale: [10, 10, 10]},
+							{translate: [0, 80, -240]}],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.point,
+						paras: {// nodes: ['Sphere'],
+								keepMaterial: {
+									opacity: 0.7,
+									emissiveIntensity: 0.4
+								}},
+						asset: 'earth/earth-low.gltf'},
+				// ModelSeqs: { script: [ [
+				// 	  { mtype: xv.XComponent.AnimType.SCALE,
+				// 		paras: {
+				// 			start: Infinity,  // can only be Infinity, see docs/design-memo/task/issues
+				// 			scale: [[1, 0.01, 1], [1, 1, 1]],
+				// 			ease: xv.XEasing.Elastic} }] ] },
+				// CmpTweens: {}
+			});
+
+			// var p =ecs.createEntity({
+			// 	id: 'path',
 			// 	Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
 			// 			box: [9],  // curve division
 			// 			mesh: undefined },
@@ -111,6 +117,21 @@ export default class Route66 extends xv.XSys {
 			// 					color: 0xffff00, linewidth: 1} },
 			// 	FlowingPath: { paras: [ ] }
 			// });
+
+			var house =ecs.createEntity({
+				id: 'house',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,  // ignored
+						box: [],                            // ignored
+						transform: [
+							{scale: [24, 24, 24]},
+							{translate: [10, 38, -22]}
+						],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.gltf,
+						paras: {nodes: ['main_building'],
+								withTransform: true},
+						asset: 'route66.gltf'},
+			});
 		}
 	}
 
