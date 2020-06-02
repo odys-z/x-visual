@@ -9,7 +9,14 @@
 <body>
   <canvas id='canv'></canvas>
   <p>Press key for update.</p>
-  <img src='data:image/svg+xml;utf-8,<svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect style="fill:rgb(0, 12, 255)" x="0" width="100" height="100" rx="15" /></svg>'></img>
+  <svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+	<rect style="stroke:rgb(200, 200, 25); stroke-width:4; "
+			x="0" width="100" height="100" rx="15" />
+  </svg>
+  <svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+     <rect style="stroke:rgb(0, 200, 25); stroke-width:4; fill:#00f; fill-opacity:0.3;"
+	 		x="0" width="100" height="100" rx="15" />
+  </svg>
   <script>
 	"use strict";
 
@@ -32,55 +39,102 @@
 			var box = ecs.createEntity({
 				id: 'text0',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [128, 128],
-						transform: [ {translate: [0, 60, 0] } ],
+						box: [128, 32],
+						transform: [ {translate: [0, 160, -100] } ],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.mesh},
 				Dynatex: {text: 'Hello Dynatex!',
-						xywh: {x: 0, y: 20, w: 128, h: 128},
+						xywh: {x: 0, y: 0, size: 32},
 						dirty: true,
-						font: '256px',
+						font: '64px Arial',
 						style: 'red'},
-				GpuPickable: {}
+				// GpuPickable: {}
 			});
 
 			var bg1 = ecs.createEntity({
 				id: 'bg1',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 						box: [128, 128],
+						transform: [ {translate: [0, -60, 0] } ],
 						group: 'text0' },
 				Visual:{vtype: xv.AssetType.mesh,
 						asset: 'tex/uestc.svg'},
 				GpuPickable: {}
 			});
 
-			var bg2 = ecs.createEntity({
-				id: 'bg2',
-				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [32, 32],
-						transform: [ {translate: [48, -36, 0] } ],
-						group: 'text0' },
-				Visual:{vtype: xv.AssetType.mesh,
-						asset: 'tex/uestc.svg'},
-				GpuPickable: {}
-			});
-
+			// var bg2 = ecs.createEntity({
+			// 	id: 'bg2',
+			// 	Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+			// 			box: [32, 32],
+			// 			transform: [ {translate: [48, -36, 0] } ],
+			// 			group: 'text0' },
+			// 	Visual:{vtype: xv.AssetType.mesh,
+			// 			asset: 'tex/uestc.svg'},
+			// 	GpuPickable: {}
+			// });
+			//
 			var ground = ecs.createEntity({
 				id: 'grd',
-				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [60, 60, 0],    // bug: not a squre?
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [300, 300, 24],    // bug: not a squre?
 						transform: [
-							{rotate: {deg: -90, axis: [1, 0, 0]}},
-							{translate: [48, -36, 0] } ]
+							{rotate: {deg: 90, axis: [1, 0, 0]}},
+							{translate: [-160, -16, 0] } ]
 					},
 				Visual:{vtype:  xv.AssetType.mesh,
 						// asset: 'tex/byr0.png' },
 						asset: `data:image/svg+xml;utf-8,
 							<svg  width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-								<rect style="fill:rgb(0, 12, 255)" x="0" width="100" height="100" rx="15" />
+								<rect style="stroke:rgb(200, 200, 25); stroke-width:4; " x="0" width="100" height="100" rx="15" />
 							</svg>` },
-				GpuPickable: {}        // not work, bug
 			});
+
+			var ground2 = ecs.createEntity({
+				id: 'grd2',
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [300, 300, 24],    // bug: not a squre?
+						transform: [
+							{rotate: {deg: 90, axis: [1, 0, 0]}},
+							{translate: [160, -16, 0] } ]
+					},
+				Visual:{vtype:  xv.AssetType.mesh,
+						// asset: 'tex/byr0.png' },
+						asset: `data:image/svg+xml;utf-8,
+							<svg  width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+								<rect style="stroke:rgb(0, 200, 25); stroke-width:4; fill:'blue'; fill-opacity:0.3;"
+								 		x="0" width="100" height="100" rx="15" />
+							</svg>` },
+			});
+			var ul = ecs.createEntity({
+				id: 'ul',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [64, 32],
+						transform: [
+							{translate: [-100, -140, -50] } ], // transform of [-10, 50, -140] because parent rotated
+						group: 'grd',
+					},
+				Visual:{vtype: xv.AssetType.mesh},
+				Dynatex: {text: 'Upperleft',
+						xywh: {x: 0, y: 0, size: 32},
+						font: '48px Arial',
+						style: 'green'},
+			});
+
+			var ulpole = ecs.createEntity({
+				id: 'ulpole',
+				Obj3: {
+					geom: xv.XComponent.Obj3Type.PointSects,
+					group:'ul',
+					box: [] },
+				Visual:{
+					vtype: xv.AssetType.DynaSects,
+					paras:{
+						sects:[[[0, 0, 0], [0, 30, 0]]],
+						origin: [-0, -44, 0],
+						color: '#c4c',
+						linewidth: 4 }
+			} });
+
 			return box;
 		}
 	}

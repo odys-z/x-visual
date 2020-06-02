@@ -168,3 +168,23 @@ This needs implementing a point shader for GPU picking.
 - Tween.affine
 
 Have tweening transformation combinable.
+
+- SVG Shader
+
+refernces:
+
+-- `Stackoverflow question: Displaying SVG in OpenGL without intermediate raster <https://stackoverflow.com/questions/1027179/displaying-svg-in-opengl-without-intermediate-raster>`_
+
+-- `Stackoverflow question: Rendering Vector Graphics in OpenGL? [duplicate] <https://stackoverflow.com/questions/4129932/rendering-vector-graphics-in-opengl>`_
+
+-- `Mark Kilgard, GPU Accelerated Path Rendering <http://on-demand.gputechconf.com/gtc/2012/presentations/S0024-GPU-Accelerated-Path-Rendering.pdf>`_
+   A general introduction. And `here's details about stencil <https://learnopengl.com/Advanced-OpenGL/Stencil-testing>`_.
+
+-- `Charles Loop & Jim Blinn, Chapter 25. Rendering Vector Art on the GPU @ NVIDIA Developer <https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-25-rendering-vector-art-gpu>`_
+   Using control points to generate face?
+
+-- `W3C draft: Filter Effects Module Level 1, Editor’s Draft, 21 October 2019 <https://drafts.fxtf.org/filter-effects/>`_
+   Retrieved on 2 Jun, 2020.
+
+-- `3D wireframe in SVG @ grasshopper <https://prideout.net/blog/svg_wireframes/>`_
+   A strange way to use svg filter?

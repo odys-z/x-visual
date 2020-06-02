@@ -176,7 +176,10 @@ Component::
         style
     }
 
-test: test/html/dynatex.html
+test::
+
+    test/html/dynatex.html
+    test/html/dynatex-2.html
 
 In x-visual, 2D text are supported by system `CanvTex <../jsdoc/XComponent.Dynatex.html>`_
 using an html canvas as the dynamic texture, with an API function for updating
@@ -199,11 +202,11 @@ Example:
     Visual:{vtype: xv.AssetType.mesh},
     Dynatex: {
         style: '#00c0c0',
-        font: '64px Arial',
-        xywh: {x: 2, y: 128, w: 256, h: 256}
+        font: 'Arial',
+        xywh: {x: 2, y: 128, size: 64, margin: 1}
     }
 
-Default text font is "100px Arial", wh is [256, 256], y = 128.
+Default text font is "32px Arial", size is [32, 32], x, y, margin = 0, 0, 0.
 
 GLTF Nodes & Transform
 ----------------------

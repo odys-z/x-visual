@@ -291,7 +291,11 @@ texture files are loaded by <a class="reference internal" href="../reference/glt
 }
 </pre></div>
 </div>
-<p>test: test/html/dynatex.html</p>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre>test/html/dynatex.html
+test/html/dynatex-2.html
+</pre></div>
+</div>
 <p>In x-visual, 2D text are supported by system <a class="reference external" href="../jsdoc/XComponent.Dynatex.html">CanvTex</a>
 using an html canvas as the dynamic texture, with an API function for updating
 text.</p>
@@ -305,12 +309,12 @@ visualized effects.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">},</span>
 <span class="nx">Dynatex</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">style</span><span class="o">:</span> <span class="s1">&#39;#00c0c0&#39;</span><span class="p">,</span>
-    <span class="nx">font</span><span class="o">:</span> <span class="s1">&#39;64px Arial&#39;</span><span class="p">,</span>
-    <span class="nx">xywh</span><span class="o">:</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">128</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">256</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">256</span><span class="p">}</span>
+    <span class="nx">font</span><span class="o">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+    <span class="nx">xywh</span><span class="o">:</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">128</span><span class="p">,</span> <span class="nx">size</span><span class="o">:</span> <span class="mi">64</span><span class="p">,</span> <span class="nx">margin</span><span class="o">:</span> <span class="mi">1</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Default text font is &#8220;100px Arial&#8221;, wh is [256, 256], y = 128.</p>
+<p>Default text font is &#8220;32px Arial&#8221;, size is [32, 32], x, y, margin = 0, 0, 0.</p>
 </div>
 <div class="section" id="gltf-nodes-transform">
 <h2>GLTF Nodes &amp; Transform<a class="headerlink" href="#gltf-nodes-transform" title="Permalink to this headline">¶</a></h2>
