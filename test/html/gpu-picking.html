@@ -8,6 +8,11 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p>To be fixed:<br>
+	  1. Add texture to ShaderFlag.colorArray<br>
+	  2. We need a better MeshPhongMaterial, adding more saturation, ignoring alpha = 0 fragment.<br>
+	  see <a href='../try/three.example/webgl_materials_blending.html'>trying results</a>
+  </p>
   <script>
 	"use strict";
 
@@ -40,14 +45,33 @@
 			var cube = ecs.createEntity({
 				id: 'cube0',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-						box: [200, 200, 400],
+						box: [200, 200, 300],
+						transform: [
+							{translate: [180, 0, -100]},
+							{scale: [1, 1, 1]}
+						],
+						uniforms: {opacity: 1.0},
+						mesh: undefined },		// Thrender will handle this
+				GpuPickable: {},
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.XComponent.ShaderFlag.colorArray,
+						paras:{ colors:[[1, 1, 0]] },
+						asset: 'tex/ruler256.png'}
+			});
+
+			cube = ecs.createEntity({
+				id: 'cube.0',
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [200, 200, 300],
 						transform: [
 							{translate: [-120, 0, -100]},
 							{scale: [1, 1, 1]}
 						],
+						uniforms: {opacity: 1.0},
 						mesh: undefined },		// Thrender will handle this
 				GpuPickable: {},
-				Visual: {vtype: xv.AssetType.mesh, asset: 'tex/ruler256.png'}
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/ruler256.png'}
 			});
 
 			var cube = ecs.createEntity({
