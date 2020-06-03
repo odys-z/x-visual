@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Visual.paras &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+        <link rel="up" title="Design Memo" href="index.html"/>
+        <link rel="next" title="Animizers" href="animizer.html"/>
+        <link rel="prev" title="Visual &amp; Renderers" href="renderer.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Visual.paras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#shared-for-different-vtype">Shared for different vtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paras-only-for-shaderflag-enabled">paras only for ShaderFlag enabled</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paras-only-for-vtype-point-or-refpoint">paras only for vtype = point or refPoint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debug Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Design Memo</a> &raquo;</li>
+      
+    <li>Visual.paras</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="visual-paras">
+<h1>Visual.paras<a class="headerlink" href="#visual-paras" title="Permalink to this headline">¶</a></h1>
+<p id="id1">Visual.paras has different usage for different vtype. See <a class="reference internal" href="renderer.html#visual-renderer"><span>Visual &amp; Renderers</span></a>
+for general information about Visual component.</p>
+<div class="section" id="shared-for-different-vtype">
+<h2>Shared for different vtype<a class="headerlink" href="#shared-for-different-vtype" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>tex_alpha</li>
+</ul>
+<p>Range 0 ~ 1, for any object&#8217;s material accepting alpha channel (Three.js Object3D.opacity).</p>
+<ul class="simple">
+<li>uniforms</li>
+</ul>
+<p>These parameters are merged into THREE.Material&#8217;s uniforms property.</p>
+</div>
+<div class="section" id="paras-only-for-shaderflag-enabled">
+<h2>paras only for ShaderFlag enabled<a class="headerlink" href="#paras-only-for-shaderflag-enabled" title="Permalink to this headline">¶</a></h2>
+<p>X-visual extended some shaders for special visual effects. The following parameters
+can be meaningful only for these shaders.</p>
+<ul class="simple">
+<li>paras.u_tex</li>
+</ul>
+<p>A string pointing to file in &#8216;asset&#8217; folder. If the is not undefined, the vtype&#8217;s
+flag, ShaderFlag.defaultex is ignored.</p>
+<p>u_tex is a shader&#8217;s uniforms parameter, which means only Visual using THREE.ShaderMaterial
+can has a u_tex parameter.</p>
+<p>In v0.2.40 ~ v0.3, <em>u_tex</em> is an array for shader of ShaderFlag = colorArray.</p>
+</div>
+<div class="section" id="paras-only-for-vtype-point-or-refpoint">
+<h2>paras only for vtype = point or refPoint<a class="headerlink" href="#paras-only-for-vtype-point-or-refpoint" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s been used for vtype = <a class="reference internal" href="renderer.html#vtype-refpoint"><span>AssetType.refPoint</span></a> or
+<a class="reference internal" href="renderer.html#vtype-point"><span>AssetType.point</span></a>.</p>
+<p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-morphi"><span>AnimType.U_MORPHi paras</span></a>
+and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType.UNIFORM paras</span></a>.</p>
+<p>Check it for how Visual.paras and ModelSeqs.script.paras work together to change
+glsl/shaders behaviour.</p>
+<p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
+visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
+<p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
+by Thrender using this entity.Visual.paras.obj3type, which can be one of geometry
+type of <a class="reference internal" href="../reference/components.html#api-xcomponents"><span>XComponent</span></a> value.</p>
+<ul class="simple">
+<li>paras.nodes</li>
+</ul>
+<p>This parameter used only for creating mesh from gltf assets. It&#8217;s a string array
+of node&#8217;s name in gltf. Model of these nodes will be converted into points.</p>
+<ul class="simple">
+<li>paras.paths</li>
+</ul>
+<p>This parameter used only for creating mesh from svg assets. It&#8217;s a string array
+of path names in svg.</p>
+<p>&#8211; For AssetType.refPoint</p>
+<p>TODO test case as example.</p>
+<p>&#8211; For AssetType.voxel</p>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Voxel">Voxel</a> is handled in x-visual as a single
+WebGl point.</p>
+<ul class="simple">
+<li>paras.noise</li>
+</ul>
+<p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. For animation
+type <a class="reference internal" href="animizer.html#animtype-u-morphi"><span>AnimType.U_MORPHi</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType UNIFORM</span></a>,
+this value is used for scale the distance.</p>
+<p>** Not implemented **</p>
+<ul class="simple">
+<li>paras.vert_scale</li>
+</ul>
+<p>A <strong>string</strong> for vertex size scale. Here is how the default particles vertex shader
+handling this parameter.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">gl_PointSize</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">*</span> <span class="sb">`</span><span class="si">${</span><span class="nx">paras</span><span class="p">.</span><span class="nx">vert_scale</span> <span class="o">||</span> <span class="s1">&#39;10.0&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="animizer.html" class="btn btn-neutral float-right" title="Animizers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="renderer.html" class="btn btn-neutral" title="Visual &amp; Renderers" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

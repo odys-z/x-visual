@@ -24,7 +24,7 @@
 		constructor(ecs, options) {
 			super(ecs);
 			this.ecs = ecs;
-			this.box = this.initCube(ecs);
+			this.box = this.initCanv(ecs);
 		}
 
 		update(tick, entities) {
@@ -35,7 +35,7 @@
 			}
 		}
 
-		initCube(ecs) {
+		initCanv(ecs) {
 			var box = ecs.createEntity({
 				id: 'text0',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
@@ -62,17 +62,17 @@
 				GpuPickable: {}
 			});
 
-			// var bg2 = ecs.createEntity({
-			// 	id: 'bg2',
-			// 	Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-			// 			box: [32, 32],
-			// 			transform: [ {translate: [48, -36, 0] } ],
-			// 			group: 'text0' },
-			// 	Visual:{vtype: xv.AssetType.mesh,
-			// 			asset: 'tex/uestc.svg'},
-			// 	GpuPickable: {}
-			// });
-			//
+			var bg2 = ecs.createEntity({
+				id: 'bg2',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [32, 32],
+						transform: [ {translate: [48, -36, 0] } ],
+						group: 'text0' },
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'tex/uestc.svg'},
+				GpuPickable: {}
+			});
+
 			var ground = ecs.createEntity({
 				id: 'grd',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
@@ -105,6 +105,7 @@
 								 		x="0" width="100" height="100" rx="15" />
 							</svg>` },
 			});
+
 			var ul = ecs.createEntity({
 				id: 'ul',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,

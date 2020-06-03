@@ -78,7 +78,7 @@ The packages/three/postprocessing/ShaderPass constructor check the *shader* argu
 with "*insanceof ShaderMaterial*" which is actually another class from ../three.module.js,
 leading to an unexpected result.
 
-.. literalinclude:: ../../../packages/three/postprocessing/ShaderPass.js
+.. literalinclude:: ../../packages/three/postprocessing/ShaderPass.js
    :language: javascript
    :lines: 5-40
    :linenos:

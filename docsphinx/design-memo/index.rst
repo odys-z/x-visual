@@ -12,6 +12,7 @@ Contents:
    scene
    obj3
    renderer
+   vparas
    animizer
    affine
    shaders/index

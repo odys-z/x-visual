@@ -42,46 +42,43 @@
             const ent1 = {
                 id: 'color1',
                 Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
-                        box:   [200, 120, 80],
-                        // mesh is inited by thrender, can be ignored here - MorphSwitch's target
-                        mesh:   undefined,
-                        uniforms: {opacity: 1.0}},
+                    box:   [200, 120, 80],
+                    // mesh is inited by thrender, can be ignored here - MorphSwitch's target
+                    mesh:   undefined,
+                    uniforms: {opacity: 1.0}},
                 Visual:{vtype:  xv.AssetType.mesh,
-                        shader: xv.XComponent.ShaderFlag.colorArray,
-                        paras:{
-                            // colors' morphing weight variable name: u_morph0, u_morph1, ...
-                            colors: [
-                                [1, 0, 0],
-                                [0, 0, 1],
-                                [0, 1, 0]
-                            ] } },
+                    shader: xv.XComponent.ShaderFlag.colorArray,
+                    paras:{
+                        // colors' morphing weight variable name: u_morph0, u_morph1, ...
+                        colors: [ [1, 0, 0], [0, 0, 1], [0, 1, 0] ],
+                        u_tex: ['tex/uestc.svg', 'tex/spark1.png', 'tex/rgb0.png'] } },
                 ModelSeqs: {script:
                     [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
                         paras: {start: 0,            // auto start
-                                duration: 0.71,      // seconds
-                                uniforms: {
-                                    u_morph0: [0, 1],
-                                    u_morph1: [0, 0],
-                                    u_morph2: [0, 0]
-                                },
-                                ease: xv.XEasing.Elastic.Elastic} }],
+                            duration: 0.71,      // seconds
+                            uniforms: {
+                                u_morph0: [0, 1],
+                                u_morph1: [0, 0],
+                                u_morph2: [0, 0]
+                            },
+                            ease: xv.XEasing.Elastic.Elastic} }],
                       [{mtype:  xv.XComponent.AnimType.U_MORPHi,
                         paras: {start: Infinity,
-                                duration: 0.62,
-                                uniforms: {
-                                    u_morph0: [0, 0],
-                                    u_morph1: [0, 1],
-                                    u_morph2: [0, 0]
-                                },
-                                ease: undefined} }],
+                            duration: 0.62,
+                            uniforms: {
+                                u_morph0: [0, 0],
+                                u_morph1: [0, 1],
+                                u_morph2: [0, 0]
+                            },
+                            ease: undefined} }],
                       [{mtype:  xv.XComponent.AnimType.U_MORPHi,
                         paras: {start: Infinity,
-                                duration: 0.53,
-                                uniforms: {
-                                    u_morph0: [0, 0],
-                                    u_morph1: [0, 0],
-                                    u_morph2: [0, 1] },
-                                ease: undefined} }] ] },
+                            duration: 0.53,
+                            uniforms: {
+                                u_morph0: [0, 0],
+                                u_morph1: [0, 0],
+                                u_morph2: [0, 1] },
+                            ease: undefined} }] ] },
                 CmpTweens: {}
             };
             return ent1;
