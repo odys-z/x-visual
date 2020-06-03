@@ -171,7 +171,7 @@ Have tweening transformation combinable.
 
 - SVG Shader
 
-refernces:
+references:
 
 -- `Stackoverflow question: Displaying SVG in OpenGL without intermediate raster <https://stackoverflow.com/questions/1027179/displaying-svg-in-opengl-without-intermediate-raster>`_
 
@@ -188,3 +188,13 @@ refernces:
 
 -- `3D wireframe in SVG @ grasshopper <https://prideout.net/blog/svg_wireframes/>`_
    A strange way to use svg filter?
+
+-- `Victor Gaultney, Martin Hosken, Alan Ward, An Introduction to TrueType Fonts: A look inside the TTF format 2003-05-23 <https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=IWS-Chapter08>`_
+   Simple introduction of TrueType Font, together with `Rendering technologies overview <https://scripts.sil.org/cms/scripts/page.php?item_id=IWS-Chapter07>`_,
+   and a font engine project, `SIL Graphite <https://scripts.sil.org/cms/scripts/page.php?site_id=projects&item_id=graphite_home>`_.
+
+-- `simoncozens.github.io: How OpenType Works <https://simoncozens.github.io/fonts-and-layout/opentype.html>`_
+   Nice explanation of OpenType Font.
+
+-- `DirectWrite Font Cache (obsolete), docs of the Chromium Projects <https://www.chromium.org/developers/design-documents/directwrite-font-cache>`_
+   Details about how Chromium sandbox handling fonts in Windows.
