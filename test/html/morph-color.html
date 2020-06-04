@@ -17,7 +17,21 @@
             super(ecs);
             this.ecs = ecs;
             this.seqx = 1;
-            ecs.createEntity( this.initCube(ecs) );
+            ecs.createEntity( this.initCube(ecs, {
+			 	texMix: undefined, // default ShaderAlpha.mix
+				u_texWeight: 0.8,
+				translate: [-110, 0, 0]
+			}) );
+            ecs.createEntity( this.initCube(ecs, {
+			 	texMix: xv.XComponent.ShaderAlpha.additive,
+				u_texWeight: 0.3,
+				translate: [-110, 110, 0]
+			}) );
+            ecs.createEntity( this.initCube(ecs, {
+			 	texMix: xv.XComponent.ShaderAlpha.multiply,
+				u_texWeight: 0.9,
+				translate: [80, 0, 0]
+			}) );
         }
 
         update(tick, entities) {
@@ -37,51 +51,56 @@
             }
         }
 
-        initCube(ecs) {
+        initCube(ecs, options = {}) {
             // a box can changing colors
-            const ent1 = {
-                id: 'color1',
+            const ent = {
+                id: undefined, // auto generate
                 Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
-                    box:   [200, 120, 80],
-                    // mesh is inited by thrender, can be ignored here - MorphSwitch's target
+                    box:   [100, 80, 80],
+                    // mesh is inited by thrender, can be ignored here
+                    transform: [ { translate: options.translate || [0, 0, -100] } ],
                     mesh:   undefined,
                     uniforms: {opacity: 1.0}},
                 Visual:{vtype:  xv.AssetType.mesh,
                     shader: xv.XComponent.ShaderFlag.colorArray,
                     paras:{
+                        texMix: options.texMix,
+                        u_texWeight: options.u_texWeight,
                         // colors' morphing weight variable name: u_morph0, u_morph1, ...
-                        colors: [ [1, 0, 0], [0, 0, 1], [0, 1, 0] ],
-                        u_tex: ['tex/uestc.svg', 'tex/spark1.png', 'tex/rgb0.png'] } },
+                        colors: [ [1, 0, 0], [0, 1, 1], [0, 1, 0] ],
+                        u_tex: ['tex/uestc.svg', 'tex/spark1.png', 'tex/uestc.svg'] } },
                 ModelSeqs: {script:
                     [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-                        paras: {start: 0,            // auto start
+                        paras: {start: 0,        // auto start
                             duration: 0.71,      // seconds
                             uniforms: {
-                                u_morph0: [0, 1],
-                                u_morph1: [0, 0],
-                                u_morph2: [0, 0]
+                                // this style is rooted deep into Tween.js function
+                                // https://github.com/tweenjs/tween.js/issues/78
+                                u_morph0: [0.4, 1],
+                                u_morph1: [0.4, 0.4],
+                                u_morph2: [0.4, 0.4]
                             },
                             ease: xv.XEasing.Elastic.Elastic} }],
                       [{mtype:  xv.XComponent.AnimType.U_MORPHi,
                         paras: {start: Infinity,
                             duration: 0.62,
                             uniforms: {
-                                u_morph0: [0, 0],
-                                u_morph1: [0, 1],
-                                u_morph2: [0, 0]
+                                u_morph0: [1, 0.4],
+                                u_morph1: [0.4, 1],
+                                u_morph2: [0.4, 0.4]
                             },
                             ease: undefined} }],
                       [{mtype:  xv.XComponent.AnimType.U_MORPHi,
                         paras: {start: Infinity,
                             duration: 0.53,
                             uniforms: {
-                                u_morph0: [0, 0],
-                                u_morph1: [0, 0],
-                                u_morph2: [0, 1] },
+                                u_morph0: [0.4, 0.4],
+                                u_morph1: [1, 0.4],
+                                u_morph2: [0.4, 1] },
                             ease: undefined} }] ] },
                 CmpTweens: {}
             };
-            return ent1;
+            return ent;
         }
     }
 
