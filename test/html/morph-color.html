@@ -29,7 +29,7 @@
     var ModelSeqs = {script:
         [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
             paras: {start: 0,        // auto start
-                duration: 0.71,      // seconds
+                duration: 0.71,
                 uniforms: {
                     // this style is rooted deep into Tween.js function
                     // https://github.com/tweenjs/tween.js/issues/78
@@ -65,7 +65,7 @@
             this.seqx = 1;
             // upper left
             ecs.createEntity( this.initCube(ecs, {
-			 	texMix: xv.XComponent.ShaderAlpha.additive,
+				texMix: xv.XComponent.ShaderAlpha.additive,
 				u_texWeight: 0.5,
 				translate: [-110, 110, 0]
 			}) );
@@ -77,13 +77,13 @@
 			}) );
             // lower left
             ecs.createEntity( this.initCube(ecs, {
-			 	texMix: undefined, // default ShaderAlpha.mix
+				texMix: undefined, // default ShaderAlpha.mix
 				u_texWeight: 0.6,
 				translate: [-110, 0, 0]
 			}) );
             // lower right
             ecs.createEntity( this.initCube(ecs, {
-			 	texMix: xv.XComponent.ShaderAlpha.product,
+				texMix: xv.XComponent.ShaderAlpha.product,
 				u_texWeight: 0.9,
 				translate: [80, 0, 0]
 			}) );
