@@ -28,6 +28,8 @@ Example: `Three.js Custom BufferGeometry <https://threejsfundamentals.org/threej
 
 see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-textures.html>`_.
 
+.. _wish-svg:
+
 5. SVG
 
 Issues

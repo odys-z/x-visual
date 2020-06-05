@@ -163,3 +163,19 @@ ancestors. So the node's transformation matrix itself will not makes what the
 objects should look like. X-visual provided a brutal way, just disable all the
 transformation in GLTF assets, with *Visual.paras.withTransform* = false, then
 set Obj3.transform as you, the programmer like.
+
+.. _tex-color-morph:
+
+case: Color & Texture Morphing
+______________________________
+
+html file::
+
+    test/html/morph-color.html
+
+The test shows how color & texture can be morphed with help of shader *colorArray*.
+
+For Visual.paras of *colorArray*, see :ref:`Visual.paras of colorArray<visual-paras-color-array>`.
+
+**FYI** This page uses svg as rendered texture with help of Three.js CanvasTexture,
+which can't be a scalable image. See :ref:`wish list, SVG<wish-svg>`.

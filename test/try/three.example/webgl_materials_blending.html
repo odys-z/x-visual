@@ -80,23 +80,17 @@
 					{ name: 'Multiply', constant: THREE.MultiplyBlending }
 				];
 
-				// var map0 = textureLoader.load( 'textures/uv_grid_opengl.jpg' );
-				// var map1 = textureLoader.load( 'textures/sprite0.jpg' );
-				// var map2 = textureLoader.load( 'textures/sprite0.png' );
-				// var map3 = textureLoader.load( 'textures/lensflare/lensflare0.png' );
-				// var map4 = textureLoader.load( 'textures/lensflare/lensflare0_alpha.png' );
 				var map1 = textureLoader.load( 'assets/sprite0.jpg' );
 				var map2 = textureLoader.load( 'assets/sprite0.png' );
 				var map3 = textureLoader.load( '../../html/assets/tex/ruler256.png' );
 
-				var geo1 = new THREE.PlaneBufferGeometry( 100, 100 );
+				var s = 200;
+				var geo1 = new THREE.PlaneBufferGeometry( s, s );
 				var geo2 = new THREE.PlaneBufferGeometry( 100, 25 );
 
-				// addImageRow( map0, 300 );
-				addImageRow( map1, 150 );
-				addImageRow( map2, 0 );
-				addImageRow( map3, - 150 );
-				// addImageRow( map4, - 300 )3
+				addImageRow( map1, s * 1.5 );
+				addImageRow( map2, s * 0.25 );
+				addImageRow( map3, - s * 1 );
 
 				function addImageRow( map, y ) {
 
@@ -108,7 +102,7 @@
 						material.transparent = true;
 						material.blending = blending.constant;
 
-						var x = ( i - blendings.length / 2 ) * 110;
+						var x = ( i - blendings.length / 2 ) * s * 1.10;
 						var z = 0;
 
 						var mesh = new THREE.Mesh( geo1, material );
@@ -117,7 +111,7 @@
 
 
 						var mesh = new THREE.Mesh( geo2, generateLabelMaterial( blending.name ) );
-						mesh.position.set( x, y - 75, z );
+						mesh.position.set( x, y - (s * 0.5) - 20, z );
 						scene.add( mesh );
 
 					}

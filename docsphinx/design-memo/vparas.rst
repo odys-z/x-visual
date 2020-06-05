@@ -31,7 +31,50 @@ flag, ShaderFlag.defaultex is ignored.
 u_tex is a shader's uniforms parameter, which means only Visual using THREE.ShaderMaterial
 can has a u_tex parameter.
 
-In v0.2.40 ~ v0.3, *u_tex* is an array for shader of ShaderFlag = colorArray.
+After v0.3, *u_tex* is an array for shader of ShaderFlag = colorArray. The array
+can be morphed using u_morph<i> in ModelSeqs.script.
+
+- paras.colors
+
+An array of color (0 ~ 1) to used by morphing handling.
+
+.. _visual-paras-color-array:
+
+paras only for shader = colorArray
+----------------------------------
+
+Shader *colorArray* is a phone material shader supporting color morphing and texture
+morphing.
+
+Currently it's ambient, diffuse & specular parameter are constant 1.0. But it can
+accepting an array of colors and an array of textures, can can be morphed with
+ModelSeqs.script.paras.u_morph<i>.
+
+test::
+
+    test/html/morph-color.html
+    test/html/morph-event.html
+
+In addition to *u_tex* & *colors*, the shader also needs paramets of texture weight
+and texture mixing mode.
+
+- paras.texMix
+
+This parameter is type of ShaderAlpha (TODO link).
+
+X-visual only support two of texture mixing / blending mode from Three.js, normal
+and multiply.
+
+The following example is modified from Three.js examples, with a PNG file added.
+
+.. image:: imgs/005-three.js-blending.png
+    :width: 720px
+
+But as texture mix morphing introduced, it's getting more complex.
+
+See :ref:`test: texture & color morphing<tex-color-morph>`.
+
+See also `Three.js example: material blending <https://threejs.org/examples/?q=blending#webgl_materials_blending>`_.
 
 paras only for vtype = point or refPoint
 ----------------------------------------
