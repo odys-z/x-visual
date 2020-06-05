@@ -8,8 +8,54 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p id='para-tex'/>
+  <p id='para-phong'/>
+  <p>background color (css value):
+      <input id='bgv' value='#ffc'/>
+      <input type='button' value='set' onclick='xworld.bgColor = document.getElementById("bgv").value'/></p>
+  <ul><li>upper left: additive, tex: 0.5</li>
+      <li>upper right: differential, tex: 0.9</li>
+      <li>lower left: mix, tex: 0.6</li>
+      <li>lower right: product, tex: 0.9</li>
+  </ul>
   <script>
     "use strict";
+
+    // t range:  [t_ : _t]
+    var _t = 1.0, t_ = 0.2;
+    var clr = '#ffc';
+    var colors = [ [1, 0, 0], [0, 1, 1], [0, 1, 0] ];
+    var u_tex = ['tex/uestc.svg', 'tex/spark1.png', 'tex/uestc.svg'];
+    var ModelSeqs = {script:
+        [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+            paras: {start: 0,        // auto start
+                duration: 0.71,      // seconds
+                uniforms: {
+                    // this style is rooted deep into Tween.js function
+                    // https://github.com/tweenjs/tween.js/issues/78
+                    u_morph0: [t_, _t],
+                    u_morph1: [t_, t_],
+                    u_morph2: [t_, t_]
+                },
+                ease: xv.XEasing.Elastic.Elastic} }],
+          [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+            paras: {start: Infinity,
+                duration: 0.62,
+                uniforms: {
+                    u_morph0: [_t, t_],
+                    u_morph1: [t_, t_],
+                    u_morph2: [t_, t_]
+                },
+                ease: undefined} }],
+          [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+            paras: {start: Infinity,
+                duration: 0.53,
+                uniforms: {
+                    u_morph0: [t_, t_],
+                    u_morph1: [t_, t_],
+                    u_morph2: [t_, _t] },
+                ease: undefined} }] ]
+    }
 
     /**Senario: suppose you have a model changing colors. */
     class ColorMorphing extends xv.XSys {
@@ -17,18 +63,27 @@
             super(ecs);
             this.ecs = ecs;
             this.seqx = 1;
-            ecs.createEntity( this.initCube(ecs, {
-			 	texMix: undefined, // default ShaderAlpha.mix
-				u_texWeight: 0.8,
-				translate: [-110, 0, 0]
-			}) );
+            // upper left
             ecs.createEntity( this.initCube(ecs, {
 			 	texMix: xv.XComponent.ShaderAlpha.additive,
-				u_texWeight: 0.3,
+				u_texWeight: 0.5,
 				translate: [-110, 110, 0]
 			}) );
+            // upper right
             ecs.createEntity( this.initCube(ecs, {
-			 	texMix: xv.XComponent.ShaderAlpha.multiply,
+			 	texMix: xv.XComponent.ShaderAlpha.differential,
+				u_texWeight: 0.9,
+				translate: [80, 110, 0]
+			}) );
+            // lower left
+            ecs.createEntity( this.initCube(ecs, {
+			 	texMix: undefined, // default ShaderAlpha.mix
+				u_texWeight: 0.6,
+				translate: [-110, 0, 0]
+			}) );
+            // lower right
+            ecs.createEntity( this.initCube(ecs, {
+			 	texMix: xv.XComponent.ShaderAlpha.product,
 				u_texWeight: 0.9,
 				translate: [80, 0, 0]
 			}) );
@@ -66,38 +121,10 @@
                     paras:{
                         texMix: options.texMix,
                         u_texWeight: options.u_texWeight,
-                        // colors' morphing weight variable name: u_morph0, u_morph1, ...
-                        colors: [ [1, 0, 0], [0, 1, 1], [0, 1, 0] ],
-                        u_tex: ['tex/uestc.svg', 'tex/spark1.png', 'tex/uestc.svg'] } },
-                ModelSeqs: {script:
-                    [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-                        paras: {start: 0,        // auto start
-                            duration: 0.71,      // seconds
-                            uniforms: {
-                                // this style is rooted deep into Tween.js function
-                                // https://github.com/tweenjs/tween.js/issues/78
-                                u_morph0: [0.4, 1],
-                                u_morph1: [0.4, 0.4],
-                                u_morph2: [0.4, 0.4]
-                            },
-                            ease: xv.XEasing.Elastic.Elastic} }],
-                      [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-                        paras: {start: Infinity,
-                            duration: 0.62,
-                            uniforms: {
-                                u_morph0: [1, 0.4],
-                                u_morph1: [0.4, 1],
-                                u_morph2: [0.4, 0.4]
-                            },
-                            ease: undefined} }],
-                      [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-                        paras: {start: Infinity,
-                            duration: 0.53,
-                            uniforms: {
-                                u_morph0: [0.4, 0.4],
-                                u_morph1: [1, 0.4],
-                                u_morph2: [0.4, 1] },
-                            ease: undefined} }] ] },
+                        // color tex's morphing weight variable name: u_morph0, u_morph1, ...
+                        colors,    // [ [1, 0, 0], [0, 1, 1], [0, 1, 0] ],
+                        u_tex } }, // ['tex/uestc.svg', 'tex/spark1.png', 'tex/uestc.svg']
+                ModelSeqs,  // This component can be static (globally shared) without affecting each othrer between entities.
                 CmpTweens: {}
             };
             return ent;
@@ -113,6 +140,12 @@
 
     xworld.addSystem('test', new ColorMorphing(ecs, {}));
     xworld.startUpdate();
+    xworld.bgColor = clr;
+
+    document.getElementById('para-tex').innerHTML =
+        `Morph range: [${t_} : ${_t}], texture: [${u_tex}]`;
+    document.getElementById('para-phong').innerHTML =
+        `Phong paras: ka (ambient reflect): 1.0, kd (diffuse) 1.0, ks (specular) 1.0, colors: [${colors[0]}]; [${colors[1]}]; [${colors[2]}]`;
   </script>
 </body>
 </html>

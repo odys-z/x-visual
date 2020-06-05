@@ -1,6 +1,8 @@
 Geometries
 ==========
 
+.. _ref-frenet-frame:
+
 Frenet Frame & Dir Tube
 -----------------------
 
@@ -69,20 +71,50 @@ parallel curves, then build mesh points with indecis.
     }
 ..
 
+The `Three.js Curve.computeFrenetFrames() <https://github.com/mrdoob/three.js/blob/master/src/extras/core/Curve.js#L270>`_
+is a key function to implement tube geometry generation. Which use an other method
+to generate frames' tangents:
+
+.. code-block:: javascript
+
+    for ( i = 0; i <= segments; i ++ ) {
+        u = i / segments;
+        tangents[ i ] = this.getTangentAt( u, new Vector3() );
+        tangents[ i ].normalize();
+    }
+
+    getTangentAt: function ( u, optionalTarget ) {
+        var t = this.getUtoTmapping( u );
+        return this.getTangent( t, optionalTarget );
+    },
+
+    getUtoTmapping: function ( u, distance ) {
+        ...
+        var segmentFraction = ( targetArcLength - lengthBefore ) / segmentLength;
+        var t = ( i + segmentFraction ) / ( il - 1 );
+        return t;
+    },
+..
+
+The problem of this is that it dosn't follow the THREE.CatmullRomCurve3 curve. See
+a :ref:`DirTubeGeometry test<tst-geom-dirtube>` resulsts. It could be optimized.
+
 DirTubeGeometry of x-visual
 ___________________________
 
 TODO ...
 
+see xmath/geom.js/computeFrenetFrames
+
 Reference
 _________
 
-1. Three.js class: *TubeGeometry* `docs <https://threejs.org/docs/#api/en/geometries/TubeBufferGeometry>`_
-& `src <https://github.com/mrdoob/three.js/blob/79edf22a345079dc6cf5d8c6ad38ee22e9edab3c/src/geometries/TubeGeometry.js#L55>`_.
+1. Three.js class: *TubeGeometry* `docs <https://threejs.org/docs/#api/en/geometries/TubeBufferGeometry>`_ &
+   `src <https://github.com/mrdoob/three.js/blob/79edf22a345079dc6cf5d8c6ad38ee22e9edab3c/src/geometries/TubeGeometry.js#L55>`_.
 
-2. Three.js class: `*Curve* <https://github.com/mrdoob/three.js/blob/master/src/extras/core/Curve.js#L270>`_
+2. Three.js class: `Curve <https://github.com/mrdoob/three.js/blob/master/src/extras/core/Curve.js#L270>`_.
 
 3. `Andrew J. Hanson and Hui Ma, *Parallel Transport Approach to Curve Framing* <https://legacy.cs.indiana.edu/ftp/techreports/TR425.pdf>`_,
-   Department of Computer Science, Indiana University
+   Department of Computer Science, Indiana University.
 
 4. `*Frenet–Serret formulas*, wikipedia <https://en.wikipedia.org/wiki/Frenet%E2%80%93Serret_formulas>`_
