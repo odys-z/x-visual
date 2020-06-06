@@ -143,7 +143,7 @@ Example:
 
 Default text is::
 
-    font: "Arial",
+    font: "bold sans-serif",
 	xywh: {x: 0, y: 0, size: 32, margin: 0}
 
 GLTF Nodes & Transform

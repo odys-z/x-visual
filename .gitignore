@@ -2,7 +2,7 @@
 temp
 packages/three/geometries/*
 !packages/three/geometries/TubeGeometry.js
-# docs/jsdoc
+docs/jsdoc
 
 # user - examples
 # !examples/dist

@@ -60,7 +60,7 @@ and texture mixing mode.
 
 - paras.texMix
 
-This parameter is type of ShaderAlpha (TODO link).
+This parameter is type of `xv.XComponent.ShaderAlpha <https://odys-z.github.io/javadoc/x-visual/XComponent.html>`_.
 
 X-visual only support two of texture mixing / blending mode from Three.js, normal
 and multiply.
@@ -70,7 +70,8 @@ The following example is modified from Three.js examples, with a PNG file added.
 .. image:: imgs/005-three.js-blending.png
     :width: 720px
 
-But as texture mix morphing introduced, it's getting more complex.
+But as texture mix morphing introduced, it's not usable. X-visual is trying to
+implement some of these with shader.
 
 See :ref:`test: texture & color morphing<tex-color-morph>`.
 

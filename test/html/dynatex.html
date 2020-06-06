@@ -30,15 +30,22 @@
 			var box = ecs.createEntity({
 				id: 'text0',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [256, 32],
+						box: [256, 256],
 						mesh: undefined },
-				Visual:{vtype: xv.AssetType.mesh},
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						// paras: { u_tex: ['data:application/x-visual+img,grey-pixel'] }},
+						paras: { u_tex: ['tex/byr0.png'] }},
+
+						// asset: 'data:application/x-visual+img,grey-pixel' },
+						// asset: 'tex/byr0.png' },
 				Dynatex: {text: 'Hello Dynatex!',
-						xywh: {x: 0, y: 0,
-							size: 32,     // text x, y, size(px)
-							margin: 4},   // text margin
+						xywh: {x: 0, y: 0, w: 256, h: 32,
+							size: 64,     // text x, y, size(px)
+							margin: 4 },    // text margin
+						'bg-color': 'white',
 						font: 'Arial',
-						style: 'red'},
+						style: '#157'},
 				GpuPickable: {}
 			});
 
