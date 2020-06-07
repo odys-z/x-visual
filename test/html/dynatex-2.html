@@ -36,18 +36,33 @@
 		}
 
 		initCanv(ecs) {
-			var box = ecs.createEntity({
+			var text = ecs.createEntity({
 				id: 'text0',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 						box: [128, 32],
 						transform: [ {translate: [0, 160, -100] } ],
 						mesh: undefined },
-				Visual:{vtype: xv.AssetType.mesh},
+				Visual:{vtype: xv.AssetType.Extension},
 				Dynatex: {text: 'Hello Dynatex!',
 						xywh: {x: 0, y: 0, size: 32},
 						dirty: true,
 						font: '64px Arial',
 						style: 'red'},
+				// GpuPickable: {}
+			});
+
+			var text1 = ecs.createEntity({
+				id: 'text1',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [128, 32],
+						transform: [ {translate: [0, 320, -100] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.Dynatex}, // so Dynatex is only a visual? FIXME this the answer of orthogonal?
+				Dynatex: {text: 'text-1',
+						xywh: {x: 0, y: 0, size: 32},
+						dirty: true,
+						font: '64px Arial',
+						style: 'green'},
 				// GpuPickable: {}
 			});
 
@@ -136,7 +151,7 @@
 						linewidth: 4 }
 			} });
 
-			return box;
+			return text1;
 		}
 	}
 
