@@ -61,9 +61,6 @@
 						shader: xv.ShaderFlag.colorArray,
 						// paras: { u_tex: ['data:application/x-visual+img,grey-pixel'] }},
 						paras: { u_tex: ['tex/byr0.png'] }},
-
-						// asset: 'data:application/x-visual+img,grey-pixel' },
-						// asset: 'tex/byr0.png' },
 				Dynatex: {text: 'v-align: bottom',
 						xywh: {x: 0, y: 0, w: 256,
 							size: 32,
@@ -74,6 +71,38 @@
 						font: 'Arial',
 						style: '#157'},
 				GpuPickable: {}
+			});
+
+			var box3 = ecs.createEntity({
+				id: 'text3',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [],
+						transform: [ { translate: [140, 200, -180] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.Dynatex},
+				Dynatex: {text: '1234567890',
+						xywh: {x: 0, y: 0, w: 256,
+							size: 32,
+							margin: 8 },
+						'bg-color': 'white',
+						font: 'Arial',
+						style: '#157'},
+			});
+
+			var box3 = ecs.createEntity({
+				id: 'text4',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [],
+						transform: [ { translate: [-24, 200, -180] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.Dynatex},
+				Dynatex: {text: 'A',
+						xywh: {x: 0, y: 0, w: 24,
+							size: 32,
+							margin: 8 },
+						'bg-color': 'white',
+						font: 'Arial',
+						style: '#157'},
 			});
 			return box;
 		}
