@@ -27,8 +27,8 @@
 		}
 
 		initCube(ecs) {
-			var box = ecs.createEntity({
-				id: 'text0',
+			var hello = ecs.createEntity({
+				id: 'hello',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 						box: [256, 256],
 						transform: [ { translate: [-140, 0, -180] } ],
@@ -41,7 +41,7 @@
 						// asset: 'data:application/x-visual+img,grey-pixel' },
 						// asset: 'tex/byr0.png' },
 				Dynatex: {text: 'Hello Dynatex!',
-						xywh: {x: 0, y: 0, w: 256,
+						xywh: {x: 0, y: 0, w: 256, h: 36,
 							size: 64,     // text x, y, size(px)
 							margin: 4 },    // text margin
 						'bg-color': 'white',
@@ -62,7 +62,7 @@
 						// paras: { u_tex: ['data:application/x-visual+img,grey-pixel'] }},
 						paras: { u_tex: ['tex/byr0.png'] }},
 				Dynatex: {text: 'v-align: bottom',
-						xywh: {x: 0, y: 0, w: 256,
+						xywh: {x: 0, y: 0, w: 256, h: 32,
 							size: 32,
 							margin: 8,
 						 	extrude: 1}, // TODO move forward for stopping z competation
@@ -80,10 +80,10 @@
 						transform: [ { translate: [140, 200, -180] } ],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.Dynatex},
-				Dynatex: {text: '1234567890',
-						xywh: {x: 0, y: 0, w: 256,
-							size: 32,
-							margin: 8 },
+				Dynatex: {text: 'w 256, h 32, size 64',
+						xywh: {x: 0, y: 0, w: 256, h: 32,
+							size: 64,
+							margin: 2 },
 						'bg-color': 'white',
 						font: 'Arial',
 						style: '#157'},
@@ -96,15 +96,15 @@
 						transform: [ { translate: [-24, 200, -180] } ],
 						mesh: undefined },
 				Visual:{vtype: xv.AssetType.Dynatex},
-				Dynatex: {text: 'A',
-						xywh: {x: 0, y: 0, w: 24,
-							size: 32,
-							margin: 8 },
+				Dynatex: {text: '24',
+						xywh: {x: 0, y: 12, w: 24, h: 24,
+							size: 128,
+							margin: 4 },
 						'bg-color': 'white',
 						font: 'Arial',
 						style: '#157'},
 			});
-			return box;
+			return hello;
 		}
 	}
 

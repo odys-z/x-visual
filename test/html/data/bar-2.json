@@ -6,7 +6,11 @@
     "grid-space": [30, 10, 30],
 	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
     "axes": ["1-coord", "y-label", "2-coord"],
-	"label-bg": "#000", "v0.3-label-bg-desc": "label xyz's background color, default #003"
+	"label-bg": "#000", "v0.3-label-bg-desc": "label xyz's background color, default #003",
+    "label-boxes": [
+		{"x": 0, "y": 0, "w": 64, "h": 16, "size": 256, "margin": 0},
+    	{"x": 0, "y": 0, "w": 64, "h": 24, "size": 256, "margin": 0},
+    	{"x": 0, "y": 0, "w": 64, "h": 16, "size": 256, "margin": 0}]
   },
   "bar": {
     "id": "bar2",
@@ -27,8 +31,15 @@
         "label-colors": ["red", "green", "#24f"],
         "label-font": "Arial",
         "label-bg": "#000",
-        "label-canvas": {"x": 0, "y": 0, "w": 16, "size": 16, "margin": 0}, "v0.3-label-canvas-notes": "x,y: text offset; w,h: canvas size",
-        "label-box": [20, 20], "v0.3-label-box-desc": "label-box is deprecated, creating text plane according to xywh.wh",
+
+		"v0.3-label-box-notes": "x,y: text offset; w, h: canvas width, height, size: font size",
+        "label-boxes": [
+			{"x": 0, "y": 0, "w": 16, "h": 20, "size": 64, "margin": 0},
+			{"x": 0, "y": 0, "w": 16, "h": 18, "size": 64, "margin": 0},
+			{"x": 0, "y": 0, "w": 16, "h": 12, "size": 64, "margin": 0}
+		],
+		"v0.3-label-canvas-desc": "deprecated",
+        "label-canvas": [],
 
         "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
         "docking-format2": "in this example, x = vector.x, z = vector.z, y = 0, 1",
