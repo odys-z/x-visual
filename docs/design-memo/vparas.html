@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Animizers" href="animizer.html"/>
@@ -97,7 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Visual.paras</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Visual.paras</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#shared-for-different-vtype">Shared for different vtype</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#paras-only-for-shaderflag-enabled">paras only for ShaderFlag enabled</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#paras-only-for-shader-colorarray">paras only for shader = colorArray</a></li>
@@ -159,18 +156,18 @@
             
   <div class="section" id="visual-paras">
 <h1>Visual.paras<a class="headerlink" href="#visual-paras" title="Permalink to this headline">¶</a></h1>
-<p id="id1">Visual.paras has different usage for different vtype. See <a class="reference internal" href="renderer.html#visual-renderer"><span class="std std-ref">Visual &amp; Renderers</span></a>
+<p id="id1">Visual.paras has different usage for different vtype. See <a class="reference internal" href="renderer.html#visual-renderer"><span>Visual &amp; Renderers</span></a>
 for general information about Visual component.</p>
 <div class="section" id="shared-for-different-vtype">
 <h2>Shared for different vtype<a class="headerlink" href="#shared-for-different-vtype" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>tex_alpha</li>
 </ul>
-<p>Range 0 ~ 1, for any object’s material accepting alpha channel (Three.js Object3D.opacity).</p>
+<p>Range 0 ~ 1, for any object&#8217;s material accepting alpha channel (Three.js Object3D.opacity).</p>
 <ul class="simple">
 <li>uniforms</li>
 </ul>
-<p>These parameters are merged into THREE.Material’s uniforms property.</p>
+<p>These parameters are merged into THREE.Material&#8217;s uniforms property.</p>
 </div>
 <div class="section" id="paras-only-for-shaderflag-enabled">
 <h2>paras only for ShaderFlag enabled<a class="headerlink" href="#paras-only-for-shaderflag-enabled" title="Permalink to this headline">¶</a></h2>
@@ -179,9 +176,9 @@ can be meaningful only for these shaders.</p>
 <ul class="simple">
 <li>paras.u_tex</li>
 </ul>
-<p>A string pointing to file in ‘asset’ folder. If the is not undefined, the vtype’s
+<p>A string pointing to file in &#8216;asset&#8217; folder. If the is not undefined, the vtype&#8217;s
 flag, ShaderFlag.defaultex is ignored.</p>
-<p>u_tex is a shader’s uniforms parameter, which means only Visual using THREE.ShaderMaterial
+<p>u_tex is a shader&#8217;s uniforms parameter, which means only Visual using THREE.ShaderMaterial
 can has a u_tex parameter.</p>
 <p>After v0.3, <em>u_tex</em> is an array for shader of ShaderFlag = colorArray. The array
 can be morphed using u_morph&lt;i&gt; in ModelSeqs.script.</p>
@@ -194,11 +191,11 @@ can be morphed using u_morph&lt;i&gt; in ModelSeqs.script.</p>
 <span id="visual-paras-color-array"></span><h2>paras only for shader = colorArray<a class="headerlink" href="#paras-only-for-shader-colorarray" title="Permalink to this headline">¶</a></h2>
 <p>Shader <em>colorArray</em> is a phone material shader supporting color morphing and texture
 morphing.</p>
-<p>Currently it’s ambient, diffuse &amp; specular parameter are constant 1.0. But it can
+<p>Currently it&#8217;s ambient, diffuse &amp; specular parameter are constant 1.0. But it can
 accepting an array of colors and an array of textures, can can be morphed with
 ModelSeqs.script.paras.u_morph&lt;i&gt;.</p>
 <p>test:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">color</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">color</span><span class="o">.</span><span class="n">html</span>
 <span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">event</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
@@ -212,44 +209,44 @@ and texture mixing mode.</p>
 and multiply.</p>
 <p>The following example is modified from Three.js examples, with a PNG file added.</p>
 <a class="reference internal image-reference" href="../_images/005-three.js-blending.png"><img alt="../_images/005-three.js-blending.png" src="../_images/005-three.js-blending.png" style="width: 720px;" /></a>
-<p>But as texture mix morphing introduced, it’s not usable. X-visual is trying to
+<p>But as texture mix morphing introduced, it&#8217;s not usable. X-visual is trying to
 implement some of these with shader.</p>
-<p>See <a class="reference internal" href="../tests/test-morph.html#tex-color-morph"><span class="std std-ref">test: texture &amp; color morphing</span></a>.</p>
+<p>See <a class="reference internal" href="../tests/test-morph.html#tex-color-morph"><span>test: texture &amp; color morphing</span></a>.</p>
 <p>See also <a class="reference external" href="https://threejs.org/examples/?q=blending#webgl_materials_blending">Three.js example: material blending</a>.</p>
 </div>
 <div class="section" id="paras-only-for-vtype-point-or-refpoint">
 <h2>paras only for vtype = point or refPoint<a class="headerlink" href="#paras-only-for-vtype-point-or-refpoint" title="Permalink to this headline">¶</a></h2>
-<p>It’s been used for vtype = <a class="reference internal" href="renderer.html#vtype-refpoint"><span class="std std-ref">AssetType.refPoint</span></a> or
-<a class="reference internal" href="renderer.html#vtype-point"><span class="std std-ref">AssetType.point</span></a>.</p>
-<p>For these vtype, it’s usually used together with <a class="reference internal" href="animizer.html#animtype-u-morphi"><span class="std std-ref">AnimType.U_MORPHi paras</span></a>
-and <a class="reference internal" href="animizer.html#animtype-uniform"><span class="std std-ref">AnimType.UNIFORM paras</span></a>.</p>
+<p>It&#8217;s been used for vtype = <a class="reference internal" href="renderer.html#vtype-refpoint"><span>AssetType.refPoint</span></a> or
+<a class="reference internal" href="renderer.html#vtype-point"><span>AssetType.point</span></a>.</p>
+<p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-morphi"><span>AnimType.U_MORPHi paras</span></a>
+and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType.UNIFORM paras</span></a>.</p>
 <p>Check it for how Visual.paras and ModelSeqs.script.paras work together to change
 glsl/shaders behaviour.</p>
 <p>If the Visual.asset specified a gltf asset, the gltf mesh will be converted into
 visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
 <p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
 by Thrender using this entity.Visual.paras.obj3type, which can be one of geometry
-type of <a class="reference internal" href="../reference/components.html#api-xcomponents"><span class="std std-ref">XComponent</span></a> value.</p>
+type of <a class="reference internal" href="../reference/components.html#api-xcomponents"><span>XComponent</span></a> value.</p>
 <ul class="simple">
 <li>paras.nodes</li>
 </ul>
-<p>This parameter used only for creating mesh from gltf assets. It’s a string array
-of node’s name in gltf. Model of these nodes will be converted into points.</p>
+<p>This parameter used only for creating mesh from gltf assets. It&#8217;s a string array
+of node&#8217;s name in gltf. Model of these nodes will be converted into points.</p>
 <ul class="simple">
 <li>paras.paths</li>
 </ul>
-<p>This parameter used only for creating mesh from svg assets. It’s a string array
+<p>This parameter used only for creating mesh from svg assets. It&#8217;s a string array
 of path names in svg.</p>
-<p>– For AssetType.refPoint</p>
+<p>&#8211; For AssetType.refPoint</p>
 <p>TODO test case as example.</p>
-<p>– For AssetType.voxel</p>
+<p>&#8211; For AssetType.voxel</p>
 <p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Voxel">Voxel</a> is handled in x-visual as a single
 WebGl point.</p>
 <ul class="simple">
 <li>paras.noise</li>
 </ul>
-<p>If true, the generated Object3D object will have a ‘a_noise’ attribute. For animation
-type <a class="reference internal" href="animizer.html#animtype-u-morphi"><span class="std std-ref">AnimType.U_MORPHi</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span class="std std-ref">AnimType UNIFORM</span></a>,
+<p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. For animation
+type <a class="reference internal" href="animizer.html#animtype-u-morphi"><span>AnimType.U_MORPHi</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType UNIFORM</span></a>,
 this value is used for scale the distance.</p>
 <p>** Not implemented **</p>
 <ul class="simple">
@@ -257,7 +254,7 @@ this value is used for scale the distance.</p>
 </ul>
 <p>A <strong>string</strong> for vertex size scale. Here is how the default particles vertex shader
 handling this parameter.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">gl_PointSize</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">*</span> <span class="sb">`</span><span class="si">${</span><span class="nx">paras</span><span class="p">.</span><span class="nx">vert_scale</span> <span class="o">||</span> <span class="s1">&#39;10.0&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">gl_PointSize</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">*</span> <span class="sb">`</span><span class="si">${</span><span class="nx">paras</span><span class="p">.</span><span class="nx">vert_scale</span> <span class="o">||</span> <span class="s1">&#39;10.0&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -313,8 +310,7 @@ handling this parameter.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

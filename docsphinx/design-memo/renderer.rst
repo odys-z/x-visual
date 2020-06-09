@@ -128,7 +128,6 @@ Canvas size, font size and scene objects are working together to produce the 3D
 visualized effects.
 
 .. image:: imgs/004-dynatex-size.jpg
-    :width: 420px
 
 Example:
 
@@ -138,13 +137,18 @@ Example:
     Dynatex: {
         style: '#00c0c0',
         font: 'Arial',
-        xywh: {x: 2, y: 128, size: 64, margin: 1}
+        xywh: {x: 2, y: 128, w: 256, h: 48, size: 64, margin: 1}
     }
 
 Default text is::
 
     font: "bold sans-serif",
-	xywh: {x: 0, y: 0, size: 32, margin: 0}
+	xywh: {x: 0, y: 0, size: 32, margin: 0} // w,h must presented
+
+Also note that the font width is measured with html/canvas-2d-context, with height
+scaled with measured/width. With this scale, the canvas can't simply been set to
+size of power 2. So normally browser will warn about this. Before near future,
+ignoring the message can be the only option.
 
 GLTF Nodes & Transform
 ----------------------
