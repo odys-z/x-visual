@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TODO Examples &mdash; x-visual 0.3 documentation</title>
+  <title>Examples &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -90,7 +90,13 @@
 <li class="toctree-l2"><a class="reference internal" href="test-morph.html">Test - Morphing &amp; Uniform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="test-geom.html">Test - Geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="test-effect.html">Test - Postprocessing</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">TODO Examples</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#chart-extensions">Chart Extensions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-xbar">case: XBar</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
@@ -127,7 +133,7 @@
       
           <li><a href="index.html">Tests &amp; Example</a> &raquo;</li>
       
-    <li>TODO Examples</li>
+    <li>Examples</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -139,9 +145,115 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="todo-examples">
-<h1>TODO Examples<a class="headerlink" href="#todo-examples" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="chart-extensions">
+<h2>Chart Extensions<a class="headerlink" href="#chart-extensions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-xbar">
+<span id="ex-chart-bar"></span><h3>case: XBar<a class="headerlink" href="#case-xbar" title="Permalink to this headline">¶</a></h3>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre>test/html/ext/12vec-bar.html
+</pre></div>
+</div>
+<p>data file:</p>
+<div class="highlight-python"><div class="highlight"><pre>test/html/data/bar-2.json
+</pre></div>
+</div>
+<p>The json file section has 2 separate sections. The chart section define how chart
+axes and data serials label should been showed.</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="s2">&quot;chart&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;x-bar vec4 (1)&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
+    <span class="nt">&quot;range&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
+    <span class="nt">&quot;grid&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="nt">&quot;grid-space&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+    <span class="nt">&quot;axes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;1-coord&quot;</span><span class="p">,</span> <span class="s2">&quot;y-label&quot;</span><span class="p">,</span> <span class="s2">&quot;2-coord&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;label-bg&quot;</span><span class="p">:</span> <span class="s2">&quot;#000&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;label-boxes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;w&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span> <span class="nt">&quot;h&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span> <span class="nt">&quot;margin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;w&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span> <span class="nt">&quot;h&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span> <span class="nt">&quot;margin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;w&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span> <span class="nt">&quot;h&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span> <span class="nt">&quot;margin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">name</p>
+<blockquote>
+<div><p>not used</p>
+</div></blockquote>
+</li>
+<li><p class="first">domain</p>
+<blockquote>
+<div><p>data value range</p>
+<p>Domain and range are the seam as <a class="reference external" href="https://www.tutorialsteacher.com/d3js/scales-in-d3">D3 data/range</a>.</p>
+</div></blockquote>
+</li>
+<li><p class="first">range</p>
+<blockquote>
+<div><p>showing range</p>
+</div></blockquote>
+</li>
+<li><p class="first">grid &amp; grid-space</p>
+<blockquote>
+<div><p>chart space definition</p>
+</div></blockquote>
+</li>
+<li><p class="first">axes</p>
+<blockquote>
+<div><p>x, y, z labels</p>
+</div></blockquote>
+</li>
+<li><p class="first">label-bg &amp; label-boxes</p>
+<blockquote>
+<div><p>label&#8217;s texture alignment</p>
+</div></blockquote>
+</li>
+</ul>
+<p>The second part is an object define how data been presented as bars.</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="s2">&quot;serials&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;pos0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="nt">&quot;label-offsets&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">,</span> <span class="mf">-0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">-0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">-0.25</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+
+    <span class="nt">&quot;label-desc&quot;</span><span class="p">:</span> <span class="s2">&quot;in bar serials, labels always a 2d array of stirngs, with rows&#39; cardinality of 3&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">&quot;- I -&quot;</span><span class="p">,</span> <span class="s2">&quot;- II -&quot;</span><span class="p">,</span> <span class="s2">&quot;- III -&quot;</span><span class="p">]</span> <span class="p">],</span>
+    <span class="nt">&quot;label-colors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;#24f&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;label-font&quot;</span><span class="p">:</span> <span class="s2">&quot;Arial&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;label-bg&quot;</span><span class="p">:</span> <span class="s2">&quot;#000&quot;</span><span class="p">,</span>
+
+    <span class="nt">&quot;label-boxes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;w&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nt">&quot;h&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span> <span class="nt">&quot;margin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;w&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nt">&quot;h&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span> <span class="nt">&quot;margin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;w&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nt">&quot;h&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span> <span class="nt">&quot;margin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;v0.3-label-canvas-desc&quot;</span><span class="p">:</span> <span class="s2">&quot;deprecated&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;label-canvas&quot;</span><span class="p">:</span> <span class="p">[],</span>
+
+    <span class="nt">&quot;docking-format&quot;</span><span class="p">:</span> <span class="s2">&quot;elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;docking-format2&quot;</span><span class="p">:</span> <span class="s2">&quot;in this example, x = vector.x, z = vector.z, y = 0, 1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;docking&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">11</span><span class="p">]]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">babel-box</p>
+<blockquote>
+<div><p>x, y: text offset;</p>
+<p>w, h: canvas width, height</p>
+<p>size: font size</p>
+</div></blockquote>
+</li>
+</ul>
+<p>See <a class="reference internal" href="../design-memo/renderer.html#render-dynatex-xywh"><span>details of xywh in docs</span></a>.</p>
 <p>Docing ...</p>
+</div>
+</div>
 </div>
 
 

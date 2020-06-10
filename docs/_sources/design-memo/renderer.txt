@@ -124,8 +124,15 @@ The *Dynatex.style* and *Dynatex.font* are used as canvas style and font attribu
 the same as html canvas style, see `MDN Canvas.style <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle>`_
 and `css font <https://developer.mozilla.org/en-US/docs/Web/CSS/font>`_.
 
+.. _render-dynatex-xywh:
+
+xywh & transform:
+
+Define canvas, font box and transform.
+
 Canvas size, font size and scene objects are working together to produce the 3D
-visualized effects.
+visualized effects, while transform declare child alignment - mainly using scale
+and translate to align text.
 
 .. image:: imgs/004-dynatex-size.jpg
 
