@@ -10,3 +10,7 @@ Contents:
    test-geom
    test-effect
    examples
+
+Credits
+
+See `acknowledgement in readme <../README.md>`_ for details.

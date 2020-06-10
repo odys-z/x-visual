@@ -1,4 +1,4 @@
-.. _test-effect:
+.. _test-geom:
 
 Test - Geometries
 =================

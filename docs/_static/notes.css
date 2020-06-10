@@ -1,0 +1,195 @@
+
+.wy-nav-content {
+	max-width: 1024px !important;
+}
+
+.wy-nav-content-wrap {
+    background: #ddd;
+}
+
+.wy-side-nav-search, .wy-nav-top {
+    background: #4F5F5F;
+}
+
+/********** header **********/
+header h1 { text-align:center; }
+header h2 { text-align:center; }
+header .horitem { display: inline; }
+h1 {font-size:1.6em; margin-top:0px; font-weight:normal}
+h2 {font-size:1.3em; margin-top:0.1em; margin-bottom:0.1em; font-weight:normal}
+h3 {font-size:1.1em; font-weight:normal}
+h4 {font-size:1.05em;}
+h5 {font-size:0.95em;}
+h6 {font-size:0.9em;}
+
+/* copyright declaration */
+.tips,.cpyrit {font-size:1em;text-decoration:none;color:#8AC007;margin-left:2em}
+a.cpyrit:visited {text-decoration:none;color:#8AC007}
+a.cpyrit:hover   {text-decoration:underline;color:#8AC007}
+
+/* code div */
+.code {
+  background-color:lightgrey;
+  bottom:0px;
+  padding:0.4em;
+  margin-left:1em;
+  font-size: 0.95em;
+}
+
+/* exception div */
+.exception {
+  background-color:lightgrey;
+  bottom:0px;
+  padding:0.2em;
+  margin-right:5px;
+  font-size: 1.0em;
+  color: #800000;
+}
+
+.details {
+  background-color:lightgrey;
+  bottom:0px;
+  padding:0.2em;
+  margin-right:5px;
+  font-size: 0.9em;
+}
+
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/tab-size */
+.code, .exception pre {
+    -moz-tab-size: 2;
+    -o-tab-size: 2;
+    tab-size: 2;
+}
+
+/********** body, artible header, footer **********/
+body {
+	font-size:1.0em;color:#000000;color:#404040;
+	background-color:#f1f1f1;margin:0px;
+}
+
+article { margin-left:1em; margin-right:1em; }
+
+iframe 	{margin:0px;}
+img {border:0;}
+
+h1,h2,h3,h4,h5,h6 {
+	background-color:transparent;color:#000000;
+}
+/*
+*/
+footr div { background-color:#f1f1f1; position:fixed; bottom:0px; margin-right:0px;}
+footr { background-color:#f1f1f1; position:fixed; bottom:0px; margin-right:0px; width:100%; text-align:right;}
+footr span { text-align:right; margin-right:4em;}
+
+/* translated (with title attribute) should be prompted (with underline) */
+[title] {
+	text-decoration: underline;
+	text-decoration-color: blue;
+	-moz-text-decoration-color: lightgrey;
+}
+
+article { margin-left:20px; }
+
+/*************** table, ol, ul, dl ***************/
+p,td,ul {
+	line-height:130%;
+}
+
+body,p,h1,h2,h3,h4,table,td,th,ul,ol,dl,textarea,input {
+	font-family:verdana,helvetica,arial,sans-serif;
+}
+
+table,th,td,input,textarea {
+	font-size:100%;
+}
+
+table.reference,table.tecspec{
+	margin: auto;
+	border-collapse:collapse;
+	width:90%;
+}
+
+th { text-align: center; }
+table.reference tr:nth-child(odd)	{background-color:#f1f1f1;}
+table.reference tr:nth-child(even)	{background-color:#ffffff;}
+
+table.reference tr.fixzebra		{background-color:#f1f1f1;}
+
+table.reference th{
+	color:#ffffff;background-color:#555555;border:1px solid #555555;padding:3px;vertical-align:top;
+}
+
+table.reference th a:link,table.reference th a:visited{
+	color:#ffffff;
+}
+
+table.reference th a:hover,table.reference th a:active{
+	color:#EE872A;
+}
+
+table.reference td{
+	border:1px solid #d4d4d4;padding:5px;padding-top:7px;padding-bottom:7px;vertical-align:top;
+}
+
+table.reference dl dt { background-image:url(item.png);
+	background-repeat:no-repeat;
+	background-position:1em;
+	color:#033;
+	padding-left:2.8em;
+	padding-top:0.5em;
+	padding-bottom:0.5em;
+}
+
+/*********** ex-item, withou a table *****************/
+.h-item { background-image:url(item.png);
+		background-repeat: no-repeat;
+		padding-left: 1.8em;
+		background-position-y: center;
+		background-size: 24px;
+	}
+
+.small-item {
+		// @extend .h-item;
+		background-image:url(item.png);
+		background-repeat: no-repeat;
+		padding-left: 1.2em;
+		background-position-y: center;
+		background-size: 16px;
+	}
+
+.exitem>li { margin-bottom: 1em; }
+
+/*********** discription table item ******************/
+.dtitem { font-style:italic; text-decoration:underline}
+
+/*********** references ********************************/
+table.refs td { vertical-align: text-top; }
+
+/*********** 九宫格 **********************************/
+table.numbers {
+    margin: 5px 0px;
+    border-collapse: collapse;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: 12px;
+    line-height: 22px;
+    color: #000;
+}
+
+.bg2048 {background-image: url("../2048/imgs/icon32.png");
+	background-repeat:no-repeat;
+	background-position:1.6em;
+	background-size:2.4em;
+}
+
+/************* screen shot, diagram ******************/
+.screenshot { height:60px; }
+.screenshot-big { height:120px; }
+.diag { width:200px; }
+.td-icon { height:80px; }
+
+/************* src code ********************/
+.srcode { border:1px solid blue;background-color:rgb(225, 225, 225); }
+
+/************* resource download *********************/
+.hres { vertical-align: middle; color: green }

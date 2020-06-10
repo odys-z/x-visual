@@ -94,6 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
@@ -176,7 +177,7 @@ matrix uniform(s) for every vertex?</em></p>
 <li>Optimize anti-aliasing</li>
 </ol>
 <p>see <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-textures.html">Three.js Texture</a>.</p>
-<ol class="arabic simple" start="5">
+<ol class="arabic simple" id="wish-svg" start="5">
 <li>SVG</li>
 </ol>
 </div>
@@ -305,6 +306,29 @@ THREE.REVISION
 <li>Tween.affine</li>
 </ul>
 <p>Have tweening transformation combinable.</p>
+<ul class="simple">
+<li>SVG Shader</li>
+</ul>
+<p>references:</p>
+<p>&#8211; <a class="reference external" href="https://stackoverflow.com/questions/1027179/displaying-svg-in-opengl-without-intermediate-raster">Stackoverflow question: Displaying SVG in OpenGL without intermediate raster</a></p>
+<p>&#8211; <a class="reference external" href="https://stackoverflow.com/questions/4129932/rendering-vector-graphics-in-opengl">Stackoverflow question: Rendering Vector Graphics in OpenGL? [duplicate]</a></p>
+<dl class="docutils">
+<dt>&#8211; <a class="reference external" href="http://on-demand.gputechconf.com/gtc/2012/presentations/S0024-GPU-Accelerated-Path-Rendering.pdf">Mark Kilgard, GPU Accelerated Path Rendering</a></dt>
+<dd>A general introduction. And <a class="reference external" href="https://learnopengl.com/Advanced-OpenGL/Stencil-testing">here&#8217;s details about stencil</a>.</dd>
+<dt>&#8211; <a class="reference external" href="https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-25-rendering-vector-art-gpu">Charles Loop &amp; Jim Blinn, Chapter 25. Rendering Vector Art on the GPU &#64; NVIDIA Developer</a></dt>
+<dd>Using control points to generate face?</dd>
+<dt>&#8211; <a class="reference external" href="https://drafts.fxtf.org/filter-effects/">W3C draft: Filter Effects Module Level 1, Editor’s Draft, 21 October 2019</a></dt>
+<dd>Retrieved on 2 Jun, 2020.</dd>
+<dt>&#8211; <a class="reference external" href="https://prideout.net/blog/svg_wireframes/">3D wireframe in SVG &#64; grasshopper</a></dt>
+<dd>A strange way to use svg filter?</dd>
+<dt>&#8211; <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=IWS-Chapter08">Victor Gaultney, Martin Hosken, Alan Ward, An Introduction to TrueType Fonts: A look inside the TTF format 2003-05-23</a></dt>
+<dd>Simple introduction of TrueType Font, together with <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?item_id=IWS-Chapter07">Rendering technologies overview</a>,
+and a font engine project, <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?site_id=projects&amp;item_id=graphite_home">SIL Graphite</a>.</dd>
+<dt>&#8211; <a class="reference external" href="https://simoncozens.github.io/fonts-and-layout/opentype.html">simoncozens.github.io: How OpenType Works</a></dt>
+<dd>Nice explanation of OpenType Font.</dd>
+<dt>&#8211; <a class="reference external" href="https://www.chromium.org/developers/design-documents/directwrite-font-cache">DirectWrite Font Cache (obsolete), docs of the Chromium Projects</a></dt>
+<dd>Details about how Chromium sandbox handling fonts in Windows.</dd>
+</dl>
 </div>
 </div>
 

@@ -93,7 +93,7 @@ export default class Route66 extends xv.XSys {
 				Visual:{vtype: xv.AssetType.point,
 						paras: {// nodes: ['Sphere'],
 								keepMaterial: {
-									opacity: 0.7,
+									opacity: 0.9,
 									emissiveIntensity: 0.4
 								}},
 						asset: 'earth/earth-low.gltf'},

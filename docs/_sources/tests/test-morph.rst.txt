@@ -3,8 +3,8 @@
 Test - Morphing & Uniform
 =========================
 
-Morphing transform & color
---------------------------
+Cate: Morphing transform & color
+--------------------------------
 
 case: AnimType.ALPHA, UNIFORMS, U_MORPHi
 ________________________________________
@@ -100,11 +100,7 @@ scene come from 3 different gltf files::
     test/html/assets/earth/earth-low.gltf
     examples/route66/route66.gltf
 
-<<<<<<< HEAD
 Here is a comparison of how different for different assets artists like to do.
-=======
-Here is a compare of how different for different assets artists like to do.
->>>>>>> master
 
 .. image:: imgs/005-route66-car-size.jpg
     :width: 340px
@@ -155,7 +151,7 @@ html file::
 
 This file loaded the some nodes in gltf asset, specifying animation scripts.
 
-The animation can't auto-started for :ref:`the issue of asynchronous loading<issue-asych-gltf>`.
+The animation can't auto-started for :ref:`the issue of asynchronous loading<issue-asynch-gltf>`.
 
 To use and loading gltf nodes, user must have some basic idea of gltf format.
 X-visual is intend for users of programmer.
@@ -167,3 +163,19 @@ ancestors. So the node's transformation matrix itself will not makes what the
 objects should look like. X-visual provided a brutal way, just disable all the
 transformation in GLTF assets, with *Visual.paras.withTransform* = false, then
 set Obj3.transform as you, the programmer like.
+
+.. _tex-color-morph:
+
+case: Color & Texture Morphing
+______________________________
+
+html file::
+
+    test/html/morph-color.html
+
+The test shows how color & texture can be morphed with help of shader *colorArray*.
+
+For Visual.paras of *colorArray*, see :ref:`Visual.paras of colorArray<visual-paras-color-array>`.
+
+**FYI** This page uses svg as rendered texture with help of Three.js CanvasTexture,
+which can't be a scalable image. See :ref:`wish list, SVG<wish-svg>`.

@@ -15,38 +15,49 @@
   const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [480, 320]});
   xworld.addEntities( {
-	id: 'others',
-	Obj3: { geom: xv.XComponent.Obj3Type.NA,
-			box: [320, 320, 0],
-			mesh: undefined,
-			uniforms: {opacity: 0.5}},
-	Visual:{vtype: xv.AssetType.SVG,
-			paras: {paths: ['u', 'stc', 'orbit1', 'orbit2']},
-			asset: 'tex/uestc.svg' } } );
+	id: 'u',
+	Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+			box: [5] }, // curve segments - ignored as svg path don't use it
+	Visual:{
+		vtype: xv.AssetType.PathTube,
+		paras: {
+			asset: 'tex/uestc.svg',     // svg path
+			nodes: ['u'],
+		    origin: [0, 0, 0],          // override svg attribute
+			color: 0x00ff00,            // override svg attribute
+			tubularSegments: 50 } }
+  });
 
-  xworld.addEntities( {
-	id: 'e',
-	Obj3: { geom: xv.XComponent.Obj3Type.NA,
-			box: [120, 120, 5],
-			mesh: undefined,
-			uniforms: {opacity: 0.5}},
-	Visual:{vtype: xv.AssetType.mesh,
-			paras: {paths: ['e']},
-			asset: 'tex/uestc.svg' },
-	ModelSeqs: { script: [[
-		  { mtype: xv.XComponent.AnimType.ROTATEX,
-			paras: {start: 0,			// auto start
-					duration: 1,		// seconds
-					deg: [0, 45],		// from, to
-					ease: undefined} },	// default linear
-		  { mtype: xv.XComponent.AnimType.ROTATEX,
-			paras: {start: Infinity,	// auto start
-					duration: 1.5,		// seconds
-					deg: [50, 0],		// from, to
-					ease: xv.XEasing.Elastic.InOut} },
-		]] },
-	CmpTweens: {}
-	} );
+  // xworld.addEntities( {
+	// id: 'stc',
+	// Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+	// 		box: [5] }, // curve segments - ignored as svg path don't use it
+	// Visual:{
+	// 	vtype: xv.AssetType.GeomCurve,
+	// 	paras: {
+	// 		nodes: ['stc'],             // svg path
+	// 		asset: 'tex/uestc.svg',
+	// 	    origin: [0, 0, 0],          //  override svg attribute
+	// 		color: 0xffff00, } }        //  override svg attribute
+  // });
+  //
+  // xworld.addEntities( {
+	// id: 'blur',
+	// Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+	// 		box: [50, 50] },
+	// Visual:{
+	// 	vtype: xv.AssetType.mesh,
+	// 	paras: {
+	// 		asset: 'tex/circle-blur.svg',
+	// 		nodes: ['svg_circle'],
+	// 	    origin: [0, 0, 0],          //  override svg attribute
+	// 		color: 0xffff00, } },       //  override svg attribute
+	// Dynatex: {
+	// 	xywh: undefined,  // ignored, using svg attribute: x = 0, y = 20, w, h = svg/width, height
+	// 	dirty: true,
+	// 	font: '256px',    // ignored
+	// 	style: 'red'}     // ignored, using svg attribute
+  // });
 
   xworld.startUpdate();
   </script>

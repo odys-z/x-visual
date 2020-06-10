@@ -97,6 +97,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#case-animtype-gltf">case: AnimType.gltf</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#case-gltf-transform">case: GLTF transform</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#case-gltf-nodes-animation">case: GLTF Nodes &amp; Animation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-color-texture-morphing">case: Color &amp; Texture Morphing</a></li>
 </ul>
 </li>
 </ul>
@@ -396,6 +397,17 @@ ancestors. So the node&#8217;s transformation matrix itself will not makes what 
 objects should look like. X-visual provided a brutal way, just disable all the
 transformation in GLTF assets, with <em>Visual.paras.withTransform</em> = false, then
 set Obj3.transform as you, the programmer like.</p>
+</div>
+<div class="section" id="case-color-texture-morphing">
+<span id="tex-color-morph"></span><h3>case: Color &amp; Texture Morphing<a class="headerlink" href="#case-color-texture-morphing" title="Permalink to this headline">¶</a></h3>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">color</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>The test shows how color &amp; texture can be morphed with help of shader <em>colorArray</em>.</p>
+<p>For Visual.paras of <em>colorArray</em>, see <a class="reference internal" href="../design-memo/vparas.html#visual-paras-color-array"><span>Visual.paras of colorArray</span></a>.</p>
+<p><strong>FYI</strong> This page uses svg as rendered texture with help of Three.js CanvasTexture,
+which can&#8217;t be a scalable image. See <a class="reference internal" href="../design-memo/todo.html#wish-svg"><span>wish list, SVG</span></a>.</p>
 </div>
 </div>
 </div>

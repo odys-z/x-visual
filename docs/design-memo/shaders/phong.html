@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>WebGl Phong Material &mdash; x-visual 0.3 documentation</title>
+  <title>Morphing Phong Material &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -94,11 +94,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Shader Samples</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">WebGl Phong Material</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Morphing Phong Material</a></li>
 <li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
 </ul>
 </li>
@@ -142,7 +143,7 @@
       
           <li><a href="index.html">Shader Samples</a> &raquo;</li>
       
-    <li>WebGl Phong Material</li>
+    <li>Morphing Phong Material</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -154,10 +155,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="webgl-phong-material">
-<h1>WebGl Phong Material<a class="headerlink" href="#webgl-phong-material" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="morphing-phong-material">
+<h1>Morphing Phong Material<a class="headerlink" href="#morphing-phong-material" title="Permalink to this headline">¶</a></h1>
 <p>X-visual Phong shader is designed for general materail used by data object like
 bar in bar chart, with respect to light position.</p>
+<p>This shader can also handle texture mixing.</p>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">color</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
 <p>Phong material is provided by <a class="reference external" href="../../jsdoc/xglsl.html">xglsl</a>.meshColors(vparas).</p>
 <p>Reference: <a class="reference external" href="http://www.cs.toronto.edu/~jacobson/phong-demo/">WebGL - Phong Shading</a></p>
 <div class="highlight-glsl"><div class="highlight"><pre><span class="k">attribute</span> <span class="k">vec3</span> <span class="n">position</span><span class="p">;</span>
