@@ -1,8 +1,14 @@
-WebGl Phong Material
-====================
+Morphing Phong Material
+=======================
 
 X-visual Phong shader is designed for general materail used by data object like
 bar in bar chart, with respect to light position.
+
+This shader can also handle texture mixing.
+
+test::
+
+    test/html/morph-color.html
 
 Phong material is provided by `xglsl <../../jsdoc/xglsl.html>`_.meshColors(vparas).
 
