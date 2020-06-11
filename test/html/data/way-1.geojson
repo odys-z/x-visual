@@ -1,0 +1,308 @@
+{
+    "LICENSE": "https://www.openstreetmap.org/copyright",
+    "Credits": "© OpenStreetMap contributors",
+    "type": "FeatureCollection",
+    "features": [
+        { "type": "Feature", "properties": { "name": "白家立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11580130.49,3577722.16],[11580260.96,3578099.26]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "白家立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11580236.19,3578112.85],[11580165.87,3577906.48],[11580105.39,3577729.01]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "成绵立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11592013.59,3595594.47],[11592084.76,3595701.9],[11592120.34,3595759.31],[11592151.12,3595806.61]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "成绵立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11592134.4,3595814.81],[11592105.95,3595768.58],[11592095.73,3595754.55],[11592064.73,3595708.83],[11592010.8,3595621.67]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "四环路北段", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [11578238.61,3604584.74], [11578499.09,3604564.42], [11579118.56,3604502.63],
+                    [11579607.44,3604468.45], [11579940.05,3604472.72], [11580199.1 ,3604493.16],
+                    [11580506.52,3604537.1 ], [11581002.7 ,3604653.29], [11581199.92,3604702.98],
+                    [11581342.03,3604737.26], [11581657.42,3604813.96], [11581768.07,3604840.96],
+                    [11581899.73,3604873.09], [11582034.35,3604905.77], [11582135.58,3604930.33],
+                    [11582270.45,3604963.08], [11582365.35,3604982.13],
+                    [11582404.8400000000,      3604991.030000000]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "大丰镇立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11582404.8400000000,    3604991.0300000000],
+                                [11582541.34,3605015.53],[11582615.46,3605028.85]]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": { "name": "大丰镇立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11582610.8,3605054.72],[11582510.7,3605038.04],
+                                [11582397.700000000,     3605018.8900000000]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "四环路北段", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [11582397.700000000,      3605018.8900000000],
+                    [11582263.08,3604986.16],[11582134.41,3604956.38],
+                    [11581647.73,3604835.17],[11581335.39,3604758.63],[11581189.79,3604723.55],
+                    [11580997.22,3604676.38],[11580671.85,3604601.8],[11580501.86,3604563.89],
+                    [11580194.72,3604520.02],[11579938.96,3604499.73],[11579608.31,3604498.5],
+                    [11578860.78,3604554.17],[11578230.32,3604603.46]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "火车南站西路", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11579415.16,3579073.41],[11579617.3,3579263.45],[11579896.9,3579523.68],[11580306.87,3579906.94],[11580716.75,3580295.81],[11580877.92,3580447.08],[11581180.14,3580724.82],[11581279.01,3580817.16]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "机场高速", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11583066.7,3582361.8],[11583021.92,3582354.23],[11582986.53,3582345.17],[11582938.12,3582329.43],[11582897.29,3582312.19],[11582862.19,3582293.43],[11582821.35,3582269.23],[11582777.79,3582236.25],[11582687.33,3582155.18],[11582548.47,3582025.08],[11582202.05,3581704.11],[11581569.77,3581113.56],[11581399.36,3580949.79],[11581356.22,3580906.9]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "机场高速", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11584335.75,3582349.63],[11583957.84,3582355.04],[11583688.89,3582358.63],[11583399.13,3582363.66],[11583147.77,3582366.45],[11583066.7,3582361.8]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "机场高速 - Airport Expressway", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11583071.85,3582350.91],[11583132.18,3582353.98],[11583239.46,3582354.13],[11583695.73,3582342.14],[11584097.78,3582334.79],[11584227.97,3582333.99]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "江安立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11570530.78,3585891.16],[11570549.76,3585837.59],[11570573.27,3585757.62]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "江安立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11570591.6,3585761.36],[11570548.4,3585892.13]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "接待寺立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11571534.44,3582298.53],[11571581.92,3582241.62]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "接待寺立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11571600.31,3582252.12],[11571555.52,3582307.04]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "金马河大桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11551871.69,3591030.16],[11552188.26,3591204.84],[11552418.62,3591356.6]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "金马河大桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11552408.5,3591369.81],[11552174.63,3591214.68],[11551860.78,3591044.41]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "龙洞子隧道", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11524895.65,3638129.67],[11524906.06,3638073.41],[11524926.69,3638007.24],[11525062.76,3637671.55],[11525201.3,3637365.79],[11525385.74,3637004.79]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "龙洞子隧道", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11525410.18,3637038.43],[11525233.5,3637381.37],[11525096.56,3637683.62],[11524995.81,3637946.19],[11524962.56,3638044.29],[11524944.46,3638118.95]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "马家河大桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11572790.37,3581433.4],[11573307.02,3581154.87]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "马家河大桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11573316.93,3581180.15],[11572795.81,3581445.14]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "三河场立交桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11591065.82,3604173.86],[11591653.36,3603871.29]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "三河场立交桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11591602.09,3603920.35],[11591074.15,3604186.54]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "狮子立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11599891.96,3583512.96],[11599899.07,3583351.3]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "狮子立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11599918.67,3583348.44],[11599914.59,3583512.69]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "文家场立交桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11569432.66,3593410.54],[11569426.89,3593210.55],[11569430.28,3592934.09],[11569435.68,3592835.07],[11569439.74,3592727.79]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "文家场立交桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11569451.93,3592732.22],[11569447.93,3592871.1],[11569446.15,3592981.14],[11569443.27,3593175.02],[11569451.01,3593407.07]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "犀浦立交", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11570453.81,3600400.66],[11570584.26,3600611.18],[11570680.61,3600763.49],[11570813.27,3600981.34],[11570933.33,3601177.49]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "西江河大桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11538484.55,3587062.31],[11538647.14,3587223.65],[11538737.83,3587298.9],[11538808.27,3587352.2]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "西江河大桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11538805.27,3587362.49],[11538733.27,3587310.07],[11538643.7,3587236.17],[11538477.1,3587074.97]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "濯锦立交桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11584512.95,3576781.37],[11584645.65,3576784.29],[11584804.8,3576789.32],[11585181.47,3576802.66],[11585581.27,3576833.42],[11585814.16,3576869.84],[11586010.41,3576904.64],[11586268.61,3576954.03]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "濯锦立交桥", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11586264.42,3576971.05],[11586007.05,3576922.99],[11585812.98,3576888.04],[11585587.62,3576854.18],[11585447.21,3576840.74],[11585340.62,3576831.62],[11585125.34,3576819.08],[11584787.02,3576807.8],[11584512.09,3576800.06]]
+            }
+        },
+
+        { "type": "Feature", "properties": { "name": "成金青立交桥", "highway": "motorway_link", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11598166.61,3598835.83],[11598184.85,3598853.2],[11598239.91,3598896.51],[11598279.62,3598920.63]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "成金青立交桥", "highway": "motorway_link", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11598272.35,3598929.45],[11598232.57,3598901.65],[11598173.1,3598856.86],[11598159.12,3598842.6]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "大丰镇立交", "highway": "motorway_link", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11582603.44,3605072.88],[11582403.3,3605038.21]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "江家立交", "highway": "motorway_link", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11589247.13,3577061.11],[11589378.33,3577056.5]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "江家立交", "highway": "motorway_link", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11589382.85,3577106.13],[11589251.73,3577112.63]]
+            }
+        },
+        { "type": "Feature", "properties": { "name": "螺狮坝立交桥", "highway": "motorway_link", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11599843.29,3590647.53],[11599858.31,3590506.74]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "螺狮坝立交桥", "highway": "motorway_link", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11599906.65,3590512.64],[11599890.23,3590650.91]]
+            }
+        }
+     ]
+}
