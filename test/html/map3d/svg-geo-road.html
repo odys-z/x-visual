@@ -36,23 +36,25 @@
 	// FIXME no stream ?
 	// https://github.com/uhop/stream-json/wiki/Filter
 	for (var feature of json.features) {
-		var path = {way: feature.properties.highway};
-		path.coords = [];
+		var path = {way: feature.properties.highway},
+		var points = [];
 		for (var coord of feature.geometry.coordinates) {
-			path.points.push(coord[0] - origin[0], coord[1] - origin[1]);
+			points.push(coord[0] - origin[0], coord[1] - origin[1]);
 		}
 		paths.push(path);
 	}
 
 	xworld.addEntities( {
 		id: 'way1',
-		Obj3: { geom: xv.XComponent.Obj3Type.GeoPath,
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.PathTube,
 			shader: xv.ShaderFlag.colorArray,
 			paras: {
-				geopath: paths,
+				y0: 0,
+				path,
+				points,
 				origin,
 				color: 0x00ff00 } }
 			});
