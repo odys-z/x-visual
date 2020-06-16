@@ -17,12 +17,12 @@
 	        { "type": "Feature", "properties": { "name": "3 waypoints", "highway": "motorway", "oneway": "yes" },
 	            "geometry": {
 	                "type": "LineString",
-	                "coordinates": [ [-50,0], [0,0], [50,0], [80, 30] ]
+	                "coordinates": [ [-50,0], [50,0], [100, 80], [100, 120] ]
 	            }
 	        }
 	    ]
 	};
-	var origin0 = [0, -30];
+	var origin0 = [0, 0];
 
     var json = {
 	    "type": "FeatureCollection",
@@ -44,7 +44,7 @@
 	var origin = [11582404.84, 3604991.03];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
-					  window, {canvasize: [480, 320]});
+					  window, {canvasize: [600, 400]});
 
 	var path0 = geopath(json0, origin0);
 	var path1 = geopath(json, origin);
@@ -54,7 +54,8 @@
 		var paths = [];
 		// https://github.com/uhop/stream-json/wiki/Filter
 		for (var feature of json.features) {
-			var property = {way: feature.properties.highway};
+			var property = {way: feature.properties.highway,
+							haflWidth: 30};
 			var points = [];
 			for (var coord of feature.geometry.coordinates) {
 				points.push([coord[0] - origin[0], coord[1] - origin[1]]);
@@ -80,26 +81,25 @@
 	xworld.addEntities( {
 		id: 'way0',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				uniforms: {opacity: 1.0},
 				box: [0] },    // y0 = 0
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			// shader: xv.ShaderFlag.colorArray,
+			shader: xv.ShaderFlag.colorArray,
 			paras: {
-				feature: path1.property,
+				feature: path0[0].property,
 				points: path0[0].points,
 				origin: origin0,
-				colors: [[0, 0xff, 0]] } }
+				colors: [[0.2, 0.3, 0]] } }
 			});
 
 	xworld.addEntities( {
 		id: 'plane',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [500, 200] },    // y0 = 0
+				box: [300, 10] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			// shader: xv.ShaderFlag.colorArray,
-			paras: {
-				colors: [[0, 0xff, 0]] } }
+			asset: '../../assets/tex/ruler256.png'}
 			});
 	xworld.startUpdate();
   </script>
