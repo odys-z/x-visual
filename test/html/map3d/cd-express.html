@@ -12,25 +12,32 @@
   <script>
 	"use strict";
 
-	var origin = [11582510.7,3605038.04];
-
+	// var origin = [11582510.7,3605038.04];
+	// var origin = [11580236.19,3578112.85];
+	// var origin = [11592013.59,3595594.47];
+	var origin = [11578238.61,3604584.74];
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
 
-    // var json = '../data/way-1.geojson';
-    var json = '../assets/earth/cd-express-way.geojson';
+    var json = '../data/way-2.geojson';
+    // var json = '../assets/earth/cd-express-way.geojson';
     $.getJSON( json, function(json) {
 			xworld.addEntities( {
 				id: 'way1',
 				Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+						uniforms: {opacity: 1.0},
 						box: [0] },    // y0
 				Visual:{
 					vtype: xv.AssetType.mesh,
+					// shader: xv.ShaderFlag.colorArray,
 					paras: {
+						uniforms: {side: THREE.DoubleSide},
 						features: json.features,
 						origin: origin,
 						style: {halfWidth: 1,
-								geoScale: 0.001} },
+								geoScale: 0.1},
+						u_tex: ['../../assets/tex/ruler256.png'],
+						colors: [[0.4, 0.0, 0.5]] },
 					// asset: '../../assets/tex/ruler256.png'
 				}
 			});
