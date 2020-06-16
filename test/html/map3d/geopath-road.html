@@ -24,7 +24,8 @@
 	};
 	var origin0 = [0, 0];
 
-    var json = {
+	// 2 parallel way
+    var json1 = {
 	    "type": "FeatureCollection",
 	    "features": [
 	        { "type": "Feature", "properties": { "name": "cross df", "highway": "motorway", "oneway": "yes" },
@@ -41,66 +42,40 @@
 	        }
 	    ]
 	};
-	var origin = [11582404.84, 3604991.03];
+	var origin = [11582510.7,3605038.04];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
-					  window, {canvasize: [600, 400]});
+					  window, {canvasize: [600, 400], frustum: {fov: 100000} });
 
-	var path0 = geopath(json0, origin0);
-	var path1 = geopath(json, origin);
-
-	function geopath(json, origin) {
-		// FIXME no stream ?
-		var paths = [];
-		// https://github.com/uhop/stream-json/wiki/Filter
-		for (var feature of json.features) {
-			var property = {way: feature.properties.highway,
-							haflWidth: 30};
-			var points = [];
-			for (var coord of feature.geometry.coordinates) {
-				points.push([coord[0] - origin[0], coord[1] - origin[1]]);
-			}
-			paths.push({property, points});
+	xworld.addEntities( {
+		id: 'way1',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [-10] },    // y0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			paras: {
+				features: json1.features,
+				origin: origin,
+				style: {halfWidth: 16} },
+			asset: '../../assets/tex/ruler256.png'
 		}
-		return paths;
-	}
+	});
 
-	// xworld.addEntities( {
-	// 	id: 'way1',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-	// 			box: [0] },    // y0 = 0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.mesh,
-	// 		// shader: xv.ShaderFlag.colorArray,
-	// 		paras: {
-	// 			feature,
-	// 			points,
-	// 			origin,
-	// 			colors: [[0, 0xff, 0]] } }
-	// 		});
 	xworld.addEntities( {
 		id: 'way0',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
 				uniforms: {opacity: 1.0},
-				box: [0] },    // y0 = 0
+				box: [-6] },    // y0
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			shader: xv.ShaderFlag.colorArray,
 			paras: {
-				feature: path0[0].property,
-				points: path0[0].points,
+				features: json0.features,
 				origin: origin0,
-				colors: [[0.2, 0.3, 0]] } }
-			});
+				style: {halfWidth: 10},
+				colors: [[0.4, 0.4, 0.5]] } }
+	});
 
-	xworld.addEntities( {
-		id: 'plane',
-		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [300, 10] },
-		Visual:{
-			vtype: xv.AssetType.mesh,
-			asset: '../../assets/tex/ruler256.png'}
-			});
 	xworld.startUpdate();
   </script>
 </body>

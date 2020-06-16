@@ -48,8 +48,9 @@ describe('case: Geometry - geopath', function() {
   });
 
   it('road xz ploygon (3 way points)', function() {
-	const points = [[0, 0], [100, 0], [100, 100]];
-	var way = xgeom.generateWayxz( points, 0, {halfWidth: 25});
+	const features = [{ geometry: { coordinates: [[0, 0], [100, 0], [100, 100]] } }];
+	debugger
+	var way = xgeom.generateWayxz( features, 0, [0, 0, 0], {halfWidth: 25});
 	var wp = way.getAttribute('position');
 
 	assert.isOk(wp, 'way points');

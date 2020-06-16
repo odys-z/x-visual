@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest SVG -&gt; Obj3</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	var origin = [11582510.7,3605038.04];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 400]});
+
+    // var json = '../data/way-1.geojson';
+    var json = '../assets/earth/cd-express-way.geojson';
+    $.getJSON( json, function(json) {
+			xworld.addEntities( {
+				id: 'way1',
+				Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+						box: [0] },    // y0
+				Visual:{
+					vtype: xv.AssetType.mesh,
+					paras: {
+						features: json.features,
+						origin: origin,
+						style: {halfWidth: 1,
+								geoScale: 0.001} },
+					// asset: '../../assets/tex/ruler256.png'
+				}
+			});
+			xworld.startUpdate();
+		});
+
+  </script>
+</body>
+</html>
