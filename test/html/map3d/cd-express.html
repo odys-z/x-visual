@@ -12,17 +12,18 @@
   <script>
 	"use strict";
 
-	// var origin = [11582510.7,3605038.04];
-	// var origin = [11580236.19,3578112.85];
-	// var origin = [11592013.59,3595594.47];
-
-	var origin = [11579034.565894317, 3578695.67265513]; // makes spike
-	// var origin = [11580035.49,3577912.37];	           // seams broke way point?
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
 
-    var json = '../data/way-1.geojson';
-    // var json = '../assets/earth/cd-express-way.geojson';
+    // var json = '../data/way-2.geojson';
+	// var origin = [11578238.61,3604584.74];
+
+    // var json = '../data/way-1.geojson';
+	// var origin = [11579034.565894317, 3578695.67265513];
+
+    var json = '../assets/earth/cd-express-way.geojson';
+	var origin = [11584597., 3576803.];
+
     $.getJSON( json, function(json) {
 		xworld.addEntities( {
 			id: 'way1',
@@ -38,10 +39,9 @@
 					features: json.features,
 					origin: origin,
 					style: {halfWidth: 0.8,
-							geoScale: 0.1},
+							geoScale: 0.01},
 					u_tex: ['../../assets/tex/ruler256.png'],
 					colors: [[0.4, 0.0, 0.5]] },
-				// asset: '../../assets/tex/ruler256.png'
 			}
 		});
 		xworld.startUpdate();

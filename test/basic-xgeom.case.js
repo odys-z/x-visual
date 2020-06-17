@@ -54,15 +54,15 @@ describe('case: Geometry - geopath', function() {
 	var wp = way.getAttribute('position');
 
 	assert.isOk(wp, 'way points');
-	assert.equal(wp.length, 6 * 3, 'way points count');
+	assert.equal(wp.count, 6, 'way points count');
 
-	eq(wp, 0, [0, 0, 25]);
-	eq(wp, 1, [75, 0, 25]);
-	eq(wp, 2, [75, 0, 100]);
+	eq(wp, 0, [0, 0, -25]); // 0: r0 (-z, +y-3847)
+	eq(wp, 1, [75, 0, -25]);
+	eq(wp, 2, [75, 0, -100]);
 
-	eq(wp, 3, [125, 0, 100]);
-	eq(wp, 4, [125, 0, -25]);
-	eq(wp, 5, [0, 0, -25]);
+	eq(wp, 3, [125, 0, -100]);
+	eq(wp, 4, [125, 0, 25]);
+	eq(wp, 5, [0, 0, 25]);
 
 	function eq(points, idx, target) {
 		var p = [points.array[idx * 3], points.array[idx * 3 + 1], points.array[idx * 3 + 2]];
