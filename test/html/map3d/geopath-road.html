@@ -17,7 +17,7 @@
 	        { "type": "Feature", "properties": { "name": "3 waypoints", "highway": "motorway", "oneway": "yes" },
 	            "geometry": {
 	                "type": "LineString",
-	                "coordinates": [ [-50,0], [50,0], [100, 80], [100, 120] ]
+	                "coordinates": [ [-100,0], [50,0], [100, 80], [100, 120] ]
 	            }
 	        }
 	    ]
@@ -62,50 +62,60 @@
 	var origin2 = [11578238.61,3604584.74];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
-					  window, {canvasize: [600, 400], frustum: {fov: 100000} });
+					  window, {canvasize: [600, 400]});
 
-	xworld.addEntities( {
-		id: 'way1',
-		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-				box: [-10] },    // y0
-		Visual:{
-			vtype: xv.AssetType.mesh,
-			paras: {
-				features: json1.features,
-				origin: origin,
-				style: {halfWidth: 16} },
-			asset: '../../assets/tex/ruler256.png'
-		}
-	});
-
-	xworld.addEntities( {
-		id: 'way2',
-		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-				box: [-6] },    // y0
-		Visual:{
-			vtype: xv.AssetType.mesh,
-			paras: {
-				features: json2.features,
-				origin: origin2,
-				style: {halfWidth: 12, geoScale: 0.1} },
-			asset: '../../assets/tex/ruler256.png'
-		}
-	});
+	// xworld.addEntities( {
+	// 	id: 'way1',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+	// 			box: [-10] },    // y0
+	// 	Visual:{
+	// 		vtype: xv.AssetType.mesh,
+	// 		paras: {
+	// 			features: json1.features,
+	// 			origin: origin,
+	// 			style: {halfWidth: 16} },
+	// 		asset: '../../assets/tex/ruler256.png'
+	// 	}
+	// });
+	//
+	// xworld.addEntities( {
+	// 	id: 'way2',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+	// 			box: [-6] },    // y0
+	// 	Visual:{
+	// 		vtype: xv.AssetType.mesh,
+	// 		paras: {
+	// 			features: json2.features,
+	// 			origin: origin2,
+	// 			style: {halfWidth: 12, geoScale: 0.1} },
+	// 		asset: '../../assets/tex/ruler256.png'
+	// 	}
+	// });
 
 	xworld.addEntities( {
 		id: 'way0',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
 				uniforms: {opacity: 1.0},
-				box: [-6] },    // y0
+				box: [36] },    // y0
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			shader: xv.ShaderFlag.colorArray,
 			paras: {
 				features: json0.features,
 				origin: origin0,
-				style: {halfWidth: 10},
+				style: {halfWidth: 12},
 				colors: [[0.4, 0.4, 0.5]] } }
 	});
+
+	// xworld.addEntities( {
+	// 	id: 'x',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+	// 			uniforms: {opacity: 1.0},
+	// 			box: [200, 5, 160] },    // y0
+	// 	Visual:{
+	// 		vtype: xv.AssetType.wireframe,
+	// 	}
+	// });
 
 	xworld.startUpdate();
   </script>
