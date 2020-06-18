@@ -32,16 +32,22 @@
 					box: [0] },    // y0
 			Visual:{
 				vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.colorArray,
+				// shader: xv.ShaderFlag.colorArray,
+				shader: xv.XComponent.ShaderFlag.scaleOrb,
 				paras: {
-					uniforms: {side: THREE.DoubleSide,
-						u_texWeight: 0.5},
+					uniforms: { u_texWeight: 0.5},
 					features: json.features,
 					origin: origin,
-					style: {halfWidth: 0.8,
+					style: {halfWidth: 0.1,
 							geoScale: 0.01},
+
+					side: THREE.FrontSide,
 					u_tex: ['../../assets/tex/ruler256.png'],
-					colors: [[0.4, 0.0, 0.5]] },
+					colors: [[0.4, 0.0, 0.5]],
+					//
+					orbR: 20,
+					whiteAlpha: 0.2,	// out of range alpha
+					orbScale: [.5, .5, 1] },
 			}
 		});
 		xworld.startUpdate();

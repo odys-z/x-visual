@@ -64,39 +64,39 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
 
-	// xworld.addEntities( {
-	// 	id: 'way1',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-	// 			box: [-10] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.mesh,
-	// 		paras: {
-	// 			features: json1.features,
-	// 			origin: origin,
-	// 			style: {halfWidth: 16} },
-	// 		asset: '../../assets/tex/ruler256.png'
-	// 	}
-	// });
-	//
-	// xworld.addEntities( {
-	// 	id: 'way2',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-	// 			box: [-6] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.mesh,
-	// 		paras: {
-	// 			features: json2.features,
-	// 			origin: origin2,
-	// 			style: {halfWidth: 12, geoScale: 0.1} },
-	// 		asset: '../../assets/tex/ruler256.png'
-	// 	}
-	// });
+	xworld.addEntities( {
+		id: 'way1',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [-10] },    // y0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			paras: {
+				features: json1.features,
+				origin: origin,
+				style: {halfWidth: 16} },
+			asset: '../../assets/tex/ruler256.png'
+		}
+	});
+
+	xworld.addEntities( {
+		id: 'way2',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [-6] },    // y0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			paras: {
+				features: json2.features,
+				origin: origin2,
+				style: {halfWidth: 12, geoScale: 0.1} },
+			asset: '../../assets/tex/ruler256.png'
+		}
+	});
 
 	xworld.addEntities( {
 		id: 'way0',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
 				uniforms: {opacity: 1.0},
-				box: [36] },    // y0
+				box: [-36] },    // y0
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			shader: xv.ShaderFlag.colorArray,
@@ -107,15 +107,15 @@
 				colors: [[0.4, 0.4, 0.5]] } }
 	});
 
-	// xworld.addEntities( {
-	// 	id: 'x',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-	// 			uniforms: {opacity: 1.0},
-	// 			box: [200, 5, 160] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.wireframe,
-	// 	}
-	// });
+	xworld.addEntities( {
+		id: 'x',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				uniforms: {opacity: 1.0},
+				box: [200, 5, 160] },    // y0
+		Visual:{
+			vtype: xv.AssetType.wireframe,
+		}
+	});
 
 	xworld.startUpdate();
   </script>

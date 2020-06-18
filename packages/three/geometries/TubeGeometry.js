@@ -1,4 +1,8 @@
-/**Modified from three.js source.
+import { Geometry, BufferGeometry, Float32BufferAttribute, Vector2, Vector3 } from 'three';
+
+/**Tube geometry providing vertex attribute 'dir'.
+ *
+ * Modified from three.js source.
  * @author oosmoxiecode / https://github.com/oosmoxiecode
  * @author WestLangley / https://github.com/WestLangley
  * @author zz85 / https://github.com/zz85
@@ -6,11 +10,14 @@
  * @author jonobr1 / https://github.com/jonobr1
  * @author Mugen87 / https://github.com/Mugen87
  *
+ * @constructor DirTubeGeometry
+ * @param {THREE.Curve} path
+ * @param {int} tubularSegments
+ * @param {number} radius
+ * @param {int} radialSegments
+ * @param {bool} closed
+ * @memberof ThreeExt
  */
-
-import { Geometry, BufferGeometry, Float32BufferAttribute, Vector2, Vector3 } from 'three';
-// TubeGeometry
-
 function DirTubeGeometry( path, tubularSegments, radius, radialSegments, closed ) {
 
 	Geometry.call( this );
@@ -45,8 +52,24 @@ function DirTubeGeometry( path, tubularSegments, radius, radialSegments, closed 
 DirTubeGeometry.prototype = Object.create( Geometry.prototype );
 DirTubeGeometry.prototype.constructor = DirTubeGeometry;
 
-// TubeBufferGeometry
-
+/**Tube geometry providing vertex attribute 'tan', the path direction.
+ *
+ * Modified from three.js source.
+ * @author oosmoxiecode / https://github.com/oosmoxiecode
+ * @author WestLangley / https://github.com/WestLangley
+ * @author zz85 / https://github.com/zz85
+ * @author miningold / https://github.com/miningold
+ * @author jonobr1 / https://github.com/jonobr1
+ * @author Mugen87 / https://github.com/Mugen87
+ *
+ * @class DirTubeBufferGeometry
+ * @param {THREE.Curve} path
+ * @param {int} tubularSegments
+ * @param {number} radius
+ * @param {int} radialSegments
+ * @param {bool} closed
+ * @memberof ThreeExt
+ */
 function DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, closed ) {
 
 	BufferGeometry.call( this );
@@ -224,7 +247,6 @@ DirTubeBufferGeometry.prototype.toJSON = function () {
 	data.path = this.parameters.path.toJSON();
 
 	return data;
-
 };
 
 export { DirTubeGeometry, DirTubeBufferGeometry };
