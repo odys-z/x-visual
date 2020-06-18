@@ -64,58 +64,99 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
 
-	xworld.addEntities( {
-		id: 'way1',
+	xworld.addEntities([ {
+	// 	id: 'way1-1',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+	// 			box: [-20] },    // y0
+	// 	Visual:{
+	// 		vtype: xv.AssetType.mesh,
+	// 		paras: {
+	// 			features: json1.features,
+	// 			origin: origin,
+	// 			style: {halfWidth: 6} },
+	// 		asset: '../../assets/tex/ruler256.png'
+	// 	}
+	// },
+	// {
+		id: 'way1-2',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
 				box: [-10] },    // y0
 		Visual:{
 			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.scaleOrb,
 			paras: {
+				// road
 				features: json1.features,
 				origin: origin,
-				style: {halfWidth: 16} },
-			asset: '../../assets/tex/ruler256.png'
-		}
-	});
+				style: {halfWidth: 6,
+						geoScale: 1},
 
-	xworld.addEntities( {
-		id: 'way2',
-		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-				box: [-6] },    // y0
-		Visual:{
-			vtype: xv.AssetType.mesh,
-			paras: {
-				features: json2.features,
-				origin: origin2,
-				style: {halfWidth: 12, geoScale: 0.1} },
-			asset: '../../assets/tex/ruler256.png'
-		}
-	});
+				// shader
+				uniforms: { u_texWeight: 0.5},
+				side: THREE.FrontSide,
+				// u_tex: ['../../assets/tex/ruler256.png'],
+				colors: [[0.4, 0.0, 0.5]],
+				//
+				orbR: 50,
+				whiteAlpha: 0.75,	// out of range alpha
+		        orbScale: [0.2, 0.5, 0.5] } }
+	},
+	{
+		id: 'tube1',
+		Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+		        box: [6],
+		        transform: [ { translate: [-60, 0, 0] }],
+		        mesh: undefined },
+		Visual: {
+		    vtype: xv.AssetType.PathTube,
+		    shader: xv.XComponent.ShaderFlag.scaleOrb,
+		    paras: {
+		        points:[[0, 40, 0], [0, -40, 0]],
+		        origin: [-0, 0, 0],
+		        side: THREE.FrontSide,
+		        tubularSegments: 50, radius: 24, radialSegments: 12,
 
-	xworld.addEntities( {
-		id: 'way0',
-		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-				uniforms: {opacity: 1.0},
-				box: [-36] },    // y0
-		Visual:{
-			vtype: xv.AssetType.mesh,
-			shader: xv.ShaderFlag.colorArray,
-			paras: {
-				features: json0.features,
-				origin: origin0,
-				style: {halfWidth: 12},
-				colors: [[0.4, 0.4, 0.5]] } }
-	});
+		        orbR: 30,
+		        orbScale: [1, 0.5, .1] } }
+	},
+	// {
+	// 	id: 'way2',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+	// 			box: [-6] },    // y0
+	// 	Visual:{
+	// 		vtype: xv.AssetType.mesh,
+	// 		paras: {
+	// 			features: json2.features,
+	// 			origin: origin2,
+	// 			style: {halfWidth: 12, geoScale: 0.1} },
+	// 		asset: '../../assets/tex/ruler256.png' }
+	// }
+	]);
 
-	xworld.addEntities( {
-		id: 'x',
-		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				uniforms: {opacity: 1.0},
-				box: [200, 5, 160] },    // y0
-		Visual:{
-			vtype: xv.AssetType.wireframe,
-		}
-	});
+	// xworld.addEntities( {
+	// 	id: 'way0',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+	// 			uniforms: {opacity: 1.0},
+	// 			box: [-36] },    // y0
+	// 	Visual:{
+	// 		vtype: xv.AssetType.mesh,
+	// 		shader: xv.ShaderFlag.colorArray,
+	// 		paras: {
+	// 			features: json0.features,
+	// 			origin: origin0,
+	// 			style: {halfWidth: 12},
+	// 			colors: [[0.4, 0.4, 0.5]] } }
+	// });
+
+	// xworld.addEntities( {
+	// 	id: 'x',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+	// 			uniforms: {opacity: 1.0},
+	// 			box: [(100+12)*2, 72, 240] },    // y0
+	// 	Visual:{
+	// 		vtype: xv.AssetType.wireframe,
+	// 	}
+	// });
 
 	xworld.startUpdate();
   </script>
