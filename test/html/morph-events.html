@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Morph Color</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <p>Press spacebar to start again.</p>
+  <p>Press shift to flash left.</p>
+  <script>
+	"use strict";
+
+	/**Senario: suppose you have a model changing colors. */
+	class EvtMorphing extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.seqx = 1;
+			this.cmd = 0;
+			var ents = options.xworld.addEntities( this.initEnts() );
+			this.nav = ents[0];
+			this.left = ents[1];
+			this.right = ents[2];
+
+			this.pause = false;
+		}
+
+		update(tick, entities) {
+			if (xworld.xview.flag > 0) {
+				for (const cmd of xworld.xview.cmds) {
+					if (cmd.code === 'key') {
+						this.naving = -1;
+						if ((cmd.keyflag & xv.KeyFlag.shift) > 0) {
+					 		this.naving = 1;
+							break;
+						}
+						else if ((cmd.keyflag & xv.KeyFlag.ctrl) > 0) {
+							this.pause = !this.pause;
+					 		xv.XTweener.pauseTween(this.nav.CmpTweens, this.pause);
+					 		xv.XTweener.pauseTween(this.right.CmpTweens, this.pause);
+					 		xv.XTweener.pauseTween(this.left.CmpTweens, this.pause);
+							break;
+						}
+						else if (cmd.cmd === 'fire') {
+							xv.XTweener.startSeq(this.nav.CmpTweens, 0);
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		triggerI(cmpTweens, seqx) {
+			if (that.naving < 0) {
+				xv.XTweener.startSeq(that.right.CmpTweens, seqx);
+			}
+			else
+				xv.XTweener.startSeq(that.left.CmpTweens, seqx);
+		}
+
+		initEnts() {
+			const nav = {
+				id: 'nav',
+				Obj3: { geom:   xv.XComponent.Obj3Type.Tetrahedron,
+						box:   [80, 0],
+						transform: [{translate: [0, 120, 0]}],
+						// mesh is inited by thrender, can be ignored here - MorphSwitch's target
+						mesh:   undefined,
+						uniforms: {opacity: 1.0}},
+				Visual:{vtype:  xv.AssetType.mesh,
+						shader: xv.XComponent.ShaderFlag.colorArray,
+						paras:{ colors: [ [1, 0, 0] ],
+                                hueWeight: 0.5 } },
+				ModelSeqs: {
+					script: [[{
+						mtype:  xv.XComponent.AnimType.ROTAXIS,
+						paras: {start: 0,
+								duration: 1.8,
+								deg: [0, 120],
+								axis: [0, 1, 0],
+								ease: undefined}} ]],
+					fFinished: [this.triggerI], // Sequence ending event handler
+				  },
+				CmpTweens: {}
+			};
+			// a box can changing colors
+			const ent1 = {
+				id: 'color1',
+				Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
+						box:   [100, 80, 80],
+						transform: [{translate: [-100, 0, 0]}],
+						// mesh is inited by thrender, can be ignored here - MorphSwitch's target
+						mesh:   undefined,
+						uniforms: {opacity: 1.0}},
+				Visual:{vtype:  xv.AssetType.mesh,
+						shader: xv.XComponent.ShaderFlag.colorArray,
+						// colors' morphing weight variable name: u_morph0, u_morph1, ...
+						paras:{ colors: [
+							[1, 0, 0],
+							[0, 0, 1],
+							[0, 1, 0]
+						] } },
+				ModelSeqs: {script:
+					[ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+						paras: {start: 0,          // auto start
+								duration: 0.71,
+								uniforms: {
+									u_morph0: [0, 1],
+									u_morph1: [0, 0],
+									u_morph2: [0, 0]
+								},
+								ease: xv.XEasing.Elastic.Elastic} }],
+					  [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+						paras: {start: Infinity,
+								duration: 0.62,
+								uniforms: {
+									u_morph0: [0, 0],
+									u_morph1: [0, 1],
+									u_morph2: [0, 0]
+								},
+								ease: undefined} }],
+					  [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+						paras: {start: Infinity,
+								duration: 0.53,
+								uniforms: {
+									u_morph0: [0, 0],
+									u_morph1: [0, 0],
+									u_morph2: [0, 1] },
+								ease: undefined} }] ] },
+				CmpTweens: {}
+			};
+
+			const ent2 = {
+				id: 'color2',
+				Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
+						box:   [100, 80, 80],
+						transform: [{translate: [100, 0, 0]}],
+						// mesh is inited by thrender, can be ignored here - MorphSwitch's target
+						mesh:   undefined,
+						uniforms: {opacity: 1.0}},
+				Visual:{vtype:  xv.AssetType.mesh,
+						shader: xv.XComponent.ShaderFlag.colorArray,
+						// colors' morphing weight variable name: u_morph0, u_morph1, ...
+						paras:{ colors: [
+							[1, 0, 0],
+							[0, 0, 1],
+							[0, 1, 0]
+						] } },
+				ModelSeqs: {script:
+					[ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+						paras: {start: 0,			// auto start
+								duration: 0.71,	  // seconds
+								uniforms: {
+									u_morph0: [0, 1],
+									u_morph1: [0, 0],
+									u_morph2: [0, 0]
+								},
+								ease: xv.XEasing.Elastic.Elastic} }],
+					  [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+						paras: {start: Infinity,
+								duration: 0.62,
+								uniforms: {
+									u_morph0: [0, 0],
+									u_morph1: [0, 1],
+									u_morph2: [0, 0]
+								},
+								ease: undefined} }],
+					  [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+						paras: {start: Infinity,
+								duration: 0.53,
+								uniforms: {
+									u_morph0: [0, 0],
+									u_morph1: [0, 0],
+									u_morph2: [0, 1] },
+								ease: undefined} }] ] },
+				CmpTweens: {}
+			};
+			return [nav, ent1, ent2];
+		}
+	}
+
+	EvtMorphing.query = { iffall: ['Obj3'] };
+
+	// initiating xworld
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+						window, {canvasize: [480, 320]});
+	const ecs = xworld.xecs;
+
+	var that = new EvtMorphing(ecs, {xworld});
+	xworld.addSystem('test', that);
+	xworld.startUpdate();
+  </script>
+</body>
+</html>

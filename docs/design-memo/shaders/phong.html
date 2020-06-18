@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>WebGl Phong Material &mdash; x-visual 0.3 documentation</title>
+  <title>Morphing Phong Material &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
     <link rel="top" title="x-visual 0.3 documentation" href="../../index.html"/>
         <link rel="up" title="Shader Samples" href="index.html"/>
         <link rel="next" title="Shadertoy Flame" href="flame.html"/>
-        <link rel="prev" title="Shader Samples" href="index.html"/> 
+        <link rel="prev" title="Shader Instance Pool" href="instance.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -86,6 +86,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests/index.html">Tests &amp; Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
@@ -93,15 +94,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Shader Samples</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">WebGl Phong Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Morphing Phong Material</a></li>
 <li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/index.html">Extensions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../todo.html">Wish List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debug.html">Debug Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
@@ -139,7 +143,7 @@
       
           <li><a href="index.html">Shader Samples</a> &raquo;</li>
       
-    <li>WebGl Phong Material</li>
+    <li>Morphing Phong Material</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -151,10 +155,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="webgl-phong-material">
-<h1>WebGl Phong Material<a class="headerlink" href="#webgl-phong-material" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="morphing-phong-material">
+<h1>Morphing Phong Material<a class="headerlink" href="#morphing-phong-material" title="Permalink to this headline">¶</a></h1>
 <p>X-visual Phong shader is designed for general materail used by data object like
 bar in bar chart, with respect to light position.</p>
+<p>This shader can also handle texture mixing.</p>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">color</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
 <p>Phong material is provided by <a class="reference external" href="../../jsdoc/xglsl.html">xglsl</a>.meshColors(vparas).</p>
 <p>Reference: <a class="reference external" href="http://www.cs.toronto.edu/~jacobson/phong-demo/">WebGL - Phong Shading</a></p>
 <div class="highlight-glsl"><div class="highlight"><pre><span class="k">attribute</span> <span class="k">vec3</span> <span class="n">position</span><span class="p">;</span>
@@ -228,31 +237,31 @@ bar in bar chart, with respect to light position.</p>
 20: attribute vec3 normal;
 21: attribute vec2 uv;
 22: #ifdef USE_TANGENT
-23:     attribute vec4 tangent;
+23:         attribute vec4 tangent;
 24: #endif
 25: #ifdef USE_COLOR
-26:     attribute vec3 color;
+26:         attribute vec3 color;
 27: #endif
 28: #ifdef USE_MORPHTARGETS
-29:     attribute vec3 morphTarget0;
-30:     attribute vec3 morphTarget1;
-31:     attribute vec3 morphTarget2;
-32:     attribute vec3 morphTarget3;
-33:     #ifdef USE_MORPHNORMALS
-34:             attribute vec3 morphNormal0;
-35:             attribute vec3 morphNormal1;
-36:             attribute vec3 morphNormal2;
-37:             attribute vec3 morphNormal3;
-38:     #else
-39:             attribute vec3 morphTarget4;
-40:             attribute vec3 morphTarget5;
-41:             attribute vec3 morphTarget6;
-42:             attribute vec3 morphTarget7;
-43:     #endif
+29:         attribute vec3 morphTarget0;
+30:         attribute vec3 morphTarget1;
+31:         attribute vec3 morphTarget2;
+32:         attribute vec3 morphTarget3;
+33:         #ifdef USE_MORPHNORMALS
+34:                 attribute vec3 morphNormal0;
+35:                 attribute vec3 morphNormal1;
+36:                 attribute vec3 morphNormal2;
+37:                 attribute vec3 morphNormal3;
+38:         #else
+39:                 attribute vec3 morphTarget4;
+40:                 attribute vec3 morphTarget5;
+41:                 attribute vec3 morphTarget6;
+42:                 attribute vec3 morphTarget7;
+43:         #endif
 44: #endif
 45: #ifdef USE_SKINNING
-46:     attribute vec4 skinIndex;
-47:     attribute vec4 skinWeight;
+46:         attribute vec4 skinIndex;
+47:         attribute vec4 skinWeight;
 48: #endif
 49:
 50: uniform float u_alpha;
@@ -293,7 +302,7 @@ bar in bar chart, with respect to light position.</p>
         <a href="flame.html" class="btn btn-neutral float-right" title="Shadertoy Flame" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Shader Samples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="instance.html" class="btn btn-neutral" title="Shader Instance Pool" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -34,7 +34,7 @@
   
     <link rel="top" title="x-visual 0.3 documentation" href="../../index.html"/>
         <link rel="up" title="Design Memo" href="../index.html"/>
-        <link rel="next" title="WebGl Phong Material" href="phong.html"/>
+        <link rel="next" title="Shader Instance Pool" href="instance.html"/>
         <link rel="prev" title="Affine Tweening" href="../affine.html"/> 
 
   
@@ -86,6 +86,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests/index.html">Tests &amp; Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
@@ -93,15 +94,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Shader Samples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="phong.html">WebGl Phong Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
 <li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/index.html">Extensions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../todo.html">Wish List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debug.html">Debug Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
@@ -154,7 +158,12 @@
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="phong.html">WebGl Phong Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instance.html">Shader Instance Pool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="instance.html#instance-management">Instance Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instance.html#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flame.html">Shadertoy Flame</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="flame.html#throbbing-star">Throbbing Star</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flame.html#lesser-raymarch-flame">Lesser Raymarch Flame</a></li>
@@ -171,7 +180,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="phong.html" class="btn btn-neutral float-right" title="WebGl Phong Material" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="instance.html" class="btn btn-neutral float-right" title="Shader Instance Pool" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../affine.html" class="btn btn-neutral" title="Affine Tweening" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

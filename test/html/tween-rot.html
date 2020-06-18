@@ -44,8 +44,8 @@
             if (ecs) {
                 var cube = ecs.createEntity({
                     id: 'cube0',
-                    UserCmd: {},
-                    CmdFlag: {},
+                    // UserCmd: {},
+                    // CmdFlag: {},
                     Obj3: { geom: xv.XComponent.Obj3Type.BOX,
                             box: [200, 120, 80],
                             // mesh is inited by thrender, can be ignored here - CmpTween's target
@@ -60,7 +60,7 @@
                             paras: {start: 0,          // auto start
                                     duration: 1,       // seconds
                                     deg: [0, 45],      // from, to
-                                    ease: undefined} },   // default linear
+                                    ease: undefined} },// default linear
                           { mtype: xv.XComponent.AnimType.ROTAXIS,
                             paras: {start: Infinity,   // auto start
                                     duration: 3.5,     // seconds
@@ -79,7 +79,7 @@
         }
     }
 
-    Cubesys.query = { iffall: ['Visual', 'CmdFlag'] };
+    Cubesys.query = { iffall: ['Visual'] };
 
     xv.splash('splash', rock);
 

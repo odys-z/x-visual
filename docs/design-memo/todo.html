@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Wish List &mdash; x-visual 0.3 documentation</title>
+  <title>Tasks &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
-        <link rel="next" title="Reference" href="../reference/index.html"/>
+        <link rel="next" title="Debug Notes" href="debug.html"/>
         <link rel="prev" title="Charts" href="extensions/chart.html"/> 
 
   
@@ -86,6 +86,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
@@ -93,11 +94,18 @@
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Wish List</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Tasks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#todos">TODOs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issues">Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wish-list">Wish List</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debug Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
@@ -133,7 +141,7 @@
       
           <li><a href="index.html">Design Memo</a> &raquo;</li>
       
-    <li>Wish List</li>
+    <li>Tasks</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -145,8 +153,102 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="wish-list">
-<h1>Wish List<a class="headerlink" href="#wish-list" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tasks">
+<h1>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="todos">
+<h2>TODOs<a class="headerlink" href="#todos" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Fix self rotation axis</li>
+<li>Extend volumetric shader for tube geometry</li>
+</ol>
+<p>Failed.</p>
+<p>Shader <em>scaleOrb</em> is using ray casting for distance calculating, which is not good
+at shape figuring like ray matching, a slow method.</p>
+<p>The <em>scaleOrb</em> shader use a scale inverse for finding ellipsoid distance, a simple
+version of inverse matrix. It&#8217;s said that&#8217;s expensive to calculate inverse matrix
+in GPU. So this shader stop here for now, with out direction rotation.</p>
+<p><em>Is it possible to handle distance to model in vertex shader? Or simply update
+matrix uniform(s) for every vertex?</em></p>
+<ol class="arabic simple" start="3">
+<li>Dynamic faces</li>
+</ol>
+<p>Example: <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-custom-buffergeometry.html">Three.js Custom BufferGeometry</a></p>
+<ol class="arabic simple" start="4">
+<li>Optimize anti-aliasing</li>
+</ol>
+<p>see <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-textures.html">Three.js Texture</a>.</p>
+<ol class="arabic simple" id="wish-svg" start="5">
+<li>SVG</li>
+</ol>
+</div>
+<div class="section" id="issues">
+<h2>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple" id="issue-asynch-gltf">
+<li>ModelSeqs can&#8217;t handle asynchronously loaded mesh</li>
+</ol>
+<p>test case: html/gltf-car.html</p>
+<p>Problem: If setting animation sequence start at 0 (any but Infinity) on a gltf
+mesh, then the target Obj3.mesh won&#8217;t being ready when playing started.</p>
+<p>Loading the gltf nodes is an asynchronous process, of which the node objects can
+only been ready for rendering latter.</p>
+<p>Code snippet of starting Tween animation in AffineCombiner.update():</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">idle</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">playRising</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">m0</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>Code snippet of Thrender.createObj3s() AssetType.gltf branch:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">AssetKeepr</span><span class="p">.</span><span class="nx">loadGltfNodes</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">,</span> <span class="sb">`assets/</span><span class="si">${</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">asset</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+    <span class="nx">nds</span><span class="p">,</span>
+    <span class="p">(</span><span class="nx">nodes</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Too late to push mesh into mes now, add to scene directly</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">scene</span> <span class="o">&amp;&amp;</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">n</span> <span class="k">of</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">transform</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">m4</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mat4</span><span class="p">();</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">paras</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">paras</span><span class="p">.</span><span class="nx">withTransform</span><span class="p">)</span>
+                        <span class="nx">m4</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">trs</span> <span class="k">of</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">transform</span><span class="p">)</span>
+                        <span class="nx">m4</span><span class="p">.</span><span class="nx">appAffine</span><span class="p">(</span><span class="nx">trs</span><span class="p">);</span>
+
+                    <span class="nx">n</span><span class="p">.</span><span class="nx">matrixAutoUpdate</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                    <span class="nx">m4</span><span class="p">.</span><span class="nx">put2js</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+                    <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span> <span class="o">=</span> <span class="nx">n</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Loaded GLTF makes outlined together with box mesh.</li>
+</ol>
+<p>And further, if used in an other project, the loaded GLTF modules crashes with box object:</p>
+<div class="highlight-python"><div class="highlight"><pre>three.module.js:16034 Uncaught TypeError: Cannot read property &#39;type&#39; of undefined
+    at WebGLIndexedBufferRenderer.setIndex (three.module.js:16034)
+    at WebGLRenderer.renderBufferDirect (three.module.js:24169)
+    at renderObject (three.module.js:24886)
+    at renderObjects (three.module.js:24856)
+    at WebGLRenderer.render (three.module.js:24637)
+    at RenderPass.render (RenderPass.js:58)
+    at EffectComposer.render (EffectComposer.js:142)
+    at Thrender.update (thrender.js:920)
+    at ECS.runSystemGroup (ecs.js:197)
+    at XWorld.update (xworld.js:311)
+THREE.REVISION
+&quot;113&quot;
+</pre></div>
+</div>
+<p>There are <a class="reference external" href="https://github.com/mrdoob/three.js/pull/14367">Three.js issue about the same error</a>.</p>
+<p><a class="reference external" href="../jsdoc/AssetKeepr.html">Jsdoc API - AssetKeepr</a></p>
+</div>
+<div class="section" id="wish-list">
+<h2>Wish List<a class="headerlink" href="#wish-list" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Animize Letters</li>
 </ul>
@@ -204,6 +306,30 @@
 <li>Tween.affine</li>
 </ul>
 <p>Have tweening transformation combinable.</p>
+<ul class="simple">
+<li>SVG Shader</li>
+</ul>
+<p>references:</p>
+<p>&#8211; <a class="reference external" href="https://stackoverflow.com/questions/1027179/displaying-svg-in-opengl-without-intermediate-raster">Stackoverflow question: Displaying SVG in OpenGL without intermediate raster</a></p>
+<p>&#8211; <a class="reference external" href="https://stackoverflow.com/questions/4129932/rendering-vector-graphics-in-opengl">Stackoverflow question: Rendering Vector Graphics in OpenGL? [duplicate]</a></p>
+<dl class="docutils">
+<dt>&#8211; <a class="reference external" href="http://on-demand.gputechconf.com/gtc/2012/presentations/S0024-GPU-Accelerated-Path-Rendering.pdf">Mark Kilgard, GPU Accelerated Path Rendering</a></dt>
+<dd>A general introduction. And <a class="reference external" href="https://learnopengl.com/Advanced-OpenGL/Stencil-testing">here&#8217;s details about stencil</a>.</dd>
+<dt>&#8211; <a class="reference external" href="https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-25-rendering-vector-art-gpu">Charles Loop &amp; Jim Blinn, Chapter 25. Rendering Vector Art on the GPU &#64; NVIDIA Developer</a></dt>
+<dd>Using control points to generate face?</dd>
+<dt>&#8211; <a class="reference external" href="https://drafts.fxtf.org/filter-effects/">W3C draft: Filter Effects Module Level 1, Editor’s Draft, 21 October 2019</a></dt>
+<dd>Retrieved on 2 Jun, 2020.</dd>
+<dt>&#8211; <a class="reference external" href="https://prideout.net/blog/svg_wireframes/">3D wireframe in SVG &#64; grasshopper</a></dt>
+<dd>A strange way to use svg filter?</dd>
+<dt>&#8211; <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=IWS-Chapter08">Victor Gaultney, Martin Hosken, Alan Ward, An Introduction to TrueType Fonts: A look inside the TTF format 2003-05-23</a></dt>
+<dd>Simple introduction of TrueType Font, together with <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?item_id=IWS-Chapter07">Rendering technologies overview</a>,
+and a font engine project, <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?site_id=projects&amp;item_id=graphite_home">SIL Graphite</a>.</dd>
+<dt>&#8211; <a class="reference external" href="https://simoncozens.github.io/fonts-and-layout/opentype.html">simoncozens.github.io: How OpenType Works</a></dt>
+<dd>Nice explanation of OpenType Font.</dd>
+<dt>&#8211; <a class="reference external" href="https://www.chromium.org/developers/design-documents/directwrite-font-cache">DirectWrite Font Cache (obsolete), docs of the Chromium Projects</a></dt>
+<dd>Details about how Chromium sandbox handling fonts in Windows.</dd>
+</dl>
+</div>
 </div>
 
 
@@ -213,7 +339,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../reference/index.html" class="btn btn-neutral float-right" title="Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="debug.html" class="btn btn-neutral float-right" title="Debug Notes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="extensions/chart.html" class="btn btn-neutral" title="Charts" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

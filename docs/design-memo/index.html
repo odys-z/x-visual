@@ -34,7 +34,7 @@
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="next" title="ECS Framework" href="ecs.html"/>
-        <link rel="prev" title="X-visual应用程序基本结构" href="../guide/intro-cn.html"/> 
+        <link rel="prev" title="TODO Examples" href="../tests/examples.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,6 +85,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Design Memo</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
@@ -92,11 +93,13 @@
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="todo.html">Wish List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debug Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
@@ -159,12 +162,22 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scene.html">Scene &amp; HUD</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="scene.html#hud-example">HUD Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html#main-scene">Main Scene</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene.html#main-scene-light">Main Scene Light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html#hud">HUD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene.html#hud-light">HUD Light</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scene.html#hud-example">HUD Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-transform">Obj3.transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html#using-obj3-transform">Using Obj3.transform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-affines-combined">Obj3.affines &amp; combined</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html#issue-quaternion-injection">Issue: Quaternion Injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#affine-transformation-references">Affine Transformation References:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-geometry-parameters">Obj3 Geometry Parameters</a></li>
 </ul>
@@ -179,9 +192,20 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html#dynamic-text">Dynamic Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer.html#gltf-nodes-transform">GLTF Nodes &amp; Transform</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vparas.html">Visual.paras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#shared-for-different-vtype">Shared for different vtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#paras-only-for-shaderflag-enabled">paras only for ShaderFlag enabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#paras-only-for-shader-colorarray">paras only for shader = colorArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#paras-only-for-vtype-point-or-refpoint">paras only for vtype = point or refPoint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="animizer.html">Animizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html#sequence-the-animation-structure">Sequence the Animation Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html#start-tween-sequence">Start Tween Sequence</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html#mesh-animiation-script">Mesh Animiation Script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html#modleseqs-script">ModleSeqs.script</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="animizer.html#mtype">mtype</a><ul>
@@ -212,7 +236,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="shaders/index.html">Shader Samples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="shaders/phong.html">WebGl Phong Material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/instance.html">Shader Instance Pool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shaders/instance.html#instance-management">Instance Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shaders/instance.html#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/phong.html">Morphing Phong Material</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/flame.html">Shadertoy Flame</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="shaders/flame.html#throbbing-star">Throbbing Star</a></li>
 <li class="toctree-l3"><a class="reference internal" href="shaders/flame.html#lesser-raymarch-flame">Lesser Raymarch Flame</a></li>
@@ -226,14 +255,18 @@
 <li class="toctree-l4"><a class="reference internal" href="extensions/effects.html#design-pattern-v0-2">Design Pattern v0.2</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="extensions/effects.html#about-the-three-module-issue">About the Three Module Issue</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/htmltex.html">HTML Texture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/svg.html">SVG Texture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/chart.html">Charts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#xcharts">XCharts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#d3-charts">D3 Charts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#chart-xcommon">Chart XCommon</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="extensions/chart.html#axis">Axis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="extensions/chart.html#visual-auxiliaries">Visual Auxiliaries</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#chart-extensions">Chart Extensions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="extensions/chart.html#xbar">XBar</a></li>
 <li class="toctree-l4"><a class="reference internal" href="extensions/chart.html#d3pie">D3Pie</a></li>
 </ul>
 </li>
@@ -242,7 +275,17 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="todo.html">Wish List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">Tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#todos">TODOs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#issues">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html#wish-list">Wish List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debug Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#three-js-14635">Three.js #14635</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#about-the-three-module-issue">About the Three Module Issue</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -257,7 +300,7 @@
         <a href="ecs.html" class="btn btn-neutral float-right" title="ECS Framework" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../guide/intro-cn.html" class="btn btn-neutral" title="X-visual应用程序基本结构" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../tests/examples.html" class="btn btn-neutral" title="TODO Examples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

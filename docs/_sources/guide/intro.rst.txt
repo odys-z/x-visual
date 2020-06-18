@@ -17,6 +17,8 @@ x-visual effectiently.
 x-visual is a npm package, together with a bundle can be used in plain javascript.
 For quick start, see x-visual/examples readme.
 
+.. _guide-hello-xworld:
+
 2. Hello XWorld
 ---------------
 
@@ -121,9 +123,11 @@ math met arts.
 So currently there is no more documents about it's function details, just feel
 free to try it.
 
-5. Next Step
+6. Next Step
 ------------
 
-There are some html test cases can be useful, see `x-visual/test/html <https://github.com/odys-z/x-visual>`_.
+There is an independent webpack example project can be useful, see *./examples*
+of `x-visual <https://github.com/odys-z/x-visual>`_.
 
-Details is up coming...
+Also test cases can be useful. Here are :ref:`some explaination<test-morph>`.
+More etails is up coming ...

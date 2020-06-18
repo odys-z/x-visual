@@ -10,7 +10,7 @@ import {
 	UniformsUtils,
 	Vector2,
 	WebGLRenderTarget
-} from "../three.module.js";
+} from "three"
 import { Pass } from "../postprocessing/Pass.js";
 import { CopyShader } from "../shaders/CopyShader.js";
 import { ConvolutionShader } from "../shaders/ConvolutionShader.js";

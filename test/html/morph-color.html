@@ -8,95 +8,148 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p id='para-tex'/>
+  <p id='para-phong'/>
+  <p>background color (css value):
+      <input id='bgv' value='#ffc'/>
+      <input type='button' value='set' onclick='xworld.bgColor = document.getElementById("bgv").value'/></p>
+  <ul><li>upper left: additive, tex: 0.5</li>
+      <li>upper right: differential, tex: 0.9</li>
+      <li>lower left: mix, tex: 0.6</li>
+      <li>lower right: product, tex: 0.9</li>
+  </ul>
+  <p>See also <a href='https://threejs.org/examples/?q=blending#webgl_materials_blending'>
+      Three.js example: texture blending</a>
+      and <a href='../try/three.example/webgl_materials_blending.html'>
+      x-visual's comparation</a></p>
   <script>
     "use strict";
 
+    // t range:  [t_ : _t]
+    var _t = 1.0, t_ = 0.2;
+    var clr = '#ffc';
+    var colors = [ [1, 0, 0], [0, 1, 1], [0, 1, 0] ];
+    var u_tex = ['tex/uestc.svg', 'tex/spark1.png', 'tex/uestc.svg'];
+    var ModelSeqs = {script:
+        [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+            paras: {start: 0,        // auto start
+                duration: 0.71,
+                uniforms: {
+                    // this style is rooted deep into Tween.js function
+                    // https://github.com/tweenjs/tween.js/issues/78
+                    u_morph0: [t_, _t],
+                    u_morph1: [t_, t_],
+                    u_morph2: [t_, t_]
+                },
+                ease: xv.XEasing.Elastic.Elastic} }],
+          [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+            paras: {start: Infinity,
+                duration: 0.62,
+                uniforms: {
+                    u_morph0: [_t, t_],
+                    u_morph1: [t_, t_],
+                    u_morph2: [t_, t_]
+                },
+                ease: undefined} }],
+          [{mtype:  xv.XComponent.AnimType.U_MORPHi,
+            paras: {start: Infinity,
+                duration: 0.53,
+                uniforms: {
+                    u_morph0: [t_, t_],
+                    u_morph1: [t_, t_],
+                    u_morph2: [t_, _t] },
+                ease: undefined} }] ]
+    }
+
     /**Senario: suppose you have a model changing colors. */
-	class ColorMorphing extends xv.XSys {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-			this.seqx = 1;
-    		ecs.createEntity( this.initCube(ecs) );
-		}
+    class ColorMorphing extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.seqx = 1;
+            // upper left
+            ecs.createEntity( this.initCube(ecs, {
+				texMix: xv.XComponent.ShaderAlpha.additive,
+				u_texWeight: 0.5,
+				translate: [-110, 110, 0]
+			}) );
+            // upper right
+            ecs.createEntity( this.initCube(ecs, {
+			 	texMix: xv.XComponent.ShaderAlpha.differential,
+				u_texWeight: 0.9,
+				translate: [80, 110, 0]
+			}) );
+            // lower left
+            ecs.createEntity( this.initCube(ecs, {
+				texMix: undefined, // default ShaderAlpha.mix
+				u_texWeight: 0.6,
+				translate: [-110, 0, 0]
+			}) );
+            // lower right
+            ecs.createEntity( this.initCube(ecs, {
+				texMix: xv.XComponent.ShaderAlpha.product,
+				u_texWeight: 0.9,
+				translate: [80, 0, 0]
+			}) );
+        }
 
-		update(tick, entities) {
-		 	if (xworld.xview.flag > 0) {
-				this.cmd = xworld.xview.cmds[0].cmd;
-			}
-			else this.cmd = undefined;
+        update(tick, entities) {
+             if (xworld.xview.flag > 0) {
+                this.cmd = xworld.xview.cmds[0].cmd;
+            }
+            else this.cmd = undefined;
 
-			if (this.cmd === 'fire') {
-				this.seqx++;
-				this.seqx %= 3;
-			}
-			else return;
+            if (this.cmd === 'fire') {
+                this.seqx++;
+                this.seqx %= 3;
+            }
+            else return;
 
-	    	for (const e of entities) {
-				e.CmpTweens.startCmds.push(this.seqx);
-			}
-		}
+            for (const e of entities) {
+                e.CmpTweens.startCmds.push(this.seqx);
+            }
+        }
 
-		initCube(ecs) {
-		    // a box can changing colors
-		    const ent1 = {
-		        id: 'color1',
-		        Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
-		                box:   [200, 120, 80],
-		                // mesh is inited by thrender, can be ignored here - MorphSwitch's target
-		                mesh:   undefined,
-		                uniforms: {opacity: 1.0}},
-		        Visual:{vtype:  xv.AssetType.mesh,
-		                shader: xv.XComponent.ShaderFlag.colorArray,
-		                paras:{
-		                    // colors' morphing weight variable name: u_morph0, u_morph1, ...
-		                    colors: [
-		                        [1, 0, 0],
-		                        [0, 0, 1],
-		                        [0, 1, 0]
-		                    ] } },
-		        ModelSeqs: {script:
-		            [ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-		                paras: {start: 0,            // auto start
-		                        duration: 0.71,      // seconds
-		                        uniforms: {
-		                            u_morph0: [0, 1],
-		                            u_morph1: [0, 0],
-		                            u_morph2: [0, 0]
-		                        },
-		                        ease: xv.XEasing.Elastic.Elastic} }],
-		              [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-		                paras: {start: Infinity,
-		                        duration: 0.62,
-		                        uniforms: {
-		                            u_morph0: [0, 0],
-		                            u_morph1: [0, 1],
-		                            u_morph2: [0, 0]
-		                        },
-		                        ease: undefined} }],
-		              [{mtype:  xv.XComponent.AnimType.U_MORPHi,
-		                paras: {start: Infinity,
-		                        duration: 0.53,
-		                        uniforms: {
-		                            u_morph0: [0, 0],
-		                            u_morph1: [0, 0],
-		                            u_morph2: [0, 1] },
-		                        ease: undefined} }] ] },
-		        CmpTweens: {}
-		    };
-			return ent1;
-		}
-	}
+        initCube(ecs, options = {}) {
+            // a box can changing colors
+            const ent = {
+                id: undefined, // auto generate
+                Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
+                    box:   [100, 80, 80],
+                    // mesh is inited by thrender, can be ignored here
+                    transform: [ { translate: options.translate || [0, 0, -100] } ],
+                    mesh:   undefined,
+                    uniforms: {opacity: 1.0}},
+                Visual:{vtype:  xv.AssetType.mesh,
+                    shader: xv.XComponent.ShaderFlag.colorArray,
+                    paras:{
+                        texMix: options.texMix,
+                        u_texWeight: options.u_texWeight,
+                        // color tex's morphing weight variable name: u_morph0, u_morph1, ...
+                        colors,    // [ [1, 0, 0], [0, 1, 1], [0, 1, 0] ],
+                        u_tex } }, // ['tex/uestc.svg', 'tex/spark1.png', 'tex/uestc.svg']
+                ModelSeqs,  // This component can be static (globally shared) without affecting each othrer between entities.
+                CmpTweens: {}
+            };
+            return ent;
+        }
+    }
 
-	ColorMorphing.query = { iffall: ['Obj3'] };
+    ColorMorphing.query = { iffall: ['Obj3'] };
 
     // initiating xworld
     const xworld = new xv.XWorld(document.getElementById('canv'),
                         window, {canvasize: [480, 320]});
     const ecs = xworld.xecs;
 
-	xworld.addSystem('test', new ColorMorphing(ecs, {}));
+    xworld.addSystem('test', new ColorMorphing(ecs, {}));
     xworld.startUpdate();
+    xworld.bgColor = clr;
+
+    document.getElementById('para-tex').innerHTML =
+        `Morph range: [${t_} : ${_t}], texture: [${u_tex}]`;
+    document.getElementById('para-phong').innerHTML =
+        `Phong paras: ka (ambient reflect): 1.0, kd (diffuse) 1.0, ks (specular) 1.0, colors: [${colors[0]}]; [${colors[1]}]; [${colors[2]}]`;
   </script>
 </body>
 </html>

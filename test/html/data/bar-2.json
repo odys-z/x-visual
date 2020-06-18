@@ -1,0 +1,68 @@
+{ "chart": {
+    "name": "x-bar vec4 (1)",
+    "domain": [[0, 2], [0, 10], [0, 2]],
+    "range": [[0, 2], [0, 10], [0, 2]],
+    "grid": [4, 4, 3],
+    "grid-space": [30, 10, 30],
+	"grid-space-desc": "The very tricky part here is that for bar chart the grid y, z is exchanged in world.",
+    "axes": ["1-coord", "y-label", "2-coord"],
+	"label-bg": "#000", "v0.3-label-bg-desc": "label xyz's background color, default #003",
+    "label-boxes": [
+		{"x": 0, "y": 0, "w": 64, "h": 16, "size": 256, "margin": 0},
+    	{"x": 0, "y": 0, "w": 64, "h": 24, "size": 256, "margin": 0},
+    	{"x": 0, "y": 0, "w": 64, "h": 16, "size": 256, "margin": 0}]
+  },
+  "bar": {
+    "id": "bar2",
+    "Obj3": {"geom": "xv.XComponent.Obj3Type.BOX",
+             "box-desc": "in space grid scale; y is set with value (ignored)",
+             "box": [0.1, 1, 0.1]},
+    "Visual": {"asset": "../../tex/grey-pixel.png"},
+
+    "bars-desc": "use this to define layer overlapping?",
+    "serials": {
+        "pos0": [1, 0, 1],
+		"label-offsets": [[0, -0.1, -0.2], [-0.1, 0.5, -0.1], [-0.25, -0.1, 0]],
+
+        "label-desc": "in bar serials, labels always a 2d array of stirngs, with rows' cardinality of 3",
+        "labels": [ ["A", "B", "C"],
+                    ["X"],
+                    ["- I -", "- II -", "- III -"] ],
+        "label-colors": ["red", "green", "#24f"],
+        "label-font": "Arial",
+        "label-bg": "#000",
+
+		"v0.3-label-box-notes": "x,y: text offset; w, h: canvas width, height, size: font size",
+        "label-boxes": [
+			{"x": 0, "y": 0, "w": 16, "h": 20, "size": 64, "margin": 0},
+			{"x": 0, "y": 0, "w": 16, "h": 18, "size": 64, "margin": 0},
+			{"x": 0, "y": 0, "w": 16, "h": 12, "size": 64, "margin": 0}
+		],
+		"v0.3-label-canvas-desc": "deprecated",
+        "label-canvas": [],
+
+        "docking-format": "elements in same order of vectors, [[x, y, z], ...], where x, y, z are grid index",
+        "docking-format2": "in this example, x = vector.x, z = vector.z, y = 0, 1",
+        "docking": [
+            [0, 1, 0, 0], [0, 1, 1, 1], [0, 1, 2, 2],
+            [1, 0, 0, 3], [1, 0, 1, 4], [1, 0, 2, 5],
+            [2, 1, 0, 6], [2, 1, 1, 7], [2, 1, 2, 8],
+            [3, 0, 0, 9], [3, 0, 1,10], [3, 0, 2,11]]
+    }
+  },
+
+  "vectors": [
+    [ 0, 0, 7 ],
+    [ 0, 1, 6 ],
+    [ 0, 2, 5 ],
+    [ 1, 0, 6 ],
+    [ 1, 1, 5 ],
+    [ 1, 2, 4 ],
+    [ 2, 0, 5 ],
+    [ 2, 1, 4 ],
+    [ 2, 2, 3 ],
+    [ 3, 0, 4 ],
+    [ 3, 1, 3 ],
+    [ 3, 2, 2 ]
+  ]
+}

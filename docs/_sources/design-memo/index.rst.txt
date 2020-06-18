@@ -9,10 +9,13 @@ Contents:
    ecs
    view
    assets
-   shaders/index
+   scene
    obj3
    renderer
+   vparas
    animizer
    affine
+   shaders/index
    extensions/index
    todo
+   debug

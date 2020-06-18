@@ -5,9 +5,7 @@
  * http://en.wikipedia.org/wiki/Luminosity
  */
 
-import {
-	Color
-} from "../three.module.js";
+import { Color } from "three"
 
 var LuminosityHighPassShader = {
 

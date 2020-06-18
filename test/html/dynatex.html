@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Dynamic Text</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	class Textest extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.box = this.initCube(ecs);
+		}
+
+		update(tick, entities) {
+			if (xworld.xview.flag > 0) {
+				if (xworld.xview.cmds[0].code === 'key') {
+					xv.CanvTex.setext(this.box, `${tick}`);
+				}
+			}
+		}
+
+		initCube(ecs) {
+			var hello = ecs.createEntity({
+				id: 'hello',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [256, 256],
+						transform: [ { translate: [-140, 0, -180] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						// paras: { u_tex: ['data:application/x-visual+img,grey-pixel'] }},
+						paras: { u_tex: ['tex/byr0.png'] }},
+
+						// asset: 'data:application/x-visual+img,grey-pixel' },
+						// asset: 'tex/byr0.png' },
+				Dynatex: {text: 'Hello Dynatex!',
+						xywh: {x: 0, y: 0, w: 256, h: 36,
+							size: 64,     // text x, y, size(px)
+							margin: 4 },    // text margin
+						'bg-color': 'white',
+						'v-align': 'top',
+						font: 'Arial',
+						style: '#157'},
+				GpuPickable: {}
+			});
+
+			var box2 = ecs.createEntity({
+				id: 'text2',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [256, 256],
+						transform: [ { translate: [140, 0, -180] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						// paras: { u_tex: ['data:application/x-visual+img,grey-pixel'] }},
+						paras: { u_tex: ['tex/byr0.png'] }},
+				Dynatex: {text: 'v-align: bottom',
+						xywh: {x: 0, y: 0, w: 256, h: 32,
+							size: 32,
+							margin: 8,
+						 	extrude: 1}, // TODO move forward for stopping z competation
+						'bg-color': 'white',
+						'v-align': 'bottom',
+						font: 'Arial',
+						style: '#157'},
+				GpuPickable: {}
+			});
+
+			var box3 = ecs.createEntity({
+				id: 'text3',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [],
+						transform: [ { translate: [140, 200, -180] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.Dynatex},
+				Dynatex: {text: 'w 256, h 32, size 64',
+						xywh: {x: 0, y: 0, w: 256, h: 32,
+							size: 64,
+							margin: 2 },
+						'bg-color': 'white',
+						font: 'Arial',
+						style: '#157'},
+			});
+
+			var box3 = ecs.createEntity({
+				id: 'text4',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [],
+						transform: [ { translate: [-24, 200, -180] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.Dynatex},
+				Dynatex: {text: '24',
+						xywh: {x: 0, y: 12, w: 24, h: 24,
+							size: 128,
+							margin: 4 },
+						'bg-color': 'white',
+						font: 'Arial',
+						style: '#157'},
+			});
+			return hello;
+		}
+	}
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+
+	xworld.addSystem('test', new Textest(ecs, {}));
+	xworld.startUpdate();
+  </script>
+</body>
+</html>

@@ -16,27 +16,61 @@
 			var tree1_2 = ecs.createEntity({
 				id: 'tree1_2points',
 				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-						box: [0, 0, 0],						// not used
-						mesh: undefined },					// Thrender will handle this
+						box: [],
+						transform: [
+							{rotate: {deg: 90, axis: [0, 0, 1]}},
+							{translate: [120, 50, 0]}],
+						mesh: undefined },                  // Thrender will handle this
 				Visual:{vtype: xv.AssetType.point,
 						paras: {nodes: ['Tree_1_2'],
-								color: undefined,			// random
-					 			 size: 2},					// WEBGL POINT size
+								color: undefined,           // random
+					 			size: 8},                   // WEBGL POINT size
 						asset: 'city/scene.gltf'}
 			});
 
 			var car1_3 = ecs.createEntity({
 				id: 'car1_3points',
-				Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-						box: [0, 0, 0],						// not used
-						mesh: undefined },					// Thrender will handle this
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,
+						box: [],
+						transform: [ {translate: [180, 80, 0]} ],
+						mesh: undefined },
 				Visual:{vtype: xv.AssetType.point,
 						paras: {nodes: ['CAR_03'],
-								color: undefined,			// random
-					 			 size: 2},					// WEBGL POINT size
+								color: undefined,           // random
+					 			size: 2},                   // WEBGL POINT size
 						asset: 'city/scene.gltf'}
 			});
-			return tree1_2;
+
+			var city = ecs.createEntity({
+				id: 'cd',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,
+						box: [],
+						transform: [
+							{scale: [200, 200, 200]},
+							{translate: [0, -40, -100]}],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.point,
+						paras: {size: 8},
+						asset: 'greate/cd01.gltf'}
+			});
+
+			var city = ecs.createEntity({
+				id: 'city',
+				Obj3: { geom: xv.XComponent.Obj3Type.USER,
+						box: [],
+						transform: [
+							{scale: [0.1, 0.1, 0.1]},
+							{translate: [0, 100, 0]} ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.point,
+						paras: {size: 1,
+								// keep original material, override meshes' attributes
+								keepMaterial: {
+									opacity: 0.3,
+									emissiveIntensity: 0.1
+								}},
+						asset: 'city/scene.gltf'}
+			});
 		}
 	}
 
@@ -44,7 +78,7 @@
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	const points = initCity(ecs, xscene);
+	initCity(ecs, xscene);
 
 	xworld.startUpdate();
 

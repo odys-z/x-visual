@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest</title>
+</head>
+<body>
+	<a href='#' onclick='nxt(--ix)'>prev</a>
+	<input id='idx' style='width: 2em'></input>
+	<input id='lb'></input>
+	<a id='a' href=''>go</a>
+	<a href='#' onclick='nxt(++ix)'>next</a><br>
+	<iframe id='frm' src='' style='width: 900px; height: 800px'></iframe>
+
+	<script>
+        var lnk = [
+            "shader-scaleorb.html", "geom-dirtube.html",
+            "dynamic-tween-target.html", "dynatex.html", "dynatex-2.html", "flowing-path-anim.html",
+            "flowing-path-occlude.html", "flowing-path-ortho.html", "gltf-car.html", "gltf-city.html",
+            "gltf-city-hud.html", "gltf-verts.html", "gpu-picking.html", "hud.html",
+            "input-ecs.html", "layers.html", "morph-color.html", "morph-events.html", "morph-model.html",
+            "script-linear-combination.html", "svg-path2obj.html", "tween-rot.html","voxel-morph.html",
+            "voxel-morph-particles.html",
+        	"ext/12vec-bar.html", "ext/4vec-pie.html", "ext/4vec-pie-sankey.html", "ext/4vec-sankey.html",
+            "ext/chart-grid.html", "ext/dyna-faces.html", "ext/html-tex.html"
+        ];
+		var ix = -1;
+		function nxt(i) {
+			while (i < 0)
+				i += lnk.length;
+			i %= lnk.length;
+			document.getElementById('frm').src = lnk[i];
+			document.getElementById('idx').value = i;
+			document.getElementById('lb').value = lnk[i];
+			var a = document.getElementById('a')
+			a.href = lnk[i];
+		}
+		nxt(++ix);
+	</script>
+</body>
+</html>
