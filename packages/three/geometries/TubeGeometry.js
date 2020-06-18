@@ -1,5 +1,9 @@
 import { Geometry, BufferGeometry, Float32BufferAttribute, Vector2, Vector3 } from 'three';
 
+/**@class ThreeExt */
+class ThreeExt {
+}
+
 /**Tube geometry providing vertex attribute 'dir'.
  *
  * Modified from three.js source.
