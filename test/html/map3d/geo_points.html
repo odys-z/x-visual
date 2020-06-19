@@ -5,12 +5,31 @@
 		<title>geo粒子</title>
 		<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 		<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+		<script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
 	</head>
 	<body>
 		 <canvas id='canv'></canvas>	
 		<script>
 		
+		var json = '../data/geopoints.json';
+		//var origin = [11584597., 3576803.];
+		let center = [104.0633219, 30.6624205];
+		let scale= [4, 4, 0.18];
+		let y = 0.1;
+    	$.getJSON( json, function(data) {
+    		//coordinates
+    		console.log(data)
+    		let positions = data.features.map((obj,index) => 
+    		{
+    			
+    			let coord = obj.geometry.coordinates;
+    			return [coord[0] -center[0] ,y,coord[1] - center[1]]
+    		}
+    		).flat();
+    		console.log(positions);
 		
+		});
+
 		const xworld = new xv.XWorld(document.getElementById('canv'), window, 
 			{	
 				camera: { far: 10000, position: [0, 0, 50], lookAt: [0, 0, 0] },
@@ -20,8 +39,7 @@
            
 
        		 });
-       	let center = [104.0633219, 30.6624205];
-		let scale= [4, 4, 0.18]; //白模缩放
+       	 //白模缩放
 		let entityObj = {
 			
             Obj3: {
