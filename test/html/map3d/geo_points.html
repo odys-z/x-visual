@@ -9,7 +9,8 @@
 	<body>
 		 <canvas id='canv'></canvas>	
 		<script>
-			
+		
+		
 		const xworld = new xv.XWorld(document.getElementById('canv'), window, 
 			{	
 				camera: { far: 10000, position: [0, 0, 50], lookAt: [0, 0, 0] },
@@ -19,7 +20,8 @@
            
 
        		 });
-		
+       	let center = [104.0633219, 30.6624205];
+		let scale= [4, 4, 0.18]; //白模缩放
 		let entityObj = {
 			
             Obj3: {
