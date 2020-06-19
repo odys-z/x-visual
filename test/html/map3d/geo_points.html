@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>geo粒子</title>
+		<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+		<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	</head>
+	<body>
+		 <canvas id='canv'></canvas>	
+		<script>
+			
+		const xworld = new xv.XWorld(document.getElementById('canv'), window, 
+			{	
+				camera: { far: 10000, position: [0, 0, 50], lookAt: [0, 0, 0] },
+	            canvasize: [1920,960],
+	           // background:  new THREE.Color(0x0e254e),
+	            frustum: { fov: 40, near: 1, far: 10000, ratio: 1920 / 960 }
+           
+
+       		 });
+		
+		let entityObj = {
+			
+            Obj3: {
+                geom: xv.XComponent.Obj3Type.GeoPoints,
+               
+            },
+            Visual:{vtype:xv.AssetType.vertParticle,
+            
+            		paras:{particlesNum :2000,
+            				u_tex:"spark1.png"}
+            	}
+        };
+        
+        xworld.addEntities( entityObj);
+		xworld.startUpdate();
+		</script>
+	</body>
+</html>
