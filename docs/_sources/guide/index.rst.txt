@@ -8,4 +8,3 @@ Contents:
 
    intro
    intro-cn
-   tests

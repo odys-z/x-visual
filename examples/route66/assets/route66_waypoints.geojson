@@ -1,0 +1,1636 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ -88.995025, 40.499157 ]
+            },
+            "properties": {
+                "cartodb_id": 1, "dgpsid": null, "sat": null, "fix": null, "type": "Dot",
+                "sym": "Restaurant", "link2_type": null, "link2_text": null, "link2_href": null, "link1_type": null,
+                "link1_text": null, "link1_href": null, "src": null, "_desc": null, "cmt": "STEAK AND SHAKE",
+                "name": "I06", "ageofdgpsdata": null, "pdop": null, "vdop": null, "hdop": null,
+                "geoidheight": null, "magvar": null, "ele": null, "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ -89.820534, 38.91248 ]
+            },
+            "properties": {
+                "cartodb_id": 2, "dgpsid": null, "sat": null, "fix": null,
+                "type": "Dot", "sym": "Church", "link2_type": null, "link2_text": null,
+                "link2_href": null, "link1_type": null, "link1_text": null, "link1_href": null,
+                "src": null, "_desc": null, "cmt": "CHURCH OF THE", "name": "I11",
+                "ageofdgpsdata": null, "pdop": null, "vdop": null, "hdop": null,
+                "geoidheight": null, "magvar": null, "ele": null, "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ -89.113739, 40.363941 ]
+            },
+            "properties": {
+                "cartodb_id": 3, "dgpsid": null, "sat": null, "fix": null,
+                "type": "Dot", "sym": "Scenic Area", "link2_type": null, "link2_text": null,
+                "link2_href": null, "link1_type": null, "link1_text": null, "link1_href": null,
+                "src": null, "_desc": null, "cmt": "OLD TRAIN STATION", "name": "I07",
+                "ageofdgpsdata": null, "pdop": null, "vdop": null, "hdop": null,
+                "geoidheight": null, "magvar": null, "ele": null, "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ -89.381724, 40.143228 ]
+            },
+            "properties": {
+                "cartodb_id": 4,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "DUTCH MILL RESTAURANT",
+                "name": "I09",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -89.648942,
+                    39.623651
+                ]
+            },
+            "properties": {
+                "cartodb_id": 5,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "MORTS ROADHOUSE",
+                "name": "I10",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        { "type": "Feature",
+            "geometry": { "type": "Point",
+                "coordinates": [ -90.170336, 38.758478 ]
+            },
+            "properties": { "cmt": "CHAIN OF ROCKS", "name": "I12", "sym": "Bridge", "type": "Dot",
+                "cartodb_id": 6,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        { "type": "Feature",
+            "geometry": { "type": "Point",
+                "coordinates": [ -87.617442, 41.878424 ]
+            },
+            "properties": { "cmt": "NORTHBOUND TERMINUS", "name": "I01", "type": "Dot", "sym": "Trail Head",
+                "cartodb_id": 7,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        { "type": "Feature",
+            "geometry": { "type": "Point",
+                "coordinates": [ -87.644205, 41.884507 ]
+            },
+            "properties": { "cmt": "HAYMARKET SITE", "name": "I03", "type": "Dot", "sym": "Museum",
+                "cartodb_id": 8,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -87.647392,
+                    41.871471
+                ]
+            },
+            "properties": {
+                "cartodb_id": 9,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "SETTLEMENT HOUSE",
+                "name": "I04",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -87.624368,
+                    41.879631
+                ]
+            },
+            "properties": {
+                "cartodb_id": 10,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Trail Head",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": "http://www.travelbygps.com/guides/Route66/route66.php",
+                "src": null,
+                "_desc": null,
+                "cmt": "START OF ROUTE",
+                "name": "I02",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -88.138976,
+                    41.310268
+                ]
+            },
+            "properties": {
+                "cartodb_id": 11,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "GEMINI GIANT",
+                "name": "I05",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:05:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.462783,
+                    37.147393
+                ]
+            },
+            "properties": {
+                "cartodb_id": 12,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "BRADBURY BISHOP",
+                "name": "M10",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:08:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -90.18533,
+                    38.624513
+                ]
+            },
+            "properties": {
+                "cartodb_id": 13,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Scenic Area",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "THE ARCH",
+                "name": "M02",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:08:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -90.179252,
+                    38.629201
+                ]
+            },
+            "properties": {
+                "cartodb_id": 14,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Bridge",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "EADS BRIDGE",
+                "name": "M01",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:08:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -92.063756,
+                    37.845878
+                ]
+            },
+            "properties": {
+                "cartodb_id": 15,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Scenic Area",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "DEVILS ELBOW",
+                "name": "M08",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:08:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -93.055058,
+                    37.27247
+                ]
+            },
+            "properties": {
+                "cartodb_id": 16,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Zoo",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "EXOTIC ANIMAL PARK",
+                "name": "M09",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:08:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -91.074922,
+                    38.243408
+                ]
+            },
+            "properties": {
+                "cartodb_id": 17,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Park",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "MERAMEC SP",
+                "name": "M04",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:08:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -91.238043,
+                    38.066211
+                ]
+            },
+            "properties": {
+                "cartodb_id": 18,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Mine",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "ONONDAGA CAVE",
+                "name": "M05",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:08:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -91.391696,
+                    38.064666
+                ]
+            },
+            "properties": {
+                "cartodb_id": 19,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Hotel",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "WAGON WHEEL MOTEL",
+                "name": "M06",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:08:42Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.735081,
+                    37.025149
+                ]
+            },
+            "properties": {
+                "cartodb_id": 20,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "MURPHEYS RESTAURANT",
+                "name": "K01",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:17:11Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -94.739823,
+                    36.957321
+                ]
+            },
+            "properties": {
+                "cartodb_id": 21,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Scenic Area",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "SPOOKLIGHTS",
+                "name": "O01",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -95.614722,
+                    36.314857
+                ]
+            },
+            "properties": {
+                "cartodb_id": 22,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "DAVIS GUN MUSEUM",
+                "name": "O02",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -96.654164,
+                    35.749265
+                ]
+            },
+            "properties": {
+                "cartodb_id": 23,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "ROCK CAFE",
+                "name": "O03",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -96.873896,
+                    35.710008
+                ]
+            },
+            "properties": {
+                "cartodb_id": 24,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Hotel",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "LINCOLN MOTEL",
+                "name": "O04",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -97.479817,
+                    35.536512
+                ]
+            },
+            "properties": {
+                "cartodb_id": 25,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "COWBOY MUSEUM",
+                "name": "O05",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -99.435845,
+                    35.411822
+                ]
+            },
+            "properties": {
+                "cartodb_id": 26,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "OLD TOWN MUSEUM",
+                "name": "O09",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -99.411458,
+                    35.411543
+                ]
+            },
+            "properties": {
+                "cartodb_id": 27,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "COUNTRY  DOVE",
+                "name": "O08",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -98.318625,
+                    35.543003
+                ]
+            },
+            "properties": {
+                "cartodb_id": 28,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Bridge",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "BRIDGE",
+                "name": "O06",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -99.024984,
+                    35.481591
+                ]
+            },
+            "properties": {
+                "cartodb_id": 29,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "JIGGS SMOKEHOUSE",
+                "name": "O07",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:24:18Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -101.698889,
+                    34.985018
+                ]
+            },
+            "properties": {
+                "cartodb_id": 30, "dgpsid": null, "sat": null, "fix": null,
+                "type": "Dot", "sym": "Scenic Area", "link2_type": null, "link2_text": null,
+                "link2_href": null, "link1_type": null, "link1_text": null, "link1_href": null,
+                "src": null, "_desc": null, "cmt": "PALO DURO CANYON", "name": "T01",
+                "ageofdgpsdata": null, "pdop": null, "vdop": null, "hdop": null,
+                "geoidheight": null, "magvar": null, "ele": null, "time": "2002-10-04T11:27:49Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ -105.926013, 35.663853 ]
+            },
+            "properties": {
+                "cartodb_id": 31, "dgpsid": null, "sat": null, "fix": null,
+                "type": "Dot", "sym": "Museum", "link2_type": null, "link2_text": null,
+                "link2_href": null, "link1_type": null, "link1_text": null, "link1_href": null,
+                "src": null, "_desc": null, "cmt": "FOLK ART MUSEUM ", "name": "N01",
+                "ageofdgpsdata": null, "pdop": null, "vdop": null, "hdop": null,
+                "geoidheight": null, "magvar": null, "ele": null, "time": "2002-10-04T11:28:43Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -108.608667,
+                    35.544205
+                ]
+            },
+            "properties": {
+                "cartodb_id": 32,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Park",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "RED ROCK SP",
+                "name": "N02",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:28:43Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -109.864708,
+                    34.813614
+                ]
+            },
+            "properties": {
+                "cartodb_id": 33,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Forest",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "PETRIFIED FOREST",
+                "name": "A01",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:29:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -111.024453,
+                    35.029564
+                ]
+            },
+            "properties": {
+                "cartodb_id": 34,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Scenic Area",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "METEROR CRATER",
+                "name": "A02",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:29:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -111.508811,
+                    35.16964
+                ]
+            },
+            "properties": {
+                "cartodb_id": 35,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Scenic Area",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "WALNUT CANYON",
+                "name": "A03",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:29:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -111.662105,
+                    35.234871
+                ]
+            },
+            "properties": {
+                "cartodb_id": 36,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "MUSEUM",
+                "name": "A04",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:29:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -113.230661,
+                    35.529099
+                ]
+            },
+            "properties": {
+                "cartodb_id": 37,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Scenic Area",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "GRAND CAVERNS",
+                "name": "A05",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:29:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -114.015244,
+                    35.212297
+                ]
+            },
+            "properties": {
+                "cartodb_id": 38,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Dot",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "ROUTE 66 MOTEL",
+                "name": "A06",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:29:47Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -117.649895,
+                    34.106755
+                ]
+            },
+            "properties": {
+                "cartodb_id": 39,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "MCDONALDS",
+                "name": "C04",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -117.601932,
+                    34.10653
+                ]
+            },
+            "properties": {
+                "cartodb_id": 40,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Hotel",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "NEW KANSAN MOTEL",
+                "name": "C03",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -117.295629,
+                    34.106669
+                ]
+            },
+            "properties": {
+                "cartodb_id": 41,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Live Theater",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "CALIFORNIA THEATER",
+                "name": "C01",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.005706,
+                    34.151173
+                ]
+            },
+            "properties": {
+                "cartodb_id": 42,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Hotel",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "AZTEC HOTEL",
+                "name": "C08",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -117.323803,
+                    34.515599
+                ]
+            },
+            "properties": {
+                "cartodb_id": 43,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Museum",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "ROY ROGERS MUSEUM",
+                "name": "C02",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.092293,
+                    34.146039
+                ]
+            },
+            "properties": {
+                "cartodb_id": 44,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Hotel",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "ASTRO MOTEL",
+                "name": "C10",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.008523,
+                    34.150813
+                ]
+            },
+            "properties": {
+                "cartodb_id": 45,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "MIKES DAIRY",
+                "name": "C09",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -118.116583,
+                    34.146023
+                ]
+            },
+            "properties": {
+                "cartodb_id": 46,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Hotel",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "SAGA MOTOR MOTEL",
+                "name": "C11",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -117.950555,
+                    34.139607
+                ]
+            },
+            "properties": {
+                "cartodb_id": 47,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "THE TRAILS REST",
+                "name": "C07",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -117.875329,
+                    34.12898
+                ]
+            },
+            "properties": {
+                "cartodb_id": 48,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Hotel",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "PALM TROPICS MOTEL",
+                "name": "C06",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -117.873559,
+                    34.128996
+                ]
+            },
+            "properties": {
+                "cartodb_id": 49,
+                "dgpsid": null,
+                "sat": null,
+                "fix": null,
+                "type": "Dot",
+                "sym": "Restaurant",
+                "link2_type": null,
+                "link2_text": null,
+                "link2_href": null,
+                "link1_type": null,
+                "link1_text": null,
+                "link1_href": null,
+                "src": null,
+                "_desc": null,
+                "cmt": "DERBY EAST",
+                "name": "C05",
+                "ageofdgpsdata": null,
+                "pdop": null,
+                "vdop": null,
+                "hdop": null,
+                "geoidheight": null,
+                "magvar": null,
+                "ele": null,
+                "time": "2002-10-04T11:31:40Z"
+            }
+        }
+    ]
+}

@@ -15,7 +15,7 @@ import {
 	ShapePath,
 	Vector2,
 	Vector3
-} from "./three.module.js";
+} from "three"
 
 var SVGLoader = function ( manager ) {
 
@@ -114,6 +114,8 @@ SVGLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 
 				path.userData = { node: node, style: style };
 
+				// odys
+				path.pathId = node.id;
 			}
 
 			var nodes = node.childNodes;
@@ -1204,6 +1206,8 @@ SVGLoader.getStrokeStyle = function ( width, color, lineJoin, lineCap, miterLimi
 	};
 
 };
+
+// Odys: needs road alone path? Here it is!
 
 SVGLoader.pointsToStroke = function ( points, style, arcDivisions, minDistance ) {
 

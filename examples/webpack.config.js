@@ -9,7 +9,9 @@
    mode: v,
    devtool: 'source-map',
    entry: { cube: './cube/app.js',
-            mesh: './wireframe/app.js'
+            wire: './wireframe/app.js',
+            mesh: './mesh/app.js',
+            route66: './route66/app.js'
           },
 
    output: {
