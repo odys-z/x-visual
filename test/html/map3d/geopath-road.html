@@ -77,50 +77,6 @@
 			asset: '../../assets/tex/ruler256.png' },
 			// asset: '../../assets/tex/byr0.png' } },
 	  },
-	  // { id: 'way1-2',
-		// Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-		// 		box: [-18] },    // y0
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	shader: xv.XComponent.ShaderFlag.scaleOrb,
-		// 	paras: {
-		// 		// road
-		// 		features: json1.features,
-		// 		origin: origin,
-		// 		style: {halfWidth: 6,
-		// 				geoScale: 1},
-	  //
-		// 		// shader
-		// 		uniforms: { u_texWeight: 0.5,
-		// 					whiteAlpha: 0.},
-		// 		side: THREE.FrontSide,
-		// 		colors: [[0.4, 0.0, 0.5]],
-		// 		//
-		// 		orbR: 50,
-		// 		// whiteAlpha: 0.75,	// out of range alpha
-		//         orbScale: [0.2, 0.5, 0.5] },
-		// 	asset: '../../assets/tex/ruler256.png' } },
-	  // { id: 'way1-3',
-		// Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-		// 		box: [-12] },    // y0
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	shader: xv.XComponent.ShaderFlag.worldOrbs,
-		// 	paras: {
-		// 		// road
-		// 		features: json1.features,
-		// 		origin: origin,
-		// 		style: {halfWidth: 6,
-		// 				geoScale: 1},
-	  //
-		// 		// shader
-		// 		side: THREE.FrontSide,
-		// 		colors: [[0.4, 0.0, 0.5]],
-		// 		orbR: [50],
-		// 		whiteAlpha: 0.05,	// out of range alpha
-		//         orbScale: [0.5, 0.5, 0.5] },
-		// 	asset: '../../assets/tex/ruler256.png' } },
-
 	  { id: 'way2-1',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
 				box: [6] },    // y0
@@ -139,7 +95,6 @@
 				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0]],
 				//
 				orbR: [30, 50, 30],
-				wpos: [0, 0, 0],
 				offsets: [[0, 0, 0], [-8, 0, 0], [-16, 0, -0]],
 				whiteAlpha: 0.1,	// out of range alpha
 		        orbScale: [0.05, 0.5, 0.5] },
@@ -156,27 +111,7 @@
 			]] },
 		CmpTweens: {}
 	  }
-	  // { id: 'way2',
-		// Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-		// 		box: [-6] },    // y0
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	paras: {
-		// 		features: json2.features,
-		// 		origin: origin2,
-		// 		style: {halfWidth: 12, geoScale: 0.1} },
-		// 	asset: '../../assets/tex/ruler256.png' } }
 	]);
-
-	// xworld.addEntities( {
-	// 	id: 'x',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-	// 			uniforms: {opacity: 1.0},
-	// 			box: [(100+12)*2, 72, 240] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.wireframe,
-	// 	}
-	// });
 
 	xworld.startUpdate();
   </script>

@@ -15,12 +15,6 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
 
-    // var json = '../data/way-2.geojson';
-	// var origin = [11578238.61,3604584.74];
-
-    // var json = '../data/way-1.geojson';
-	// var origin = [11579034.565894317, 3578695.67265513];
-
     var json = '../assets/earth/cd-express-way.geojson';
 	var origin = [11584597., 3576803.];
 
@@ -33,21 +27,22 @@
 			Visual:{
 				vtype: xv.AssetType.mesh,
 				// shader: xv.ShaderFlag.colorArray,
-				shader: xv.XComponent.ShaderFlag.scaleOrb,
+				shader: xv.XComponent.ShaderFlag.worldOrbs,
 				paras: {
-					uniforms: { u_texWeight: 0.5},
+					// uniforms: { u_texWeight: 0.5},
 					features: json.features,
 					origin: origin,
-					style: {halfWidth: 0.1,
+					style: {halfWidth: 0.2,
 							geoScale: 0.01},
 
 					side: THREE.FrontSide,
-					u_tex: ['../../assets/tex/ruler256.png'],
-					colors: [[0.4, 0.0, 0.5]],
+					// u_tex: ['data:application/x-visual+img,grey-pixel'],
+					colors: [[1, 1.0, 1]],
 					//
-					orbR: 20,
+					orbR: [2],
 					whiteAlpha: 0.2,	// out of range alpha
-					orbScale: [.5, .5, 1] },
+					orbScale: [5, 5, 1] },
+				asset: '../../assets/tex/ruler256.png' ,
 			}
 		});
 		xworld.startUpdate();
