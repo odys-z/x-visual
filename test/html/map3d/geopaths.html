@@ -33,23 +33,28 @@
 				box: [6] },    // y0
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			shader: xv.XComponent.ShaderFlag.worldOrbs,
+			// shader: xv.XComponent.ShaderFlag.worldOrbs,
+			shader: xv.XComponent.ShaderFlag.orbGroups,
 			paras: {
-				// road
+				// road geometry
 				features: json0.features,
 				origin: origin0,
 				style: {halfWidth: 12,
 						geoScale: 2},
-
-				// shader
 				side: THREE.FrontSide,
-				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0]],
-				//
-				orbR: [50, 50, 50],
-				wpos: [0, 0, 0],
-				offsets: [[0, 0, 0], [-8, 0, 0], [-16, 0, -0]],
-				whiteAlpha: 0.01,	// out of range alpha
-		        orbScale: [0.05, 0.5, 0.5] },
+
+				// groups global paras
+				// wpos: [],                     // tweening target
+				t_range: [0.1, 0.9],          // visible t's range
+				follows: [0, 10, 30, 40, 50], // group distance alone path direction, percentage of t
+		        orbScale: [0.05, 0.5, 0.5],   // each orb's x, y, z scale
+				whiteAlpha: 0.1,	          // out of range alpha
+
+				// orbs in group
+				colors: [[0, 0, 1], [0, .5, .5], [0, 1, 0], [.5, .5, 0], [1, 0, 0]],
+				orbR:    [20, 30,  40,  30,  30],
+				offsets: [ 0, -8, -16, -24, -32]
+			},
 			asset: '../../assets/tex/ruler256.png' } ,
 		ModelSeqs: { script: [[ {
 			mtype: xv.XComponent.AnimType.U_PATHn_MORPH,
@@ -66,27 +71,7 @@
 			]] },
 		CmpTweens: {}
 	  }
-	  // { id: 'way2',
-		// Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-		// 		box: [-6] },    // y0
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	paras: {
-		// 		features: json2.features,
-		// 		origin: origin2,
-		// 		style: {halfWidth: 12, geoScale: 0.1} },
-		// 	asset: '../../assets/tex/ruler256.png' } }
 	]);
-
-	// xworld.addEntities( {
-	// 	id: 'x',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-	// 			uniforms: {opacity: 1.0},
-	// 			box: [(100+12)*2, 72, 240] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.wireframe,
-	// 	}
-	// });
 
 	xworld.startUpdate();
   </script>
