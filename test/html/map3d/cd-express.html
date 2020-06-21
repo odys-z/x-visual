@@ -19,6 +19,23 @@
 	var origin = [11584597., 3576803.];
 
     $.getJSON( json, function(json) {
+
+		xworld.addEntities( {
+			id: 'ring4',
+			Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+					box: [0] },    // y0
+			Visual:{
+				vtype: xv.AssetType.Extension, // nothing to be rendered
+				// Design Notes: Visual should decomposed to 2 components: Asset & GlContext (mesh, line, ...)
+				paras: {
+					origin: origin,
+					// RFC7946 mimetype: https://www.iana.org/assignments/media-types/application/geo+json
+					uri: '../assets/earth/cd-ring4.geojson'
+					// 'data:application/geo+json,features...',
+				}
+			}
+		});
+
 		xworld.addEntities( {
 			id: 'way1',
 			Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
@@ -43,7 +60,17 @@
 					whiteAlpha: 0.2,	// out of range alpha
 					orbScale: [5, 5, 1] },
 				asset: '../../assets/tex/ruler256.png' ,
-			}
+			},
+			ModelSeqs: { script: [[ {
+				mtype: xv.XComponent.AnimType.U_PATH_MORPH,
+				paras: {
+					start: 0,
+					duration: 9,
+					ease: undefined, // xv.XEasing.Elastic.Elastic,
+					path: 'ring4'
+				} }
+				]] },
+			CmpTweens: {}
 		});
 		xworld.startUpdate();
 	});
