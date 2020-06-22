@@ -55,7 +55,6 @@
                     Visual: {
                         vtype: xv.AssetType.PathTube,
                         shader: xv.XComponent.ShaderFlag.scaleOrb,
-                        // shader: xv.XComponent.ShaderFlag.testPoints,
                         paras: {
                             points:[[-100, 0, 0], [100, 0, 0],
                                     [100, 100, 0], [100, 100, -100]],
@@ -89,13 +88,10 @@
                         shader: xv.XComponent.ShaderFlag.scaleOrb,
                         paras: {
                             side: THREE.FrontSide,
-                            // DirOrbe will turn shape dir to path dir
-                            // shape up: [0, 1, 0], shape dir: [1, 0, 0]
                             orbDebug: true,
                             orbR: 80,
-                            whiteAlpha: 0.2,	// out of range alpha
+                            whiteAlpha: 0.2,
                             orbScale: [1, .1, .1] } },
-                    // GpuPickable: {}
                 });
             }
         }

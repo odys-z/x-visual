@@ -59,104 +59,60 @@
 	        }
 	    ]
 	}
-	var origin2 = [11578238.61,3604584.74];
+	var origin2 = [11578238.61,3604084.74];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
 
-	xworld.addEntities([ {
-	// 	id: 'way1-1',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-	// 			box: [-20] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.mesh,
-	// 		paras: {
-	// 			features: json1.features,
-	// 			origin: origin,
-	// 			style: {halfWidth: 6} },
-	// 		asset: '../../assets/tex/ruler256.png'
-	// 	}
-	// },
-	// {
-		id: 'way1-2',
+	xworld.addEntities([
+	  { id: 'way1-1',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-				box: [-10] },    // y0
+				box: [-20] },    // y0
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			shader: xv.XComponent.ShaderFlag.scaleOrb,
 			paras: {
-				// road
 				features: json1.features,
 				origin: origin,
-				style: {halfWidth: 6,
-						geoScale: 1},
+				style: {halfWidth: 6} },
+			asset: '../../assets/tex/ruler256.png' },
+			// asset: '../../assets/tex/byr0.png' } },
+	  },
+	  { id: 'way2-1',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [6] },    // y0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.worldOrbs,
+			paras: {
+				// road
+				uri: 'data:application/geo+json,features',
+				features: json1.features,
+				origin: origin,
+				style: {halfWidth: 12,
+						geoScale: 2},
 
 				// shader
-				uniforms: { u_texWeight: 0.5},
 				side: THREE.FrontSide,
-				// u_tex: ['../../assets/tex/ruler256.png'],
-				colors: [[0.4, 0.0, 0.5]],
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0]],
 				//
-				orbR: 50,
-				whiteAlpha: 0.75,	// out of range alpha
-		        orbScale: [0.2, 0.5, 0.5] } }
-	},
-	{
-		id: 'tube1',
-		Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
-		        box: [6],
-		        transform: [ { translate: [-60, 0, 0] }],
-		        mesh: undefined },
-		Visual: {
-		    vtype: xv.AssetType.PathTube,
-		    shader: xv.XComponent.ShaderFlag.scaleOrb,
-		    paras: {
-		        points:[[0, 40, 0], [0, -40, 0]],
-		        origin: [-0, 0, 0],
-		        side: THREE.FrontSide,
-		        tubularSegments: 50, radius: 24, radialSegments: 12,
-
-		        orbR: 30,
-		        orbScale: [1, 0.5, .1] } }
-	},
-	// {
-	// 	id: 'way2',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-	// 			box: [-6] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.mesh,
-	// 		paras: {
-	// 			features: json2.features,
-	// 			origin: origin2,
-	// 			style: {halfWidth: 12, geoScale: 0.1} },
-	// 		asset: '../../assets/tex/ruler256.png' }
-	// }
+				orbR: [30, 50, 30],
+				offsets: [[0, 0, 0], [-8, 0, 0], [-16, 0, -0]],
+				whiteAlpha: 0.1,	// out of range alpha
+		        orbScale: [0.05, 0.5, 0.5] },
+			asset: '../../assets/tex/ruler256.png' } ,
+		ModelSeqs: { script: [[ {
+			mtype: xv.XComponent.AnimType.U_PATH_MORPH,
+			paras: {
+				start: 0,
+				duration: 9,
+				ease: undefined, // xv.XEasing.Elastic.Elastic,
+				// MapXZRoad has path data in ModelSeqs.cache, same as PathTube,
+				// FIXME but where should the enum been declared, vtype or geom type?
+				path: 'way2-1' } }
+			]] },
+		CmpTweens: {}
+	  }
 	]);
-
-	// xworld.addEntities( {
-	// 	id: 'way0',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-	// 			uniforms: {opacity: 1.0},
-	// 			box: [-36] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.mesh,
-	// 		shader: xv.ShaderFlag.colorArray,
-	// 		paras: {
-	// 			features: json0.features,
-	// 			origin: origin0,
-	// 			style: {halfWidth: 12},
-	// 			colors: [[0.4, 0.4, 0.5]] } }
-	// });
-
-	// xworld.addEntities( {
-	// 	id: 'x',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-	// 			uniforms: {opacity: 1.0},
-	// 			box: [(100+12)*2, 72, 240] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.wireframe,
-	// 	}
-	// });
 
 	xworld.startUpdate();
   </script>

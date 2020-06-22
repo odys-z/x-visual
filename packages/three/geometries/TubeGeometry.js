@@ -56,7 +56,7 @@ function DirTubeGeometry( path, tubularSegments, radius, radialSegments, closed 
 DirTubeGeometry.prototype = Object.create( Geometry.prototype );
 DirTubeGeometry.prototype.constructor = DirTubeGeometry;
 
-/**Tube geometry providing vertex attribute 'tan', the path direction.
+/**Tube geometry providing vertex attribute 'a_tan', the path direction.
  *
  * Modified from three.js source.
  * @author oosmoxiecode / https://github.com/oosmoxiecode
@@ -136,7 +136,7 @@ function DirTubeBufferGeometry( path, tubularSegments, radius, radialSegments, c
 	this.setAttribute( 'normal', new Float32BufferAttribute( normals, 3 ) );
 	this.setAttribute( 'uv', new Float32BufferAttribute( uvs, 2 ) );
 	// odys:
-	this.setAttribute( 'tan', new Float32BufferAttribute( vertans, 3 ) );
+	this.setAttribute( 'a_tan', new Float32BufferAttribute( vertans, 3 ) );
 
 	// functions
 
