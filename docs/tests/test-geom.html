@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Test - Geometries &mdash; x-visual 0.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+        <link rel="up" title="Tests &amp; Example" href="index.html"/>
+        <link rel="next" title="Test - Postprocessing" href="test-effect.html"/>
+        <link rel="prev" title="Test - Morphing &amp; Uniform" href="test-morph.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tests &amp; Example</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="test-morph.html">Test - Morphing &amp; Uniform</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Test - Geometries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cate-dir-tubegeometry">Cate: Dir TubeGeometry</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-path-dir-tube">case: Path &amp; Dir Tube</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-volumetric-tube">case: Volumetric Tube</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="test-effect.html">Test - Postprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">TODO Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Tests &amp; Example</a> &raquo;</li>
+      
+    <li>Test - Geometries</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="test-geometries">
+<span id="test-geom"></span><h1>Test - Geometries<a class="headerlink" href="#test-geometries" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cate-dir-tubegeometry">
+<h2>Cate: Dir TubeGeometry<a class="headerlink" href="#cate-dir-tubegeometry" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-path-dir-tube">
+<span id="tst-geom-dirtube"></span><h3>case: Path &amp; Dir Tube<a class="headerlink" href="#case-path-dir-tube" title="Permalink to this headline">¶</a></h3>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">geom</span><span class="o">-</span><span class="n">dirtube</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<img alt="../_images/005-geom-tube-curve-sim.png" src="../_images/005-geom-tube-curve-sim.png" />
+<p>AssetType:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">AssetType</span><span class="o">.</span><span class="n">PathTube</span>
+</pre></div>
+</div>
+<p>Visual.paras:</p>
+<p>see AssetType jsdoc.</p>
+<p>See reference section about <a class="reference internal" href="../reference/geometry.html#ref-frenet-frame"><span>Three.js tube geometry algorithm of Frenet Frame</span></a>.</p>
+<p>TODO doc ...</p>
+</div>
+<div class="section" id="case-volumetric-tube">
+<h3>case: Volumetric Tube<a class="headerlink" href="#case-volumetric-tube" title="Permalink to this headline">¶</a></h3>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">shader</span><span class="o">-</span><span class="n">tube</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>TODO ...</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="test-effect.html" class="btn btn-neutral float-right" title="Test - Postprocessing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="test-morph.html" class="btn btn-neutral" title="Test - Morphing &amp; Uniform" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z@github.com.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

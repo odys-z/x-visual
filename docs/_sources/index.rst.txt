@@ -12,7 +12,8 @@ Welcome to x-visual's documentation!
      real commercial project.
 ..
 
-`API doc by jsdoc <./jsdoc/index.html>`_
+`API doc by jsdoc <https://odys-z.github.io/javadoc/x-visual/index.html>`_
+(`local not always works <../../pages.github/odys-z.github.io/javadoc/x-visual/index.html>`_)
 
 Welcome to the official documentation of x-visual, the free and open source
 3D data visualization toolkit.
@@ -26,6 +27,7 @@ Contents:
    :maxdepth: 2
 
    guide/index
+   tests/index
    design-memo/index
    reference/index
 

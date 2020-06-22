@@ -22,37 +22,57 @@
         initPaths(ecs, scene) {
             ecs.createEntity({
                 id: 'p1',
-                Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
+                Obj3: { geom: xv.XComponent.Obj3Type.PointSects,
                         box: [],
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
-                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
-                                segments: 5} },
+                        paras: {
+                            points:[[-100, 0, 0], [100, 0, 0],
+                                    [0, -100, 0], [0, 100, 0],
+                                    [0, 0, -100], [0, 0, 100]],
+                            origin: [0, 0, 0],
+                            linewidth: 3,
+                            color: 0x00ff00 } },
                 Glow: { paras: [ ] },
             });
 
-            ecs.createEntity({
-                id: 'p2',
-                Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
-                        box: [],
-                        mesh: undefined },
-                Visual:{vtype: xv.AssetType.GeomCurve,
-                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
-                                segments: 5} },
-                Filming: { paras: [
-                ] },
-            });
+            // ecs.createEntity({
+            //     id: 'p1.2',
+            //     Obj3: { geom: xv.XComponent.Obj3Type.PointSects,
+            //             box: [],
+            //             mesh: undefined },
+            //     Visual:{vtype: xv.AssetType.DynaSects,
+            //             paras: {
+            //                 sects:[[[-100, 0, 0], [100, 0, 0]],
+            //                        [[0, -100, 0], [0, 100, 0]],
+            //                        [[0, 0, -100], [0, 0, 100]]],
+            //                 color: 0xffff00,
+            //                 origin: [0, 200, 0] } },
+            //     Glow: { paras: [ ] },
+            // });
 
-            ecs.createEntity({
-                id: 'plane',
-                Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-                        box: [180, 160, 0],
-                        mesh: undefined,
-                        uniforms: {opacity: 0.9}},
-                Visual:{vtype: xv.AssetType.mesh,
-                        asset: null },
-                Occluder: {FlowingPath: true}
-            });
+            // ecs.createEntity({
+            //     id: 'p2',
+            //     Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
+            //             box: [5],
+            //             mesh: undefined },
+            //     Visual:{vtype: xv.AssetType.GeomCurve,
+            //             paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+            //                     linewidth: 3} },
+            //     Filming: { paras: [
+            //     ] },
+            // });
+			//
+            // ecs.createEntity({
+            //     id: 'plane',
+            //     Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+            //             box: [180, 160, 0],
+            //             mesh: undefined,
+            //             uniforms: {opacity: 0.9}},
+            //     Visual:{vtype: xv.AssetType.mesh,
+            //             asset: null },
+            //     Occluder: {FlowingPath: true}
+            // });
         }
     }
 

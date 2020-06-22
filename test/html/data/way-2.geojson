@@ -1,0 +1,17 @@
+{
+    "LICENSE": "https://www.openstreetmap.org/copyright",
+    "Credits": "© OpenStreetMap contributors",
+    "type": "FeatureCollection",
+    "features": [
+
+
+        { "type": "Feature", "properties": { "name": "四环路北段", "highway": "motorway", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [11578238.61,3604584.74], [11578499.09,3604564.42], [11579118.56,3604502.63],
+                    [11579607.44,3604468.45]]
+            }
+        }
+    ]
+}

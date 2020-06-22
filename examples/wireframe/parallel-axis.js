@@ -11,14 +11,12 @@ export default class Parallel extends xv.XSys {
         super(ecs);
         this.ecs = ecs;
 
-        this.logcnt = 0;
-
         // create a cube with options
         if (ecs) {
             var cube = ecs.createEntity({
                 id: 'paralchart',
-                Obj3: { geom: xv.XComponent.Obj3Type.PointSect,
-                        box: [20] },    
+                Obj3: { geom: xv.XComponent.Obj3Type.PointSects,
+                        box: [20] },
                 Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
                                 segments: 5} },
@@ -33,6 +31,4 @@ export default class Parallel extends xv.XSys {
     }
 }
 
-Parallel.query = {
-    iffall: ['Visual']
-};
+Parallel.query = { iffall: ['Visual'] };

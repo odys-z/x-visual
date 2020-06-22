@@ -1,12 +1,18 @@
 # user - jsdoc
 temp
-packages/three/geometries
-# docs/jsdoc
-*.blend
-greate-*
+docs/jsdoc
+packages/three/geometries/*
+!packages/three/geometries/TubeGeometry.js
 
 # user - examples
 # !examples/dist
+examples/dist
+
+*.blend
+*.blend[0-9]*
+
+# commercial
+greate-*
 ################################################
 
 # Logs

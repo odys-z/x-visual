@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest SVG -&gt; Obj3</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 400]});
+
+    var json = '../assets/earth/cd-express-way.geojson';
+	var origin = [11584597., 3576803.];
+
+    $.getJSON( json, function(json) {
+
+		xworld.addEntities( {
+			id: 'ring4',
+			Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+					box: [0] },    // y0
+			Visual:{
+				vtype: xv.AssetType.Extension, // nothing to be rendered
+				// Design Notes: Visual should decomposed to 2 components: Asset & GlContext (mesh, line, ...)
+				paras: {
+					origin: origin,
+					// RFC7946 mimetype: https://www.iana.org/assignments/media-types/application/geo+json
+					uri: '../assets/earth/cd-ring4.geojson'
+					// 'data:application/geo+json,features...',
+				}
+			}
+		});
+
+		xworld.addEntities( {
+			id: 'way1',
+			Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+					uniforms: {opacity: 1.0},
+					box: [0] },    // y0
+			Visual:{
+				vtype: xv.AssetType.mesh,
+				// shader: xv.ShaderFlag.colorArray,
+				shader: xv.XComponent.ShaderFlag.worldOrbs,
+				paras: {
+					// uniforms: { u_texWeight: 0.5},
+					features: json.features,
+					origin: origin,
+					style: {halfWidth: 0.2,
+							geoScale: 0.01},
+
+					side: THREE.FrontSide,
+					// u_tex: ['data:application/x-visual+img,grey-pixel'],
+					colors: [[1, 1.0, 1]],
+					//
+					orbR: [2],
+					whiteAlpha: 0.2,	// out of range alpha
+					orbScale: [5, 5, 1] },
+				asset: '../../assets/tex/ruler256.png' ,
+			},
+			ModelSeqs: { script: [[ {
+				mtype: xv.XComponent.AnimType.U_PATH_MORPH,
+				paras: {
+					start: 0,
+					duration: 9,
+					ease: undefined, // xv.XEasing.Elastic.Elastic,
+					path: 'ring4'
+				} }
+				]] },
+			CmpTweens: {}
+		});
+		xworld.startUpdate();
+	});
+
+  </script>
+</body>
+</html>

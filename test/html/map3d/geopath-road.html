@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest SVG -&gt; Obj3</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+    var json0 = {
+	    "type": "FeatureCollection",
+	    "features": [
+	        { "type": "Feature", "properties": { "name": "3 waypoints", "highway": "motorway", "oneway": "yes" },
+	            "geometry": {
+	                "type": "LineString",
+	                "coordinates": [ [-100,0], [50,0], [100, 80], [100, 120] ]
+	            }
+	        }
+	    ]
+	};
+	var origin0 = [0, 0];
+
+	// 2 parallel way
+    var json1 = {
+	    "type": "FeatureCollection",
+	    "features": [
+	        { "type": "Feature", "properties": { "name": "cross df", "highway": "motorway", "oneway": "yes" },
+	            "geometry": {
+	                "type": "LineString",
+	                "coordinates": [[11582404.84,3604991.03],[11582541.34,3605015.53],[11582615.46,3605028.85]]
+	            }
+	        },
+	        { "type": "Feature", "properties": { "name": "cross df", "highway": "motorway", "oneway": "yes" },
+	            "geometry": {
+	                "type": "LineString",
+	                "coordinates": [[11582610.8,3605054.72],[11582510.7,3605038.04],[11582397.7,3605018.89]]
+	            }
+	        }
+	    ]
+	};
+	var origin = [11582510.7,3605038.04];
+
+	var json2 = {
+	    "type": "FeatureCollection",
+	    "features": [
+
+
+	        { "type": "Feature", "properties": { "name": "四环路北段", "highway": "motorway", "oneway": "yes" },
+	            "geometry": {
+	                "type": "LineString",
+	                "coordinates": [
+	                    [11578238.61,3604584.74], [11578499.09,3604564.42], [11579118.56,3604502.63],
+	                    [11579607.44,3604468.45]]
+	            }
+	        }
+	    ]
+	}
+	var origin2 = [11578238.61,3604084.74];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 400]});
+
+	xworld.addEntities([
+	  { id: 'way1-1',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [-20] },    // y0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			paras: {
+				features: json1.features,
+				origin: origin,
+				style: {halfWidth: 6} },
+			asset: '../../assets/tex/ruler256.png' },
+			// asset: '../../assets/tex/byr0.png' } },
+	  },
+	  { id: 'way2-1',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [6] },    // y0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.worldOrbs,
+			paras: {
+				// road
+				uri: 'data:application/geo+json,features',
+				features: json1.features,
+				origin: origin,
+				style: {halfWidth: 12,
+						geoScale: 2},
+
+				// shader
+				side: THREE.FrontSide,
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0]],
+				//
+				orbR: [30, 50, 30],
+				offsets: [[0, 0, 0], [-8, 0, 0], [-16, 0, -0]],
+				whiteAlpha: 0.1,	// out of range alpha
+		        orbScale: [0.05, 0.5, 0.5] },
+			asset: '../../assets/tex/ruler256.png' } ,
+		ModelSeqs: { script: [[ {
+			mtype: xv.XComponent.AnimType.U_PATH_MORPH,
+			paras: {
+				start: 0,
+				duration: 9,
+				ease: undefined, // xv.XEasing.Elastic.Elastic,
+				// MapXZRoad has path data in ModelSeqs.cache, same as PathTube,
+				// FIXME but where should the enum been declared, vtype or geom type?
+				path: 'way2-1' } }
+			]] },
+		CmpTweens: {}
+	  }
+	]);
+
+	xworld.startUpdate();
+  </script>
+</body>
+</html>

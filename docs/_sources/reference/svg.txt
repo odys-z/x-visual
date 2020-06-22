@@ -23,7 +23,7 @@ Data Sample
 ..
 
 Reference
-=========
+---------
 
 1. `An SVG Primer for Today's Browsers, W3C Working Draft — September 2010, W3C <https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html>`_
 

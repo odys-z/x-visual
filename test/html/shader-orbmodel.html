@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Orbe in Tube</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <p>Note: scale orb doesn't have direction. (hard to do in shader?)</p>
+  <script>
+    "use strict";
+
+    class Tubesys extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.initTube(ecs, options.xscene);
+        }
+
+        update(tick, entities) {
+        }
+
+        initTube(ecs, scene) {
+            if (ecs) {
+                var p = ecs.createEntity({
+                    id: 'path0',
+                    Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+                            box: [6],
+                            mesh: undefined },
+                    Visual: {
+                        vtype: xv.AssetType.GeomCurve,
+                        paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+                                lineColor: 0x00ff00} }
+                });
+
+                var orb = ecs.createEntity({
+                    id: 'orb',
+                    Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                            box: [6, 6, 6],
+                            mesh: undefined },
+                    Visual: {
+                        vtype: xv.AssetType.mesh,
+                        shader: xv.XComponent.ShaderFlag.ModelOrb,
+                        paras: {
+                            orbDebug: true,
+                            orbR: 30,
+                            whiteAlpha: 0.2,	// out of range alpha
+                            orbScale: [1, .1, .1] } },
+                    ModelSeqs: {script: [[
+                          { mtype: xv.XComponent.AnimType.PATH_MOVE_Dir,
+                            paras: {start: 0,
+                                duration: 9.7,
+                                path: 'path0',       // p1.Visual.vtype is a path
+                                ease: xv.XEasing.Elastic.Elastic} }
+                    ]] },
+                    CmpTweens: {}
+                });
+            }
+        }
+    }
+
+    Tubesys.query = { iffall: ['Visual'] };
+
+    const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [520, 360]});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
+
+    xworld.addSystem('test', new Tubesys(ecs, {xscene}));
+
+    var axes = new xv.chart.Axisys(ecs, { }, {
+	    "domain": [[0, 1], [0, 1], [0, 1]],
+	    "range": [[0, 1], [0, 1], [0, 1]],
+	    "grid": [1, 1, 1],
+	    "grid-space": [100, 75, 100],
+	  });
+    xworld.addSystem('test', axes);
+
+    xworld.startUpdate();
+  </script>
+</body>
+</html>

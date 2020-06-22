@@ -34,7 +34,7 @@
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Tests &amp; Example" href="index.html"/>
-        <link rel="next" title="Test - Postprocessing" href="test-effect.html"/>
+        <link rel="next" title="Test - Geometries" href="test-geom.html"/>
         <link rel="prev" title="Tests &amp; Example" href="index.html"/> 
 
   
@@ -88,7 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tests &amp; Example</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">Test - Morphing &amp; Uniform</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#morphing-transform-color">Morphing transform &amp; color</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cate-morphing-transform-color">Cate: Morphing transform &amp; color</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#case-animtype-alpha-uniforms-u-morphi">case: AnimType.ALPHA, UNIFORMS, U_MORPHi</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#case-animtype-position">case: AnimType.POSITION</a></li>
 </ul>
@@ -97,10 +97,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#case-animtype-gltf">case: AnimType.gltf</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#case-gltf-transform">case: GLTF transform</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#case-gltf-nodes-animation">case: GLTF Nodes &amp; Animation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-color-texture-morphing">case: Color &amp; Texture Morphing</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="test-geom.html">Test - Geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="test-effect.html">Test - Postprocessing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html">TODO Examples</a></li>
 </ul>
@@ -153,11 +155,16 @@
             
   <div class="section" id="test-morphing-uniform">
 <span id="test-morph"></span><h1>Test - Morphing &amp; Uniform<a class="headerlink" href="#test-morphing-uniform" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="morphing-transform-color">
-<h2>Morphing transform &amp; color<a class="headerlink" href="#morphing-transform-color" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cate-morphing-transform-color">
+<h2>Cate: Morphing transform &amp; color<a class="headerlink" href="#cate-morphing-transform-color" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="case-animtype-alpha-uniforms-u-morphi">
 <h3>case: AnimType.ALPHA, UNIFORMS, U_MORPHi<a class="headerlink" href="#case-animtype-alpha-uniforms-u-morphi" title="Permalink to this headline">¶</a></h3>
-<p>html file: test/html/morph-model.html</p>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">model</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">voxel</span><span class="o">-</span><span class="n">morph</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">voxel</span><span class="o">-</span><span class="n">morph</span><span class="o">-</span><span class="n">particles</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
 <p>The test defined 2 box object, with the 3rd as points referencing the boxes&#8217; vertices
 and moving the points while changing the alpha.</p>
 <a class="reference internal image-reference" href="../_images/002-case-morph-model.jpg"><img alt="../_images/002-case-morph-model.jpg" src="../_images/002-case-morph-model.jpg" style="width: 420px;" /></a>
@@ -294,11 +301,11 @@ of <em>points</em> will moving between box of <em>entity1</em> &amp; <em>entity2
             <span class="p">[</span> <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">POSITION</span><span class="p">,</span>
                 <span class="nx">paras</span><span class="o">:</span><span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
                        <span class="nx">translate</span><span class="o">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
-                       <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">}],</span>
-            <span class="p">[</span> <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">SCALE</span><span class="p">,</span>
-                <span class="nx">paras</span><span class="o">:</span><span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>
-                       <span class="nx">scale</span><span class="o">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
-                       <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">}</span> <span class="p">}</span> <span class="p">],</span>
+                       <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">},</span>
+                <span class="c1">// onComplete: function( tObj, twn ) {//bug?</span>
+                <span class="c1">//     let entity = twn.parent.entity;</span>
+                <span class="c1">//     xv.XTweener.startSeq(entity.CmpTweens, 1);</span>
+                <span class="c1">// }</span>
 </pre></div>
 </td></tr></table></div>
 <p>The user command interaction is handled in TestDynamicPos.update().</p>
@@ -326,14 +333,61 @@ cars completely ignored all transformation and configured with a new set of para
 </div>
 <div class="section" id="case-gltf-transform">
 <h3>case: GLTF transform<a class="headerlink" href="#case-gltf-transform" title="Permalink to this headline">¶</a></h3>
-<p>html file: test/html/gltf-city.html</p>
-<p>This file loaded the entire gltf scene, without any post handling, but only transformed.</p>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">city</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">car</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>The 1st file loaded the entire gltf scene, without any post handling, but only
+transformed. Transformation are kept the same as the source assets, only within
+a single scene which is possible.</p>
+<p>The 2nd file is a test of different gltf scale transformation. Gltf assets for the
+scene come from 3 different gltf files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">city</span><span class="o">/</span><span class="n">scene</span><span class="o">.</span><span class="n">gltf</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">earth</span><span class="o">/</span><span class="n">earth</span><span class="o">-</span><span class="n">low</span><span class="o">.</span><span class="n">gltf</span>
+<span class="n">examples</span><span class="o">/</span><span class="n">route66</span><span class="o">/</span><span class="n">route66</span><span class="o">.</span><span class="n">gltf</span>
+</pre></div>
+</div>
+<p>Here is a comparison of how different for different assets artists like to do.</p>
+<a class="reference internal image-reference" href="../_images/005-route66-car-size.jpg"><img alt="../_images/005-route66-car-size.jpg" src="../_images/005-route66-car-size.jpg" style="width: 340px;" /></a>
+<a class="reference internal image-reference" href="../_images/005-lowpoly-car-size.jpg"><img alt="../_images/005-lowpoly-car-size.jpg" src="../_images/005-lowpoly-car-size.jpg" style="width: 340px;" /></a>
+<p>In the testing html, the 2 cars are using different transformation set by programmer.</p>
+<p>Left car:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">nostalgicar</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;car66&#39;</span><span class="p">,</span>
+    <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">transform</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span> <span class="nx">translate</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">530</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">700</span><span class="p">]</span> <span class="p">},</span>
+                <span class="p">{</span> <span class="nx">scale</span><span class="o">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">},</span>
+    <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">gltf</span><span class="p">,</span>
+            <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">nodes</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;CAR&#39;</span><span class="p">],</span>
+                    <span class="nx">withTransform</span><span class="o">:</span> <span class="kc">false</span><span class="p">},</span>
+            <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;../../../examples/route66/assets/route66.gltf&#39;</span><span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Right car:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">car_4</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;car4&#39;</span><span class="p">,</span>
+    <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">transform</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span> <span class="nx">rotate</span><span class="o">:</span> <span class="p">{</span><span class="nx">deg</span><span class="o">:</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="nx">axis</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span> <span class="p">},</span>
+                <span class="p">{</span> <span class="nx">translate</span><span class="o">:</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">360</span><span class="p">]</span> <span class="p">},</span>
+                <span class="p">{</span> <span class="nx">scale</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="p">}</span> <span class="p">]</span> <span class="p">},</span>
+    <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">gltf</span><span class="p">,</span>
+            <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">nodes</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Car_04&#39;</span><span class="p">],</span>
+                    <span class="nx">withTransform</span><span class="o">:</span> <span class="kc">false</span><span class="p">},</span>
+            <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;city/scene.gltf&#39;</span><span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="case-gltf-nodes-animation">
 <h3>case: GLTF Nodes &amp; Animation<a class="headerlink" href="#case-gltf-nodes-animation" title="Permalink to this headline">¶</a></h3>
-<p>html file: test/html/gltf-car.html</p>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">car</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
 <p>This file loaded the some nodes in gltf asset, specifying animation scripts.</p>
-<p>The animation can&#8217;t auto-started for <a class="reference internal" href="../design-memo/todo.html#issue-asych-gltf"><span>the issue of asynchronous loading</span></a>.</p>
+<p>The animation can&#8217;t auto-started for <a class="reference internal" href="../design-memo/todo.html#issue-asynch-gltf"><span>the issue of asynchronous loading</span></a>.</p>
 <p>To use and loading gltf nodes, user must have some basic idea of gltf format.
 X-visual is intend for users of programmer.
 Here is some information about <a class="reference internal" href="../reference/gltf.html#gltf-format"><span>GLTF Format</span></a>.</p>
@@ -343,6 +397,17 @@ ancestors. So the node&#8217;s transformation matrix itself will not makes what 
 objects should look like. X-visual provided a brutal way, just disable all the
 transformation in GLTF assets, with <em>Visual.paras.withTransform</em> = false, then
 set Obj3.transform as you, the programmer like.</p>
+</div>
+<div class="section" id="case-color-texture-morphing">
+<span id="tex-color-morph"></span><h3>case: Color &amp; Texture Morphing<a class="headerlink" href="#case-color-texture-morphing" title="Permalink to this headline">¶</a></h3>
+<p>html file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">color</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>The test shows how color &amp; texture can be morphed with help of shader <em>colorArray</em>.</p>
+<p>For Visual.paras of <em>colorArray</em>, see <a class="reference internal" href="../design-memo/vparas.html#visual-paras-color-array"><span>Visual.paras of colorArray</span></a>.</p>
+<p><strong>FYI</strong> This page uses svg as rendered texture with help of Three.js CanvasTexture,
+which can&#8217;t be a scalable image. See <a class="reference internal" href="../design-memo/todo.html#wish-svg"><span>wish list, SVG</span></a>.</p>
 </div>
 </div>
 </div>
@@ -354,7 +419,7 @@ set Obj3.transform as you, the programmer like.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="test-effect.html" class="btn btn-neutral float-right" title="Test - Postprocessing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="test-geom.html" class="btn btn-neutral float-right" title="Test - Geometries" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Tests &amp; Example" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -97,11 +97,13 @@
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debug Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
@@ -156,9 +158,11 @@
 <p class="last">doc stub</p>
 </div>
 <p>X-visual is inspired by fritz/ECS.</p>
-<p>In x-visual v1.0, all object are handled in static way - no new object can be created
+<p>Before x-visual v0.3.0, all object are handled in static way - no new object can be created
 during scene updating process. Each subsystem is implement assuming that entity
 won&#8217;t been changed during entire rendering life cycle.</p>
+<p><em>Memo: As loading SVG &amp; GLTF asynchronously required, the v0.2.39 can add assets to
+Three.js later than initializing xworld.</em></p>
 <p>Reason: there are many other more important concepts to be verified, this decision
 can largely simplify x-visual, and it&#8217;s highly probably impose limited modification
 when it&#8217;s needed in the future.</p>

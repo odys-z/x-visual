@@ -6,9 +6,12 @@ ECS Framework
 
 X-visual is inspired by fritz/ECS.
 
-In x-visual v1.0, all object are handled in static way - no new object can be created
+Before x-visual v0.3.0, all object are handled in static way - no new object can be created
 during scene updating process. Each subsystem is implement assuming that entity
 won't been changed during entire rendering life cycle.
+
+*Memo: As loading SVG & GLTF asynchronously required, the v0.2.39 can add assets to
+Three.js later than initializing xworld.*
 
 Reason: there are many other more important concepts to be verified, this decision
 can largely simplify x-visual, and it's highly probably impose limited modification
