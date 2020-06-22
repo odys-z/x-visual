@@ -2,6 +2,8 @@
 temp
 packages/three/geometries
 # docs/jsdoc
+*.blend
+greate-*
 
 # user - examples
 # !examples/dist
