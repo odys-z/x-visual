@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>geoPoints</title>
+		<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+		<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+		<script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
+	</head>
+
+	<body>
+		<canvas id='canv'></canvas>
+		<script>
+			class Particles extends xv.XSys {
+				/**
+				 * 
+				 * @param {*} ecs 
+				 * @param {obj} options 
+				 */
+				constructor(ecs, options) {
+
+					super(ecs);
+					this.ecs = ecs;
+					this.cache = [];
+					this.index = 0;
+					this.lifeMax = options.lifeMax || 120; 
+					this.particlesTotalNum = options.total || 1000;
+
+					this.randomNumLow = options.low || 200;
+					this.randomNumUpper = options.upper || 400;
+					this.particlesSize = options.size || 10;
+					this.positions = options.positions || null;
+					this.init();
+
+				}
+
+				init() {
+					let entityObj = {
+
+						Obj3: {
+							geom: xv.XComponent.Obj3Type.GeoPoints,
+
+						},
+						Visual: {
+							vtype: xv.AssetType.vertParticle,
+
+							paras: {
+								particlesNum: this.particlesTotalNum,
+								u_tex: "../assets/spark1.png",
+								positions: this.positions
+							}
+						},
+						GeoPoints: {
+							
+						}
+					};
+					this.ecs.createEntity(entityObj);
+
+				}
+
+				update(tick, entities) {
+
+					
+					let e = [...entities];
+					let mesh = e[0].Obj3.mesh;
+					var time = Date.now() * 0.005;
+					if(mesh === undefined) {
+						return;
+					}
+
+					
+					var sizes = mesh.geometry.attributes.size.array;
+
+					
+					if(this.index === 0) {
+
+						let num = this.getRandom(this.randomNumLow, this.randomNumUpper);
+						let target = [];
+						for(var j = 0; j < num; j++) {
+							let i = Math.floor(Math.random() * this.particlesTotalNum);
+							target.push(i);
+						}
+
+						for(var i = 0; i < this.cache.length; i++) {
+							sizes[this.cache[i]] = 0;
+						}
+						this.cache = target;
+						for(var i = 0; i < this.cache.length; i++) {
+							sizes[this.cache[i]] = this.particlesSize * (1 + Math.sin(0.1 * i + time));
+						}
+						this.index++;
+					} else if(this.index <= this.lifeMax && this.index > 0) {
+						// var sizes = geometry.attributes.size.array;
+						if(this.index < this.lifeMax) {
+							this.index++;
+						} else {
+							this.index = 0;
+						}
+						// console.log(this.index);
+						for(var i = 0; i < this.cache.length; i++) {
+							sizes[this.cache[i]] = this.particlesSize * (1 + Math.sin(0.1 * i + time));
+						}
+					}
+					// mesh.matrixWorldNeedsUpdate = true;
+					mesh.geometry.attributes.size.needsUpdate = true;
+
+				}
+
+				getRandom(start, end, fixed = 0) {
+
+					let differ = end - start
+					let random = Math.random()
+					return(start + differ * random).toFixed(fixed)
+
+				}
+
+				static buildPositionsByJson(url, xworld) {
+
+					let center = [104.0633219, 30.6624205];
+					let scale = [1000, 1, 1000];
+					$.getJSON(url, function(data) {
+						
+						let positions = data.features.map((obj, index) => {
+
+							let coord = obj.geometry.coordinates;
+							let y = obj.geometry.height;
+							return [(coord[0] - center[0]) * scale[1], y * scale[1], (coord[1] - center[1]) * scale[2]]
+						});
+						console.log(positions);
+						let total = positions.length;
+						let coord = positions.flat();
+						let ecs = xworld.xecs;
+						let particles = new Particles(ecs, {
+							positions: coord,
+							total: total
+						});
+						xworld.addSystem("particles", particles);
+						xworld.startUpdate();
+
+					});
+
+				}
+			}
+
+			Particles.query = {
+				iffall: ['Obj3', 'Visual','GeoPoints']
+			};
+
+			//test
+			var json = '../data/geopoints.json';
+			const xworld = new xv.XWorld(document.getElementById('canv'), window, {
+				camera: {
+					far: 10000,
+					position: [50, 0, 50],
+					lookAt: [0, 0, 0]
+				},
+				canvasize: [1920, 960],
+				// background:  new THREE.Color(0x0e254e),
+				frustum: {
+					fov: 40,
+					near: 1,
+					far: 10000,
+					ratio: 1920 / 960
+				}
+
+			});
+			xworld.xecs.registerComponent("GeoPoints",xv.map3.GeoPoints)
+			Particles.buildPositionsByJson(json, xworld);
+			
+		</script>
+	</body>
+
+</html>
