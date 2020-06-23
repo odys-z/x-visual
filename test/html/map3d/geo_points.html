@@ -8,34 +8,34 @@
 		<script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
 	</head>
 	<body>
-		 <canvas id='canv'></canvas>	
+		 <canvas id='canv'></canvas>
 		<script>
-		
+
 		var json = '../data/geopoints.json';
 		//var origin = [11584597., 3576803.];
-		
-    	
 
-		const xworld = new xv.XWorld(document.getElementById('canv'), window, 
-			{	
+
+
+		const xworld = new xv.XWorld(document.getElementById('canv'), window,
+			{
 				camera: { far: 10000, position: [0, 0, 50], lookAt: [0, 0, 0] },
 	            canvasize: [1920,960],
 	           // background:  new THREE.Color(0x0e254e),
 	            frustum: { fov: 40, near: 1, far: 10000, ratio: 1920 / 960 }
-           
+
 
        		 });
        	 //白模缩放
 		let entityObj = {
-			
+
             Obj3: {
                 geom: xv.XComponent.Obj3Type.GeoPoints,
-               
+
             },
             Visual:{vtype:xv.AssetType.vertParticle,
-            
+
             		paras:{particlesNum :2000,
-            				u_tex:"spark1.png"}
+            				u_tex:"tex/spark1.png"}
             	}
         };
         Particles.buildPositionsByJson(json,xworld);
@@ -43,9 +43,9 @@
 	xworld.startUpdate();
 class Particles extends xv.XSys {
 /**
- * 
- * @param {*} ecs 
- * @param {obj} options 
+ *
+ * @param {*} ecs
+ * @param {obj} options
  */
 	constructor(ecs, options) {
 
@@ -55,25 +55,25 @@ class Particles extends xv.XSys {
     this.index = 0;
     this.lifeMax = options.lifeMax || 120;//频率
     this.particlesTotalNum = options.total || 1000;
-   
+
     this.randomNumLow = options.low || 200;
     this.randomNumUpper = options.upper || 400;
     this.particlesSize = options.size || 10;
     this.positions = options.positions || null;
     this.init();
-   	
+
 	}
 
 	init() {
 	    let entityObj = {
-	
+
 	        Obj3: {
 	            geom: xv.XComponent.Obj3Type.GeoPoints,
-	
+
 	        },
 	        Visual: {
 	            vtype: xv.AssetType.vertParticle,
-	
+
 	            paras: {
 	                particlesNum: this.particlesTotalNum,
 	                u_tex: "spark1.png",
@@ -82,7 +82,7 @@ class Particles extends xv.XSys {
 	        }
 	    };
 	    this.ecs.createEntity(entityObj);
-	   
+
 	}
 
     update(tick, entities) {
@@ -128,9 +128,9 @@ class Particles extends xv.XSys {
         }
        // mesh.matrixWorldNeedsUpdate = true;
         mesh.geometry.attributes.size.needsUpdate = true;
-        
-       
-        
+
+
+
     }
 
     getRandom(start, end, fixed = 0) {
@@ -142,15 +142,15 @@ class Particles extends xv.XSys {
     }
 
     static buildPositionsByJson(url,xworld){
-	
+
 		let center = [104.0633219, 30.6624205];
 		let scale= [4, 4, 0.18];
 		$.getJSON( url, function(data) {
     		//coordinates
     		console.log(data)
-    		let positions = data.features.map((obj,index) => 
+    		let positions = data.features.map((obj,index) =>
     		{
-    			
+
     			let coord = obj.geometry.coordinates;
     			 let y = obj.geometry.height;
     			return [coord[0] -center[0] ,y,coord[1] - center[1]]
@@ -162,9 +162,9 @@ class Particles extends xv.XSys {
     		let ecs = xworld.xecs;
     		let particles = new Particles(ecs,{positions:coord,total:total});
     		xworld.addSystem("particles",particles );
-		
+
 		});
-    
+
     }
 }
 
