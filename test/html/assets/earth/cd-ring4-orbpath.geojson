@@ -2,6 +2,13 @@
     "LICENSE": "https://www.openstreetmap.org/copyright",
     "Credits": "© OpenStreetMap contributors",
     "type": "FeatureCollection",
+    "crs": {
+      "type": "EPSG",
+      "properties": { 
+         "code": 3857,
+         "coordinate_order": [1, 0]
+      }
+    },
     "features": [
       { "type": "Feature", "properties": { "name": "四环路北段", "highway": "motorway", "oneway": "yes" },
         "geometry": {
