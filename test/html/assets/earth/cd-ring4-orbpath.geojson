@@ -4,7 +4,6 @@
       "type": "EPSG",
       "properties": { 
          "code": 3857,
-         "coordinate_order": [1, 0]
       }
     },
     "features": [
