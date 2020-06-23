@@ -1,6 +1,4 @@
 {
-    "LICENSE": "https://www.openstreetmap.org/copyright",
-    "Credits": "© OpenStreetMap contributors",
     "type": "FeatureCollection",
     "crs": {
       "type": "EPSG",
@@ -10,7 +8,7 @@
       }
     },
     "features": [
-      { "type": "Feature", "properties": { "name": "四环路北段", "highway": "motorway", "oneway": "yes" },
+      { "type": "Feature", "properties": { "name": "cdring4", "highway": "motorway", "oneway": "yes" },
         "geometry": {
             "type": "LineString",
             "coordinates": [
