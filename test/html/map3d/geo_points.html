@@ -120,7 +120,7 @@
     static buildPositionsByJson(url,xworld){
 	
 		let center = [104.0633219, 30.6624205];
-		let scale= [4, 4, 0.18];
+		let scale= [1000, 1, 1000];
 		$.getJSON( url, function(data) {
     		//coordinates
     		//console.log(data)
@@ -129,10 +129,10 @@
     			
     			let coord = obj.geometry.coordinates;
     			 let y = obj.geometry.height;
-    			return [coord[0] -center[0] ,y,coord[1] - center[1]]
+    			return [(coord[0] -center[0])*scale[1] ,y*scale[1],(coord[1] - center[1])*scale[2]]
     		}
     		);
-    		//console.log(positions);
+    		console.log(positions);
     		let total = positions.length;
     		let coord = positions.flat();
     		let ecs = xworld.xecs;
@@ -154,7 +154,7 @@
 
 		const xworld = new xv.XWorld(document.getElementById('canv'), window, 
 			{	
-				camera: { far: 10000, position: [0, 0, 50], lookAt: [0, 0, 0] },
+				camera: { far: 10000, position: [50, 0, 50], lookAt: [0, 0, 0] },
 	            canvasize: [1920,960],
 	           // background:  new THREE.Color(0x0e254e),
 	            frustum: { fov: 40, near: 1, far: 10000, ratio: 1920 / 960 }
