@@ -35,11 +35,13 @@
 							geoScale: 0.01},
 
 					// From v0.3.4, path uri are handled with oboe.js, which can not load loacal file?
-					// origin: origin,
 					// uir: 'https://',
 					// RFC7946 : https://www.iana.org/assignments/media-types/application/geo+json
-					uri: 'data:application/geo+json,{"features": [{"geometry": {"coordinates": [[-2000,0], [2000,0], [2000, -2000]]} } ]}',
+					// uri: 'data:application/geo+json,{"features": [{"geometry": {"coordinates": [[-10000,0], [15000,10000], [20000, -10000]]} } ]}',
 					// uri: '../assets/earth/cd-ring4-orbpath.3857' - deosn't work
+
+					uri: 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/assets/earth/cd-ring4-orbpath.3857',
+					origin: origin,
 				}
 			}
 		});
