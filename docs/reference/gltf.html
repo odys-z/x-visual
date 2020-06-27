@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Reference" href="index.html"/>
         <link rel="next" title="Geometries" href="geometry.html"/>
@@ -89,7 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">GLTF Format</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GLTF Format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#recap-assets-simple-gltf">Recap assets/simple.gltf</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#nodes-meshes">nodes &amp; meshes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#accessors-bufferviews">accessors &amp; bufferViews</a></li>
@@ -167,7 +170,7 @@
 <div class="section" id="nodes-meshes">
 <h3>nodes &amp; meshes<a class="headerlink" href="#nodes-meshes" title="Permalink to this headline">¶</a></h3>
 <p>The logic (virtual) object represented in gltf scene.</p>
-<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span> <span class="nt">&quot;nodes&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;simple-0&quot;</span> <span class="p">}</span> <span class="p">],</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;nodes&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;simple-0&quot;</span> <span class="p">}</span> <span class="p">],</span>
   <span class="nt">&quot;meshes&quot;</span> <span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="nt">&quot;primitives&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nt">&quot;attributes&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;POSITION&quot;</span> <span class="p">:</span> <span class="mi">1</span> <span class="p">},</span> <span class="nt">&quot;indices&quot;</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">}</span> <span class="p">]</span> <span class="p">}</span>
   <span class="p">],</span>
@@ -178,8 +181,8 @@
 </div>
 <div class="section" id="accessors-bufferviews">
 <h3>accessors &amp; bufferViews<a class="headerlink" href="#accessors-bufferviews" title="Permalink to this headline">¶</a></h3>
-<p>The <em>bufferViews</em> are actually the raw data&#8217;s logical view.</p>
-<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span> <span class="nt">&quot;buffers&quot;</span> <span class="p">:</span> <span class="p">[</span>
+<p>The <em>bufferViews</em> are actually the raw data’s logical view.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;buffers&quot;</span> <span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="nt">&quot;uri&quot;</span> <span class="p">:</span> <span class="s2">&quot;data:application/octet-stream;base64,AAABAAIAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAACAPwAAAAA=&quot;</span><span class="p">,</span>
       <span class="nt">&quot;byteLength&quot;</span> <span class="p">:</span> <span class="mi">44</span> <span class="p">}</span>
   <span class="p">],</span>
@@ -197,7 +200,7 @@ sections, vertex indexes and positions.</p>
 <img alt="../_images/001-buffer-view.png" src="../_images/001-buffer-view.png" />
 <p>Image 5b: The buffer views, referring to parts of the buffer,</p>
 <p>The way to use data array is exactly specified by <em>accessors</em>.</p>
-<div class="highlight-json"><div class="highlight"><pre><span class="s2">&quot;accessors&quot;</span> <span class="err">:</span> <span class="p">[</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;accessors&quot;</span> <span class="err">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="nt">&quot;bufferView&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;byteOffset&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nt">&quot;componentType&quot;</span> <span class="p">:</span> <span class="mi">5123</span><span class="p">,</span> <span class="nt">&quot;count&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
       <span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;SCALAR&quot;</span><span class="p">,</span>
       <span class="nt">&quot;max&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="mi">2</span> <span class="p">],</span> <span class="nt">&quot;min&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">},</span>
@@ -207,8 +210,8 @@ sections, vertex indexes and positions.</p>
 <span class="p">]</span><span class="err">,</span>
 </pre></div>
 </div>
-<p>Now it&#8217;s natural to share mesh for different nodes:</p>
-<div class="highlight-json"><div class="highlight"><pre><span class="s2">&quot;nodes&quot;</span> <span class="err">:</span> <span class="p">[</span>
+<p>Now it’s natural to share mesh for different nodes:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;nodes&quot;</span> <span class="err">:</span> <span class="p">[</span>
     <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
     <span class="p">{</span> <span class="nt">&quot;mesh&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="nt">&quot;translation&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">]</span> <span class="p">}</span>
@@ -222,7 +225,7 @@ sections, vertex indexes and positions.</p>
 <div class="section" id="city-scene-gltf-representation">
 <h3>city/scene.gltf representation<a class="headerlink" href="#city-scene-gltf-representation" title="Permalink to this headline">¶</a></h3>
 <p>Some parts of low poly city gltf assets:</p>
-<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span> <span class="nt">&quot;accessors&quot;</span><span class="p">:</span> <span class="p">[</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;accessors&quot;</span><span class="p">:</span> <span class="p">[</span>
   <span class="p">{</span> <span class="nt">&quot;bufferView&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;componentType&quot;</span><span class="p">:</span> <span class="mi">5126</span><span class="p">,</span> <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1762</span><span class="p">,</span>
     <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">25.192995071411133</span><span class="p">,</span> <span class="mf">10.835280418395996</span><span class="p">,</span> <span class="mf">27.863927841186523</span> <span class="p">],</span>
     <span class="nt">&quot;min&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">-18.667209625244141</span><span class="p">,</span> <span class="mf">-29.31907844543457</span><span class="p">,</span> <span class="mf">-72.12615966796875</span> <span class="p">],</span>
@@ -299,8 +302,8 @@ sections, vertex indexes and positions.</p>
 </div>
 <div class="section" id="node-example">
 <h3>Node Example<a class="headerlink" href="#node-example" title="Permalink to this headline">¶</a></h3>
-<p>The loaded node example (name = &#8216;Tree-1-3&#8217;)</p>
-<div class="highlight-python"><div class="highlight"><pre>for city/scene.gltf, paras.nodes = [&#39;Tree-1-3&#39;],
+<p>The loaded node example (name = ‘Tree-1-3’)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for city/scene.gltf, paras.nodes = [&#39;Tree-1-3&#39;],
 nodes[0].children[0].type == &#39;Mesh&#39;,
 nodes[0].children[0].geometry is a BufferGeometry, with array of
 BufferAttributes as &#39;attributes&#39;.
@@ -322,7 +325,7 @@ nodes[0].children[0].geometry.attributes[&#39;position&#39;] ==
 <h3>Three.js GLTFLoader<a class="headerlink" href="#three-js-gltfloader" title="Permalink to this headline">¶</a></h3>
 <p>The gltf loader processing can be simplify and clarified if with some basic gltf
 knowledge.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
     <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GLTFParser</span><span class="p">(</span> <span class="nx">json</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="p">{</span> <span class="nx">manager</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">manager</span> <span class="p">}</span> <span class="p">);</span>
         <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">);</span>
@@ -356,7 +359,7 @@ knowledge.</p>
 </div>
 <p>This loading and parsing is finished after multiple dependency like mesh, nodes,
 etc. been parsed.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="cm">/**Ody: Load mesh with vertices accessing via accessors.</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**Ody: Load mesh with vertices accessing via accessors.</span>
 <span class="cm"> * For a primitive.mode == WEBGL_CONSTANTS.TRIANGLES, it&#39;s</span>
 <span class="cm"> * new Mesh( geometry, material )</span>
 <span class="cm"> *</span>
@@ -450,7 +453,7 @@ etc. been parsed.</p>
 <p>1. Add the scope (GLTFLoader function call stack) as the argument of GLTFParser
 constructor, which makes the GLTFLoader instance can be accessed while parsing
 nodes.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">nodeMap</span> <span class="o">=</span> <span class="p">{};</span>
 
     <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onProgress</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
@@ -482,8 +485,8 @@ nodes.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The &#8216;node&#8217; dependency will get return and returned by parser.parse():</p>
-<div class="highlight-javascript" id="parse-promise"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+<p>The ‘node’ dependency will get return and returned by parser.parse():</p>
+<div class="highlight-javascript notranslate" id="parse-promise"><div class="highlight"><pre><span></span><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">parser</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">json</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">extensions</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">extensions</span><span class="p">;</span>
@@ -502,9 +505,9 @@ nodes.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>2. When parsing nodes, update a map in &#8216;scope&#8217; so nodes name - index can be find
+<p>2. When parsing nodes, update a map in ‘scope’ so nodes name - index can be find
 out.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadNode</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">nodeIndex</span> <span class="p">)</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadNode</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">nodeIndex</span> <span class="p">)</span> <span class="p">{</span>
         <span class="p">...</span>
     <span class="p">}()</span>
     <span class="c1">// then build node (Object3D etc.) with the objects</span>
@@ -530,7 +533,7 @@ out.</p>
 <p class="first admonition-title">Note</p>
 <p>Debug Notes:
 The node name is been <em>sanitized</em>.
-Which means you can not use it like &#8220;node one&#8221;, it&#8217;s been replaced with &#8220;node_one&#8221;.</p>
+Which means you can not use it like “node one”, it’s been replaced with “node_one”.</p>
 <p>See <a class="reference external" href="https://github.com/mrdoob/three.js/issues/12956">similar issue at github</a>
 &amp; tips in test/html/gltf-car.html.</p>
 <p class="last">Also, the AssetKeepr.loadGltfNodes() also access it using <em>sanitized</em> names.</p>
@@ -538,8 +541,8 @@ Which means you can not use it like &#8220;node one&#8221;, it&#8217;s been repl
 <ol class="arabic simple" start="3">
 <li>After every thing done, the nodes array also been taken out in gltf results.</li>
 </ol>
-<p>For promise returning &#8216;ndoes&#8217;, see <a class="reference internal" href="#parse-promise"><span>Parse Promise</span></a>.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
+<p>For promise returning ‘ndoes’, see <a class="reference internal" href="#parse-promise"><span class="std std-ref">Parse Promise</span></a>.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">onLoad</span><span class="p">,</span> <span class="nx">onError</span> <span class="p">)</span> <span class="p">{</span>
     <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span>
         <span class="p">...</span>
     <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dependencies</span> <span class="p">)</span> <span class="p">{</span>
@@ -619,7 +622,8 @@ Which means you can not use it like &#8220;node one&#8221;, it&#8217;s been repl
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -116,7 +116,7 @@ test::
     test/html/dynatex.html
     test/html/dynatex-2.html
 
-In x-visual, 2D text are supported by system `CanvTex <../jsdoc/XComponent.Dynatex.html>`_
+In x-visual, 2D text are supported by system `CanvTex <https://odys-z.github.io/javadoc/x-visual/XComponent.Dynatex.html>`_
 using an html canvas as the dynamic texture, with an API function for updating
 text.
 

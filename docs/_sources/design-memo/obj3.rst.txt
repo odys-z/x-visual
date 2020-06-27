@@ -79,7 +79,7 @@ Transformations can be combined into an array of Obj3's definition::
                     {rotate: {deg: 45, axis: [1, 0, 0]}},
                     {scale: [1, 0.5, 1]}]
     }
-    
+
 Obj3.affines & combined
 ------------------------
 
@@ -192,4 +192,4 @@ Affine Transformation References:
 Obj3 Geometry Parameters
 ------------------------
 
-See `Thrender.threeGeometryCase() <../jsdoc/Thrender.html#api-threeGeometryCase>`_.
+See `Thrender.threeGeometryCase() <https://odys-z.github.io/javadoc/x-visual/Thrender.html#api-threeGeometryCase>`_.

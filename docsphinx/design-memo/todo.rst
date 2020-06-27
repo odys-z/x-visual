@@ -107,7 +107,7 @@ And further, if used in an other project, the loaded GLTF modules crashes with b
 
 There are `Three.js issue about the same error <https://github.com/mrdoob/three.js/pull/14367>`_.
 
-`Jsdoc API - AssetKeepr <../jsdoc/AssetKeepr.html>`_
+`Jsdoc API - AssetKeepr <https://odys-z.github.io/javadoc/x-visual/AssetKeepr.html>`_
 
 - bug: Obj3.uniforms.u_alpha will affect each others
 

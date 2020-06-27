@@ -10,7 +10,7 @@ test::
 
     test/html/morph-color.html
 
-Phong material is provided by `xglsl <../../jsdoc/xglsl.html>`_.meshColors(vparas).
+Phong material is provided by `xglsl <https://odys-z.github.io/javadoc/x-visual/xglsl.html>`_.meshColors(vparas).
 
 Reference: `WebGL - Phong Shading <http://www.cs.toronto.edu/~jacobson/phong-demo/>`_
 
