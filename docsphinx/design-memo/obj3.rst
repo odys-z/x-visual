@@ -189,7 +189,22 @@ Affine Transformation References:
 
 `[4] What is the difference between linear and affine function, Mathematics <https://math.stackexchange.com/questions/275310/what-is-the-difference-between-linear-and-affine-function>`_
 
-Obj3 Geometry Parameters
-------------------------
+Obj3 & Geometry
+---------------
 
-See `Thrender.threeGeometryCase() <https://odys-z.github.io/javadoc/x-visual/Thrender.html#api-threeGeometryCase>`_.
+Most of x-visual geometry handling depends on Three.js' geometry buffer and it's
+subclasses. See `Thrender.threeGeometryCase() <https://odys-z.github.io/javadoc/x-visual/Thrender.html#api-threeGeometryCase>`_.
+
+There are also some extensions.
+
+Obj3Type.MapXZRoad
+__________________
+
+Generate a road polygon in y = paras.y0 plane. The generated path is scaled and
+stored in Obj3.datum, in {paths, dirty}.
+
+Some animation type like AnimType.U_PATHn_MORPH will take this as it's own's Obj3
+datum.ref object and can tweening path without noticing paths' data changed.
+
+See the :ref:`ShaderFlag.orbGroups test case<_test-geom>`_ &
+`xgeom.generateWayxz() <https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz>`_.
