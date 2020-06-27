@@ -48,4 +48,4 @@ ShaderFlag::
     xv.XComponent.ShaderFlag.worldOrbs
     xv.XComponent.ShaderFlag.orbGroups
 
-See also :ref:`volumetric-shaders`.
+See also :ref:`volumetric-shaders` & :ref:`visual paras for volumetric shaders<visual-paras-scaleorb>`.
