@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest SVG -&gt; Obj3</title>
+	<title>XTest Path Morph</title>
 	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
     <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
@@ -20,7 +20,7 @@
 
 	// var ring4j = '../assets/earth/cd-ring4-orbpath.geojson';
 
-    $.getJSON( json, function(json) {
+	$.getJSON( json, function(json) {
 
 		xworld.addEntities( {
 			id: 'ring4',
@@ -31,87 +31,95 @@
 				shader: xv.ShaderFlag.discard, // nothing to be rendered
 				// Design Notes: Visual should decomposed to 2 components: Asset & GlContext (mesh, line, ...)
 				paras: {
-					origin: origin,
 					style: {halfWidth: 0.01,
 							geoScale: 0.01},
 
-					uri: '../assets/earth/cd-ring4-orbpath.geojson'
-					// 'data:application/geo+json,features...',
-					// RFC7946 mimetype: https://www.iana.org/assignments/media-types/application/geo+json
+					// From v0.3.4, path uri are handled with oboe.js, which can not load loacal file?
+					// uir: 'https://',
+					// RFC7946 : https://www.iana.org/assignments/media-types/application/geo+json
+					// uri: 'data:application/geo+json,{"features": [{"geometry": {"coordinates": [[-10000,0], [15000,10000], [20000, -10000]]} } ]}',
+					// uri: '../assets/earth/cd-ring4-orbpath.3857' - deosn't work
+
+					uri: 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/assets/earth/cd-ring4-orbpath.3857',
+					origin: origin,
 				}
 			}
 		});
 
-		// xworld.addEntities( {
-		// 	id: 'way1',
-		// 	Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-		// 			uniforms: {opacity: 1.0},
-		// 			box: [0] },    // y0
-		// 	Visual:{
-		// 		vtype: xv.AssetType.mesh,
-		// 		shader: xv.XComponent.ShaderFlag.worldOrbs,
-		// 		paras: {
-		// 			uniforms: { u_texWeight: 0.5},
-		// 			features: json.features,
-		// 			origin: origin,
-		// 			style: {halfWidth: 0.4,
-		// 					geoScale: 0.01},
-		//
-		// 			side: THREE.FrontSide,
-		// 			// u_tex: ['data:application/x-visual+img,grey-pixel'],
-		// 			colors: [[1, 1.0, 1]],
-		// 			//
-		// 			orbR: [2],
-		// 			whiteAlpha: 0.2,	// out of range alpha
-		// 			orbScale: [5, 5, 1] },
-		// 		asset: '../../assets/tex/ruler256.png' ,
-		// 	},
-		// 	ModelSeqs: { script: [[ {
-		// 		mtype: xv.XComponent.AnimType.U_PATH_MORPH,
-		// 		paras: {
-		// 			start: 0,
-		// 			duration: 9,
-		// 			ease: undefined, // xv.XEasing.Elastic.Elastic,
-		// 			path: 'ring4'
-		// 		} }
-		// 		]] },
-		// 	CmpTweens: {}
-		// });
-		//
-		// xworld.addEntities( {
-		// 	id: 'way2',
-		// 	Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 			uniforms: {opacity: 1.0},
-		// 			box: [500, 1, 500] },    // y0
-		// 	Visual:{
-		// 		vtype: xv.AssetType.mesh,
-		// 		shader: xv.XComponent.ShaderFlag.orbGroups,
-		// 		paras: {
-		// 			// groups global paras
-		// 			t_range: [-0, 0.999],
-		// 			follows: [0, 5, 10, 15, 20],
-		// 	        orbScale: [2, 1, 1],
-		// 			whiteAlpha: 0.0,
-		//
-		// 			// orbs in group
-		// 			colors: [[0.2, 0.2, 1], [0, 1, 0], [0, 0, 1]],
-		// 			orbR:    [2, 8, 6],
-		// 			offsets: [ 0, 1, 0]
-		// 		},
-		// 		asset: 'data:application/x-visual+img,grey-pixel' },
-		// 	ModelSeqs: { script: [[ {
-		// 		mtype: xv.XComponent.AnimType.U_PATHn_MORPH,
-		// 		paras: {
-		// 			start: 0,
-		// 			duration: 30,
-		// 			ease: undefined, // xv.XEasing.Elastic.Elastic,
-		// 			path: 'ring4' },
-		// 		followBy: [{entity: 'way2-2',
-		// 			seqx: 0,
-		// 			start: 0.3}] },
-		// 		]] },
-		// 	CmpTweens: {}
-		// } );
+		xworld.addEntities( {
+			id: 'way1',
+			Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+					uniforms: {opacity: 1.0},
+					box: [0] },    // y0
+			Visual:{
+				vtype: xv.AssetType.mesh,
+				shader: xv.XComponent.ShaderFlag.worldOrbs,
+				paras: {
+					uniforms: { u_texWeight: 0.5},
+					features: json.features,
+					origin: origin,
+					style: {halfWidth: 1,
+							geoScale: 0.01},
+
+					side: THREE.FrontSide,
+					colors: [[1, 1, 0]],
+
+					orbR: [15],
+					whiteAlpha: 0.2,	// out of range alpha
+					orbScale: [5, 5, 1] },
+				// asset: '../../assets/tex/ruler256.png' ,
+				asset: 'data:application/x-visual+img,grey-pixel' ,
+			},
+			ModelSeqs: { script: [[ {
+				mtype: xv.XComponent.AnimType.U_PATH_MORPH,
+				paras: {
+					start: 0,
+					duration: 15,
+					ease: undefined, // xv.XEasing.Elastic.Elastic,
+					path: 'ring4'
+				},
+				followBy: [{entity: 'way1',
+					seqx: 0,
+					start: 0.3}]
+				} ]] },
+			CmpTweens: {}
+		});
+
+		xworld.addEntities( {
+			id: 'way2',
+			Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+					uniforms: {opacity: 1.0},
+					box: [600, 1, 600] },    // y0
+			Visual:{
+				vtype: xv.AssetType.mesh,
+				shader: xv.XComponent.ShaderFlag.orbGroups,
+				paras: {
+					// groups global paras
+					t_range: [-0, 0.999],
+					follows: [0, 2, 4, 6, 8],
+			        orbScale: [1, 0.4, 1],
+					whiteAlpha: 0.0,
+
+					// orbs in group
+					colors: [[0.2, 0.2, 1], [0, 0.5, 0], [0, 0, 0.3]],
+					orbR:    [5, 5, 4],
+					offsets: [ 0, 4.5, 10]
+				},
+				asset: 'data:application/x-visual+img,grey-pixel' },
+			ModelSeqs: { script: [[ {
+				mtype: xv.XComponent.AnimType.U_PATHn_MORPH,
+				paras: {
+					start: 0,
+					duration: 15,
+					ease: undefined, // xv.XEasing.Elastic.Elastic,
+					path: 'ring4' },
+				followBy: [{entity: 'way2',
+					seqx: 0,
+					start: 0.3}]
+				},
+				]] },
+			CmpTweens: {}
+		} );
 
 		xworld.startUpdate();
 	});

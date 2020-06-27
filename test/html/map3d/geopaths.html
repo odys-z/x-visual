@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest SVG -&gt; Obj3</title>
+	<title>XTest Path Morph</title>
 	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
@@ -83,7 +83,7 @@
 				t_range: [-0, 0.999],  // visible t's range - hide when tweens finished
 				follows: [0, 15, 30],  // group distance alone path direction, percentage of t
 		        orbScale: [1, 3, 1],   // each orb's x, y, z scale
-				whiteAlpha: 0.6,	   // out of range alpha
+				whiteAlpha: 0.0,	   // out of range alpha
 
 				// orbs in group
 				colors: [[1, 1, 1], [0, 1, 0]],
@@ -120,16 +120,16 @@
 				whiteAlpha: 0.0,
 
 				// orbs in group
-				colors: [[0.2, 0.2, 1], [0, 1, 0], [0, 0, 1]],
-				orbR:    [2, 8, 6],
-				offsets: [ 0, 1, 0]
+				colors: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+				orbR:    [2, 2, 2],
+				offsets: [ 0, 5, 10]
 			},
 			asset: 'data:application/x-visual+img,grey-pixel' } ,
 		ModelSeqs: { script: [[ {
 			mtype: xv.XComponent.AnimType.U_PATHn_MORPH,
 			paras: {
 				start: 0,
-				duration: 3,
+				duration: 12,
 				ease: undefined, // xv.XEasing.Elastic.Elastic,
 				path: 'way2' },
 			followBy: [{entity: 'way2-2',
