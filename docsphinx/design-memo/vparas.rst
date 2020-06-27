@@ -17,6 +17,21 @@ Range 0 ~ 1, for any object's material accepting alpha channel (Three.js Object3
 
 These parameters are merged into THREE.Material's uniforms property.
 
+- asset
+
+Texture path, or uri.
+
+X-visual can handle data of MIME type of::
+
+    application/x-visual+img
+
+with data can only be::
+
+   gray-pixel
+
+which will generate a cheap texture with only one pixel of gray color. It can be
+useful for debugging or create a default material.
+
 paras only for ShaderFlag enabled
 ---------------------------------
 
@@ -32,7 +47,7 @@ u_tex is a shader's uniforms parameter, which means only Visual using THREE.Shad
 can has a u_tex parameter.
 
 After v0.3, *u_tex* is an array for shader of ShaderFlag = colorArray. The array
-can be morphed using u_morph<i> in ModelSeqs.script.
+can be morphed using u_morph in ModelSeqs.script.
 
 - paras.colors
 
@@ -77,8 +92,89 @@ See :ref:`test: texture & color morphing<tex-color-morph>`.
 
 See also `Three.js example: material blending <https://threejs.org/examples/?q=blending#webgl_materials_blending>`_.
 
-paras only for vtype = point or refPoint
-----------------------------------------
+.. _visual-paras-scaleorb:
+
+vtype = scaleOrb
+----------------
+
+test::
+
+    test/html/shader-scaleorb.html
+    test/html/shader-multi-orb.html
+
+- paras.orbR
+
+Number of sphere radius
+
+- paras.orbScale
+
+Array of [x, y, z] scale
+
+- paras.whiteAlpha
+
+Out of orb's range alpha, used for object's default color.
+
+vtype = worldOrbs
+-----------------
+
+test::
+
+    test/html/map3d/geopath-road.html
+    test/html/map3d/cd-express.html
+
+- paras.orbScale
+
+Array of [x, y, z] scale
+
+- paras.colors
+
+Colors of orbs. Example::
+
+    [[0, 0, 1], [0, 1, 0], [1, 0, 0]]
+
+which makes 3 orb in blue, green, red.
+
+- paras.orbR
+
+Orb's radius,. Example::
+
+    [30, 50, 30]
+
+- paras.offsets
+
+Orb's offsets. Example::
+
+    [[0, 0, 0], [-8, 0, 0], [-16, 0, -0]]
+
+All three orb's will move with offsets to each other when position changed.
+
+- paras.whiteAlpha
+
+Out of orb's range alpha, used for object's default color.
+
+vtype = orbGroups
+-----------------
+
+test::
+
+    test/html/map3d/gepaths.html
+    test/html/map3d/cd-express.html
+
+*orbGroups* has all paras for *worldOrbs*. In addintion to those paras, it also
+has groups configuration.
+
+- paras.follows
+
+Groups following distance, in t's percentage. E.g if t = 10, means a group is
+updated 10 percent later.
+
+- paras.t_range
+
+Orb's visible range, 0 ~ 1. The group will be hidden when t is out of range. t
+means the tweening weight updated each frame by XTweener.
+
+vtype = point or refPoint
+-------------------------
 
 It's been used for vtype = :ref:`AssetType.refPoint<vtype-refPoint>` or
 :ref:`AssetType.point<vtype-point>`.

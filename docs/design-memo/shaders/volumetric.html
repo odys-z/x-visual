@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Shader Samples &mdash; x-visual 0.3 documentation</title>
+  <title>Morphing Volumetric Shaders &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -36,9 +36,9 @@
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../../index.html"/>
-        <link rel="up" title="Design Memo" href="../index.html"/>
-        <link rel="next" title="Shader Instance Pool" href="instance.html"/>
-        <link rel="prev" title="Affine Tweening" href="../affine.html"/> 
+        <link rel="up" title="Shader Samples" href="index.html"/>
+        <link rel="next" title="Shadertoy Flame" href="flame.html"/>
+        <link rel="prev" title="Morphing Phong Material" href="phong.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -100,10 +100,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Shader Samples</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shader Samples</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
 <li class="toctree-l3"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
-<li class="toctree-l3"><a class="reference internal" href="volumetric.html">Morphing Volumetric Shaders</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Morphing Volumetric Shaders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#scalable-orb">Scalable Orb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#world-position-orbs">World position Orbs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#world-orb-groups">World Orb Groups</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
 </ul>
 </li>
@@ -145,7 +150,9 @@
       
           <li><a href="../index.html">Design Memo</a> &raquo;</li>
       
-    <li>Shader Samples</li>
+          <li><a href="index.html">Shader Samples</a> &raquo;</li>
+      
+    <li>Morphing Volumetric Shaders</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -157,29 +164,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="shader-samples">
-<h1>Shader Samples<a class="headerlink" href="#shader-samples" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="instance.html">Shader Instance Pool</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="instance.html#instance-management">Instance Management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instance.html#reference">Reference</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
-<li class="toctree-l1"><a class="reference internal" href="volumetric.html">Morphing Volumetric Shaders</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="volumetric.html#scalable-orb">Scalable Orb</a></li>
-<li class="toctree-l2"><a class="reference internal" href="volumetric.html#world-position-orbs">World position Orbs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="volumetric.html#world-orb-groups">World Orb Groups</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="flame.html">Shadertoy Flame</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="flame.html#throbbing-star">Throbbing Star</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flame.html#lesser-raymarch-flame">Lesser Raymarch Flame</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="morphing-volumetric-shaders">
+<span id="volumetric-shaders"></span><h1>Morphing Volumetric Shaders<a class="headerlink" href="#morphing-volumetric-shaders" title="Permalink to this headline">¶</a></h1>
+<p>For shaderFlag API, see <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XComponent.html#shaderflag">XComponent.ShaderFlag</a></p>
+<div class="section" id="scalable-orb">
+<h2>Scalable Orb<a class="headerlink" href="#scalable-orb" title="Permalink to this headline">¶</a></h2>
+<p>Render an orb centered at world position, uniform vec3 wpos.</p>
+<p>See <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xglsl.html#scaleOrb">xglsl.scaleOrb()</a></p>
+<p>ShaderFlag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">scaleOrb</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="world-position-orbs">
+<h2>World position Orbs<a class="headerlink" href="#world-position-orbs" title="Permalink to this headline">¶</a></h2>
+<p>Render a goup of orbs with offsets in world position.</p>
+<p>See <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xglsl.html#worldOrbs">xglsl.worldOrb()</a></p>
+<p>ShaderFlag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">worldOrbs</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="world-orb-groups">
+<h2>World Orb Groups<a class="headerlink" href="#world-orb-groups" title="Permalink to this headline">¶</a></h2>
+<p>Render goups of orbs with offsets in world position, followed by offsets of tweening
+percentage, range 0 ~ 100.</p>
+<p>See <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xglsl.html#orbGroups">xglsl.orbGroups()</a></p>
+<p>ShaderFlag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">orbGroups</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -190,10 +204,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="instance.html" class="btn btn-neutral float-right" title="Shader Instance Pool" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="flame.html" class="btn btn-neutral float-right" title="Shadertoy Flame" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../affine.html" class="btn btn-neutral" title="Affine Tweening" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="phong.html" class="btn btn-neutral" title="Morphing Phong Material" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -171,6 +171,20 @@ for general information about Visual component.</p>
 <li>uniforms</li>
 </ul>
 <p>These parameters are merged into THREE.Material’s uniforms property.</p>
+<ul class="simple">
+<li>asset</li>
+</ul>
+<p>Texture path, or uri.</p>
+<p>X-visual can handle data of MIME type of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">visual</span><span class="o">+</span><span class="n">img</span>
+</pre></div>
+</div>
+<p>with data can only be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grey</span><span class="o">-</span><span class="n">pixel</span>
+</pre></div>
+</div>
+<p>which will generate a cheap texture with only one pixel of grey color. It can be
+useful for debugging or create a default material.</p>
 </div>
 <div class="section" id="paras-only-for-shaderflag-enabled">
 <h2>paras only for ShaderFlag enabled<a class="headerlink" href="#paras-only-for-shaderflag-enabled" title="Permalink to this headline">¶</a></h2>

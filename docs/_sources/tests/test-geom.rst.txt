@@ -3,13 +3,13 @@
 Test - Geometries
 =================
 
-Cate: Dir TubeGeometry
-----------------------
+Cate: Path & Dir Geometry
+-------------------------
 
 .. _tst-geom-dirtube:
 
-case: Path & Dir Tube
-_____________________
+Case: Dir TubeGeometry
+______________________
 
 html file::
 
@@ -29,11 +29,23 @@ See reference section about :ref:`Three.js tube geometry algorithm of Frenet Fra
 
 TODO doc ...
 
-case: Volumetric Tube
+Case: Volumetric Tube
 _____________________
 
-html file::
+html files::
 
-    test/html/shader-tube.html
+    test/html/shader-scaleorb.html
+    test/html/shader-multi-orb.html
+    test/html/map3d/geopath-road.html
+    test/html/map3d/geopaths.html
+    test/html/map3d/cd-express.html
 
-TODO ...
+Testing types of volumetric shader program.
+
+ShaderFlag::
+
+    xv.XComponent.ShaderFlag.scaleOrb
+    xv.XComponent.ShaderFlag.worldOrbs
+    xv.XComponent.ShaderFlag.orbGroups
+
+See also :ref:`volumetric-shaders`.

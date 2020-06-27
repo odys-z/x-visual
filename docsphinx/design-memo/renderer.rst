@@ -10,7 +10,7 @@ object.
 
 - Visual
 
-The Visual Component specify the visual effect such as materail texture asset or wireframe type.
+The Visual Component specify the visual effect such as material texture asset or wireframe type.
 
 - Obj3
 
@@ -49,7 +49,7 @@ Obe3.geom specify shape or model type.
 When Thrender is created by xworld.startUpdate(), all entities' Obj3 components
 will been converted to a scene object, with visual effect of Visual component.
 
-Model geometry and materail are good examples to get this idea. Another is the
+Model geometry and material are good examples to get this idea. Another is the
 point visual and points object, where point is a visual effect a points array,
 the scene object consists many points.
 

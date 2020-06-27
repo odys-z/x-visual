@@ -75,7 +75,6 @@
 				origin: origin,
 				style: {halfWidth: 6} },
 			asset: '../../assets/tex/ruler256.png' },
-			// asset: '../../assets/tex/byr0.png' } },
 	  },
 	  { id: 'way2-1',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
@@ -84,8 +83,8 @@
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.worldOrbs,
 			paras: {
-				// road
-				uri: 'data:application/geo+json,features',
+				// road geometry
+				uri: 'data:application/geo+json,features', // overriden by features
 				features: json1.features,
 				origin: origin,
 				style: {halfWidth: 12,
@@ -106,8 +105,12 @@
 				start: 0,
 				duration: 9,
 				ease: undefined, // xv.XEasing.Elastic.Elastic,
+				// TODO remove in jsdoc:
 				// MapXZRoad has path data in Obj3.datum, same as PathTube,
 				// FIXME but where should the enum been declared, vtype or geom type?
+				// Desgin Memo: if we consider goemetries comes from three.js are
+				// the same as MapXZRoad, it's nature to put all geometry types
+				// in Obj3.geom.
 				path: 'way2-1' } }
 			]] },
 		CmpTweens: {}

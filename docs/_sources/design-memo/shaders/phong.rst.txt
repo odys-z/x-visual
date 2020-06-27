@@ -1,7 +1,7 @@
 Morphing Phong Material
 =======================
 
-X-visual Phong shader is designed for general materail used by data object like
+X-visual Phong shader is designed for general material used by data object like
 bar in bar chart, with respect to light position.
 
 This shader can also handle texture mixing.

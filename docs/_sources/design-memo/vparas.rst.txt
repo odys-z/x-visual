@@ -17,6 +17,21 @@ Range 0 ~ 1, for any object's material accepting alpha channel (Three.js Object3
 
 These parameters are merged into THREE.Material's uniforms property.
 
+- asset
+
+Texture path, or uri.
+
+X-visual can handle data of MIME type of::
+
+    application/x-visual+img
+
+with data can only be::
+
+   grey-pixel
+
+which will generate a cheap texture with only one pixel of grey color. It can be
+useful for debugging or create a default material.
+
 paras only for ShaderFlag enabled
 ---------------------------------
 
