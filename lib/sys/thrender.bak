@@ -62,19 +62,14 @@ export default class Thrender extends ECS.System {
 	static createObj3s(ecs, scene, entities) {
 		// var mes = [];
 		entities.forEach(function(e, x) {
-			// A typicall orghogonal handling process should be blocks one after another,
-			// like material, an generalized case of alp
 			var tex, mat;
-			// 1. uniforms
-			// 1.1 paras for uniforms
 			var uniforms = Object.assign(new Object(), e.Obj3.uniforms);
 				uniforms = Object.assign(uniforms, e.Visual.uniforms);
-			// 1.2 shader's uniforms
-			if (!e.Visual.material && e.Visual.shader) {
-				uniforms = xglsl.formatUniforms(e.Visual, e.Obj3);
-			}
-			// 2. TODO merge material handling
 
+			// A typicall orghogonal handling process should be blocks one after another,
+			// like material, an generalized case of alp
+			// FIXME alp is deprcated by xglsl.formatUniforms()
+			// - in fact, uniforms should been handled here
 			var alp = e.Visual.paras !== undefined && e.Visual.paras.tex_alpha !== undefined ?
 				e.Visual.paras.tex_alpha : 1;
 
@@ -87,8 +82,8 @@ export default class Thrender extends ECS.System {
 					break;
 				case AssetType.gltf:
 					if (!e.Visual.asset)
-						throw XError('Thrender: AssetType.gltf needs Visual.asset parameter.');
-					else if (e.Visual.paras && e.Visual.paras.nodes) {
+						throw XError('Thrender: AssetType.gltf needs Visual.asset being path of gltf file.');
+					else if (e. Visual.paras && e.Visual.paras.nodes) {
 						var nds = e.Visual.paras.nodes;
 						if (typeof nds === 'string')
 							nds = [nds]
@@ -128,9 +123,8 @@ export default class Thrender extends ECS.System {
 						AssetKeepr.loadGltf(scene, e.Obj3, `assets/${e.Visual.asset}`);
 					break;
 				case AssetType.DomCanvas:
-					// var alp = e.Visual.paras !== undefined && e.Visual.paras.tex_alpha !== undefined ?
-					// 	e.Visual.paras.tex_alpha : 1;
-
+					var alp = e.Visual.paras !== undefined && e.Visual.paras.tex_alpha !== undefined ?
+						e.Visual.paras.tex_alpha : 1;
 					// create texture of canvas
 					AssetKeepr.loadCanvtex2(e.Canvas, e.Canvas.options);
 					tex = e.Canvas.tex; // should be undefined now
@@ -147,6 +141,8 @@ export default class Thrender extends ECS.System {
 							transparent: true,
 							side,
 						});
+					// mat.setUniforms(mat, uniforms);
+					// Object.assign(mat, uniforms);
 					var m = Thrender.createObj3mesh(e.Obj3, e.Obj3.geom, mat);
 					// can not been used for rendering until html canvas texture is ready,
 					// when Canvas.dirty = true
@@ -155,10 +151,42 @@ export default class Thrender extends ECS.System {
 					break;
 				case AssetType.mesh:
 				case AssetType.mesh_basic:
+
 					if (!e.Visual.material) {
 						// FIXME material should handled in orthogonal fashion.
+						// FIXME see also createObj3particles()
+						// Ony ShaderFlag.colorArray are tested
 						if (e.Visual.shader) {
 							// create ShaderMaterial
+
+							// FIXME time to reorgnize uniforms handling, see PathTube
+							// FIXME in this branch, should get defualt uniforms from glsl?
+
+							/** NOTE before deleting this, you also need use glsl.formatUniforms() for other branches
+							uniforms.wpos = {value: new THREE.Vector3(0, 0, 0)};
+							uniforms.r = {value: e.Visual.paras.orbR === undefined
+										? 20 : e.Visual.paras.orbR};
+							uniforms.whiteAlpha = {value: e.Visual.paras.whiteAlpha === undefined
+										? 0 : e.Visual.paras.whiteAlpha};
+							var os = e.Visual.paras.orbScale;
+							uniforms.orbScale = {value: os === undefined
+										? new THREE.Vector3(1, 0.2, 0.2)
+										: new THREE.Vector3(os[0], os[1], os[2])};
+
+							var side = !e.Visual.paras || e.Visual.paras.side === undefined
+										? THREE.FrontSide : e.Visual.paras.side;
+
+							Object.assign(uniforms, xglsl.obj2uniforms(e.Obj3.uniforms));
+							if (e.Visual.paras)
+								Object.assign(uniforms, xglsl.obj2uniforms(e.Visual.paras.uniforms));
+
+							if (e.Visual.shader === ShaderFlag.colorArray)
+								for (var i = 0; i < e.Visual.paras.colors.length; i++)
+									uniforms[`u_color${i}`] = {value: new THREE.Vector3(...e.Visual.paras.colors[i])};
+							*/
+
+
+							uniforms = xglsl.formatUniforms(e.Visual, e.Obj3);
 							mat = Thrender.createXShaderMaterial(e.Visual.shader, uniforms, e.Visual.paras);
 						}
 						else {
@@ -182,6 +210,7 @@ export default class Thrender extends ECS.System {
 										side,
 										depthWrite: true,
 										depthTest: true,
+										// blending: THREE.AdditiveBlending
 									};
 
 							if ( alphaMap ) def.alphaMap = alphaMap;
@@ -202,8 +231,8 @@ export default class Thrender extends ECS.System {
 					addObj3(scene, m, e);
 					break;
 				case AssetType.wireframe:
-					// var alp = e.Visual.paras !== undefined && e.Visual.paras.tex_alpha !== undefined ?
-					// 	e.Visual.paras.tex_alpha : 1;
+					var alp = e.Visual.paras !== undefined && e.Visual.paras.tex_alpha !== undefined ?
+						e.Visual.paras.tex_alpha : 1;
 
 					var def = {
 							opacity: alp,
@@ -231,7 +260,7 @@ export default class Thrender extends ECS.System {
 						var mesh = Thrender.createObj3points(e.Obj3,
 								e.Obj3.geom ? e.Obj3.geom : Obj3Type.SPHERE, mat);
 
-						addObj3(scene, mesh, e);
+						addObj3(scene, m, e);	// 2020.05.28 BUG? Not mesh?
 					}
 					// load model as points
 					else if (e.Visual.asset) {
@@ -335,15 +364,41 @@ export default class Thrender extends ECS.System {
 					addObj3(scene, group, e);
 					break;
 				case AssetType.PathTube:
-					// var alp = e.Visual.paras !== undefined
-					// 			&& e.Visual.paras.tex_alpha !== undefined
-					// 			? e.Visual.paras.tex_alpha : 1;
+					var alp = e.Visual.paras !== undefined
+								&& e.Visual.paras.tex_alpha !== undefined
+								? e.Visual.paras.tex_alpha : 1;
 
 					if (!e.Visual.material) {
 						// FIXME material should handled in orthogonal fashion.
 						// FIXME see also createObj3particles(), AssetType.mesh
 						if (e.Visual.shader) {
 							// create ShaderMaterail
+							// var uniforms = xglsl.formatUniforms(e.Visual, e.Obj3);
+
+							/** NOTE before deleting this, you also need use glsl.formatUniforms() for other branches
+							uniforms.wpos = {value: new THREE.Vector3(0, 0, 0)};
+							uniforms.r = {value: e.Visual.paras.orbR === undefined
+										? 20 : e.Visual.paras.orbR};
+							uniforms.whiteAlpha = {value: e.Visual.paras.whiteAlpha === undefined
+										? 0 : e.Visual.paras.whiteAlpha};
+							var os = e.Visual.paras.orbScale;
+							uniforms.orbScale = {value: os === undefined
+										? new THREE.Vector3(1, 0.2, 0.2)
+										: new THREE.Vector3(os[0], os[1], os[2])};
+
+							var side = !e.Visual.paras || e.Visual.paras.side === undefined
+										? THREE.FrontSide : e.Visual.paras.side;
+
+							Object.assign(uniforms, xglsl.obj2uniforms(e.Obj3.uniforms));
+							if (e.Visual.paras)
+								Object.assign(uniforms, xglsl.obj2uniforms(e.Visual.paras.uniforms));
+
+							if (e.Visual.shader === ShaderFlag.colorArray)
+								for (var i = 0; i < e.Visual.paras.colors.length; i++)
+									uniforms[`u_color${i}`] = {value: new THREE.Vector3(...e.Visual.paras.colors[i])};
+							*/
+
+							uniforms = xglsl.formatUniforms(e.Visual, e.Obj3);
 							mat = Thrender.createXShaderMaterial(e.Visual.shader, uniforms, e.Visual.paras);
 						}
 						else {
@@ -411,6 +466,8 @@ export default class Thrender extends ECS.System {
 					break;
 				case AssetType.UserMesh:
 					// nothing to do
+					// TODO support Visual.shader?
+					// mes.push(e.Obj3.mesh);
 					addObj3(scene, e.Obj3.mesh, e);
 					break;
 				default:

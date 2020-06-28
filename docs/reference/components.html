@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Reference" href="index.html"/>
         <link rel="next" title="Systems" href="systems.html"/>
@@ -95,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Components</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#components-definitions">Components Definitions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#common-enums">Common Enums</a></li>
@@ -157,21 +154,21 @@
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>using components to defining an Entity</p>
 <p>With npm:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">i</span> <span class="n">x</span><span class="o">-</span><span class="n">visual</span>
+<div class="highlight-python"><div class="highlight"><pre>npm i x-visual
 </pre></div>
 </div>
 <p>and the js example for webpack:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">xv</span> <span class="nx">from</span> <span class="s1">&#39;x-visual&#39;</span>
 
 <span class="c1">// Obj3: { geom: xv.XComponent.Obj3Type.BOX,</span>
 <span class="c1">// ...</span>
 </pre></div>
 </div>
 <p>Or in plain js:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;../../dist/xv-0.1.0.min.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="highlight-html"><div class="highlight"><pre><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;../../dist/xv-0.1.0.min.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// usage</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// usage</span>
 <span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
     <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
     <span class="nx">UserCmd</span><span class="o">:</span> <span class="p">{},</span>
@@ -279,8 +276,7 @@ See <a class="reference external" href="https://odys-z.github.io/javadoc/x-visua
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
