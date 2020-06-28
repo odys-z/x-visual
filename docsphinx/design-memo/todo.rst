@@ -235,3 +235,8 @@ references:
 
 -- `DirectWrite Font Cache (obsolete), docs of the Chromium Projects <https://www.chromium.org/developers/design-documents/directwrite-font-cache>`_
    Details about how Chromium sandbox handling fonts in Windows.
+
+-- `96-bit 8x12 Font, a shadertoy way <https://www.shadertoy.com/view/Mt2GWD>`_
+   Using vec4 for each glyph, with the help of
+   `Charset Extractor from Images online tool <http://www.massmind.org/techref/datafile/charset/extractor/charset_extractor.htm>`_
+   
