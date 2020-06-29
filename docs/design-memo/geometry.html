@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Assets Loader &mdash; x-visual 0.3 documentation</title>
+  <title>X-Geometry Handling &mdash; x-visual 0.3 documentation</title>
   
 
   
@@ -34,8 +34,8 @@
   
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
-        <link rel="next" title="Scene &amp; HUD" href="scene.html"/>
-        <link rel="prev" title="MVC View" href="view.html"/> 
+        <link rel="next" title="Shader Samples" href="shaders/index.html"/>
+        <link rel="prev" title="Affine Tweening" href="affine.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -90,14 +90,17 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">X-Geometry Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hexatiles">hexatiles</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
@@ -137,7 +140,7 @@
       
           <li><a href="index.html">Design Memo</a> &raquo;</li>
       
-    <li>Assets Loader</li>
+    <li>X-Geometry Handling</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -149,17 +152,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="assets-loader">
-<h1>Assets Loader<a class="headerlink" href="#assets-loader" title="Permalink to this headline">¶</a></h1>
-<p>Manage all texture assets.</p>
-<p>If Visual components.assetId is null (not undefined), Thrender will initialize it
-with a default texture, then keepingt the static copy.</p>
-<p>[<a class="reference external" href="../jsdoc/AssetKeepr.html">Jsdoc API</a>]</p>
-<ul class="simple">
-<li>AssetKeepr#loadGltf</li>
-</ul>
-<p>Load gltf file, path = Visual.asset.</p>
-<p>Gltf scene loaded can be applied with Obj3.transform.</p>
+  <div class="section" id="x-geometry-handling">
+<h1>X-Geometry Handling<a class="headerlink" href="#x-geometry-handling" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hexatiles">
+<h2>hexatiles<a class="headerlink" href="#hexatiles" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="../_images/006-hexatile.png"><img alt="../_images/006-hexatile.png" src="../_images/006-hexatile.png" style="width: 480px;" /></a>
+</div>
 </div>
 
 
@@ -169,10 +167,10 @@ with a default texture, then keepingt the static copy.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="scene.html" class="btn btn-neutral float-right" title="Scene &amp; HUD" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="shaders/index.html" class="btn btn-neutral float-right" title="Shader Samples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="view.html" class="btn btn-neutral" title="MVC View" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="affine.html" class="btn btn-neutral" title="Affine Tweening" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

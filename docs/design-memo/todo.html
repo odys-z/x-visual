@@ -97,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Tasks</a><ul>
@@ -246,6 +247,39 @@ THREE.REVISION
 </div>
 <p>There are <a class="reference external" href="https://github.com/mrdoob/three.js/pull/14367">Three.js issue about the same error</a>.</p>
 <p><a class="reference external" href="../jsdoc/AssetKeepr.html">Jsdoc API - AssetKeepr</a></p>
+<ul class="simple">
+<li>bug: Obj3.uniforms.u_alpha will affect each others</li>
+</ul>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;way0&#39;</span><span class="p">,</span>
+        <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">MapXZRoad</span><span class="p">,</span>
+                        <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">},</span>    <span class="c1">// y0 = 0</span>
+        <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span>
+                <span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                <span class="nx">shader</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">colorArray</span><span class="p">,</span>
+                <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">feature</span><span class="o">:</span> <span class="nx">path1</span><span class="p">.</span><span class="nx">property</span><span class="p">,</span>
+                        <span class="nx">points</span><span class="o">:</span> <span class="nx">path0</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">points</span><span class="p">,</span>
+                        <span class="nx">origin</span><span class="o">:</span> <span class="nx">origin0</span><span class="p">,</span>
+                        <span class="nx">colors</span><span class="o">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]]</span> <span class="p">}</span> <span class="p">}</span>
+                <span class="p">});</span>
+
+<span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;plane&#39;</span><span class="p">,</span>
+        <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">PLANE</span><span class="p">,</span>
+                        <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span><span class="nx">opacity</span><span class="o">:</span> <span class="mf">1.0</span><span class="p">},</span>
+                        <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="p">},</span>
+        <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span>
+                <span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+                <span class="nx">shader</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">colorArray</span><span class="p">,</span>
+                <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="c1">// texMix: xv.ShaderAlpha.mix,</span>
+                        <span class="nx">colors</span><span class="o">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="p">},</span>
+                <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;../../assets/tex/ruler256.png&#39;</span><span class="p">}</span>
+                <span class="p">});</span>
+</pre></div>
+</div>
+<p>plane.Obj3.uniforms.opacity will hide / show way0</p>
 </div>
 <div class="section" id="wish-list">
 <h2>Wish List<a class="headerlink" href="#wish-list" title="Permalink to this headline">¶</a></h2>
