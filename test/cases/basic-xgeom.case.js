@@ -3,9 +3,9 @@ import { expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
 
 import * as THREE from 'three';
-import {vec3, mat4} from '../lib/xmath/vec'
-import xmath from '../lib/xmath/math'
-import xgeom from '../lib/xmath/geom'
+import {vec3, mat4} from '../../lib/xmath/vec'
+import xmath from '../../lib/xmath/math'
+import xgeom from '../../lib/xmath/geom'
 
 describe('case: Geometry - geopath', function() {
   before(function() {
@@ -50,8 +50,8 @@ describe('case: Geometry - geopath', function() {
   it('road xz ploygon (3 way points)', function() {
 	const features = [{ geometry: { coordinates: [[0, 0], [100, 0], [100, 100]] } }];
 	debugger
-	var way = xgeom.generateWayxz( features, 0, [0, 0, 0], {halfWidth: 25});
-	var wp = way.getAttribute('position');
+	var {geom, path} = xgeom.generateWayxz( features, 0, [0, 0, 0], {halfWidth: 25});
+	var wp = geom.getAttribute('position');
 
 	assert.isOk(wp, 'way points');
 	assert.equal(wp.count, 6, 'way points count');

@@ -10,7 +10,7 @@ object.
 
 - Visual
 
-The Visual Component specify the visual effect such as materail texture asset or wireframe type.
+The Visual Component specify the visual effect such as material texture asset or wireframe type.
 
 - Obj3
 
@@ -49,7 +49,7 @@ Obe3.geom specify shape or model type.
 When Thrender is created by xworld.startUpdate(), all entities' Obj3 components
 will been converted to a scene object, with visual effect of Visual component.
 
-Model geometry and materail are good examples to get this idea. Another is the
+Model geometry and material are good examples to get this idea. Another is the
 point visual and points object, where point is a visual effect a points array,
 the scene object consists many points.
 
@@ -116,7 +116,7 @@ test::
     test/html/dynatex.html
     test/html/dynatex-2.html
 
-In x-visual, 2D text are supported by system `CanvTex <../jsdoc/XComponent.Dynatex.html>`_
+In x-visual, 2D text are supported by system `CanvTex <https://odys-z.github.io/javadoc/x-visual/XComponent.Dynatex.html>`_
 using an html canvas as the dynamic texture, with an API function for updating
 text.
 
@@ -124,8 +124,15 @@ The *Dynatex.style* and *Dynatex.font* are used as canvas style and font attribu
 the same as html canvas style, see `MDN Canvas.style <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle>`_
 and `css font <https://developer.mozilla.org/en-US/docs/Web/CSS/font>`_.
 
+.. _render-dynatex-xywh:
+
+xywh & transform:
+
+Define canvas, font box and transform.
+
 Canvas size, font size and scene objects are working together to produce the 3D
-visualized effects.
+visualized effects, while transform declare child alignment - mainly using scale
+and translate to align text.
 
 .. image:: imgs/004-dynatex-size.jpg
 

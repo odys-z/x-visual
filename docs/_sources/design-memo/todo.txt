@@ -107,7 +107,42 @@ And further, if used in an other project, the loaded GLTF modules crashes with b
 
 There are `Three.js issue about the same error <https://github.com/mrdoob/three.js/pull/14367>`_.
 
-`Jsdoc API - AssetKeepr <../jsdoc/AssetKeepr.html>`_
+`Jsdoc API - AssetKeepr <https://odys-z.github.io/javadoc/x-visual/AssetKeepr.html>`_
+
+- bug: Obj3.uniforms.u_alpha will affect each others
+
+.. code-block:: javascript
+
+	xworld.addEntities( {
+		id: 'way0',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [0] },    // y0 = 0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.ShaderFlag.colorArray,
+			paras: {
+				feature: path1.property,
+				points: path0[0].points,
+				origin: origin0,
+				colors: [[0, 0.3, 0], [0, 0.3, 0.5]] } }
+			});
+
+	xworld.addEntities( {
+		id: 'plane',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				uniforms: {opacity: 1.0},
+				box: [300, 10] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.ShaderFlag.colorArray,
+			paras: {
+				// texMix: xv.ShaderAlpha.mix,
+				colors: [[0, 0.2, 0], [0.5, 0.2, 0]] },
+			asset: '../../assets/tex/ruler256.png'}
+			});
+..
+
+plane.Obj3.uniforms.opacity will hide / show way0
 
 - bug: Obj3.uniforms.u_alpha will affect each others
 
@@ -235,3 +270,8 @@ references:
 
 -- `DirectWrite Font Cache (obsolete), docs of the Chromium Projects <https://www.chromium.org/developers/design-documents/directwrite-font-cache>`_
    Details about how Chromium sandbox handling fonts in Windows.
+
+-- `96-bit 8x12 Font, a shadertoy way <https://www.shadertoy.com/view/Mt2GWD>`_
+   Using vec4 for each glyph, with the help of
+   `Charset Extractor from Images online tool <http://www.massmind.org/techref/datafile/charset/extractor/charset_extractor.htm>`_
+   
