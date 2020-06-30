@@ -17,7 +17,8 @@
 	    { "type": "Feature", "properties": {"height": 2},
 	      "geometry": {
 	        "type": "Point",
-	        "coordinates": [11585311.96, 3597212.54]
+	        // "coordinates": [11585311.96, 3597212.54]
+	        "coordinates": [11582330.91, 3597527.85]
 	      }
 	    },
 	    { "type": "Feature", "properties": {"height": 1},
@@ -27,7 +28,9 @@
 	    }
 	  ]
 	};
-	var o = [11582330.91, 3597527.85];
+	var o0 = [11582330.91, 3597527.85];
+	var o1 = [11575000,    3597527.85];
+	// var o = [0, 1];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
@@ -38,18 +41,38 @@
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			shader: xv.XComponent.ShaderFlag.colorArray,
+			// shader: xv.XComponent.ShaderFlag.colorArray,
 			paras: {
+				side: THREE.FrontSide,
 				// color array
 				colors: [[1, 1, 0]],
 				// tile geometry
 				features: json0.features,
-				origin: o,
-				style: {geoScale: 0.02},
-				side: THREE.FrontSide,
+				origin: o0,
+				radius: 40, height: 30,
+				style: { geoScale: 0.02 },
 			},
 			asset: '../../assets/tex/ruler256.png' } ,
-	  } ]);
+	  },
+	  { id: 'cylinder1',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.colorArray,
+			paras: {
+				side: THREE.FrontSide,
+				// color array
+				colors: [[1, 1, 0]],
+				// tile geometry
+				features: json0.features,
+				origin: o1,
+				radius: 30, height: 30,
+				style: { geoScale: 0.02 },
+			},
+			asset: '../../assets/tex/ruler256.png' } ,
+	  }
+   ]);
 
 	xworld.startUpdate();
   </script>
