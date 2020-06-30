@@ -41,11 +41,15 @@
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			// shader: xv.XComponent.ShaderFlag.colorArray,
+			shader: xv.XComponent.ShaderFlag.worldOrbs,
 			paras: {
 				side: THREE.FrontSide,
-				// color array
-				colors: [[1, 1, 0]],
+				// shader orb
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0]],
+				orbR: [30, 50, 30],
+				offsets: [[-8, 15 * 2, 0], [0, 15 * 2, 0], [8, 15 * 2, -0]],
+				whiteAlpha: 0.3,	// out of range alpha
+		        orbScale: [0.2, 0.5, 0.5],
 				// tile geometry
 				features: json0.features,
 				origin: o0,
@@ -59,11 +63,13 @@
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
+			// shader: xv.XComponent.ShaderFlag.colorArray,
 			shader: xv.XComponent.ShaderFlag.colorArray,
 			paras: {
 				side: THREE.FrontSide,
 				// color array
 				colors: [[1, 1, 0]],
+				whiteAlpha: 0.4,
 				// tile geometry
 				features: json0.features,
 				origin: o1,
