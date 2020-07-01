@@ -75,14 +75,44 @@
 						paras:{ colors: [ [1, 0, 0] ],
                                 hueWeight: 0.5 } },
 				ModelSeqs: {
-					script: [[{
+					script: [[ {
 						mtype:  xv.XComponent.AnimType.ROTAXIS,
 						paras: {start: 0,
-								duration: 1.8,
+								duration: 1.81,
 								deg: [0, 120],
 								axis: [0, 1, 0],
-								ease: undefined}} ]],
+								ease: undefined},
+						startWith: [{ // 2020.7.1 also test trigger by cmd
+							entity: 'nav-1',
+							seqx: 0,        // index of the fade-in
+							start: 0.0 }]
+						} ]],
 					fFinished: [this.triggerI], // Sequence ending event handler
+				  },
+				CmpTweens: {}
+			};
+
+			const nav1 = {
+				id: 'nav-1',
+				Obj3: { geom:   xv.XComponent.Obj3Type.Tetrahedron,
+						box:   [40, 0],
+						transform: [{translate: [120, 0, 0]}],
+						// mesh is inited by thrender, can be ignored here - MorphSwitch's target
+						mesh:   undefined,
+						uniforms: {opacity: 1.0}},
+				Visual:{vtype:  xv.AssetType.mesh,
+						shader: xv.XComponent.ShaderFlag.colorArray,
+						paras:{ colors: [ [0, 1, 0] ],
+                                hueWeight: 0.5 } },
+				ModelSeqs: {
+					script: [[ {
+						mtype:  xv.XComponent.AnimType.ROTAXIS,
+						paras: {start: Infinity, // started by 'nav'.startWith
+								duration: 1.82,
+								deg: [0, 120],
+								axis: [1, 0, 0],
+								ease: undefined},
+						} ]],
 				  },
 				CmpTweens: {}
 			};
@@ -90,8 +120,8 @@
 			const ent1 = {
 				id: 'color1',
 				Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
-						box:   [100, 80, 80],
-						transform: [{translate: [-100, 0, 0]}],
+						box:   [40, 40, 30],
+						transform: [{translate: [-50, 0, 0]}],
 						// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 						mesh:   undefined,
 						uniforms: {opacity: 1.0}},
@@ -136,8 +166,8 @@
 			const ent2 = {
 				id: 'color2',
 				Obj3: { geom:   xv.XComponent.Obj3Type.BOX,
-						box:   [100, 80, 80],
-						transform: [{translate: [100, 0, 0]}],
+						box:   [40, 40, 30],
+						transform: [{translate: [50, 0, 0]}],
 						// mesh is inited by thrender, can be ignored here - MorphSwitch's target
 						mesh:   undefined,
 						uniforms: {opacity: 1.0}},
@@ -178,7 +208,7 @@
 								ease: undefined} }] ] },
 				CmpTweens: {}
 			};
-			return [nav, ent1, ent2];
+			return [nav, ent1, ent2, nav1];
 		}
 	}
 
