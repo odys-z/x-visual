@@ -15,6 +15,7 @@ Contents:
    vparas
    animizer
    affine
+   geometry
    shaders/index
    extensions/index
    todo

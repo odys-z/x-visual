@@ -13,4 +13,4 @@ Contents:
 
 Credits
 
-See `acknowledgement in readme <../README.md>`_ for details.
+See `acknowledgement in readme <../../README.md>`_ for details.

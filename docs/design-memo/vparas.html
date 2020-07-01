@@ -98,11 +98,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#shared-for-different-vtype">Shared for different vtype</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#paras-only-for-shaderflag-enabled">paras only for ShaderFlag enabled</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#paras-only-for-shader-colorarray">paras only for shader = colorArray</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#paras-only-for-vtype-point-or-refpoint">paras only for vtype = point or refPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vtype-scaleorb">vtype = scaleOrb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vtype-worldorbs">vtype = worldOrbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vtype-orbgroups">vtype = orbGroups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vtype-point-or-refpoint">vtype = point or refPoint</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
@@ -168,6 +172,20 @@ for general information about Visual component.</p>
 <li>uniforms</li>
 </ul>
 <p>These parameters are merged into THREE.Material&#8217;s uniforms property.</p>
+<ul class="simple">
+<li>asset</li>
+</ul>
+<p>Texture path, or uri.</p>
+<p>X-visual can handle data of MIME type of:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">visual</span><span class="o">+</span><span class="n">img</span>
+</pre></div>
+</div>
+<p>with data can only be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">gray</span><span class="o">-</span><span class="n">pixel</span>
+</pre></div>
+</div>
+<p>which will generate a cheap texture with only one pixel of gray color. It can be
+useful for debugging or create a default material.</p>
 </div>
 <div class="section" id="paras-only-for-shaderflag-enabled">
 <h2>paras only for ShaderFlag enabled<a class="headerlink" href="#paras-only-for-shaderflag-enabled" title="Permalink to this headline">¶</a></h2>
@@ -181,7 +199,7 @@ flag, ShaderFlag.defaultex is ignored.</p>
 <p>u_tex is a shader&#8217;s uniforms parameter, which means only Visual using THREE.ShaderMaterial
 can has a u_tex parameter.</p>
 <p>After v0.3, <em>u_tex</em> is an array for shader of ShaderFlag = colorArray. The array
-can be morphed using u_morph&lt;i&gt; in ModelSeqs.script.</p>
+can be morphed using u_morph in ModelSeqs.script.</p>
 <ul class="simple">
 <li>paras.colors</li>
 </ul>
@@ -214,8 +232,87 @@ implement some of these with shader.</p>
 <p>See <a class="reference internal" href="../tests/test-morph.html#tex-color-morph"><span>test: texture &amp; color morphing</span></a>.</p>
 <p>See also <a class="reference external" href="https://threejs.org/examples/?q=blending#webgl_materials_blending">Three.js example: material blending</a>.</p>
 </div>
-<div class="section" id="paras-only-for-vtype-point-or-refpoint">
-<h2>paras only for vtype = point or refPoint<a class="headerlink" href="#paras-only-for-vtype-point-or-refpoint" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vtype-scaleorb">
+<span id="visual-paras-scaleorb"></span><h2>vtype = scaleOrb<a class="headerlink" href="#vtype-scaleorb" title="Permalink to this headline">¶</a></h2>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">shader</span><span class="o">-</span><span class="n">scaleorb</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">shader</span><span class="o">-</span><span class="n">multi</span><span class="o">-</span><span class="n">orb</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>paras.orbR</li>
+</ul>
+<p>Number of sphere radius</p>
+<ul class="simple">
+<li>paras.orbScale</li>
+</ul>
+<p>Array of [x, y, z] scale</p>
+<ul class="simple">
+<li>paras.whiteAlpha</li>
+</ul>
+<p>Out of orb&#8217;s range alpha, used for object&#8217;s default color.</p>
+</div>
+<div class="section" id="vtype-worldorbs">
+<h2>vtype = worldOrbs<a class="headerlink" href="#vtype-worldorbs" title="Permalink to this headline">¶</a></h2>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">geopath</span><span class="o">-</span><span class="n">road</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">cd</span><span class="o">-</span><span class="n">express</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>paras.orbScale</li>
+</ul>
+<p>Array of [x, y, z] scale</p>
+<ul class="simple">
+<li>paras.colors</li>
+</ul>
+<p>Colors of orbs. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>which makes 3 orb in blue, green, red.</p>
+<ul class="simple">
+<li>paras.orbR</li>
+</ul>
+<p>Orb&#8217;s radius,. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>paras.offsets</li>
+</ul>
+<p>Orb&#8217;s offsets. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>All three orb&#8217;s will move with offsets to each other when position changed.</p>
+<ul class="simple">
+<li>paras.whiteAlpha</li>
+</ul>
+<p>Out of orb&#8217;s range alpha, used for object&#8217;s default color.</p>
+</div>
+<div class="section" id="vtype-orbgroups">
+<h2>vtype = orbGroups<a class="headerlink" href="#vtype-orbgroups" title="Permalink to this headline">¶</a></h2>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">gepaths</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">cd</span><span class="o">-</span><span class="n">express</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p><em>orbGroups</em> has all paras for <em>worldOrbs</em>. In addintion to those paras, it also
+has groups configuration.</p>
+<ul class="simple">
+<li>paras.follows</li>
+</ul>
+<p>Groups following distance, in t&#8217;s percentage. E.g if t = 10, means a group is
+updated 10 percent later.</p>
+<ul class="simple">
+<li>paras.t_range</li>
+</ul>
+<p>Orb&#8217;s visible range, 0 ~ 1. The group will be hidden when t is out of range. t
+means the tweening weight updated each frame by XTweener.</p>
+</div>
+<div class="section" id="vtype-point-or-refpoint">
+<h2>vtype = point or refPoint<a class="headerlink" href="#vtype-point-or-refpoint" title="Permalink to this headline">¶</a></h2>
 <p>It&#8217;s been used for vtype = <a class="reference internal" href="renderer.html#vtype-refpoint"><span>AssetType.refPoint</span></a> or
 <a class="reference internal" href="renderer.html#vtype-point"><span>AssetType.point</span></a>.</p>
 <p>For these vtype, it&#8217;s usually used together with <a class="reference internal" href="animizer.html#animtype-u-morphi"><span>AnimType.U_MORPHi paras</span></a>

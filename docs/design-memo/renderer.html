@@ -105,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
@@ -165,7 +166,7 @@ object.</p>
 <ul class="simple">
 <li>Visual</li>
 </ul>
-<p>The Visual Component specify the visual effect such as materail texture asset or wireframe type.</p>
+<p>The Visual Component specify the visual effect such as material texture asset or wireframe type.</p>
 <ul class="simple">
 <li>Obj3</li>
 </ul>
@@ -193,7 +194,7 @@ object.</p>
 <p>Obe3.geom specify shape or model type.</p>
 <p>When Thrender is created by xworld.startUpdate(), all entities&#8217; Obj3 components
 will been converted to a scene object, with visual effect of Visual component.</p>
-<p>Model geometry and materail are good examples to get this idea. Another is the
+<p>Model geometry and material are good examples to get this idea. Another is the
 point visual and points object, where point is a visual effect a points array,
 the scene object consists many points.</p>
 <div class="section" id="visual-vtype">
@@ -249,14 +250,17 @@ texture files are loaded by <a class="reference internal" href="../reference/glt
 test/html/dynatex-2.html
 </pre></div>
 </div>
-<p>In x-visual, 2D text are supported by system <a class="reference external" href="../jsdoc/XComponent.Dynatex.html">CanvTex</a>
+<p>In x-visual, 2D text are supported by system <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XComponent.Dynatex.html">CanvTex</a>
 using an html canvas as the dynamic texture, with an API function for updating
 text.</p>
 <p>The <em>Dynatex.style</em> and <em>Dynatex.font</em> are used as canvas style and font attribute,
 the same as html canvas style, see <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle">MDN Canvas.style</a>
 and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font">css font</a>.</p>
+<p id="render-dynatex-xywh">xywh &amp; transform:</p>
+<p>Define canvas, font box and transform.</p>
 <p>Canvas size, font size and scene objects are working together to produce the 3D
-visualized effects.</p>
+visualized effects, while transform declare child alignment - mainly using scale
+and translate to align text.</p>
 <img alt="../_images/004-dynatex-size.jpg" src="../_images/004-dynatex-size.jpg" />
 <p>Example:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">},</span>
