@@ -8,8 +8,6 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p><div style='color: red'>FIXME</div>
-	  With THREE.MeshPhongMaterial, transparency doesn't work for all faces?</p>
   <script>
 	"use strict";
 
@@ -37,29 +35,34 @@
 					  window, {canvasize: [600, 400]});
 
 	xworld.addEntities([
-	  // { id: 'cylinder0',
-		// Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
-		// 		box: [] },
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	// shader: xv.XComponent.ShaderFlag.colorArray,
-		// 	paras: {
-		// 		side: THREE.FrontSide,
-		// 		// color array
-		// 		colors: [[1, 1, 0]],
-		// 		// tile geometry
-		// 		features: json0.features,
-		// 		origin: o0,
-		// 		radius: 40, height: 30,
-		// 		style: { geoScale: 0.02 },
-		// 	},
-		// 	asset: '../../assets/tex/ruler256.png' } ,
-	  // },
+	  { id: 'cylinder0',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.worldOrbs,
+			paras: {
+				side: THREE.FrontSide,
+				// shader orb
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0]],
+				orbR: [30, 50, 30],
+				offsets: [[-8, 15 * 2, 0], [0, 15 * 2, 0], [8, 15 * 2, -0]],
+				whiteAlpha: 0.3,	// out of range alpha
+		        orbScale: [0.2, 0.5, 0.5],
+				// tile geometry
+				features: json0.features,
+				origin: o0,
+				radius: 40, height: 30,
+				style: { geoScale: 0.02 },
+			},
+			asset: '../../assets/tex/ruler256.png' } ,
+	  },
 	  { id: 'cy1',
 		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
+			// shader: xv.XComponent.ShaderFlag.colorArray,
 			shader: xv.XComponent.ShaderFlag.colorArray,
 			paras: {
 				// color array
@@ -67,7 +70,7 @@
 				colors: [[1, 1, 0], [0, 1, 1]],
 				u_texWeight: 0.3,
 				// u_tex: ['../../assets/tex/uestc.svg', 'data:application/x-visual+img,grey-pixel'],
-				u_tex: ['../../assets/tex/ruler256.png', '../../assets/tex/ruler256.png'],
+				u_tex: ['../../assets/tex/uestc.svg', '../../assets/tex/ruler256.png'],
 
 				// tile geometry
 				features: json0.features,
