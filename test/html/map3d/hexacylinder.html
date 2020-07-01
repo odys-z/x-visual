@@ -30,6 +30,7 @@
 	};
 	var o0 = [11582330.91, 3597527.85];
 	var o1 = [11575000,	3597527.85];
+	var o2 = [11575000,	3590000   ];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
@@ -96,9 +97,30 @@
 								seqx: 0,
 								start: 0}]  } }] ]
 			}
+	  },
+	  { id: 'layer0',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.tiledOrbs,
+			paras: {
+				side: THREE.FrontSide,
+				// shader orb
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0]],
+				orbR: [30, 50, 30],
+				offsets: [[-8, 15 * 2, 0], [0, 15 * 2, 0], [8, 15 * 2, -0]],
+				whiteAlpha: 0.3,	// out of range alpha
+		        orbScale: [0.25, 0.5, 0.5],
+				// tile geometry
+				features: json0.features,
+				origin: o2,
+				radius: 42, height: 5,
+				style: { geoScale: 0.02 },
+			},
+			asset: '../../assets/tex/rgb2x2.png' } ,
 	  }
-   ]);
-
+	]);
 	xworld.startUpdate();
   </script>
 </body>
