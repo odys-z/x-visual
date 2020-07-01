@@ -144,41 +144,6 @@ There are `Three.js issue about the same error <https://github.com/mrdoob/three.
 
 plane.Obj3.uniforms.opacity will hide / show way0
 
-- bug: Obj3.uniforms.u_alpha will affect each others
-
-.. code-block:: javascript
-
-	xworld.addEntities( {
-		id: 'way0',
-		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-				box: [0] },    // y0 = 0
-		Visual:{
-			vtype: xv.AssetType.mesh,
-			shader: xv.ShaderFlag.colorArray,
-			paras: {
-				feature: path1.property,
-				points: path0[0].points,
-				origin: origin0,
-				colors: [[0, 0.3, 0], [0, 0.3, 0.5]] } }
-			});
-
-	xworld.addEntities( {
-		id: 'plane',
-		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				uniforms: {opacity: 1.0},
-				box: [300, 10] },
-		Visual:{
-			vtype: xv.AssetType.mesh,
-			shader: xv.ShaderFlag.colorArray,
-			paras: {
-				// texMix: xv.ShaderAlpha.mix,
-				colors: [[0, 0.2, 0], [0.5, 0.2, 0]] },
-			asset: '../../assets/tex/ruler256.png'}
-			});
-..
-
-plane.Obj3.uniforms.opacity will hide / show way0
-
 Wish List
 ---------
 

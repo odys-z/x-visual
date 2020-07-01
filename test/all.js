@@ -23,5 +23,7 @@ context = require.context('./cases', true, /\.case\.js$/);
 
 // context = require.context('.', true, /basic-obj-layers\.case\.js$/);
 
+// context = require.context('./cases', true, /geom-hexylinder\.case\.js$/);
+
 context.keys().forEach(context)
 module.exports = context;

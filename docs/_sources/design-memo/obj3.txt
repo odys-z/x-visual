@@ -206,5 +206,5 @@ stored in Obj3.datum, in {paths, dirty}.
 Some animation type like AnimType.U_PATHn_MORPH will take this as it's own's Obj3
 datum.ref object and can tweening path without noticing paths' data changed.
 
-See the :ref:`ShaderFlag.orbGroups test case<_test-geom>`_ &
+See the :ref:`ShaderFlag.orbGroups test case<test-geom>` &
 `xgeom.generateWayxz() <https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz>`_.
