@@ -25,12 +25,21 @@ X-visual can handle data of MIME type of::
 
     application/x-visual+img
 
-with data can only be::
+with data can be one of::
 
-   gray-pixel
+   gray-pixel  // or grey-pixel
+   color-pixel [color(0~1)]
 
-which will generate a cheap texture with only one pixel of gray color. It can be
-useful for debugging or create a default material.
+which will generate a cheap texture with only one pixel of gray or of argument
+color. It can be useful for debugging or create a default material.
+
+Example::
+
+    asset: 'data:application/x-visual+img,color-pixel [1, 0, 1, 0.5]',
+
+test case::
+
+    test/html/map3d/cd-express.html
 
 paras only for ShaderFlag enabled
 ---------------------------------
