@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Debug Notes" href="debug.html"/>
@@ -100,7 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Tasks</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tasks</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#todos">TODOs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#issues">Issues</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#wish-list">Wish List</a></li>
@@ -166,7 +169,7 @@
 <p>Shader <em>scaleOrb</em> is using ray casting for distance calculating, which is not good
 at shape figuring like ray matching, a slow method.</p>
 <p>The <em>scaleOrb</em> shader use a scale inverse for finding ellipsoid distance, a simple
-version of inverse matrix. It&#8217;s said that&#8217;s expensive to calculate inverse matrix
+version of inverse matrix. It’s said that’s expensive to calculate inverse matrix
 in GPU. So this shader stop here for now, with out direction rotation.</p>
 <p><em>Is it possible to handle distance to model in vertex shader? Or simply update
 matrix uniform(s) for every vertex?</em></p>
@@ -185,15 +188,15 @@ matrix uniform(s) for every vertex?</em></p>
 <div class="section" id="issues">
 <h2>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple" id="issue-asynch-gltf">
-<li>ModelSeqs can&#8217;t handle asynchronously loaded mesh</li>
+<li>ModelSeqs can’t handle asynchronously loaded mesh</li>
 </ol>
 <p>test case: html/gltf-car.html</p>
 <p>Problem: If setting animation sequence start at 0 (any but Infinity) on a gltf
-mesh, then the target Obj3.mesh won&#8217;t being ready when playing started.</p>
+mesh, then the target Obj3.mesh won’t being ready when playing started.</p>
 <p>Loading the gltf nodes is an asynchronous process, of which the node objects can
 only been ready for rendering latter.</p>
 <p>Code snippet of starting Tween animation in AffineCombiner.update():</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">idle</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">idle</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">playRising</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">m0</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
     <span class="p">}</span>
@@ -201,9 +204,9 @@ only been ready for rendering latter.</p>
 </pre></div>
 </div>
 <p>Code snippet of Thrender.createObj3s() AssetType.gltf branch:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">AssetKeepr</span><span class="p">.</span><span class="nx">loadGltfNodes</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">,</span> <span class="sb">`assets/</span><span class="si">${</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">asset</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">AssetKeepr</span><span class="p">.</span><span class="nx">loadGltfNodes</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">,</span> <span class="sb">`assets/</span><span class="si">${</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">asset</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
     <span class="nx">nds</span><span class="p">,</span>
-    <span class="p">(</span><span class="nx">nodes</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">(</span><span class="nx">nodes</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
         <span class="c1">// Too late to push mesh into mes now, add to scene directly</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">scene</span> <span class="o">&amp;&amp;</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">n</span> <span class="k">of</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
@@ -230,19 +233,19 @@ only been ready for rendering latter.</p>
 <li>Loaded GLTF makes outlined together with box mesh.</li>
 </ol>
 <p>And further, if used in an other project, the loaded GLTF modules crashes with box object:</p>
-<div class="highlight-python"><div class="highlight"><pre>three.module.js:16034 Uncaught TypeError: Cannot read property &#39;type&#39; of undefined
-    at WebGLIndexedBufferRenderer.setIndex (three.module.js:16034)
-    at WebGLRenderer.renderBufferDirect (three.module.js:24169)
-    at renderObject (three.module.js:24886)
-    at renderObjects (three.module.js:24856)
-    at WebGLRenderer.render (three.module.js:24637)
-    at RenderPass.render (RenderPass.js:58)
-    at EffectComposer.render (EffectComposer.js:142)
-    at Thrender.update (thrender.js:920)
-    at ECS.runSystemGroup (ecs.js:197)
-    at XWorld.update (xworld.js:311)
-THREE.REVISION
-&quot;113&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">three</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">16034</span> <span class="n">Uncaught</span> <span class="ne">TypeError</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">read</span> <span class="nb">property</span> <span class="s1">&#39;type&#39;</span> <span class="n">of</span> <span class="n">undefined</span>
+    <span class="n">at</span> <span class="n">WebGLIndexedBufferRenderer</span><span class="o">.</span><span class="n">setIndex</span> <span class="p">(</span><span class="n">three</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">16034</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">WebGLRenderer</span><span class="o">.</span><span class="n">renderBufferDirect</span> <span class="p">(</span><span class="n">three</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">24169</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">renderObject</span> <span class="p">(</span><span class="n">three</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">24886</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">renderObjects</span> <span class="p">(</span><span class="n">three</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">24856</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">WebGLRenderer</span><span class="o">.</span><span class="n">render</span> <span class="p">(</span><span class="n">three</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">24637</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">RenderPass</span><span class="o">.</span><span class="n">render</span> <span class="p">(</span><span class="n">RenderPass</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">58</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">EffectComposer</span><span class="o">.</span><span class="n">render</span> <span class="p">(</span><span class="n">EffectComposer</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">142</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">Thrender</span><span class="o">.</span><span class="n">update</span> <span class="p">(</span><span class="n">thrender</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">920</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">ECS</span><span class="o">.</span><span class="n">runSystemGroup</span> <span class="p">(</span><span class="n">ecs</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">197</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">XWorld</span><span class="o">.</span><span class="n">update</span> <span class="p">(</span><span class="n">xworld</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">311</span><span class="p">)</span>
+<span class="n">THREE</span><span class="o">.</span><span class="n">REVISION</span>
+<span class="s2">&quot;113&quot;</span>
 </pre></div>
 </div>
 <p>There are <a class="reference external" href="https://github.com/mrdoob/three.js/pull/14367">Three.js issue about the same error</a>.</p>
@@ -250,7 +253,7 @@ THREE.REVISION
 <ul class="simple">
 <li>bug: Obj3.uniforms.u_alpha will affect each others</li>
 </ul>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span> <span class="p">{</span>
         <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;way0&#39;</span><span class="p">,</span>
         <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">MapXZRoad</span><span class="p">,</span>
                         <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">},</span>    <span class="c1">// y0 = 0</span>
@@ -299,7 +302,7 @@ THREE.REVISION
 <li>Tween.glsl</li>
 </ul>
 <p><a class="reference external" href="https://stackoverflow.com/questions/35328937/how-to-tween-10-000-particles-in-three-js">Jet Blue already had tried this</a> :</p>
-<div class="highlight-cpp"><div class="highlight"><pre><span class="c1">// Vertex Shader</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Vertex Shader</span>
 
 <span class="n">uniform</span> <span class="kt">float</span> <span class="n">elapsedTime</span><span class="p">;</span>
 <span class="n">uniform</span> <span class="kt">float</span> <span class="n">duration</span><span class="p">;</span>
@@ -344,25 +347,25 @@ THREE.REVISION
 <li>SVG Shader</li>
 </ul>
 <p>references:</p>
-<p>&#8211; <a class="reference external" href="https://stackoverflow.com/questions/1027179/displaying-svg-in-opengl-without-intermediate-raster">Stackoverflow question: Displaying SVG in OpenGL without intermediate raster</a></p>
-<p>&#8211; <a class="reference external" href="https://stackoverflow.com/questions/4129932/rendering-vector-graphics-in-opengl">Stackoverflow question: Rendering Vector Graphics in OpenGL? [duplicate]</a></p>
+<p>– <a class="reference external" href="https://stackoverflow.com/questions/1027179/displaying-svg-in-opengl-without-intermediate-raster">Stackoverflow question: Displaying SVG in OpenGL without intermediate raster</a></p>
+<p>– <a class="reference external" href="https://stackoverflow.com/questions/4129932/rendering-vector-graphics-in-opengl">Stackoverflow question: Rendering Vector Graphics in OpenGL? [duplicate]</a></p>
 <dl class="docutils">
-<dt>&#8211; <a class="reference external" href="http://on-demand.gputechconf.com/gtc/2012/presentations/S0024-GPU-Accelerated-Path-Rendering.pdf">Mark Kilgard, GPU Accelerated Path Rendering</a></dt>
-<dd>A general introduction. And <a class="reference external" href="https://learnopengl.com/Advanced-OpenGL/Stencil-testing">here&#8217;s details about stencil</a>.</dd>
-<dt>&#8211; <a class="reference external" href="https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-25-rendering-vector-art-gpu">Charles Loop &amp; Jim Blinn, Chapter 25. Rendering Vector Art on the GPU &#64; NVIDIA Developer</a></dt>
+<dt>– <a class="reference external" href="http://on-demand.gputechconf.com/gtc/2012/presentations/S0024-GPU-Accelerated-Path-Rendering.pdf">Mark Kilgard, GPU Accelerated Path Rendering</a></dt>
+<dd>A general introduction. And <a class="reference external" href="https://learnopengl.com/Advanced-OpenGL/Stencil-testing">here’s details about stencil</a>.</dd>
+<dt>– <a class="reference external" href="https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-25-rendering-vector-art-gpu">Charles Loop &amp; Jim Blinn, Chapter 25. Rendering Vector Art on the GPU &#64; NVIDIA Developer</a></dt>
 <dd>Using control points to generate face?</dd>
-<dt>&#8211; <a class="reference external" href="https://drafts.fxtf.org/filter-effects/">W3C draft: Filter Effects Module Level 1, Editor’s Draft, 21 October 2019</a></dt>
+<dt>– <a class="reference external" href="https://drafts.fxtf.org/filter-effects/">W3C draft: Filter Effects Module Level 1, Editor’s Draft, 21 October 2019</a></dt>
 <dd>Retrieved on 2 Jun, 2020.</dd>
-<dt>&#8211; <a class="reference external" href="https://prideout.net/blog/svg_wireframes/">3D wireframe in SVG &#64; grasshopper</a></dt>
+<dt>– <a class="reference external" href="https://prideout.net/blog/svg_wireframes/">3D wireframe in SVG &#64; grasshopper</a></dt>
 <dd>A strange way to use svg filter?</dd>
-<dt>&#8211; <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=IWS-Chapter08">Victor Gaultney, Martin Hosken, Alan Ward, An Introduction to TrueType Fonts: A look inside the TTF format 2003-05-23</a></dt>
+<dt>– <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=IWS-Chapter08">Victor Gaultney, Martin Hosken, Alan Ward, An Introduction to TrueType Fonts: A look inside the TTF format 2003-05-23</a></dt>
 <dd>Simple introduction of TrueType Font, together with <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?item_id=IWS-Chapter07">Rendering technologies overview</a>,
 and a font engine project, <a class="reference external" href="https://scripts.sil.org/cms/scripts/page.php?site_id=projects&amp;item_id=graphite_home">SIL Graphite</a>.</dd>
-<dt>&#8211; <a class="reference external" href="https://simoncozens.github.io/fonts-and-layout/opentype.html">simoncozens.github.io: How OpenType Works</a></dt>
+<dt>– <a class="reference external" href="https://simoncozens.github.io/fonts-and-layout/opentype.html">simoncozens.github.io: How OpenType Works</a></dt>
 <dd>Nice explanation of OpenType Font.</dd>
-<dt>&#8211; <a class="reference external" href="https://www.chromium.org/developers/design-documents/directwrite-font-cache">DirectWrite Font Cache (obsolete), docs of the Chromium Projects</a></dt>
+<dt>– <a class="reference external" href="https://www.chromium.org/developers/design-documents/directwrite-font-cache">DirectWrite Font Cache (obsolete), docs of the Chromium Projects</a></dt>
 <dd>Details about how Chromium sandbox handling fonts in Windows.</dd>
-<dt>&#8211; <a class="reference external" href="https://www.shadertoy.com/view/Mt2GWD">96-bit 8x12 Font, a shadertoy way</a></dt>
+<dt>– <a class="reference external" href="https://www.shadertoy.com/view/Mt2GWD">96-bit 8x12 Font, a shadertoy way</a></dt>
 <dd>Using vec4 for each glyph, with the help of
 <a class="reference external" href="http://www.massmind.org/techref/datafile/charset/extractor/charset_extractor.htm">Charset Extractor from Images online tool</a></dd>
 </dl>
@@ -419,7 +422,8 @@ and a font engine project, <a class="reference external" href="https://scripts.s
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
