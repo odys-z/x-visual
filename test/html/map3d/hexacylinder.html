@@ -30,7 +30,7 @@
 	};
 	var o0 = [11582330.91, 3597527.85];
 	var o1 = [11575000,	3597527.85];
-	var o2 = [11575000,	3595000   ];
+	var o2 = [11575000,	3590000   ];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
@@ -115,10 +115,10 @@
 				// tile geometry
 				features: json0.features,
 				origin: o2,
-				radius: 30, height: 30,
+				radius: 42, height: 5,
 				style: { geoScale: 0.02 },
 			},
-			asset: '../../assets/tex/ruler256.png' } ,
+			asset: '../../assets/tex/rgb2x2.png' } ,
 	  }
 	]);
 	xworld.startUpdate();
