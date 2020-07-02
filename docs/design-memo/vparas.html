@@ -183,12 +183,21 @@ for general information about Visual component.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">visual</span><span class="o">+</span><span class="n">img</span>
 </pre></div>
 </div>
-<p>with data can only be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gray</span><span class="o">-</span><span class="n">pixel</span>
+<p>with data can be one of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gray</span><span class="o">-</span><span class="n">pixel</span>  <span class="o">//</span> <span class="ow">or</span> <span class="n">grey</span><span class="o">-</span><span class="n">pixel</span>
+<span class="n">color</span><span class="o">-</span><span class="n">pixel</span> <span class="p">[</span><span class="n">color</span><span class="p">(</span><span class="mi">0</span><span class="o">~</span><span class="mi">1</span><span class="p">)]</span>
 </pre></div>
 </div>
-<p>which will generate a cheap texture with only one pixel of gray color. It can be
-useful for debugging or create a default material.</p>
+<p>which will generate a cheap texture with only one pixel of gray or of argument
+color. It can be useful for debugging or create a default material.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">asset</span><span class="p">:</span> <span class="s1">&#39;data:application/x-visual+img,color-pixel [1, 0, 1, 0.5]&#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>test case:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">cd</span><span class="o">-</span><span class="n">express</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="paras-only-for-shaderflag-enabled">
 <h2>paras only for ShaderFlag enabled<a class="headerlink" href="#paras-only-for-shaderflag-enabled" title="Permalink to this headline">¶</a></h2>

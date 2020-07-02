@@ -89,7 +89,7 @@ Texture Referenced Across Shaders
 Texture must been provided in uniforms to be bound to sampler2D in shader. Otherwise
 the texture can be bound to a wrong sampler.
 
-The left is results from bug that without setting image (loaded as texture) to
+The left results from bug that without setting image (loaded as texture) to material
 uniforms, making shader using wrong texture binding.
 
 .. image:: imgs/007-cross-shader-tex.jpg
