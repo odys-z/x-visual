@@ -31,8 +31,7 @@
 				shader: xv.ShaderFlag.discard, // nothing to be rendered
 				// Design Notes: Visual should decomposed to 2 components: Asset & GlContext (mesh, line, ...)
 				paras: {
-					style: {halfWidth: 0.01,
-							geoScale: 0.01},
+					geostyle: {halfWidth: 0.01, scale: 0.01},
 
 					// From v0.3.4, path uri are handled with oboe.js, which can not load loacal file?
 					// uir: 'https://',
@@ -58,8 +57,7 @@
 					uniforms: { u_texWeight: 0.5},
 					features: json.features,
 					origin: origin,
-					style: {halfWidth: 1,
-							geoScale: 0.01},
+					geostyle: {halfWidth: 1, scale: 0.01},
 
 					side: THREE.FrontSide,
 					colors: [[1, 1, 0]],

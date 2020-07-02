@@ -30,6 +30,7 @@ describe('case: Geometry - tile map', function() {
 	ctx.vx = 0; // starting vert index for each feature. (26 vert / feature)
 	ctx.r = 1;
 	ctx.pos = new Float32Array(verts * 3);
+	ctx.loc = new Float32Array(verts * 3);
 	ctx.uvs = new Float32Array(verts * 2);
 	ctx.normals = new Float32Array(verts * 3);
 	ctx.dirs = new Float32Array(verts * 3);
@@ -39,7 +40,7 @@ describe('case: Geometry - tile map', function() {
 	xgeom.hexacylinder3857( {
 			  coord: [cx, cy + 100],
 			  height: 11,
-			  geoScale: 1
+			  scale: 1
 		  },
 		  [cx, cy],
 		  t0, ctx);
@@ -55,7 +56,7 @@ describe('case: Geometry - tile map', function() {
 	xgeom.hexacylinder3857( {
 			  coord: [cx + 16, cy - 50],
 			  height: 11,
-			  geoScale: 1
+			  scale: 1
 		  }, [cx, cy], t0, ctx);
 
 	assert.equal(ctx.pos[vx2 * 3 + 0], 16, 'vert 1/0.x');
