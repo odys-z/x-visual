@@ -116,6 +116,30 @@
 				geostyle: { radius: 42, height: 5, scale: 0.02 },
 			},
 			asset: '../../assets/tex/rgb2x2.png' } ,
+	  },
+	  { id: 'layer2',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				transform: [ { translate: [0, 40, 0] } ],
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.tiledOrbs,
+			paras: {
+				side: THREE.FrontSide,
+				// shader orb
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0.7, 0.7, 0], [1, 0, 1],
+						 [0, 0, 1], [0, 1, 0], [1, 0, 0], [0.7, 0.7, 0], [1, 0, 1]],
+				orbR: [2, 8, 2, 1.4, 3, 2, 3, 2, 1.4, 3],
+				offsets: [[-20, 0, 0], [0, 0, 0], [20, 0, -0], [0, 0, 20], [0, 0, -20],
+						  [-10, 0, 10], [10, 0, 10], [5, 0, -12], [5, 0, 12], [-5, 0, -12]],
+				whiteAlpha: 0.2,	// out of range alpha
+		        orbScale: [5, 1, 5],
+				// tile geometry
+				features: json0.features,
+				origin: o2,
+				geostyle: { radius: 42, height: 12, scale: 0.02 },
+			},
+			asset: '../../assets/tex/rgb2x2.png' } ,
 	  }
 	]);
 	xworld.startUpdate();
