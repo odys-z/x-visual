@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Reference" href="../reference/index.html"/>
@@ -97,12 +100,16 @@
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Debug Notes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#three-js-14635">Three.js #14635</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#about-the-three-module-issue">About the Three Module Issue</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Debug Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#three-js-14635-material-instance">Three.js #14635 (Material instance)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#about-the-three-module-issue">About the Three Module Issue</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#texture-referenced-across-shaders">Texture Referenced Across Shaders</a></li>
 </ul>
 </li>
 </ul>
@@ -154,15 +161,14 @@
             
   <div class="section" id="debug-notes">
 <h1>Debug Notes<a class="headerlink" href="#debug-notes" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="three-js-14635">
-<h2>Three.js #14635<a class="headerlink" href="#three-js-14635" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="three-js-14635-material-instance">
+<h2>Three.js #14635 (Material instance)<a class="headerlink" href="#three-js-14635-material-instance" title="Permalink to this headline">¶</a></h2>
 <p>test case:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">greate</span><span class="o">-</span><span class="n">cd</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">greate</span><span class="o">-</span><span class="n">cd</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
-</div>
 <div class="section" id="about-the-three-module-issue">
-<h2>About the Three Module Issue<a class="headerlink" href="#about-the-three-module-issue" title="Permalink to this headline">¶</a></h2>
+<h3>About the Three Module Issue<a class="headerlink" href="#about-the-three-module-issue" title="Permalink to this headline">¶</a></h3>
 <div class="admonition attention">
 <p class="first admonition-title">Attention</p>
 <p class="last">This issue should no longer exists because all imports from
@@ -170,7 +176,7 @@ packages/three/three.module.js are now directly from <em>three</em> package - no
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">It&#8217;s worth to have a note after days of debugging.</p>
+<p class="last">It’s worth to have a note after days of debugging.</p>
 </div>
 <p>EffectComposer and its depending passes are not included in the threejs bundle.
 This makes x-visual have to import these modules via both by npm <em>three/examples/</em>
@@ -179,13 +185,13 @@ or by copying directly the source files.</p>
 (see the <em>packages/README</em>,) which makes the latter method the only plausible way
 - as to his knowledge limitation.</p>
 <p>But the using threejs module source presented another issue, classes supposed to
-be the same class are not as expected when checking with &#8220;instanceof&#8221;.</p>
+be the same class are not as expected when checking with “instanceof”.</p>
 <p>There is a good example showing this issue.</p>
 <p>In lib/sys/ext/finalcomposer.js, the system create a <em>ShaderPass</em> with a
 THREE.ShaderMaterial will makes <em>ShaderPass</em> failed to check the the instance.</p>
 <p>There are similar issue like <a class="reference external" href="https://stackoverflow.com/questions/47481703/three-effectcomposer-is-not-a-constructor/49211046">this question</a>.</p>
 <p>The code snippet causing the issue in lib/sys/ext/finalComposer.js/FinalComposer:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">THREE</span> <span class="nx">from</span> <span class="s1">&#39;three&#39;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">THREE</span> <span class="nx">from</span> <span class="s1">&#39;three&#39;</span>
 <span class="kr">import</span> <span class="p">{</span><span class="nx">ShaderPass</span><span class="p">}</span> <span class="nx">from</span>  <span class="s1">&#39;../../../packages/three/postprocessing/ShaderPass&#39;</span>
 <span class="kr">import</span> <span class="p">{</span><span class="nx">EffectComposer</span><span class="p">}</span> <span class="nx">from</span>  <span class="s1">&#39;../../../packages/three/postprocessing/EffectComposer&#39;</span>
 
@@ -218,9 +224,9 @@ THREE.ShaderMaterial will makes <em>ShaderPass</em> failed to check the the inst
 target is essential to the result.</p>
 <p><strong>Here is where the problem comes from</strong>:</p>
 <p>The packages/three/postprocessing/ShaderPass constructor check the <em>shader</em> arguments
-with &#8220;<em>insanceof ShaderMaterial</em>&#8221; which is actually another class from ../three.module.js,
+with “<em>insanceof ShaderMaterial</em>” which is actually another class from ../three.module.js,
 leading to an unexpected result.</p>
-<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -254,7 +260,7 @@ leading to an unexpected result.</p>
 32
 33
 34
-35</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">import</span> <span class="p">{</span>
+35</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span>
 	<span class="nx">ShaderMaterial</span><span class="p">,</span>
 	<span class="nx">UniformsUtils</span>
 <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;three&quot;</span>
@@ -291,6 +297,15 @@ leading to an unexpected result.</p>
 	<span class="k">this</span><span class="p">.</span><span class="nx">fsQuad</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Pass</span><span class="p">.</span><span class="nx">FullScreenQuad</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">material</span> <span class="p">);</span>
 </pre></div>
 </td></tr></table></div>
+</div>
+</div>
+<div class="section" id="texture-referenced-across-shaders">
+<h2>Texture Referenced Across Shaders<a class="headerlink" href="#texture-referenced-across-shaders" title="Permalink to this headline">¶</a></h2>
+<p>Texture must been provided in uniforms to be bound to sampler2D in shader. Otherwise
+the texture can be bound to a wrong sampler.</p>
+<p>The left results from bug that without setting image (loaded as texture) to material
+uniforms, making shader using wrong texture binding.</p>
+<img alt="../_images/007-cross-shader-tex.jpg" src="../_images/007-cross-shader-tex.jpg" />
 </div>
 </div>
 
@@ -344,7 +359,8 @@ leading to an unexpected result.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Geo Tiles</title>
+    <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	// var json = '../data/geopoints.json';
+	var json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/geopoints.json';
+	var o4326 = [104.063615662968,   30.6517995646074];
+	var o3857 = [11584308.705708526, 3587610.7740482776];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window,
+						{ camera: {far: 20000},
+						  canvasize: [600, 400]});
+
+	xworld.addEntities([
+	  { id: 'layer0',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				transform: [{ translate: [0, 60, -400] }],
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.tiledOrbs,
+			paras: {
+				// shader orb
+				side: THREE.FrontSide,
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0.8, 0.7, 0], [1, 0, 1]],
+				orbR: [0.4, 1.4, 0.5, 0.4, 0.4],
+				offsets: [[-2, 0, 0], [0, 0, 0], [2, 0, -0], [0, 0, 2], [0, 0, -2]],
+				whiteAlpha: 0.2,
+		        orbScale: [5, 1, 5],
+
+				// tile geometry
+				uri: json,
+				origin: o4326,
+				count: 1916,   // feature count
+				geostyle: {
+					radius: 6, height: 0.5,
+					scale: 24000 },
+			},
+			asset: '../../assets/tex/byr0.png' } ,
+	  }
+	]);
+
+	$.getJSON( '../data/heights.json',
+	  function(json) {
+		xworld.addEntities( {
+			id: 'layer_1',
+			Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+					transform: [{ translate: [0, 0, -400] }],
+					box: [] },
+			Visual:{
+				vtype: xv.AssetType.mesh,
+				shader: xv.XComponent.ShaderFlag.tiledOrbs,
+				paras: {
+					side: THREE.FrontSide,
+					colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0.8, 0.7, 0], [1, 0, 1]],
+					orbR: [0.4, 1.4, 0.5, 0.4, 0.4],
+					offsets: [[-2, 0, 0], [0, 0, 0], [2, 0, -0], [0, 0, 2], [0, 0, -2]],
+					whiteAlpha: 0.2,
+			        orbScale: [5, 1, 5],
+
+					features: json.features,
+					origin: o3857,
+					count: 4038,
+					geostyle: {
+						radius: 6, height: 12,
+						scale: 0.18},
+				},
+				asset: 'data:application/x-visual+img,color-pixel [1.8, 0.0, 0.0, 0.1]' ,
+			}
+		});
+
+		xworld.startUpdate();
+	})
+    .fail(function(jqXhr, textStatus, error) {
+        console.error(jqXhr, textStatus, error);
+    });
+
+  </script>
+</body>
+</html>

@@ -8,4 +8,5 @@ Contents:
 
    instance
    phong
+   volumetric
    flame

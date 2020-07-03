@@ -36,20 +36,20 @@
                 Glow: { paras: [ ] },
             });
 
-            // ecs.createEntity({
-            //     id: 'p1.2',
-            //     Obj3: { geom: xv.XComponent.Obj3Type.PointSects,
-            //             box: [],
-            //             mesh: undefined },
-            //     Visual:{vtype: xv.AssetType.DynaSects,
-            //             paras: {
-            //                 sects:[[[-100, 0, 0], [100, 0, 0]],
-            //                        [[0, -100, 0], [0, 100, 0]],
-            //                        [[0, 0, -100], [0, 0, 100]]],
-            //                 color: 0xffff00,
-            //                 origin: [0, 200, 0] } },
-            //     Glow: { paras: [ ] },
-            // });
+            ecs.createEntity({
+                id: 'p1.2',
+                Obj3: { geom: xv.XComponent.Obj3Type.PointSects,
+                        box: [],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.DynaSects,
+                        paras: {
+                            sects:[[[-100, 0, 0], [100, 0, 0]],
+                                   [[0, -100, 0], [0, 100, 0]],
+                                   [[0, 0, -100], [0, 0, 100]]],
+                            color: 0xffff00,
+                            origin: [0, 200, 0] } },
+                Glow: { paras: [ ] },
+            });
 
             // ecs.createEntity({
             //     id: 'p2',

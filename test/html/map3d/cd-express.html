@@ -31,8 +31,7 @@
 				shader: xv.ShaderFlag.discard, // nothing to be rendered
 				// Design Notes: Visual should decomposed to 2 components: Asset & GlContext (mesh, line, ...)
 				paras: {
-					style: {halfWidth: 0.01,
-							geoScale: 0.01},
+					geostyle: {halfWidth: 0.01, scale: 0.01},
 
 					// From v0.3.4, path uri are handled with oboe.js, which can not load loacal file?
 					// uir: 'https://',
@@ -58,8 +57,7 @@
 					uniforms: { u_texWeight: 0.5},
 					features: json.features,
 					origin: origin,
-					style: {halfWidth: 1,
-							geoScale: 0.01},
+					geostyle: {halfWidth: 1, scale: 0.01},
 
 					side: THREE.FrontSide,
 					colors: [[1, 1, 0]],
@@ -68,8 +66,7 @@
 					whiteAlpha: 0.2,	// out of range alpha
 					orbScale: [5, 5, 1] },
 				// asset: '../../assets/tex/ruler256.png' ,
-				asset: 'data:application/x-visual+img,grey-pixel' ,
-			},
+				asset: 'data:application/x-visual+img,color-pixel [1, 0, 1, 0.5]' },
 			ModelSeqs: { script: [[ {
 				mtype: xv.XComponent.AnimType.U_PATH_MORPH,
 				paras: {
@@ -105,7 +102,7 @@
 					orbR:    [5, 5, 4],
 					offsets: [ 0, 4.5, 10]
 				},
-				asset: 'data:application/x-visual+img,grey-pixel' },
+				asset: 'data:application/x-visual+img,gray-pixel' },
 			ModelSeqs: { script: [[ {
 				mtype: xv.XComponent.AnimType.U_PATHn_MORPH,
 				paras: {
