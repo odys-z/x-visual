@@ -132,17 +132,18 @@
 				orbR: [2, 8, 2, 1.4, 3, 2, 3, 2, 1.4, 3],
 				offsets: [[-20, 0, 0], [0, 0, 0], [20, 0, -0], [0, 0, 20], [0, 0, -20],
 						  [-10, 0, 10], [10, 0, 10], [5, 0, -12], [5, 0, 12], [-5, 0, -12]],
-				whiteAlpha: 0.2,	// out of range alpha
+				whiteAlpha: 0.3,	// out of range alpha
 		        orbScale: [5, 1, 5],
 				// tile geometry
 				features: json0.features,
 				origin: o2,
-				geostyle: { radius: 42, height: 12, scale: 0.02 },
+				geostyle: { radius: 42, height: 1.2, scale: 0.02 },
 			},
 			asset: '../../assets/tex/rgb2x2.png' } ,
 		ModelSeqs: { script: [[{
 			mtype:  xv.XComponent.AnimType.U_NOW,
 			paras: {start: 0,
+				speed: 0.00,   // speed para alwasy comes with U_NOW
 				duration: 0 }	// ignored
 			}]]
 		},
