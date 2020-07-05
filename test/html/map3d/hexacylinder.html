@@ -5,9 +5,14 @@
 	<title>XTest - Geo Tiles</title>
 	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>input {width: 5em}</style>
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <br>1: move <input id='s1v' value='0.1'/>, color<input id='s1f' value='0.0'/> |
+	  2: move <input id='s2v' value='0.0'/>, color<input id='s2f' value='0.01'/>
+	  <input type='button' onclick='onset()' value='update'/>
+
   <script>
 	"use strict";
 
@@ -116,7 +121,10 @@
 				geostyle: { radius: 42, height: 5, scale: 0.02 },
 			},
 			asset: '../../assets/tex/rgb2x2.png' } ,
-	  },
+	  }
+	]);
+
+	var [l2] = xworld.addEntities([
 	  { id: 'layer2',
 		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
 				transform: [ { translate: [0, 40, 0] } ],
@@ -137,7 +145,9 @@
 				// tile geometry
 				features: json0.features,
 				origin: o2,
-				geostyle: { radius: 42, height: 1.2, scale: 0.02 },
+				geostyle: { radius: 42, height: 1.2, scale: 0.02,
+					groups: 2,
+					onGroup: (fx, feature) => { return fx % 2; } }, // then update() can change morphings
 			},
 			asset: '../../assets/tex/rgb2x2.png' } ,
 		ModelSeqs: { script: [[{
@@ -150,7 +160,17 @@
 		CmpTweens: {}
 	  }
 	]);
+
 	xworld.startUpdate();
+
+    function onset () {
+		xv.MorphingAnim.setGroupSpeed(l2.Obj3, 0, {
+			frag: document.getElementById('s1f').value,
+			vert: document.getElementById('s1v').value } );
+		xv.MorphingAnim.setGroupSpeed(l2.Obj3, 1, {
+			frag: document.getElementById('s2f').value,
+			vert: document.getElementById('s2v').value } );
+	}
   </script>
 </body>
 </html>
