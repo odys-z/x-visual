@@ -175,10 +175,12 @@
 						  [-10, 0, 10], [10, 0, 10], [5, 0, -12], [5, 0, 12], [-5, 0, -12]],
 				whiteAlpha: 0.5,	// out of range alpha
 		        orbScale: [3, 3, 4],
+				thermalColors: [[1, 0, 0], [1, 1, 1], [0, 0, 1]],
 				// tile geometry
 				features: json0.features,
 				origin: o3,
 				geostyle: { radius: 42, height: 24, scale: 0.02,
+					maxHeight: 50,       // for distributing thermal color
 					groups: 2,
 					onGroup: (fx, feature) => { return fx % 2; } }, // then update() can change morphings
 			},
