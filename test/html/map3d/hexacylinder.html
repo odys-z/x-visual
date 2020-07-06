@@ -173,14 +173,14 @@
 				orbR: [2, 8, 2, 1.4, 3, 2, 3, 2, 1.4, 3],
 				offsets: [[-20, 0, 0], [0, 0, 0], [20, 0, -0], [0, 0, 20], [0, 0, -20],
 						  [-10, 0, 10], [10, 0, 10], [5, 0, -12], [5, 0, 12], [-5, 0, -12]],
-				whiteAlpha: 0.5,	// out of range alpha
+				whiteAlpha: 0.8,	// out of range alpha
 		        orbScale: [3, 3, 4],
-				thermalColors: [[1, 0, 0], [1, 1, 1], [0, 0, 1]],
+				thermalColors: [[0, 0, 1], [1, 1, 0], [1, 0, 0]],
 				// tile geometry
 				features: json0.features,
 				origin: o3,
-				geostyle: { radius: 42, height: 24, scale: 0.02,
-					maxHeight: 50,       // for distributing thermal color
+				geostyle: { radius: 45, height: 24, scale: 0.02,
+					maxHeight: 40,       // for distributing thermal color
 					groups: 2,
 					onGroup: (fx, feature) => { return fx % 2; } }, // then update() can change morphings
 			},
