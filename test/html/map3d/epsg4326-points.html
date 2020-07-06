@@ -73,7 +73,7 @@
 					origin: o3857,
 					count: 4038,
 					geostyle: {
-						radius: 6, height: 12, scale: 0.18,
+						radius: 6, height: .4, scale: 0.18,
 						groups: 2,
 						onGroup: (fx, f) => {
 							return f.properties.building ? 1 : 0;
@@ -103,11 +103,11 @@
 	function speedup () {
 		buf.speed += 0.02;
 		if (buf.speed > 0.1)
-			buf.speed = 0.01;
+			buf.speed = 0.0;
 
 		xv.MorphingAnim.setGroupSpeed(buf.l1.Obj3,
 			1,  // group 1: with building property
-			{ frag: buf.speed,
+			{ frag: buf.speed * 0.1,
 			  vert: buf.speed } );
 	}
 
