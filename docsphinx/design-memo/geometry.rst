@@ -1,6 +1,8 @@
 X-Geometry Handling
 ===================
 
+.. _geom-hexatile:
+
 hexatile
 --------
 

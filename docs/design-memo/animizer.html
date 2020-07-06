@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Affine Tweening" href="affine.html"/>
@@ -98,7 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Animizers</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Animizers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sequence-the-animation-structure">Sequence the Animation Structure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#start-tween-sequence">Start Tween Sequence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mesh-animiation-script">Mesh Animiation Script</a></li>
@@ -171,7 +168,7 @@ that can be played by XTweener.</p>
 <div class="section" id="sequence-the-animation-structure">
 <h2>Sequence the Animation Structure<a class="headerlink" href="#sequence-the-animation-structure" title="Permalink to this headline">¶</a></h2>
 <p>Tween animations are organized as a 2D array, with major order the index of animation
-sequences’ order. Each sequence is an array of <em>CmpTween</em> component.</p>
+sequences&#8217; order. Each sequence is an array of <em>CmpTween</em> component.</p>
 <p>API Reference:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XComponent.ModelSeqs.html">ModelSeqs</a></li>
@@ -186,10 +183,10 @@ sequences’ order. Each sequence is an array of <em>CmpTween</em> component.</p
 <li>Set start = 0 in the script, let ModelMorph start the sequence automatically.</li>
 <li>Triggered by other scripts, with <em>startWith</em> &amp; <em>followBy</em> command in script.</li>
 <li>Use start command, CmpTween.startCmds. Which is an array buffering commands to
-start a sequence. It’s index is the same as tween sequences’ index. The following
+start a sequence. It&#8217;s index is the same as tween sequences&#8217; index. The following
 code start the second sequence of entity e.</li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">e</span><span class="o">.</span><span class="n">CmpTweens</span><span class="o">.</span><span class="n">startCmds</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span><span class="o">.</span><span class="n">CmpTweens</span><span class="o">.</span><span class="n">startCmds</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>A more elegant way to do this is use the XTweener.startSeq() API.</p>
@@ -197,7 +194,7 @@ code start the second sequence of entity e.</li>
 <div class="section" id="mesh-animiation-script">
 <h2>Mesh Animiation Script<a class="headerlink" href="#mesh-animiation-script" title="Permalink to this headline">¶</a></h2>
 <p>Example:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
     <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;fade-out&#39;</span><span class="p">,</span>
     <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
             <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>
@@ -220,16 +217,16 @@ code start the second sequence of entity e.</li>
 </pre></div>
 </div>
 <p>In the above example, the entity is defined with 2 components, ModelSeqs &amp; CmpTweens.</p>
-<p>ModelSeqs is the animation defining animation process that animated by the x-visual’s
+<p>ModelSeqs is the animation defining animation process that animated by the x-visual&#8217;s
 tweening system, XTweener.</p>
-<p>Then tweening process is record and updated in CmpTweens. It’s a 2D array of CmpTween,
-the equivalent of Tween object’s data part in Tween.js. The methods part is moved
+<p>Then tweening process is record and updated in CmpTweens. It&#8217;s a 2D array of CmpTween,
+the equivalent of Tween object&#8217;s data part in Tween.js. The methods part is moved
 to XTweener, which is the style of ECS.</p>
-<p>CmpTween and CmpTweens are wrapped by x-visual and user shouldn’t worry about it.
+<p>CmpTween and CmpTweens are wrapped by x-visual and user shouldn&#8217;t worry about it.
 The ModelSeqs is what users will working on, which also is defined as a 2D array.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">As x-visual is a data visualization prototype, it’s only support static
+<p class="last">As x-visual is a data visualization prototype, it&#8217;s only support static
 animation scripts triggered by commands. Scripts can only provided when creating
 entities, and not emit events.</p>
 </div>
@@ -248,7 +245,7 @@ of two tween steps.</p>
 AnimType defined in component/morph.js.</p>
 <div class="section" id="animtype">
 <h4>AnimType<a class="headerlink" href="#animtype" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference internal" href="../reference/components.html#animtype"><span class="std std-ref">AnimType</span></a> declares supported Animation types.</p>
+<p><a class="reference internal" href="../reference/components.html#animtype"><span>AnimType</span></a> declares supported Animation types.</p>
 <p>Currently animation a all driven by a modified version of Tween.js module, XTweener.</p>
 <p>X-visual is struggling to divide animations into a group of orthogonal calculations,
 but not always the case.</p>
@@ -258,9 +255,9 @@ for example, can be combined together with more than one visual types.</p>
 <div class="section" id="animcate">
 <h4>AnimCate<a class="headerlink" href="#animcate" title="Permalink to this headline">¶</a></h4>
 <p>mtype also has a flag indicating what kind of the animation is. Currently there
-is only one special flag, AnimCate.COMBINE_AFFINE, defined in <a class="reference internal" href="../reference/components.html#animcate"><span class="std std-ref">AnimCate</span></a>,
+is only one special flag, AnimCate.COMBINE_AFFINE, defined in <a class="reference internal" href="../reference/components.html#animcate"><span>AnimCate</span></a>,
 indicating that the animation should been handled by AffineCombiner.</p>
-<p>See <a class="reference internal" href="affine.html#affine-design-memo"><span class="std std-ref">Affine Combination</span></a> for details.</p>
+<p>See <a class="reference internal" href="affine.html#affine-design-memo"><span>Affine Combination</span></a> for details.</p>
 </div>
 </div>
 <div class="section" id="paras">
@@ -291,7 +288,7 @@ be ignored. (We are considering reorganize the Tween.js scheduling schema.)</em>
 <li>ease:</li>
 </ul>
 <p>Same as tween.js, any one of</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Linear</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Linear</span>
 <span class="n">Quadratic</span>
 <span class="n">Cubic</span>
 <span class="n">Quartic</span>
@@ -307,7 +304,7 @@ be ignored. (We are considering reorganize the Tween.js scheduling schema.)</em>
 <ul class="simple" id="script-followby">
 <li>followBy:</li>
 </ul>
-<p>An array of scripts that triggering other entities’ animation when this animation
+<p>An array of scripts that triggering other entities&#8217; animation when this animation
 is finished.</p>
 <p>Object with properties:</p>
 <p>entity</p>
@@ -318,9 +315,9 @@ is finished.</p>
 <div>script index</div></blockquote>
 <p>start</p>
 <blockquote>
-<div>see <a class="reference internal" href="#anim-paras-start"><span class="std std-ref">paras.start</span></a>.</div></blockquote>
+<div>see <a class="reference internal" href="#anim-paras-start"><span>paras.start</span></a>.</div></blockquote>
 <p>Example:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="err">type:</span> <span class="p">[{</span> <span class="err">entity:</span> <span class="err">&#39;id&#39;,</span>
+<div class="highlight-json"><div class="highlight"><pre><span class="err">type:</span> <span class="p">[{</span> <span class="err">entity:</span> <span class="err">&#39;id&#39;,</span>
          <span class="err">seqx:</span> <span class="err">0,</span>
          <span class="err">start:</span> <span class="err">0.1</span><span class="p">}]</span>
 </pre></div>
@@ -329,16 +326,16 @@ is finished.</p>
 <li>startWith:</li>
 </ul>
 <p>Start animation with script in other entities.</p>
-<p>Object has same properties of <a class="reference internal" href="#script-followby"><span class="std std-ref">paras.followBy</span></a>.</p>
+<p>Object has same properties of <a class="reference internal" href="#script-followby"><span>paras.followBy</span></a>.</p>
 </div>
 <div class="section" id="animtype-position-paras">
 <h4>AnimType.POSITION paras<a class="headerlink" href="#animtype-position-paras" title="Permalink to this headline">¶</a></h4>
-<p>The <em>POSITION</em> animation type is used to update object’s position, in world (xscnene).</p>
+<p>The <em>POSITION</em> animation type is used to update object&#8217;s position, in world (xscnene).</p>
 <ul class="simple">
 <li>translate</li>
 </ul>
 <p>A 2D array with major length = 2 specifying to position moving section. As this is an
-affine transformation, it’s designed as start from where it is. So the first one is
+affine transformation, it&#8217;s designed as start from where it is. So the first one is
 usually an array of zero vector, i. e. [0, 0, 0].</p>
 <p>The second vector is for target position.</p>
 <div class="admonition note">
@@ -387,13 +384,13 @@ is the only one can be updated dynamically.</p>
 <p><a class="reference external" href="https://discourse.threejs.org/t/how-to-rotate-an-object-around-a-pivot-point/6838">Three.js org discourse: How to rotate an object around a pivot point?</a></p>
 </div></blockquote>
 <p>Yep,</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="mi">0</span> <span class="n">x</span>       <span class="mi">1</span> <span class="mi">0</span> <span class="o">-</span><span class="n">x</span>      <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">1</span> <span class="n">y</span>   <span class="o">*</span>   <span class="mi">0</span> <span class="mi">1</span> <span class="o">-</span><span class="n">y</span>   <span class="o">=</span>  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span>
-<span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>       <span class="mi">0</span> <span class="mi">0</span>  <span class="mi">1</span>      <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+<div class="highlight-python"><div class="highlight"><pre>1 0 x       1 0 -x      1 0 0
+0 1 y   *   0 1 -y   =  0 1 0
+0 0 1       0 0  1      0 0 1
 </pre></div>
 </div>
 <p>Three.js implementation</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">Object3D</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">Object3D</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">position</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vector3</span><span class="p">();</span>
     <span class="kd">var</span> <span class="nx">rotation</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Euler</span><span class="p">();</span>
     <span class="kd">var</span> <span class="nx">quaternion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Quaternion</span><span class="p">();</span>
@@ -558,7 +555,7 @@ is the only one can be updated dynamically.</p>
 <li>alpha:</li>
 </ul>
 <p>Array of starting and ending alpha.</p>
-<p>If the Visual is a <a class="reference internal" href="renderer.html#vtype-point"><span class="std std-ref">point</span></a> or <a class="reference internal" href="renderer.html#vtype-refpoint"><span class="std std-ref">refPoint</span></a>
+<p>If the Visual is a <a class="reference internal" href="renderer.html#vtype-point"><span>point</span></a> or <a class="reference internal" href="renderer.html#vtype-refpoint"><span>refPoint</span></a>
 type, the alpha tween is been handled by shader.</p>
 </div>
 <div class="section" id="animtype-uniform-paras">
@@ -586,7 +583,7 @@ For a_noise, See VisualType.point.</p>
 </div>
 <div class="section" id="script-example">
 <h2>Script Example:<a class="headerlink" href="#script-example" title="Permalink to this headline">¶</a></h2>
-<p>see test case: <a class="reference internal" href="../tests/test-morph.html#test-morph"><span class="std std-ref">Test - Morphing &amp; Uniform</span></a>.</p>
+<p>see test case: <a class="reference internal" href="../tests/test-morph.html#test-morph"><span>Test - Morphing &amp; Uniform</span></a>.</p>
 </div>
 </div>
 
@@ -640,8 +637,7 @@ For a_noise, See VisualType.point.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

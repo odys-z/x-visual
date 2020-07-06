@@ -49,3 +49,23 @@ ShaderFlag::
     xv.XComponent.ShaderFlag.orbGroups
 
 See also :ref:`volumetric-shaders` & :ref:`visual paras for volumetric shaders<visual-paras-scaleorb>`.
+
+.. _test-case-hexatile:
+
+Case: Hexatile from Geojson
+___________________________
+
+html files::
+
+    test/html/map3d/hexacylinder.html
+    test/html/map3d/epsg4326-points.html
+
+Using shaders:
+
+    xv.XComponent.ShaderFlag.tiledOrbs,
+
+Animation type:
+
+	 xv.XComponent.AnimType.U_NOW
+
+See :ref:`Guide: Obj3Type.Hexatile<obj3-hexatile-guide>`

@@ -142,7 +142,7 @@ Right car:
     });
 
 
-case: GLTF Nodes & Animation
+Cate: GLTF Nodes & Animation
 ____________________________
 
 html file::
