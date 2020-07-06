@@ -59,16 +59,16 @@ describe('case: [tween] tweener basics', function() {
 					// Three use document to load assets, which doesn't exist while testing
 					// null acts as a flag to let thrender create a ram texture.
 					asset: null },
-
 			// in version 1.0, only type of sequence animation is supported
-			ModelSeqs: {
-				script: [[{ mtype: AnimType.UNIFORMS,
-							paras: {start: 0,		// auto start, only alpha tween in v0.2
-									duration: 0.6,	// seconds
-									uniforms: { u_alpha: [0, 1],
-												u_dist: [-100, 200]},
-			 						ease: undefined}// default linear
-						}]] },
+			ModelSeqs: { script: [[{
+				// FIXME 2020.7.4 really used?
+				mtype: AnimType.UNIFORMS,
+				paras: {start: 0,		// auto start, only alpha tween in v0.2
+						duration: 0.6,	// seconds
+						uniforms: { u_alpha: [0, 1],
+									u_dist: [-100, 200]},
+ 						ease: undefined}// default linear
+				}]] },
 			CmpTweens: {}
 		});
 
