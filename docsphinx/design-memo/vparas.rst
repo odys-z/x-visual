@@ -182,6 +182,17 @@ updated 10 percent later.
 Orb's visible range, 0 ~ 1. The group will be hidden when t is out of range. t
 means the tweening weight updated each frame by XTweener.
 
+vtype = thermalTile
+-------------------
+
+test::
+
+    test/html/map3d/hexacylinder.html
+    test/html/map3d/epsg4326-points.html
+
+*tiledOrbs* should been used with tiled geometry - currently only tiles generated
+as :ref:`hexacylinder<>`.
+
 vtype = point or refPoint
 -------------------------
 
