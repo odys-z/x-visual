@@ -12,6 +12,7 @@
   <br>1: move <input id='s1v' value='0.1'/>, color<input id='s1f' value='0.0'/> |
 	  2: move <input id='s2v' value='0.0'/>, color<input id='s2f' value='0.01'/>
 	  <input type='button' onclick='onset()' value='update speed'/>
+  <br><textarea id="txt" rows="9" cols="73"></textarea>
 
   <script>
 	"use strict";
@@ -22,7 +23,6 @@
 		{ "type": "Feature", "properties": {"height": 2},
 		  "geometry": {
 			"type": "Point",
-			// "coordinates": [11585311.96, 3597212.54]
 			"coordinates": [11582330.91, 3597527.85]
 		  }
 		},
@@ -33,6 +33,7 @@
 		}
 	  ]
 	};
+	document.getElementById('txt').value = JSON.stringify(json0);
 	var o0 = [11582330.91, 3597527.85];
 	var o1 = [11585000,	   3587000   ];
 	var o2 = [11575000,	   3590000   ];
@@ -147,7 +148,8 @@
 				origin: o2,
 				geostyle: { radius: 42, height: 1.2, scale: 0.02,
 					groups: 2,
-					onGroup: (fx, feature) => { return fx % 2; } }, // then update() can change morphings
+					// Each group using it's speed.frag & vert, so group morphing can be changed
+					onGroup: (fx, feature) => { return fx % 2; } },
 			},
 			asset: '../../assets/tex/rgb2x2.png' } ,
 		ModelSeqs: { script: [[{

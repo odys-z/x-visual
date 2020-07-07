@@ -29,6 +29,8 @@ See reference section about :ref:`Three.js tube geometry algorithm of Frenet Fra
 
 TODO doc ...
 
+.. _tst-geom-volume-tube:
+
 Case: Volumetric Tube
 _____________________
 

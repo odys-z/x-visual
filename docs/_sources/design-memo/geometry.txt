@@ -1,6 +1,25 @@
 X-Geometry Handling
 ===================
 
+MapXZRoad
+---------
+
+Obj3Type::
+
+    xv.XComponent.Obj3Type.MapXZRoad
+
+Handler API:
+
+`xgeom.generateWayxz() <https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz>`_
+
+Test pages::
+
+    test/html/map3d/geopath-road.html
+    test/html/map3d/geopaths.html
+    test/html/map3d/cd-express.html
+
+See also :ref:`tst-geom-volume-tube`
+
 .. _geom-hexatile:
 
 hexatile
