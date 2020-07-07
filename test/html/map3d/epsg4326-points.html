@@ -10,10 +10,11 @@
 <body>
   <canvas id='canv'></canvas>
   <br><input type='button' onclick='speedup()' value='speed up'/>
+  <p><a href='https://odys-z.github.io/x-visual/tests/test-geom.html#tst-geom-hexatile'>
+	  Test Case Introduction</a></p>
   <script>
 	"use strict";
 
-	// var json = '../data/geopoints.json';
 	var json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/heights.geojson';
 	var o4326 = [104.063615662968, 30.6517995646074];
 	var o3857 = [11584780.0575155, 3574051.29001759];
@@ -36,7 +37,7 @@
 				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0.8, 0.7, 0], [1, 0, 1]],
 				orbR: [0.4, 1.4, 0.5, 0.4, 0.4],
 				offsets: [[-2, 0, 0], [0, 0, 0], [2, 0, -0], [0, 0, 2], [0, 0, -2]],
-				whiteAlpha: 0.2,
+				whiteAlpha: 0.7,
 		        orbScale: [5, 1, 5],
 
 				// tile geometry
@@ -45,6 +46,7 @@
 				count: 1916,   // feature count
 				geostyle: {
 					radius: 6, height: 0.5,
+					maxHeight: 12,       // for distributing thermal color
 					scale: 24000 },
 			},
 			asset: '../../assets/tex/byr0.png' } ,
@@ -66,7 +68,7 @@
 					colors: [[0, 0, 0.6], [0, 0.6, 0], [0.8, 0, 0], [0.4, 0.8, 0], [0.8, 0, 1]],
 					orbR: [.4, .4, .5, .4, .4],
 					offsets: [[-2, 0, 0], [0, 0, 0], [2, 0, -0], [0, 0, 2], [0, 0, -2]],
-					whiteAlpha: 0.2,
+					whiteAlpha: 0.7,
 			        orbScale: [5, 1, 5],
 
 					features: json.features,
@@ -74,7 +76,9 @@
 					count: 4038,
 					geostyle: {
 						radius: 6, height: .4, scale: 0.18,
+						maxHeight: 16,       // for distributing thermal color
 						groups: 2,
+						// Each group using it's speed.frag & vert, so group morphing can be changed
 						onGroup: (fx, f) => {
 							return f.properties.building ? 1 : 0;
 						} }
