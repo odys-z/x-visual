@@ -73,7 +73,7 @@
 			paras: {
 				features: json1.features,
 				origin: origin,
-				style: {halfWidth: 6} },
+				geostyle: {halfWidth: 6} },
 			asset: '../../assets/tex/ruler256.png' },
 	  },
 	  { id: 'way2-1',
@@ -87,8 +87,7 @@
 				uri: 'data:application/geo+json,features', // overriden by features
 				features: json1.features,
 				origin: origin,
-				style: {halfWidth: 12,
-						geoScale: 2},
+				geostyle: {halfWidth: 12, scale: 2},
 
 				// shader
 				side: THREE.FrontSide,
