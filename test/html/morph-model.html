@@ -127,7 +127,8 @@
 				points:[[-12, 12, -10], [12, 12, -10],
 						[12, 0, -10], [12, 0, 10]],
 				origin: [0, 0, 0],
-				color: 0x0 }, },
+				linewidth: 4,
+				color: 'red' }, },
         ModelSeqs: { script: [[
               { mtype: xv.XComponent.AnimType.ALPHA,
                 paras: {start: 0,
@@ -137,7 +138,7 @@
               { mtype: xv.XComponent.AnimType.ALPHA,
                 paras: {start: Infinity,        // triggered by entity1
                         duration: 6,            // seconds
-                        alpha: [0.9, 0.01],     // from, to
+                        alpha: [0.9, 0.3],      // from, to
                         ease: xv.XEasing.Elastic.In} }
             ]] },
         CmpTweens: {}
