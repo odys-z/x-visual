@@ -53,7 +53,7 @@ ____________
 
 X-visual defined some consts used as a contract between application and x-visual.
 
-These consts is documented as enum in `API doc / XComponent <../jsdoc/XComponent.html>`__.
+These consts is documented as enum in `API doc / XComponent <https://odys-z.github.io/javadoc/x-visual/XComponent.html>`__.
 
 .. _animcate:
 
@@ -104,6 +104,6 @@ API Doc: XComponent
 ===================
 
 All components provided by x-visual are exported in xv.XComponent.
-See `API doc / XComponent <../jsdoc/XComponent.html>`__.
+See `API doc / XComponent <https://odys-z.github.io/javadoc/x-visual/XComponent.html>`__.
 
-For extension components, see `chart <../jsdoc/chart.html>`_.
+For extension components, see `chart <https://odys-z.github.io/javadoc/x-visual/chart.html>`_.

@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest Path Morph</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+    var json0 = {
+	    "type": "FeatureCollection",
+	    "features": [
+	        { "type": "Feature", "properties": { "name": "3 waypoints", "highway": "motorway", "oneway": "yes" },
+	            "geometry": {
+	                "type": "LineString",
+	                "coordinates": [ [-100,0], [-70, 0], [50,0], [80, 12], [100, 30], [100, 60], [75, 90], [0, 90] ]
+	            }
+	        }
+	    ]
+	};
+	var origin0 = [0, 0];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 400]});
+
+	xworld.addEntities([
+	  { id: 'way2',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [6] },    // y0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			// shader: xv.XComponent.ShaderFlag.worldOrbs,
+			shader: xv.XComponent.ShaderFlag.orbGroups,
+			paras: {
+				// road geometry
+				features: json0.features,
+				origin: origin0,
+				geostyle: {halfWidth: 12, scale: 2},
+				side: THREE.FrontSide,
+
+				// groups global paras
+				t_range: [0, 0.999],          // visible t's range - hide when tweens finished
+				follows: [0, 10, 30, 40, 50], // group distance alone path direction, percentage of t
+		        orbScale: [0.05, 0.5, 0.5],   // each orb's x, y, z scale
+				whiteAlpha: 0.5,	          // out of range alpha
+
+				// orbs in group
+				colors: [[0, 0, 1], [0, .5, .5], [0, 1, 0], [.5, .5, 0], [1, 0, 0]],
+				orbR:    [20, 30,  40,  30,  30],
+				offsets: [ 0, 8, 16, 24, 32]
+			},
+			asset: '../../assets/tex/ruler256.png' } ,
+		ModelSeqs: { script: [[ {
+			mtype: xv.XComponent.AnimType.U_PATHn_MORPH,
+			paras: {
+				start: 0,
+				duration: 9,
+				ease: undefined, // xv.XEasing.Elastic.Elastic,
+				// MapXZRoad has path data in Obj3.datum, same as PathTube,
+				// FIXME but where should the enum been declared, vtype or geom type?
+				path: 'way2' },
+			followBy: [{entity: 'way2',
+				seqx: 0,
+				start: 0.3}] },
+			]] },
+		CmpTweens: {}
+	  },
+
+	  { id: 'way2-1',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ {translate: [0, -50, 0]} ],
+				box: [600, 2, 600] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.orbGroups,
+			paras: {
+				// groups global paras
+				t_range: [-0, 0.999],  // visible t's range - hide when tweens finished
+				follows: [0, 15, 30],  // group distance alone path direction, percentage of t
+		        orbScale: [1, 3, 1],   // each orb's x, y, z scale
+				whiteAlpha: 0.0,	   // out of range alpha
+
+				// orbs in group
+				colors: [[1, 1, 1], [0, 1, 0]],
+				orbR:    [9, 4],
+				offsets: [ 0, 6]
+			},
+			asset: 'data:application/x-visual+img,gray-pixel' } ,
+		ModelSeqs: { script: [[ {
+			mtype: xv.XComponent.AnimType.U_PATHn_MORPH,
+			paras: {
+				start: 0,
+				duration: 3,
+				ease: undefined, // xv.XEasing.Elastic.Elastic,
+				path: 'way2' },
+			followBy: [{entity: 'way2-1',
+				seqx: 0,
+				start: 0.3}] },
+			]] },
+		CmpTweens: {}
+	  },
+
+	  { id: 'way2-2',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ {translate: [0, -10, -120]} ],
+				box: [600, 2, 500] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.orbGroups,
+			paras: {
+				// groups global paras
+				t_range: [-0, 0.999],
+				follows: [0, 5, 10, 15, 20],
+		        orbScale: [2, 1, 1],
+				whiteAlpha: 0.0,
+
+				// orbs in group
+				colors: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+				orbR:    [2, 2, 2],
+				offsets: [ 0, 5, 10]
+			},
+			asset: 'data:application/x-visual+img,gray-pixel' } ,
+		ModelSeqs: { script: [[ {
+			mtype: xv.XComponent.AnimType.U_PATHn_MORPH,
+			paras: {
+				start: 0,
+				duration: 12,
+				ease: undefined, // xv.XEasing.Elastic.Elastic,
+				path: 'way2' },
+			followBy: [{entity: 'way2-2',
+				seqx: 0,
+				start: 0.3}] },
+			]] },
+		CmpTweens: {}
+	  }
+	]);
+
+	xworld.startUpdate();
+  </script>
+</body>
+</html>

@@ -283,7 +283,7 @@ etc. been parsed.
 
     /**Requests the specified dependency asynchronously, with caching.
      * Ody:
-     * Dependency means scene, node, mesh, materail etc., except scenes.
+     * Dependency means scene, node, mesh, material etc., except scenes.
      * Anything that can be dependend by others.
      * @param {string} type
      * @param {number} index
@@ -400,6 +400,12 @@ out.
         .then( function ( objects ) {
             return ( function () {
                 ...
+
+                if ( nodeDef.name !== undefined ) {
+                    node.userData.name = nodeDef.name;
+                    node.name = PropertyBinding.sanitizeNodeName( nodeDef.name );
+                }
+
                 if (!node.name) {
                     node.name = String(nodeDef.idx);
                 }
@@ -408,6 +414,15 @@ out.
             } );
         });
 ..
+
+.. note:: Debug Notes:
+    The node name is been *sanitized*.
+    Which means you can not use it like "node one", it's been replaced with "node_one".
+
+    See `similar issue at github <https://github.com/mrdoob/three.js/issues/12956>`_
+    & tips in test/html/gltf-car.html.
+
+    Also, the AssetKeepr.loadGltfNodes() also access it using *sanitized* names.
 
 3. After every thing done, the nodes array also been taken out in gltf results.
 

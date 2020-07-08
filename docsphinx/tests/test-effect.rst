@@ -3,15 +3,17 @@
 Test - Postprocessing
 =====================
 
-Occluding (PointGeom)
----------------------
+Cate: Occluding (PointGeom)
+---------------------------
 
 case: FlowingPath Occluding
 ___________________________
 
-html file: test/html/flowing-path-occluding.html
+html file::
 
-The code snippet show flowing path effect is occluded with a plane.
+    test/html/flowing-path-occluding.html
+
+The code snippet shows flowing path effect is occluded with a plane.
 
 .. literalinclude:: ../../test/html/flowing-path-occlude.html
    :language: javascript

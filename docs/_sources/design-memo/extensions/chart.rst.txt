@@ -7,8 +7,8 @@ Chart XCommon
 Axis
 ____
 
-To add axes x, y, z to a 3D chart, create `xv.chart.Axisys <../../jsdoc/Axisys.html>`_
-together with `xv.XComponents.Axes <../../jsdoc/chart.Axes.html>`_ to add the
+To add axes x, y, z to a 3D chart, create `xv.chart.Axisys <https://odys-z.github.io/javadoc/x-visual/Axisys.html>`_
+together with `xv.XComponents.Axes <https://odys-z.github.io/javadoc/x-visual/chart.Axes.html>`_ to add the
 arrow objects.
 
 test: html/ext/12vec-bar.html
@@ -124,8 +124,8 @@ canvas used for main scene, such as
     </body>
 ..
 
-This is a behavior required by the depending Html2Texture plugin, and could be
-subtle to debug if not have a div like this.
+This is a tested results required by the depending Html2Texture plug in, and could
+be subtle to debug if not have a div like this.
 
 Resources & References
 ----------------------

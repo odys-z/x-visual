@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Road of GeoPath</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <img id='splash'></img>
+  <canvas id='canv'></canvas>
+  <p>Issue: We need a better tube geometry, see docs/issues.</p>
+  <script>
+    "use strict";
+
+    class Tubesys extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.initTube(ecs, options.xscene);
+        }
+
+        update(tick, entities) {
+        }
+
+        initTube(ecs, scene) {
+            if (ecs) {
+                var tube = ecs.createEntity({
+                    id: 'tube0',
+                    Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+                            box: [5],	// curve segments
+                            uniforms: {opacity: 0.45} },
+                    Visual: {
+                        vtype:  xv.AssetType.PathTube,
+                        paras: {
+                            points:[[-100, 0, 0], [100, 0, 0],
+                                    [0, -100, 0], [0, 100, 0],
+                                    [0, 0, -100], [0, 0, 100]],
+                            origin: [0, 0, 0],
+                            color: 0x00ff00,
+                            radius: 4,
+                            tubularSegments: 50 },
+                } });
+
+                var c = ecs.createEntity({
+                    id: 'c',
+                    Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+                            box: [10],
+							transform: [{ translate: [10, 0, -10] }],
+                            uniforms: {opacity: 0.75} },
+                    Visual: {
+                        vtype:  xv.AssetType.GeomCurve,
+                        paras: {
+                            points:[[-100, 0, 0], [100, 0, 0],
+                                    [0, -100, 0], [0, 100, 0],
+                                    [0, 0, -100], [0, 0, 100]],
+                            origin: [0, 0, 0],
+                            color: 0xffff00 },
+                } });
+            }
+        }
+    }
+
+    Tubesys.query = { iffall: ['Visual'] };
+
+    const xworld = new xv.XWorld(document.getElementById('canv'), window, {canvasize: [480, 320]});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
+
+    xworld.addSystem('test', new Tubesys(ecs, {xscene}));
+
+    xworld.startUpdate();
+  </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "name": "x-visual",
-  "version": "0.2.27",
+  "version": "0.3.17",
   "description": "x-visual is a hi dimensional data visualization tool kit.",
   "main": "./lib/xv.js",
   "directories": {
@@ -10,7 +10,7 @@
   "scripts": {
     "build": "webpack --config mocha.config.js",
     "test": "mocha dist/testBundle.js",
-    "doc": "jsdoc -c jsdoc.json",
+    "doc": "jsdoc -c jsdoc.json && rm -rf ../pages.github/odys-z.github.io/javadoc/x-visual && mv docs/jsdoc ../pages.github/odys-z.github.io/javadoc/x-visual",
     "test-back": "webpack --config mocha-osm.config.js && mocha-webpack --webpack-config mocha-osm.config.js \"spec/**/*.spec.js\" || true"
   },
   "repository": {
@@ -46,8 +46,9 @@
     "d3": "^5.15.0",
     "jquery": "^3.5.0",
     "jsdoc": "^3.6.3",
-    "mocha": "^6.2.2",
+    "mocha": "^7.2.0",
     "mocha-webpack": "^2.0.0-beta.0",
+    "oboe": "^2.1.5",
     "raw-loader": "^3.1.0",
     "style-loader": "^1.1.2",
     "three": "^0.110.0",

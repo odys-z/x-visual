@@ -68,7 +68,7 @@ import {
 	VectorKeyframeTrack,
 	VertexColors,
 	sRGBEncoding
-} from "./three.module.js";
+} from "three";
 
 var GLTFLoader = ( function () {
 
@@ -1714,7 +1714,7 @@ var GLTFLoader = ( function () {
 
 	/**Requests the specified dependency asynchronously, with caching.
 	 * Ody:
-	 * Dependency means scene, node, mesh, materail etc., except scenes.
+	 * Dependency means scene, node, mesh, material etc., except scenes.
 	 * Anything that can be dependend by others.
 	 * @param {string} type
 	 * @param {number} index

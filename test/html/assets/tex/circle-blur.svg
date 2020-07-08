@@ -1,0 +1,8 @@
+<svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter height="200%" width="200%" y="-50%" x="-50%" id="blur0">
+   <feGaussianBlur stdDeviation="1.5" in="SourceGraphic"/>
+  </filter>
+ </defs>
+ <circle id="svg_circle" filter="url(#blur0)" stroke="#355" r="128" cy="200" cx="290" stroke-opacity="0.7" stroke-width="12.5" fill="#4f2f00" fill-opacity="0.8"/>
+</svg>

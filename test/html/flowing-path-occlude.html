@@ -81,6 +81,8 @@
                         box: [5],  // curve division
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
+                        // Comparing with PathTube, which is sharing PointCurve,
+                        // should points been moved to Obj3 ?
                         paras: {points: [[100, 80, 50], [100, -80, 50], [-100, -80, 50],
                                          [-100, 80, 50], [-100, 80, -50]],
                                 color: 0xffff00, linewidth: 2} },

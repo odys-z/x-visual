@@ -14,11 +14,11 @@ sequences' order. Each sequence is an array of *CmpTween* component.
 
 API Reference:
 
-- `ModelSeqs <../jsdoc/XComponent.ModelSeqs.html>`_
+- `ModelSeqs <https://odys-z.github.io/javadoc/x-visual/XComponent.ModelSeqs.html>`_
 
-- `CmpTweens <../jsdoc/XComponent.CmpTweens.html>`_
+- `CmpTweens <https://odys-z.github.io/javadoc/x-visual/XComponent.CmpTweens.html>`_
 
-- `CmpTween <../jsdoc/XComponent.CmpTween.html>`_
+- `CmpTween <https://odys-z.github.io/javadoc/x-visual/XComponent.CmpTween.html>`_
 
 Start Tween Sequence
 --------------------
