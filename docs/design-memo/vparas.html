@@ -101,6 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#vtype-scaleorb">vtype = scaleOrb</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vtype-worldorbs">vtype = worldOrbs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vtype-orbgroups">vtype = orbGroups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vtype-tiledorbs">vtype = tiledOrbs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vtype-point-or-refpoint">vtype = point or refPoint</a></li>
 </ul>
 </li>
@@ -331,6 +332,23 @@ updated 10 percent later.</p>
 </ul>
 <p>Orb&#8217;s visible range, 0 ~ 1. The group will be hidden when t is out of range. t
 means the tweening weight updated each frame by XTweener.</p>
+</div>
+<div class="section" id="vtype-tiledorbs">
+<span id="visual-para-tiledorbs"></span><h2>vtype = tiledOrbs<a class="headerlink" href="#vtype-tiledorbs" title="Permalink to this headline">¶</a></h2>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">hexacylinder</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">epsg4326</span><span class="o">-</span><span class="n">points</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p><em>tiledOrbs</em> should been used with tiled geometry - currently only tiles generated
+as <a class="reference internal" href="geometry.html#geom-hexatile"><span>hexacylinder</span></a>.</p>
+<p><em>tiledOrbs</em> is a super set of <em>worldOrbs</em>. In addition, has:</p>
+<ul class="simple">
+<li>paras.thermalColors</li>
+</ul>
+<p>Specifying the 3 colors used for showing tile&#8217;s height. First color is of height
+0, last for max height.</p>
+<p>See <a class="reference internal" href="../tests/test-geom.html#tst-geom-hexatile"><span>test case</span></a> for parameter example explained.</p>
 </div>
 <div class="section" id="vtype-point-or-refpoint">
 <h2>vtype = point or refPoint<a class="headerlink" href="#vtype-point-or-refpoint" title="Permalink to this headline">¶</a></h2>

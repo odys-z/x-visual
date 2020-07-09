@@ -178,4 +178,4 @@ The test shows how color & texture can be morphed with help of shader *colorArra
 For Visual.paras of *colorArray*, see :ref:`Visual.paras of colorArray<visual-paras-color-array>`.
 
 **FYI** This page uses svg as rendered texture with help of Three.js CanvasTexture,
-which can't be a scalable image. See :ref:`wish list, SVG<wish-svg>`.
+which can't be a scalable image instead. See :ref:`wish list, SVG<wish-svg>`.

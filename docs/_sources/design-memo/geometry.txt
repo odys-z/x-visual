@@ -38,3 +38,38 @@ Where the hexagon tile are generated with the template:
 
 .. image:: imgs/006-hexatile.png
     :width: 480px
+
+Hexatile is generated as a hexagonal cylinder. Parameters example:
+
+.. code-block:: javascript
+
+    paras: {
+      origin: o3,
+      geostyle: {
+        radius: 45, height: 24,
+        scale: 0.02,
+        maxHeight: 40,
+        groups: 2,
+        onGroup: (fx, feature) => { return fx % 2; }
+      }
+    }
+
+- paras.origin
+
+Specifying the geographically center of xworld;
+
+- paras.geostyle
+
+Specifying how the cylinder been generated, where
+
+-- geostyle.radius: circumvent circle radius.
+
+-- geostyle.scale: geojson's coordinates scale to xworld.
+
+-- geostyle.height: cylinder height, in xworld.
+
+-- geostyle.maxHeight: max heigth that with the highest thermal color.
+
+-- geostyle.groups: total groups. Groups can be used by XTweener for showing different animation.
+
+-- geostyle.onGroup: optional callback for getting group index according to feature.

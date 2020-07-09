@@ -27,13 +27,14 @@
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+								color: 0x00ff00,
                                 segments: 5} },
                 ModelSeqs: { script: [[
                       { mtype: xv.XComponent.AnimType.PATH_MOVE,
                         paras: {start: 0,            // auto start
                                 duration: 9.7,       // from born to death
                                 count: 7,            // total points
-                                interval: 0.2,       // new born after previous
+                                interval: 0.2,       // TODO new born after previous
                                 path: 'p1',          // p1.Obj3.mesh (position array)
                                 ease: xv.XEasing.Elastic.Elastic} }
                 ]] },
@@ -50,13 +51,14 @@
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.GeomCurve,
                         paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
+								color: 0xff00ff,
                                 segments: 5} },
                 ModelSeqs: { script: [[
                       { mtype: xv.XComponent.AnimType.PATH_MOVE,
                         paras: {start: 0,            // auto start
                                 duration: 9.7,       // from born to death
                                 count: 7,            // total points
-                                interval: 0.2,       // new born after previous
+                                interval: 0.2,       // TODO new born after previous
                                 path: 'p1',          // p1.Obj3.mesh (position array)
                                 ease: xv.XEasing.Elastic.Elastic} }
                 ]] },

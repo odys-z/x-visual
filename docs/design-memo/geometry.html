@@ -184,6 +184,33 @@
 </div>
 <p>Where the hexagon tile are generated with the template:</p>
 <a class="reference internal image-reference" href="../_images/006-hexatile.png"><img alt="../_images/006-hexatile.png" src="../_images/006-hexatile.png" style="width: 480px;" /></a>
+<p>Hexatile is generated as a hexagonal cylinder. Parameters example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">origin</span><span class="o">:</span> <span class="nx">o3</span><span class="p">,</span>
+  <span class="nx">geostyle</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">radius</span><span class="o">:</span> <span class="mi">45</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
+    <span class="nx">scale</span><span class="o">:</span> <span class="mf">0.02</span><span class="p">,</span>
+    <span class="nx">maxHeight</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="nx">groups</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">onGroup</span><span class="o">:</span> <span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">feature</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">fx</span> <span class="o">%</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>paras.origin</li>
+</ul>
+<p>Specifying the geographically center of xworld;</p>
+<ul class="simple">
+<li>paras.geostyle</li>
+</ul>
+<p>Specifying how the cylinder been generated, where</p>
+<p>&#8211; geostyle.radius: circumvent circle radius.</p>
+<p>&#8211; geostyle.scale: geojson&#8217;s coordinates scale to xworld.</p>
+<p>&#8211; geostyle.height: cylinder height, in xworld.</p>
+<p>&#8211; geostyle.maxHeight: max heigth that with the highest thermal color.</p>
+<p>&#8211; geostyle.groups: total groups. Groups can be used by XTweener for showing different animation.</p>
+<p>&#8211; geostyle.onGroup: optional callback for getting group index according to feature.</p>
 </div>
 </div>
 

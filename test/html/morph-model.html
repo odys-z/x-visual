@@ -119,15 +119,16 @@
         id: 'line1',
 		Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
 				box: [10],
-				transform: [{ translate: [10, 0, 100] }],
+				transform: [{ translate: [-140, 80, 0] }],
 				uniforms: {opacity: 1.0} },
 		Visual: {
 			vtype:  xv.AssetType.GeomCurve,
 			paras: {
-				points:[[-120, 120, -100], [120, 120, -100],
-						[120, 0, -100], [120, 0, 100]],
+				points:[[-12, 12, -10], [12, 12, -10],
+						[12, 0, -10], [12, 0, 10]],
 				origin: [0, 0, 0],
-				color: 0x0 }, },
+				linewidth: 4,
+				color: 'red' }, },
         ModelSeqs: { script: [[
               { mtype: xv.XComponent.AnimType.ALPHA,
                 paras: {start: 0,
@@ -136,8 +137,8 @@
                         ease: xv.XEasing.Elastic.In} },
               { mtype: xv.XComponent.AnimType.ALPHA,
                 paras: {start: Infinity,        // triggered by entity1
-                        duration: 1.2,          // seconds
-                        alpha: [0.9, 0.01],     // from, to
+                        duration: 6,            // seconds
+                        alpha: [0.9, 0.3],      // from, to
                         ease: xv.XEasing.Elastic.In} }
             ]] },
         CmpTweens: {}
@@ -156,13 +157,8 @@
                            [[0, 0, -20], [0, 0, 20]]],
                     color: 0xffff00,
                     origin: [-140, 50, 0] } },
-        ModelSeqs: { script: [[
-              { mtype: xv.XComponent.AnimType.ALPHA,
-                paras: {start: 0,
-                        duration: 1.2,          // seconds
-                        alpha: [0.06, 0.9],     // from, to
-                        ease: xv.XEasing.Elastic.In} },
-            ]] },
+        // FIXME PointSects can not applying alpha morphing because it's created as a group.
+        // FIXME MorphingAnim checking Obj3.mesh & material for alpha morphing will fail.
     };
     xworld.addEntities(lines);
 
