@@ -1,8 +1,8 @@
 Shadertoy Flame
 ===============
 
-Throbbing Star
---------------
+Blinking Star
+-------------
 
 `reference <https://www.shadertoy.com/view/MdX3zr>`_
 
