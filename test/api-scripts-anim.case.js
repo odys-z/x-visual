@@ -54,7 +54,7 @@ describe('case: [script] anim sequence', function() {
 
             // in version 1.0, only type of sequence animation is supported
             ModelSeqs: {
-                script: [[{ mtype: AnimType.ALPHA,
+                script: [[{ mtype: AnimType.U_ALPHA,
                             paras: {start: 0,         // auto start, only alpha tween in v0.2
                                     duration: 0.8,    // seconds
                                     alpha: [opa0, opa1],
@@ -223,13 +223,13 @@ describe('case: [script] anim sequence', function() {
             Visual:{vtype: AssetType.mesh,
                     asset: undefined },        // use ram texture, can't load 'tex/byr0.png'
             ModelSeqs: {// fade-out now, wait for fade-in
-                script: [[{ mtype: AnimType.ALPHA,
+                script: [[{ mtype: AnimType.U_ALPHA,
                             paras: {start: Infinity,    // start with plane[0][1] at 1.6s
                                     duration: 0.4,        // seconds
                                     alpha: [0.05, 0.95],// fade-in
                                      ease: XEasing.Elastic.In}
                          }],
-                         [{ mtype: AnimType.ALPHA,
+                         [{ mtype: AnimType.U_ALPHA,
                             paras: {start: 0,
                                     duration: 0.4,        // seconds
                                     alpha: [0.95, 0.05],// fade-out
@@ -251,7 +251,7 @@ describe('case: [script] anim sequence', function() {
                     asset: 'cube0',                       // not used, using paras.dest
                     paras:{dest: 'cube0'}},
             ModelSeqs: {
-                script: [[{ mtype: AnimType.ALPHA,
+                script: [[{ mtype: AnimType.U_ALPHA,
                             paras: {start: Infinity,      // triggered by entity1 at 0.4s
                                     duration: 0.4,        // seconds
                                     alpha: [0.05, 0.92],  // fade-in
@@ -265,7 +265,7 @@ describe('case: [script] anim sequence', function() {
                             followBy: [{entity: 'plane',
                                         seqx: 0,          // index of the fade-in
                                         start: 0.0 }] },
-                          { mtype: AnimType.ALPHA,
+                          { mtype: AnimType.U_ALPHA,
                             paras: {start: Infinity,      // triggered by entity1
                                     duration: 0.4,        // seconds
                                     alpha: [0.9, 0.05],   // fade out
@@ -282,7 +282,7 @@ describe('case: [script] anim sequence', function() {
             Visual:{vtype: AssetType.mesh,
                     asset: undefined }, // 'city/textures/World_ap_baseColor.jpeg'
             ModelSeqs: {
-                script: [[{ mtype: AnimType.ALPHA,
+                script: [[{ mtype: AnimType.U_ALPHA,
                             paras: {start: Infinity,    // follow points[0][1], at 1.2s
                                     duration: 0.4,        // seconds
                                     alpha: [0.05, 0.90],// fade in
@@ -290,7 +290,7 @@ describe('case: [script] anim sequence', function() {
                             followBy: [{entity: 'plane',
                                         seqx: 1,        // test follow by itself
                                         start: 0.0 }] }],
-                         [{ mtype: AnimType.ALPHA,
+                         [{ mtype: AnimType.U_ALPHA,
                             paras: {start: Infinity,    // follow at 1.6s
                                     duration: 0.4,
                                     alpha: [0.95, 0.05],// fade out

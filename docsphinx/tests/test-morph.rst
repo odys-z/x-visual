@@ -6,8 +6,8 @@ Test - Morphing & Uniform
 Cate: Morphing transform & color
 --------------------------------
 
-case: AnimType.ALPHA, UNIFORMS, U_MORPHi
-________________________________________
+case: AnimType.U_ALPHA, U_MORPHi
+________________________________
 
 html file::
 
@@ -38,6 +38,32 @@ of *points* will moving between box of *entity1* & *entity2*.
 
 In this case only *u_morph* and *u_alpha* are supported by shader *randomParticles*.
 
+.. _tst-morph-group-alpha:
+
+case: U_ALPHA (Groups & Lines)
+______________________________
+
+Since v0.3.18, U_ALPHA is supporting children updating.
+
+.. image:: imgs/006-group-alpha.jpg
+    :width: 400px
+
+html file::
+
+    test/html/morph-alphas.html
+
+The upper left curve can be animated with AnimType.U_ALPHA. But the middle left
+curve can't animated with U_ALPHA because there is a *dashSize* property and x-visual
+created a curve using THREE.LineDashedMaterial.
+
+The upper right text have a *apply2Children* property of true, which makes x-visual
+try updating all it's children's uniform.u_alpha. If the children meshes can be
+animated with u_alpha, the children meshes will also been updated.
+
+The lower right is a group of lines using THREE.LineSegments object, which is not
+actually a group. 'LineSegments using gl LINES mode for rendering
+<https://threejs.org/docs/index.html#api/en/objects/LineSegments>`_.
+
 case: AnimType.POSITION
 _______________________
 
@@ -49,7 +75,7 @@ This test shows how to update target position and use a animation to move to the
 
 .. literalinclude:: ../../test/html/dynamic-tween-target.html
    :language: javascript
-   :lines: 57-79
+   :lines: 65-95
    :linenos:
 
 The user command interaction is handled in TestDynamicPos.update().
