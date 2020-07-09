@@ -21,74 +21,74 @@
     const ecs = xworld.xecs;
 
     const ents = [];
-	ents.push ( {
-        id: 'pointcurve',
-		Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
-				box: [10],
-				transform: [{ translate: [-140, 80, 0] }],
-				uniforms: {opacity: 1.0} },
-		Visual: {
-			vtype:  xv.AssetType.GeomCurve,
-			paras: {
-				points:[[-30, 30, -0], [30, 30, -0], [30, 0, -0]],
-				origin: [0, 0, 0],
-				linewidth: 8,
-				color: 0xffffff }, },
-        ModelSeqs: { script: [[
-              { mtype: xv.XComponent.AnimType.ALPHA,
-                paras: {start: 0,
-                        duration: 2,
-                        alpha: [0.3, 1],
-                        ease: xv.XEasing.Elastic.In} },
-              { mtype: xv.XComponent.AnimType.ALPHA,
-                paras: {start: Infinity,
-                        duration: 1,
-                        alpha: [1, 0.2],
-                        ease: xv.XEasing.Elastic.In} }
-            ]] },
-        CmpTweens: {}
-    } );
-
-    ents.push ( {
-        id: 'dash',
-		Obj3: {
-			geom: xv.XComponent.Obj3Type.PointCurve,
-			box: [10],
-			transform: [{ translate: [-140, 20, 0] }],
-			uniforms: {opacity: 1.0} },
-		Visual: {
-			vtype:  xv.AssetType.GeomCurve,
-			paras: {
-				points:[[-30, 30, -0], [30, 30, -0], [30, 0, -0]],
-				origin: [0, 0, 0],
-				linewidth: 8,
-				dashSize: 5, gapSize: 3, // so this is a THREE.LineDashedMaterial
-				color: 0xffffff }, },
-    } );
-
-	ents.push ( {
-        id: 'wireframe',
-		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [60, 50],
-				transform: [{ translate: [-140, -20, 0] }],
-				uniforms: {opacity: 1.0} },
-		Visual: {
-			vtype:  xv.AssetType.wireframe,
-			paras: { color: 0xffff00 }, },
-        ModelSeqs: { script: [[
-              { mtype: xv.XComponent.AnimType.ALPHA,
-                paras: {start: 0,
-                        duration: 2,
-                        alpha: [0.3, 1],
-                        ease: xv.XEasing.Elastic.In} },
-              { mtype: xv.XComponent.AnimType.ALPHA,
-                paras: {start: Infinity,
-                        duration: 1,
-                        alpha: [1, 0.4],
-                        ease: xv.XEasing.Elastic.In} }
-            ]] },
-        CmpTweens: {}
-    } );
+	// ents.push ( {
+    //     id: 'pointcurve',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+	// 			box: [10],
+	// 			transform: [{ translate: [-140, 80, 0] }],
+	// 			uniforms: {opacity: 1.0} },
+	// 	Visual: {
+	// 		vtype:  xv.AssetType.GeomCurve,
+	// 		paras: {
+	// 			points:[[-30, 30, -0], [30, 30, -0], [30, 0, -0]],
+	// 			origin: [0, 0, 0],
+	// 			linewidth: 8,
+	// 			color: 0xffffff }, },
+    //     ModelSeqs: { script: [[
+    //           { mtype: xv.XComponent.AnimType.ALPHA,
+    //             paras: {start: 0,
+    //                     duration: 2,
+    //                     alpha: [0.3, 1],
+    //                     ease: xv.XEasing.Elastic.In} },
+    //           { mtype: xv.XComponent.AnimType.ALPHA,
+    //             paras: {start: Infinity,
+    //                     duration: 1,
+    //                     alpha: [1, 0.2],
+    //                     ease: xv.XEasing.Elastic.In} }
+    //         ]] },
+    //     CmpTweens: {}
+    // } );
+	//
+    // ents.push ( {
+    //     id: 'dash',
+	// 	Obj3: {
+	// 		geom: xv.XComponent.Obj3Type.PointCurve,
+	// 		box: [10],
+	// 		transform: [{ translate: [-140, 20, 0] }],
+	// 		uniforms: {opacity: 1.0} },
+	// 	Visual: {
+	// 		vtype:  xv.AssetType.GeomCurve,
+	// 		paras: {
+	// 			points:[[-30, 30, -0], [30, 30, -0], [30, 0, -0]],
+	// 			origin: [0, 0, 0],
+	// 			linewidth: 8,
+	// 			dashSize: 5, gapSize: 3, // so this is a THREE.LineDashedMaterial
+	// 			color: 0xffffff }, },
+    // } );
+	//
+	// ents.push ( {
+    //     id: 'wireframe',
+	// 	Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+	// 			box: [60, 50],
+	// 			transform: [{ translate: [-140, -20, 0] }],
+	// 			uniforms: {opacity: 1.0} },
+	// 	Visual: {
+	// 		vtype:  xv.AssetType.wireframe,
+	// 		paras: { color: 0xffff00 }, },
+    //     ModelSeqs: { script: [[
+    //           { mtype: xv.XComponent.AnimType.ALPHA,
+    //             paras: {start: 0,
+    //                     duration: 2,
+    //                     alpha: [0.3, 1],
+    //                     ease: xv.XEasing.Elastic.In} },
+    //           { mtype: xv.XComponent.AnimType.ALPHA,
+    //             paras: {start: Infinity,
+    //                     duration: 1,
+    //                     alpha: [1, 0.4],
+    //                     ease: xv.XEasing.Elastic.In} }
+    //         ]] },
+    //     CmpTweens: {}
+    // } );
 
 	ents.push ( {
 		id: 'no-child',
