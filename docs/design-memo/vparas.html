@@ -101,6 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#vtype-scaleorb">vtype = scaleOrb</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vtype-worldorbs">vtype = worldOrbs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vtype-orbgroups">vtype = orbGroups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vtype-tiledorbs">vtype = tiledOrbs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vtype-point-or-refpoint">vtype = point or refPoint</a></li>
 </ul>
 </li>
@@ -180,12 +181,33 @@ for general information about Visual component.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">visual</span><span class="o">+</span><span class="n">img</span>
 </pre></div>
 </div>
-<p>with data can only be:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">gray</span><span class="o">-</span><span class="n">pixel</span>
+<p>with data can be one of:</p>
+<div class="highlight-python"><div class="highlight"><pre>gray-pixel  // or grey-pixel
+color-pixel [color(0~1)]
 </pre></div>
 </div>
-<p>which will generate a cheap texture with only one pixel of gray color. It can be
-useful for debugging or create a default material.</p>
+<p>which will generate a cheap texture with only one pixel of gray or of argument
+color. It can be useful for debugging or create a default material.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>asset: &#39;data:application/x-visual+img,color-pixel [1, 0, 1, 0.5]&#39;,
+</pre></div>
+</div>
+<p>test case:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">cd</span><span class="o">-</span><span class="n">express</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>paras.nodes</li>
+</ul>
+<p><strong>Shared by SVG &amp; GLTF assets handler, others ingored</strong></p>
+<p>This parameter used only for creating mesh from gltf assets. It&#8217;s a string array
+of node&#8217;s name in gltf. Model of these nodes will be converted into points.</p>
+<ul class="simple">
+<li>paras.paths</li>
+</ul>
+<p><strong>Not implemented</strong></p>
+<p>This parameter used only for creating mesh from svg assets or geometry data. It&#8217;s
+a string array of path names in svg.</p>
 </div>
 <div class="section" id="paras-only-for-shaderflag-enabled">
 <h2>paras only for ShaderFlag enabled<a class="headerlink" href="#paras-only-for-shaderflag-enabled" title="Permalink to this headline">¶</a></h2>
@@ -311,6 +333,23 @@ updated 10 percent later.</p>
 <p>Orb&#8217;s visible range, 0 ~ 1. The group will be hidden when t is out of range. t
 means the tweening weight updated each frame by XTweener.</p>
 </div>
+<div class="section" id="vtype-tiledorbs">
+<span id="visual-para-tiledorbs"></span><h2>vtype = tiledOrbs<a class="headerlink" href="#vtype-tiledorbs" title="Permalink to this headline">¶</a></h2>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">hexacylinder</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">epsg4326</span><span class="o">-</span><span class="n">points</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p><em>tiledOrbs</em> should been used with tiled geometry - currently only tiles generated
+as <a class="reference internal" href="geometry.html#geom-hexatile"><span>hexacylinder</span></a>.</p>
+<p><em>tiledOrbs</em> is a super set of <em>worldOrbs</em>. In addition, has:</p>
+<ul class="simple">
+<li>paras.thermalColors</li>
+</ul>
+<p>Specifying the 3 colors used for showing tile&#8217;s height. First color is of height
+0, last for max height.</p>
+<p>See <a class="reference internal" href="../tests/test-geom.html#tst-geom-hexatile"><span>test case</span></a> for parameter example explained.</p>
+</div>
 <div class="section" id="vtype-point-or-refpoint">
 <h2>vtype = point or refPoint<a class="headerlink" href="#vtype-point-or-refpoint" title="Permalink to this headline">¶</a></h2>
 <p>It&#8217;s been used for vtype = <a class="reference internal" href="renderer.html#vtype-refpoint"><span>AssetType.refPoint</span></a> or
@@ -324,16 +363,6 @@ visible points, as particles (e.g. the vertices are tweened with uniforms).</p>
 <p>If the Visual.asset parameter is null or undefined, the Obj3.mesh will be created
 by Thrender using this entity.Visual.paras.obj3type, which can be one of geometry
 type of <a class="reference internal" href="../reference/components.html#api-xcomponents"><span>XComponent</span></a> value.</p>
-<ul class="simple">
-<li>paras.nodes</li>
-</ul>
-<p>This parameter used only for creating mesh from gltf assets. It&#8217;s a string array
-of node&#8217;s name in gltf. Model of these nodes will be converted into points.</p>
-<ul class="simple">
-<li>paras.paths</li>
-</ul>
-<p>This parameter used only for creating mesh from svg assets. It&#8217;s a string array
-of path names in svg.</p>
 <p>&#8211; For AssetType.refPoint</p>
 <p>TODO test case as example.</p>
 <p>&#8211; For AssetType.voxel</p>
@@ -342,10 +371,10 @@ WebGl point.</p>
 <ul class="simple">
 <li>paras.noise</li>
 </ul>
+<p><strong>Not implemented</strong></p>
 <p>If true, the generated Object3D object will have a &#8216;a_noise&#8217; attribute. For animation
 type <a class="reference internal" href="animizer.html#animtype-u-morphi"><span>AnimType.U_MORPHi</span></a> and <a class="reference internal" href="animizer.html#animtype-uniform"><span>AnimType UNIFORM</span></a>,
 this value is used for scale the distance.</p>
-<p>** Not implemented **</p>
 <ul class="simple">
 <li>paras.vert_scale</li>
 </ul>

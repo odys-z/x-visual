@@ -5,9 +5,17 @@
 	<title>XTest - Geo Tiles</title>
 	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>input[id] {width: 4.9em}</style>
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <br>1: move <input id='s1v' value='0.1'/>, color<input id='s1f' value='0.0'/> |
+	  2: move <input id='s2v' value='0.0'/>, color<input id='s2f' value='0.01'/>
+	  <input type='button' onclick='onset()' value='update speed'/>
+  <br><textarea id="txt" rows="9" cols="73"></textarea>
+  <p><a href='https://odys-z.github.io/x-visual/tests/test-geom.html#tst-geom-hexatile'>
+	  Test Case Introduction</a></p>
+
   <script>
 	"use strict";
 
@@ -17,7 +25,6 @@
 		{ "type": "Feature", "properties": {"height": 2},
 		  "geometry": {
 			"type": "Point",
-			// "coordinates": [11585311.96, 3597212.54]
 			"coordinates": [11582330.91, 3597527.85]
 		  }
 		},
@@ -28,8 +35,11 @@
 		}
 	  ]
 	};
+	document.getElementById('txt').value = JSON.stringify(json0);
 	var o0 = [11582330.91, 3597527.85];
-	var o1 = [11575000,	3597527.85];
+	var o1 = [11585000,	   3587000   ];
+	var o2 = [11575000,	   3590000   ];
+	var o3 = [11582330,    3604000   ];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
@@ -52,8 +62,7 @@
 				// tile geometry
 				features: json0.features,
 				origin: o0,
-				radius: 40, height: 30,
-				style: { geoScale: 0.02 },
+				geostyle: { radius: 40, height: 30, scale: 0.02 },
 			},
 			asset: '../../assets/tex/ruler256.png' } ,
 	  },
@@ -75,9 +84,7 @@
 				// tile geometry
 				features: json0.features,
 				origin: o1,
-				radius: 30, height: 30,
-				style: { geoScale: 0.02 } },
-			// asset: '../../assets/tex/ruler256.png' } ,
+				geostyle: { radius: 30, height: 30, scale: 0.02 } },
 			} ,
 		ModelSeqs: { script:
 			[ [{mtype:  xv.XComponent.AnimType.U_MORPHi,
@@ -96,10 +103,113 @@
 								seqx: 0,
 								start: 0}]  } }] ]
 			}
+	  },
+	  { id: 'layer0',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.tiledOrbs,
+			paras: {
+				side: THREE.FrontSide,
+				// shader orb
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0.7, 0.7, 0], [1, 0, 1]],
+				orbR: [4, 7, 5, 4, 5],
+				offsets: [[-20, 0, 0], [0, 0, 0], [20, 0, -0], [0, 0, 20], [0, 0, -20]],
+				whiteAlpha: 0.2,	// out of range alpha
+		        orbScale: [5, 1, 5],
+				// tile geometry
+				features: json0.features,
+				origin: o2,
+				geostyle: { radius: 42, height: 5, scale: 0.02 },
+			},
+			asset: '../../assets/tex/rgb2x2.png' } ,
 	  }
-   ]);
+	]);
+
+	var [l2, l3] = xworld.addEntities([
+	  { id: 'layer2',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				transform: [ { translate: [0, 40, 0] } ],
+				box: [] },
+		Visual: {
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.tiledOrbs,
+			paras: {
+				side: THREE.FrontSide,
+				// shader orb
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0.7, 0.7, 0], [1, 0, 1],
+						 [0, 0, 1], [0, 1, 0], [1, 0, 0], [0.7, 0.7, 0], [1, 0, 1]],
+				orbR: [2, 8, 2, 1.4, 3, 2, 3, 2, 1.4, 3],
+				offsets: [[-20, 0, 0], [0, 0, 0], [20, 0, -0], [0, 0, 20], [0, 0, -20],
+						  [-10, 0, 10], [10, 0, 10], [5, 0, -12], [5, 0, 12], [-5, 0, -12]],
+				whiteAlpha: 0.3,	// out of range alpha
+		        orbScale: [3, 3, 4],
+				// tile geometry
+				features: json0.features,
+				origin: o2,
+				geostyle: { radius: 42, height: 1.2, scale: 0.02,
+					groups: 2,
+					// Each group using it's speed.frag & vert, so group morphing can be changed
+					onGroup: (fx, feature) => { return fx % 2; } },
+			},
+			asset: '../../assets/tex/rgb2x2.png' } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.002,   // speed para alwasy comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {} },
+
+	  { id: 'layer3',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				box: [] },
+		Visual: {
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.tiledOrbs,
+			paras: {
+				side: THREE.FrontSide,
+				// shader orb
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0.7, 0.7, 0], [1, 0, 1],
+						 [0, 0, 1], [0, 1, 0], [1, 0, 0], [0.7, 0.7, 0], [1, 0, 1]],
+				orbR: [2, 8, 2, 1.4, 3, 2, 3, 2, 1.4, 3],
+				offsets: [[-20, 0, 0], [0, 0, 0], [20, 0, -0], [0, 0, 20], [0, 0, -20],
+						  [-10, 0, 10], [10, 0, 10], [5, 0, -12], [5, 0, 12], [-5, 0, -12]],
+				whiteAlpha: 0.8,	// out of range alpha
+		        orbScale: [3, 3, 4],
+				thermalColors: [[0, 0, 1], [1, 1, 0], [1, 0, 0]],
+				// tile geometry
+				features: json0.features,
+				origin: o3,
+				geostyle: { radius: 45, height: 24, scale: 0.02,
+					maxHeight: 40,       // for distributing thermal color
+					groups: 2,
+					onGroup: (fx, feature) => { return fx % 2; } }, // then update() can change morphings
+			},
+			asset: '../../assets/tex/rgb2x2.png' } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.002,   // speed para alwasy comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {}
+	  }
+	]);
 
 	xworld.startUpdate();
+
+    function onset () {
+		xv.MorphingAnim.setGroupSpeed(l2.Obj3, 0, {
+			frag: document.getElementById('s1f').value,
+			vert: document.getElementById('s1v').value } );
+		xv.MorphingAnim.setGroupSpeed(l2.Obj3, 1, {
+			frag: document.getElementById('s2f').value,
+			vert: document.getElementById('s2v').value } );
+	}
   </script>
 </body>
 </html>

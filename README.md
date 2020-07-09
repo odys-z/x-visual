@@ -27,6 +27,18 @@ It's also the npm package name.
 
 ## test (without server)
 
+X-visual using two ways to test.
+
+### html pages
+
+This way needing clone from git repository like:
+
+~~~
+   git clone https://github.com/odys-z/x-visual.git
+~~~
+
+Then using webpack to transpile the tests.
+
 There html test pages are located in test/html, which can be opened directly from
 local file system:
 
@@ -36,8 +48,10 @@ local file system:
 
 Some of them are explained in [docs/tests & examples](https://odys-z.github.io/x-visual/tests)
 
+### npm test
+
 **X-visual initially use Mocha for unit test, but is considering reducing test
-cases currently. So the "npm test" way is not working yet.**
+cases currently. So the "npm test" way is not always working.**
 
 The project uses Mocha and Chai for testing, imports like this.
 

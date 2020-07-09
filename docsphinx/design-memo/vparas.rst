@@ -25,12 +25,35 @@ X-visual can handle data of MIME type of::
 
     application/x-visual+img
 
-with data can only be::
+with data can be one of::
 
-   gray-pixel
+   gray-pixel  // or grey-pixel
+   color-pixel [color(0~1)]
 
-which will generate a cheap texture with only one pixel of gray color. It can be
-useful for debugging or create a default material.
+which will generate a cheap texture with only one pixel of gray or of argument
+color. It can be useful for debugging or create a default material.
+
+Example::
+
+    asset: 'data:application/x-visual+img,color-pixel [1, 0, 1, 0.5]',
+
+test case::
+
+    test/html/map3d/cd-express.html
+
+- paras.nodes
+
+**Shared by SVG & GLTF assets handler, others ingored**
+
+This parameter used only for creating mesh from gltf assets. It's a string array
+of node's name in gltf. Model of these nodes will be converted into points.
+
+- paras.paths
+
+**Not implemented**
+
+This parameter used only for creating mesh from svg assets or geometry data. It's
+a string array of path names in svg.
 
 paras only for ShaderFlag enabled
 ---------------------------------
@@ -173,6 +196,28 @@ updated 10 percent later.
 Orb's visible range, 0 ~ 1. The group will be hidden when t is out of range. t
 means the tweening weight updated each frame by XTweener.
 
+.. _visual-para-tiledorbs:
+
+vtype = tiledOrbs
+-----------------
+
+test::
+
+    test/html/map3d/hexacylinder.html
+    test/html/map3d/epsg4326-points.html
+
+*tiledOrbs* should been used with tiled geometry - currently only tiles generated
+as :ref:`hexacylinder<geom-hexatile>`.
+
+*tiledOrbs* is a super set of *worldOrbs*. In addition, has:
+
+- paras.thermalColors
+
+Specifying the 3 colors used for showing tile's height. First color is of height
+0, last for max height.
+
+See :ref:`test case<tst-geom-hexatile>` for parameter example explained.
+
 vtype = point or refPoint
 -------------------------
 
@@ -192,16 +237,6 @@ If the Visual.asset parameter is null or undefined, the Obj3.mesh will be create
 by Thrender using this entity.Visual.paras.obj3type, which can be one of geometry
 type of :ref:`XComponent <api-xcomponents>` value.
 
-- paras.nodes
-
-This parameter used only for creating mesh from gltf assets. It's a string array
-of node's name in gltf. Model of these nodes will be converted into points.
-
-- paras.paths
-
-This parameter used only for creating mesh from svg assets. It's a string array
-of path names in svg.
-
 -- For AssetType.refPoint
 
 TODO test case as example.
@@ -213,11 +248,11 @@ WebGl point.
 
 - paras.noise
 
+**Not implemented**
+
 If true, the generated Object3D object will have a 'a_noise' attribute. For animation
 type :ref:`AnimType.U_MORPHi <animtype-u-morphi>` and :ref:`AnimType UNIFORM<animtype-uniform>`,
 this value is used for scale the distance.
-
-** Not implemented **
 
 - paras.vert_scale
 

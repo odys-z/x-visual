@@ -100,6 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#affine-transformation-references">Affine Transformation References:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#obj3-geometry">Obj3 &amp; Geometry</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#obj3type-mapxzroad">Obj3Type.MapXZRoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#obj3type-hexatile">Obj3Type.Hexatile</a></li>
 </ul>
 </li>
 </ul>
@@ -326,8 +327,17 @@ subclasses. See <a class="reference external" href="https://odys-z.github.io/jav
 stored in Obj3.datum, in {paths, dirty}.</p>
 <p>Some animation type like AnimType.U_PATHn_MORPH will take this as it&#8217;s own&#8217;s Obj3
 datum.ref object and can tweening path without noticing paths&#8217; data changed.</p>
-<p>See the <a class="reference internal" href="../tests/test-geom.html#test-geom"><span>ShaderFlag.orbGroups test case</span></a> &amp;
-<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz">xgeom.generateWayxz()</a>.</p>
+<p>See the <a class="reference internal" href="../tests/test-geom.html#test-geom"><span>Geometry Tests</span></a> &amp;
+<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz">xgeom.generateWayxz() API</a>.</p>
+</div>
+<div class="section" id="obj3type-hexatile">
+<span id="obj3-hexatile-guide"></span><h3>Obj3Type.Hexatile<a class="headerlink" href="#obj3type-hexatile" title="Permalink to this headline">¶</a></h3>
+<p>Generate a hexagonal tiles module from json similar with geojson, except that it&#8217;s
+recommended using EPSG 3857 coordinates. Coordinates in EPSG 4326 can be directly
+applied if showing a small area and geoScale is large enough.</p>
+<p>See the test <a class="reference internal" href="../tests/test-geom.html#tst-geom-hexatile"><span>Case: Hexatile from Geojson</span></a> &amp;
+<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xgeom.html#hexacylinder3857">xgeom.hexacylinder3857() API</a>.</p>
+<p><a class="reference internal" href="geometry.html#geom-hexatile"><span>Memo: hexagon tile generation</span></a></p>
 </div>
 </div>
 </div>
