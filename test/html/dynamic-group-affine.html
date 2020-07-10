@@ -11,10 +11,76 @@
   <script>
     "use strict";
 
-    class TestGroupAffine extends xv.XSys {
+    class PlaneGroup extends xv.XSys {
         constructor(ecs, options) {
             super(ecs);
             this.ecs = ecs;
+
+            this.init();
+        }
+
+        /** Create plane grooup
+         * @member PlaneGroup#init
+         * @function
+         */
+        init() {
+            var ents = [];
+            ents.push( {
+                id: 'bg',
+                Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                        box: [160, 160] },
+                Visual:{vtype: xv.AssetType.mesh,
+                        asset: 'tex/ruler256.png' },
+                ModelSeqs: { script: [
+                    [ { mtype:  xv.XComponent.AnimType.POSITION,
+                        paras:{ start: 0,
+                                translate: [[0, 0, 0], [100, 0, 0]],
+                                ease: undefined},
+                      } ],
+                    [ { mtype:  xv.XComponent.AnimType.SCALE,
+                        paras:{ start: Infinity,
+                                scale: [[1, 1, 1], [2, 1, 1]],
+                                ease: undefined} } ],
+                    [ { mtype:  xv.XComponent.AnimType.SCALE,
+                        paras:{ start: Infinity,
+                                scale: [[1, 1, 1], [0.5, 2, 1]],
+                                ease: undefined} } ],
+					[ { mtype: xv.XComponent.AnimType.U_ALPHA,
+			            paras: {start: Infinity,
+            					apply2Children: true,
+			                    alpha: [1, 0],
+			                    ease: xv.XEasing.Elastic.In} },
+			          { mtype: xv.XComponent.AnimType.U_ALPHA,
+			            paras: {start: Infinity,
+            					apply2Children: true,
+			                    duration: 1,
+			                    alpha: [0, 1],
+			                    ease: xv.XEasing.Elastic.In} } ]
+                ] },
+                CmpTweens: {}
+            } );
+
+			var stride = 160 / 4;
+			var vector = [30, 40, 90, 70]; // data
+			for (var cx = 0; cx < 4; cx++) {
+				var h = vector[cx];
+                // x: - (bg.x / 2 - child1.x / 2 - marginLeft )
+                // y: - (bg.h / 2 - child1.h / 2 )
+                // z: prevent z competation
+				var x = -160/2 + 4 + 10 + cx * stride;
+				var y = -160/2 + h/2;
+				var z = 1;
+	            ents.push( {
+	                id: 'child' + cx,
+	                Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+	                        group: 'bg',
+	                        transform: [ { translate: [x, y, z] } ],
+	                        box: [8, h] },
+	                Visual:{vtype: xv.AssetType.mesh,
+	                        asset: 'data:application/x-visual+img,color-pixel [0.9, 0.7, 0.2]' },
+	            } );
+			}
+            xworld.addEntities(ents);
         }
 
         update(tick, entities) {
@@ -22,6 +88,8 @@
                 var cmd = xworld.xview.cmds[0].cmd
                 if (cmd) {
                     for (const e of entities) {
+						if (e.id !== 'bg') continue;
+
                         if (!xv.XTweener.isPlaying(e.CmpTweens, 0)) {
                             // see animizer
                             // cmp.affines.push({interpos: {positions, t}, vec3: new vec3()}); // vec3 is a buffer
@@ -45,53 +113,23 @@
                                             [1, 0.5, 1]); // change first interpos.scale[1]
                                 e.CmpTweens.startCmds.push(1);
                             }
+                            else if (cmd === 'fire') {
+                                e.CmpTweens.startCmds.push(3);
+                            }
                         }
                     }
                 }
             }
         }
     }
-    TestGroupAffine.query = { iffall: ['Obj3', 'CmpTweens'] };
+    PlaneGroup.query = { iffall: ['Obj3', 'CmpTweens'] };
 
     // initiating xworld
     const xworld = new xv.XWorld(document.getElementById('canv'),
                         window, {canvasize: [480, 320]});
     const ecs = xworld.xecs;
 
-    xworld.addSystem('test', new TestDynamicPos(ecs, {}));
-
-    const ent1 = {
-        id: 'entity1',
-        Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-                box: [80, 80, 80] },
-        Visual:{vtype: xv.AssetType.mesh,
-                asset: 'tex/byr0.png' },
-        ModelSeqs: { script: [
-            [ { mtype: xv.XComponent.AnimType.POSITION,
-                paras:{start: 0,
-                       translate: [[0, 0, 0], [100, 0, 0]],
-                       ease: undefined},
-                // onComplete: function( tObj, twn ) {//bug?
-                //     let entity = twn.parent.entity;
-                //     xv.XTweener.startSeq(entity.CmpTweens, 1);
-                // }
-              } ],
-            [ { mtype: xv.XComponent.AnimType.SCALE,
-                paras:{start: Infinity,
-                       scale: [[1, 1, 1], [2, 1, 1]],
-                       ease: undefined} } ],
-            [ { mtype: xv.XComponent.AnimType.SCALE,
-                paras:{start: Infinity,
-                       scale: [[1, 1, 1], [0.5, 2, 1]],
-                       ease: undefined} } ]
-            ],
-            fFinished: [ ( twns, seqx ) => {
-                    xv.XTweener.startSeq(twns, 1);
-                } ]
-        },
-        CmpTweens: {}
-    };
-    xworld.addEntities(ent1);
+    xworld.addSystem('test', new PlaneGroup(ecs, {}));
 
     xworld.startUpdate();
   </script>

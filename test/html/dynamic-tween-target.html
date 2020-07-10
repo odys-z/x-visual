@@ -60,7 +60,7 @@
 
     xworld.addSystem('test', new TestDynamicPos(ecs, {}));
 
-    /// pinned line 65-95: tests/tests-morph.rst
+    /// pinned line 65-90: tests/tests-morph.rst
 
     const ent1 = {
         id: 'entity1',
@@ -70,27 +70,22 @@
                 asset: 'tex/byr0.png' },
         ModelSeqs: { script: [
             [ { mtype: xv.XComponent.AnimType.POSITION,
-                paras:{start: 0,
-                       translate: [[0, 0, 0], [100, 0, 0]],
-                       ease: undefined},
-                // onComplete: function( tObj, twn ) {//bug?
-                //     let entity = twn.parent.entity;
-                //     xv.XTweener.startSeq(entity.CmpTweens, 1);
-                // }
+                paras:{ start: 0,
+                        translate: [[0, 0, 0], [0, 0, 0]],
+                        ease: undefined},
               } ],
             [ { mtype: xv.XComponent.AnimType.SCALE,
-                paras:{start: Infinity,
-                       scale: [[1, 1, 1], [2, 1, 1]],
-                       ease: undefined} } ],
+                paras:{ start: Infinity,
+                        scale: [[1, 1, 1], [2, 1, 1]],
+                        ease: undefined} } ],
             [ { mtype: xv.XComponent.AnimType.SCALE,
-                paras:{start: Infinity,
-                       scale: [[1, 1, 1], [0.5, 2, 1]],
-                       ease: undefined} } ]
-            ],
-            fFinished: [ ( twns, seqx ) => {
+                paras:{ start: Infinity,
+                        scale: [[1, 1, 1], [0.5, 2, 1]],
+                        ease: undefined},
+                fFinished: [ ( twns, seqx ) => {
                     xv.XTweener.startSeq(twns, 1);
-                } ]
-        },
+                } ] } ]
+        ] },
         CmpTweens: {}
     };
 
