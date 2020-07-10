@@ -209,7 +209,10 @@ and moving the points while changing the alpha.</p>
 37
 38
 39
-40</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="kr">const</span> <span class="nx">points</span> <span class="o">=</span> <span class="p">{</span>
+40
+41
+42
+43</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="kr">const</span> <span class="nx">points</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span>
         <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">NA</span><span class="p">,</span> <span class="c1">// use the geometry of entity1</span>
                 <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
@@ -249,6 +252,9 @@ and moving the points while changing the alpha.</p>
     <span class="p">};</span>
 
     <span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span><span class="nx">points</span><span class="p">);</span>
+
+
+    <span class="c1">/////// end pin</span>
 </pre></div>
 </td></tr></table></div>
 <p>In MorphSeqs.script, the moving points, entity id of &#8216;points&#8217;, is defined as a
@@ -261,7 +267,9 @@ of <em>points</em> will moving between box of <em>entity1</em> &amp; <em>entity2
 </div>
 <div class="section" id="case-u-alpha-groups-lines">
 <span id="tst-morph-group-alpha"></span><h3>case: U_ALPHA (Groups &amp; Lines)<a class="headerlink" href="#case-u-alpha-groups-lines" title="Permalink to this headline">¶</a></h3>
-<p>Since v0.3.18, U_ALPHA is supporting children updating.</p>
+<p>Since v0.3.18, U_ALPHA is supporting children updating, i.e. parent mesh.material.
+uniforms.u_alpha will be copied to mesh.chirldren.uniforms.u_alpha. This copying
+can support alpha morphing for mesh trees like Dynatex.</p>
 <a class="reference internal image-reference" href="../_images/006-group-alpha.jpg"><img alt="../_images/006-group-alpha.jpg" src="../_images/006-group-alpha.jpg" style="width: 400px;" /></a>
 <p>html file:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">alphas</span><span class="o">.</span><span class="n">html</span>
@@ -274,8 +282,7 @@ created a curve using THREE.LineDashedMaterial.</p>
 try updating all it&#8217;s children&#8217;s uniform.u_alpha. If the children meshes can be
 animated with u_alpha, the children meshes will also been updated.</p>
 <p>The lower right is a group of lines using THREE.LineSegments object, which is not
-actually a group. &#8216;LineSegments using gl LINES mode for rendering
-&lt;<a class="reference external" href="https://threejs.org/docs/index.html#api/en/objects/LineSegments">https://threejs.org/docs/index.html#api/en/objects/LineSegments</a>&gt;`_.</p>
+actually a group. &#8216;LineSegments using gl LINES mode for rendering &lt;<a class="reference external" href="https://threejs.org/docs/index.html#api/en/objects/LineSegments">https://threejs.org/docs/index.html#api/en/objects/LineSegments</a>&gt;`_.</p>
 </div>
 <div class="section" id="case-animtype-position">
 <h3>case: AnimType.POSITION<a class="headerlink" href="#case-animtype-position" title="Permalink to this headline">¶</a></h3>

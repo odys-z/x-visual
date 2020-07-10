@@ -43,7 +43,9 @@ In this case only *u_morph* and *u_alpha* are supported by shader *randomParticl
 case: U_ALPHA (Groups & Lines)
 ______________________________
 
-Since v0.3.18, U_ALPHA is supporting children updating.
+Since v0.3.18, U_ALPHA is supporting children updating, i.e. parent mesh.material.
+uniforms.u_alpha will be copied to mesh.chirldren.uniforms.u_alpha. This copying
+can support alpha morphing for mesh trees like Dynatex.
 
 .. image:: imgs/006-group-alpha.jpg
     :width: 400px
@@ -61,8 +63,7 @@ try updating all it's children's uniform.u_alpha. If the children meshes can be
 animated with u_alpha, the children meshes will also been updated.
 
 The lower right is a group of lines using THREE.LineSegments object, which is not
-actually a group. 'LineSegments using gl LINES mode for rendering
-<https://threejs.org/docs/index.html#api/en/objects/LineSegments>`_.
+actually a group. 'LineSegments using gl LINES mode for rendering <https://threejs.org/docs/index.html#api/en/objects/LineSegments>`_.
 
 case: AnimType.POSITION
 _______________________

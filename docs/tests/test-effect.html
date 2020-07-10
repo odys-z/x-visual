@@ -165,8 +165,8 @@
  7
  8
  9
-10</pre></div></td><td class="code"><div class="highlight"><pre>            <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
-                <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;plane&#39;</span><span class="p">,</span>
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre>                <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;plane&#39;</span><span class="p">,</span>
                 <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">PLANE</span><span class="p">,</span>
                         <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">360</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
                         <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
@@ -175,6 +175,8 @@
                         <span class="nx">asset</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
                 <span class="nx">Occluder</span><span class="o">:</span> <span class="p">{</span><span class="nx">FlowingPath</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span>
             <span class="p">});</span>
+
+            <span class="c1">// for debug</span>
 </pre></div>
 </td></tr></table></div>
 <p>This file also show a user defined curve:</p>
@@ -189,8 +191,7 @@
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre>            <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
-                <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;squre&#39;</span><span class="p">,</span>
+12</pre></div></td><td class="code"><div class="highlight"><pre>                <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;squre&#39;</span><span class="p">,</span>
                 <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">PointCurve</span><span class="p">,</span>
                         <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span>  <span class="c1">// curve division</span>
                         <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>
@@ -201,6 +202,7 @@
                                          <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">]],</span>
                                 <span class="nx">color</span><span class="o">:</span> <span class="mh">0xffff00</span><span class="p">,</span> <span class="nx">linewidth</span><span class="o">:</span> <span class="mi">2</span><span class="p">}</span> <span class="p">},</span>
                 <span class="nx">FlowingPath</span><span class="o">:</span> <span class="p">{</span> <span class="nx">paras</span><span class="o">:</span> <span class="p">[</span> <span class="p">]</span> <span class="p">}</span>
+            <span class="p">});</span>
 </pre></div>
 </td></tr></table></div>
 <p>As The plane entity is specified as an FlowingPath Occluder, it has post effects
