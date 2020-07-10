@@ -58,7 +58,7 @@ Example:
 
         // in version 1.0, only type of sequential animation is supported
         ModelSeqs: {
-            script: [[{ mtype: AnimType.ALPHA,
+            script: [[{ mtype: AnimType.U_ALPHA,
                         paras: {start: 0,         // auto start, only alpha tween in v0.2
                                 duration: 0.8,    // seconds
                                 alpha: [opa0, opa1],
@@ -438,8 +438,8 @@ Three.js implementation
 ..
 
 
-AnimType.ALPHA paras
-____________________
+AnimType.U_ALPHA paras
+______________________
 
 - alpha:
 

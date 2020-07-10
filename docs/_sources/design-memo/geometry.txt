@@ -56,7 +56,7 @@ Hexatile is generated as a hexagonal cylinder. Parameters example:
 
 - paras.origin
 
-Specifying the geographically center of xworld;
+Specifying the geographically center of xworld
 
 - paras.geostyle
 
@@ -69,6 +69,10 @@ Specifying how the cylinder been generated, where
 -- geostyle.height: cylinder height, in xworld.
 
 -- geostyle.maxHeight: max heigth that with the highest thermal color.
+
+The thermal colors can word only with :ref:`tiledOrbs<visual-para-tiledorbs>`
+shader. If a cylinder tile's heigth is higher than maxHeight, the higher part
+will be applied with the max color.
 
 -- geostyle.groups: total groups. Groups can be used by XTweener for showing different animation.
 

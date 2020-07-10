@@ -8,9 +8,16 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p><a href='https://odys-z.github.io/x-visual/tests/test-morph.html#tst-morph-group-alpha'>
+	  Test Case Introduction</a></p>
   <p>Dashed line doesn't support alpha animation, see
 	  <a href='https://discourse.threejs.org/t/change-opacity-using-fat-lines-example/5523'>
 	  discussion on Three.js</a>.</p>
+  <p>About ModelSeqs.scrpt.apply2Children:<br>
+	  This parameter is used to propogate parent's tweened uniform value to child meshes.<br>
+	  It's planned to support all uniform variables, but currently only
+	  <a href='https://odys-z.github.io/javadoc/x-visual/XComponent.html#animtype-ualpha'>
+	AnimType.U_ALPHA</a> heritage is supported.</p>
   <script>
     "use strict";
 
@@ -33,12 +40,12 @@
 				linewidth: 8,
 				color: 0xffffff }, },
         ModelSeqs: { script: [[
-              { mtype: xv.XComponent.AnimType.ALPHA,
+              { mtype: xv.XComponent.AnimType.U_ALPHA,
                 paras: {start: 0,
                         duration: 2,
                         alpha: [0.3, 1],
                         ease: xv.XEasing.Elastic.In} },
-              { mtype: xv.XComponent.AnimType.ALPHA,
+              { mtype: xv.XComponent.AnimType.U_ALPHA,
                 paras: {start: Infinity,
                         duration: 1,
                         alpha: [1, 0.2],
@@ -74,12 +81,12 @@
 			vtype:  xv.AssetType.wireframe,
 			paras: { color: 0xffff00 }, },
         ModelSeqs: { script: [[
-              { mtype: xv.XComponent.AnimType.ALPHA,
+              { mtype: xv.XComponent.AnimType.U_ALPHA,
                 paras: {start: 0,
                         duration: 2,
                         alpha: [0.3, 1],
                         ease: xv.XEasing.Elastic.In} },
-              { mtype: xv.XComponent.AnimType.ALPHA,
+              { mtype: xv.XComponent.AnimType.U_ALPHA,
                 paras: {start: Infinity,
                         duration: 1,
                         alpha: [1, 0.4],
@@ -89,7 +96,7 @@
     } );
 
 	ents.push ( {
-		id: 'no-child',
+		id: 'app-child',
 		Obj3: {
 			geom: xv.XComponent.Obj3Type.PLANE,
 			box: [128, 48],
@@ -102,7 +109,7 @@
 			  'data:application/x-visual+img,color-pixel [1/16, 12/16, 7/16]'
 			] }},
 		Dynatex: {
-			text: 'No Children',
+			text: 'apply2Child = true',
 			lookScreen: true,
 			xywh: {x: 0, y: 0, w: 128, h: 24,
 				size: 64,         // text x, y, size(px)
@@ -112,12 +119,14 @@
 			font: 'Arial',
 			style: '#1c7'},
         ModelSeqs: { script: [[
-          { mtype: xv.XComponent.AnimType.ALPHA,
+          { mtype: xv.XComponent.AnimType.U_ALPHA,
+            apply2Children: true, // see html page in browser
             paras: {start: 0,
                     duration: 2,
                     alpha: [0.3, 1],
                     ease: xv.XEasing.Elastic.In} },
-          { mtype: xv.XComponent.AnimType.ALPHA,
+          { mtype: xv.XComponent.AnimType.U_ALPHA,
+            apply2Children: true,
             paras: {start: Infinity,
                     duration: 1,
                     alpha: [1, 0.3],
@@ -126,6 +135,80 @@
         CmpTweens: {},
 		GpuPickable: {}
 	} );
+
+	ents.push ( {
+		id: 'no-child',
+		Obj3: {
+			geom: xv.XComponent.Obj3Type.PLANE,
+			box: [128, 48],
+			transform: [ { translate: [20, 40, -0] } ],
+			mesh: undefined },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.ShaderFlag.colorArray,
+			paras: { u_tex: [     // color: '#1c7'
+			  'data:application/x-visual+img,color-pixel [1/16, 12/16, 7/16]'
+			] }},
+		Dynatex: {
+			text: 'No Child Aplha',
+			lookScreen: true,
+			xywh: {x: 0, y: 0, w: 128, h: 24,
+				size: 64,         // text x, y, size(px)
+				margin: 4 },      // text margin
+			'bg-color': 'white',
+			'v-align': 'top',
+			font: 'Arial',
+			style: '#1c7'},
+        ModelSeqs: { script: [[
+          { mtype: xv.XComponent.AnimType.U_ALPHA,
+            paras: {start: 0,
+                    duration: 2,
+                    alpha: [0.3, 1],
+                    ease: xv.XEasing.Elastic.In} },
+          { mtype: xv.XComponent.AnimType.U_ALPHA,
+            paras: {start: Infinity,
+                    duration: 1,
+                    alpha: [1, 0.3],
+                    ease: xv.XEasing.Elastic.In} }
+        ]] },
+        CmpTweens: {},
+		GpuPickable: {}
+	} );
+
+    ents.push ( {
+        id: 'segments',
+        Obj3: {
+            geom: xv.XComponent.Obj3Type.PointSects,
+            box: [],
+            transform: [ { translate: [20, -20, -0] } ],
+            mesh: undefined },
+        Visual:{
+            vtype: xv.AssetType.DynaSects,
+            paras: { // material
+                color: 0xffff00,
+                linewidth: 4,
+                // geometry
+                sects:[ [[-62, 20, 0], [66, 20, 0]], [[-62, -20, 0], [66, -20, 0]],
+                    [[-20, 5, 0], [20, -5, 0]],
+                    [[0, -10, 0], [0, 10, 0]],
+                    [[10, 5, -10], [-10, -5, 10]] ],
+                origin: [-0, 0, 0] } },
+        ModelSeqs: { script: [[
+          { mtype: xv.XComponent.AnimType.U_ALPHA,
+            apply2Children: true, // see html page in browser
+            paras: {start: 0,
+                    duration: 2,
+                    alpha: [0.3, 1],
+                    ease: xv.XEasing.Elastic.In} },
+          { mtype: xv.XComponent.AnimType.U_ALPHA,
+            apply2Children: true,
+            paras: {start: Infinity,
+                    duration: 1,
+                    alpha: [1, 0.3],
+                    ease: xv.XEasing.Elastic.In} }
+        ]] },
+        CmpTweens: {},
+    } );
 
     xworld.addEntities(ents);
 
