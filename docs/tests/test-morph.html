@@ -96,7 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#case-gltf-handling">case: GLTF Handling</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#case-animtype-gltf">case: AnimType.gltf</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#case-gltf-transform">case: GLTF transform</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#case-gltf-nodes-animation">case: GLTF Nodes &amp; Animation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cate-gltf-nodes-animation">Cate: GLTF Nodes &amp; Animation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#case-color-texture-morphing">case: Color &amp; Texture Morphing</a></li>
 </ul>
 </li>
@@ -104,7 +104,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="test-geom.html">Test - Geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="test-effect.html">Test - Postprocessing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html">TODO Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
@@ -206,7 +206,9 @@ and moving the points while changing the alpha.</p>
 35
 36
 37
-38</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="kr">const</span> <span class="nx">points</span> <span class="o">=</span> <span class="p">{</span>
+38
+39
+40</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="kr">const</span> <span class="nx">points</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span>
         <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">NA</span><span class="p">,</span> <span class="c1">// use the geometry of entity1</span>
                 <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
@@ -244,6 +246,8 @@ and moving the points while changing the alpha.</p>
             <span class="p">]]</span> <span class="p">},</span>
         <span class="nx">CmpTweens</span><span class="o">:</span> <span class="p">{}</span>
     <span class="p">};</span>
+
+    <span class="nx">xworld</span><span class="p">.</span><span class="nx">addEntities</span><span class="p">(</span><span class="nx">points</span><span class="p">);</span>
 </pre></div>
 </td></tr></table></div>
 <p>In MorphSeqs.script, the moving points, entity id of &#8216;points&#8217;, is defined as a
@@ -380,8 +384,8 @@ scene come from 3 different gltf files:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="case-gltf-nodes-animation">
-<h3>case: GLTF Nodes &amp; Animation<a class="headerlink" href="#case-gltf-nodes-animation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="cate-gltf-nodes-animation">
+<h3>Cate: GLTF Nodes &amp; Animation<a class="headerlink" href="#cate-gltf-nodes-animation" title="Permalink to this headline">¶</a></h3>
 <p>html file:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">car</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
@@ -407,7 +411,7 @@ set Obj3.transform as you, the programmer like.</p>
 <p>The test shows how color &amp; texture can be morphed with help of shader <em>colorArray</em>.</p>
 <p>For Visual.paras of <em>colorArray</em>, see <a class="reference internal" href="../design-memo/vparas.html#visual-paras-color-array"><span>Visual.paras of colorArray</span></a>.</p>
 <p><strong>FYI</strong> This page uses svg as rendered texture with help of Three.js CanvasTexture,
-which can&#8217;t be a scalable image. See <a class="reference internal" href="../design-memo/todo.html#wish-svg"><span>wish list, SVG</span></a>.</p>
+which can&#8217;t be a scalable image instead. See <a class="reference internal" href="../design-memo/todo.html#wish-svg"><span>wish list, SVG</span></a>.</p>
 </div>
 </div>
 </div>

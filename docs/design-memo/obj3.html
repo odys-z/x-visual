@@ -98,13 +98,18 @@
 <li class="toctree-l3"><a class="reference internal" href="#obj3-affines-combined">Obj3.affines &amp; combined</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#issue-quaternion-injection">Issue: Quaternion Injection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#affine-transformation-references">Affine Transformation References:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#obj3-geometry-parameters">Obj3 Geometry Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obj3-geometry">Obj3 &amp; Geometry</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#obj3type-mapxzroad">Obj3Type.MapXZRoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#obj3type-hexatile">Obj3Type.Hexatile</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
@@ -311,9 +316,29 @@ screen. Could this breaching the design doctrine?</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation">[3] Affine Transformation, wikipedia</a></p>
 <p><a class="reference external" href="https://math.stackexchange.com/questions/275310/what-is-the-difference-between-linear-and-affine-function">[4] What is the difference between linear and affine function, Mathematics</a></p>
 </div>
-<div class="section" id="obj3-geometry-parameters">
-<h2>Obj3 Geometry Parameters<a class="headerlink" href="#obj3-geometry-parameters" title="Permalink to this headline">¶</a></h2>
-<p>See <a class="reference external" href="../jsdoc/Thrender.html#api-threeGeometryCase">Thrender.threeGeometryCase()</a>.</p>
+<div class="section" id="obj3-geometry">
+<h2>Obj3 &amp; Geometry<a class="headerlink" href="#obj3-geometry" title="Permalink to this headline">¶</a></h2>
+<p>Most of x-visual geometry handling depends on Three.js&#8217; geometry buffer and it&#8217;s
+subclasses. See <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/Thrender.html#api-threeGeometryCase">Thrender.threeGeometryCase()</a>.</p>
+<p>There are also some extensions.</p>
+<div class="section" id="obj3type-mapxzroad">
+<h3>Obj3Type.MapXZRoad<a class="headerlink" href="#obj3type-mapxzroad" title="Permalink to this headline">¶</a></h3>
+<p>Generate a road polygon in y = paras.y0 plane. The generated path is scaled and
+stored in Obj3.datum, in {paths, dirty}.</p>
+<p>Some animation type like AnimType.U_PATHn_MORPH will take this as it&#8217;s own&#8217;s Obj3
+datum.ref object and can tweening path without noticing paths&#8217; data changed.</p>
+<p>See the <a class="reference internal" href="../tests/test-geom.html#test-geom"><span>Geometry Tests</span></a> &amp;
+<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz">xgeom.generateWayxz() API</a>.</p>
+</div>
+<div class="section" id="obj3type-hexatile">
+<span id="obj3-hexatile-guide"></span><h3>Obj3Type.Hexatile<a class="headerlink" href="#obj3type-hexatile" title="Permalink to this headline">¶</a></h3>
+<p>Generate a hexagonal tiles module from json similar with geojson, except that it&#8217;s
+recommended using EPSG 3857 coordinates. Coordinates in EPSG 4326 can be directly
+applied if showing a small area and geoScale is large enough.</p>
+<p>See the test <a class="reference internal" href="../tests/test-geom.html#tst-geom-hexatile"><span>Case: Hexatile from Geojson</span></a> &amp;
+<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xgeom.html#hexacylinder3857">xgeom.hexacylinder3857() API</a>.</p>
+<p><a class="reference internal" href="geometry.html#geom-hexatile"><span>Memo: hexagon tile generation</span></a></p>
+</div>
 </div>
 </div>
 

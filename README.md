@@ -27,16 +27,31 @@ It's also the npm package name.
 
 ## test (without server)
 
-There html test pages in test/html, which can be opened directly from local file
-system:
+X-visual using two ways to test.
+
+### html pages
+
+This way needing clone from git repository like:
+
+~~~
+   git clone https://github.com/odys-z/x-visual.git
+~~~
+
+Then using webpack to transpile the tests.
+
+There html test pages are located in test/html, which can be opened directly from
+local file system:
 
 ```
     test/html/index.html
 ```
 
-Some of them are explained in [doc/tests & examples](https://odys-z.github.io/x-visual/tests)
+Some of them are explained in [docs/tests & examples](https://odys-z.github.io/x-visual/tests)
 
-**X-visual is considering reduce unit test cases.**
+### npm test
+
+**X-visual initially use Mocha for unit test, but is considering reducing test
+cases currently. So the "npm test" way is not always working.**
 
 The project uses Mocha and Chai for testing, imports like this.
 
@@ -80,8 +95,8 @@ For ecs "hello world", try test/ecs.html. You should see something like this (v0
 
 - tip
 
-The html can be load from local file system if browser allow cross domain file access.
-Try (tested on Ubuntu):
+The html pages can be load from local file system if browser allow cross domain
+file access. Try (tested on Ubuntu):
 
 ```
     vim chrome
@@ -149,8 +164,8 @@ Used by [x-visual gltf loader test case](./test/html/gltf-city.html), etc.
 
 Referenced by [Three.js tutorial: Three.js Loading a .GLTF File](https://threejsfundamentals.org/threejs/lessons/threejs-load-gltf.html)
 
-Download: [scene.gltf @ threejsfundamentals](https://threejsfundamentals.org/threejs/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf) and together with referenced
-resources like scene.bin and textures/\*.png.
+Download: [scene.gltf @ threejsfundamentals](https://threejsfundamentals.org/threejs/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf)
+and together with referenced resources like scene.bin and textures/\*.png.
 
 or [low poly city @ sketchfab](https://sketchfab.com/3d-models/cartoon-lowpoly-small-city-free-pack-edd1c604e1e045a0a2a552ddd9a293e6)
 

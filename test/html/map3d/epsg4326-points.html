@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Geo Tiles</title>
+    <script type='text/javascript' src='../../../dist/jquery-3.4.1.js'></script>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <br><input type='button' onclick='speedup()' value='speed up'/>
+  <p><a href='https://odys-z.github.io/x-visual/tests/test-geom.html#tst-geom-hexatile'>
+	  Test Case Introduction</a></p>
+  <script>
+	"use strict";
+
+	var json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/heights.geojson';
+	var o4326 = [104.063615662968, 30.6517995646074];
+	var o3857 = [11584780.0575155, 3574051.29001759];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window,
+						{ camera: {far: 20000},
+						  canvasize: [600, 400]});
+
+	xworld.addEntities([
+	  { id: 'layer0',
+		Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+				transform: [{ translate: [0, -20, -800] }],
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.tiledOrbs,
+			paras: {
+				// shader orb
+				side: THREE.FrontSide,
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0.8, 0.7, 0], [1, 0, 1]],
+				orbR: [0.4, 1.4, 0.5, 0.4, 0.4],
+				offsets: [[-2, 0, 0], [0, 0, 0], [2, 0, -0], [0, 0, 2], [0, 0, -2]],
+				whiteAlpha: 0.7,
+		        orbScale: [5, 1, 5],
+
+				// tile geometry
+				uri: json,
+				origin: o4326,
+				count: 1916,   // feature count
+				geostyle: {
+					radius: 6, height: 0.5,
+					maxHeight: 12,       // for distributing thermal color
+					scale: 24000 },
+			},
+			asset: '../../assets/tex/byr0.png' } ,
+	  }
+	]);
+
+	$.getJSON( '../data/heights.json',
+	  function(json) {
+		var ents = xworld.addEntities( {
+			id: 'layer_1',
+			Obj3: { geom: xv.XComponent.Obj3Type.Hexatile,
+					transform: [{ translate: [0, 0, -0] }],
+					box: [] },
+			Visual:{
+				vtype: xv.AssetType.mesh,
+				shader: xv.XComponent.ShaderFlag.tiledOrbs,
+				paras: {
+					side: THREE.FrontSide,
+					colors: [[0, 0, 0.6], [0, 0.6, 0], [0.8, 0, 0], [0.4, 0.8, 0], [0.8, 0, 1]],
+					orbR: [.4, .4, .5, .4, .4],
+					offsets: [[-2, 0, 0], [0, 0, 0], [2, 0, -0], [0, 0, 2], [0, 0, -2]],
+					whiteAlpha: 0.7,
+			        orbScale: [5, 1, 5],
+
+					features: json.features,
+					origin: o3857,
+					count: 4038,
+					geostyle: {
+						radius: 6, height: .4, scale: 0.18,
+						maxHeight: 16,       // for distributing thermal color
+						groups: 2,
+						// Each group using it's speed.frag & vert, so group morphing can be changed
+						onGroup: (fx, f) => {
+							return f.properties.building ? 1 : 0;
+						} }
+				},
+				asset: 'data:application/x-visual+img,color-pixel [1.0, 0.0, 0.0, 0.6]' ,
+			},
+			ModelSeqs: { script: [[{
+				mtype:  xv.XComponent.AnimType.U_NOW,
+				paras: {start: 0,
+					speed: 0.001,   // speed para alwasy comes with U_NOW
+					duration: 0 }	// ignored
+				}]]
+			},
+			CmpTweens: {}
+		});
+
+		buf.l1 = ents[0];
+
+		xworld.startUpdate();
+	})
+    .fail(function(jqXhr, textStatus, error) {
+        console.error(jqXhr, textStatus, error);
+    });
+
+	var buf = {speed: 0.01};
+	function speedup () {
+		buf.speed += 0.02;
+		if (buf.speed > 0.1)
+			buf.speed = 0.0;
+
+		xv.MorphingAnim.setGroupSpeed(buf.l1.Obj3,
+			1,  // group 1: with building property
+			{ frag: 0, // buf.speed * 0.1,
+			  vert: buf.speed } );
+	}
+
+  </script>
+</body>
+</html>
