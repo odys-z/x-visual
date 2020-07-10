@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Tests &amp; Example" href="index.html"/>
         <link rel="next" title="Test - Postprocessing" href="test-effect.html"/>
@@ -91,16 +88,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tests &amp; Example</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="test-morph.html">Test - Morphing &amp; Uniform</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Test - Geometries</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#cate-dir-tubegeometry">Cate: Dir TubeGeometry</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#case-path-dir-tube">case: Path &amp; Dir Tube</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#case-volumetric-tube">case: Volumetric Tube</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Test - Geometries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cate-path-dir-geometry">Cate: Path &amp; Dir Geometry</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-dir-tubegeometry">Case: Dir TubeGeometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-volumetric-tube">Case: Volumetric Tube</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-hexatile-from-geojson">Case: Hexatile from Geojson</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="test-effect.html">Test - Postprocessing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html">TODO Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
@@ -151,31 +149,110 @@
             
   <div class="section" id="test-geometries">
 <span id="test-geom"></span><h1>Test - Geometries<a class="headerlink" href="#test-geometries" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="cate-dir-tubegeometry">
-<h2>Cate: Dir TubeGeometry<a class="headerlink" href="#cate-dir-tubegeometry" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="case-path-dir-tube">
-<span id="tst-geom-dirtube"></span><h3>case: Path &amp; Dir Tube<a class="headerlink" href="#case-path-dir-tube" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="cate-path-dir-geometry">
+<h2>Cate: Path &amp; Dir Geometry<a class="headerlink" href="#cate-path-dir-geometry" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-dir-tubegeometry">
+<span id="tst-geom-dirtube"></span><h3>Case: Dir TubeGeometry<a class="headerlink" href="#case-dir-tubegeometry" title="Permalink to this headline">¶</a></h3>
 <p>html file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">geom</span><span class="o">-</span><span class="n">dirtube</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">geom</span><span class="o">-</span><span class="n">dirtube</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 <img alt="../_images/005-geom-tube-curve-sim.png" src="../_images/005-geom-tube-curve-sim.png" />
 <p>AssetType:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">AssetType</span><span class="o">.</span><span class="n">PathTube</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">AssetType</span><span class="o">.</span><span class="n">PathTube</span>
 </pre></div>
 </div>
 <p>Visual.paras:</p>
 <p>see AssetType jsdoc.</p>
-<p>See reference section about <a class="reference internal" href="../reference/geometry.html#ref-frenet-frame"><span class="std std-ref">Three.js tube geometry algorithm of Frenet Frame</span></a>.</p>
-<p>TODO doc …</p>
+<p>See reference section about <a class="reference internal" href="../reference/geometry.html#ref-frenet-frame"><span>Three.js tube geometry algorithm of Frenet Frame</span></a>.</p>
+<p>TODO doc ...</p>
 </div>
 <div class="section" id="case-volumetric-tube">
-<h3>case: Volumetric Tube<a class="headerlink" href="#case-volumetric-tube" title="Permalink to this headline">¶</a></h3>
-<p>html file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">shader</span><span class="o">-</span><span class="n">tube</span><span class="o">.</span><span class="n">html</span>
+<span id="tst-geom-volume-tube"></span><h3>Case: Volumetric Tube<a class="headerlink" href="#case-volumetric-tube" title="Permalink to this headline">¶</a></h3>
+<p>html files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">shader</span><span class="o">-</span><span class="n">scaleorb</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">shader</span><span class="o">-</span><span class="n">multi</span><span class="o">-</span><span class="n">orb</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">geopath</span><span class="o">-</span><span class="n">road</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">geopaths</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">cd</span><span class="o">-</span><span class="n">express</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
-<p>TODO …</p>
+<p>Testing types of volumetric shader program.</p>
+<p>ShaderFlag:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">scaleOrb</span>
+<span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">worldOrbs</span>
+<span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">orbGroups</span>
+</pre></div>
+</div>
+<p>See also <a class="reference internal" href="../design-memo/shaders/volumetric.html#volumetric-shaders"><span>Morphing Volumetric Shaders</span></a> &amp; <a class="reference internal" href="../design-memo/vparas.html#visual-paras-scaleorb"><span>visual paras for volumetric shaders</span></a>.</p>
+</div>
+<div class="section" id="case-hexatile-from-geojson">
+<span id="tst-geom-hexatile"></span><h3>Case: Hexatile from Geojson<a class="headerlink" href="#case-hexatile-from-geojson" title="Permalink to this headline">¶</a></h3>
+<p>html files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">hexacylinder</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">epsg4326</span><span class="o">-</span><span class="n">points</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>Using shaders:</p>
+<blockquote>
+<div>xv.XComponent.ShaderFlag.tiledOrbs,</div></blockquote>
+<p>Animation type:</p>
+<blockquote>
+<div>xv.XComponent.AnimType.U_NOW</div></blockquote>
+<p>Example parameters explained:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;layer3&#39;</span><span class="p">,</span>
+  <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">Hexatile</span><span class="p">,</span>
+          <span class="nx">box</span><span class="o">:</span> <span class="p">[]</span> <span class="p">},</span>
+    <span class="nx">Visual</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+      <span class="nx">shader</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">tiledOrbs</span><span class="p">,</span>
+      <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">side</span><span class="o">:</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">FrontSide</span><span class="p">,</span>
+        <span class="c1">// shader orb</span>
+        <span class="nx">colors</span><span class="o">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
+        <span class="nx">orbR</span><span class="o">:</span>    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="nx">offsets</span><span class="o">:</span><span class="p">[[</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">],</span>
+                 <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">12</span><span class="p">]],</span>
+            <span class="nx">whiteAlpha</span><span class="o">:</span> <span class="mf">0.8</span><span class="p">,</span>         <span class="c1">// out of range alpha</span>
+        <span class="nx">orbScale</span><span class="o">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="nx">thermalColors</span><span class="o">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+
+        <span class="c1">// tile geometry</span>
+        <span class="nx">features</span><span class="o">:</span> <span class="nx">json0</span><span class="p">.</span><span class="nx">features</span><span class="p">,</span>
+        <span class="nx">origin</span><span class="o">:</span> <span class="nx">o3</span><span class="p">,</span>
+        <span class="nx">geostyle</span><span class="o">:</span> <span class="p">{</span> <span class="nx">radius</span><span class="o">:</span> <span class="mi">45</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span> <span class="nx">scale</span><span class="o">:</span> <span class="mf">0.02</span><span class="p">,</span>
+          <span class="nx">maxHeight</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>     <span class="c1">// for distributing thermal color</span>
+          <span class="nx">groups</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="nx">onGroup</span><span class="o">:</span> <span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">feature</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">fx</span> <span class="o">%</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span> <span class="p">},</span> <span class="c1">// then update() can change morphings</span>
+      <span class="p">},</span>
+      <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;../../assets/tex/rgb2x2.png&#39;</span> <span class="p">}</span> <span class="p">,</span>
+            <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span> <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span>
+      <span class="nx">mtype</span><span class="o">:</span>  <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_NOW</span><span class="p">,</span>
+      <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">speed</span><span class="o">:</span> <span class="mf">0.002</span><span class="p">,</span>   <span class="c1">// speed para alwasy comes with U_NOW</span>
+        <span class="nx">duration</span><span class="o">:</span> <span class="mi">0</span> <span class="p">}</span>       <span class="c1">// ignored</span>
+      <span class="p">}]]</span>
+    <span class="p">},</span>
+    <span class="nx">CmpTweens</span><span class="o">:</span> <span class="p">{}</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>In the above example, where</p>
+<p>Obj3.geom = Obj3Type.Hexatile, this will makes x-visual create a module of hexagonal
+cylinders, with each centered at Visual.paras.features&#8217; point coordinates. See
+<a class="reference internal" href="../design-memo/obj3.html#obj3-hexatile-guide"><span>Guide: Obj3Type.Hexatile</span></a> for the geometry detials.</p>
+<p>Visual.paras has two parts. The first part is for shader tileOrbs.  See
+<a class="reference internal" href="../design-memo/vparas.html#visual-para-tiledorbs"><span>vpara details</span></a> for this part of parameters.</p>
+<p>The second part is for the geometry generation - which will be moved to a new
+component in the future. The features is an array of feature objects, typically
+come from a (similar) geojson data, with coordinates of EPSG 3857. See the test
+page source for sample data.</p>
+<p>Visual.paras.featrues can also been replaced by Visual.paras.uri. The difference
+is that <em>uri</em> are handled in a feature-by-feature style, with the help of
+<a class="reference external" href="https://www.npmjs.com/package/oboe">Oboe</a>. There is an example of <em>uri</em> in test
+page &#8216;epsg4326-points.html&#8217;</p>
+<p>Details of Visual.paras.geostyle is explained in <a class="reference internal" href="../design-memo/geometry.html#geom-hexatile"><span>hexatile</span></a>.</p>
 </div>
 </div>
 </div>
@@ -230,8 +307,7 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

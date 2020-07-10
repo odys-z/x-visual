@@ -1,0 +1,15 @@
+{
+    "LICENSE": "https://www.openstreetmap.org/copyright",
+    "Credits": "© OpenStreetMap contributors",
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": { "name": null, "highway": "motorway_link", "oneway": "yes" },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[11580052.71,3577860.73],[11580037.4,3577882.72],[11580035.49,3577912.37],[11580048.88,3577939.15]]
+            }
+        }
+    ]
+}

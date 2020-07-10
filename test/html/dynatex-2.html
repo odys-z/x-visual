@@ -10,12 +10,12 @@
   <canvas id='canv'></canvas>
   <p>Press key for update.</p>
   <svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-	<rect style="stroke:rgb(200, 200, 25); stroke-width:4; "
-			x="0" width="100" height="100" rx="15" />
+    <rect style="stroke:rgb(200, 200, 25); stroke-width:4; "
+            x="0" width="100" height="100" rx="15" />
   </svg>
   <svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
      <rect style="stroke:rgb(0, 200, 25); stroke-width:4; fill:#00f; fill-opacity:0.3;"
-	 		x="0" width="100" height="100" rx="15" />
+        x="0" width="100" height="100" rx="15" />
   </svg>
   <script>
 	"use strict";
@@ -36,26 +36,59 @@
 		}
 
 		initCanv(ecs) {
-			var box = ecs.createEntity({
+			var text1 = ecs.createEntity({
+				id: 'text1',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [128, 64],
+						transform: [ {translate: [0, 120, -100] } ],
+						mesh: undefined },
+				Visual:{
+					// so Dynatex is only a visual? FIXME extension, the answer of orthogonal?
+					vtype: xv.AssetType.Dynatex},
+				Dynatex: {text: 'not pickable',
+						xywh: {x: 0, y: 0, w: 128, size: 32},
+						'bg-color': 'white',
+						font: 'Arial',
+						style: '#157'},
+				GpuPickable: {}
+			});
+
+			var text2 = ecs.createEntity({
+				id: 'text2',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [128, 64],
+						transform: [ {translate: [-160, 120, -100] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						paras: { u_tex: ['tex/byr0.png'] }},
+				Dynatex: {text: 'pickable',
+						xywh: {x: 0, y: 0, w: 72, size: 24},
+						'bg-color': 'white',
+						font: 'Arial',
+						style: '#157'},
+				GpuPickable: {}
+			});
+
+			var text = ecs.createEntity({
 				id: 'text0',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 						box: [128, 32],
-						transform: [ {translate: [0, 160, -100] } ],
+						transform: [ {translate: [160, 120, -100] } ],
 						mesh: undefined },
-				Visual:{vtype: xv.AssetType.mesh},
-				Dynatex: {text: 'Hello Dynatex!',
-						xywh: {x: 0, y: 0, size: 32},
+				Visual:{vtype: xv.AssetType.Extension},
+				Dynatex: {text: 'Group 128x32',
+						xywh: {x: 0, y: 0, w: 128, size: 32},
 						dirty: true,
-						font: '64px Arial',
+						font: 'Arial',
 						style: 'red'},
-				// GpuPickable: {}
 			});
 
 			var bg1 = ecs.createEntity({
 				id: 'bg1',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 						box: [128, 128],
-						transform: [ {translate: [0, -60, 0] } ],
+						transform: [ { translate: [0, -60, 0] } ],
 						group: 'text0' },
 				Visual:{vtype: xv.AssetType.mesh,
 						asset: 'tex/uestc.svg'},
@@ -76,7 +109,7 @@
 			var ground = ecs.createEntity({
 				id: 'grd',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-						box: [300, 300, 24],    // bug: not a squre?
+						box: [300, 300, 24],
 						transform: [
 							{rotate: {deg: 90, axis: [1, 0, 0]}},
 							{translate: [-160, -16, 0] } ]
@@ -92,7 +125,7 @@
 			var ground2 = ecs.createEntity({
 				id: 'grd2',
 				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-						box: [300, 300, 24],    // bug: not a squre?
+						box: [300, 300, 24],
 						transform: [
 							{rotate: {deg: 90, axis: [1, 0, 0]}},
 							{translate: [160, -16, 0] } ]
@@ -108,17 +141,20 @@
 
 			var ul = ecs.createEntity({
 				id: 'ul',
-				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [64, 32],
+				Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+						box: [64, 32, 8],
 						transform: [
 							{translate: [-100, -140, -50] } ], // transform of [-10, 50, -140] because parent rotated
 						group: 'grd',
 					},
-				Visual:{vtype: xv.AssetType.mesh},
+				Visual:{vtype: xv.AssetType.mesh,
+						asset: 'data:application/x-visual+img,gray-pixel' },
 				Dynatex: {text: 'Upperleft',
-						xywh: {x: 0, y: 0, size: 32},
-						font: '48px Arial',
-						style: 'green'},
+						transform: [ {translate: [0, 0, 20]} ],
+						xywh: {x: 0, y: 0, w: 64, size: 16},
+						'v-align': 'top',
+						font: 'Arial',
+						style: 'white'},
 			});
 
 			var ulpole = ecs.createEntity({
@@ -136,7 +172,7 @@
 						linewidth: 4 }
 			} });
 
-			return box;
+			return text1;
 		}
 	}
 

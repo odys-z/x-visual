@@ -15,7 +15,7 @@
     "Obj3":{"geom": "xv.XComponent.Obj3Type.Cylinder",
             "box-desc": "in space grid scale; y is set with value (ignored)",
             "box": [0.1, 0.2, 1, 4, 1, true, "Math.PI/2"]},
-    "Visual": {"asset": "../../tex/grey-pixel.png"},
+    "Visual": {"asset": "../../tex/gray-pixel.png"},
 
     "_comment": "support in the future?",
     "script": [

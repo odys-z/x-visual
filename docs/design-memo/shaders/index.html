@@ -32,13 +32,10 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../genindex.html"/>
-        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../../index.html"/>
         <link rel="up" title="Design Memo" href="../index.html"/>
         <link rel="next" title="Shader Instance Pool" href="instance.html"/>
-        <link rel="prev" title="Affine Tweening" href="../affine.html"/> 
+        <link rel="prev" title="X-Geometry Handling" href="../geometry.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -100,9 +97,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Shader Samples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../geometry.html">X-Geometry Handling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Shader Samples</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="phong.html">WebGl Phong Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="volumetric.html">Morphing Volumetric Shaders</a></li>
 <li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
 </ul>
 </li>
@@ -166,9 +165,15 @@
 <li class="toctree-l2"><a class="reference internal" href="instance.html#reference">Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="phong.html">WebGl Phong Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
+<li class="toctree-l1"><a class="reference internal" href="volumetric.html">Morphing Volumetric Shaders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="volumetric.html#scalable-orb">Scalable Orb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="volumetric.html#world-position-orbs">World position Orbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="volumetric.html#world-orb-groups">World Orb Groups</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="flame.html">Shadertoy Flame</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="flame.html#throbbing-star">Throbbing Star</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flame.html#blinking-star">Blinking Star</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flame.html#lesser-raymarch-flame">Lesser Raymarch Flame</a></li>
 </ul>
 </li>
@@ -186,7 +191,7 @@
         <a href="instance.html" class="btn btn-neutral float-right" title="Shader Instance Pool" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../affine.html" class="btn btn-neutral" title="Affine Tweening" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../geometry.html" class="btn btn-neutral" title="X-Geometry Handling" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -226,8 +231,7 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -32,12 +32,9 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="next" title="ECS Framework" href="ecs.html"/>
-        <link rel="prev" title="TODO Examples" href="../tests/examples.html"/> 
+        <link rel="prev" title="Examples" href="../tests/examples.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -89,7 +86,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Design Memo</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Design Memo</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
@@ -99,6 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
@@ -182,7 +180,11 @@
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-affines-combined">Obj3.affines &amp; combined</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#issue-quaternion-injection">Issue: Quaternion Injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#affine-transformation-references">Affine Transformation References:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-geometry-parameters">Obj3 Geometry Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-geometry">Obj3 &amp; Geometry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="obj3.html#obj3type-mapxzroad">Obj3Type.MapXZRoad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="obj3.html#obj3type-hexatile">Obj3Type.Hexatile</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a><ul>
@@ -202,7 +204,12 @@
 <li class="toctree-l1"><a class="reference internal" href="vparas.html">Visual.paras</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html#shared-for-different-vtype">Shared for different vtype</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html#paras-only-for-shaderflag-enabled">paras only for ShaderFlag enabled</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vparas.html#paras-only-for-vtype-point-or-refpoint">paras only for vtype = point or refPoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#paras-only-for-shader-colorarray">paras only for shader = colorArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#vtype-scaleorb">vtype = scaleOrb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#vtype-worldorbs">vtype = worldOrbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#vtype-orbgroups">vtype = orbGroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#vtype-tiledorbs">vtype = tiledOrbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html#vtype-point-or-refpoint">vtype = point or refPoint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="animizer.html">Animizers</a><ul>
@@ -221,7 +228,7 @@
 <li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-rotatex-paras">AnimType.ROTATEX paras</a></li>
 <li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-rotaxis-paras">AnimType.ROTAXIS paras</a></li>
 <li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-orbit-paras">AnimType.ORBIT paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-alpha-paras">AnimType.ALPHA paras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-u-alpha-paras">AnimType.U_ALPHA paras</a></li>
 <li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-uniform-paras">AnimType.UNIFORM paras</a></li>
 <li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-u-morphi-paras">AnimType.U_MORPHi paras</a></li>
 </ul>
@@ -237,15 +244,26 @@
 <li class="toctree-l2"><a class="reference internal" href="affine.html#debug-notes">Debug Notes:</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">X-Geometry Handling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mapxzroad">MapXZRoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#hexatile">hexatile</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="shaders/index.html">Shader Samples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="shaders/instance.html">Shader Instance Pool</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="shaders/instance.html#instance-management">Instance Management</a></li>
 <li class="toctree-l3"><a class="reference internal" href="shaders/instance.html#reference">Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="shaders/phong.html">WebGl Phong Material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/phong.html">Morphing Phong Material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/volumetric.html">Morphing Volumetric Shaders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shaders/volumetric.html#scalable-orb">Scalable Orb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shaders/volumetric.html#world-position-orbs">World position Orbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shaders/volumetric.html#world-orb-groups">World Orb Groups</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/flame.html">Shadertoy Flame</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="shaders/flame.html#throbbing-star">Throbbing Star</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shaders/flame.html#blinking-star">Blinking Star</a></li>
 <li class="toctree-l3"><a class="reference internal" href="shaders/flame.html#lesser-raymarch-flame">Lesser Raymarch Flame</a></li>
 </ul>
 </li>
@@ -284,8 +302,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">Debug Notes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="debug.html#three-js-14635">Three.js #14635</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug.html#about-the-three-module-issue">About the Three Module Issue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#three-js-14635-material-instance">Three.js #14635 (Material instance)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="debug.html#about-the-three-module-issue">About the Three Module Issue</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#texture-referenced-across-shaders">Texture Referenced Across Shaders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html#hacking-three-js">Hacking Three.js</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="debug.html#glsl-shader-source">Glsl Shader Source</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -302,7 +327,7 @@
         <a href="ecs.html" class="btn btn-neutral float-right" title="ECS Framework" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../tests/examples.html" class="btn btn-neutral" title="TODO Examples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../tests/examples.html" class="btn btn-neutral" title="Examples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -342,8 +367,7 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

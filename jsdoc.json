@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["lib", "packages/ecs-js"],
+    "include": ["lib", "packages/ecs-js", "packages/three/geometries/TubeGeometry.js"],
     "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs)"
   },

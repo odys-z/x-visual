@@ -11,7 +11,7 @@ import chaiStats from 'chai-stats'
 
 const {performance} = require('perf_hooks');
 
-import * as ECS from '../packages/ecs-js/index';
+import * as ECS from '../../packages/ecs-js/index';
 
 // lab.experiment('express components', () => {
 describe('case: [ecs]express components', () => {
