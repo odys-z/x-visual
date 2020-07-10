@@ -30,6 +30,7 @@
                 Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
                         box: [160, 160] },
                 Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
                         asset: 'tex/ruler256.png' },
                 ModelSeqs: { script: [
                     [ { mtype:  xv.XComponent.AnimType.POSITION,
@@ -46,13 +47,13 @@
                                 scale: [[1, 1, 1], [0.5, 2, 1]],
                                 ease: undefined} } ],
 					[ { mtype: xv.XComponent.AnimType.U_ALPHA,
+    					apply2Children: true,
 			            paras: {start: Infinity,
-            					apply2Children: true,
 			                    alpha: [1, 0],
 			                    ease: xv.XEasing.Elastic.In} },
 			          { mtype: xv.XComponent.AnimType.U_ALPHA,
+    					apply2Children: true,
 			            paras: {start: Infinity,
-            					apply2Children: true,
 			                    duration: 1,
 			                    alpha: [0, 1],
 			                    ease: xv.XEasing.Elastic.In} } ]
@@ -77,6 +78,7 @@
 	                        transform: [ { translate: [x, y, z] } ],
 	                        box: [8, h] },
 	                Visual:{vtype: xv.AssetType.mesh,
+							shader: xv.ShaderFlag.colorArray,
 	                        asset: 'data:application/x-visual+img,color-pixel [0.9, 0.7, 0.2]' },
 	            } );
 			}
