@@ -8,7 +8,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p><a href='https://odys-z.github.io/x-visual/tests/test-morph.html#tst-morph-group-alph'>
+  <p><a href='https://odys-z.github.io/x-visual/tests/test-morph.html#tst-morph-group-alpha'>
 	  Test Case Introduction</a></p>
   <p>Dashed line doesn't support alpha animation, see
 	  <a href='https://discourse.threejs.org/t/change-opacity-using-fat-lines-example/5523'>
@@ -21,8 +21,6 @@
   <script>
     "use strict";
 
-    /**Senario: suppose you have 2 models to be morphed (animated). */
-    // initiating xworld
     const xworld = new xv.XWorld(document.getElementById('canv'),
                         window, {canvasize: [480, 320]});
     const ecs = xworld.xecs;
