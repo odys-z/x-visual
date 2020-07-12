@@ -53,6 +53,7 @@ can support alpha morphing for mesh trees like Dynatex.
 html file::
 
     test/html/morph-alphas.html
+    test/html/dynamic-group-affine.html
 
 The upper left curve can be animated with AnimType.U_ALPHA. But the middle left
 curve can't animated with U_ALPHA because there is a *dashSize* property and x-visual
@@ -64,6 +65,10 @@ animated with u_alpha, the children meshes will also been updated.
 
 The lower right is a group of lines using THREE.LineSegments object, which is not
 actually a group. 'LineSegments using gl LINES mode for rendering <https://threejs.org/docs/index.html#api/en/objects/LineSegments>`_.
+
+*U_ALPHA* can also been applied to children, if both parent & children can support
+uniforms.u_alpha. The 2nd test page *dynamic-group-affine.html* shows this. See
+:ref:`guid-animtype-ualpha`.
 
 case: AnimType.POSITION
 _______________________

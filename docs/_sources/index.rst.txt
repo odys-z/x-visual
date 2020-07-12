@@ -31,7 +31,6 @@ Contents:
    design-memo/index
    reference/index
 
-
 Indices and tables
 ==================
 

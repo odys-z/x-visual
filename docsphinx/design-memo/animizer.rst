@@ -194,7 +194,7 @@ start
 
 Example:
 
-.. code-block:: json
+.. code-block:: javascript
 
     type: [{ entity: 'id',
              seqx: 0,
@@ -437,6 +437,7 @@ Three.js implementation
     });
 ..
 
+.. _guid-animtype-ualpha:
 
 AnimType.U_ALPHA paras
 ______________________
@@ -445,8 +446,30 @@ ______________________
 
 Array of starting and ending alpha.
 
-If the Visual is a :ref:`point<vtype-point>` or :ref:`refPoint<vtype-refPoint>`
-type, the alpha tween is been handled by shader.
+*U_ALPHA* is implemented as a uniform float *u_alpha*. Some vtype like :ref:`point<vtype-point>`
+or :ref:`refPoint<vtype-refPoint>` are been handled by x-shader, which supporting
+u_alpha uniform. There are also other types supporting u_alpha. It's planned support
+u_alpha for all vtype in the future. Currently a typical THREE.Mesh without Visual.shader
+configured will use THREE.Mesh.opacity for this.
+
+U_ALPHA can apply to children::
+
+    ModelSeqs { scrpt [ {
+        mtype: xv.XComponent.AnimType.U_ALPHA,
+        apply2Children: true,
+        ...
+      } ]
+    }
+
+The *apply2Children* parameter makes x-visual try apply parent (entity group)'s
+uniform to all children. This needs both children and parent supporting U_ALPHA
+as u_alpha shader uniform. In v0.3.19, these are AssetType.point, refPoint,
+GeomCurve, DynaSects and ShaderFlag.randomParticles, cubeVoxels, colorArray,
+colorLine.
+
+The logic is implemented by both MorphingAnim.initTweens() && xgls.hasUAlpha().
+
+See :ref:`test case<tst-morph-group-alpha>` for example.
 
 .. _animtype-uniform:
 

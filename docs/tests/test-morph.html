@@ -276,6 +276,7 @@ can support alpha morphing for mesh trees like Dynatex.</p>
 <a class="reference internal image-reference" href="../_images/006-group-alpha.jpg"><img alt="../_images/006-group-alpha.jpg" src="../_images/006-group-alpha.jpg" style="width: 400px;" /></a>
 <p>html file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">alphas</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">dynamic</span><span class="o">-</span><span class="n">group</span><span class="o">-</span><span class="n">affine</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 <p>The upper left curve can be animated with AnimType.U_ALPHA. But the middle left
@@ -286,6 +287,9 @@ try updating all it’s children’s uniform.u_alpha. If the children meshes can
 animated with u_alpha, the children meshes will also been updated.</p>
 <p>The lower right is a group of lines using THREE.LineSegments object, which is not
 actually a group. ‘LineSegments using gl LINES mode for rendering &lt;<a class="reference external" href="https://threejs.org/docs/index.html#api/en/objects/LineSegments">https://threejs.org/docs/index.html#api/en/objects/LineSegments</a>&gt;`_.</p>
+<p><em>U_ALPHA</em> can also been applied to children, if both parent &amp; children can support
+uniforms.u_alpha. The 2nd test page <em>dynamic-group-affine.html</em> shows this. See
+<a class="reference internal" href="../design-memo/animizer.html#guid-animtype-ualpha"><span class="std std-ref">AnimType.U_ALPHA paras</span></a>.</p>
 </div>
 <div class="section" id="case-animtype-position">
 <h3>case: AnimType.POSITION<a class="headerlink" href="#case-animtype-position" title="Permalink to this headline">¶</a></h3>
