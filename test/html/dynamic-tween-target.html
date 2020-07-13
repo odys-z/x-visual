@@ -22,27 +22,31 @@
                 var cmd = xworld.xview.cmds[0].cmd
                 if (cmd) {
                     for (const e of entities) {
-                        if (!xv.XTweener.isPlaying(e.CmpTweens, 0)) {
-                            // see animizer
-                            // cmp.affines.push({interpos: {positions, t}, vec3: new vec3()}); // vec3 is a buffer
-                            if (cmd === 'left') {
+                        if (cmd === 'left') {
+                            if (!xv.XTweener.isPlaying(e.CmpTweens, 0)) {
                                 xv.MorphingAnim.set1stPos(e.CmpTweens.tweens[0],
-                                            [-100, 0, 0]); // change first interpos.position[1]
+                                        [-100, 0, 0]); // change first interpos.position[1]
                                 e.CmpTweens.startCmds.push(0);
                             }
-                            else if (cmd === 'right') {
+                        }
+                        else if (cmd === 'right') {
+                            if (!xv.XTweener.isPlaying(e.CmpTweens, 0)) {
                                 xv.MorphingAnim.set1stPos(e.CmpTweens.tweens[0],
-                                            [ 100, 0, 0]); // change first interpos.position[1]
+                                        [ 100, 0, 0]); // change first interpos.position[1]
                                 e.CmpTweens.startCmds.push(0);
                             }
-                            else if (cmd === 'up') {
+                        }
+                        else if (cmd === 'up') {
+                            if (!xv.XTweener.isPlaying(e.CmpTweens, 1)) {
                                 xv.MorphingAnim.set1stScale(e.CmpTweens.tweens[1],
-                                            [1, 2, 1]); // change first interpos.scale[1]
+                                        [1, 2, 1]); // change first interpos.scale[1]
                                 e.CmpTweens.startCmds.push(1);
                             }
-                            else if (cmd === 'down') {
+                        }
+                        else if (cmd === 'down') {
+                            if (!xv.XTweener.isPlaying(e.CmpTweens, 1)) {
                                 xv.MorphingAnim.set1stScale(e.CmpTweens.tweens[1],
-                                            [1, 0.5, 1]); // change first interpos.scale[1]
+                                        [1, 0.5, 1]); // change first interpos.scale[1]
                                 e.CmpTweens.startCmds.push(1);
                             }
                         }
@@ -60,7 +64,7 @@
 
     xworld.addSystem('test', new TestDynamicPos(ecs, {}));
 
-    /// pinned line 65-90: tests/tests-morph.rst
+    /// pinned line 69-95: tests/tests-morph.rst
 
     const ent1 = {
         id: 'entity1',
@@ -68,24 +72,27 @@
                 box: [80, 80, 80] },
         Visual:{vtype: xv.AssetType.mesh,
                 asset: 'tex/byr0.png' },
-        ModelSeqs: { script: [
-            [ { mtype: xv.XComponent.AnimType.POSITION,
-                paras:{ start: 0,
-                        translate: [[0, 0, 0], [0, 0, 0]],
-                        ease: undefined},
-              } ],
-            [ { mtype: xv.XComponent.AnimType.SCALE,
-                paras:{ start: Infinity,
-                        scale: [[1, 1, 1], [2, 1, 1]],
-                        ease: undefined} } ],
-            [ { mtype: xv.XComponent.AnimType.SCALE,
-                paras:{ start: Infinity,
-                        scale: [[1, 1, 1], [0.5, 2, 1]],
-                        ease: undefined},
-                fFinished: [ ( twns, seqx ) => {
+        ModelSeqs: {
+            script: [
+              [{mtype: xv.XComponent.AnimType.POSITION,
+                paras: {
+                    start: 0,
+                    translate: [[0, 0, 0], [0, 0, 0]],
+                    duration: 3 } } ],
+              [{mtype: xv.XComponent.AnimType.SCALE,
+                paras: {
+                    start: Infinity,
+                    scale: [[1, 1, 1], [2, 1, 1]],
+                    duration: 3 } } ],
+              [{mtype: xv.XComponent.AnimType.SCALE,
+                paras: {
+                    start: Infinity,
+                    scale: [[1, 1, 1], [0.5, 2, 1]] } } ] ],
+            fFinished: ( twns, seqx ) => {
+                if (seqx === 1)
                     xv.XTweener.startSeq(twns, 1);
-                } ] } ]
-        ] },
+            }
+        },
         CmpTweens: {}
     };
 
