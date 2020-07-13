@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="X-Geometry Handling" href="geometry.html"/>
@@ -99,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Affine Tweening</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Affine Tweening</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#affine-combination">Affine Combination</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#a-note-on-tween-js-behaviour">A Note on Tween.js Behaviour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#debug-notes">Debug Notes:</a></li>
@@ -169,7 +166,7 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>Also a hard learnt lesson:</p>
-<p>Let different systems cooperate purely only upon components, don’t trigger
+<p>Let different systems cooperate purely only upon components, don&#8217;t trigger
 each other. There should be only one signal issuer.</p>
 <p>Trigger combination events in XTweener makes things complicate. E.g. startween()
 set <em>isPlaying</em> = true, but call onStart() handler of a component should happened
@@ -179,27 +176,27 @@ components.</p>
 </div>
 <p>Affine combination collect all orthogonal transformation from tweening results,
 typically an array of transformation data, and combine into a martrix4.</p>
-<p>To make affine tweening start from where it’s finished, and can be combined from
-all tweens of the object (component Obj3), it’s updated in XTweener like this:</p>
-<p>let <span class="math notranslate nohighlight">\(f(\cdot), g(\cdot)\)</span> stand for independent transformations, and
+<p>To make affine tweening start from where it&#8217;s finished, and can be combined from
+all tweens of the object (component Obj3), it&#8217;s updated in XTweener like this:</p>
+<p>let <span class="math">\(f(\cdot), g(\cdot)\)</span> stand for independent transformations, and
 z-transform for time expansion, such that</p>
-<p><span class="math notranslate nohighlight">\(m_{0} = mesh.matrix \cdot z^{0}\)</span></p>
-<p><span class="math notranslate nohighlight">\(m_{1} = f^{1}(m_{0}) z^{1}\)</span></p>
-<p><span class="math notranslate nohighlight">\(m_{i_{f}}, m_{i_{g}} = f^{i}(I) z^{i}, g^{i - \alpha}(I) z^{i - \alpha}\)</span></p>
-<p>where <span class="math notranslate nohighlight">\(\alpha \in Z^{+}\)</span>.</p>
-<p><span class="math notranslate nohighlight">\(m_{i} = m_{i_{f}} \cdot m_{i_{g}}\)</span></p>
-<p><span class="math notranslate nohighlight">\(mesh.matrix = m_{i} \cdot m_{0}\)</span></p>
+<p><span class="math">\(m_{0} = mesh.matrix \cdot z^{0}\)</span></p>
+<p><span class="math">\(m_{1} = f^{1}(m_{0}) z^{1}\)</span></p>
+<p><span class="math">\(m_{i_{f}}, m_{i_{g}} = f^{i}(I) z^{i}, g^{i - \alpha}(I) z^{i - \alpha}\)</span></p>
+<p>where <span class="math">\(\alpha \in Z^{+}\)</span>.</p>
+<p><span class="math">\(m_{i} = m_{i_{f}} \cdot m_{i_{g}}\)</span></p>
+<p><span class="math">\(mesh.matrix = m_{i} \cdot m_{0}\)</span></p>
 <p><a class="reference external" href="https://matplotlib.org/tutorials/text/mathtext.html">[mathjax cheat sheet]</a></p>
 <p>There are two level of combination:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">transformation</span> <span class="n">that</span> <span class="n">grouped</span> <span class="n">into</span> <span class="n">a</span> <span class="n">combined</span> <span class="n">one</span><span class="p">,</span> <span class="n">like</span> <span class="n">orbit</span> <span class="n">moving</span><span class="o">.</span>
+<div class="highlight-python"><div class="highlight"><pre>1. transformation that grouped into a combined one, like orbit moving.
 
-<span class="mf">2.</span> <span class="n">at</span> <span class="n">a</span> <span class="n">parallel</span> <span class="n">tween</span> <span class="n">sequences</span> <span class="n">updating</span><span class="p">,</span> <span class="n">transformation</span> <span class="n">are</span> <span class="n">combined</span> <span class="n">across</span>
-   <span class="n">multiple</span> <span class="n">sequences</span><span class="o">.</span>
+2. at a parallel tween sequences updating, transformation are combined across
+   multiple sequences.
 </pre></div>
 </div>
 <p>TODO refine these structure and debug the problem of results been reset after
-previous tween finished (<span class="math notranslate nohighlight">\(m_{i_{f,g}}\)</span> needing been keept as snapshots).</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Core</span> <span class="nx">structure</span> <span class="o">-</span> <span class="nx">Affine</span>
+previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been keept as snapshots).</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Core</span> <span class="nx">structure</span> <span class="o">-</span> <span class="nx">Affine</span>
 
 <span class="kr">class</span> <span class="nx">Affine</span> <span class="p">{</span>
     <span class="nx">m_f</span><span class="o">:</span> <span class="nx">mat4</span><span class="p">,</span>
@@ -208,55 +205,54 @@ previous tween finished (<span class="math notranslate nohighlight">\(m_{i_{f,g}
 </pre></div>
 </div>
 <p>Algorithm:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Animizer</span><span class="p">:</span>
-   <span class="n">compose</span> <span class="nb">all</span> <span class="n">scripts</span> <span class="n">into</span> <span class="n">every</span> <span class="n">CmpTween</span><span class="s1">&#39;s affine field;</span>
-   <span class="n">Obj3</span><span class="o">.</span><span class="n">m0</span><span class="p">,</span> <span class="n">mi</span><span class="p">,</span> <span class="n">mi_z</span> <span class="o">=</span> <span class="n">I</span>
-   <span class="c1"># mi_z is a copy of mi, to prevent mi been reseted before idle state fired.</span>
-   <span class="c1"># z ^ 1 stands for span of time affines updated.</span>
-   <span class="n">each</span> <span class="n">tween</span><span class="o">.</span><span class="n">mf</span> <span class="o">=</span> <span class="n">new</span> <span class="n">mat4</span><span class="p">()</span>
-   <span class="n">idle</span> <span class="o">=</span> <span class="n">true</span>
+<div class="highlight-python"><div class="highlight"><pre>1. Animizer:
+   compose all scripts into every CmpTween&#39;s affine field;
+   Obj3.m0, mi, mi_z = I
+   # mi_z is a copy of mi, to prevent mi been reseted before idle state fired.
+   # z ^ 1 stands for span of time affines updated.
+   each tween.mf = new mat4()
+   idle = true
 
-<span class="mf">2.</span> <span class="n">XTweener</span><span class="o">.</span><span class="n">update</span><span class="p">():</span>
-   <span class="o">//</span> <span class="n">setup</span> <span class="n">idle</span> <span class="k">as</span> <span class="n">the</span> <span class="n">flag</span> <span class="n">of</span> <span class="n">some</span> <span class="n">tween</span> <span class="n">updated</span> <span class="p">(</span><span class="n">needing</span> <span class="n">combined</span> <span class="n">later</span><span class="p">)</span>
-   <span class="o">//</span> <span class="n">always</span> <span class="n">snapshot</span> <span class="n">m0</span> <span class="n">when</span> <span class="n">a</span> <span class="n">tween</span> <span class="n">started</span>
-   <span class="k">for</span> <span class="n">each</span> <span class="n">entity</span><span class="p">:</span>
-     <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span> <span class="n">sequence</span><span class="p">:</span>
-       <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span><span class="p">:</span>
-         <span class="k">if</span> <span class="n">starting</span> <span class="n">a</span> <span class="n">tween</span><span class="p">:</span>
-           <span class="o">//</span> <span class="n">event</span><span class="p">:</span> <span class="n">onStart</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">clear</span> <span class="n">m0</span><span class="p">;</span>
-           <span class="k">if</span> <span class="n">idle</span><span class="p">:</span>
-             <span class="n">idle</span><span class="o">-</span><span class="n">edge</span> <span class="o">=</span> <span class="n">lowing</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">play</span><span class="o">-</span><span class="n">risging</span>
-           <span class="n">idle</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
-         <span class="n">update</span> <span class="n">tween</span><span class="p">;</span>
+2. XTweener.update():
+   // setup idle as the flag of some tween updated (needing combined later)
+   // always snapshot m0 when a tween started
+   for each entity:
+     for each tween sequence:
+       for each tween:
+         if starting a tween:
+           // event: onStart() =&gt; clear m0;
+           if idle:
+             idle-edge = lowing, i.e. play-rising
+           idle = false;
+         update tween;
 
-     <span class="k">if</span> <span class="n">none</span> <span class="n">updated</span><span class="p">:</span>
-        <span class="n">idle</span> <span class="o">=</span> <span class="n">true</span>
-        <span class="k">if</span> <span class="n">prev</span><span class="o">-</span><span class="n">idle</span> <span class="o">=</span> <span class="n">true</span><span class="p">:</span>
-            <span class="n">idle</span><span class="o">-</span><span class="n">edge</span> <span class="o">=</span> <span class="n">rising</span>
+     if none updated:
+        idle = true
+        if prev-idle = true:
+            idle-edge = rising
 
-<span class="mf">3.</span> <span class="n">Affine</span><span class="o">.</span><span class="n">update</span><span class="p">():</span>
-    <span class="n">A</span><span class="o">.</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">idle</span><span class="p">:</span>
-      <span class="k">for</span> <span class="n">each</span> <span class="n">tween</span> <span class="ow">in</span> <span class="n">CmpTweens</span><span class="p">:</span>
-        <span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">how</span> <span class="n">Tween</span><span class="o">.</span><span class="n">js</span> <span class="n">works</span> <span class="o">-</span> <span class="n">tweened</span> <span class="n">value</span> <span class="n">got</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">beginning</span><span class="o">.</span>
-        <span class="n">A</span><span class="o">.</span><span class="mi">1</span> <span class="k">if</span> <span class="n">play</span><span class="o">-</span><span class="n">rising</span><span class="p">:</span>
-            <span class="n">Obj3</span><span class="o">.</span><span class="n">m0</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">the</span> <span class="nb">all</span> <span class="n">tweens</span><span class="s1">&#39; starting point.</span>
-
-        <span class="n">A</span><span class="o">.</span><span class="mi">2</span> <span class="k">if</span> <span class="n">starting</span> <span class="n">a</span> <span class="n">consecutive</span><span class="p">:</span>
-            <span class="n">tween</span><span class="o">.</span><span class="n">_mf</span> <span class="o">&lt;-</span> <span class="n">previous</span><span class="o">-</span><span class="n">tween</span><span class="o">.</span><span class="n">mf</span>
-             <span class="n">i</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">save</span> <span class="n">previous</span> <span class="n">mf</span> <span class="k">for</span> <span class="n">where</span> <span class="n">this</span> <span class="n">tween</span> <span class="n">started</span> <span class="n">to</span> <span class="n">tween</span><span class="o">.</span>
-        <span class="n">A</span><span class="o">.</span><span class="mi">3</span> <span class="n">combine</span> <span class="n">affine</span> <span class="n">transformation</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">tweens</span> <span class="ow">in</span> <span class="nb">all</span> <span class="n">sequence</span> <span class="n">currently</span> <span class="n">updatings</span>
-            <span class="n">Obj3</span><span class="o">.</span><span class="n">mi</span> <span class="o">&lt;-</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">mi</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span> <span class="n">fi</span><span class="p">(</span> <span class="n">m0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">zi</span> <span class="p">)</span>
-        <span class="n">A</span><span class="o">.</span><span class="mi">4</span> <span class="k">if</span> <span class="n">the</span> <span class="n">tween</span> <span class="ow">is</span> <span class="n">finished</span><span class="p">,</span> <span class="n">keep</span> <span class="n">tween</span><span class="o">.</span><span class="n">m0</span>
-            <span class="n">i</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="k">if</span> <span class="nb">all</span> <span class="n">tween</span> <span class="ow">is</span> <span class="n">affine</span> <span class="ow">and</span> <span class="n">used</span> <span class="k">for</span> <span class="n">combine</span><span class="p">:</span>
-            <span class="n">mf_z</span> <span class="o">=</span> <span class="n">mf</span>
-    <span class="n">B</span><span class="o">.</span> <span class="k">if</span> <span class="n">idle</span> <span class="n">rising</span><span class="p">:</span>
-        <span class="n">mesh</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">mf_z</span>
-        <span class="c1"># this makes comination results been set to mesh, permanently,</span>
-        <span class="c1"># open for other updating, and can be re-taken snapshot as m0.</span>
+3. Affine.update():
+    A. if not idle:
+      for each tween in CmpTweens:
+        // This is how Tween.js works - tweened value got from the beginning.
+        A.1 if play-rising:
+            Obj3.m0 = mesh.matrix, i.g. the all tweens&#39; starting point.
+        A.2 if starting a consecutive:
+            tween._mf &lt;- previous-tween.mf
+            i.e. save previous mf for where this animation start to tween.
+        A.3 combine affine transformation for all tweens in all sequence currently updatings
+            Obj3.mi &lt;- Obj3.mi.mul( fi( m0 ) * zi )
+        A.4 if the tween is finished, keep tween.m0
+            i.g. if all tween is affine and used for combine:
+            mf_z = mf
+    B. if idle rising:
+        mesh.matrix = mf_z
+        # this makes comination results been set to mesh, permanently,
+        # open for other updating, and can be re-taken snapshot as m0.
 </pre></div>
 </div>
-<p>Affine transformation are accumulated in Obj3. <span class="math notranslate nohighlight">\(m_{i}\)</span> :</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<p>Affine transformation are accumulated in Obj3. <span class="math">\(m_{i}\)</span> :</p>
+<div class="highlight-javascript"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -269,27 +265,39 @@ previous tween finished (<span class="math notranslate nohighlight">\(m_{i_{f,g}
 11
 12
 13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span></span>				<span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mi_z</span><span class="p">.</span><span class="nx">put2js</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="cm">/**Update affine combination for the object.</span>
+<span class="cm">     * @param {Obj3} combined target object with mi</span>
+<span class="cm">     * @param {array&lt;AffineTrans&gt;} affines e.g. [{mi, translate: [x, y, z]}]</span>
+<span class="cm">     * @member AffineCombiner#combineUpdate</span>
+<span class="cm">     */</span>
+    <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">combined</span><span class="p">,</span> <span class="nx">tween</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">affines</span> <span class="o">=</span> <span class="nx">tween</span><span class="p">.</span><span class="nx">affines</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span> <span class="o">&amp;&amp;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">i</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">ax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ax</span> <span class="o">&lt;</span> <span class="nx">affines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">ax</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">appAffine</span><span class="p">(</span><span class="nx">affines</span><span class="p">[</span><span class="nx">ax</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// apply mf of previous tween (in same sequence)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">_mf</span> <span class="k">instanceof</span> <span class="nx">mat4</span><span class="p">)</span>
+            <span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">_mf</span><span class="p">);</span>
 
-				<span class="c1">// see also XTweener.update of (twnx + 1 &gt;= e.CmpTweens.tweens[seqx].length)</span>
-				<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">fx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">fx</span> <span class="o">&lt;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">endingFiring</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">fx</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-					<span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">endingFiring</span><span class="p">[</span><span class="nx">fx</span><span class="p">])</span> <span class="p">{</span>
-						<span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">endingFiring</span><span class="p">[</span><span class="nx">fx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-						<span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">eFinished</span>
-							<span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">eFinished</span><span class="p">[</span><span class="nx">fx</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
-							<span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">eFinished</span><span class="p">[</span><span class="nx">fx</span><span class="p">](</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">,</span> <span class="nx">fx</span><span class="p">);</span>
-						<span class="p">}</span>
-					<span class="p">}</span>
-				<span class="p">}</span>
-			<span class="p">}</span>
-            <span class="c1">//  above pinned for doc</span>
+        <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mulpost</span><span class="p">(</span><span class="nx">combined</span><span class="p">.</span><span class="nx">m0</span><span class="p">);</span>
+        <span class="nx">combined</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mul</span><span class="p">(</span><span class="nx">tween</span><span class="p">.</span><span class="nx">mf</span><span class="p">);</span>
+    <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
 <div class="section" id="a-note-on-tween-js-behaviour">
 <span id="affine-issue"></span><h2>A Note on Tween.js Behaviour<a class="headerlink" href="#a-note-on-tween-js-behaviour" title="Permalink to this headline">¶</a></h2>
 <p>When Tween.js start a tween animation again, it will restore saved starting object
-for the beginning of interpolation. This makes AffineCombiner can’t drive tween
+for the beginning of interpolation. This makes AffineCombiner can&#8217;t drive tween
 animation from where it stopped.</p>
 <ul class="simple">
 <li>Test</li>
@@ -298,30 +306,30 @@ animation from where it stopped.</p>
 <ul class="simple">
 <li>x-visual way</li>
 </ul>
-<p>To handle this, x-visual save <span class="math notranslate nohighlight">\(m_{f}\)</span> in each CmpTween, as a bridge between
-2 combination levels. Each <span class="math notranslate nohighlight">\(m_{f}\)</span> is independent to each other and to <span class="math notranslate nohighlight">\(m_{0}\)</span>.</p>
-<p>When a tween is completed inside a sequence, <span class="math notranslate nohighlight">\(m_{f}\)</span> has been kept, having
-combined tween sequences updating keeping use it to update the final <span class="math notranslate nohighlight">\(m_{i}\)</span>.</p>
+<p>To handle this, x-visual save <span class="math">\(m_{f}\)</span> in each CmpTween, as a bridge between
+2 combination levels. Each <span class="math">\(m_{f}\)</span> is independent to each other and to <span class="math">\(m_{0}\)</span>.</p>
+<p>When a tween is completed inside a sequence, <span class="math">\(m_{f}\)</span> has been kept, having
+combined tween sequences updating keeping use it to update the final <span class="math">\(m_{i}\)</span>.</p>
 <a class="reference internal image-reference" href="../_images/003-ortho-mfs.png"><img alt="../_images/003-ortho-mfs.png" src="../_images/003-ortho-mfs.png" style="width: 420px;" /></a>
 <p>The key point of x-visual way is that all finger print of tween driven transformation
 are saved in each tween for being combined later, orthogonally.</p>
 </div>
 <div class="section" id="debug-notes">
 <h2>Debug Notes:<a class="headerlink" href="#debug-notes" title="Permalink to this headline">¶</a></h2>
-<p>1. There do has an <span class="math notranslate nohighlight">\(m_{0}\)</span>, set at all tweens sequences started, triggered
-by <em>playRising</em>, and at each cross update, post applied to <span class="math notranslate nohighlight">\(m_{i}\)</span>.</p>
+<p>1. There do has an <span class="math">\(m_{0}\)</span>, set at all tweens sequences started, triggered
+by <em>playRising</em>, and at each cross update, post applied to <span class="math">\(m_{i}\)</span>.</p>
 <ol class="arabic simple" start="2">
-<li>In x-visual v0.2, <span class="math notranslate nohighlight">\(m_{f}\)</span> is been taken snapshot by onStart handler.</li>
+<li>In x-visual v0.2, <span class="math">\(m_{f}\)</span> is been taken snapshot by onStart handler.</li>
 </ol>
 <p><strong>Issue</strong>: This is not following the rule learnt through the hard lesson, but looks
-like an easy way to update <span class="math notranslate nohighlight">\(m_{f'_{1}}\)</span> before Tween.js is upgraded.</p>
+like an easy way to update <span class="math">\(m_{f'_{1}}\)</span> before Tween.js is upgraded.</p>
 <ol class="arabic simple" start="3">
 <li>Test case shows this way have significantly larger error in combined results.</li>
 </ol>
 <p>Guess: this may comes from 2 sources:</p>
-<p>i. The last affine combination is not updated as the XTweener changed sequence
-index, makes last affine update skipped the iteration.</p>
-<ol class="lowerroman simple" start="2">
+<p>A. The last affine combination is not updated as the XTweener changed sequence
+index, making last affine update skipped the iteration.</p>
+<ol class="upperalpha simple" start="2">
 <li>The multiple mat4 multiplication incurred precision error.</li>
 </ol>
 </div>
@@ -377,8 +385,7 @@ index, makes last affine update skipped the iteration.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
