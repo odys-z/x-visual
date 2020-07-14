@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>X-Geometry Handling &mdash; x-visual 0.3 documentation</title>
+  <title>X-Geometry Handling &mdash; x-visual 0.4 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Shader Samples" href="shaders/index.html"/>
         <link rel="prev" title="Affine Tweening" href="affine.html"/> 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.3
+                0.4
               </div>
             
           
@@ -200,7 +200,7 @@
 <ul class="simple">
 <li>paras.origin</li>
 </ul>
-<p>Specifying the geographically center of xworld;</p>
+<p>Specifying the geographically center of xworld</p>
 <ul class="simple">
 <li>paras.geostyle</li>
 </ul>
@@ -209,6 +209,9 @@
 <p>&#8211; geostyle.scale: geojson&#8217;s coordinates scale to xworld.</p>
 <p>&#8211; geostyle.height: cylinder height, in xworld.</p>
 <p>&#8211; geostyle.maxHeight: max heigth that with the highest thermal color.</p>
+<p>The thermal colors can word only with <a class="reference internal" href="vparas.html#visual-para-tiledorbs"><span>tiledOrbs</span></a>
+shader. If a cylinder tile&#8217;s heigth is higher than maxHeight, the higher part
+will be applied with the max color.</p>
 <p>&#8211; geostyle.groups: total groups. Groups can be used by XTweener for showing different animation.</p>
 <p>&#8211; geostyle.onGroup: optional callback for getting group index according to feature.</p>
 </div>
@@ -233,7 +236,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, odys-z@github.com.
+        &copy; Copyright 2020, odys-z.github.io.
 
     </p>
   </div>
@@ -255,7 +258,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3',
+            VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

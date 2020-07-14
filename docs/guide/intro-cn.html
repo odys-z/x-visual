@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>X-visual应用程序基本结构 &mdash; x-visual 0.3 documentation</title>
+  <title>X-visual应用程序基本结构 &mdash; x-visual 0.4 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="X-visual Guide" href="index.html"/>
         <link rel="next" title="Tests &amp; Example" href="../tests/index.html"/>
         <link rel="prev" title="X-visual App Architecture" href="intro.html"/> 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.3
+                0.4
               </div>
             
           
@@ -469,11 +469,7 @@ update-tick)。</p>
 47
 48
 49
-50
-51
-52</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="kr">const</span> <span class="nx">ent1</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;entity1&#39;</span><span class="p">,</span>
-        <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
+50</pre></div></td><td class="code"><div class="highlight"><pre>        <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
                 <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>
                 <span class="c1">// mesh is inited by thrender, can be ignored here - MorphSwitch&#39;s target</span>
                 <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
@@ -481,7 +477,7 @@ update-tick)。</p>
         <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
                 <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;tex/byr0.png&#39;</span> <span class="p">},</span>
         <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
+            <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_ALPHA</span><span class="p">,</span>
                         <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>            <span class="c1">// auto start</span>
                                 <span class="nx">duration</span><span class="o">:</span> <span class="mf">1.7</span><span class="p">,</span>       <span class="c1">// seconds</span>
                                 <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span> <span class="c1">// from, to</span>
@@ -489,7 +485,7 @@ update-tick)。</p>
                         <span class="nx">startWith</span><span class="o">:</span><span class="p">[{</span><span class="nx">entity</span><span class="o">:</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span>
                                     <span class="nx">seqx</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>        <span class="c1">// index of the fade-in</span>
                                     <span class="nx">start</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">}]</span> <span class="p">}],</span>
-                     <span class="p">[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
+                     <span class="p">[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_ALPHA</span><span class="p">,</span>
                         <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>
                                 <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">],</span>
                                 <span class="nx">ease</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">},</span> <span class="p">}]</span> <span class="p">]</span> <span class="p">},</span>
@@ -506,13 +502,13 @@ update-tick)。</p>
         <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
                 <span class="nx">asset</span><span class="o">:</span> <span class="s1">&#39;city/textures/World_ap_baseColor.jpeg&#39;</span> <span class="p">},</span>
         <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
+            <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_ALPHA</span><span class="p">,</span>
                         <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>        <span class="c1">// follow points[0][1]</span>
                                 <span class="nx">duration</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">,</span>          <span class="c1">// seconds</span>
                                 <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>    <span class="c1">// from, to</span>
                                 <span class="nx">ease</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XEasing</span><span class="p">.</span><span class="nx">Elastic</span><span class="p">.</span><span class="nx">In</span><span class="p">},</span>
                      <span class="p">}],</span>
-                     <span class="p">[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
+                     <span class="p">[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_ALPHA</span><span class="p">,</span>
                         <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>
                                 <span class="nx">duration</span><span class="o">:</span> <span class="mf">3.2</span><span class="p">,</span>          <span class="c1">// seconds</span>
                                 <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">],</span>
@@ -558,8 +554,8 @@ update-tick)。</p>
 30
 31
 32
-33</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="kr">const</span> <span class="nx">points</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span>
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre>        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;points&#39;</span><span class="p">,</span>
         <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">NA</span><span class="p">,</span> <span class="c1">// use the geometry of entity1</span>
                 <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
                 <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>                 <span class="c1">// THREE.Points</span>
@@ -573,7 +569,7 @@ update-tick)。</p>
                         <span class="nx">u_tex</span><span class="o">:</span> <span class="s1">&#39;tex/crosstar.png&#39;</span><span class="p">,</span>
                         <span class="nx">a_noise</span><span class="o">:</span> <span class="kc">false</span><span class="p">}},</span>
         <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span> <span class="nx">script</span><span class="o">:</span> <span class="p">[[</span>
-              <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
+              <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_ALPHA</span><span class="p">,</span>
                 <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>        <span class="c1">// triggered by entity1</span>
                         <span class="nx">duration</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">,</span>          <span class="c1">// seconds</span>
                         <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>     <span class="c1">// from, to</span>
@@ -588,9 +584,11 @@ update-tick)。</p>
                 <span class="nx">followBy</span><span class="o">:</span> <span class="p">[{</span><span class="nx">entity</span><span class="o">:</span> <span class="s1">&#39;entity2&#39;</span><span class="p">,</span>
                             <span class="nx">seqx</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>            <span class="c1">// index of the fade-in</span>
                             <span class="nx">start</span><span class="o">:</span> <span class="mf">0.3</span><span class="p">}]</span> <span class="p">},</span>
-              <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
+              <span class="p">{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XComponent</span><span class="p">.</span><span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_ALPHA</span><span class="p">,</span>
                 <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="kc">Infinity</span><span class="p">,</span>        <span class="c1">// triggered by entity1</span>
                         <span class="nx">duration</span><span class="o">:</span> <span class="mf">1.2</span><span class="p">,</span>          <span class="c1">// seconds</span>
+                        <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.41</span><span class="p">],</span>     <span class="c1">// from, to</span>
+                        <span class="nx">ease</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XEasing</span><span class="p">.</span><span class="nx">Elastic</span><span class="p">.</span><span class="nx">In</span><span class="p">}</span> <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 <p>这个动画脚本将使Points的位置在两个模型的顶点位置间移动。因为u_morph设置了两个模型顶点的权重。</p>
@@ -698,7 +696,7 @@ update-tick)。</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, odys-z@github.com.
+        &copy; Copyright 2020, odys-z.github.io.
 
     </p>
   </div>
@@ -720,7 +718,7 @@ update-tick)。</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3',
+            VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

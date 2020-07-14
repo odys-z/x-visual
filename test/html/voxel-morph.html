@@ -63,8 +63,9 @@
 				shader: xv.XComponent.ShaderFlag.cubeVoxels,
 				paras: {vert_scale: '20.',          // NOTE "." is neccessary as this is a string in glsl source.
 						uniforms:{u_cubes: ['ent1', 'ent2', 'ent3'],// ent2.Obj3.mesh, matrix, etc.
-								  u_sects: [12, 8, 5],              // sections in x, y, z
-								  u_tex: 'tex/spark1.png' } }},
+								  u_sects: [12, 8, 5] },            // sections in x, y, z
+								//u_tex: 'tex/spark1.png' } ,
+						u_tex: 'tex/spark1.png' }}, // v0.3.20 changed uniforms.u_tex to paras.u_tex like other paras
 		ModelSeqs: {
 			script: [[{ mtype: xv.XComponent.AnimType.U_MORPHi,
 						paras: {start: 0,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Debug Notes &mdash; x-visual 0.3 documentation</title>
+  <title>Debug Notes &mdash; x-visual 0.4 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Reference" href="../reference/index.html"/>
         <link rel="prev" title="Tasks" href="todo.html"/> 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.3
+                0.4
               </div>
             
           
@@ -107,6 +107,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#texture-referenced-across-shaders">Texture Referenced Across Shaders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hacking-three-js">Hacking Three.js</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#glsl-shader-source">Glsl Shader Source</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -304,6 +308,21 @@ the texture can be bound to a wrong sampler.</p>
 uniforms, making shader using wrong texture binding.</p>
 <img alt="../_images/007-cross-shader-tex.jpg" src="../_images/007-cross-shader-tex.jpg" />
 </div>
+<div class="section" id="hacking-three-js">
+<h2>Hacking Three.js<a class="headerlink" href="#hacking-three-js" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="glsl-shader-source">
+<h3>Glsl Shader Source<a class="headerlink" href="#glsl-shader-source" title="Permalink to this headline">¶</a></h3>
+<p><strong>THREE.Revision 110</strong></p>
+<p>ShaderId in renderers/webgl/WebGLPrograms.js,</p>
+<p>In renderers/shaders/ShaderLib.js,</p>
+<p>ShaderChunk packs all source grogram, like</p>
+<p>Src: <a class="reference external" href="https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderLib/meshbasic_vert.glsl.js">meshbasic_vert</a>
+&amp; <a class="reference external" href="https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderLib/meshbasic_frag.glsl.js">meshbasic_frag</a>.</p>
+<p>And WebGLRenderer, the three.js renderer, using WebGLPrograms.acquireProgram() to
+get shader program.</p>
+<p>Shader instance for LineBasicMaterial:</p>
+</div>
+</div>
 </div>
 
 
@@ -325,7 +344,7 @@ uniforms, making shader using wrong texture binding.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, odys-z@github.com.
+        &copy; Copyright 2020, odys-z.github.io.
 
     </p>
   </div>
@@ -347,7 +366,7 @@ uniforms, making shader using wrong texture binding.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3',
+            VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
