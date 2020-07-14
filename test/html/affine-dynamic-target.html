@@ -24,29 +24,29 @@
                     for (const e of entities) {
                         if (cmd === 'left') {
                             if (!xv.XTweener.isPlaying(e.CmpTweens, 0)) {
-                                xv.MorphingAnim.set1stPos(e.CmpTweens.tweens[0],
-                                        [-100, 0, 0]); // change first interpos.position[1]
+                                xv.MorphingAnim.addPos(e.CmpTweens.tweens[0], 0,
+                                        [-100, 0, 0]);
                                 e.CmpTweens.startCmds.push(0);
                             }
                         }
                         else if (cmd === 'right') {
                             if (!xv.XTweener.isPlaying(e.CmpTweens, 0)) {
-                                xv.MorphingAnim.set1stPos(e.CmpTweens.tweens[0],
-                                        [ 100, 0, 0]); // change first interpos.position[1]
+                                xv.MorphingAnim.addPos(e.CmpTweens.tweens[0], 0,
+                                        [ 100, 0, 0]);
                                 e.CmpTweens.startCmds.push(0);
                             }
                         }
                         else if (cmd === 'up') {
                             if (!xv.XTweener.isPlaying(e.CmpTweens, 1)) {
-                                xv.MorphingAnim.set1stScale(e.CmpTweens.tweens[1],
-                                        [1, 2, 1]); // change first interpos.scale[1]
+                                xv.MorphingAnim.scaleTo(e.CmpTweens.tweens[1], 0,
+                                        [1, 2, 1]);
                                 e.CmpTweens.startCmds.push(1);
                             }
                         }
                         else if (cmd === 'down') {
                             if (!xv.XTweener.isPlaying(e.CmpTweens, 1)) {
-                                xv.MorphingAnim.set1stScale(e.CmpTweens.tweens[1],
-                                        [1, 0.5, 1]); // change first interpos.scale[1]
+                                xv.MorphingAnim.scaleTo(e.CmpTweens.tweens[1], 0,
+                                        [1, 0.5, 1]);
                                 e.CmpTweens.startCmds.push(1);
                             }
                         }
@@ -64,7 +64,7 @@
 
     xworld.addSystem('test', new TestDynamicPos(ecs, {}));
 
-    /// pinned line 69-95: tests/tests-morph.rst
+    /// pinned line 69-97: tests/tests-morph.rst
 
     const ent1 = {
         id: 'entity1',
@@ -77,19 +77,21 @@
               [{mtype: xv.XComponent.AnimType.POSITION,
                 paras: {
                     start: 0,
-                    translate: [[0, 0, 0], [0, 0, 0]],
-                    duration: 3 } } ],
+                    translate: [[0, 0, 0], [100, 0, 0]],
+                    duration: 1 } } ],
               [{mtype: xv.XComponent.AnimType.SCALE,
                 paras: {
                     start: Infinity,
-                    scale: [[1, 1, 1], [2, 1, 1]],
-                    duration: 3 } } ],
+                    scale: [[1, 1, 1], [1, 1, 1]],
+                    duration: 1 } } ],
               [{mtype: xv.XComponent.AnimType.SCALE,
                 paras: {
                     start: Infinity,
-                    scale: [[1, 1, 1], [0.5, 2, 1]] } } ] ],
+                    scale: [[1, 1, 1], [1, 1, 1]] } } ] ],
             fFinished: ( twns, seqx ) => {
-                if (seqx === 1)
+                if (seqx === 3)
+                    xv.XTweener.startSeq(twns, 2);
+                else if (seqx === 2)
                     xv.XTweener.startSeq(twns, 1);
             }
         },
@@ -99,6 +101,17 @@
 	/// pin end
 
     xworld.addEntities(ent1);
+
+	xworld.addEntities( { id: '0',
+        Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                box: [280, 80, 80] },
+        Visual:{vtype: xv.AssetType.wireframe } } );
+
+	xworld.addEntities( { id: '1',
+        Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ {translate: [200, 0, 0] } ],
+                box: [80, 160, 80] },
+        Visual:{vtype: xv.AssetType.wireframe } } );
 
     xworld.startUpdate();
   </script>
