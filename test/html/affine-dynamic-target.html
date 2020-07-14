@@ -69,6 +69,7 @@
     const ent1 = {
         id: 'entity1',
         Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                transform: [ { translate: [0, 40, 0] } ],
                 box: [80, 80, 80] },
         Visual:{vtype: xv.AssetType.mesh,
                 asset: 'tex/byr0.png' },
@@ -89,9 +90,7 @@
                     start: Infinity,
                     scale: [[1, 1, 1], [1, 1, 1]] } } ] ],
             fFinished: ( twns, seqx ) => {
-                if (seqx === 3)
-                    xv.XTweener.startSeq(twns, 2);
-                else if (seqx === 2)
+                if (seqx === 2)
                     xv.XTweener.startSeq(twns, 1);
             }
         },
@@ -104,12 +103,13 @@
 
 	xworld.addEntities( { id: '0',
         Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                transform: [ { translate: [0, 40, 0] } ],
                 box: [280, 80, 80] },
         Visual:{vtype: xv.AssetType.wireframe } } );
 
 	xworld.addEntities( { id: '1',
         Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				transform: [ {translate: [200, 0, 0] } ],
+                transform: [ {translate: [200, 40, 0] } ],
                 box: [80, 160, 80] },
         Visual:{vtype: xv.AssetType.wireframe } } );
 
