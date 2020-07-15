@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>XTest-Flowing Path Orthogonal</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+    <meta charset="utf-8">
+    <title>XTest-Flowing Path Orthogonal</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <img id='splash'></img>
   <canvas id='canv'></canvas>
+  <p>bug: Filming doesn't working. Cause: FinalComposer doesn't adds all targets.</p>
   <script>
-	"use strict";
+    "use strict";
 
     class CustLine extends xv.XSys {
         constructor(ecs, options) {
@@ -51,18 +52,46 @@
                 Glow: { paras: [ ] },
             });
 
-            // ecs.createEntity({
-            //     id: 'p2',
-            //     Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
-            //             box: [5],
-            //             mesh: undefined },
-            //     Visual:{vtype: xv.AssetType.GeomCurve,
-            //             paras: {points: [100, 0, 0, 200, 0, 0],  // static p0, p1
-            //                     linewidth: 3} },
-            //     Filming: { paras: [
-            //     ] },
-            // });
-			//
+            ecs.createEntity({
+                id: 'p2',
+                Obj3: { geom: xv.XComponent.Obj3Type.RandomCurve,
+                        box: [5],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.GeomCurve,
+                        paras: {points: [100, 0, 0, 200, 0, -100],  // static p0, p1
+                                linewidth: 5} },
+                Filming: { paras: [ ] },
+            });
+
+            ecs.createEntity({
+                id: 'b2',
+                Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                        box: [120, 120, 120],
+                        transform: [{translate: [0, 60, 0]}],
+                        mesh: undefined },
+                Visual:{vtype: xv.AssetType.mesh,
+                        asset: 'tex/uestc.svg' },
+                Filming: { paras: [ ] },
+                Glow: { paras: [ ] },
+                ModelSeqs: { script: [[
+                      { mtype:  xv.XComponent.AnimType.ROTAXIS,
+                        paras: {start: 0,
+                                duration: 8,
+                                deg: [0, 360],
+                                axis: [1, 1, -1],
+                                ease: undefined} },
+                      { mtype:  xv.XComponent.AnimType.ROTAXIS,
+                        paras: {start: Infinity,
+                                duration: 0.4,
+                                deg: [0, 90],
+                                axis: [0, 1, 0],
+                                ease: undefined},
+                        followBy: [{entity: 'b2',// repeat
+                                    seqx: 0,
+                                    start: 0.5}] }
+                    ]]},
+                CmpTweens: {}
+            });
             // ecs.createEntity({
             //     id: 'plane',
             //     Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
@@ -76,15 +105,18 @@
         }
     }
 
-	// CustLine.query = { iffall: ['FlowingPath'] };
+    const xworld = new xv.XWorld(document.getElementById('canv'),
+                                 window,
+                                {effects: true,
+                                 Glow: {threshold: 0.1,
+                                        strength: 2.8,
+                                        radius: 0.5}});
+    const ecs = xworld.xecs;
+    const xscene = xworld.xscene;
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window);
-	const ecs = xworld.xecs;
-	const xscene = xworld.xscene;
+    xworld.addSystem('test', new CustLine(ecs, {xscene}));
 
-	xworld.addSystem('test', new CustLine(ecs, {xscene}));
-
-	xworld.startUpdate();
+    xworld.startUpdate();
   </script>
   </body>
 </html>

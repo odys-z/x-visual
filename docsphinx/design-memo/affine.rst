@@ -101,7 +101,7 @@ Algorithm: ::
              if starting a tween:
                // event: onStart() => clear m0;
                if idle:
-                 idle-edge = lowing, i.g. play-risging
+                 idle-edge = lowing, i.e. play-rising
                idle = false;
              update tween;
 
@@ -116,10 +116,9 @@ Algorithm: ::
             // This is how Tween.js works - tweened value got from the beginning.
             A.1 if play-rising:
                 Obj3.m0 = mesh.matrix, i.g. the all tweens' starting point.
-
             A.2 if starting a consecutive:
                 tween._mf <- previous-tween.mf
-                 i.g. save previous mf for where this tween started to tween.
+                i.e. save previous mf for where this animation start to tween.
             A.3 combine affine transformation for all tweens in all sequence currently updatings
                 Obj3.mi <- Obj3.mi.mul( fi( m0 ) * zi )
             A.4 if the tween is finished, keep tween.m0
@@ -134,7 +133,7 @@ Affine transformation are accumulated in Obj3. :math:`m_{i}` :
 
 .. literalinclude:: ../../lib/sys/tween/affinecombiner.js
    :language: javascript
-   :lines: 82-95
+   :lines: 100-119
    :linenos:
 
 .. _affine-issue:
@@ -179,7 +178,7 @@ like an easy way to update :math:`m_{f'_{1}}` before Tween.js is upgraded.
 
 Guess: this may comes from 2 sources:
 
-i. The last affine combination is not updated as the XTweener changed sequence
-index, makes last affine update skipped the iteration.
+A. The last affine combination is not updated as the XTweener changed sequence
+index, making last affine update skipped the iteration.
 
-ii. The multiple mat4 multiplication incurred precision error.
+B. The multiple mat4 multiplication incurred precision error.

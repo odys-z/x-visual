@@ -136,21 +136,21 @@ In renderers/shaders/ShaderLib.js,
 
 .. code-block: javascript
 
-var ShaderLib = {
-	basic: {
-		uniforms: mergeUniforms( [
-			UniformsLib.common,
-			UniformsLib.specularmap,
-			UniformsLib.envmap,
-			UniformsLib.aomap,
-			UniformsLib.lightmap,
-			UniformsLib.fog
-		] ),
+    var ShaderLib = {
+      basic: {
+        uniforms: mergeUniforms( [
+          UniformsLib.common,
+          UniformsLib.specularmap,
+          UniformsLib.envmap,
+          UniformsLib.aomap,
+          UniformsLib.lightmap,
+          UniformsLib.fog
+      ] ),
 
-		vertexShader: ShaderChunk.meshbasic_vert,
-		fragmentShader: ShaderChunk.meshbasic_frag
-	},
-	...
+      vertexShader: ShaderChunk.meshbasic_vert,
+      fragmentShader: ShaderChunk.meshbasic_frag
+    },
+    ...
 ..
 
 ShaderChunk packs all source grogram, like
