@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/>
         <link rel="up" title="Extensions" href="index.html"/>
         <link rel="next" title="HTML Texture" href="htmltex.html"/>
@@ -100,7 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../geometry.html">X-Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Extensions</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">Post Effects</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Post Effects</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#x-visual-passes-composer">x-visual Passes &amp; Composer</a></li>
 </ul>
 </li>
@@ -173,41 +176,41 @@ and Passes. See <a class="reference external" href="https://threejsfundamentals.
 <ul class="simple">
 <li>Abstratct Base Class: Orthocclude</li>
 </ul>
-<div class="highlight-python"><div class="highlight"><pre>1. pack up Passes as an effect composer
-2. ask subclass.getEffectPass() for {effects, layers}, where effects is an
-   array of Pass elements. Layers in Obj3 are already ready for rendering
-   effects or used for occluding. E.g. in PathEffect#getEffectPass():
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">pack</span> <span class="n">up</span> <span class="n">Passes</span> <span class="k">as</span> <span class="n">an</span> <span class="n">effect</span> <span class="n">composer</span>
+<span class="mf">2.</span> <span class="n">ask</span> <span class="n">subclass</span><span class="o">.</span><span class="n">getEffectPass</span><span class="p">()</span> <span class="k">for</span> <span class="p">{</span><span class="n">effects</span><span class="p">,</span> <span class="n">layers</span><span class="p">},</span> <span class="n">where</span> <span class="n">effects</span> <span class="ow">is</span> <span class="n">an</span>
+   <span class="n">array</span> <span class="n">of</span> <span class="n">Pass</span> <span class="n">elements</span><span class="o">.</span> <span class="n">Layers</span> <span class="ow">in</span> <span class="n">Obj3</span> <span class="n">are</span> <span class="n">already</span> <span class="n">ready</span> <span class="k">for</span> <span class="n">rendering</span>
+   <span class="n">effects</span> <span class="ow">or</span> <span class="n">used</span> <span class="k">for</span> <span class="n">occluding</span><span class="o">.</span> <span class="n">E</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="ow">in</span> <span class="n">PathEffect</span><span class="c1">#getEffectPass():</span>
 
-   if (e.Occluder &amp;&amp; e.Occluder.FlowingPath)
-       e.Obj3.occluding |= 1 &lt;&lt; LayerChannel.FLOWING_PATH ;
-   e.Obj3.layers |= 1 &lt;&lt; LayerChannel.FLOWING_PATH ;
+   <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">Occluder</span> <span class="o">&amp;&amp;</span> <span class="n">e</span><span class="o">.</span><span class="n">Occluder</span><span class="o">.</span><span class="n">FlowingPath</span><span class="p">)</span>
+       <span class="n">e</span><span class="o">.</span><span class="n">Obj3</span><span class="o">.</span><span class="n">occluding</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">LayerChannel</span><span class="o">.</span><span class="n">FLOWING_PATH</span> <span class="p">;</span>
+   <span class="n">e</span><span class="o">.</span><span class="n">Obj3</span><span class="o">.</span><span class="n">layers</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">LayerChannel</span><span class="o">.</span><span class="n">FLOWING_PATH</span> <span class="p">;</span>
 
-3. render with composer in update() - subclass shouldn&#39;t rendering by themselves
-   3.1 use obj3&#39;s layers replacing mesh&#39;s layers
-   3.2 render with composer (camera.layers = this.layers)
+<span class="mf">3.</span> <span class="n">render</span> <span class="k">with</span> <span class="n">composer</span> <span class="ow">in</span> <span class="n">update</span><span class="p">()</span> <span class="o">-</span> <span class="n">subclass</span> <span class="n">shouldn</span><span class="s1">&#39;t rendering by themselves</span>
+   <span class="mf">3.1</span> <span class="n">use</span> <span class="n">obj3</span><span class="s1">&#39;s layers replacing mesh&#39;</span><span class="n">s</span> <span class="n">layers</span>
+   <span class="mf">3.2</span> <span class="n">render</span> <span class="k">with</span> <span class="n">composer</span> <span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">this</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li>Orthogonal Effects, e.g. FlowingPath</li>
 </ul>
 <p>For example, in FlowingPath</p>
-<div class="highlight-python"><div class="highlight"><pre>1. compact several effect passes like render pass, blooming pass, etc.,
-2. setup a layer mask,
-3. then enable object mask saved to entities Obj3.layers.
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">compact</span> <span class="n">several</span> <span class="n">effect</span> <span class="n">passes</span> <span class="n">like</span> <span class="n">render</span> <span class="k">pass</span><span class="p">,</span> <span class="n">blooming</span> <span class="k">pass</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">,</span>
+<span class="mf">2.</span> <span class="n">setup</span> <span class="n">a</span> <span class="n">layer</span> <span class="n">mask</span><span class="p">,</span>
+<span class="mf">3.</span> <span class="n">then</span> <span class="n">enable</span> <span class="nb">object</span> <span class="n">mask</span> <span class="n">saved</span> <span class="n">to</span> <span class="n">entities</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li>Helping steps in XWorld &amp; Thrender</li>
 </ul>
-<div class="highlight-python"><div class="highlight"><pre>1. add functions to THREE.Layers (used in Object3D, e.g. Obj3.mesh)
-2. add call backs to ECS.ECS.createEntity(), makes some added components trigger
-   some options, and creating some subsystem like PathEffect and FinalComposer
-3. thrender will use final composer rendering scene in update() if it&#39;s triggered
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">add</span> <span class="n">functions</span> <span class="n">to</span> <span class="n">THREE</span><span class="o">.</span><span class="n">Layers</span> <span class="p">(</span><span class="n">used</span> <span class="ow">in</span> <span class="n">Object3D</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">Obj3</span><span class="o">.</span><span class="n">mesh</span><span class="p">)</span>
+<span class="mf">2.</span> <span class="n">add</span> <span class="n">call</span> <span class="n">backs</span> <span class="n">to</span> <span class="n">ECS</span><span class="o">.</span><span class="n">ECS</span><span class="o">.</span><span class="n">createEntity</span><span class="p">(),</span> <span class="n">makes</span> <span class="n">some</span> <span class="n">added</span> <span class="n">components</span> <span class="n">trigger</span>
+   <span class="n">some</span> <span class="n">options</span><span class="p">,</span> <span class="ow">and</span> <span class="n">creating</span> <span class="n">some</span> <span class="n">subsystem</span> <span class="n">like</span> <span class="n">PathEffect</span> <span class="ow">and</span> <span class="n">FinalComposer</span>
+<span class="mf">3.</span> <span class="n">thrender</span> <span class="n">will</span> <span class="n">use</span> <span class="n">final</span> <span class="n">composer</span> <span class="n">rendering</span> <span class="n">scene</span> <span class="ow">in</span> <span class="n">update</span><span class="p">()</span> <span class="k">if</span> <span class="n">it</span><span class="s1">&#39;s triggered</span>
 </pre></div>
 </div>
 <p>[<a class="reference external" href="https://threejs.org/docs/#examples/en/postprocessing/EffectComposer">EffectComposer</a>]
 [<a class="reference external" href="https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js">Pass.js (no docs)</a>]</p>
-<p>TODO docs ...</p>
+<p>TODO docs …</p>
 </div>
 </div>
 </div>
@@ -262,7 +265,8 @@ and Passes. See <a class="reference external" href="https://threejsfundamentals.
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
