@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>XTest-Dyan Tween Target</title>
+		<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+		<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	</head>
+
+	<body>
+		<canvas id='canv'></canvas>
+		<script>
+			"use strict";
+
+			class TestDynamicPos extends xv.XSys {
+				constructor(ecs, options) {
+					super(ecs);
+					this.ecs = ecs;
+				}
+
+				update(tick, entities) {
+
+				}
+			}
+			TestDynamicPos.query = {
+				iffall: ['Obj3', 'CmpTweens']
+			};
+
+			// initiating xworld
+			const xworld = new xv.XWorld(document.getElementById('canv'),
+				window, {
+					canvasize: [480, 320]
+				});
+			const ecs = xworld.xecs;
+
+			xworld.addSystem('test', new TestDynamicPos(ecs, {}));
+
+			/// pinned line 69-97: tests/tests-morph.rst
+
+			//test position and scale
+			//todo test rotation
+			let posFlag = 1;
+			let xpos = 10;
+			let scaleFlag = 1;
+			let scaleX = 1;
+			const ent1 = {
+				id: 'entity1',
+				Obj3: {
+					geom: xv.XComponent.Obj3Type.BOX,
+					transform: [{
+						translate: [0, 40, 0]
+					}],
+					box: [10, 80, 80]
+				},
+				Visual: {
+					vtype: xv.AssetType.mesh,
+					asset: 'tex/byr0.png'
+				},
+				ModelSeqs: {
+					script: [
+						[{
+							mtype: xv.XComponent.AnimType.POSITION,
+							paras: {
+								start: 0,
+								translate: [
+									[0, 0, 0],
+									[10, 0, 0]
+								],
+								duration: 1
+							}
+						}],
+						[{
+							mtype: xv.XComponent.AnimType.SCALE,
+							paras: {
+								start: Infinity,
+								scale: [
+									[1, 1, 1],
+									[2, 1, 1]
+								],
+								duration: 1
+							}
+						}],
+						[{
+							mtype: xv.XComponent.AnimType.SCALE,
+							paras: {
+								start: Infinity,
+								scale: [
+									[1, 1, 1],
+									[1, 1, 1]
+								]
+							}
+						}]
+					],
+					fFinished: (twns, seqx) => {
+
+						//test position
+						if(xpos === 40) {
+							posFlag = -1;
+						}
+						if(xpos === -40) {
+							posFlag = 1
+						}
+						if(posFlag === 1) {
+							xv.MorphingAnim.addPos(twns.tweens[0], 0, [10, 0, 0]);
+							twns.startCmds.push(0);
+							xpos += 10;
+
+						}
+						if(posFlag === -1) {
+							xv.MorphingAnim.addPos(twns.tweens[0], 0, [-10, 0, 0]);
+							twns.startCmds.push(0);
+							xpos -= 10;
+
+						}
+
+						//test scale
+						if(scaleX === 8) {
+							scaleFlag = -1;
+						}
+						if(scaleX === 1) {
+							scaleFlag = 1
+						}
+						if(scaleFlag === 1) {
+							twns.startCmds.push(1);
+							xv.MorphingAnim.scaleTo(twns.tweens[1], 0, [2, 1, 1]);
+							scaleX *= 2;
+						}
+						if(scaleFlag === -1) {
+
+							twns.startCmds.push(1);
+							xv.MorphingAnim.scaleTo(twns.tweens[1], 0, [0.5, 1, 1]);
+							scaleX /= 2;
+						}
+
+					}
+				},
+				CmpTweens: {}
+			};
+
+			/// pin end
+
+			xworld.addEntities(ent1);
+
+			xworld.addEntities({
+				id: '0',
+				Obj3: {
+					geom: xv.XComponent.Obj3Type.BOX,
+					transform: [{
+						translate: [0, 40, 0]
+					}],
+					box: [280, 80, 80]
+				},
+				Visual: {
+					vtype: xv.AssetType.wireframe
+				}
+			});
+
+			xworld.addEntities({
+				id: '1',
+				Obj3: {
+					geom: xv.XComponent.Obj3Type.BOX,
+					transform: [{
+						translate: [200, 40, 0]
+					}],
+					box: [80, 160, 80]
+				},
+				Visual: {
+					vtype: xv.AssetType.wireframe
+				}
+			});
+
+			xworld.startUpdate();
+		</script>
+	</body>
+
+</html>
