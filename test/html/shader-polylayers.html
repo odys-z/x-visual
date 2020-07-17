@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Buildings</title>
+	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	<style>input[id] {width: 4.9em}</style>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	var json0 = {
+	  "type": "FeatureCollection",
+	  "features": [
+		{ "type": "Feature", "properties": {"height": 2},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[-100, -100], [100, -100], [0, 100]]
+		  }
+		}
+	  ]
+	};
+	var o0 = [0, 0];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 400]});
+
+	xworld.addEntities({
+		id: 'layers',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [100, 100, 100] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.shapeLayers,
+			paras: {
+				layers: 5,
+				// map
+				features: json0.features,
+				origin: o0,
+				geostyle: { height: 5, scale: 0.02 },
+			},
+			asset: 'tex/rgb2x2.png' } ,
+	} );
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
