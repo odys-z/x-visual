@@ -232,7 +232,10 @@
                 duration: 1.1,
                 alpha: [0.2, 1],
                 ease: xv.XEasing.Elastic.In } }
-        ] ] },
+          ] ],
+          fFinished: (twns, seqx) => {
+            console.log("bug: U_ALPHA events not called", twns[seqx]);
+          } },
         CmpTweens: {},
 	} );
 
