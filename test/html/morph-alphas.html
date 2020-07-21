@@ -210,6 +210,32 @@
         CmpTweens: {},
     } );
 
+	ents.push ( {
+        id: 'ring',
+        Obj3: {
+            geom: xv.XComponent.Obj3Type.RING,
+            box: [26, 46, 30, 30, Math.PI/4, Math.PI/2],
+            transform: [ { translate: [150, 0, -0] } ],
+            mesh: undefined },
+        Visual:{
+            vtype: xv.AssetType.mesh,
+            shader: xv.ShaderFlag.colorArray,
+            paras: {
+				side: THREE.DoubleSide,
+                u_tex: [     // color: '#1c7'
+                'data:application/x-visual+img,color-pixel [1/16, 12/16, 7/16]'
+            ] } },
+        ModelSeqs: { script: [ [
+          { mtype: xv.XComponent.AnimType.U_ALPHA,
+            paras: {
+                start: 0,
+                duration: 1.1,
+                alpha: [0.2, 1],
+                ease: xv.XEasing.Elastic.In } }
+        ] ] },
+        CmpTweens: {},
+	} );
+
     xworld.addEntities(ents);
 
     xworld.startUpdate();
