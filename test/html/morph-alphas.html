@@ -234,7 +234,8 @@
                 ease: xv.XEasing.Elastic.In } }
           ] ],
           fFinished: (twns, seqx) => {
-            console.log("bug: U_ALPHA events not called", twns[seqx]);
+            console.log("bug fixed: U_ALPHA finishing events has been called",
+						twns.tweens[seqx]);
           } },
         CmpTweens: {},
 	} );
