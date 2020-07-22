@@ -31,12 +31,12 @@
 	xworld.addEntities({
 		id: 'layers',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [300, 300, 100] },
+				box: [240, 200, 100] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.shapeLayers,
 			paras: {
-				side: THREE.DoubleSide,
+				// side: THREE.DoubleSide,
 				layers: 5,
 				// map
 				features: json0.features,
@@ -44,6 +44,14 @@
 				geostyle: { height: 5, scale: 0.02 },
 			},
 			asset: 'tex/rgb2x2.png' } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.001,   // speed para alwasy comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {}
 	} );
 
 	xworld.startUpdate();
