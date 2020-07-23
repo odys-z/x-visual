@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest - Tiled Layers</title>
+	<title>XTest - TessellateBox & Box Floor</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 	<style>input[id] {width: 4.9em}</style>
@@ -12,36 +12,32 @@
   <script>
 	"use strict";
 
+	var json0 = {
+	  "type": "FeatureCollection",
+	  "features": [
+		{ "type": "Feature", "properties": {"height": 2},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[-100, -100], [-10, -100], [-10, 100], [-100, 100]]
+		  }
+	    },
+		{ "type": "Feature", "properties": {"height": 2},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[10, -100], [100, -100], [100, 100], [10, 100]]
+		  }
+		}
+	  ]
+	};
+	var o0 = [0, 0];
+
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 300]});
 
 	xworld.addEntities([
-	  { id: 'tiles',
-		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				transform: [ { translate: [-250, 0, 0] } ],
-				box: [240, 120, 200] },
-		Visual:{
-			vtype: xv.AssetType.mesh,
-			shader: xv.XComponent.ShaderFlag.tiledLayers,
-			paras: {
-				// tile style for shader tiledLayers
-				tile: {
-					change: true,
-					layers: 5,
-			} } } ,
-		ModelSeqs: { script: [[{
-			mtype:  xv.XComponent.AnimType.U_NOW,
-			paras: {start: 0,
-				speed: 0.001,   // speed para alwasy comes with U_NOW
-				duration: 0 }	// ignored
-			}]]
-		},
-		CmpTweens: {}
-	  },
-	  { id: 'layers',
-		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				transform: [ { translate: [60, 0, 0] } ],
-				box: [240, 200, 100] },
+	  { id: 'geobox',
+		Obj3: { geom: xv.XComponent.Obj3Type.TessellateBox,
+				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.tiledLayers,
