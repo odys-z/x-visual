@@ -246,3 +246,6 @@ references:
    Try::
 
     color = smoothstep(0.0, 0.01, vec3( d ));
+
+.. `Da Rasterizer , Created by TDM, 2014-08-20 <https://www.shadertoy.com/view/MsjSzz>`_
+   An example of fragment shader matrix operation.

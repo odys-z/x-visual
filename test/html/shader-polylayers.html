@@ -28,22 +28,20 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 300]});
 
-	xworld.addEntities({
-		id: 'layers',
+	xworld.addEntities([
+	  { id: 'tiles',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [240, 200, 100] },
+				transform: [ { translate: [-250, 0, 0] } ],
+				box: [240, 120, 200] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			shader: xv.XComponent.ShaderFlag.shapeLayers,
+			shader: xv.XComponent.ShaderFlag.tiledLayers,
 			paras: {
-				// side: THREE.DoubleSide,
-				layers: 5,
-				// map
-				features: json0.features,
-				origin: o0,
-				geostyle: { height: 5, scale: 0.02 },
-			},
-			asset: 'tex/rgb2x2.png' } ,
+				// tile style for shader tiledLayers
+				tile: {
+					change: true,
+					layers: 5,
+			} } } ,
 		ModelSeqs: { script: [[{
 			mtype:  xv.XComponent.AnimType.U_NOW,
 			paras: {start: 0,
@@ -52,7 +50,36 @@
 			}]]
 		},
 		CmpTweens: {}
-	} );
+	  },
+	  { id: 'layers',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ { translate: [60, 0, 0] } ],
+				box: [240, 200, 100] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.tiledLayers,
+			paras: {
+				layers: 5,
+				// map
+				features: json0.features,
+				origin: o0,
+				geostyle: { height: 5, scale: 0.02 },
+			} } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.001,   // speed para alwasy comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {}
+	  },
+	  // { id: 'calibra',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		box: [240, 200, 100] },
+		// Visual:{ vtype: xv.AssetType.wireframe },
+	  // }
+	]);
 
 	xworld.startUpdate();
 
