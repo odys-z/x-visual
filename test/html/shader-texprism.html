@@ -16,28 +16,30 @@
 	var json0 = {
 	  "type": "FeatureCollection",
 	  "features": [
+		// { "type": "Feature", "properties": {"height": 2},
+		//   "geometry": {
+		// 	"type": "polygon",
+		// 	// "coordinates": [[-200, -100], [-140, -100], [-140, 100], [-200, 100]]
+		// 	"coordinates": [[-50, -100], [50, -100], [50, 100], [-50, 100]]
+		//   }
+	    // },
 		{ "type": "Feature", "properties": {"height": 2},
 		  "geometry": {
 			"type": "polygon",
-			"coordinates": [[-100, -100], [-10, -100], [-10, 100], [-100, 100]]
-		  }
-	    },
-		{ "type": "Feature", "properties": {"height": 2},
-		  "geometry": {
-			"type": "polygon",
-			"coordinates": [[10, -100], [100, -100], [100, 100], [10, 100]]
+			"coordinates": [[-250, 0], [0, -250], [250, 0], [0, 250]]
 		  }
 		}
 	  ]
 	};
 	document.getElementById('txt').value = JSON.stringify(json0);
-	var o0 = [0, 0];
+	var o0 = [-0, 0];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
-					  window, {canvasize: [600, 400]});
+					  window, {canvasize: [600, 360]});
 
 	xworld.addEntities([
-	  { id: 'texbuilding1',
+	  { id: 'prism',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
 				box: [] },
 		Visual:{
@@ -45,7 +47,9 @@
 			shader: xv.XComponent.ShaderFlag.texPrism,
 			paras: {
 				side: THREE.FrontSide,
-				layers: 5,
+				tile: {
+					change: true,
+					layers: 5 },
 				u_tex: [
 					'tex/wood.png',    // 0: lateral faces (wall)
 					'tex/ruler256.png',  // 1: base faces (root)
@@ -56,7 +60,7 @@
 				features: json0.features,
 				origin: o0,
 				geostyle: {
-					height: 50, scale: 0.02,
+					height: 25, scale: 1,
 					groups: 3,
 					onGroup: (fx, feature) => { return fx % 3; } }, // then update() can change morphings
 			} } ,
@@ -68,7 +72,35 @@
 			}]]
 		},
 		CmpTweens: {}
-	  }] );
+	  },
+	  // { id: 'box',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		transform: [ {translate: [120, 0, 0]} ],
+		// 		box: [100, 100, 200] },
+		// Visual:{
+		// 	vtype: xv.AssetType.mesh,
+		// 	shader: xv.XComponent.ShaderFlag.texPrism,
+		// 	paras: {
+		// 		side: THREE.FrontSide,
+		// 		tile: {
+		// 			change: true,
+		// 			layers: 5 },
+		// 		u_tex: [
+		// 			'tex/wood.png',    // 0: lateral faces (wall)
+		// 			'tex/ruler256.png',  // 1: base faces (root)
+		// 			'tex/byr0.png'],     // 2: optional, layer faces (floor)
+	  //
+		// 		// geojson geometry handling
+		// 		// configuration similar with Obj3Type.Hexatile
+		// 		features: json0.features,
+		// 		origin: o0,
+		// 		geostyle: {
+		// 			height: 25, scale: 1,
+		// 			groups: 3,
+		// 			onGroup: (fx, feature) => { return fx % 3; } }, // then update() can change morphings
+		// 	} }
+	  // }
+	] );
 
 	xworld.startUpdate();
 
