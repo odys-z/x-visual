@@ -16,13 +16,13 @@
 	var json0 = {
 	  "type": "FeatureCollection",
 	  "features": [
-		{ "type": "Feature", "properties": {"height": 4, "side":"counter clockwise"},
+		{ "type": "Feature", "properties": {"height": 4, "side":"3857 counter clockwise"},
 		  "geometry": {
 			"type": "polygon",
-			"coordinates": [[60, 120], [140, 120], [140, 160], [60, 160]]
+			"coordinates": [[80, 120], [140, 120], [140, 160], [80, 160]]
 		  }
 	    },
-		{ "type": "Feature", "properties": {"height": 4, "side":"clockwise"},
+		{ "type": "Feature", "properties": {"height": 4, "side":"3857 clockwise"},
 		  "geometry": {
 			"type": "polygon",
 			"coordinates": [[-140, 160], [-60, 160], [-60, 120], [-140, 120]]
@@ -79,8 +79,8 @@
 					change: true,
 					layers: 1 },
 				u_tex: [
-					'tex/wood.png',    // 0: lateral faces (wall)
-					'tex/ruler256.png',  // 1: base faces (root)
+					'tex/ruler256.png',  // 0: base faces (root)
+					'tex/wood.png',      // 1: lateral faces (wall)
 					'tex/byr0.png'],     // 2: optional, layer faces (floor)
 
 				// geojson geometry handling
