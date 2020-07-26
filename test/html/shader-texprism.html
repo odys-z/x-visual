@@ -9,6 +9,8 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p>Test ShaderFlag.texPrism &amp; Obj3Type.GeoPrism<br>
+  	Note the left tall building polygon is not clockwise and not correctly rendered.</p>
   <br><textarea id="txt" rows="9" cols="73"></textarea>
   <script>
 	"use strict";
@@ -76,7 +78,8 @@
 			paras: {
 				side: THREE.FrontSide,
 				tile: {
-					change: true,
+					tiles: [3, 4],
+					change: false,
 					layers: 1 },
 				u_tex: [
 					'tex/ruler256.png',  // 0: base faces (root)
