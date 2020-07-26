@@ -24,18 +24,18 @@
 			"coordinates": [[80, 120], [140, 120], [140, 160], [80, 160]]
 		  }
 	    },
-		{ "type": "Feature", "properties": {"height": 4, "side":"3857 clockwise"},
+		{ "type": "Feature", "properties": {"height": 3, "side":"3857 clockwise"},
 		  "geometry": {
 			"type": "polygon",
 			"coordinates": [[-140, 160], [-60, 160], [-60, 120], [-140, 120]]
 		  }
 	    },
-		// { "type": "Feature", "properties": {"height": 2},
-		//   "geometry": {
-		// 	"type": "polygon",
-		// 	"coordinates": [[-160, 0], [0, -160], [160, 0], [0, 160]]
-		//   }
-		// }
+		{ "type": "Feature", "properties": {"height": 2},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[-160, 0], [0, -160], [160, 0], [0, 160]]
+		  }
+		}
 	  ]
 	};
 	document.getElementById('txt').value = JSON.stringify(json0);
@@ -77,9 +77,9 @@
 			shader: xv.XComponent.ShaderFlag.texPrism,
 			paras: {
 				side: THREE.FrontSide,
-				uvScale: [2, 1],
+				uvScale: [6, 2],
 				tile: {
-					tiles: [3, 4],
+					tiles: [2, 2],
 					change: false,
 					layers: 1 },
 				u_tex: [
