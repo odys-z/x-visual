@@ -12,42 +12,39 @@
   <script>
 	"use strict";
 
-	var json0 = {
-	  "type": "FeatureCollection",
-	  "features": [
-		{ "type": "Feature", "properties": {"height": 2},
-		  "geometry": {
-			"type": "polygon",
-			"coordinates": [[-100, -100], [-10, -100], [-10, 100], [-100, 100]]
-		  }
-	    },
-		{ "type": "Feature", "properties": {"height": 2},
-		  "geometry": {
-			"type": "polygon",
-			"coordinates": [[10, -100], [100, -100], [100, 100], [10, 100]]
-		  }
-		}
-	  ]
-	};
-	document.getElementById('txt').value = JSON.stringify(json0);
-	var o0 = [0, 0];
+	const json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
+	const o0 = [11584780.0575155, 3574051.29001759];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
 
 	xworld.addEntities([
-	  { id: 'texbuilding1',
+	  { id: 'commercials',
 		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
+			// shader: xv.XComponent.ShaderFlag.texPrism,
 			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
-				layers: 5,
-				// map
-				features: json0.features,
+				side: THREE.FrontSide,
+				uvScale: [6, 2],
+				tile: {
+					tiles: [2, 2],
+					change: false,
+					layers: 1 },
+				u_tex: [
+					'../../assets/tex/ruler256.png',  // 0: base faces (roof)
+					'../../assets/tex/wood.png',      // 1: lateral faces (wall)
+					'../../assets/tex/byr0.png'],     // 2: optional, layer faces (floor)
+
+				// geojson geometry handling
+				uri: json,
 				origin: o0,
-				geostyle: { height: 5, scale: 0.02 },
+				geostyle: {
+					height: 25, scale: 1,
+					groups: 3,
+					onGroup: (fx, feature) => { return fx % 3; } }, // then update() can change morphings
 			} } ,
 		ModelSeqs: { script: [[{
 			mtype:  xv.XComponent.AnimType.U_NOW,
@@ -57,7 +54,8 @@
 			}]]
 		},
 		CmpTweens: {}
-	  }] );
+	  },
+	] );
 
 	xworld.startUpdate();
 
