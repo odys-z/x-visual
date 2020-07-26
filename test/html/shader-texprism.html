@@ -5,7 +5,6 @@
 	<title>XTest - Texture of Prism</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
-	<style>input[id] {width: 4.9em}</style>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -74,7 +73,8 @@
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			shader: xv.XComponent.ShaderFlag.texPrism,
+			// shader: xv.XComponent.ShaderFlag.texPrism,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
 				side: THREE.FrontSide,
 				uvScale: [6, 2],
