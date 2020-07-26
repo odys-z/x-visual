@@ -2,7 +2,7 @@
   "features": [
  {"type": "Feature","properties": {"building": "commercial", "area": "virtual", "areaHeight": 0.1},
   "geometry": {"type":"Polygon", "coordinates": [
-     [11584230.9144783,3574490.76438339],[11584810.1930289,3573958.46781679],[11584783.4288523,3573919.04163397],[11584754.8189796,3574083.88282654]
+     [11584830, 3574490],[11584810, 3573960],[11584785, 3573920],[11584755, 3574080]
   ] }},
 
  {"type": "Feature","properties": {"building": "commercial", "area": "virtual", "areaHeight": 0.1},
