@@ -27,23 +27,27 @@
 					// TODO
 				}
 				else if (e.VirtualCubes.uri) {
-					var fs = e.VirtualCubes.area.features;
-					for (var f of fs) {
-						if (f.properties.area === 'virtual') {
-							if (!e.Visual.paras.features)
-								e.Visual.paras.features = [];
+					if (e.Visual) {
+						if (!e.Visual.paras)
+							e.Visual.paras = {};
+						e.Visual.paras.uri = e.VirtualCubes.uri;
+						e.Visual.paras.beforeFeature = (f) => {
+							if (f.properties.area === 'virtual') {
+								if (!e.Visual.paras.features)
+									e.Visual.paras.features = [];
 
-							var points = f.geometry.coordinates;
-							// area plane
-							e.Visual.paras.features.push( {
-								properties: {height: f.properties.areaHeight},
-								geometry: {coordinates: points} } );
+								var points = f.geometry.coordinates;
+								var {xzwh, loc} = xv.xgeom.xzBox(points);
 
-							// area boxes
-							var {xzwh, loc} = xv.xgeom.xzBox(points);
-							var boxes = createBoxes(e.Visual.paras,
-								xzwh, loc, e.VirtualCubes.boxes);
-							break;
+								// area plane
+								e.Visual.paras.features.push( {
+									properties: {height: f.properties.areaHeight || xzwh.h * 0.1},
+									geometry: {coordinates: points} } );
+
+								// area boxes
+								createBoxes(e.Visual.paras, xzwh, loc,
+									f.properties.boxes || e.VirtualCubes.boxes);
+							}
 						}
 					}
 				}
@@ -76,7 +80,7 @@
   <script>
 	"use strict";
 
-	var json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/heights.json';
+	var json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
 	var o3857 = [11584780.0575155, 3574051.29001759];
 
 	// box(x, z, w, d, h) of area(x, z, w, d, Visual.paras.maxHeight)
@@ -102,10 +106,10 @@
 			paras: {
 				layers: 5,
 				// VirtualArea
-				maxHeight: 30,
+				maxHeight: 300,
 				uri: undefined, // Volumetricube wil tack care of this
 				origin: o3857,
-				geostyle: { height: 5, scale: 1. },
+				geostyle: { height: 50, scale: 1. },
 			} } ,
 		ModelSeqs: { script: [[{
 			mtype:  xv.XComponent.AnimType.U_NOW,

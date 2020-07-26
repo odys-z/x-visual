@@ -38,9 +38,11 @@
 
 							// area boxes
 							var {xzwh, loc} = xv.xgeom.xzBox(points);
-							var boxes = createBoxes(e.Visual.paras,
-								xzwh, loc, e.VirtualCubes.boxes);
-							break;
+							// createBoxes(e.Visual.paras,
+							// 	xzwh, loc, e.VirtualCubes.boxes);
+							// break;
+							createBoxes(e.Visual.paras, xzwh, loc,
+								f.properties.boxes || e.VirtualCubes.boxes);
 						}
 					}
 				}
