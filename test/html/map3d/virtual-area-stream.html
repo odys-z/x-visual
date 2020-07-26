@@ -24,6 +24,9 @@
 		init(entities) {
 			for (var e of entities) {
 				if (e.VirtualCubes.area) {
+					// TODO
+				}
+				else if (e.VirtualCubes.uri) {
 					var fs = e.VirtualCubes.area.features;
 					for (var f of fs) {
 						if (f.properties.area === 'virtual') {
@@ -43,9 +46,6 @@
 							break;
 						}
 					}
-				}
-				else if (e.VirtualCubes.uri) {
-					// TODO
 				}
 			}
 
@@ -87,6 +87,7 @@
 					  window, {canvasize: [600, 300]});
 	xworld.xecs.registerComponent('VirtualCubes', {
 		properties: {
+			uri: '',
 			area: undefined,
 			boxes: undefined }
 	} );
@@ -102,8 +103,8 @@
 				layers: 5,
 				// VirtualArea
 				maxHeight: 30,
-				features: undefined, // Volumetricube wil tack care of this
-				origin: o0,
+				uri: undefined, // Volumetricube wil tack care of this
+				origin: o3857,
 				geostyle: { height: 5, scale: 1. },
 			} } ,
 		ModelSeqs: { script: [[{
@@ -115,8 +116,8 @@
 		},
 		CmpTweens: {},
 		VirtualCubes: {
-			area,
-			boxes,
+			uri: json,
+			boxes: box1,
 		}
 	  },
 	]);
