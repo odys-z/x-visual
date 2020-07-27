@@ -9,7 +9,6 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>Problem: box not created in asynchronous mode</p>
   <script>
 	"use strict";
 	const iffall = {iffall: ['VirtualCubes']};
@@ -32,30 +31,28 @@
 						if (!e.Visual.paras)
 							e.Visual.paras = {};
 						e.Visual.paras.uri = e.VirtualCubes.uri;
-						e.Visual.paras.beforeFeature = (f) => {
-							if (f.properties.area === 'virtual') {
-								if (!e.Visual.paras.features)
-									e.Visual.paras.features = [];
+						e.Visual.paras.onFeature =
+							( ctx, f ) => {
+								if (f.properties.area === 'virtual') {
+									// create area virtual boxes
+									if (!e.Visual.paras.features)
+										e.Visual.paras.features = [];
 
-								var points = f.geometry.coordinates;
-								var {xzwh, loc} = xv.xgeom.xzBox(points);
-
-								// area plane
-								e.Visual.paras.features.push( {
-									properties: {height: f.properties.areaHeight || xzwh.h * 0.1},
-									geometry: {coordinates: points} } );
-
-								// area boxes
-								createBoxes(e.Visual.paras, xzwh, loc,
-									f.properties.boxes || e.VirtualCubes.boxes);
+									var {xzwh, loc} = xv.xgeom.xzBox(f.geometry.coordinates);
+									var boxes = createBoxes(e.Visual.paras, xzwh, loc,
+												e.VirtualCubes.boxes );
+									for (var box of boxes) {
+										var opts = xv.Thrender.formatPrismOption(e.Visual.paras);
+										xv.AssetKeepr.feature2Prism(ctx, f, opts);
+									}
+								}
 							}
-						}
 					}
 				}
 			}
 
 			function createBoxes (target, area, c0, config) {
-				fs = target.features;
+				var fs = target.features;
 				var mxheight = target.maxHeight || 100;
 
 				for (var [x, z, w, d, h] of config) {
@@ -69,6 +66,7 @@
 						properties: {height: h},
 						geometry: {coordinates: [[x, z], [x+w, z], [x+w, z+d], [x, z+d]]} } );
 				}
+				return fs;
 			}
 		}
 
