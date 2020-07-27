@@ -1,6 +1,6 @@
 { "type": "FeatureCollection",
   "features": [ {
-    "type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "areaHeight": 0.1, "maxHeight": 320},
+    "type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 4, "maxHeight": 320},
     "geometry": {
       "type":"Polygon",
       "coordinates":[[[-200, -100],[200, -100],[200, 80],[-200, 80]]]
