@@ -50,11 +50,11 @@
 				}
 			}
 
-			function createBoxes (target, srcArea, c0, config) {
+			function createBoxes (target, srcArea, config) {
 				var fs = target.features;
 				var mxheight = target.maxHeight || 100;
 
-				for (var points of srcPolys) {
+				for (var points of srcArea) {
 					var {xzwh, loc} = xv.xgeom.xzBox(points);
 					for (var [x, z, w, d, h] of config) {
 						x = xzwh.x + xzwh.w * x;
@@ -82,7 +82,7 @@
 	"use strict";
 
 	var json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
-	var o3857 = [11584780.0575155, 3574051.29001759];
+	var o3857 = [11585163, 3578479];
 
 	// box(x, z, w, d, h) of area(x, z, w, d, Visual.paras.maxHeight)
 	var box1 = [[0.8, 0.2, 0.1, 0.2, 0.8], [0.3, 0.4, 0.4, 0.2, 0.4]];
@@ -110,7 +110,7 @@
 				maxHeight: 300,
 				uri: undefined, // Volumetricube wil tack care of this
 				origin: o3857,
-				geostyle: { height: 50, scale: 1. },
+				geostyle: { height: 50, scale: 0.1 },
 			} } ,
 		ModelSeqs: { script: [[{
 			mtype:  xv.XComponent.AnimType.U_NOW,
