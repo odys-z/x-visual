@@ -34,9 +34,10 @@
 				box: [300, 300, 100] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			shader: xv.XComponent.ShaderFlag.shapeLayers,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
 				layers: 5,
+				floorHeight: 72, // Obj3Type.BOX can't tell shader layer height.
 				// map
 				features: json0.features,
 				origin: o0,
