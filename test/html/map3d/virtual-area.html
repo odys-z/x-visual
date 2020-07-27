@@ -37,11 +37,8 @@
 								geometry: {coordinates: points} } );
 
 							// area boxes
-							var {xzwh, loc} = xv.xgeom.xzBox(points);
-							// createBoxes(e.Visual.paras,
-							// 	xzwh, loc, e.VirtualCubes.boxes);
-							// break;
-							createBoxes(e.Visual.paras, xzwh, loc,
+							// var {xzwh, loc} = xv.xgeom.xzBox(points);
+							createBoxes(e.Visual.paras, points, // xzwh, loc,
 								f.properties.boxes || e.VirtualCubes.boxes);
 						}
 					}
@@ -51,20 +48,24 @@
 				}
 			}
 
-			function createBoxes (target, area, c0, config) {
+			function createBoxes (target, srcPolys, config) {
 				fs = target.features;
 				var mxheight = target.maxHeight || 100;
 
-				for (var [x, z, w, d, h] of config) {
-					x = area.x + area.w * x;
-					z = area.z + area.h * z;
-					w = area.w * Math.abs(w);
-					d = area.h * Math.abs(d);
-					h = mxheight * Math.abs(h);
+				// var {xzwh, loc} = xv.xgeom.xzBox(points);
+				for (var points of srcPolys) {
+					var {xzwh, loc} = xv.xgeom.xzBox(points);
+					for (var [x, z, w, d, h] of config) {
+						x = xzwh.x + xzwh.w * x;
+						z = xzwh.z + xzwh.h * z;
+						w = xzwh.w * Math.abs(w);
+						d = xzwh.h * Math.abs(d);
+						h = mxheight * Math.abs(h);
 
-					fs.push( {
-						properties: {height: h},
-						geometry: {coordinates: [[x, z], [x+w, z], [x+w, z+d], [x, z+d]]} } );
+						fs.push( {
+							properties: { height: h },
+							geometry: { coordinates: [[[x, z], [x+w, z], [x+w, z+d], [x, z+d]]] } } );
+					}
 				}
 			}
 		}
@@ -85,7 +86,7 @@
 		  "properties": {"height": 2, "area": "virtual", "areaHeight": 0.1},
 		  "geometry": {
 			"type": "polygon",
-			"coordinates": [[-100, -100], [200, -100], [200, 100], [-100, 100]]
+			"coordinates": [[[-100, -100], [200, -100], [200, 100], [-100, 100]]]
 		  }
 	    },
 	  ]

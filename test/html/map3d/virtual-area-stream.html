@@ -38,9 +38,8 @@
 									if (!e.Visual.paras.features)
 										e.Visual.paras.features = [];
 
-									var {xzwh, loc} = xv.xgeom.xzBox(f.geometry.coordinates);
-									var boxes = createBoxes(e.Visual.paras, xzwh, loc,
-												e.VirtualCubes.boxes );
+									var boxes = createBoxes(e.Visual.paras, // xzwh, loc,
+												f.geometry.coordinates, e.VirtualCubes.boxes );
 									for (var box of boxes) {
 										var opts = xv.Thrender.formatPrismOption(e.Visual.paras);
 										xv.AssetKeepr.feature2Prism(ctx, f, opts);
@@ -51,20 +50,23 @@
 				}
 			}
 
-			function createBoxes (target, area, c0, config) {
+			function createBoxes (target, srcArea, c0, config) {
 				var fs = target.features;
 				var mxheight = target.maxHeight || 100;
 
-				for (var [x, z, w, d, h] of config) {
-					x = area.x + area.w * x;
-					z = area.z + area.h * z;
-					w = area.w * Math.abs(w);
-					d = area.h * Math.abs(d);
-					h = mxheight * Math.abs(h);
+				for (var points of srcPolys) {
+					var {xzwh, loc} = xv.xgeom.xzBox(points);
+					for (var [x, z, w, d, h] of config) {
+						x = xzwh.x + xzwh.w * x;
+						z = xzwh.z + xzwh.h * z;
+						w = xzwh.w * Math.abs(w);
+						d = xzwh.h * Math.abs(d);
+						h = mxheight * Math.abs(h);
 
-					fs.push( {
-						properties: {height: h},
-						geometry: {coordinates: [[x, z], [x+w, z], [x+w, z+d], [x, z+d]]} } );
+						fs.push( {
+							properties: {height: h},
+							geometry: {coordinates: [[x, z], [x+w, z], [x+w, z+d], [x, z+d]]} } );
+					}
 				}
 				return fs;
 			}
