@@ -60,9 +60,50 @@
 					change: false,
 					layers: 1 },
 				u_tex: [
-					'tex/ruler256.png',  // 0: base faces (roof)
-					'tex/wood.png',      // 1: lateral faces (wall)
-					'tex/byr0.png'],     // 2: optional, layer faces (floor)
+					'tex/ruler256.png',   // 0: base faces (roof)
+					'tex/wood.png',       // 1: lateral faces (wall)
+					'tex/byr0.png'],      // 2: optional, layer faces (floor)
+				whiteAlphas: [0.4, 0.6],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+				edgeWeight: 4.2,          // layer box weight
+				colors: [[0, 0, 1],       // TODO roof hue
+						 [0, 1, 0],       // TODO lateral face hue
+						 [1, 0, 0]],      // TODO floor hue
+
+				// geojson geometry handling
+				maxVerts: 4096, // GeoPrism's vertex count
+				// configuration similar with Obj3Type.Hexatile
+				features: json0.features,
+				origin: o0,
+				geostyle: {
+					height: 25, scale: 1,
+					groups: 3,
+					onGroup: (fx, feature) => { return fx % 3; } }, // then update() can change morphings
+			} } ,
+	  },
+	  { id: 'prism-far',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+				transform: [ {translate: [-300, 0, -420]} ],
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.texPrism,
+			paras: {
+				side: THREE.FrontSide,
+				uvScale: [6, 2],
+				tile: {
+					tiles: [2, 2],
+					change: false,
+					layers: 1 },
+				u_tex: [
+					'tex/ruler256.png',   // 0: base faces (roof)
+					'tex/wood.png',       // 1: lateral faces (wall)
+					'tex/byr0.png'],      // 2: optional, layer faces (floor)
+				whiteAlphas: [0.8, 0.9],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+				edgeWeight: 0.2,          // layer box weight
+				colors: [[0, 0, 1],       // TODO roof hue
+						 [0, 1, 0],       // TODO lateral face hue
+						 [1, 0, 0]],      // TODO floor hue
 
 				// geojson geometry handling
 				maxVerts: 4096, // GeoPrism's vertex count
