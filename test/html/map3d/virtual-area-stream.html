@@ -23,6 +23,9 @@
 
 		init(entities) {
 			for (var e of entities) {
+				if (!e.Visual.paras.features)
+					e.Visual.paras.features = [];
+
 				if (e.VirtualCubes.area) {
 					// TODO
 				}
@@ -32,19 +35,22 @@
 							e.Visual.paras = {};
 						e.Visual.paras.uri = e.VirtualCubes.uri;
 						e.Visual.paras.onFeature =
-							( ctx, f ) => {
+							( ctx, f, featOpt ) => {
 								if (f.properties.area === 'virtual') {
 									// create area virtual boxes
-									if (!e.Visual.paras.features)
-										e.Visual.paras.features = [];
+									// FIXME area has multiple polygon?
+									var {xzwh, loc} = xv.xgeom.xzBox(f.geometry.coordinates[0]);
 
-									var boxes = createBoxes(e.Visual.paras, // xzwh, loc,
-												f.geometry.coordinates, e.VirtualCubes.boxes );
+									var boxes = createBoxes(featOpt,
+												f.geometry.coordinates, featOpt.boxes );
 									for (var box of boxes) {
-										var opts = xv.Thrender.formatPrismOption(e.Visual.paras);
+										// var opts = xv.Thrender.formatPrismOption(featOpt);
+										var opts = featOpt;
+										opts.geoCentre = [ loc[0] + featOpt.origin[0],
+														   loc[1] + featOpt.origin[1] ];
 										opts.height = f.properties.boxHeight !== undefined ?
 											f.properties.boxHeight :
-											e.Visual.paras.geostyle ? e.Visual.paras.geostyle.height || 1 : 1;
+											featOpt.geostyle ? featOpt.geostyle.height || 1 : 1;
 										xv.AssetKeepr.feature2Prism(ctx, box, opts);
 									}
 								}
@@ -84,15 +90,22 @@
   <script>
 	"use strict";
 
-	var json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
-	var o3857 = [11585163, 3578479];
+	const json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area-0.json';
+	// var o3857 = [11585163, 3578479];
+	const o3857 = [0, 0];
+	// var west2k= [11583163, 3578479];
+	const west2k= [-2000, 0];
 
 	// box(x, z, w, d, h) of area(x, z, w, d, Visual.paras.maxHeight)
-	var box1 = [[0.8, 0.2, 0.1, 0.2, 0.2], [0.2, 0.2, 0.4, 0.6, 0.1]];
-	var box2 = [[0.1, 0.1, 0.3, 0.5, 0.4], [0.1, 0.1, 0.8, 0.75, 0.06]];
+	// var box1 = [[0.8, 0.2, 0.1, 0.1, 0.71], [0.2, 0.2, 0.4, 0.6, 0.04]];
+	const box1 = [[0, 0, 1, 1, 1]];
+	// var box2 = [[0.1, 0.1, 0.3, 0.5, 0.4], [0.1, 0.1, 0.8, 0.75, 0.06]];
+	const box2 = [[0.2, 0.2, 0.2, 0.2, 0.2]];
+	const scale = 1;
 
-	const xworld = new xv.XWorld(document.getElementById('canv'),
-					  window, {canvasize: [600, 300]});
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {
+						camera: {far: 20000},
+						canvasize: [600, 300]});
 	xworld.xecs.registerComponent('VirtualCubes', {
 		properties: {
 			uri: '',
@@ -115,7 +128,7 @@
 				uri: undefined, // Volumetricube wil tack care of this
 				origin: o3857,
 				// origin: [0, 0],
-				geostyle: { height: 1, scale: 0.25 },
+				geostyle: { height: 1, scale },
 			} } ,
 		ModelSeqs: { script: [[{
 			mtype:  xv.XComponent.AnimType.U_NOW,
@@ -130,6 +143,29 @@
 			boxes: box1,
 		}
 	  },
+	  { id: 'va-2',
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				count: 20,
+				layers: 5,
+				// VirtualArea
+				origin: west2k,
+				geostyle: { height: 1, scale },
+			} } ,
+		VirtualCubes: {
+			uri: json,
+			boxes: box2,
+		}
+	  },
+	  { id: 'calibra',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [100, 100, 100] },
+		Visual:{ vtype: xv.AssetType.wireframe }
+	  }
 	]);
 
 	// must after VirtualCubes created, before xworld started
