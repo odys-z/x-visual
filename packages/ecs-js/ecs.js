@@ -72,7 +72,6 @@ class ECS {
                     klass.name,
                     "\nTo avoid created entities been dropped, this registering is ignored.",
                     "\nEnitity Set: ", this.components.set(klass.name) );
-
         return;
     }
     else {
