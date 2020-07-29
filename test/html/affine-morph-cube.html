@@ -21,6 +21,23 @@
 
 				update(tick, entities) {
 
+					/*
+					if(xworld.xview.flag > 0 && xworld.xview.cmds[0].code === 'key') {
+						var cmd = xworld.xview.cmds[0].cmd
+						if(cmd) {
+							for(const e of entities) {
+								if(cmd === 'left') {
+									if(!xv.XTweener.isPlaying(e.CmpTweens, 3)) {
+										xv.MorphingAnim.addAngle(e.CmpTweens.tweens[3], 0, 45);
+										e.CmpTweens.startCmds.push(3);
+									}
+								}
+
+							}
+						}
+					}
+					
+					*/
 				}
 			}
 			TestDynamicPos.query = {
@@ -38,12 +55,12 @@
 
 			/// pinned line 69-97: tests/tests-morph.rst
 
-			//test position and scale
-			//todo test rotation
 			let posFlag = 1;
 			let xpos = 10;
 			let scaleFlag = 1;
 			let scaleX = 1;
+			let roteteX = 45;
+
 			const ent1 = {
 				id: 'entity1',
 				Obj3: {
@@ -67,7 +84,7 @@
 									[0, 0, 0],
 									[10, 0, 0]
 								],
-								duration: 1
+								duration: 5
 							}
 						}],
 						[{
@@ -78,7 +95,7 @@
 									[1, 1, 1],
 									[2, 1, 1]
 								],
-								duration: 1
+								duration: 5
 							}
 						}],
 						[{
@@ -90,49 +107,77 @@
 									[1, 1, 1]
 								]
 							}
+						}],
+						[{
+							mtype: xv.XComponent.AnimType.ROTAXIS,
+							paras: {
+								start: 0, // started by 'nav'.startWith
+								duration: 5,
+								deg: [0, 45],
+								axis: [1, 0, 0],
+								ease: undefined
+							},
 						}]
 					],
 					fFinished: (twns, seqx) => {
 
 						//test position
-						if(xpos === 40) {
-							posFlag = -1;
-						}
-						if(xpos === -40) {
-							posFlag = 1
-						}
-						if(posFlag === 1) {
-							xv.MorphingAnim.addPos(twns.tweens[0], 0, [10, 0, 0]);
-							twns.startCmds.push(0);
-							xpos += 10;
+						
+						if(seqx === 0) {
 
-						}
-						if(posFlag === -1) {
-							xv.MorphingAnim.addPos(twns.tweens[0], 0, [-10, 0, 0]);
-							twns.startCmds.push(0);
-							xpos -= 10;
+							if(xpos === 40) {
+								posFlag = -1;
+							}
+							if(xpos === -40) {
+								posFlag = 1
+							}
+							if(posFlag === 1) {
+								xv.MorphingAnim.addPos(twns.tweens[0], 0, [10, 0, 0]);
+								twns.startCmds.push(0);
+								xpos += 10;
 
-						}
+							}
+							if(posFlag === -1) {
+								xv.MorphingAnim.addPos(twns.tweens[0], 0, [-10, 0, 0]);
+								twns.startCmds.push(0);
+								xpos -= 10;
 
+							}
+
+							return;
+						}
+						
 						//test scale
-						if(scaleX === 8) {
-							scaleFlag = -1;
-						}
-						if(scaleX === 1) {
-							scaleFlag = 1
-						}
-						if(scaleFlag === 1) {
-							twns.startCmds.push(1);
-							xv.MorphingAnim.scaleTo(twns.tweens[1], 0, [2, 1, 1]);
-							scaleX *= 2;
-						}
-						if(scaleFlag === -1) {
+						if(seqx === 1) {	
 
-							twns.startCmds.push(1);
-							xv.MorphingAnim.scaleTo(twns.tweens[1], 0, [0.5, 1, 1]);
-							scaleX /= 2;
-						}
+							if(scaleX === 8) {
+								scaleFlag = -1;
+							}
+							if(scaleX === 1) {
+								scaleFlag = 1
+							}
+							if(scaleFlag === 1) {
+								twns.startCmds.push(1);
+								xv.MorphingAnim.scaleTo(twns.tweens[1], 0, [2, 1, 1]);
+								scaleX *= 2;
+							}
+							if(scaleFlag === -1) {
 
+								twns.startCmds.push(1);
+								xv.MorphingAnim.scaleTo(twns.tweens[1], 0, [0.5, 1, 1]);
+								scaleX /= 2;
+							}
+							return;
+						}
+						//test rotate
+						if(seqx === 3) {
+
+							xv.MorphingAnim.addAngle(twns.tweens[3], 0, roteteX);
+							twns.startCmds.push(3);
+
+						}
+						
+						//console.log(seqx);
 					}
 				},
 				CmpTweens: {}
