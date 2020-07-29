@@ -23,7 +23,7 @@ describe('case: Geometry - tile map', function() {
 	assert.isTrue(vec3.eq(t0.norm[0], [t0.r05, 0, t0.sqrt32/t0.r]), 'norm 0');
   });
 
-  it('xgeom.hexacylinder3857', function() {
+  it('xgeom.hexaprism3857', function() {
 	var cx = 25, cy = 50;
 	var verts = 2 * (14 + 12); // 2 locs
 	var ctx = new Object();
@@ -37,7 +37,7 @@ describe('case: Geometry - tile map', function() {
 	ctx.index = [];
 
 	debugger
-	xgeom.hexacylinder3857( {
+	xgeom.hexaprism3857( {
 			  coord: [cx, cy + 100],
 			  height: 11,
 			  scale: 1
@@ -53,7 +53,7 @@ describe('case: Geometry - tile map', function() {
 
 	var vx2 = ctx.vx;
 
-	xgeom.hexacylinder3857( {
+	xgeom.hexaprism3857( {
 			  coord: [cx + 16, cy - 50],
 			  height: 11,
 			  scale: 1

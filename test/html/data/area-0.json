@@ -1,0 +1,9 @@
+{ "type": "FeatureCollection",
+  "features": [ {
+    "type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1, "boxHeight": 100},
+    "geometry": {
+      "type":"Polygon",
+      "coordinates":[[[-200, -100],[200, -100],[200, 80],[-200, 80]]]
+    }
+  } ]
+}

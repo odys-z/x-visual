@@ -79,9 +79,9 @@ html file::
 
 This test shows how to update target position and use a animation to move to there.
 
-.. literalinclude:: ../../test/html/dynamic-tween-target.html
+.. literalinclude:: ../../test/html/affine-dynamic-target.html
    :language: javascript
-   :lines: 69-97
+   :lines: 69-98
    :linenos:
 
 The user command interaction is handled in TestDynamicPos.update().
