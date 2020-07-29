@@ -106,12 +106,7 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'), window, {
 						camera: {far: 20000},
 						canvasize: [600, 300]});
-	xworld.xecs.registerComponent('VirtualCubes', {
-		properties: {
-			uri: '',
-			area: undefined,
-			boxes: undefined }
-	} );
+	xworld.xecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
 
 	xworld.addEntities([
 	  { id: 'va',
@@ -138,7 +133,7 @@
 			}]]
 		},
 		CmpTweens: {},
-		VirtualCubes: {
+		CBoundCubes: {
 			uri: json,
 			boxes: box1,
 		}
@@ -156,7 +151,7 @@
 				origin: west2k,
 				geostyle: { height: 1, scale },
 			} } ,
-		VirtualCubes: {
+		CBoundCubes: {
 			uri: json,
 			boxes: box2,
 		}
@@ -170,7 +165,7 @@
 
 	// must after VirtualCubes created, before xworld started
 	xworld.addSystem('v-area',
-		new VirtualArea(xworld.xecs, {xscene: xworld.xscene}));
+		new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
 
 	xworld.startUpdate();
 
