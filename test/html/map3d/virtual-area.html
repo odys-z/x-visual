@@ -22,6 +22,20 @@
 			"coordinates": [[[-100, -100], [200, -100], [200, 100], [-100, 100]]]
 		  }
 	    },
+		{ "type": "Feature",
+		  "properties": {"height": 0.5, "area": "virtual", "boxHeight": 10},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-200, -100], [-120, -100], [-120, 100], [-200, 100]]]
+		  }
+	    },
+		{ "type": "Feature",
+		  "properties": {"height": 1}, // != area, filtered out by xv.map3.BoundingCubes
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-200, 123], [200, 123], [200, 200], [-200, 200]]]
+		  }
+	    },
 	  ]
 	};
 	var o0 = [0, 0];
