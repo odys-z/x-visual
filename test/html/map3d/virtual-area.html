@@ -16,7 +16,7 @@
 	  "type": "FeatureCollection",
 	  "features": [
 		{ "type": "Feature",
-		  "properties": {"height": 2, "area": "virtual", "height": 0.1},
+		  "properties": {"height": 0.1, "area": "virtual", "boxHeight": 20},
 		  "geometry": {
 			"type": "polygon",
 			"coordinates": [[[-100, -100], [200, -100], [200, 100], [-100, 100]]]
@@ -27,7 +27,7 @@
 	var o0 = [0, 0];
 
 	// box(x, z, w, d, h) of area(x, z, w, d, Visual.paras.maxHeight)
-	var boxes = [[0.8, 0.2, 0.1, 0.2, 0.8], [0.3, 0.4, 0.4, 0.2, 0.4]];
+	var boxes = [[0.8, 0.2, 0.1, 0.2, 1], [0.3, 0.4, 0.4, 0.2, 0.4]];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 300]});
