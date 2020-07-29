@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "features": [
- {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1, "boxHeight": 3},
+ {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1, "boxHeight": 30},
   "geometry": {"type":"Polygon","coordinates":[[[11584599.22109902,3578794.363024403],[11584603.998413289,3578543.554025342],[11584852.418755215,3578543.554025342],[11584838.086812412,3578799.140338671]]]}},
  {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1},
   "geometry": {"type":"Polygon","coordinates":[[[11585116.254277727,3578481.0206323485],[11585117.767599491,3578343.3083517523],[11585146.520713022,3578346.334995282],[11585143.494069492,3578482.5339541133]]]}},
