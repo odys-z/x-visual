@@ -10,82 +10,82 @@
 <body>
   <canvas id='canv'></canvas>
   <script>
-	"use strict";
-	const iffall = {iffall: ['VirtualCubes']};
-	class VirtualArea extends xv.XSys {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-
-			var ents = ecs.queryEntities(iffall);
-			this.init(ents);
-		}
-
-		init(entities) {
-			for (var e of entities) {
-				if (!e.Visual.paras.features)
-					e.Visual.paras.features = [];
-
-				if (e.VirtualCubes.area) {
-					// TODO
-				}
-				else if (e.VirtualCubes.uri) {
-					if (e.Visual) {
-						if (!e.Visual.paras)
-							e.Visual.paras = {};
-						e.Visual.paras.uri = e.VirtualCubes.uri;
-						e.Visual.paras.onFeature =
-							( ctx, f, featOpt ) => {
-								if (f.properties.area === 'virtual') {
-									// create area virtual boxes
-									// FIXME area has multiple polygon?
-									var {xzwh, loc} = xv.xgeom.xzBox(f.geometry.coordinates[0]);
-
-									var boxes = createBoxes(featOpt,
-												f.geometry.coordinates, featOpt.boxes );
-									for (var box of boxes) {
-										// var opts = xv.Thrender.formatPrismOption(featOpt);
-										var opts = featOpt;
-										opts.geoCentre = [ loc[0] + featOpt.origin[0],
-														   loc[1] + featOpt.origin[1] ];
-										opts.height = f.properties.boxHeight !== undefined ?
-											f.properties.boxHeight :
-											featOpt.geostyle ? featOpt.geostyle.height || 1 : 1;
-										xv.AssetKeepr.feature2Prism(ctx, box, opts);
-									}
-								}
-							}
-					}
-				}
-			}
-
-			function createBoxes (target, srcArea, config) {
-				var fs = target.features;
-				// var mxheight = target.maxHeight || 100;
-
-				for (var points of srcArea) {
-					var {xzwh, loc} = xv.xgeom.xzBox(points);
-					for (var [x, z, w, d, h] of config) {
-						x = xzwh.x + xzwh.w * x;
-						z = xzwh.z + xzwh.h * z;
-						w = xzwh.w * Math.abs(w);
-						d = xzwh.h * Math.abs(d);
-						h = Math.abs(h);
-
-						fs.push( {
-							properties: { height: h },
-							geometry: { coordinates: [[[x, z], [x+w, z], [x+w, z+d], [x, z+d]]] } } );
-					}
-				}
-				return fs;
-			}
-		}
-
-		update(tick, entities) {
-		}
-	}
-
-	VirtualArea.query = iffall;
+	// "use strict";
+	// const iffall = {iffall: ['BoundCubes']};
+	// class VirtualArea extends xv.XSys {
+	// 	constructor(ecs, options) {
+	// 		super(ecs);
+	// 		this.ecs = ecs;
+	//
+	// 		var ents = ecs.queryEntities(iffall);
+	// 		this.init(ents);
+	// 	}
+	//
+	// 	init(entities) {
+	// 		for (var e of entities) {
+	// 			if (!e.Visual.paras.features)
+	// 				e.Visual.paras.features = [];
+	//
+	// 			if (e.VirtualCubes.area) {
+	// 				// TODO
+	// 			}
+	// 			else if (e.VirtualCubes.uri) {
+	// 				if (e.Visual) {
+	// 					if (!e.Visual.paras)
+	// 						e.Visual.paras = {};
+	// 					e.Visual.paras.uri = e.VirtualCubes.uri;
+	// 					e.Visual.paras.onFeature =
+	// 						( ctx, f, featOpt ) => {
+	// 							if (f.properties.area === 'virtual') {
+	// 								// create area virtual boxes
+	// 								// FIXME area has multiple polygon?
+	// 								var {xzwh, loc} = xv.xgeom.xzBox(f.geometry.coordinates[0]);
+	//
+	// 								var boxes = createBoxes(featOpt,
+	// 											f.geometry.coordinates, featOpt.boxes );
+	// 								for (var box of boxes) {
+	// 									// var opts = xv.Thrender.formatPrismOption(featOpt);
+	// 									var opts = featOpt;
+	// 									opts.geoCentre = [ loc[0] + featOpt.origin[0],
+	// 													   loc[1] + featOpt.origin[1] ];
+	// 									opts.height = f.properties.boxHeight !== undefined ?
+	// 										f.properties.boxHeight :
+	// 										featOpt.geostyle ? featOpt.geostyle.height || 1 : 1;
+	// 									xv.AssetKeepr.feature2Prism(ctx, box, opts);
+	// 								}
+	// 							}
+	// 						}
+	// 				}
+	// 			}
+	// 		}
+	//
+	// 		function createBoxes (target, srcArea, config) {
+	// 			var fs = target.features;
+	// 			// var mxheight = target.maxHeight || 100;
+	//
+	// 			for (var points of srcArea) {
+	// 				var {xzwh, loc} = xv.xgeom.xzBox(points);
+	// 				for (var [x, z, w, d, h] of config) {
+	// 					x = xzwh.x + xzwh.w * x;
+	// 					z = xzwh.z + xzwh.h * z;
+	// 					w = xzwh.w * Math.abs(w);
+	// 					d = xzwh.h * Math.abs(d);
+	// 					h = Math.abs(h);
+	//
+	// 					fs.push( {
+	// 						properties: { height: h },
+	// 						geometry: { coordinates: [[[x, z], [x+w, z], [x+w, z+d], [x, z+d]]] } } );
+	// 				}
+	// 			}
+	// 			return fs;
+	// 		}
+	// 	}
+	//
+	// 	update(tick, entities) {
+	// 	}
+	// }
+	//
+	// VirtualArea.query = iffall;
   </script>
   <script>
 	"use strict";
