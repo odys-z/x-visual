@@ -9,93 +9,33 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>Problem: box not created in asynchronous mode</p>
-  <script>
-	"use strict";
-	const iffall = {iffall: ['VirtualCubes']};
-	class VirtualArea extends xv.XSys {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-
-			var ents = ecs.queryEntities(iffall);
-			this.init(ents);
-		}
-
-		init(entities) {
-			for (var e of entities) {
-				if (e.VirtualCubes.area) {
-					// TODO
-				}
-				else if (e.VirtualCubes.uri) {
-					if (e.Visual) {
-						if (!e.Visual.paras)
-							e.Visual.paras = {};
-						e.Visual.paras.uri = e.VirtualCubes.uri;
-						e.Visual.paras.beforeFeature = (f) => {
-							if (f.properties.area === 'virtual') {
-								if (!e.Visual.paras.features)
-									e.Visual.paras.features = [];
-
-								var points = f.geometry.coordinates;
-								var {xzwh, loc} = xv.xgeom.xzBox(points);
-
-								// area plane
-								e.Visual.paras.features.push( {
-									properties: {height: f.properties.areaHeight || xzwh.h * 0.1},
-									geometry: {coordinates: points} } );
-
-								// area boxes
-								createBoxes(e.Visual.paras, xzwh, loc,
-									f.properties.boxes || e.VirtualCubes.boxes);
-							}
-						}
-					}
-				}
-			}
-
-			function createBoxes (target, area, c0, config) {
-				fs = target.features;
-				var mxheight = target.maxHeight || 100;
-
-				for (var [x, z, w, d, h] of config) {
-					x = area.x + area.w * x;
-					z = area.z + area.h * z;
-					w = area.w * Math.abs(w);
-					d = area.h * Math.abs(d);
-					h = mxheight * Math.abs(h);
-
-					fs.push( {
-						properties: {height: h},
-						geometry: {coordinates: [[x, z], [x+w, z], [x+w, z+d], [x, z+d]]} } );
-				}
-			}
-		}
-
-		update(tick, entities) {
-		}
-	}
-
-	VirtualArea.query = iffall;
-  </script>
+  <br><a href='#' target='_blank' id='json-addr'>json data</a>
   <script>
 	"use strict";
 
-	var json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
-	var o3857 = [11584780.0575155, 3574051.29001759];
+	// const scale = 1;
+	// const json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area-0.json';
+	// const o3857 = [0, 0];
+	// const west2k= [-2000, 0];
+
+	const scale = 1;
+	// There are features of which properties.area != 'vitual',
+	// and been filtered out by xv.AssetKeepr.geoPrismAsync according to Obj3.filter
+	const json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
+	var o3857 = [11585163, 3578479];
+	var west2k= [11583163, 3578479];
 
 	// box(x, z, w, d, h) of area(x, z, w, d, Visual.paras.maxHeight)
-	var box1 = [[0.8, 0.2, 0.1, 0.2, 0.8], [0.3, 0.4, 0.4, 0.2, 0.4]];
-	var box2 = [[0.0, 0.1, 0.3, 0.5, 0.4], [0.7, 0.4, 0.4, 0.6, 1.2]];
+	const box1 = [[0.1, 0.1, 0.8, 0.2, 0.3], [0.1, 0.4, 0.2, 0.2, 0.6]];
+	const box2 = [[0, 0, 0.1, .1, 1]];
 
-	const xworld = new xv.XWorld(document.getElementById('canv'),
-					  window, {canvasize: [600, 300]});
-	xworld.xecs.registerComponent('VirtualCubes', {
-		properties: {
-			uri: '',
-			area: undefined,
-			boxes: undefined }
-	} );
+	document.getElementById('json-addr')
+			.setAttribute('href', json);
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {
+						camera: {far: 20000},
+						canvasize: [600, 300]});
+	xworld.xecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
 
 	xworld.addEntities([
 	  { id: 'va',
@@ -105,12 +45,14 @@
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
+				count: 20,
 				layers: 5,
 				// VirtualArea
-				maxHeight: 300,
+				// maxHeight: 300,
 				uri: undefined, // Volumetricube wil tack care of this
 				origin: o3857,
-				geostyle: { height: 50, scale: 1. },
+				// origin: [0, 0],
+				geostyle: { height: 1, scale },
 			} } ,
 		ModelSeqs: { script: [[{
 			mtype:  xv.XComponent.AnimType.U_NOW,
@@ -120,16 +62,43 @@
 			}]]
 		},
 		CmpTweens: {},
-		VirtualCubes: {
+		CBoundCubes: {
+			only: 'virtual',
+			// BoundingCubes: Obj3.fitler = 'virtual';
+			// AssetKeepr: f.properties.area === 'virtual'
+			// TODO can be simplified?
 			uri: json,
 			boxes: box1,
 		}
 	  },
+	  // { id: 'va-2',
+		// Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+		// 		box: [] },
+		// Visual:{
+		// 	vtype: xv.AssetType.mesh,
+		// 	shader: xv.XComponent.ShaderFlag.boxLayers,
+		// 	paras: {
+		// 		count: 20,
+		// 		layers: 5,
+		// 		// VirtualArea
+		// 		origin: west2k,
+		// 		geostyle: { height: 1, scale },
+		// 	} } ,
+		// CBoundCubes: {
+		// 	uri: json,
+		// 	boxes: box2,
+		// }
+	  // },
+	  { id: 'calibra',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [100, 100, 100] },
+		Visual:{ vtype: xv.AssetType.wireframe }
+	  }
 	]);
 
 	// must after VirtualCubes created, before xworld started
 	xworld.addSystem('v-area',
-		new VirtualArea(xworld.xecs, {xscene: xworld.xscene}));
+		new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
 
 	xworld.startUpdate();
 

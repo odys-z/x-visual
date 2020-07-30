@@ -11,81 +11,29 @@
   <canvas id='canv'></canvas>
   <script>
 	"use strict";
-	const iffall = {iffall: ['VirtualCubes']};
-	class VirtualArea extends xv.XSys {
-		constructor(ecs, options) {
-			super(ecs);
-			this.ecs = ecs;
-
-			var ents = ecs.queryEntities(iffall);
-			this.init(ents);
-		}
-
-		init(entities) {
-			for (var e of entities) {
-				if (e.VirtualCubes.area) {
-					var fs = e.VirtualCubes.area.features;
-					for (var f of fs) {
-						if (f.properties.area === 'virtual') {
-							if (!e.Visual.paras.features)
-								e.Visual.paras.features = [];
-
-							var points = f.geometry.coordinates;
-							// area plane
-							e.Visual.paras.features.push( {
-								properties: {height: f.properties.areaHeight},
-								geometry: {coordinates: points} } );
-
-							// area boxes
-							var {xzwh, loc} = xv.xgeom.xzBox(points);
-							// createBoxes(e.Visual.paras,
-							// 	xzwh, loc, e.VirtualCubes.boxes);
-							// break;
-							createBoxes(e.Visual.paras, xzwh, loc,
-								f.properties.boxes || e.VirtualCubes.boxes);
-						}
-					}
-				}
-				else if (e.VirtualCubes.uri) {
-					// TODO
-				}
-			}
-
-			function createBoxes (target, area, c0, config) {
-				fs = target.features;
-				var mxheight = target.maxHeight || 100;
-
-				for (var [x, z, w, d, h] of config) {
-					x = area.x + area.w * x;
-					z = area.z + area.h * z;
-					w = area.w * Math.abs(w);
-					d = area.h * Math.abs(d);
-					h = mxheight * Math.abs(h);
-
-					fs.push( {
-						properties: {height: h},
-						geometry: {coordinates: [[x, z], [x+w, z], [x+w, z+d], [x, z+d]]} } );
-				}
-			}
-		}
-
-		update(tick, entities) {
-		}
-	}
-
-	VirtualArea.query = iffall;
-  </script>
-  <script>
-	"use strict";
 
 	var area = {
 	  "type": "FeatureCollection",
 	  "features": [
 		{ "type": "Feature",
-		  "properties": {"height": 2, "area": "virtual", "areaHeight": 0.1},
+		  "properties": {"height": 0.1, "area": "virtual", "boxHeight": 20},
 		  "geometry": {
 			"type": "polygon",
-			"coordinates": [[-100, -100], [200, -100], [200, 100], [-100, 100]]
+			"coordinates": [[[-100, -100], [200, -100], [200, 100], [-100, 100]]]
+		  }
+	    },
+		{ "type": "Feature",
+		  "properties": {"height": 0.5, "area": "virtual", "boxHeight": 10},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-200, -100], [-120, -100], [-120, 100], [-200, 100]]]
+		  }
+	    },
+		{ "type": "Feature",
+		  "properties": {"height": 1}, // != area, filtered out by xv.map3.BoundingCubes
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-200, 123], [200, 123], [200, 200], [-200, 200]]]
 		  }
 	    },
 	  ]
@@ -93,15 +41,12 @@
 	var o0 = [0, 0];
 
 	// box(x, z, w, d, h) of area(x, z, w, d, Visual.paras.maxHeight)
-	var boxes = [[0.8, 0.2, 0.1, 0.2, 0.8], [0.3, 0.4, 0.4, 0.2, 0.4]];
+	var boxes = [[0.8, 0.2, 0.1, 0.2, 1], [0.3, 0.4, 0.4, 0.2, 0.4]];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 300]});
-	xworld.xecs.registerComponent('VirtualCubes', {
-		properties: {
-			area: undefined,
-			boxes: undefined }
-	} );
+
+	xworld.xecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
 
 	xworld.addEntities([
 	  { id: 'va',
@@ -126,7 +71,7 @@
 			}]]
 		},
 		CmpTweens: {},
-		VirtualCubes: {
+		CBoundCubes: {
 			area,
 			boxes,
 		}
@@ -135,7 +80,7 @@
 
 	// must after VirtualCubes created, before xworld started
 	xworld.addSystem('v-area',
-		new VirtualArea(xworld.xecs, {xscene: xworld.xscene}));
+		new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
 
 	xworld.startUpdate();
 
