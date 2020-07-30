@@ -2,12 +2,14 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest - Polylayers</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	<title>XTest - Rotating Box</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>input[id] {width: 4.9em}</style>
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p>South <input id='south'/p> &pi;</p>
   <script>
 	"use strict";
 
@@ -41,7 +43,7 @@
 				origin: o0,
 				geostyle: { height: 5, scale: 0.02 },
 			},
-			asset: 'tex/rgb2x2.png' } ,
+			asset: '../../assets/tex/rgb2x2.png' } ,
 	} );
 
 	xworld.startUpdate();
