@@ -29,21 +29,27 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 300]});
 
-	xworld.addEntities({
+	xworld.addEntities( {
 		id: 'layers',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [300, 300, 100] },
+				box: [300, 80, 300] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			shader: xv.XComponent.ShaderFlag.shapeLayers,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
-				layers: 5,
-				// map
-				features: json0.features,
-				origin: o0,
-				geostyle: { height: 5, scale: 0.02 },
-			},
-			asset: '../../assets/tex/rgb2x2.png' } ,
+				cube: [{
+					box: [0.2, 0.2, 0.9, 0.4, 0.1], // x, z, w, d, h
+					u_tex: 'data:application/x-visual+img,color-pixel [1, 1, 0]' } ],
+				tile: {
+					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
+					edgeWeight: 16.0,
+					box: [280, 92], // must present if using geometry otherthan GeoPrism.
+					tiles: [14, 3],
+					change: false,
+					layers: 5,
+					floorHeight: 36, // Obj3Type.BOX can't tell shader layer height.
+				}
+		} },
 	} );
 
 	xworld.startUpdate();

@@ -66,7 +66,7 @@ To build and test
     npm test
 ~~~
 
-For installing and troubleshooting, there is a trying page may be helpfful. See
+For installing and troubleshooting, there is a trying page may be helpful. See
 [Mocha project example](https://github.com/odys-z/hello/blob/master/mocha/README.md)
 
 - debug tip
