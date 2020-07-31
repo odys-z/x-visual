@@ -3,26 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest - Polylayers</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
   <script>
 	"use strict";
-
-	var json0 = {
-	  "type": "FeatureCollection",
-	  "features": [
-		{ "type": "Feature", "properties": {"height": 2},
-		  "geometry": {
-			"type": "polygon",
-			"coordinates": [[[-100, -100], [100, -100], [0, 100]]]
-		  }
-		}
-	  ]
-	};
-	var o0 = [0, 0];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 300]});
