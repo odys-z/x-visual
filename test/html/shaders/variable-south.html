@@ -19,7 +19,7 @@
 	xworld.addEntities( {
 		id: 'layers',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [100, 400, 100] },
+				box: [100, 300, 100] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.boxLayers,
@@ -28,7 +28,7 @@
 				// cube: [{
 				// 	box: [0.2, 0.2, 0.9, 0.4, 0.1], // x, z, w, d, h
 				// 	u_tex: 'data:application/x-visual+img,color-pixel [1, 1, 0]' } ],
-				tile: {
+				xztile: {
 					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
 					edgeWeight: 16.0,
 					box: [120, 120], // must present if using geometry otherthan GeoPrism.
@@ -36,6 +36,7 @@
 					change: true,
 					layers: 5,
 					floorHeight: 36, // Obj3Type.BOX can't tell shader layer height.
+					y0: -150,
 				}
 		} },
 		ModelSeqs: { script: [[{
