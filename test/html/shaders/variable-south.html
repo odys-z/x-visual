@@ -17,58 +17,16 @@
 					  window, {canvasize: [600, 300]});
 
 	xworld.addEntities( [
-	  // { id: '2',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [160, 240, 160] },
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	shader: xv.XComponent.ShaderFlag.boxLayers,
-		// 	paras: {
-		// 		color: [0.2, 0.0, 0.8, 1], // BOX color
-		// 		// tiles
-		// 		edgeWeight: 3.0,
-		// 		xztile: {
-		// 			hue: [0.3, 0.7, 0.2, 0.4], // tile hue
-		// 			box: [160, 160],    // must present if using three.js geometry otherthan GeoPrism.
-		// 			tiles: [12, 18],
-		// 			change: true,
-		// 			layers: 5,
-		// 			layerDist: 60,    // 60 x 4 = 240 (box.h)
-		// 			y0: -120 },
-		// 		yztile: {
-		// 			box: [240, 160],
-		// 			tiles: [2, 1],
-		// 			change: true,
-		// 			layers: 1,
-		// 			layerDist: 160,    // 160 x 1 = 160 (box.w, not used)
-		// 			x0: -80 },
-		// 		xytile: {
-		// 			box: [160, 240],
-		// 			tiles: [1, 2],
-		// 			change: true,
-		// 			layers: 1,
-		// 			layerDist: 160,   // box.d not used (1 layers)
-		// 			z0: 0 },
-		// } },
-		// ModelSeqs: { script: [[{
-		// 	mtype:  xv.XComponent.AnimType.U_NOW,
-		// 	paras: {start: 0,
-		// 			speed: 0.001}     // speed para alwasy comes with U_NOW
-		// 	}]]
-		// },
-		// CmpTweens: {} },
-	  { id: '1',
+	  { id: '0',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				transform: [ { translate: [-60, 0, -0] } ],
-				box: [200, 240, 200] },
+				box: [160, 240, 160] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
 				color: [0.2, 0.0, 0.8, 1], // BOX color
 				// tiles
-				north: Math.PI / 3,
-				edgeWeight: 3.0,
+				edgeWeight: 24.0,
 				xztile: {
 					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
 					box: [160, 160],    // must present if using three.js geometry otherthan GeoPrism.
@@ -99,11 +57,88 @@
 			}]]
 		},
 		CmpTweens: {} },
-	  { id: 'calibra',
+	  { id: '1',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ { translate: [-210, 0, -0] } ],
 				box: [200, 240, 200] },
-		Visual:{ vtype: xv.AssetType.wireframe }
-	  }
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				color: [0.2, 0.0, 0.8, 1], // BOX color
+				// tiles
+				north: Math.PI / 6,
+				edgeWeight: 12.0,
+				xztile: {
+					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
+					box: [160, 160],    // must present if using three.js geometry otherthan GeoPrism.
+					tiles: [12, 18],
+					change: true,
+					layers: 5,
+					layerDist: 60,    // 60 x 4 = 240 (box.h)
+					y0: -120 },
+				yztile: {
+					box: [240, 160],
+					tiles: [2, 1],
+					change: true,
+					layers: 1,
+					layerDist: 160,    // 160 x 1 = 160 (box.w, not used)
+					x0: -80 },
+				xytile: {
+					box: [160, 240],
+					tiles: [1, 2],
+					change: true,
+					layers: 1,
+					layerDist: 160,   // box.d not used (1 layers)
+					z0: 0 },
+		} },
+		ModelSeqs: { script: [
+		  [{mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+					speed: 0.001}     // speed para alwasy comes with U_NOW
+			}],
+		  [{mtype:  xv.XComponent.AnimType.U_t,
+			paras: {start: 0,
+					u_names: ['u_north'],
+					u_ts: [[0, 4 * Math.PI]],
+					duration: 8 }
+		  }]] },
+		CmpTweens: {} },
+	  { id: 'u',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ { translate: [-0, 180, -0] } ],
+				box: [200, 40, 200] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				color: [0.2, 0.0, 0.8, 1], // BOX color
+				// tiles
+				north: Math.PI / 3,
+				edgeWeight: 30,
+				xztile: {
+					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
+					box: [160, 160],    // must present if using three.js geometry otherthan GeoPrism.
+					tiles: [12, 18],
+					change: true,
+					layers: 1,
+					layerDist: 0,
+					y0: -20 },
+		} },
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_t,
+			paras: {start: 0,
+					u_names: ['u_north'],
+					u_ts: [[0, 4 * Math.PI]],
+					duration: 12 }
+			}]]
+		},
+		CmpTweens: {} },
+	  // { id: 'calibra',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		box: [200, 240, 200] },
+		// Visual:{ vtype: xv.AssetType.wireframe }
+	  // }
 	] );
 
 	xworld.startUpdate();
