@@ -16,37 +16,95 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 300]});
 
-	xworld.addEntities( {
-		id: 'layers',
+	xworld.addEntities( [
+	  // { id: '2',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		box: [160, 240, 160] },
+		// Visual:{
+		// 	vtype: xv.AssetType.mesh,
+		// 	shader: xv.XComponent.ShaderFlag.boxLayers,
+		// 	paras: {
+		// 		color: [0.2, 0.0, 0.8, 1], // BOX color
+		// 		// tiles
+		// 		edgeWeight: 3.0,
+		// 		xztile: {
+		// 			hue: [0.3, 0.7, 0.2, 0.4], // tile hue
+		// 			box: [160, 160],    // must present if using three.js geometry otherthan GeoPrism.
+		// 			tiles: [12, 18],
+		// 			change: true,
+		// 			layers: 5,
+		// 			layerDist: 60,    // 60 x 4 = 240 (box.h)
+		// 			y0: -120 },
+		// 		yztile: {
+		// 			box: [240, 160],
+		// 			tiles: [2, 1],
+		// 			change: true,
+		// 			layers: 1,
+		// 			layerDist: 160,    // 160 x 1 = 160 (box.w, not used)
+		// 			x0: -80 },
+		// 		xytile: {
+		// 			box: [160, 240],
+		// 			tiles: [1, 2],
+		// 			change: true,
+		// 			layers: 1,
+		// 			layerDist: 160,   // box.d not used (1 layers)
+		// 			z0: 0 },
+		// } },
+		// ModelSeqs: { script: [[{
+		// 	mtype:  xv.XComponent.AnimType.U_NOW,
+		// 	paras: {start: 0,
+		// 			speed: 0.001}     // speed para alwasy comes with U_NOW
+		// 	}]]
+		// },
+		// CmpTweens: {} },
+	  { id: '1',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [100, 400, 100] },
+				transform: [ { translate: [-60, 0, -0] } ],
+				box: [200, 240, 200] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
-				color: [0, 0.7, 0.8, 1], // BOX color
-				// cube: [{
-				// 	box: [0.2, 0.2, 0.9, 0.4, 0.1], // x, z, w, d, h
-				// 	u_tex: 'data:application/x-visual+img,color-pixel [1, 1, 0]' } ],
-				tile: {
+				color: [0.2, 0.0, 0.8, 1], // BOX color
+				// tiles
+				north: Math.PI / 3,
+				edgeWeight: 3.0,
+				xztile: {
 					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
-					edgeWeight: 16.0,
-					box: [120, 120], // must present if using geometry otherthan GeoPrism.
-					tiles: [14, 15],
+					box: [160, 160],    // must present if using three.js geometry otherthan GeoPrism.
+					tiles: [12, 18],
 					change: true,
 					layers: 5,
-					floorHeight: 36, // Obj3Type.BOX can't tell shader layer height.
-				}
+					layerDist: 60,    // 60 x 4 = 240 (box.h)
+					y0: -120 },
+				yztile: {
+					box: [240, 160],
+					tiles: [2, 1],
+					change: true,
+					layers: 1,
+					layerDist: 160,    // 160 x 1 = 160 (box.w, not used)
+					x0: -80 },
+				xytile: {
+					box: [160, 240],
+					tiles: [1, 2],
+					change: true,
+					layers: 1,
+					layerDist: 160,   // box.d not used (1 layers)
+					z0: 0 },
 		} },
 		ModelSeqs: { script: [[{
 			mtype:  xv.XComponent.AnimType.U_NOW,
 			paras: {start: 0,
-				speed: 0.001,   // speed para alwasy comes with U_NOW
-				duration: 0 }	// ignored
+					speed: 0.001}     // speed para alwasy comes with U_NOW
 			}]]
 		},
-		CmpTweens: {}
-	} );
+		CmpTweens: {} },
+	  { id: 'calibra',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [200, 240, 200] },
+		Visual:{ vtype: xv.AssetType.wireframe }
+	  }
+	] );
 
 	xworld.startUpdate();
 
