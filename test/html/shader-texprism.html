@@ -125,17 +125,17 @@
 			// shader: xv.XComponent.ShaderFlag.texPrism,
 			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
+				// prism
+				color: [0.4, 0.6, 0.4, 0.7],
+				edgeWeight: 24,
+
 				side: THREE.FrontSide,
-				uvScale: [6, 2],
-				tile: {
-					edgeWeight: 24,
+				// uvScale: [6, 2],
+				xztile: {
+					box: [0, 0],  // GeoPrism has extra box size for each cube
 					tiles: [2, 2],
 					change: false,
 					layers: 1 },
-				// u_tex: [
-				// 	'tex/ruler256.png',  // 0: base faces (roof)
-				// 	'tex/wood.png',      // 1: lateral faces (wall)
-				// 	'tex/byr0.png'],     // 2: optional, layer faces (floor)
 
 				// geojson geometry handling
 				// configuration similar with Obj3Type.Hexatile

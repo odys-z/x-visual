@@ -23,15 +23,16 @@
 			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
 				color: [0, 0.7, 0.8, 1],       // outer BOX color
-				tile: {
+				edgeWeight: 20,
+				xztile: {
 					hue: [0.3, 0.7, 0.2, 0.4], // tile color
-					edgeWeight: 16.0,
-					box: [280, 92],  // must present if using geometry otherthan GeoPrism.
+					box: [296, 96],   // xz size, must present if using geometry otherthan GeoPrism.
 					tiles: [14, 3],
 					change: false,
-					layers: 5,
-					floorHeight: 36, // Obj3Type.BOX can't tell shader layer height.
-					y0: -140,        // only BOX geometry needing this
+					layers: 6,
+					// Design Memo: Obj3Type.BOX can't tell shader about box layer height.
+					layerDist: 60,    // 60 x 5 = 300 (box.h)
+					y0: -140,         // only BOX geometry needing this
 				}
 			},
 			asset: '' } ,
