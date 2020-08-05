@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest - Texture of Prism</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -60,9 +60,9 @@
 					change: false,
 					layers: 1 },
 				u_tex: [
-					'tex/ruler256.png',   // 0: base faces (roof)
-					'tex/wood.png',       // 1: lateral faces (wall)
-					'tex/byr0.png'],      // 2: optional, layer faces (floor)
+					'../../assets/tex/ruler256.png',   // 0: base faces (roof)
+					'../../assets/tex/wood.png',       // 1: lateral faces (wall)
+					'../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
 				whiteAlphas: [0.4, 0.6],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
 				edgeWeight: 4.2,          // layer box weight
 				colors: [[0, 0, 1],       // TODO roof hue
@@ -96,9 +96,9 @@
 					change: false,
 					layers: 2 },
 				u_tex: [
-					'tex/ruler256.png',   // 0: base faces (roof)
-					'tex/wood.png',       // 1: lateral faces (wall)
-					'tex/byr0.png'],      // 2: optional, layer faces (floor)
+					'../../assets/tex/ruler256.png',   // 0: base faces (roof)
+					'../../assets/tex/wood.png',       // 1: lateral faces (wall)
+					'../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
 				whiteAlphas: [0.8, 0.7],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
 				edgeWeight: 0.8,          // layer box weight
 				colors: [[0, 0, 1],       // TODO roof hue
@@ -168,9 +168,9 @@
 		// 			change: true,
 		// 			layers: 5 },
 		// 		u_tex: [
-		// 			'tex/wood.png',    // 0: lateral faces (wall)
-		// 			'tex/ruler256.png',  // 1: base faces (root)
-		// 			'tex/byr0.png'],     // 2: optional, layer faces (floor)
+		// 			'../../assets/tex/wood.png',    // 0: lateral faces (wall)
+		// 			'../../assets/tex/ruler256.png',  // 1: base faces (root)
+		// 			'../../assets/tex/byr0.png'],     // 2: optional, layer faces (floor)
       //   } }
 	  // }
 	] );
