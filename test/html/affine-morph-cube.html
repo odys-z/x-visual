@@ -92,8 +92,8 @@
 							mtype: xv.XComponent.AnimType.ROTAXIS,
 							paras: {
 								start: 0, // started by 'nav'.startWith
-								duration: 5,
-								deg: [0, 45],
+								duration: 10,
+								deg: [0, 200],
 								axis: [1, 0, 0],
 								ease: undefined
 							},
@@ -102,7 +102,7 @@
 					fFinished: (twns, seqx) => {
 
 						//test position
-
+						/*
 						if(seqx === 0) {
 
 							if(xpos === 40) {
@@ -150,10 +150,11 @@
 							return;
 						}
 						//test rotate
+						*/
 						if(seqx === 3) {
 
-							xv.MorphingAnim.addAngle(twns.tweens[3], 0, roteteX);
-							twns.startCmds.push(3);
+							//xv.MorphingAnim.addAngle(twns.tweens[3], 0, roteteX);
+							//twns.startCmds.push(3);
 
 						}
 					}
