@@ -8,12 +8,14 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <!--
   <p>Intensity (float): <input id='intense' value='2'/><br>
      Diffuse Color (css style): <input id='diffuse' value='0xff0'/><br>
      Ambient Color (css style): <input id='ambient' value='0x00c'/><br>
      Specular Color(css style): <input id='specular' value='0x0f0'/><br>
      <input type='button' onclick='updateLight()' value='update'/></p>
   json0 (read only)<br><textarea id="txt" rows="5" cols="73"></textarea>
+  -->
   <script>
     "use strict";
 
@@ -77,8 +79,6 @@
 
     }
 
-    // Lightsys.query = { any: ['Light'] };
-
     var json0 = {
       "type": "FeatureCollection",
       "features": [
@@ -90,7 +90,7 @@
         }
       ]
     };
-    document.getElementById('txt').value = JSON.stringify(json0);
+    // document.getElementById('txt').value = JSON.stringify(json0);
 
     const position = [200, 200, 200];
     const asset = 'data:application/x-visual+img,gray-pixel';
