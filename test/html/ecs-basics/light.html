@@ -12,7 +12,8 @@
 	 Diffuse Color (css style): <input id='diffuse' value='0xff0'/><br>
 	 Ambient Color (css style): <input id='ambient' value='0x00c'/><br>
 	 Specular Color(css style): <input id='specular' value='0x0f0'/><br>
-	 <input type='button' onclick='updateLight()' value='update'/>
+	 <input type='button' onclick='updateLight()' value='update'/></p>
+  json0 (read only)<br><textarea id="txt" rows="9" cols="73"></textarea>
   <script>
 	"use strict";
 
@@ -77,23 +78,118 @@
 	}
 
 	// Lightsys.query = { any: ['Light'] };
-	
+
+	var json0 = {
+	  "type": "FeatureCollection",
+	  "features": [
+		{ "type": "Feature", "properties": {"height": 4},
+		  "geometry": {
+			"type": "polygon",
+      		"coordinates":[[[-20, -16],[20, -16],[20, 16],[-20, 16]]]
+		  }
+	    }
+	  ]
+	};
+	document.getElementById('txt').value = JSON.stringify(json0);
+
 	const position = [500, 300, 500];
 	const xworld = new xv.XWorld(document.getElementById('canv'), window,
 		{light: {
 			position,
-			skyColor: 0xff0000,
+			skyColor: 0xffffff,
 			intensity: 4}});
 	const ecs = xworld.xecs;
 	const lightsys = new Lightsys(ecs, {});
+	const asset = 'data:application/x-visual+img,gray-pixel';
 
 	xworld.addEntities([
 	  { id: 'box',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [200, 200, 200],
+				box: [60, 60, 60],
 				mesh: undefined },
 		Visual:{vtype: xv.AssetType.mesh,
-				asset: 'data:application/x-visual+img,gray-pixel'}
+				asset}
+	  },
+	  { id: 'tetrahedron',
+		Obj3: { geom: xv.XComponent.Obj3Type.Tetrahedron,
+				box: [60, 0],
+				transform: [ { translate: [0, 80, -120] } ],
+				mesh: undefined },
+		Visual:{vtype: xv.AssetType.mesh,
+				asset}
+	  },
+	  { id: 'plane',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				box: [60, 60],
+				transform: [ { translate: [-120, 0, 0] },
+			 				 { rotate: {deg: -60, axis: [1, 0, 0] } } ],
+				mesh: undefined },
+		Visual:{vtype: xv.AssetType.mesh,
+				asset}
+	  },
+	  { id: 'sphere',
+		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+				box: [40, 24, 24],
+				transform: [ { translate: [-120, 80, -120] } ],
+				mesh: undefined },
+		Visual:{vtype: xv.AssetType.mesh,
+				asset}
+	  },
+
+
+	  { id: 'texprism-1',
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+				transform: [ {translate: [120, -30, -0]} ],
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.texPrism,
+			paras: {
+				side: THREE.FrontSide,
+				uvScale: [6, 2],
+				tile: {
+					tiles: [2, 2],
+					change: false,
+					layers: 2 },
+				u_tex: [
+					'../../assets/tex/ruler256.png',   // 0: base faces (roof)
+					'../../assets/tex/wood.png',       // 1: lateral faces (wall)
+					'../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
+				whiteAlphas: [0.8, 0.7],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+				edgeWeight: 5.8,          // layer box weight
+
+				// geojson geometry
+				maxVerts: 512,
+				features: json0.features,
+				geostyle: { height: 16, scale: 1.5, }
+			} } ,
+	  },
+	  { id: 'box-texprism',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ {translate: [120, 80, -120]} ],
+				box: [60, 60, 60] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.texPrism,
+			paras: {
+				side: THREE.FrontSide,
+				tile: {
+					tiles: [2, 2],
+					box: [40, 40],
+					change: false,
+					layers: 2 },
+				u_tex: [
+					'../../assets/tex/ruler256.png',   // 0: base faces (roof)
+					'../../assets/tex/wood.png',       // 1: lateral faces (wall)
+					'../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
+				whiteAlphas: [0.8, 0.7],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+				edgeWeight: 5.8,          // layer box weight
+
+				// geojson geometry
+				maxVerts: 512,
+				features: json0.features,
+				geostyle: { height: 16, scale: 1.5, }
+			} } ,
 	  },
 	  { id: 'light',
 		Obj3: { geom: xv.XComponent.Obj3Type.Octahedron,
