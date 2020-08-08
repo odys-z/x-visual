@@ -114,14 +114,15 @@
         Visual:{vtype: xv.AssetType.mesh,
                 asset}
       },
-      { id: 'tetrahedron',
+      { id: 'color-array',
         Obj3: { geom: xv.XComponent.Obj3Type.Tetrahedron,
                 box: [60, 0],
                 transform: [ { translate: [0, 80, -120] } ],
                 mesh: undefined },
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
-				paras: { colors: [[0.5, 0.5, 0.5]] },
+                paras: { colors: [[0.0, 0.0, 0.5]],
+                         diffuseWeight: 0.7 },
                 asset}
       },
       { id: 'plane',
