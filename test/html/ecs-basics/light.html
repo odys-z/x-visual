@@ -197,7 +197,51 @@
 				transform: [{ translate: position }],
 				mesh: undefined },
 		Visual:{vtype: xv.AssetType.wireframe }
-	  }]);
+	  },
+	  { id: 'virtual',
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				// layers: 5,
+				// VirtualArea
+				maxHeight: 30,
+				features: undefined,
+				origin: o0,
+				geostyle: { height: 5, scale: 1. },
+
+				// shader paras
+				color: [0.4, 0.4, 1.0, 1], // BOX color
+				// tiles
+				north: 0,
+				edgeWeight: 30,
+				xztile: {
+					hue: [0.3, 0.0, 0.8, 0.4], // tile color
+					edgeWeight: 16.0,
+					box: [-6, -8],
+					tiles: [14, 3],
+					change: false,
+					layers: 1,
+					layerDist: 10,
+					y0: 0,
+				}
+			} } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.001,   // speed para always comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {},
+		CBoundCubes: {
+			area,
+			boxes,
+		}
+	  },
+	]);
 
 	xworld.addSystem('test', lightsys);
 	xworld.startUpdate();
