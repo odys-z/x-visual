@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>XTest-Hemisphere Light</title>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <!--
+  <p>Intensity (float): <input id='intense' value='2'/><br>
+     Diffuse Color (css style): <input id='diffuse' value='0xff0'/><br>
+     Ambient Color (css style): <input id='ambient' value='0x00c'/><br>
+     Specular Color(css style): <input id='specular' value='0x0f0'/><br>
+     <input type='button' onclick='updateLight()' value='update'/></p>
+  json0 (read only)<br><textarea id="txt" rows="5" cols="73"></textarea>
+  -->
+  <script>
+    "use strict";
+
+    var log = true;
+    class Lightsys extends xv.XSys {
+        constructor(ecs, options) {
+            super(ecs);
+            this.ecs = ecs;
+            this.light = options.light ? options.light : {};
+            this.paras = {dirt: false};
+        }
+
+        update(tick, entities) {
+            this.light.needsUpdate = false;
+
+             if (this.paras.dirty) {
+                this.paras.dirty = false;
+                this.light.intensity = this.paras.intensity;
+                this.light.ambient = this.paras.ambient;
+                this.light.diffuse = this.paras.diffuse;
+                this.light.specular = this.paras.specular;
+                this.light.needsUpdate = true;
+            }
+        }
+
+        set(p) {
+            if (p) {
+                var hemisphere = this.light.hemisphere
+                                || {}; // prevent error before light inited
+                if (p.ambient) {
+                    this.paras.ambient = toArr(p.ambient);
+                    hemisphere.groundColor = p.ambient;
+                }
+                if (p.diffuse) {
+                    this.paras.diffuse = toArr(p.diffuse);
+                    hemisphere.color = p.diffuse;
+                }
+                if (p.specular) {
+                    this.paras.specular = toArr(p.specular);
+                    hemisphere.specular = p.specular;
+                }
+                if (typeof p.postion === 'array') {
+                    this.paras.pos = p.pos;
+                    hemisphere.position = p.pos;
+                }
+
+                if (typeof p.intensity === 'number') {
+                    this.paras.intensity = p.intensity;
+                    hemisphere.intensity = p.intensity;
+                }
+                this.paras.dirty = true;
+            }
+
+            function toArr(css) {
+                var hex = Math.floor( eval(css) );
+                return [( hex >> 16 & 255 ) / 255,
+                        ( hex >> 8 & 255 ) / 255,
+                        ( hex & 255 ) / 255 ];
+            }
+        }
+
+    }
+
+    // var json0 = {
+    //   "type": "FeatureCollection",
+    //   "features": [
+    //     { "type": "Feature", "properties": {"height": 4, "area": "virtual", "boxHeight": 10},
+    //       "geometry": {
+    //         "type": "polygon",
+    //           "coordinates":[[[-20, -16],[20, -16],[20, 16],[-20, 16]]]
+    //       }
+    //     }
+    //   ]
+    // };
+	const uri = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/polygon02.json';
+	const o0 = [11584678, 3585521];
+    // document.getElementById('txt').value = JSON.stringify(json0);
+
+    const position = [200, 200, 200];
+    const asset = 'data:application/x-visual+img,gray-pixel';
+
+    const xworld = new xv.XWorld(document.getElementById('canv'), window,
+        {light: {
+            position,
+            skyColor: 0x0000ff,
+            // skyColor: 0xffffff,
+            intensity: 1}});
+    const ecs = xworld.xecs;
+    const lightsys = new Lightsys(ecs, {});
+
+    ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
+
+    xworld.addEntities([
+      { id: 'texprism-1',
+        Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+                transform: [ {translate: [120, -30, -0]} ],
+                box: [] },
+        Visual:{
+            vtype: xv.AssetType.mesh,
+            shader: xv.XComponent.ShaderFlag.texPrism,
+            paras: {
+                // prism visual
+                side: THREE.FrontSide,
+                uvScale: [6, 2],
+                tile: {
+                    hue: [0.2, 0, 0.6, 1],
+                    tiles: [4, 2],
+                    change: false,
+                    layers: 1 },
+                u_tex: [
+                    asset,                             // 0: base faces (roof)
+                    '../../assets/tex/wood.png',       // 1: lateral faces (wall)
+                    '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
+                whiteAlphas: [.8, 0.7],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+                edgeWeight: 5.8,          // layer box weight
+
+                // geojson geometry
+                maxVerts: 1024 * 16,
+                // features: json0.features,
+				uri, origin: o0,
+                geostyle: { height: 16, scale: 1.5, }
+            } } ,
+      },
+      { id: 'light',
+        Obj3: { geom: xv.XComponent.Obj3Type.Octahedron,
+                box: [20, 0],
+                transform: [{ translate: position }],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.wireframe }
+      }
+    ]);
+
+    xworld.addSystem('test', lightsys);
+    xworld.addSystem('test',
+        new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
+    xworld.startUpdate();
+
+    function updateLight() {
+        lightsys.set({
+            intensity: document.getElementById('intense').value,
+            ambient: document.getElementById('ambient').value,
+            diffuse: document.getElementById('diffuse').value,
+            specular: document.getElementById('specular').value
+        });
+    }
+
+  </script>
+</body>
+</html>
