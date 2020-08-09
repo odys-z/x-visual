@@ -89,7 +89,7 @@
               { mtype: xv.XComponent.AnimType.U_ALPHA,
                 paras: {start: Infinity,
                         duration: 1,
-                        alpha: [1, 0.4],
+                        alpha: [1, 0.],
                         ease: xv.XEasing.Elastic.In} }
             ]] },
         CmpTweens: {}
@@ -129,7 +129,7 @@
             apply2Children: true,
             paras: {start: Infinity,
                     duration: 1,
-                    alpha: [1, 0.3],
+                    alpha: [1, 0.1],
                     ease: xv.XEasing.Elastic.In} }
         ]] },
         CmpTweens: {},
@@ -168,7 +168,7 @@
           { mtype: xv.XComponent.AnimType.U_ALPHA,
             paras: {start: Infinity,
                     duration: 1,
-                    alpha: [1, 0.3],
+                    alpha: [1, 0.1],
                     ease: xv.XEasing.Elastic.In} }
         ]] },
         CmpTweens: {},
@@ -234,8 +234,8 @@
                 ease: xv.XEasing.Elastic.In } }
           ] ],
           fFinished: (twns, seqx) => {
-            console.log("bug fixed: U_ALPHA finishing events has been called",
-						twns.tweens[seqx]);
+            console.log("U_ALPHA finishing callback been called. twns, seqs: ",
+						twns.tweens, seqx);
           } },
         CmpTweens: {},
 	} );
