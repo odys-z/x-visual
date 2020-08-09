@@ -200,8 +200,32 @@
       },
       { id: 'sphere-white',
         Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-                transform: [ {translate: [120, 80, -120]} ],
+                transform: [ {translate: [120, 120, -120]} ],
                 box: [40, 20, 20] },
+        Visual:{
+            vtype: xv.AssetType.mesh,
+            shader: xv.XComponent.ShaderFlag.texPrism,
+            paras: {
+                side: THREE.FrontSide,
+                tile: {
+                    tiles: [2, 2],
+                    box: [40, 40],
+                    change: false,
+                    layers: 2 },
+                u_tex: [asset, asset, asset],
+                whiteAlphas: [1, 1],
+                edgeWeight: 5.8,
+
+                // geojson geometry
+                maxVerts: 512,
+                features: json0.features,
+                geostyle: { height: 16, scale: 1.5, }
+            } } ,
+      },
+      { id: 'octahedron',
+        Obj3: { geom: xv.XComponent.Obj3Type.Octahedron,
+                transform: [ {translate: [120, 0, -120]} ],
+                box: [40, 1] },
         Visual:{
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texPrism,
