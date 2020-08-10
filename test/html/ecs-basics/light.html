@@ -41,7 +41,6 @@
             skyColor: 0xff0000,
             intensity: 1}});
     const ecs = xworld.xecs;
-    // const lightsys = new Lightsys(ecs, {});
 
     ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
 
@@ -78,8 +77,8 @@
                 mesh: undefined },
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
-				paras: {
-                    shininess: 20,
+                paras: {
+                    shininess: 2,
                     colors: [[0.5, 0.5, 0.5]] },
                 asset}
       },
@@ -90,7 +89,9 @@
                 mesh: undefined },
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
-				paras: { colors: [[0.5, 0.5, 0.5]] },
+                paras: {
+                    shininess: 3,
+                    colors: [[0.5, 0.5, 0.5]] },
                 asset}
       },
 
@@ -244,7 +245,6 @@
       }
     ]);
 
-    // xworld.addSystem('test', lightsys);
     xworld.addSystem('test',
         new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
     xworld.startUpdate();
