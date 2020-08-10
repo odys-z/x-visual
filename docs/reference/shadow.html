@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Assets Loader &mdash; x-visual 0.4 documentation</title>
+  <title>A Survey on Shadowing &mdash; x-visual 0.4 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
 
   
     <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
-        <link rel="up" title="Design Memo" href="index.html"/>
-        <link rel="next" title="Scene &amp; HUD" href="scene.html"/>
-        <link rel="prev" title="MVC View" href="view.html"/> 
+        <link rel="up" title="Reference" href="index.html"/>
+        <link rel="next" title="Components" href="components.html"/>
+        <link rel="prev" title="SVG" href="svg.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -87,24 +87,17 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Assets Loader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
-<li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="debug.html">Debug Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">A Survey on Shadowing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems.html">Systems</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
 </ul>
 
             
@@ -135,9 +128,9 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">Design Memo</a> &raquo;</li>
+          <li><a href="index.html">Reference</a> &raquo;</li>
       
-    <li>Assets Loader</li>
+    <li>A Survey on Shadowing</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -149,17 +142,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="assets-loader">
-<h1>Assets Loader<a class="headerlink" href="#assets-loader" title="Permalink to this headline">¶</a></h1>
-<p>Manage all texture assets.</p>
-<p>If Visual components.assetId is null (not undefined), Thrender will initialize it
-with a default texture, then keepingt the static copy.</p>
-<p>[<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/AssetKeepr.html">Jsdoc API</a>]</p>
-<ul class="simple">
-<li>AssetKeepr#loadGltf</li>
-</ul>
-<p>Load gltf file, path = Visual.asset.</p>
-<p>Gltf scene loaded can be applied with Obj3.transform.</p>
+  <div class="section" id="a-survey-on-shadowing">
+<h1>A Survey on Shadowing<a class="headerlink" href="#a-survey-on-shadowing" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-shadows.html">Way introduced by Three.js Fundamental</a></li>
+</ol>
+<p>Not affecting neighbouring objects?</p>
+<ol class="arabic simple" start="2">
+<li>The way of Claybook</li>
+</ol>
+<p><a class="reference external" href="https://www.dropbox.com/s/s9tzmyj0wqkymmz/Claybook_Simulation_Raytracing_GDC18.pptx?dl=0#">Presentation</a></p>
+<ol class="arabic simple" start="3">
+<li>Similar of Shadertoy</li>
+</ol>
+<p><a class="reference external" href="https://www.shadertoy.com/view/lsKcDD">Shadertoy Example</a></p>
+<p><a class="reference external" href="https://iquilezles.org/www/articles/rmshadows/rmshadows.htm">Introduction</a></p>
+<ol class="arabic simple" start="4">
+<li>Shadow texture baking of F4 ?</li>
+</ol>
+<img alt="../_images/002-f4-shadow.png" src="../_images/002-f4-shadow.png" />
 </div>
 
 
@@ -169,10 +170,10 @@ with a default texture, then keepingt the static copy.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="scene.html" class="btn btn-neutral float-right" title="Scene &amp; HUD" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="components.html" class="btn btn-neutral float-right" title="Components" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="view.html" class="btn btn-neutral" title="MVC View" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="svg.html" class="btn btn-neutral" title="SVG" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
