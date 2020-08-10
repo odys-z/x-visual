@@ -8,6 +8,14 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <br><a id='ajson'>json</a>
+  <p>Reference of trangulation<br>
+  	<a href='https://en.wikipedia.org/wiki/Two_ears_theorem'>Two ears theorem</a><br>
+  	<a href='https://www.cs.cmu.edu/~quake/triangle.html'>Triangel</a><br>
+  	<a href='https://math.stackexchange.com/questions/1814607/divide-a-2d-polygon-with-n-vertices-into-triangles-draw-in-a-3d-space'>
+		Divide a 2D polygon with N vertices into triangles draw in a 3D space,
+		Mathematics, StackExchange</a>
+  </p>
   <!--
   <p>Intensity (float): <input id='intense' value='2'/><br>
      Diffuse Color (css style): <input id='diffuse' value='0xff0'/><br>
@@ -79,20 +87,9 @@
 
     }
 
-    // var json0 = {
-    //   "type": "FeatureCollection",
-    //   "features": [
-    //     { "type": "Feature", "properties": {"height": 4, "area": "virtual", "boxHeight": 10},
-    //       "geometry": {
-    //         "type": "polygon",
-    //           "coordinates":[[[-20, -16],[20, -16],[20, 16],[-20, 16]]]
-    //       }
-    //     }
-    //   ]
-    // };
 	const uri = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/polygon02.json';
-	const o0 = [11584678, 3585521];
-    // document.getElementById('txt').value = JSON.stringify(json0);
+	const o0 = [11584957, 3585100];
+	document.getElementById('ajson').href = uri;
 
     const position = [200, 200, 200];
     const asset = 'data:application/x-visual+img,gray-pixel';
@@ -129,7 +126,7 @@
                     asset,                             // 0: base faces (roof)
                     '../../assets/tex/wood.png',       // 1: lateral faces (wall)
                     '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
-                whiteAlphas: [.8, 0.7],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+                whiteAlphas: [.8, 1.0],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
                 edgeWeight: 5.8,          // layer box weight
 
                 // geojson geometry
