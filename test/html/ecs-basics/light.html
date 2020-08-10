@@ -78,7 +78,9 @@
                 mesh: undefined },
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
-				paras: { colors: [[0.5, 0.5, 0.5]] },
+				paras: {
+                    shininess: 20,
+                    colors: [[0.5, 0.5, 0.5]] },
                 asset}
       },
       { id: 'color-sphere',
