@@ -72,7 +72,10 @@
 				Visual:{vtype:  xv.AssetType.mesh,
 						shader: xv.XComponent.ShaderFlag.colorArray,
 						paras:{ colors: [ [1, 0, 0] ],
-                                hueWeight: 0.5 } },
+                                hueWeight: 0.5,
+							 	shininess: 20,
+								shineColor: [0.0, 0.8, 0.],
+								ambientColor: [0., 0., .5]} },
 				ModelSeqs: {
 					script: [[ {
 						mtype:  xv.XComponent.AnimType.ROTAXIS,
@@ -127,7 +130,9 @@
 				Visual:{vtype:  xv.AssetType.mesh,
 						shader: xv.XComponent.ShaderFlag.colorArray,
 						// colors' morphing weight variable name: u_morph0, u_morph1, ...
-						paras:{ colors: [
+						paras:{
+						 	shininess: 40,
+							colors: [
 							[1, 0, 0],
 							[0, 0, 1],
 							[0, 1, 0]
@@ -173,7 +178,9 @@
 				Visual:{vtype:  xv.AssetType.mesh,
 						shader: xv.XComponent.ShaderFlag.colorArray,
 						// colors' morphing weight variable name: u_morph0, u_morph1, ...
-						paras:{ colors: [
+						paras:{
+						 	shininess: 120,
+							colors: [
 							[1, 0, 0],
 							[0, 0, 1],
 							[0, 1, 0]
