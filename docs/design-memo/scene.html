@@ -170,15 +170,31 @@ HudGroup and it&#8217;s children.</p>
 how to create main scene objects.</p>
 <div class="section" id="main-scene-light">
 <h3>Main Scene Light<a class="headerlink" href="#main-scene-light" title="Permalink to this headline">¶</a></h3>
-<p>Main scene use a Three.js <a class="reference external" href="https://threejs.org/docs/#api/en/lights/HemisphereLight">HemisphereLight</a>.</p>
+<p>Main scene use a modified Three.js <a class="reference external" href="https://threejs.org/docs/#api/en/lights/HemisphereLight">HemisphereLight</a>.</p>
 <p>The default parameters:</p>
 <div class="highlight-python"><div class="highlight"><pre>skyColor: #xffffbb
 groundColor: #x080820
 intensity: 1.1
-position: [0, 1, 0]
+position: [1, 1, 1]
 </pre></div>
 </div>
-<p>To configure it, set parameters in XWorld.x.light.</p>
+<p>To configure it, set parameters via <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/light.html">Lighting#set()</a>.</p>
+<p>X-visual use this singleton parameter globally. When the object using material
+of Three.js, the light effects is exactly the same with examples of Three.js.</p>
+<p>But x-visual use a diffuse light with direction (the light position) and a specular
+color use the light as point light. This is illustrated in the
+<a class="reference internal" href="../tests/basics.html#test-xworld-light"><span>test case: light</span></a>.</p>
+<p>The diffuse color is the same as skyColor, and groundColor used as ambient color.</p>
+<p>An object in scene has it&#8217;s own specular properties, so an object can be configured
+with Visual.paras:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Visual</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">shininess</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">specular</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="hud">

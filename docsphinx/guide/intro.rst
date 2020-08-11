@@ -14,8 +14,13 @@ x-visual effectiently.
 1. x-visual startup
 -------------------
 
-x-visual is a npm package, together with a bundle can be used in plain javascript.
+X-visual is a npm package, together with a bundle can be used in plain javascript.
 For quick start, see x-visual/examples readme.
+
+X-visual using webpak. If starting with source, these 2 simple steps should work::
+
+    npm in --save-dev
+	webpack
 
 .. _guide-hello-xworld:
 

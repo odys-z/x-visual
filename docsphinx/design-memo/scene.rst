@@ -13,16 +13,38 @@ how to create main scene objects.
 Main Scene Light
 ________________
 
-Main scene use a Three.js `HemisphereLight <https://threejs.org/docs/#api/en/lights/HemisphereLight>`_.
+Main scene use a modified Three.js `HemisphereLight <https://threejs.org/docs/#api/en/lights/HemisphereLight>`_.
 
 The default parameters::
 
     skyColor: #xffffbb
     groundColor: #x080820
     intensity: 1.1
-    position: [0, 1, 0]
+    position: [1, 1, 1]
 
-To configure it, set parameters in XWorld.x.light.
+To configure it, set parameters via `Lighting#set() <https://odys-z.github.io/javadoc/x-visual/light.html>`_.
+
+X-visual use this singleton parameter globally. When the object using material
+of Three.js, the light effects is exactly the same with examples of Three.js.
+
+But x-visual use a diffuse light with direction (the light position) and a specular
+color use the light as point light. This is illustrated in the
+:ref:`test case: light<test-xworld-light>`.
+
+The diffuse color is the same as skyColor, and groundColor used as ambient color.
+
+An object in scene has it's own specular properties, so an object can be configured
+with Visual.paras:
+
+.. code-block:: javascript
+
+    Visual: {
+      paras: {
+        shininess: 1,
+        specular: [1, 0, 1]
+      }
+    }
+..
 
 HUD
 ---
