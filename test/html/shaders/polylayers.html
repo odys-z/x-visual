@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Polylayers</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 300]});
+
+	xworld.addEntities({
+		id: 'layers',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [300, 300, 100] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				color: [0, 0.7, 0.8, 1],       // outer BOX color
+				edgeWeight: 20,
+				xztile: {
+					hue: [0.3, 0.7, 0.2, 0.4], // tile color
+					box: [296, 96],   // xz size, must present if using geometry otherthan GeoPrism.
+					tiles: [14, 3],
+					change: false,
+					layers: 6,
+					// Design Memo: Obj3Type.BOX can't tell shader about box layer height.
+					layerDist: 60,    // 60 x 5 = 300 (box.h)
+					y0: -140,         // only BOX geometry needing this
+				}
+			},
+			asset: '' } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.001,   // speed para alwasy comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {}
+	} );
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

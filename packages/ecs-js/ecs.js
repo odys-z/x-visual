@@ -36,7 +36,7 @@ class ECS {
    * last tick
    * @property lastick */
   get lastick() {
-	  return this.ticks;
+      return this.ticks;
   }
 
   addRef(target, entity, component, prop, sub) {
@@ -66,10 +66,19 @@ class ECS {
   }
 
   registerComponentClass(klass) {
-
-    this.types[klass.name] = klass;
-    this.entityComponents.set(klass.name, new Set());
-    this.components.set(klass.name, new Set());
+    // ody July 28, 2020 registering cleared created entities
+    if (this.types[klass.name]) {
+        console.warn("ECS framework thinking the component is already registered: ",
+                    klass.name,
+                    "\nTo avoid created entities been dropped, this registering is ignored.",
+                    "\nEnitity Set: ", this.components.set(klass.name) );
+        return;
+    }
+    else {
+      this.types[klass.name] = klass;
+      this.entityComponents.set(klass.name, new Set());
+      this.components.set(klass.name, new Set());
+    }
   }
 
   // Change Log:
@@ -131,17 +140,17 @@ class ECS {
 
   queryEntities(args) {
     /* e.g. args = {persist: CamCtrl, has: Array(2)}
-	 has = (2) ["UserCmd", "CmdFlag"],
-	 hasnt = [],
-	 persist = CamCtrl {ecs: ECS, changes: Array(0), lastTick: 0},
-	 updatedValues = 0, updatedComponents = 0
-	 */
-	// branch ANY (and IFFALL)
+     has = (2) ["UserCmd", "CmdFlag"],
+     hasnt = [],
+     persist = CamCtrl {ecs: ECS, changes: Array(0), lastTick: 0},
+     updatedValues = 0, updatedComponents = 0
+     */
+    // branch ANY (and IFFALL)
     const { hasnt, has, iffall, any, persist, updatedValues, updatedComponents } = Object.assign({
       hasnt: [],
       has: [],
       iffall: [],
-	  any: [],
+      any: [],
       persist: false,
       updatedValues: 0,
       updatedComponents: 0
@@ -152,7 +161,7 @@ class ECS {
       query = this.queryCache.get(persist);
     }
     if (!query) {
-	  // branch ANY
+      // branch ANY
       query = new QueryCache(this, has, hasnt, any, iffall);
     }
     if (persist) {

@@ -239,4 +239,13 @@ references:
 -- `96-bit 8x12 Font, a shadertoy way <https://www.shadertoy.com/view/Mt2GWD>`_
    Using vec4 for each glyph, with the help of
    `Charset Extractor from Images online tool <http://www.massmind.org/techref/datafile/charset/extractor/charset_extractor.htm>`_
-   
+
+-- `Inigo Quilez - iq/2015, Parametric graph by curvature, Shadertoy. <https://www.shadertoy.com/view/Xlf3zl>`_,
+   License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+   Try::
+
+    color = smoothstep(0.0, 0.01, vec3( d ));
+
+.. `Da Rasterizer , Created by TDM, 2014-08-20 <https://www.shadertoy.com/view/MsjSzz>`_
+   An example of fragment shader matrix operation.

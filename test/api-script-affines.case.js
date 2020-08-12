@@ -26,7 +26,7 @@ describe('case: [affine] orbit combine', function() {
     x.log = 4;
 	x.test = true;
 
-    it('affine combination: orbit + roate x', async function() {
+    it('affine combination: orbit + rotate x', async function() {
         const xworld = new XWorld(undefined, 'window', {});
         const ecs = xworld.xecs;
 

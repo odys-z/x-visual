@@ -5,7 +5,6 @@
 	<title>XTest - Buildings</title>
 	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
-	<style>input[id] {width: 4.9em}</style>
 </head>
 <body>
   <canvas id='canv'></canvas>
@@ -13,7 +12,7 @@
 	"use strict";
 
 	const json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
-	const o0 = [11584780.0575155, 3574051.29001759];
+	const o0 = [11584838.7, 3578799.8];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					  window, {canvasize: [600, 400]});
@@ -24,9 +23,10 @@
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			// shader: xv.XComponent.ShaderFlag.texPrism,
-			shader: xv.XComponent.ShaderFlag.boxLayers,
+			shader: xv.XComponent.ShaderFlag.texPrism,
+			// shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
+				color: [0.5, 0.9, 0.7, 1],
 				side: THREE.FrontSide,
 				uvScale: [6, 2],
 				tile: {

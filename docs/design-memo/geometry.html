@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Shader Samples" href="shaders/index.html"/>
@@ -100,7 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">X-Geometry Handling</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">X-Geometry Handling</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mapxzroad">MapXZRoad</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hexatile">hexatile</a></li>
 </ul>
@@ -161,41 +158,41 @@
 <div class="section" id="mapxzroad">
 <h2>MapXZRoad<a class="headerlink" href="#mapxzroad" title="Permalink to this headline">¶</a></h2>
 <p>Obj3Type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">Obj3Type</span><span class="o">.</span><span class="n">MapXZRoad</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">Obj3Type</span><span class="o">.</span><span class="n">MapXZRoad</span>
 </pre></div>
 </div>
 <p>Handler API:</p>
 <p><a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz">xgeom.generateWayxz()</a></p>
 <p>Test pages:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">geopath</span><span class="o">-</span><span class="n">road</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">geopath</span><span class="o">-</span><span class="n">road</span><span class="o">.</span><span class="n">html</span>
 <span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">geopaths</span><span class="o">.</span><span class="n">html</span>
 <span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">cd</span><span class="o">-</span><span class="n">express</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
-<p>See also <a class="reference internal" href="../tests/test-geom.html#tst-geom-volume-tube"><span class="std std-ref">Case: Volumetric Tube</span></a></p>
+<p>See also <a class="reference internal" href="../tests/geom.html#tst-geom-volume-tube"><span>Case: Volumetric Tube</span></a></p>
 </div>
 <div class="section" id="hexatile">
 <span id="geom-hexatile"></span><h2>hexatile<a class="headerlink" href="#hexatile" title="Permalink to this headline">¶</a></h2>
 <p>Obj3Type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">Obj3Type</span><span class="o">.</span><span class="n">Hexatile</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">Obj3Type</span><span class="o">.</span><span class="n">Hexatile</span>
 </pre></div>
 </div>
 <p>test page:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">haxcylinder</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">haxcylinder</span><span class="o">.</span><span class="n">html</span>
 <span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">epsg4326</span><span class="o">-</span><span class="n">points</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 <p>Where the hexagon tile are generated with the template:</p>
 <a class="reference internal image-reference" href="../_images/006-hexatile.png"><img alt="../_images/006-hexatile.png" src="../_images/006-hexatile.png" style="width: 480px;" /></a>
 <p>Hexatile is generated as a hexagonal cylinder. Parameters example:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
   <span class="nx">origin</span><span class="o">:</span> <span class="nx">o3</span><span class="p">,</span>
   <span class="nx">geostyle</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">radius</span><span class="o">:</span> <span class="mi">45</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
     <span class="nx">scale</span><span class="o">:</span> <span class="mf">0.02</span><span class="p">,</span>
     <span class="nx">maxHeight</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
     <span class="nx">groups</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nx">onGroup</span><span class="o">:</span> <span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">feature</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">fx</span> <span class="o">%</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
+    <span class="nx">onGroup</span><span class="o">:</span> <span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">feature</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">fx</span> <span class="o">%</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -208,15 +205,15 @@
 <li>paras.geostyle</li>
 </ul>
 <p>Specifying how the cylinder been generated, where</p>
-<p>– geostyle.radius: circumvent circle radius.</p>
-<p>– geostyle.scale: geojson’s coordinates scale to xworld.</p>
-<p>– geostyle.height: cylinder height, in xworld.</p>
-<p>– geostyle.maxHeight: max heigth that with the highest thermal color.</p>
-<p>The thermal colors can word only with <a class="reference internal" href="vparas.html#visual-para-tiledorbs"><span class="std std-ref">tiledOrbs</span></a>
-shader. If a cylinder tile’s heigth is higher than maxHeight, the higher part
+<p>&#8211; geostyle.radius: circumvent circle radius.</p>
+<p>&#8211; geostyle.scale: geojson&#8217;s coordinates scale to xworld.</p>
+<p>&#8211; geostyle.height: cylinder height, in xworld.</p>
+<p>&#8211; geostyle.maxHeight: max heigth that with the highest thermal color.</p>
+<p>The thermal colors can word only with <a class="reference internal" href="vparas.html#visual-para-tiledorbs"><span>tiledOrbs</span></a>
+shader. If a cylinder tile&#8217;s heigth is higher than maxHeight, the higher part
 will be applied with the max color.</p>
-<p>– geostyle.groups: total groups. Groups can be used by XTweener for showing different animation.</p>
-<p>– geostyle.onGroup: optional callback for getting group index according to feature.</p>
+<p>&#8211; geostyle.groups: total groups. Groups can be used by XTweener for showing different animation.</p>
+<p>&#8211; geostyle.onGroup: optional callback for getting group index according to feature.</p>
 </div>
 </div>
 
@@ -270,8 +267,7 @@ will be applied with the max color.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
