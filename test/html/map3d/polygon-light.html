@@ -10,9 +10,13 @@
   <canvas id='canv'></canvas>
   <br><a id='ajson'>json</a>
   <p>Reference of trangulation<br>
-  	<a href='https://en.wikipedia.org/wiki/Two_ears_theorem'>Two ears theorem</a><br>
-  	<a href='https://www.cs.cmu.edu/~quake/triangle.html'>Triangel</a><br>
-  	<a href='https://math.stackexchange.com/questions/1814607/divide-a-2d-polygon-with-n-vertices-into-triangles-draw-in-a-3d-space'>
+  	- <a href='https://en.wikipedia.org/wiki/Two_ears_theorem'>Two ears theorem</a><br>
+	- <a href='http://wapbowen.oss-cn-hongkong.aliyuncs.com/PubFiles/JAO10021-20140509-174109-8123-42657.pdf?Expires=1599892564&OSSAccessKeyId=UVhDXw2HqaJ5Mj2n&Signature=PYurdwXO2qB2S81hn6xTIkkYEM4%3D'>
+		A Simple Sweep-line Delaunay Triangulation Algorithm (local ~/Documents)</a>,
+		which is the algorithm of <a href='https://www.npmjs.com/package/earcut'>
+		npm earcut used by mapbox</a><br>
+  	- <a href='https://www.cs.cmu.edu/~quake/triangle.html'>Triangel</a><br>
+  	- <a href='https://math.stackexchange.com/questions/1814607/divide-a-2d-polygon-with-n-vertices-into-triangles-draw-in-a-3d-space'>
 		Divide a 2D polygon with N vertices into triangles draw in a 3D space,
 		Mathematics, StackExchange</a>
   </p>
@@ -26,66 +30,6 @@
   -->
   <script>
     "use strict";
-
-    var log = true;
-    class Lightsys extends xv.XSys {
-        constructor(ecs, options) {
-            super(ecs);
-            this.ecs = ecs;
-            this.light = options.light ? options.light : {};
-            this.paras = {dirt: false};
-        }
-
-        update(tick, entities) {
-            this.light.needsUpdate = false;
-
-             if (this.paras.dirty) {
-                this.paras.dirty = false;
-                this.light.intensity = this.paras.intensity;
-                this.light.ambient = this.paras.ambient;
-                this.light.diffuse = this.paras.diffuse;
-                this.light.specular = this.paras.specular;
-                this.light.needsUpdate = true;
-            }
-        }
-
-        set(p) {
-            if (p) {
-                var hemisphere = this.light.hemisphere
-                                || {}; // prevent error before light inited
-                if (p.ambient) {
-                    this.paras.ambient = toArr(p.ambient);
-                    hemisphere.groundColor = p.ambient;
-                }
-                if (p.diffuse) {
-                    this.paras.diffuse = toArr(p.diffuse);
-                    hemisphere.color = p.diffuse;
-                }
-                if (p.specular) {
-                    this.paras.specular = toArr(p.specular);
-                    hemisphere.specular = p.specular;
-                }
-                if (typeof p.postion === 'array') {
-                    this.paras.pos = p.pos;
-                    hemisphere.position = p.pos;
-                }
-
-                if (typeof p.intensity === 'number') {
-                    this.paras.intensity = p.intensity;
-                    hemisphere.intensity = p.intensity;
-                }
-                this.paras.dirty = true;
-            }
-
-            function toArr(css) {
-                var hex = Math.floor( eval(css) );
-                return [( hex >> 16 & 255 ) / 255,
-                        ( hex >> 8 & 255 ) / 255,
-                        ( hex & 255 ) / 255 ];
-            }
-        }
-
-    }
 
 	const uri = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/polygon02.json';
 	const o0 = [11584957, 3585100];
@@ -101,7 +45,6 @@
             // skyColor: 0xffffff,
             intensity: 1}});
     const ecs = xworld.xecs;
-    const lightsys = new Lightsys(ecs, {});
 
     ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
 
@@ -145,7 +88,6 @@
       }
     ]);
 
-    xworld.addSystem('test', lightsys);
     xworld.addSystem('test',
         new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
     xworld.startUpdate();
