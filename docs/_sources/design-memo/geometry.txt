@@ -1,8 +1,10 @@
-X-Geometry Handling
-===================
+Geometry Handling
+=================
 
 MapXZRoad
 ---------
+
+Expand PostGIS Way to polygon.
 
 Obj3Type::
 
@@ -24,6 +26,8 @@ See also :ref:`tst-geom-volume-tube`
 
 hexatile
 --------
+
+Generate hexagonal prism at a location in xz plane.
 
 Obj3Type::
 
@@ -77,3 +81,34 @@ will be applied with the max color.
 -- geostyle.groups: total groups. Groups can be used by XTweener for showing different animation.
 
 -- geostyle.onGroup: optional callback for getting group index according to feature.
+
+TexPrism & Triangulation
+------------------------
+
+Extrude polygon to prism.
+
+Obj3Type::
+
+    xv.XComponent.Obj3Type.texPrism
+
+Handler API:
+
+`xgeom.() <https://odys-z.github.io/javadoc/x-visual/xgeom.html#texPrism3857>`_
+
+Test pages::
+
+    test/html/map3d/geopath-road.html
+    test/html/map3d/geopaths.html
+    test/html/map3d/cd-express.html
+
+Both texPrism generation in x-visual can handling polygons of day-to-day used data
+from OSM etc. It first generate lateral face, then use off-the-shelf npm package,
+*cutear* to generate end face of a prism.
+
+There are two way's to handle this task:
+
+- Polygon scanning like earcut or [1].
+
+- Delaunary triangulation like [2].
+
+The boundary is blur considering how [1] finishing the task.
