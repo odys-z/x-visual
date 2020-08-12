@@ -226,22 +226,37 @@ will be applied with the max color.</p>
 </pre></div>
 </div>
 <p>Handler API:</p>
-<p><a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xgeom.html#texPrism3857">xgeom.()</a></p>
+<p><a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/xgeom.html#texPrism3857">xgeom.texPrism3857()</a></p>
 <p>Test pages:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">geopath</span><span class="o">-</span><span class="n">road</span><span class="o">.</span><span class="n">html</span>
 <span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">geopaths</span><span class="o">.</span><span class="n">html</span>
 <span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">map3d</span><span class="o">/</span><span class="n">cd</span><span class="o">-</span><span class="n">express</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
-<p>Both texPrism generation in x-visual can handling polygons of day-to-day used data
+<p>The texPrism geometry in x-visual can handling polygons of day-to-day used data
 from OSM etc. It first generate lateral face, then use off-the-shelf npm package,
-<em>cutear</em> to generate end face of a prism.</p>
-<p>There are two way&#8217;s to handle this task:</p>
+npm <em>cutear</em> [5] to generate end face of a prism.</p>
+<p>Broadly, there are two way&#8217;s to handle this task:</p>
 <ul class="simple">
-<li>Polygon scanning like earcut or [1].</li>
-<li>Delaunary triangulation like [2].</li>
+<li>Polygon scanning like earcut or [1] or [2].</li>
+<li>Delaunary triangulation like [4].</li>
 </ul>
 <p>The boundary is blur considering how [1] finishing the task.</p>
+<p>References:</p>
+<p>1. Liu Yonghe, Feng Jinming, Shao Yuehong,
+<a class="reference external" href="http://wapbowen.oss-cn-hongkong.aliyuncs.com/PubFiles/JAO10021-20140509-174109-8123-42657.pdf?Expires=1599892564&amp;OSSAccessKeyId=UVhDXw2HqaJ5Mj2n&amp;Signature=PYurdwXO2qB2S81hn6xTIkkYEM4%3D">A Simple Sweep-line Delaunay Triangulation Algorithm,</a></p>
+<ol class="arabic simple" start="2">
+<li><a class="reference external" href="http://www.cs.unc.edu/~dm/CODE/GEM/chapter.html">Atul Narkhede, Dinesh Manocha, Fast Polygon Triangulation based on Seidel&#8217;s Algorithm</a></li>
+</ol>
+<p>3. <a class="reference external" href="https://math.stackexchange.com/questions/1814607/divide-a-2d-polygon-with-n-vertices-into-triangles-draw-in-a-3d-space">Discussion: Divide a 2D polygon with N vertices into triangles draw in a 3D space</a>,
+Mathatics, StackExchange.</p>
+<p>4. Jonathan Richard Shewchuk,
+<a class="reference external" href="https://www.cs.cmu.edu/~quake/triangle.html">Triangle Open Source Project</a>,
+Computer Science Division, University of California at Berkeley, Berkeley,
+California 94720-1776</p>
+<ol class="arabic simple" start="5">
+<li><a class="reference external" href="https://www.npmjs.com/package/earcut">npm earcut</a></li>
+</ol>
 </div>
 </div>
 
