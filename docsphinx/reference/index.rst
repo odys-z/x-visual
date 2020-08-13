@@ -9,5 +9,6 @@ Contents:
    gltf
    geometry
    svg
+   shadow
    components
    systems

@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+ {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1, "boxHeight": 30},
+  "geometry": {"type":"Polygon","coordinates":[[[11584599.1,3578794.2],[11584603.3,3578543.4],[11584852.5,3578543.6],[11584838.7,3578799.8]]]}},
+ {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1},
+  "geometry": {"type":"Polygon","coordinates":[[[11585116.11,3578481.12],[11585117.13,3578343.14],[11585146.15,3578346.16],[11585143.17,3578482.18]]]}},
+ {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1, "boxHeight": 40},
+  "geometry": {"type":"Polygon","coordinates":[[[11585163.21,3578479.22],[11585166.23,3578349.24],[11585202.25,3578349.26],[11585194.27,3578482.28]]]}},
+ {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1},
+  "geometry": {"type":"Polygon","coordinates":[[[11585217.31,3578477.32],[11585222.33,3578344.34],[11585249.35,3578347.36],[11585247.37,3578477.38]]]}},
+ {"type":"Polygon",
+  "geometry": {"type":"Polygon","coordinates":[[[11585267.41,3578479.42],[11585267.43,3578356.44],[11585297.45,3578353.46],[11585297.47,3578479.48]]]}},
+ {"type":"Polygon",
+  "geometry": {"type":"Polygon","coordinates":[[[11585319.51,3578476],[11585319,3578353],[11585349,3578353],[11585346,3578479]]]}},
+ {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1},
+  "geometry": {"type":"Polygon","coordinates":[[[11585365.61,3578474],[11585368,3578359],[11585396,3578359],[11585390,3578482]]]}},
+ {"type":"Polygon", "properties": {"building": "commercial", "area": "virtual", "height": 0.1, "boxHeight": 80},
+  "geometry": {"type":"Polygon","coordinates":[[[11584336.71,3578485],[11584342,3578325],[11584485,3578326],[11584483,3578488]]]}},
+ {"type":"Polygon",
+  "geometry": {"type":"Polygon","coordinates":[[[11583912.81,3578669],[11583912,3578504],[11584068,3578510],[11584068,3578678]]]}}
+]
+}

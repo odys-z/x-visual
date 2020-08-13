@@ -206,5 +206,19 @@ stored in Obj3.datum, in {paths, dirty}.
 Some animation type like AnimType.U_PATHn_MORPH will take this as it's own's Obj3
 datum.ref object and can tweening path without noticing paths' data changed.
 
-See the :ref:`ShaderFlag.orbGroups test case<test-geom>` &
-`xgeom.generateWayxz() <https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz>`_.
+See the :ref:`Geometry Tests<test-geom>` &
+`xgeom.generateWayxz() API <https://odys-z.github.io/javadoc/x-visual/xgeom.html#generateWayxz>`_.
+
+.. _obj3-hexatile-guide:
+
+Obj3Type.Hexatile
+_________________
+
+Generate a hexagonal tiles module from json similar with geojson, except that it's
+recommended using EPSG 3857 coordinates. Coordinates in EPSG 4326 can be directly
+applied if showing a small area and geoScale is large enough.
+
+See the test :ref:`tst-geom-hexatile` &
+`xgeom.hexacylinder3857() API <https://odys-z.github.io/javadoc/x-visual/xgeom.html#hexacylinder3857>`_.
+
+:ref:`Memo: hexagon tile generation<geom-hexatile>`

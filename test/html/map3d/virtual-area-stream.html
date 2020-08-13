@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Virtual Buildings</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>p {color: red}</style>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <br><a href='#' target='_blank' id='json-addr'>json data</a>
+  <script>
+	"use strict";
+
+	// const scale = 1;
+	// const json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area-0.json';
+	// const o3857 = [0, 0];
+	// const west2k= [-2000, 0];
+
+	const scale = 1;
+	// There are features of which properties.area != 'vitual',
+	// and been filtered out by xv.AssetKeepr.geoPrismAsync according to Obj3.filter
+	const json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
+	var o3857 = [11585163, 3578479];
+	var west2k= [11583163, 3578479];
+
+	// box(x, z, w, d, h) of area(x, z, w, d, Visual.paras.maxHeight)
+	const box1 = [[0.1, 0.1, 0.8, 0.2, 0.3], [0.1, 0.4, 0.2, 0.2, 0.6]];
+	const box2 = [[0, 0, 0.1, .1, 1]];
+
+	document.getElementById('json-addr')
+			.setAttribute('href', json);
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {
+						camera: {far: 20000},
+						canvasize: [600, 300]});
+	xworld.xecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
+
+	xworld.addEntities([
+	  { id: 'va',
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				color: [0.4, 1, 0.8, 1],
+				count: 20,
+				layers: 5,
+				// VirtualArea
+				// maxHeight: 300,
+				uri: undefined, // Volumetricube wil tack care of this
+				origin: o3857,
+				// origin: [0, 0],
+				geostyle: { height: 1, scale },
+			} } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.001,   // speed para always comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {},
+		CBoundCubes: {
+			only: 'virtual',
+			// BoundingCubes: Obj3.fitler = 'virtual';
+			// AssetKeepr: f.properties.area === 'virtual'
+			// TODO can be simplified?
+			uri: json,
+			boxes: box1,
+		}
+	  },
+	  // { id: 'va-2',
+		// Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+		// 		box: [] },
+		// Visual:{
+		// 	vtype: xv.AssetType.mesh,
+		// 	shader: xv.XComponent.ShaderFlag.boxLayers,
+		// 	paras: {
+		//		color: [0.2, 0, 0.8, 1],
+		// 		count: 20,
+		// 		layers: 5,
+		// 		// VirtualArea
+		// 		origin: west2k,
+		// 		geostyle: { height: 1, scale },
+		// 	} } ,
+		// CBoundCubes: {
+		// 	uri: json,
+		// 	boxes: box2,
+		// }
+	  // },
+	  { id: 'calibra',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [100, 100, 100] },
+		Visual:{ vtype: xv.AssetType.wireframe }
+	  }
+	]);
+
+	// must after VirtualCubes created, before xworld started
+	xworld.addSystem('v-area',
+		new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

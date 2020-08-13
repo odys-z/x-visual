@@ -10,9 +10,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   test-morph
-   test-geom
-   test-effect
+   basics
+   morph
+   geom
+   effect
    examples
 
 Credits

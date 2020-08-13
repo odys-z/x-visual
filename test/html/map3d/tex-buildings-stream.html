@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Buildings</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	const json = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/area.json';
+	const o0 = [11584838.7, 3578799.8];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 400]});
+
+	xworld.addEntities([
+	  { id: 'commercials',
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.texPrism,
+			// shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				color: [0.5, 0.9, 0.7, 1],
+				side: THREE.FrontSide,
+				uvScale: [6, 2],
+				tile: {
+					tiles: [2, 2],
+					change: false,
+					layers: 1 },
+				u_tex: [
+					'../../assets/tex/ruler256.png',  // 0: base faces (roof)
+					'../../assets/tex/wood.png',      // 1: lateral faces (wall)
+					'../../assets/tex/byr0.png'],     // 2: optional, layer faces (floor)
+
+				// geojson geometry handling
+				uri: json,
+				origin: o0,
+				geostyle: {
+					height: 25, scale: 1,
+					groups: 3,
+					onGroup: (fx, feature) => { return fx % 3; } }, // then update() can change morphings
+			} } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.001,   // speed para alwasy comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {}
+	  },
+	] );
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
