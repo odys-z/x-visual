@@ -135,18 +135,18 @@
 
 	xworld.startUpdate();
 	const ecs = xworld.xecs;
-	const Thrender = xworld.xthrender;
+	//const Thrender = xworld.xthrender;
 	
 	function update(id){
 		
-		let v = document.getElementById("north").value;
-		v = v * Math.PI;
-		let h = document.getElementById("distance").value;
-		h = h *1;
+		//let v = document.getElementById("north").value;
+		//v = v * Math.PI;
+		//let h = document.getElementById("distance").value;
+		//h = h *1;
 		// task2
-		Thrender.updateParas(id,  {
-				shader: xv.XComponent.ShaderFlag.boxLayers,
-		 		paras: {north: v}},xworld.lighting.light);
+		//Thrender.updateParas(id,  {
+		//		shader: xv.XComponent.ShaderFlag.boxLayers,
+		 //		paras: {north: v}},xworld.lighting.light);
 		// task3
 		//Thrender.updateParas(id, {
 		//		shader: xv.XComponent.ShaderFlag.boxLayers,
