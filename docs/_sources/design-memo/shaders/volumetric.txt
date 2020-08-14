@@ -38,3 +38,18 @@ See `xglsl.orbGroups() <https://odys-z.github.io/javadoc/x-visual/xglsl.html#orb
 ShaderFlag::
 
     xv.XComponent.ShaderFlag.orbGroups
+
+Texture Prism
+-------------
+
+Box Layers
+----------
+
+Cube Texture
+------------
+
+ShaderFlag::
+
+    xv.XComponent.shaderFlag.cubeTex
+
+.. image:: imgs/003-cube-tex.jpg
