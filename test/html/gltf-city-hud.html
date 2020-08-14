@@ -60,7 +60,7 @@
 						  { intensity: 4,
 				 			position: [0, 1, 1]} },
 				});
-				
+
 				var earth = ecs.createEntity({
 					id: 'earth-detials',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
@@ -77,7 +77,7 @@
 					HudChild: { hud: 'hud0' }
 				});
 
-				
+
 				this.earth = ecs.createEntity({
 					id: 'earth-low',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
@@ -91,13 +91,13 @@
 							asset: 'earth/earth-low.gltf'},
 					HudChild: { hud: 'hud0' },
 					ModelSeqs: { script: [
-						
+
 						[{
 							mtype:  xv.XComponent.AnimType.ROTAXIS,
 							paras: {// can't start at 0, because of asynchronous gltf loading issue
 									start: Infinity,
 									duration: 12,
-									deg: [0, 180],
+									deg: [0, 360],
 									axis: [0, 1, 0],
 									ease: undefined},
 							followBy: [{
@@ -118,7 +118,7 @@
 	const xscene = xworld.xscene;
 
 	xworld.addSystem('test', new Citysys(ecs, {xscene}));
-
+	
 	xworld.startUpdate();
 
   </script>
