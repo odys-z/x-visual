@@ -1,8 +1,10 @@
-X-Geometry Handling
-===================
+Geometry Handling
+=================
 
 MapXZRoad
 ---------
+
+Expand PostGIS Way to polygon.
 
 Obj3Type::
 
@@ -24,6 +26,8 @@ See also :ref:`tst-geom-volume-tube`
 
 hexatile
 --------
+
+Generate hexagonal prism at a location in xz plane.
 
 Obj3Type::
 
@@ -77,3 +81,51 @@ will be applied with the max color.
 -- geostyle.groups: total groups. Groups can be used by XTweener for showing different animation.
 
 -- geostyle.onGroup: optional callback for getting group index according to feature.
+
+TexPrism & Triangulation
+------------------------
+
+Extrude polygon to prism.
+
+Obj3Type::
+
+    xv.XComponent.Obj3Type.texPrism
+
+Handler API:
+
+`xgeom.texPrism3857() <https://odys-z.github.io/javadoc/x-visual/xgeom.html#texPrism3857>`_
+
+Test pages::
+
+    test/html/map3d/geopath-road.html
+    test/html/map3d/geopaths.html
+    test/html/map3d/cd-express.html
+
+The texPrism geometry in x-visual can handling polygons of day-to-day used data
+from OSM etc. It first generate lateral face, then use off-the-shelf npm package,
+npm *cutear* [5] to generate end face of a prism.
+
+Broadly, there are two way's to handle this task:
+
+- Polygon scanning like earcut or [1] or [2].
+
+- Delaunary triangulation like [4].
+
+The boundary is blur considering how [1] finishing the task.
+
+References:
+
+1. Liu Yonghe, Feng Jinming, Shao Yuehong,
+`A Simple Sweep-line Delaunay Triangulation Algorithm, <http://wapbowen.oss-cn-hongkong.aliyuncs.com/PubFiles/JAO10021-20140509-174109-8123-42657.pdf?Expires=1599892564&OSSAccessKeyId=UVhDXw2HqaJ5Mj2n&Signature=PYurdwXO2qB2S81hn6xTIkkYEM4%3D>`_
+
+2. `Atul Narkhede, Dinesh Manocha, Fast Polygon Triangulation based on Seidel's Algorithm <http://www.cs.unc.edu/~dm/CODE/GEM/chapter.html>`_
+
+3. `Discussion: Divide a 2D polygon with N vertices into triangles draw in a 3D space <https://math.stackexchange.com/questions/1814607/divide-a-2d-polygon-with-n-vertices-into-triangles-draw-in-a-3d-space>`_,
+Mathatics, StackExchange.
+
+4. Jonathan Richard Shewchuk,
+`Triangle Open Source Project <https://www.cs.cmu.edu/~quake/triangle.html>`_,
+Computer Science Division, University of California at Berkeley, Berkeley,
+California 94720-1776
+
+5. `npm earcut <https://www.npmjs.com/package/earcut>`_

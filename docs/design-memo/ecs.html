@@ -100,7 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geometry.html">X-Geometry Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
@@ -154,16 +154,17 @@
             
   <div class="section" id="ecs-framework">
 <h1>ECS Framework<a class="headerlink" href="#ecs-framework" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">doc stub</p>
-</div>
-<p>X-visual is inspired by fritz/ECS.</p>
-<p>Before x-visual v0.3.0, all object are handled in static way - no new object can be created
-during scene updating process. Each subsystem is implement assuming that entity
-won&#8217;t been changed during entire rendering life cycle.</p>
-<p><em>Memo: As loading SVG &amp; GLTF asynchronously required, the v0.2.39 can add assets to
-Three.js later than initializing xworld.</em></p>
+<p>ECS stands for Entity, Component &amp; System. This is frequently applied pattern in
+application&#8217;s built as a finite state machine, accepting different input driving
+the system handling.</p>
+<p>X-visual is inspired by <a class="reference external" href="https://github.com/fritzy/ape-ecs">fritzy/ECS</a>.</p>
+<p>Before x-visual v1.0, all object are handled in static way - no new object can be
+created after scene updating started. Each subsystem is implement assuming that
+entity won&#8217;t been changed during entire rendering life cycle.</p>
+<p>It&#8217;s true since v0.3 some model loading and assets handling are asynchronous,
+which means model of texture can be changed after scene started updating. As
+loading SVG &amp; GLTF asynchronously required, the v0.2.39 can add assets to Three.js
+later than initializing xworld.</p>
 <p>Reason: there are many other more important concepts to be verified, this decision
 can largely simplify x-visual, and it&#8217;s highly probably impose limited modification
 when it&#8217;s needed in the future.</p>

@@ -9,7 +9,10 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>XZ box south <input id='south' value='0.25'/> &pi; ; XY box speed <input id='south' value='0.001'/></p>
+  <p>middle north: <input id='north' value='0.25'/> &pi; ;
+  	 xz distance: <input id='distance' value='60'/>
+	  <input type='button' value='update' onclick="update('0')"/>
+  </p>
   <script>
 	"use strict";
 
@@ -49,14 +52,8 @@
 					layers: 1,
 					layerDist: 160,   // box.d not used (1 layers)
 					z0: 0 },
-		} },
-		ModelSeqs: { script: [[{
-			mtype:  xv.XComponent.AnimType.U_NOW,
-			paras: {start: 0,
-					speed: 0.001}     // speed para alwasy comes with U_NOW
-			}]]
-		},
-		CmpTweens: {} },
+		} }
+	  },
 	  { id: '1',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				transform: [ { translate: [-210, 0, -0] } ],
@@ -100,7 +97,7 @@
 		  [{mtype:  xv.XComponent.AnimType.U_t,
 			paras: {start: 0,
 					u_names: ['u_north'],
-					u_ts: [[0, 4 * Math.PI]],
+					u_ts: [[0, 0.3 * Math.PI]],
 					duration: 8 }
 		  }]] },
 		CmpTweens: {} },
@@ -133,15 +130,27 @@
 					duration: 12 }
 			}]]
 		},
-		CmpTweens: {} },
-	  // { id: 'calibra',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [200, 240, 200] },
-		// Visual:{ vtype: xv.AssetType.wireframe }
-	  // }
+		CmpTweens: {} }
 	] );
 
 	xworld.startUpdate();
+	const ecs = xworld.xecs;
+	function update(id){
+		let e = ecs.getEntity(id);
+		let v = document.getElementById("north").value;
+
+		v = v * Math.PI;
+		e.Obj3.mesh.material.uniforms.u_north.value = v;
+
+		// task2
+		// Thrender.updateObj(eid, {Visual: {
+		//		shader: xv.XComponent.ShaderFlag.boxLayers,
+		// 		paras: {north: v}}});
+		// task3
+		// Thrender.updateObj(eid, {Visual: {
+		//		shader: xv.XComponent.ShaderFlag.boxLayers,
+		// 		paras: {xztile: {layerDist: h}}}});
+	}
 
   </script>
 </body>

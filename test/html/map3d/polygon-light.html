@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>XTest- Light on GeoPrism</title>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <br><a id='ajson'>json</a>
+  <p>Reference of trangulation<br>
+  	- <a href='https://en.wikipedia.org/wiki/Two_ears_theorem'>Two ears theorem</a><br>
+	- <a href='http://wapbowen.oss-cn-hongkong.aliyuncs.com/PubFiles/JAO10021-20140509-174109-8123-42657.pdf?Expires=1599892564&OSSAccessKeyId=UVhDXw2HqaJ5Mj2n&Signature=PYurdwXO2qB2S81hn6xTIkkYEM4%3D'>
+		A Simple Sweep-line Delaunay Triangulation Algorithm (local ~/Documents)</a>,
+		which is the algorithm of <a href='https://www.npmjs.com/package/earcut'>
+		npm earcut used by mapbox</a><br>
+  	- <a href='https://www.cs.cmu.edu/~quake/triangle.html'>Triangel</a><br>
+  	- <a href='https://math.stackexchange.com/questions/1814607/divide-a-2d-polygon-with-n-vertices-into-triangles-draw-in-a-3d-space'>
+		Divide a 2D polygon with N vertices into triangles draw in a 3D space,
+		Mathematics, StackExchange</a>
+  </p>
+  <!--
+  <p>Intensity (float): <input id='intense' value='2'/><br>
+     Diffuse Color (css style): <input id='diffuse' value='0xff0'/><br>
+     Ambient Color (css style): <input id='ambient' value='0x00c'/><br>
+     Specular Color(css style): <input id='specular' value='0x0f0'/><br>
+     <input type='button' onclick='updateLight()' value='update'/></p>
+  json0 (read only)<br><textarea id="txt" rows="5" cols="73"></textarea>
+  -->
+  <script>
+    "use strict";
+
+	const uri = 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/polygon02.json';
+	const o0 = [11584957, 3585100];
+	document.getElementById('ajson').href = uri;
+
+    const position = [200, 200, 200];
+    const asset = 'data:application/x-visual+img,gray-pixel';
+
+    const xworld = new xv.XWorld(document.getElementById('canv'), window,
+        {light: {
+            position,
+            skyColor: 0x0000ff,
+            // skyColor: 0xffffff,
+            intensity: 1}});
+    const ecs = xworld.xecs;
+
+    ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
+
+    xworld.addEntities([
+      { id: 'texprism-1',
+        Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+                transform: [ {translate: [120, -30, -0]} ],
+                box: [] },
+        Visual:{
+            vtype: xv.AssetType.mesh,
+            shader: xv.XComponent.ShaderFlag.texPrism,
+            paras: {
+                // prism visual
+                side: THREE.FrontSide,
+                uvScale: [6, 2],
+                tile: {
+                    hue: [0.2, 0, 0.6, 1],
+                    tiles: [4, 2],
+                    change: false,
+                    layers: 1 },
+                u_tex: [
+                    asset,                             // 0: base faces (roof)
+                    '../../assets/tex/wood.png',       // 1: lateral faces (wall)
+                    '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
+                whiteAlphas: [.8, 1.0],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+                edgeWeight: 5.8,          // layer box weight
+
+                // geojson geometry
+                maxVerts: 1024 * 16,
+                // features: json0.features,
+				uri, origin: o0,
+                geostyle: { height: 16, scale: 1.5, }
+            } } ,
+      },
+      { id: 'light',
+        Obj3: { geom: xv.XComponent.Obj3Type.Octahedron,
+                box: [20, 0],
+                transform: [{ translate: position }],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.wireframe }
+      }
+    ]);
+
+    xworld.addSystem('test',
+        new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
+    xworld.startUpdate();
+
+    function updateLight() {
+        lightsys.set({
+            intensity: document.getElementById('intense').value,
+            ambient: document.getElementById('ambient').value,
+            diffuse: document.getElementById('diffuse').value,
+            specular: document.getElementById('specular').value
+        });
+    }
+
+  </script>
+</body>
+</html>
