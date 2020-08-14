@@ -10,7 +10,7 @@
 <body>
   <canvas id='canv'></canvas>
   <p>middle north: <input id='north' value='0.25'/> &pi; ;
-  	 xz distance: <input id='distance' value='60'/>
+  	 hue: <input id='hue'type="color" />
 	  <input type='button' value='update' onclick="update('0')"/>
   </p>
   <script>
@@ -141,13 +141,17 @@
 		
 		let v = document.getElementById("north").value;
 		v = v * Math.PI;
-		let h = document.getElementById("distance").value;
-		h = h *1;
+		let color = document.getElementById("hue").value;
+		 color = new THREE.Color( color);
+		
+		//h = h *1;
 		// task2
 		let e = ecs.getEntity(id);
 		Thrender.updateMaterial(e,  {
 				shader: xv.XComponent.ShaderFlag.boxLayers,
-		 		paras: {north: v}},{});
+		 		paras: {north: v, 
+		 				tile:{hue:[color.r, color.g, color.b, 1.0]}
+		 				}});
 		// task3
 		//Thrender.updateParas(id, {
 		//		shader: xv.XComponent.ShaderFlag.boxLayers,
