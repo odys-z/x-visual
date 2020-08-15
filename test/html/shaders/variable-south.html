@@ -66,7 +66,7 @@
 				color: [0.2, 0.0, 0.8, 1], // BOX color
 				// tiles
 				north: Math.PI / 6,
-				edgeWeight: 120.0,
+				edgeWeight: 12.0,
 				xztile: {
 					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
 					box: [160, 160],    // must present if using three.js geometry otherthan GeoPrism.
@@ -138,21 +138,17 @@
 	const ecs = xworld.xecs;
 	const thrender = xworld.xthrender;
 
-	function update(id){
-
+	function update(id) {
 		let v = document.getElementById("north").value;
 		v = v * Math.PI;
 
-		let color = document.getElementById("hue").value;
-		console.log(color);
-		color = new THREE.Color( color);
+		let hue = document.getElementById("hue").value;
 
 		let e = ecs.getEntity(id);
-		thrender.updateMaterial(e,  {
-				shader: xv.XComponent.ShaderFlag.boxLayers,
-		 		paras: {north: v,
-		 				tile: {hue: [color.r, color.g, color.b, 1.0] }
-		} } );
+		xworld.materials.change(e,
+		 		{north: v,
+		 		 tile: {hue: xv.xutils.cssColor(hue)}
+		} );
 	}
   </script>
 </body>
