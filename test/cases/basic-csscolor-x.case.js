@@ -53,4 +53,18 @@ describe('case: [x-color] css color -> array', () => {
     expect(results.length).to.equal(3);
     assert.isTrue(vec3.eq(results, [1, 1, 1]), "fff");
   });
+
+  it('hex: -> []', () => {
+    results = cssColor('0x000000');
+    expect(results.length).to.equal(3);
+    assert.isTrue(vec3.eq(results, [0, 0, 0]), "000");
+
+    results = cssColor('0x0000ff');
+    expect(results.length).to.equal(3);
+    assert.isTrue(vec3.eq(results, [0, 0, 1]), "blue");
+
+    results = cssColor('0xffffff');
+    expect(results.length).to.equal(3);
+    assert.isTrue(vec3.eq(results, [1, 1, 1]), "fff");
+  });
 });
