@@ -16,10 +16,10 @@
      Object Specular: <input id='specular' value='0xffffff'/><br>
      <input type='button' onclick='updateLight()' value='update'/></p>
   Geo feature json (read only)<br><textarea id="txt" rows="5" cols="73"></textarea>
-  <p><a href='https://odys-z.github.io/x-visual/tests/basics.html#test-xworld-light'>
-	  test introduction</a> &amp;
-	  <a href='https://odys-z.github.io/x-visual/design-memo/scene.html#main-scene-light'>
-	  doc: xscene light</a></p>
+  <p>see<a href='https://odys-z.github.io/x-visual/tests/basics.html#test-xworld-light'
+      target='_parent'> test introduction</a> &amp;
+	  <a href='https://odys-z.github.io/x-visual/design-memo/scene.html#main-scene-light'
+      target='_top'>doc: xscene light</a></p>
   <script>
     "use strict";
 
@@ -51,7 +51,7 @@
     xworld.addEntities([
       { id: 'ground',
         Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-                box: [500, 500],
+                box: [800, 800],
                 transform: [
                     { rotate: {deg: -90, axis: [1, 0, 0] } },
                     { translate: [0, -40, 0] } ],
@@ -59,8 +59,22 @@
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
                 paras: {
-                    shininess: 20,
-                    colors: [[0.5, 0.5, 0.5]] },
+                    shininess: 90,
+                    shineColor: [0, 1, 0],
+                    colors: [[0., 0., 0.5]] },
+                asset}
+      },
+      { id: 'wall',
+        Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                box: [800, 800],
+                transform: [ {translate: [0, 300, -400]} ],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.mesh,
+                shader: xv.XComponent.ShaderFlag.colorArray,
+                paras: {
+                    shininess: 90,
+                    shineColor: [1, 1, 1],
+                    colors: [[0., 0., 0.5]] },
                 asset}
       },
       { id: 'box',

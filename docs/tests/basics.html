@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Tests &amp; Example" href="index.html"/>
         <link rel="next" title="Test - Morphing &amp; Uniform" href="morph.html"/>
@@ -87,7 +90,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tests &amp; Example</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">Test - ECS &amp; XWorld</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Test - ECS &amp; XWorld</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#cate-xscene">Cate: xscene</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#case-x-light">case: x.light</a></li>
 </ul>
@@ -153,32 +156,32 @@
 <div class="section" id="case-x-light">
 <span id="test-xworld-light"></span><h3>case: x.light<a class="headerlink" href="#case-x-light" title="Permalink to this headline">¶</a></h3>
 <p>html file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">esc</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">light</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">esc</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">light</span><span class="o">.</span><span class="n">html</span>
 <span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">events</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 <p>AssetType:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">AssetType</span><span class="o">.</span><span class="n">mesh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">AssetType</span><span class="o">.</span><span class="n">mesh</span>
 </pre></div>
 </div>
 <p>ShaderFlag:</p>
-<div class="highlight-python"><div class="highlight"><pre>xv.Component.ShaderFlag.colorArray
-xv.Component.ShaderFlag.texPrism
-xv.Component.ShaderFlag.boxLayers
-    ... and any future implement with f_LIGHTENED = 1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">Component</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">colorArray</span>
+<span class="n">xv</span><span class="o">.</span><span class="n">Component</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">texPrism</span>
+<span class="n">xv</span><span class="o">.</span><span class="n">Component</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">boxLayers</span>
+    <span class="o">...</span> <span class="ow">and</span> <span class="nb">any</span> <span class="n">future</span> <span class="n">implement</span> <span class="k">with</span> <span class="n">f_LIGHTENED</span> <span class="o">=</span> <span class="mi">1</span>
 </pre></div>
 </div>
 <p>The test created some objects with materials provided by Three.js, and some material
 extended by x-visual for special purpose.</p>
 <p>The light position is indicated by a wireframe object, showing how different of
-x-visual material extension vs. Three.js&#8217;. The left most (-x) 3 objects using
+x-visual material extension vs. Three.js’. The left most (-x) 3 objects using
 Three.js material objects have light effects of
 <a class="reference external" href="https://threejs.org/docs/#api/en/lights/HemisphereLight">Three.HemisphereLight</a> .</p>
 <a class="reference internal image-reference" href="../_images/001-light.jpg"><img alt="../_images/001-light.jpg" src="../_images/001-light.jpg" style="width: 600px;" /></a>
 <p>The <em>colorArray</em>, <em>texPrism</em> &amp; <em>boxLayers</em> shaders are applied to the rest of the
-objects, mixing light&#8217;s diffuse color with the material&#8217;s texture. E.g. the
-colorArray&#8217;s morphing result color is mixed with an extra diffuse color. See the
-&#8216;morph-events.html&#8217; test for the morphing animation result.</p>
+objects, mixing light’s diffuse color with the material’s texture. E.g. the
+colorArray’s morphing result color is mixed with an extra diffuse color. See the
+‘morph-events.html’ test for the morphing animation result.</p>
 </div>
 </div>
 </div>
@@ -233,7 +236,8 @@ colorArray&#8217;s morphing result color is mixed with an extra diffuse color. S
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
