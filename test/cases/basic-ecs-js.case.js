@@ -879,11 +879,12 @@ describe('case: [ecs]entity & component refs', () => {
   // lab.test('Plain Component ref by id', () => {
   it('Plain Component ref by id', () => {
 
-    ecs.registerComponent('Mate', {
-      properties: {
-        other: '<Component>'
-      }
-    });
+    // odys-z register again - modified ecs framework will warn about this.
+    // ecs.registerComponent('Mate', {
+    //   properties: {
+    //     other: '<Component>'
+    //   }
+    // });
 
     const entity = ecs.createEntity({
       Crying: {},

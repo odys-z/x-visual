@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Reference" href="index.html"/>
         <link rel="next" title="SVG" href="svg.html"/>
@@ -90,7 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Geometries</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Geometries</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#frenet-frame-dir-tube">Frenet Frame &amp; Dir Tube</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dirtubegeometry-of-x-visual">DirTubeGeometry of x-visual</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
@@ -157,7 +160,7 @@
 is used for generating <a class="reference external" href="https://threejs.org/docs/#api/en/geometries/TubeBufferGeometry">TubeGeometry</a>.</p>
 <p>To generate a tube, the TubeGeomerty calling Curve.computeFrenetFrames() to create
 parallel curves, then build mesh points with indecis.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">TubeBufferGeometry</span><span class="p">(</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">tubularSegments</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">radialSegments</span><span class="p">,</span> <span class="nx">closed</span> <span class="p">)</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">TubeBufferGeometry</span><span class="p">(</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">tubularSegments</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">radialSegments</span><span class="p">,</span> <span class="nx">closed</span> <span class="p">)</span> <span class="p">{</span>
     <span class="nx">BufferGeometry</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;TubeBufferGeometry&#39;</span><span class="p">;</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span> <span class="o">=</span> <span class="p">{</span>
@@ -216,8 +219,8 @@ parallel curves, then build mesh points with indecis.</p>
 </div>
 <p>The <a class="reference external" href="https://github.com/mrdoob/three.js/blob/master/src/extras/core/Curve.js#L270">Three.js Curve.computeFrenetFrames()</a>
 is a key function to implement tube geometry generation. Which use an other method
-to generate frames&#8217; tangents:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">segments</span><span class="p">;</span> <span class="nx">i</span> <span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+to generate frames’ tangents:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">segments</span><span class="p">;</span> <span class="nx">i</span> <span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
     <span class="nx">u</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">/</span> <span class="nx">segments</span><span class="p">;</span>
     <span class="nx">tangents</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getTangentAt</span><span class="p">(</span> <span class="nx">u</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Vector3</span><span class="p">()</span> <span class="p">);</span>
     <span class="nx">tangents</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">normalize</span><span class="p">();</span>
@@ -236,11 +239,11 @@ to generate frames&#8217; tangents:</p>
 <span class="p">},</span>
 </pre></div>
 </div>
-<p>The problem of this is that it dosn&#8217;t follow the THREE.CatmullRomCurve3 curve. See
-a <a class="reference internal" href="../tests/test-geom.html#tst-geom-dirtube"><span>DirTubeGeometry test</span></a> resulsts. It could be optimized.</p>
+<p>The problem of this is that it dosn’t follow the THREE.CatmullRomCurve3 curve. See
+a <a class="reference internal" href="../tests/geom.html#tst-geom-dirtube"><span class="std std-ref">DirTubeGeometry test</span></a> resulsts. It could be optimized.</p>
 <div class="section" id="dirtubegeometry-of-x-visual">
 <h3>DirTubeGeometry of x-visual<a class="headerlink" href="#dirtubegeometry-of-x-visual" title="Permalink to this headline">¶</a></h3>
-<p>TODO ...</p>
+<p>TODO …</p>
 <p>see xmath/geom.js/computeFrenetFrames</p>
 </div>
 <div class="section" id="reference">
@@ -307,7 +310,8 @@ Department of Computer Science, Indiana University.</li>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

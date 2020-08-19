@@ -2,82 +2,26 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>XTest-Inputs</title>
+    <title>XTest-Hemisphere Light</title>
     <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
     <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>Intensity (float): <input id='intense' value='2'/><br>
-     Diffuse Color (css style): <input id='diffuse' value='0xff0'/><br>
-     Ambient Color (css style): <input id='ambient' value='0x00c'/><br>
-     Specular Color(css style): <input id='specular' value='0x0f0'/><br>
+  <p>HemisphereLight<br>
+	 Diffuse Color : <input id='diffuse' value='0x0000ff'/><br>
+     Ambient Color : <input id='ambient' value='0x00c000'/><br>
+	 Intensity : <input id='intense' value='2'/>
+	 <hr>
+     Object Specular: <input id='specular' value='0xffffff'/><br>
      <input type='button' onclick='updateLight()' value='update'/></p>
-  json0 (read only)<br><textarea id="txt" rows="5" cols="73"></textarea>
+  Geo feature json (read only)<br><textarea id="txt" rows="5" cols="73"></textarea>
+  <p>see<a href='https://odys-z.github.io/x-visual/tests/basics.html#test-xworld-light'
+      target='_parent'> test introduction</a> &amp;
+	  <a href='https://odys-z.github.io/x-visual/design-memo/scene.html#main-scene-light'
+      target='_top'>doc: xscene light</a></p>
   <script>
     "use strict";
-
-    var log = true;
-    class Lightsys extends xv.XSys {
-        constructor(ecs, options) {
-            super(ecs);
-            this.ecs = ecs;
-            this.light = options.light ? options.light : {};
-            this.paras = {dirt: false};
-        }
-
-        update(tick, entities) {
-            this.light.needsUpdate = false;
-
-             if (this.paras.dirty) {
-                this.paras.dirty = false;
-                this.light.intensity = this.paras.intensity;
-                this.light.ambient = this.paras.ambient;
-                this.light.diffuse = this.paras.diffuse;
-                this.light.specular = this.paras.specular;
-                this.light.needsUpdate = true;
-            }
-        }
-
-        set(p) {
-            if (p) {
-                var hemisphere = this.light.hemisphere
-                                || {}; // prevent error before light inited
-                if (p.ambient) {
-                    this.paras.ambient = toArr(p.ambient);
-                    hemisphere.groundColor = p.ambient;
-                }
-                if (p.diffuse) {
-                    this.paras.diffuse = toArr(p.diffuse);
-                    hemisphere.color = p.diffuse;
-                }
-                if (p.specular) {
-                    this.paras.specular = toArr(p.specular);
-                    hemisphere.specular = p.specular;
-                }
-                if (typeof p.postion === 'array') {
-                    this.paras.pos = p.pos;
-                    hemisphere.position = p.pos;
-                }
-
-                if (typeof p.intensity === 'number') {
-                    this.paras.intensity = p.intensity;
-                    hemisphere.intensity = p.intensity;
-                }
-                this.paras.dirty = true;
-            }
-
-            function toArr(css) {
-                var hex = Math.floor( eval(css) );
-                return [( hex >> 16 & 255 ) / 255,
-                        ( hex >> 8 & 255 ) / 255,
-                        ( hex & 255 ) / 255 ];
-            }
-        }
-
-    }
-
-    // Lightsys.query = { any: ['Light'] };
 
     var json0 = {
       "type": "FeatureCollection",
@@ -93,41 +37,58 @@
     document.getElementById('txt').value = JSON.stringify(json0);
 
     const position = [200, 200, 200];
-    const asset = 'data:application/x-visual+img,gray-pixel';
+    const asset = 'data:application/x-visual+img,color-pixel [1., 1., 1., 1.]';
 
     const xworld = new xv.XWorld(document.getElementById('canv'), window,
         {light: {
             position,
             skyColor: 0xff0000,
-            // skyColor: 0xffffff,
             intensity: 1}});
     const ecs = xworld.xecs;
-    const lightsys = new Lightsys(ecs, {});
 
     ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
 
     xworld.addEntities([
-      { id: 'box',
-        Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-                box: [60, 60, 60],
-                mesh: undefined },
-        Visual:{vtype: xv.AssetType.mesh,
-                asset}
-      },
-      { id: 'color-array',
-        Obj3: { geom: xv.XComponent.Obj3Type.Tetrahedron,
-                box: [60, 0],
-                transform: [ { translate: [0, 80, -120] } ],
+      { id: 'ground',
+        Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                box: [800, 800],
+                transform: [
+                    { rotate: {deg: -90, axis: [1, 0, 0] } },
+                    { translate: [0, -40, 0] } ],
                 mesh: undefined },
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
-                paras: { colors: [[0.5, 0.5, 0.5]] },
+                paras: {
+                    shininess: 90,
+                    shineColor: [0, 1, 0],
+                    colors: [[0., 0., 0.5]] },
+                asset}
+      },
+      { id: 'wall',
+        Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+                box: [800, 800],
+                transform: [ {translate: [0, 300, -400]} ],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.mesh,
+                shader: xv.XComponent.ShaderFlag.colorArray,
+                paras: {
+                    shininess: 90,
+                    shineColor: [1, 1, 1],
+                    colors: [[0., 0., 0.5]] },
+                asset}
+      },
+      { id: 'box',
+        Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                box: [60, 60, 60],
+                transform: [ { translate: [-200, 0, -120] } ],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.mesh,
                 asset}
       },
       { id: 'plane',
         Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
                 box: [60, 60],
-                transform: [ { translate: [-120, 0, 0] },
+                transform: [ { translate: [-200, 0, 0] },
                               { rotate: {deg: -60, axis: [1, 0, 0] } } ],
                 mesh: undefined },
         Visual:{vtype: xv.AssetType.mesh,
@@ -136,26 +97,75 @@
       { id: 'sphere',
         Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
                 box: [40, 24, 24],
-                transform: [ { translate: [-120, 80, -120] } ],
+                transform: [ { translate: [-200, 80, -120] } ],
                 mesh: undefined },
         Visual:{vtype: xv.AssetType.mesh,
                 asset}
       },
 
+      { id: 'color-array-tetra',
+        Obj3: { geom: xv.XComponent.Obj3Type.Tetrahedron,
+                box: [60, 0],
+                transform: [ { translate: [-100, 80, -120] } ],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.mesh,
+                shader: xv.XComponent.ShaderFlag.colorArray,
+                paras: {
+                    shininess: 1.20,
+                    colors: [[0.5, 0.5, 0.5]] },
+                asset},
+        ModelSeqs: {
+            script: [[ {
+                mtype:  xv.XComponent.AnimType.ROTAXIS,
+                paras: {start: 0,
+                        duration: 12,
+                        deg: [0, 270],
+                        axis: [0, 1, 0],
+                        ease: undefined},
+                } ]],
+          },
+        CmpTweens: {}
+      },
+      { id: 'color-array-box',
+        Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+                box: [60, 60, 40],
+                transform: [ { rotate: {deg: 30, axis: [0, 1, 0]} },
+                             { translate: [-100, 0, -0] } ],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.mesh,
+                shader: xv.XComponent.ShaderFlag.colorArray,
+                paras: {
+                    shininess: 3,
+                    colors: [[0.5, 0.5, 0.5]] },
+                asset},
+      },
+      { id: 'color-sphere',
+        Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+                box: [40, 24, 24],
+                transform: [ { translate: [-100, 0, -120] } ],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.mesh,
+                shader: xv.XComponent.ShaderFlag.colorArray,
+                paras: {
+                    shininess: 3.5,
+                    colors: [[0.5, 0.5, 0.5]] },
+                asset}
+      },
 
       { id: 'texprism-1',
         Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
-                transform: [ {translate: [120, -30, -0]} ],
+                transform: [ {translate: [20, -30, -0]} ],
                 box: [] },
         Visual:{
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texPrism,
             paras: {
+                shininess: 18,
                 // prism visual
                 side: THREE.FrontSide,
                 uvScale: [6, 2],
                 tile: {
-                    hue: [1, 0, 0, 1],    // FIXME not working
+                    hue: [1, 0, 0, 1],
                     tiles: [2, 2],
                     change: false,
                     layers: 2 },
@@ -174,13 +184,14 @@
       },
       { id: 'sphere-tex',
         Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-                transform: [ {translate: [240, 80, -120]} ],
+                transform: [ {translate: [120, 80, -120]} ],
                 box: [40, 20, 20] },
         Visual:{
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texPrism,
             paras: {
                 side: THREE.FrontSide,
+                shininess: 6,
                 tile: {
                     tiles: [2, 2],
                     box: [40, 40],
@@ -200,13 +211,14 @@
       },
       { id: 'sphere-white',
         Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-                transform: [ {translate: [120, 80, -120]} ],
+                transform: [ {translate: [20, 120, -120]} ],
                 box: [40, 20, 20] },
         Visual:{
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texPrism,
             paras: {
                 side: THREE.FrontSide,
+                shininess: 6,
                 tile: {
                     tiles: [2, 2],
                     box: [40, 40],
@@ -222,14 +234,40 @@
                 geostyle: { height: 16, scale: 1.5, }
             } } ,
       },
+      { id: 'octahedron',
+        Obj3: { geom: xv.XComponent.Obj3Type.Octahedron,
+                transform: [ {translate: [20, 0, -120]} ],
+                box: [40, 1] },
+        Visual:{
+            vtype: xv.AssetType.mesh,
+            shader: xv.XComponent.ShaderFlag.texPrism,
+            paras: {
+                side: THREE.FrontSide,
+                shininess: 2,
+                tile: {
+                    tiles: [2, 2],
+                    box: [40, 40],
+                    change: false,
+                    layers: 2 },
+                u_tex: [asset, asset, asset],
+                whiteAlphas: [0.5, 0.5],
+                edgeWeight: 0.2,
+
+                // geojson geometry
+                maxVerts: 512,
+                features: json0.features,
+                geostyle: { height: 16, scale: 1.5, }
+            } } ,
+      },
       { id: 'virtual',
         Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
-                transform: [ {translate: [200, -30, 0]} ],
+                transform: [ {translate: [100, -30, 0]} ],
                 box: [] },
         Visual:{
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.boxLayers,
             paras: {
+                shininess: 6,
                 geostyle: { height: 5, scale: 1.5 },
 
                 // shader paras
@@ -260,27 +298,28 @@
             boxes: [[0.8, 0.2, 0.1, 0.2, 1], [0.3, 0.4, 0.4, 0.2, 0.6]]
         }
       },
+
+      // just a position indicator
       { id: 'light',
         Obj3: { geom: xv.XComponent.Obj3Type.Octahedron,
-                box: [40, 0],
+                box: [4, 0],
                 transform: [{ translate: position }],
                 mesh: undefined },
         Visual:{vtype: xv.AssetType.wireframe }
       }
     ]);
 
-    xworld.addSystem('test', lightsys);
     xworld.addSystem('test',
         new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
     xworld.startUpdate();
 
     function updateLight() {
-        lightsys.set({
+        xworld.xlight =  {
             intensity: document.getElementById('intense').value,
             ambient: document.getElementById('ambient').value,
             diffuse: document.getElementById('diffuse').value,
             specular: document.getElementById('specular').value
-        });
+        } ;
     }
 
   </script>

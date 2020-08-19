@@ -9,7 +9,10 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>XZ box south <input id='south' value='0.25'/> &pi; ; XY box speed <input id='south' value='0.001'/></p>
+  <p>middle north: <input id='north' value='0.25'/> &pi; ;
+	  hue: <input id='hue' type="color" />
+	  <input type='button' value='update' onclick="update('0')"/>
+  </p>
   <script>
 	"use strict";
 
@@ -26,6 +29,7 @@
 			paras: {
 				color: [0.2, 0.0, 0.8, 1], // BOX color
 				// tiles
+				whiteAlpha: 0.8,
 				edgeWeight: 24.0,
 				xztile: {
 					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
@@ -49,14 +53,8 @@
 					layers: 1,
 					layerDist: 160,   // box.d not used (1 layers)
 					z0: 0 },
-		} },
-		ModelSeqs: { script: [[{
-			mtype:  xv.XComponent.AnimType.U_NOW,
-			paras: {start: 0,
-					speed: 0.001}     // speed para alwasy comes with U_NOW
-			}]]
-		},
-		CmpTweens: {} },
+		} }
+	  },
 	  { id: '1',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				transform: [ { translate: [-210, 0, -0] } ],
@@ -100,7 +98,7 @@
 		  [{mtype:  xv.XComponent.AnimType.U_t,
 			paras: {start: 0,
 					u_names: ['u_north'],
-					u_ts: [[0, 4 * Math.PI]],
+					u_ts: [[0, 0.3 * Math.PI]],
 					duration: 8 }
 		  }]] },
 		CmpTweens: {} },
@@ -133,16 +131,25 @@
 					duration: 12 }
 			}]]
 		},
-		CmpTweens: {} },
-	  // { id: 'calibra',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [200, 240, 200] },
-		// Visual:{ vtype: xv.AssetType.wireframe }
-	  // }
+		CmpTweens: {} }
 	] );
 
 	xworld.startUpdate();
+	const ecs = xworld.xecs;
+	const thrender = xworld.xthrender;
 
+	function update(id) {
+		let v = document.getElementById("north").value;
+		v = v * Math.PI;
+
+		let hue = document.getElementById("hue").value;
+
+		let e = ecs.getEntity(id);
+		xworld.materials.change(e,
+		 		{north: v,
+		 		 tile: {hue: xv.xutils.cssColor(hue)}
+		} );
+	}
   </script>
 </body>
 </html>

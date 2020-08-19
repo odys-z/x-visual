@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Test - ECS &amp; XWorld &mdash; x-visual 0.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
+        <link rel="up" title="Tests &amp; Example" href="index.html"/>
+        <link rel="next" title="Test - Morphing &amp; Uniform" href="morph.html"/>
+        <link rel="prev" title="Tests &amp; Example" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tests &amp; Example</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Test - ECS &amp; XWorld</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cate-xscene">Cate: xscene</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-x-light">case: x.light</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="morph.html">Test - Morphing &amp; Uniform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geom.html">Test - Geometries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html">Test - Postprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Tests &amp; Example</a> &raquo;</li>
+      
+    <li>Test - ECS &amp; XWorld</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="test-ecs-xworld">
+<span id="test-xworld"></span><h1>Test - ECS &amp; XWorld<a class="headerlink" href="#test-ecs-xworld" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cate-xscene">
+<h2>Cate: xscene<a class="headerlink" href="#cate-xscene" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-x-light">
+<span id="test-xworld-light"></span><h3>case: x.light<a class="headerlink" href="#case-x-light" title="Permalink to this headline">¶</a></h3>
+<p>html file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">esc</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">light</span><span class="o">.</span><span class="n">html</span>
+<span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">morph</span><span class="o">-</span><span class="n">events</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>AssetType:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">XComponent</span><span class="o">.</span><span class="n">AssetType</span><span class="o">.</span><span class="n">mesh</span>
+</pre></div>
+</div>
+<p>ShaderFlag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xv</span><span class="o">.</span><span class="n">Component</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">colorArray</span>
+<span class="n">xv</span><span class="o">.</span><span class="n">Component</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">texPrism</span>
+<span class="n">xv</span><span class="o">.</span><span class="n">Component</span><span class="o">.</span><span class="n">ShaderFlag</span><span class="o">.</span><span class="n">boxLayers</span>
+    <span class="o">...</span> <span class="ow">and</span> <span class="nb">any</span> <span class="n">future</span> <span class="n">implement</span> <span class="k">with</span> <span class="n">f_LIGHTENED</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The test created some objects with materials provided by Three.js, and some material
+extended by x-visual for special purpose.</p>
+<p>The light position is indicated by a wireframe object, showing how different of
+x-visual material extension vs. Three.js’. The left most (-x) 3 objects using
+Three.js material objects have light effects of
+<a class="reference external" href="https://threejs.org/docs/#api/en/lights/HemisphereLight">Three.HemisphereLight</a> .</p>
+<a class="reference internal image-reference" href="../_images/001-light.jpg"><img alt="../_images/001-light.jpg" src="../_images/001-light.jpg" style="width: 600px;" /></a>
+<p>The <em>colorArray</em>, <em>texPrism</em> &amp; <em>boxLayers</em> shaders are applied to the rest of the
+objects, mixing light’s diffuse color with the material’s texture. E.g. the
+colorArray’s morphing result color is mixed with an extra diffuse color. See the
+‘morph-events.html’ test for the morphing animation result.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="morph.html" class="btn btn-neutral float-right" title="Test - Morphing &amp; Uniform" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Tests &amp; Example" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z.github.io.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
