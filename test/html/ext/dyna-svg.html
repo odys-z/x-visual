@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Dynamic SVG</title>
+    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas><br>
+  <script>
+	"use strict";
+
+	const arc0 = ``;
+	 
+	class DynaPie extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.arcs = this.initArcs(ecs);
+		}
+
+		update(tick, entities) {
+		}
+
+		initArcs(ecs) {
+			var arcs = [];
+			arc = xv.AssetKeepr.parseSVG();
+
+			arcs.push(arc);
+			var ents = ecs.createEntity([{
+				id: 'arc0',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [256, 256],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						paras: { u_tex: ['tex/byr0.png'] }},
+			}]);
+			return arcs;
+		}
+	}
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+
+	const dynaPie = new DynaPie(ecs, {});
+	xworld.addSystem('test', dynaPie);
+	xworld.startUpdate();
+
+	document.body.appendChild(DynaPie.arcs[0].xml);
+  </script>
+</body>
+</html>
