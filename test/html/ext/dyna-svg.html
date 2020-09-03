@@ -6,6 +6,7 @@
     <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script src="https://d3js.org/d3.v5.min.js"></script>
     <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>svg {width: 12em; height: 12em}</style>
 </head>
 <body>
   <canvas id='canv'></canvas><br>
@@ -30,6 +31,8 @@
      31.52,268.77 30.72,266.50 30.72,263.47 30.72,262.60 30.79,261.59 30.92,260.45 31.07,259.31 31.29,257.99 31.59,256.50
      31.59,256.50 39.58,214.95 39.58,214.95 39.58,214.95 21.91,214.95 21.91,214.95 21.91,214.95 13.92,256.54 13.92,256.54 Z" />
 </svg>`;
+	const rect = `<svg  width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+		<rect style="stroke:rgb(200, 200, 25); stroke-width:4; " x="0" width="100" height="100" rx="15" /></svg>`;
 
 	class DynaPie extends xv.XSys {
 		constructor(ecs, options) {
@@ -44,23 +47,40 @@
 		initArcs(ecs) {
 			var arcs = [];
 			var arc = xv.AssetKeepr.parseSVG(arc0);
-			console.log(arc);
-
 			arcs.push(arc);
-			var ents = ecs.createEntity({
+			var upath = xv.AssetKeepr.parseSVG(u);
+			arcs.push(upath);
+
+			ecs.createEntity( {
+				id: 'calibre',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						transform: [ {translate: [-200, 60, 0]} ],
+						box: [80, 80] },
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						paras: {
+							// colors: [[0, 0, 0], [0, 0, 0]],
+							whiteAlpha: 1,
+							u_tex: [
+							// '../../assets/tex/u.svg'
+							// '../../assets/tex/byr0.png',
+							`data:image/svg+xml;utf-8,${rect}`
+						] }},
+			} );
+
+			ecs.createEntity( {
 				id: 'arc0',
 				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [256, 256] },
+						box: [100, 100] },
 				Visual:{vtype: xv.AssetType.mesh,
 						shader: xv.ShaderFlag.colorArray,
 						paras: { u_tex: [
-							// '../../assets/tex/u.svg'
-							// '../../assets/tex/byr0.png'
-
-							// `data:image/svg+xml;utf-8,${arc0}`
 							`data:image/svg+xml;utf-8,${u}`
-						] }},
-			});
+							// '../../assets/tex/u.svg'
+						] } }
+						// asset: //`data:image/svg+xml;utf-8,${arc0}` }
+						// 	'../../assets/tex/byr0.png' }
+			} );
 			return arcs;
 		}
 	}
@@ -72,7 +92,9 @@
 	xworld.addSystem('test', dynaPie);
 	xworld.startUpdate();
 
-	document.body.appendChild(dynaPie.arcs[0].xml);
+	dynaPie.arcs.forEach((d, i) => {
+		document.body.appendChild(d.xml);
+	});
   </script>
 </body>
 </html>
