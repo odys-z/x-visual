@@ -115,7 +115,7 @@ SVGLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 				path.userData = { node: node, style: style };
 
 				// odys
-				path.pathId = node.id;
+				// path.pathId = node.id;
 			}
 
 			var nodes = node.childNodes;
@@ -158,6 +158,8 @@ SVGLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 			var d = node.getAttribute( 'd' );
 
 			// console.log( d );
+			// ody: only support path.id
+			path.pathId = node.getAttribute( 'id' );
 
 			var commands = d.match( /[a-df-z][^a-df-z]*/ig );
 
@@ -810,7 +812,7 @@ SVGLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
 				};
 
 				if ( node.hasAttribute( svgName ) ) style[ jsName ] = adjustFunction( node.getAttribute( svgName ) );
-				if ( node.style[ svgName ] !== '' ) style[ jsName ] = adjustFunction( node.style[ svgName ] );
+				if ( node.style && node.style[ svgName ] !== '' ) style[ jsName ] = adjustFunction( node.style[ svgName ] );
 
 			}
 

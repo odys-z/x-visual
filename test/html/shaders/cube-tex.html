@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Cube Texture</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 300]});
+
+	xworld.addEntities([
+	  { id: 'cubetex',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [120, 40, 120] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.cubeTex,
+			paras: {
+				edgeWeight: 20,
+				cube: {
+					hue: [0.4, 0.6, 0.0, 1],
+					cubes: [3, 4, 2],
+				 }
+			} } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.001,   // speed para alwasy comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {}
+	  },
+	  { id: 'calibre',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [120, 40, 120] },
+		Visual:{
+			vtype: xv.AssetType.wireframe,
+		}
+	  },
+	  // { id: 'layers',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		transform: [ { translate: [0, 0, -120] } ],
+		// 		box: [240, 200, 100] },
+		// Visual:{
+		// 	vtype: xv.AssetType.mesh,
+		// 	shader: xv.XComponent.ShaderFlag.boxLayers,
+		// 	paras: {
+		// 		color: [0.0, 0.2, 0.9, 1],
+		// 		edgeWeight: 60,
+		// 		yztile: {
+		// 			box: [200, 100],
+		// 			change: true,
+		// 			layers: 6,
+		// 			layerDist: 48,
+		// 			x0: -120
+		// 		 }
+		// 	} } ,
+		// ModelSeqs: { script: [[{
+		// 	mtype:  xv.XComponent.AnimType.U_NOW,
+		// 	paras: {start: 0,
+		// 		speed: 0.001,   // speed para alwasy comes with U_NOW
+		// 		duration: 0 }	// ignored
+		// 	}]]
+		// },
+		// CmpTweens: {}
+	  // },
+	]);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
