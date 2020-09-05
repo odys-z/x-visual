@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Dynamic SVG</title>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>svg {width: 5em; height: 5em}</style>
+</head>
+<body>
+  <canvas id='canv'></canvas><br>
+  <script>
+	"use strict";
+
+	const arc0 = `<svg  width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+		<path fill="#345"
+		  d="M6.123233995736766e-15,-100A100,100,0,1,1,-99.98731043474842,1.5930323365360128L-24.996827608687106,0.3982580841340032A25,25,0,1,0,1.5308084989341915e-15,-25Z" />
+		</svg>`;
+
+	const u = `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="12 214.5 72 72">
+	  <g><path id="us" fill="#005c9a" stroke="#217fba" stroke-width="1"
+	   d="M 13.92,256.54
+	   C 13.59,258.36 13.34,259.95 13.19,261.33 13.04,262.70 12.96,263.94 12.96,265.04 12.96,271.69 15.07,276.76 19.29,280.26
+	     23.52,283.76 29.68,285.51 37.78,285.51 48.12,285.51 56.07,283.22 61.62,278.65 67.17,274.07 70.94,266.70 72.94,256.54
+	     72.94,256.54 80.92,214.95 80.92,214.95 80.92,214.95 63.25,214.95 63.25,214.95 63.25,214.95 55.27,256.54 55.27,256.54
+	     54.17,262.34 52.47,266.45 50.18,268.88 47.88,271.31 44.59,272.53 40.30,272.53 37.13,272.53 34.74,271.78 33.13,270.27
+	     31.52,268.77 30.72,266.50 30.72,263.47 30.72,262.60 30.79,261.59 30.92,260.45 31.07,259.31 31.29,257.99 31.59,256.50
+	     31.59,256.50 39.58,214.95 39.58,214.95 39.58,214.95 21.91,214.95 21.91,214.95 21.91,214.95 13.92,256.54 13.92,256.54 Z"
+	  /></g></svg>`;
+
+	class DynaPie extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initArcs(ecs);
+		}
+
+		update(tick, entities) {
+		}
+
+		initArcs(ecs) {
+			ecs.createEntity( {
+				id: 'u1',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						transform: [ {translate: [-20, 40, -0]} ],
+						box: [80, 80] },
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						paras: { u_tex: [
+							'../../assets/tex/u.svg'
+						] } }
+			} );
+
+			ecs.createEntity( {
+				id: 'arc0',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						transform: [ {translate: [80, 40, -0]} ],
+						box: [80, 80] },
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						paras: { u_tex: [
+							`data:image/svg+xml;utf-8,${pth}`
+						] } }
+			} );
+		}
+	}
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+
+	const dynaPie = new DynaPie(ecs, {});
+	xworld.addSystem('test', dynaPie);
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
