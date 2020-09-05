@@ -187,48 +187,16 @@ matrix uniform(s) for every vertex?</em></p>
 </div>
 <div class="section" id="issues">
 <h2>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple" id="issue-asynch-gltf">
-<li>ModelSeqs can’t handle asynchronously loaded mesh</li>
+<ol class="arabic simple">
+<li>Implementing Shadow with SSAO</li>
 </ol>
-<p>test case: html/gltf-car.html</p>
-<p>Problem: If setting animation sequence start at 0 (any but Infinity) on a gltf
-mesh, then the target Obj3.mesh won’t being ready when playing started.</p>
-<p>Loading the gltf nodes is an asynchronous process, of which the node objects can
-only been ready for rendering latter.</p>
-<p>Code snippet of starting Tween animation in AffineCombiner.update():</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">idle</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">playRising</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">m0</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="p">...</span>
-</pre></div>
-</div>
-<p>Code snippet of Thrender.createObj3s() AssetType.gltf branch:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">AssetKeepr</span><span class="p">.</span><span class="nx">loadGltfNodes</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">,</span> <span class="sb">`assets/</span><span class="si">${</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">asset</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
-    <span class="nx">nds</span><span class="p">,</span>
-    <span class="p">(</span><span class="nx">nodes</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="c1">// Too late to push mesh into mes now, add to scene directly</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">scene</span> <span class="o">&amp;&amp;</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">n</span> <span class="k">of</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">transform</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="kd">var</span> <span class="nx">m4</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mat4</span><span class="p">();</span>
-
-                    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">paras</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">paras</span><span class="p">.</span><span class="nx">withTransform</span><span class="p">)</span>
-                        <span class="nx">m4</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
-
-                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">trs</span> <span class="k">of</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">transform</span><span class="p">)</span>
-                        <span class="nx">m4</span><span class="p">.</span><span class="nx">appAffine</span><span class="p">(</span><span class="nx">trs</span><span class="p">);</span>
-
-                    <span class="nx">n</span><span class="p">.</span><span class="nx">matrixAutoUpdate</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-                    <span class="nx">m4</span><span class="p">.</span><span class="nx">put2js</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
-                    <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span> <span class="o">=</span> <span class="nx">n</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-</pre></div>
-</div>
+<p>Reference:</p>
+<p><a class="reference external" href="http://ogldev.org/www/tutorial45/tutorial45.html">OGL Tutorial 45: Screen Space Ambient Occlusion</a></p>
+<p>3D distance fields: A survey of techniques and applications, August 2006IEEE
+Transactions on Visualization and Computer Graphics 12(4):581-99
+<a class="reference external" href="https://www.researchgate.net/publication/6979985_3D_distance_fields_A_survey_of_techniques_and_applications">DOI: 10.1109/TVCG.2006.56</a></p>
+<p><a class="reference external" href="https://graphics.stanford.edu/courses/cs468-03-fall/Papers/completeDistanceFieldRep.pdf">A Complete Distance Field Representation, 2001</a></p>
+<p><a class="reference external" href="http://www2.imm.dtu.dk/pubdb/edoc/imm1289.pdf">Generating Signed Distance Fields From Triangle Meshes, 2002</a></p>
 <ol class="arabic simple" start="2">
 <li>Loaded GLTF makes outlined together with box mesh.</li>
 </ol>
@@ -283,6 +251,52 @@ only been ready for rendering latter.</p>
 </pre></div>
 </div>
 <p>plane.Obj3.uniforms.opacity will hide / show way0</p>
+<ol class="arabic simple" id="issue-asynch-gltf" start="3">
+<li>ModelSeqs can’t handle asynchronously loaded mesh</li>
+</ol>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">This issue should no longer exists in version latter than v0.3.</p>
+</div>
+<p>test case: html/gltf-car.html</p>
+<p>Problem: If setting animation sequence start at 0 (any but Infinity) on a gltf
+mesh, then the target Obj3.mesh won’t being ready when playing started.</p>
+<p>Loading the gltf nodes is an asynchronous process, of which the node objects can
+only been ready for rendering latter.</p>
+<p>Code snippet of starting Tween animation in AffineCombiner.update():</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">idle</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">CmpTweens</span><span class="p">.</span><span class="nx">playRising</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">m0</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+</pre></div>
+</div>
+<p>Code snippet of Thrender.createObj3s() AssetType.gltf branch:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">AssetKeepr</span><span class="p">.</span><span class="nx">loadGltfNodes</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">,</span> <span class="sb">`assets/</span><span class="si">${</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">asset</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+    <span class="nx">nds</span><span class="p">,</span>
+    <span class="p">(</span><span class="nx">nodes</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Too late to push mesh into mes now, add to scene directly</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">scene</span> <span class="o">&amp;&amp;</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">n</span> <span class="k">of</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">transform</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">m4</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mat4</span><span class="p">();</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">paras</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Visual</span><span class="p">.</span><span class="nx">paras</span><span class="p">.</span><span class="nx">withTransform</span><span class="p">)</span>
+                        <span class="nx">m4</span><span class="p">.</span><span class="nx">setByjs</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">trs</span> <span class="k">of</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">transform</span><span class="p">)</span>
+                        <span class="nx">m4</span><span class="p">.</span><span class="nx">appAffine</span><span class="p">(</span><span class="nx">trs</span><span class="p">);</span>
+
+                    <span class="nx">n</span><span class="p">.</span><span class="nx">matrixAutoUpdate</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                    <span class="nx">m4</span><span class="p">.</span><span class="nx">put2js</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">matrix</span><span class="p">);</span>
+                    <span class="nx">e</span><span class="p">.</span><span class="nx">Obj3</span><span class="p">.</span><span class="nx">mesh</span> <span class="o">=</span> <span class="nx">n</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="wish-list">
 <h2>Wish List<a class="headerlink" href="#wish-list" title="Permalink to this headline">¶</a></h2>
