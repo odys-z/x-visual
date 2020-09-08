@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest-Htmltex</title>
+	<title>XTry-SVG Canvas</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
 	<script src="https://d3js.org/d3.v5.min.js"></script>
 	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
@@ -17,9 +17,6 @@
 	<img style='height: 128px; width: 128px', src='../html/assets/tex/rgb2x2.png'></img>
   </div>
   <script>
-	/**TODO we can also animize letters:
-	 * https://www.html5rocks.com/en/tutorials/webgl/million_letters/#disqus_thread
-	 */
 	"use strict";
 
 	document.getElementById('stub')
@@ -31,7 +28,6 @@
 				});
 			});
 
-	// render something in h5-content's canvas
 	drawPie('stub', {});
 
 	// initiating xworld
@@ -40,8 +36,6 @@
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	// the Htmltex convert html content to texture and render it as requested in what?
-	// TODO doc: domId, obj3, width / height
 	const entDefines = xv.Htmltex.createEntityDefs({objcanvas: [
 			{domId: 'h5-content',
 			 texsize: {width: 256, height: 256}}
