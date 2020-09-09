@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Tests &amp; Example" href="index.html"/>
         <link rel="next" title="Design Memo" href="../design-memo/index.html"/>
@@ -94,7 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="morph.html">Test - Morphing &amp; Uniform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="geom.html">Test - Geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="effect.html">Test - Postprocessing</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Examples</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#chart-extensions">Chart Extensions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#case-xbar">case: XBar</a></li>
 </ul>
@@ -156,16 +153,16 @@
 <div class="section" id="case-xbar">
 <span id="ex-chart-bar"></span><h3>case: XBar<a class="headerlink" href="#case-xbar" title="Permalink to this headline">¶</a></h3>
 <p>html file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">ext</span><span class="o">/</span><span class="mi">12</span><span class="n">vec</span><span class="o">-</span><span class="n">bar</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-python"><div class="highlight"><pre>test/html/ext/12vec-bar.html
 </pre></div>
 </div>
 <p>data file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">bar</span><span class="o">-</span><span class="mf">2.</span><span class="n">json</span>
+<div class="highlight-python"><div class="highlight"><pre>test/html/data/bar-2.json
 </pre></div>
 </div>
 <p>The json file section has 2 separate sections. The chart section define how chart
 axes and data serials label should been showed.</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;chart&quot;</span><span class="err">:</span> <span class="p">{</span>
+<div class="highlight-json"><div class="highlight"><pre><span class="s2">&quot;chart&quot;</span><span class="err">:</span> <span class="p">{</span>
     <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;x-bar vec4 (1)&quot;</span><span class="p">,</span>
     <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
     <span class="nt">&quot;range&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
@@ -210,12 +207,12 @@ axes and data serials label should been showed.</p>
 </li>
 <li><p class="first">label-bg &amp; label-boxes</p>
 <blockquote>
-<div><p>label’s texture alignment</p>
+<div><p>label&#8217;s texture alignment</p>
 </div></blockquote>
 </li>
 </ul>
 <p>The second part is an object define how data been presented as bars.</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;serials&quot;</span><span class="err">:</span> <span class="p">{</span>
+<div class="highlight-json"><div class="highlight"><pre><span class="s2">&quot;serials&quot;</span><span class="err">:</span> <span class="p">{</span>
     <span class="nt">&quot;pos0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
     <span class="nt">&quot;label-offsets&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">,</span> <span class="mf">-0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">-0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">-0.25</span><span class="p">,</span> <span class="mf">-0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
 
@@ -254,8 +251,8 @@ axes and data serials label should been showed.</p>
 </div></blockquote>
 </li>
 </ul>
-<p>See <a class="reference internal" href="../design-memo/renderer.html#render-dynatex-xywh"><span class="std std-ref">details of xywh in docs</span></a>.</p>
-<p>Docing …</p>
+<p>See <a class="reference internal" href="../design-memo/renderer.html#render-dynatex-xywh"><span>details of xywh in docs</span></a>.</p>
+<p>Docing ...</p>
 </div>
 </div>
 </div>
@@ -310,8 +307,7 @@ axes and data serials label should been showed.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
