@@ -5,17 +5,20 @@
     <title>XTest-Hemisphere Light</title>
     <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
     <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>input[id] {width: 4.6em}</style>
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>HemisphereLight<br>
-	 Diffuse Color : <input id='diffuse' value='0x0000ff'/><br>
+  <p>HemisphereLight Intensity: <input id='intense' value='2'/> <br>
+	 Diffuse Color : <input id='diffuse' value='0x0000ff'/>
      Ambient Color : <input id='ambient' value='0x00c000'/><br>
-	 Intensity : <input id='intense' value='2'/>
-	 <hr>
+  <hr>
      Object Specular: <input id='specular' value='0xffffff'/><br>
      <input type='button' onclick='updateLight()' value='update'/></p>
-  Geo feature json (read only)<br><textarea id="txt" rows="5" cols="73"></textarea>
+  Geo feature json (read only)<br><textarea id="txt" rows="3" cols="98"></textarea>
+  <p>Configuation worthy to note:<br>
+      1. TexPrism (front left 3) is shadowed with CullFaceFront side (Three.js default);<br>
+	  2. Virual box (front left 4) is shadowed with CullFaceBack; </p>
   <p>see<a href='https://odys-z.github.io/x-visual/tests/basics.html#test-xworld-light'
       target='_parent'> test introduction</a> &amp;
 	  <a href='https://odys-z.github.io/x-visual/design-memo/scene.html#main-scene-light'
@@ -60,7 +63,7 @@
                 box: [800, 800],
                 transform: [
                     { rotate: {deg: -90, axis: [1, 0, 0] } },
-                    { translate: [0, -40, 0] } ],
+                    { translate: [0, -30, 0] } ],
                 mesh: {receiveShadow: true} },
         Visual:{vtype: xv.AssetType.mesh,
                 // shader: xv.XComponent.ShaderFlag.colorArray,
@@ -278,6 +281,7 @@
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.boxLayers,
             paras: {
+                shadowSide: THREE.FrontSide,
                 shininess: 6,
                 geostyle: { height: 5, scale: 1.5 },
 
