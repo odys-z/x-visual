@@ -8,6 +8,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p><a href=''>Likely shader source (vs/fs)</a></p>
   <script>
 	"use strict";
 
@@ -28,16 +29,6 @@
 
 	const asset = 'data:application/x-visual+img,color-pixel [.5, .5, 0, 1.]';
 	xworld.addEntities([
-	  // { id: 'wall',
-	  //   Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-	  //		   box: [80, 80],
-	  //		   mesh: {
-		// 			castShadow: true,
-		// 			receiveShadow: true
-		// 		} },
-	  //   Visual:{vtype: xv.AssetType.mesh,
-	  //		   asset}
-	  // },
 	  { id: 'ground',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [800, 800],

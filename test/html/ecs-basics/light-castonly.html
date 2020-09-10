@@ -17,8 +17,9 @@
      <input type='button' onclick='updateLight()' value='update'/></p>
   Geo feature json (read only)<br><textarea id="txt" rows="3" cols="98"></textarea>
   <p>Points worthy to note:<br>
-      1. TexPrism (front left 3) is shadowed with CullFaceFront side (Three.js default);<br>
-	  2. Virual box (front left 4) is shadowed with CullFaceBack; </p>
+	  1. Ground plane uses Three.js material, can receiving any shadow since v0.3.44;<br>
+      2. TexPrism (front left 3) is shadowed with CullFaceFront side (Three.js default);<br>
+	  3. Virual box (front left 4) is shadowed with CullFaceBack; </p>
   <p>see<a href='https://odys-z.github.io/x-visual/tests/basics.html#test-xworld-light'
       target='_parent'> test introduction</a> &amp;
 	  <a href='https://odys-z.github.io/x-visual/design-memo/scene.html#main-scene-light'

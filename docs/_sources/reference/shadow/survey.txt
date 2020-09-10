@@ -20,7 +20,7 @@ Not affecting neighbouring objects?
 
 4. Shadow texture baking of F4 ?
 
-.. image:: imgs/002-f4-shadow.png
+.. image:: ../imgs/002-f4-shadow.png
 
 The Three.js way
 ----------------
@@ -29,7 +29,7 @@ The Three.js way
 
 Trying Page::
 
-    test/try/shadow.html
+    test/try/shadow-castonly.html
 
 How it works
 ____________
@@ -44,6 +44,10 @@ Shadow map's bias, size & texture been set by *WebGLLights#setup( lights, shadow
 source file::
 
     three/src/renderers/webgl/WebGLLights.js
+
+Depth buffer is been rendered by *WebGLShadowMap#render()*::
+
+    three/src/renderers/webgl/WebGLShadowMap.js
 
 With light casting shadow, any mesh created by x-visual can cast shadow receivable
 by Three.js materials. See test page::
@@ -363,11 +367,11 @@ recorded here for reference.
         float    specularShininess;
         float    specularStrength;
     };
+	
     void RE_Direct( const in IncidentLight directLight, const in GeometricContext geometry,
                     const in BlinnPhongMaterial material, inout ReflectedLight reflectedLight ) {
         float dotNL = saturate( dot( geometry.normal, directLight.direction ) );
         vec3 irradiance = dotNL * directLight.color;
-
 
         irradiance *= PI;
 
@@ -381,7 +385,7 @@ recorded here for reference.
         reflectedLight.indirectDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );
     }
 
-	// shadow map
+    // shadow map
     uniform sampler2D directionalShadowMap[ 1 ];
     varying vec4 vDirectionalShadowCoord[ 1 ];
 
@@ -482,7 +486,7 @@ recorded here for reference.
         RE_IndirectDiffuse( irradiance, geometry, material, reflectedLight );
 
         vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse
-                        + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;
+                + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;
 
         gl_FragColor = vec4( outgoingLight, diffuseColor.a );
 
