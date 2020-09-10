@@ -367,7 +367,7 @@ recorded here for reference.
         float    specularShininess;
         float    specularStrength;
     };
-	
+
     void RE_Direct( const in IncidentLight directLight, const in GeometricContext geometry,
                     const in BlinnPhongMaterial material, inout ReflectedLight reflectedLight ) {
         float dotNL = saturate( dot( geometry.normal, directLight.direction ) );
@@ -473,9 +473,9 @@ recorded here for reference.
         getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );
 
         directLight.color *= all( bvec3( directionalLight.shadow, directLight.visible, receiveShadow ) )
-                        ? getShadow( directionalShadowMap[ 0 ], directionalLight.shadowMapSize,
-                            directionalLight.shadowBias, directionalLight.shadowRadius, vDirectionalShadowCoord[ 0 ] )
-                        : 1.0;
+                ? getShadow( directionalShadowMap[ 0 ], directionalLight.shadowMapSize,
+                  directionalLight.shadowBias, directionalLight.shadowRadius, vDirectionalShadowCoord[ 0 ] )
+                : 1.0;
 
         RE_Direct( directLight, geometry, material, reflectedLight ); // out: reflectedLight
 
