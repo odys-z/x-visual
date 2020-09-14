@@ -44,27 +44,27 @@
 	  },
 	  { id: 'box-x',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [60, 60, 60],
-				transform: [ { translate: [0, 10, 100] } ],
+				box: [60, 60, 80],
+				transform: [ { translate: [-50, 10, 50] } ],
 				mesh: {
 					castShadow: true,
 					receiveShadow: true
 				} },
 		Visual:{vtype: xv.AssetType.mesh,
-                shader: xv.XComponent.ShaderFlag.colorArray,
+				shader: xv.XComponent.ShaderFlag.receiveShadow,
 				asset}
 	  },
-	  { id: 'box-3',
-		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [40, 40, 40],
-				transform: [ { translate: [50, 0, 0] } ],
-				mesh: {
-					castShadow: true,
-					receiveShadow: true
-				} },
-		Visual:{vtype: xv.AssetType.mesh,
-				asset}
-	  }
+	  // { id: 'box-3js',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		box: [40, 40, 180],
+		// 		transform: [ { translate: [10, 0, -30] } ],
+		// 		mesh: {
+		// 			castShadow: true,
+		// 			receiveShadow: true
+		// 		} },
+		// Visual:{vtype: xv.AssetType.mesh,
+		// 		asset}
+	  // }
 	]);
 
 	xworld.startUpdate();
