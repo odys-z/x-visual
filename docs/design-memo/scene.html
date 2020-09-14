@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Obj3 &amp; Transformation" href="obj3.html"/>
@@ -94,7 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Scene &amp; HUD</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Scene &amp; HUD</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#main-scene">Main Scene</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#main-scene-light">Main Scene Light</a></li>
 </ul>
@@ -168,8 +165,8 @@
 <div class="section" id="main-scene">
 <h2>Main Scene<a class="headerlink" href="#main-scene" title="Permalink to this headline">¶</a></h2>
 <p>Objects including mesh, line &amp; points are rendered in main scene, except one component,
-HudGroup and it’s children.</p>
-<p>The <a class="reference internal" href="../guide/intro.html#guide-hello-xworld"><span class="std std-ref">Hello XWorld in guide page</span></a> is a simple example for
+HudGroup and it&#8217;s children.</p>
+<p>The <a class="reference internal" href="../guide/intro.html#guide-hello-xworld"><span>Hello XWorld in guide page</span></a> is a simple example for
 how to create main scene objects.</p>
 <div class="section" id="main-scene-light">
 <h3>Main Scene Light<a class="headerlink" href="#main-scene-light" title="Permalink to this headline">¶</a></h3>
@@ -177,10 +174,10 @@ how to create main scene objects.</p>
 and the <a class="reference external" href="https://threejs.org/docs/index.html#api/en/lights/shadows/DirectionalLightShadow">DirectionalLightShadow</a>
 is enabled by default.</p>
 <p>The default parameters:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">skyColor</span><span class="p">:</span> <span class="c1">#xffffbb</span>
-<span class="n">groundColor</span><span class="p">:</span> <span class="c1">#x080820</span>
-<span class="n">intensity</span><span class="p">:</span> <span class="mf">1.1</span>
-<span class="n">position</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre>skyColor: #xffffbb
+groundColor: #x080820
+intensity: 1.1
+position: [1, 1, 1]
 </pre></div>
 </div>
 <p>To configure it, set options of XWorld constructor; to change light, use
@@ -189,11 +186,11 @@ is enabled by default.</p>
 of Three.js, the light effects is exactly the same with examples of Three.js.</p>
 <p>But x-visual use a diffuse light with direction (the light position) and a specular
 color use the light as point light. This is illustrated in the
-<a class="reference internal" href="../tests/basics.html#test-xworld-light"><span class="std std-ref">test case: light</span></a>.</p>
+<a class="reference internal" href="../tests/basics.html#test-xworld-light"><span>test case: light</span></a>.</p>
 <p>The diffuse color is the same as skyColor, and groundColor used as ambient color.</p>
-<p>An object in scene has it’s own specular properties, so an object can be configured
+<p>An object in scene has it&#8217;s own specular properties, so an object can be configured
 with Visual.paras:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Visual</span><span class="o">:</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Visual</span><span class="o">:</span> <span class="p">{</span>
   <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">shininess</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="nx">specular</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
@@ -202,7 +199,7 @@ with Visual.paras:</p>
 </pre></div>
 </div>
 <p>test:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">html</span><span class="o">/</span><span class="n">ecs</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">light</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html</span><span class="o">/</span><span class="n">ecs</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">light</span><span class="o">.</span><span class="n">html</span>
 <span class="n">html</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">texprism</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
@@ -212,16 +209,16 @@ with Visual.paras:</p>
 <h2>HUD<a class="headerlink" href="#hud" title="Permalink to this headline">¶</a></h2>
 <p>If an entity has HudGroup, x-visual will create a HUD of plane object, and all
 HudChild entities.</p>
-<p>A HudChild must has a HudChild.hud parameter equals parent group’s entity id. i.e.
-entity id defined in HudGroup’s entity.</p>
+<p>A HudChild must has a HudChild.hud parameter equals parent group&#8217;s entity id. i.e.
+entity id defined in HudGroup&#8217;s entity.</p>
 <div class="section" id="hud-light">
 <h3>HUD Light<a class="headerlink" href="#hud-light" title="Permalink to this headline">¶</a></h3>
-<p>TODO doc…</p>
+<p>TODO doc...</p>
 </div>
 <div class="section" id="hud-example">
 <h3>HUD Example<a class="headerlink" href="#hud-example" title="Permalink to this headline">¶</a></h3>
 <p>These 2 objects are created as an HUD plane and a box in it.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">hud</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">hud</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
     <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;hud0&#39;</span><span class="p">,</span>
     <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>     <span class="c1">// ignored, always PLANE</span>
             <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
@@ -302,8 +299,7 @@ entity id defined in HudGroup’s entity.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

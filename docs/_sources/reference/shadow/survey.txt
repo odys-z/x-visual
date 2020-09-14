@@ -84,7 +84,7 @@ ___________
 Three.js shadow map with directional light's shader likely source instance is
 recorded here for reference.
 
--fs
+-vs
 
 .. code-block:: glsl
 
@@ -110,23 +110,6 @@ recorded here for reference.
 
     varying vec3 vViewPosition;
     varying vec3 vNormal;
-
-    #define PI 3.14159265359
-    #define PI2 6.28318530718
-    #define PI_HALF 1.5707963267949
-    #define RECIPROCAL_PI 0.31830988618
-    #define RECIPROCAL_PI2 0.15915494
-    #define LOG2 1.442695
-    #define EPSILON 1e-6
-
-    #define saturate(a) clamp( a, 0.0, 1.0 )
-
-    #define whiteComplement(a) ( 1.0 - saturate( a ) )
-
-    float pow2( const in float x ) { return x*x; }
-    float pow3( const in float x ) { return x*x*x; }
-    float pow4( const in float x ) { float x2 = x*x; return x2*x2; }
-    float average( const in vec3 color ) { return dot( color, vec3( 0.3333 ) ); }
 
     float max3( vec3 v ) { return max( max( v.x, v.y ), v.z ); }
     float precisionSafeLength( vec3 v ) {
@@ -156,23 +139,6 @@ recorded here for reference.
     vec3 inverseTransformDirection( in vec3 dir, in mat4 matrix ) {
         return normalize( ( vec4( dir, 0.0 ) * matrix ).xyz );
     }
-    // vec3 transformDirection( in vec3 dir, in mat4 matrix ) {
-    //      return normalize( ( matrix * vec4( dir, 0.0 ) ).xyz );
-    // }
-    // vec3 projectOnPlane(in vec3 point, in vec3 pointOnPlane, in vec3 planeNormal ) {
-    //     float distance = dot( planeNormal, point - pointOnPlane );
-    //     return - distance * planeNormal + point;
-    // }
-    // vec3 linePlaneIntersect( in vec3 pointOnLine, in vec3 lineDirection, in vec3 pointOnPlane, in vec3 planeNormal ) {
-    //    return lineDirection * ( dot( planeNormal, pointOnPlane - pointOnLine ) / dot( planeNormal, lineDirection ) ) + pointOnLine;
-    // }
-    // mat3 transposeMat3( const in mat3 m ) {
-    //      mat3 tmp;
-    //      tmp[ 0 ] = vec3( m[ 0 ].x, m[ 1 ].x, m[ 2 ].x );
-    //      tmp[ 1 ] = vec3( m[ 0 ].y, m[ 1 ].y, m[ 2 ].y );
-    //      tmp[ 2 ] = vec3( m[ 0 ].z, m[ 1 ].z, m[ 2 ].z );
-    //      return tmp;
-    // }
 
     varying vec2 vUv;
     uniform mat3 uvTransform;
@@ -209,7 +175,7 @@ recorded here for reference.
 
 :ref:`raw fragment glsl source<shadow-ground-frag-raw>`
 
--vs
+-fs
 
 .. code-block:: glsl
 
@@ -245,10 +211,6 @@ recorded here for reference.
 
     #define saturate(a) clamp( a, 0.0, 1.0 )
 
-    float pow2( const in float x ) { return x*x; }
-    float pow3( const in float x ) { return x*x*x; }
-    float pow4( const in float x ) { float x2 = x*x; return x2*x2; }
-    float average( const in vec3 color ) { return dot( color, vec3( 0.3333 ) ); }
     float precisionSafeLength( vec3 v ) { return length( v ); }
 
     struct IncidentLight {
@@ -271,13 +233,11 @@ recorded here for reference.
     vec3 inverseTransformDirection( in vec3 dir, in mat4 matrix ) {
         return normalize( ( vec4( dir, 0.0 ) * matrix ).xyz );
     }
-    vec3 packNormalToRGB( const in vec3 normal ) {
-        return normalize( normal ) * 0.5 + 0.5;
-    }
     vec3 unpackRGBToNormal( const in vec3 rgb ) {
         return 2.0 * rgb.xyz - 1.0;
     }
-    const float PackUpscale = 256. / 255.;const float UnpackDownscale = 255. / 256.;
+    const float PackUpscale = 256. / 255.;
+    const float UnpackDownscale = 255. / 256.;
     const vec3 PackFactors = vec3( 256. * 256. * 256., 256. * 256.,  256. );
     const vec4 UnpackFactors = UnpackDownscale / vec4( PackFactors, 1. );
     const float ShiftRight8 = 1. / 256.;
@@ -286,7 +246,6 @@ recorded here for reference.
     }
 
     varying vec2 vUv;
-
     uniform sampler2D map;
 
     vec3 BRDF_Diffuse_Lambert( const in vec3 diffuseColor ) {
@@ -367,7 +326,7 @@ recorded here for reference.
         float    specularShininess;
         float    specularStrength;
     };
-	
+
     void RE_Direct( const in IncidentLight directLight, const in GeometricContext geometry,
                     const in BlinnPhongMaterial material, inout ReflectedLight reflectedLight ) {
         float dotNL = saturate( dot( geometry.normal, directLight.direction ) );
@@ -473,9 +432,9 @@ recorded here for reference.
         getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );
 
         directLight.color *= all( bvec3( directionalLight.shadow, directLight.visible, receiveShadow ) )
-                        ? getShadow( directionalShadowMap[ 0 ], directionalLight.shadowMapSize,
-                            directionalLight.shadowBias, directionalLight.shadowRadius, vDirectionalShadowCoord[ 0 ] )
-                        : 1.0;
+                ? getShadow( directionalShadowMap[ 0 ], directionalLight.shadowMapSize,
+                  directionalLight.shadowBias, directionalLight.shadowRadius, vDirectionalShadowCoord[ 0 ] )
+                : 1.0;
 
         RE_Direct( directLight, geometry, material, reflectedLight ); // out: reflectedLight
 

@@ -32,9 +32,6 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../genindex.html"/>
-        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/>
         <link rel="up" title="Shadow Map" href="index.html"/>
         <link rel="next" title="Shadow Ground Shader" href="shadow-html-ground-vert.html"/>
@@ -97,7 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../svg.html">SVG</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Shadow Map</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="survey.html">A Survey on Shadowing</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Shadow Ground Shader</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Shadow Ground Shader</a></li>
 <li class="toctree-l3"><a class="reference internal" href="shadow-html-ground-vert.html">Shadow Ground Shader</a></li>
 </ul>
 </li>
@@ -155,381 +152,381 @@
   <div class="section" id="shadow-ground-shader">
 <h1>Shadow Ground Shader<a class="headerlink" href="#shadow-ground-shader" title="Permalink to this headline">¶</a></h1>
 <p id="shadow-ground-frag-raw">Fragment shader instance source:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">precision</span> <span class="n">highp</span> <span class="nb">float</span><span class="p">;</span>
-<span class="n">precision</span> <span class="n">highp</span> <span class="nb">int</span><span class="p">;</span>
-<span class="c1">#define HIGH_PRECISION</span>
-<span class="c1">#define SHADER_NAME MeshPhongMaterial</span>
-<span class="c1">#define VERTEX_TEXTURES</span>
-<span class="c1">#define GAMMA_FACTOR 2</span>
-<span class="c1">#define MAX_BONES 0</span>
-<span class="c1">#define USE_MAP</span>
-<span class="c1">#define USE_UV</span>
-<span class="c1">#define BONE_TEXTURE</span>
-<span class="c1">#define DOUBLE_SIDED</span>
-<span class="c1">#define USE_SHADOWMAP</span>
-<span class="c1">#define SHADOWMAP_TYPE_PCF_SOFT</span>
-<span class="n">uniform</span> <span class="n">mat4</span> <span class="n">modelMatrix</span><span class="p">;</span>
-<span class="n">uniform</span> <span class="n">mat4</span> <span class="n">modelViewMatrix</span><span class="p">;</span>
-<span class="n">uniform</span> <span class="n">mat4</span> <span class="n">projectionMatrix</span><span class="p">;</span>
-<span class="n">uniform</span> <span class="n">mat4</span> <span class="n">viewMatrix</span><span class="p">;</span>
-<span class="n">uniform</span> <span class="n">mat3</span> <span class="n">normalMatrix</span><span class="p">;</span>
-<span class="n">uniform</span> <span class="n">vec3</span> <span class="n">cameraPosition</span><span class="p">;</span>
-<span class="n">uniform</span> <span class="nb">bool</span> <span class="n">isOrthographic</span><span class="p">;</span>
-<span class="c1">#ifdef USE_INSTANCING</span>
- <span class="n">attribute</span> <span class="n">mat4</span> <span class="n">instanceMatrix</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="n">attribute</span> <span class="n">vec3</span> <span class="n">position</span><span class="p">;</span>
-<span class="n">attribute</span> <span class="n">vec3</span> <span class="n">normal</span><span class="p">;</span>
-<span class="n">attribute</span> <span class="n">vec2</span> <span class="n">uv</span><span class="p">;</span>
-<span class="c1">#ifdef USE_TANGENT</span>
-    <span class="n">attribute</span> <span class="n">vec4</span> <span class="n">tangent</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_COLOR</span>
-    <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">color</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_MORPHTARGETS</span>
-    <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget0</span><span class="p">;</span>
-    <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget1</span><span class="p">;</span>
-    <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget2</span><span class="p">;</span>
-    <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget3</span><span class="p">;</span>
-    <span class="c1">#ifdef USE_MORPHNORMALS</span>
-        <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphNormal0</span><span class="p">;</span>
-        <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphNormal1</span><span class="p">;</span>
-        <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphNormal2</span><span class="p">;</span>
-        <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphNormal3</span><span class="p">;</span>
-    <span class="c1">#else</span>
-        <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget4</span><span class="p">;</span>
-        <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget5</span><span class="p">;</span>
-        <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget6</span><span class="p">;</span>
-        <span class="n">attribute</span> <span class="n">vec3</span> <span class="n">morphTarget7</span><span class="p">;</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_SKINNING</span>
-    <span class="n">attribute</span> <span class="n">vec4</span> <span class="n">skinIndex</span><span class="p">;</span>
-    <span class="n">attribute</span> <span class="n">vec4</span> <span class="n">skinWeight</span><span class="p">;</span>
-<span class="c1">#endif</span>
+<div class="highlight-python"><div class="highlight"><pre>precision highp float;
+precision highp int;
+#define HIGH_PRECISION
+#define SHADER_NAME MeshPhongMaterial
+#define VERTEX_TEXTURES
+#define GAMMA_FACTOR 2
+#define MAX_BONES 0
+#define USE_MAP
+#define USE_UV
+#define BONE_TEXTURE
+#define DOUBLE_SIDED
+#define USE_SHADOWMAP
+#define SHADOWMAP_TYPE_PCF_SOFT
+uniform mat4 modelMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+uniform mat3 normalMatrix;
+uniform vec3 cameraPosition;
+uniform bool isOrthographic;
+#ifdef USE_INSTANCING
+ attribute mat4 instanceMatrix;
+#endif
+attribute vec3 position;
+attribute vec3 normal;
+attribute vec2 uv;
+#ifdef USE_TANGENT
+    attribute vec4 tangent;
+#endif
+#ifdef USE_COLOR
+    attribute vec3 color;
+#endif
+#ifdef USE_MORPHTARGETS
+    attribute vec3 morphTarget0;
+    attribute vec3 morphTarget1;
+    attribute vec3 morphTarget2;
+    attribute vec3 morphTarget3;
+    #ifdef USE_MORPHNORMALS
+        attribute vec3 morphNormal0;
+        attribute vec3 morphNormal1;
+        attribute vec3 morphNormal2;
+        attribute vec3 morphNormal3;
+    #else
+        attribute vec3 morphTarget4;
+        attribute vec3 morphTarget5;
+        attribute vec3 morphTarget6;
+        attribute vec3 morphTarget7;
+    #endif
+#endif
+#ifdef USE_SKINNING
+    attribute vec4 skinIndex;
+    attribute vec4 skinWeight;
+#endif
 
-<span class="c1">#define PHONG</span>
-<span class="n">varying</span> <span class="n">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
-<span class="c1">#ifndef FLAT_SHADED</span>
-    <span class="n">varying</span> <span class="n">vec3</span> <span class="n">vNormal</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#define PI 3.14159265359</span>
-<span class="c1">#define PI2 6.28318530718</span>
-<span class="c1">#define PI_HALF 1.5707963267949</span>
-<span class="c1">#define RECIPROCAL_PI 0.31830988618</span>
-<span class="c1">#define RECIPROCAL_PI2 0.15915494</span>
-<span class="c1">#define LOG2 1.442695</span>
-<span class="c1">#define EPSILON 1e-6</span>
-<span class="c1">#ifndef saturate</span>
-<span class="c1">#define saturate(a) clamp( a, 0.0, 1.0 )</span>
-<span class="c1">#endif</span>
-<span class="c1">#define whiteComplement(a) ( 1.0 - saturate( a ) )</span>
-<span class="nb">float</span> <span class="n">pow2</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="nb">float</span> <span class="n">x</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;</span> <span class="p">}</span>
-<span class="nb">float</span> <span class="n">pow3</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="nb">float</span> <span class="n">x</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;</span> <span class="p">}</span>
-<span class="nb">float</span> <span class="n">pow4</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="nb">float</span> <span class="n">x</span> <span class="p">)</span> <span class="p">{</span> <span class="nb">float</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;</span> <span class="k">return</span> <span class="n">x2</span><span class="o">*</span><span class="n">x2</span><span class="p">;</span> <span class="p">}</span>
-<span class="nb">float</span> <span class="n">average</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">color</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">dot</span><span class="p">(</span> <span class="n">color</span><span class="p">,</span> <span class="n">vec3</span><span class="p">(</span> <span class="mf">0.3333</span> <span class="p">)</span> <span class="p">);</span> <span class="p">}</span>
-<span class="n">highp</span> <span class="nb">float</span> <span class="n">rand</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="n">vec2</span> <span class="n">uv</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">highp</span> <span class="nb">float</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">12.9898</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">78.233</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">43758.5453</span><span class="p">;</span>
-    <span class="n">highp</span> <span class="nb">float</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="n">uv</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">vec2</span><span class="p">(</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="p">)</span> <span class="p">),</span> <span class="n">sn</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span> <span class="n">dt</span><span class="p">,</span> <span class="n">PI</span> <span class="p">);</span>
-    <span class="k">return</span> <span class="n">fract</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">sn</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="c1">#ifdef HIGH_PRECISION</span>
-    <span class="nb">float</span> <span class="n">precisionSafeLength</span><span class="p">(</span> <span class="n">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">length</span><span class="p">(</span> <span class="n">v</span> <span class="p">);</span> <span class="p">}</span>
-<span class="c1">#else</span>
-    <span class="nb">float</span> <span class="n">max3</span><span class="p">(</span> <span class="n">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">max</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span> <span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span> <span class="p">),</span> <span class="n">v</span><span class="o">.</span><span class="n">z</span> <span class="p">);</span> <span class="p">}</span>
-    <span class="nb">float</span> <span class="n">precisionSafeLength</span><span class="p">(</span> <span class="n">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="nb">float</span> <span class="n">maxComponent</span> <span class="o">=</span> <span class="n">max3</span><span class="p">(</span> <span class="nb">abs</span><span class="p">(</span> <span class="n">v</span> <span class="p">)</span> <span class="p">);</span>
-        <span class="k">return</span> <span class="n">length</span><span class="p">(</span> <span class="n">v</span> <span class="o">/</span> <span class="n">maxComponent</span> <span class="p">)</span> <span class="o">*</span> <span class="n">maxComponent</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="c1">#endif</span>
-<span class="n">struct</span> <span class="n">IncidentLight</span> <span class="p">{</span>
-    <span class="n">vec3</span> <span class="n">color</span><span class="p">;</span>
-    <span class="n">vec3</span> <span class="n">direction</span><span class="p">;</span>
-    <span class="nb">bool</span> <span class="n">visible</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="n">struct</span> <span class="n">ReflectedLight</span> <span class="p">{</span>
-    <span class="n">vec3</span> <span class="n">directDiffuse</span><span class="p">;</span>
-    <span class="n">vec3</span> <span class="n">directSpecular</span><span class="p">;</span>
-    <span class="n">vec3</span> <span class="n">indirectDiffuse</span><span class="p">;</span>
-    <span class="n">vec3</span> <span class="n">indirectSpecular</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="n">struct</span> <span class="n">GeometricContext</span> <span class="p">{</span>
-    <span class="n">vec3</span> <span class="n">position</span><span class="p">;</span>
-    <span class="n">vec3</span> <span class="n">normal</span><span class="p">;</span>
-    <span class="n">vec3</span> <span class="n">viewDir</span><span class="p">;</span>
-<span class="c1">#ifdef CLEARCOAT</span>
-    <span class="n">vec3</span> <span class="n">clearcoatNormal</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="p">};</span>
-<span class="n">vec3</span> <span class="n">transformDirection</span><span class="p">(</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="nb">dir</span><span class="p">,</span> <span class="ow">in</span> <span class="n">mat4</span> <span class="n">matrix</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span> <span class="p">(</span> <span class="n">matrix</span> <span class="o">*</span> <span class="n">vec4</span><span class="p">(</span> <span class="nb">dir</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">xyz</span> <span class="p">);</span>
-<span class="p">}</span>
-<span class="n">vec3</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="nb">dir</span><span class="p">,</span> <span class="ow">in</span> <span class="n">mat4</span> <span class="n">matrix</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span> <span class="p">(</span> <span class="n">vec4</span><span class="p">(</span> <span class="nb">dir</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">matrix</span> <span class="p">)</span><span class="o">.</span><span class="n">xyz</span> <span class="p">);</span>
-<span class="p">}</span>
-<span class="n">vec3</span> <span class="n">projectOnPlane</span><span class="p">(</span><span class="ow">in</span> <span class="n">vec3</span> <span class="n">point</span><span class="p">,</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">pointOnPlane</span><span class="p">,</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">planeNormal</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="nb">float</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="n">planeNormal</span><span class="p">,</span> <span class="n">point</span> <span class="o">-</span> <span class="n">pointOnPlane</span> <span class="p">);</span>
-    <span class="k">return</span> <span class="o">-</span> <span class="n">distance</span> <span class="o">*</span> <span class="n">planeNormal</span> <span class="o">+</span> <span class="n">point</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nb">float</span> <span class="n">sideOfPlane</span><span class="p">(</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">point</span><span class="p">,</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">pointOnPlane</span><span class="p">,</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">planeNormal</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">sign</span><span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">point</span> <span class="o">-</span> <span class="n">pointOnPlane</span><span class="p">,</span> <span class="n">planeNormal</span> <span class="p">)</span> <span class="p">);</span>
-<span class="p">}</span>
-<span class="n">vec3</span> <span class="n">linePlaneIntersect</span><span class="p">(</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">pointOnLine</span><span class="p">,</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">lineDirection</span><span class="p">,</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">pointOnPlane</span><span class="p">,</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">planeNormal</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">lineDirection</span> <span class="o">*</span> <span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">planeNormal</span><span class="p">,</span> <span class="n">pointOnPlane</span> <span class="o">-</span> <span class="n">pointOnLine</span> <span class="p">)</span> <span class="o">/</span> <span class="n">dot</span><span class="p">(</span> <span class="n">planeNormal</span><span class="p">,</span> <span class="n">lineDirection</span> <span class="p">)</span> <span class="p">)</span> <span class="o">+</span> <span class="n">pointOnLine</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">mat3</span> <span class="n">transposeMat3</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="n">mat3</span> <span class="n">m</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">mat3</span> <span class="n">tmp</span><span class="p">;</span>
-    <span class="n">tmp</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">=</span> <span class="n">vec3</span><span class="p">(</span> <span class="n">m</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span> <span class="mi">2</span> <span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="p">);</span>
-    <span class="n">tmp</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">=</span> <span class="n">vec3</span><span class="p">(</span> <span class="n">m</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span> <span class="mi">2</span> <span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="p">);</span>
-    <span class="n">tmp</span><span class="p">[</span> <span class="mi">2</span> <span class="p">]</span> <span class="o">=</span> <span class="n">vec3</span><span class="p">(</span> <span class="n">m</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span> <span class="mi">2</span> <span class="p">]</span><span class="o">.</span><span class="n">z</span> <span class="p">);</span>
-    <span class="k">return</span> <span class="n">tmp</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nb">float</span> <span class="n">linearToRelativeLuminance</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="n">vec3</span> <span class="n">color</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">vec3</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">vec3</span><span class="p">(</span> <span class="mf">0.2126</span><span class="p">,</span> <span class="mf">0.7152</span><span class="p">,</span> <span class="mf">0.0722</span> <span class="p">);</span>
-    <span class="k">return</span> <span class="n">dot</span><span class="p">(</span> <span class="n">weights</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">rgb</span> <span class="p">);</span>
-<span class="p">}</span>
-<span class="nb">bool</span> <span class="n">isPerspectiveMatrix</span><span class="p">(</span> <span class="n">mat4</span> <span class="n">m</span> <span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">m</span><span class="p">[</span> <span class="mi">2</span> <span class="p">][</span> <span class="mi">3</span> <span class="p">]</span> <span class="o">==</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="c1">#ifdef USE_UV</span>
-    <span class="c1">#ifdef UVS_VERTEX_ONLY</span>
-        <span class="n">vec2</span> <span class="n">vUv</span><span class="p">;</span>
-    <span class="c1">#else</span>
-        <span class="n">varying</span> <span class="n">vec2</span> <span class="n">vUv</span><span class="p">;</span>
-    <span class="c1">#endif</span>
-    <span class="n">uniform</span> <span class="n">mat3</span> <span class="n">uvTransform</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#if defined( USE_LIGHTMAP ) || defined( USE_AOMAP )</span>
-    <span class="n">attribute</span> <span class="n">vec2</span> <span class="n">uv2</span><span class="p">;</span>
-    <span class="n">varying</span> <span class="n">vec2</span> <span class="n">vUv2</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_DISPLACEMENTMAP</span>
-    <span class="n">uniform</span> <span class="n">sampler2D</span> <span class="n">displacementMap</span><span class="p">;</span>
-    <span class="n">uniform</span> <span class="nb">float</span> <span class="n">displacementScale</span><span class="p">;</span>
-    <span class="n">uniform</span> <span class="nb">float</span> <span class="n">displacementBias</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_ENVMAP</span>
-    <span class="c1">#if defined( USE_BUMPMAP ) || defined( USE_NORMALMAP ) ||defined( PHONG )</span>
-        <span class="c1">#define ENV_WORLDPOS</span>
-    <span class="c1">#endif</span>
-    <span class="c1">#ifdef ENV_WORLDPOS</span>
+#define PHONG
+varying vec3 vViewPosition;
+#ifndef FLAT_SHADED
+    varying vec3 vNormal;
+#endif
+#define PI 3.14159265359
+#define PI2 6.28318530718
+#define PI_HALF 1.5707963267949
+#define RECIPROCAL_PI 0.31830988618
+#define RECIPROCAL_PI2 0.15915494
+#define LOG2 1.442695
+#define EPSILON 1e-6
+#ifndef saturate
+#define saturate(a) clamp( a, 0.0, 1.0 )
+#endif
+#define whiteComplement(a) ( 1.0 - saturate( a ) )
+float pow2( const in float x ) { return x*x; }
+float pow3( const in float x ) { return x*x*x; }
+float pow4( const in float x ) { float x2 = x*x; return x2*x2; }
+float average( const in vec3 color ) { return dot( color, vec3( 0.3333 ) ); }
+highp float rand( const in vec2 uv ) {
+    const highp float a = 12.9898, b = 78.233, c = 43758.5453;
+    highp float dt = dot( uv.xy, vec2( a,b ) ), sn = mod( dt, PI );
+    return fract(sin(sn) * c);
+}
+#ifdef HIGH_PRECISION
+    float precisionSafeLength( vec3 v ) { return length( v ); }
+#else
+    float max3( vec3 v ) { return max( max( v.x, v.y ), v.z ); }
+    float precisionSafeLength( vec3 v ) {
+        float maxComponent = max3( abs( v ) );
+        return length( v / maxComponent ) * maxComponent;
+    }
+#endif
+struct IncidentLight {
+    vec3 color;
+    vec3 direction;
+    bool visible;
+};
+struct ReflectedLight {
+    vec3 directDiffuse;
+    vec3 directSpecular;
+    vec3 indirectDiffuse;
+    vec3 indirectSpecular;
+};
+struct GeometricContext {
+    vec3 position;
+    vec3 normal;
+    vec3 viewDir;
+#ifdef CLEARCOAT
+    vec3 clearcoatNormal;
+#endif
+};
+vec3 transformDirection( in vec3 dir, in mat4 matrix ) {
+    return normalize( ( matrix * vec4( dir, 0.0 ) ).xyz );
+}
+vec3 inverseTransformDirection( in vec3 dir, in mat4 matrix ) {
+    return normalize( ( vec4( dir, 0.0 ) * matrix ).xyz );
+}
+vec3 projectOnPlane(in vec3 point, in vec3 pointOnPlane, in vec3 planeNormal ) {
+    float distance = dot( planeNormal, point - pointOnPlane );
+    return - distance * planeNormal + point;
+}
+float sideOfPlane( in vec3 point, in vec3 pointOnPlane, in vec3 planeNormal ) {
+    return sign( dot( point - pointOnPlane, planeNormal ) );
+}
+vec3 linePlaneIntersect( in vec3 pointOnLine, in vec3 lineDirection, in vec3 pointOnPlane, in vec3 planeNormal ) {
+    return lineDirection * ( dot( planeNormal, pointOnPlane - pointOnLine ) / dot( planeNormal, lineDirection ) ) + pointOnLine;
+}
+mat3 transposeMat3( const in mat3 m ) {
+    mat3 tmp;
+    tmp[ 0 ] = vec3( m[ 0 ].x, m[ 1 ].x, m[ 2 ].x );
+    tmp[ 1 ] = vec3( m[ 0 ].y, m[ 1 ].y, m[ 2 ].y );
+    tmp[ 2 ] = vec3( m[ 0 ].z, m[ 1 ].z, m[ 2 ].z );
+    return tmp;
+}
+float linearToRelativeLuminance( const in vec3 color ) {
+    vec3 weights = vec3( 0.2126, 0.7152, 0.0722 );
+    return dot( weights, color.rgb );
+}
+bool isPerspectiveMatrix( mat4 m ) {
+  return m[ 2 ][ 3 ] == - 1.0;
+}
+#ifdef USE_UV
+    #ifdef UVS_VERTEX_ONLY
+        vec2 vUv;
+    #else
+        varying vec2 vUv;
+    #endif
+    uniform mat3 uvTransform;
+#endif
+#if defined( USE_LIGHTMAP ) || defined( USE_AOMAP )
+    attribute vec2 uv2;
+    varying vec2 vUv2;
+#endif
+#ifdef USE_DISPLACEMENTMAP
+    uniform sampler2D displacementMap;
+    uniform float displacementScale;
+    uniform float displacementBias;
+#endif
+#ifdef USE_ENVMAP
+    #if defined( USE_BUMPMAP ) || defined( USE_NORMALMAP ) ||defined( PHONG )
+        #define ENV_WORLDPOS
+    #endif
+    #ifdef ENV_WORLDPOS
 
-        <span class="n">varying</span> <span class="n">vec3</span> <span class="n">vWorldPosition</span><span class="p">;</span>
-    <span class="c1">#else</span>
-        <span class="n">varying</span> <span class="n">vec3</span> <span class="n">vReflect</span><span class="p">;</span>
-        <span class="n">uniform</span> <span class="nb">float</span> <span class="n">refractionRatio</span><span class="p">;</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_COLOR</span>
-    <span class="n">varying</span> <span class="n">vec3</span> <span class="n">vColor</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_FOG</span>
-    <span class="n">varying</span> <span class="nb">float</span> <span class="n">fogDepth</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_MORPHTARGETS</span>
-    <span class="c1">#ifndef USE_MORPHNORMALS</span>
-    <span class="n">uniform</span> <span class="nb">float</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">8</span> <span class="p">];</span>
-    <span class="c1">#else</span>
-    <span class="n">uniform</span> <span class="nb">float</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">4</span> <span class="p">];</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_SKINNING</span>
-    <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">bindMatrix</span><span class="p">;</span>
-    <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">bindMatrixInverse</span><span class="p">;</span>
-    <span class="c1">#ifdef BONE_TEXTURE</span>
-        <span class="n">uniform</span> <span class="n">highp</span> <span class="n">sampler2D</span> <span class="n">boneTexture</span><span class="p">;</span>
-        <span class="n">uniform</span> <span class="nb">int</span> <span class="n">boneTextureSize</span><span class="p">;</span>
-        <span class="n">mat4</span> <span class="n">getBoneMatrix</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="nb">float</span> <span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
-            <span class="nb">float</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">4.0</span><span class="p">;</span>
-            <span class="nb">float</span> <span class="n">x</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span> <span class="n">j</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span> <span class="n">boneTextureSize</span> <span class="p">)</span> <span class="p">);</span>
-            <span class="nb">float</span> <span class="n">y</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span> <span class="n">j</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span> <span class="n">boneTextureSize</span> <span class="p">)</span> <span class="p">);</span>
-            <span class="nb">float</span> <span class="n">dx</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span> <span class="n">boneTextureSize</span> <span class="p">);</span>
-            <span class="nb">float</span> <span class="n">dy</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span> <span class="n">boneTextureSize</span> <span class="p">);</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">dy</span> <span class="o">*</span> <span class="p">(</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="p">);</span>
-            <span class="n">vec4</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">texture2D</span><span class="p">(</span> <span class="n">boneTexture</span><span class="p">,</span> <span class="n">vec2</span><span class="p">(</span> <span class="n">dx</span> <span class="o">*</span> <span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="p">),</span> <span class="n">y</span> <span class="p">)</span> <span class="p">);</span>
-            <span class="n">vec4</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">texture2D</span><span class="p">(</span> <span class="n">boneTexture</span><span class="p">,</span> <span class="n">vec2</span><span class="p">(</span> <span class="n">dx</span> <span class="o">*</span> <span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="p">),</span> <span class="n">y</span> <span class="p">)</span> <span class="p">);</span>
-            <span class="n">vec4</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">texture2D</span><span class="p">(</span> <span class="n">boneTexture</span><span class="p">,</span> <span class="n">vec2</span><span class="p">(</span> <span class="n">dx</span> <span class="o">*</span> <span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">2.5</span> <span class="p">),</span> <span class="n">y</span> <span class="p">)</span> <span class="p">);</span>
-            <span class="n">vec4</span> <span class="n">v4</span> <span class="o">=</span> <span class="n">texture2D</span><span class="p">(</span> <span class="n">boneTexture</span><span class="p">,</span> <span class="n">vec2</span><span class="p">(</span> <span class="n">dx</span> <span class="o">*</span> <span class="p">(</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">3.5</span> <span class="p">),</span> <span class="n">y</span> <span class="p">)</span> <span class="p">);</span>
-            <span class="n">mat4</span> <span class="n">bone</span> <span class="o">=</span> <span class="n">mat4</span><span class="p">(</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">,</span> <span class="n">v4</span> <span class="p">);</span>
-            <span class="k">return</span> <span class="n">bone</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="c1">#else</span>
-        <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">boneMatrices</span><span class="p">[</span> <span class="n">MAX_BONES</span> <span class="p">];</span>
-        <span class="n">mat4</span> <span class="n">getBoneMatrix</span><span class="p">(</span> <span class="n">const</span> <span class="ow">in</span> <span class="nb">float</span> <span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
-            <span class="n">mat4</span> <span class="n">bone</span> <span class="o">=</span> <span class="n">boneMatrices</span><span class="p">[</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">];</span>
-            <span class="k">return</span> <span class="n">bone</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_SHADOWMAP</span>
-    <span class="c1">#if 1 &gt; 0</span>
-        <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">directionalShadowMatrix</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
-        <span class="n">varying</span> <span class="n">vec4</span> <span class="n">vDirectionalShadowCoord</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
-    <span class="c1">#endif</span>
-    <span class="c1">#if 0 &gt; 0</span>
-        <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">spotShadowMatrix</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-        <span class="n">varying</span> <span class="n">vec4</span> <span class="n">vSpotShadowCoord</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-    <span class="c1">#endif</span>
-    <span class="c1">#if 0 &gt; 0</span>
-        <span class="n">uniform</span> <span class="n">mat4</span> <span class="n">pointShadowMatrix</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-        <span class="n">varying</span> <span class="n">vec4</span> <span class="n">vPointShadowCoord</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_LOGDEPTHBUF</span>
-    <span class="c1">#ifdef USE_LOGDEPTHBUF_EXT</span>
-        <span class="n">varying</span> <span class="nb">float</span> <span class="n">vFragDepth</span><span class="p">;</span>
-        <span class="n">varying</span> <span class="nb">float</span> <span class="n">vIsPerspective</span><span class="p">;</span>
-    <span class="c1">#else</span>
-        <span class="n">uniform</span> <span class="nb">float</span> <span class="n">logDepthBufFC</span><span class="p">;</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#if 0 &gt; 0 &amp;&amp; ! defined( STANDARD ) &amp;&amp; ! defined( PHONG ) &amp;&amp; ! defined( MATCAP )</span>
-    <span class="n">varying</span> <span class="n">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="n">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-<span class="c1">#ifdef USE_UV</span>
-    <span class="n">vUv</span> <span class="o">=</span> <span class="p">(</span> <span class="n">uvTransform</span> <span class="o">*</span> <span class="n">vec3</span><span class="p">(</span> <span class="n">uv</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">xy</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#if defined( USE_LIGHTMAP ) || defined( USE_AOMAP )</span>
-    <span class="n">vUv2</span> <span class="o">=</span> <span class="n">uv2</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_COLOR</span>
-    <span class="n">vColor</span><span class="o">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="n">vec3</span> <span class="n">objectNormal</span> <span class="o">=</span> <span class="n">vec3</span><span class="p">(</span> <span class="n">normal</span> <span class="p">);</span>
-<span class="c1">#ifdef USE_TANGENT</span>
-    <span class="n">vec3</span> <span class="n">objectTangent</span> <span class="o">=</span> <span class="n">vec3</span><span class="p">(</span> <span class="n">tangent</span><span class="o">.</span><span class="n">xyz</span> <span class="p">);</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_MORPHNORMALS</span>
-    <span class="n">objectNormal</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphNormal0</span> <span class="o">-</span> <span class="n">normal</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-    <span class="n">objectNormal</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphNormal1</span> <span class="o">-</span> <span class="n">normal</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
-    <span class="n">objectNormal</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphNormal2</span> <span class="o">-</span> <span class="n">normal</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">2</span> <span class="p">];</span>
-    <span class="n">objectNormal</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphNormal3</span> <span class="o">-</span> <span class="n">normal</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">3</span> <span class="p">];</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_SKINNING</span>
-    <span class="n">mat4</span> <span class="n">boneMatX</span> <span class="o">=</span> <span class="n">getBoneMatrix</span><span class="p">(</span> <span class="n">skinIndex</span><span class="o">.</span><span class="n">x</span> <span class="p">);</span>
-    <span class="n">mat4</span> <span class="n">boneMatY</span> <span class="o">=</span> <span class="n">getBoneMatrix</span><span class="p">(</span> <span class="n">skinIndex</span><span class="o">.</span><span class="n">y</span> <span class="p">);</span>
-    <span class="n">mat4</span> <span class="n">boneMatZ</span> <span class="o">=</span> <span class="n">getBoneMatrix</span><span class="p">(</span> <span class="n">skinIndex</span><span class="o">.</span><span class="n">z</span> <span class="p">);</span>
-    <span class="n">mat4</span> <span class="n">boneMatW</span> <span class="o">=</span> <span class="n">getBoneMatrix</span><span class="p">(</span> <span class="n">skinIndex</span><span class="o">.</span><span class="n">w</span> <span class="p">);</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_SKINNING</span>
-    <span class="n">mat4</span> <span class="n">skinMatrix</span> <span class="o">=</span> <span class="n">mat4</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">);</span>
-    <span class="n">skinMatrix</span> <span class="o">+=</span> <span class="n">skinWeight</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">boneMatX</span><span class="p">;</span>
-    <span class="n">skinMatrix</span> <span class="o">+=</span> <span class="n">skinWeight</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">boneMatY</span><span class="p">;</span>
-    <span class="n">skinMatrix</span> <span class="o">+=</span> <span class="n">skinWeight</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">boneMatZ</span><span class="p">;</span>
-    <span class="n">skinMatrix</span> <span class="o">+=</span> <span class="n">skinWeight</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="n">boneMatW</span><span class="p">;</span>
-    <span class="n">skinMatrix</span>  <span class="o">=</span> <span class="n">bindMatrixInverse</span> <span class="o">*</span> <span class="n">skinMatrix</span> <span class="o">*</span> <span class="n">bindMatrix</span><span class="p">;</span>
-    <span class="n">objectNormal</span> <span class="o">=</span> <span class="n">vec4</span><span class="p">(</span> <span class="n">skinMatrix</span> <span class="o">*</span> <span class="n">vec4</span><span class="p">(</span> <span class="n">objectNormal</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>
-    <span class="c1">#ifdef USE_TANGENT</span>
-        <span class="n">objectTangent</span> <span class="o">=</span> <span class="n">vec4</span><span class="p">(</span> <span class="n">skinMatrix</span> <span class="o">*</span> <span class="n">vec4</span><span class="p">(</span> <span class="n">objectTangent</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="n">vec3</span> <span class="n">transformedNormal</span> <span class="o">=</span> <span class="n">objectNormal</span><span class="p">;</span>
-<span class="c1">#ifdef USE_INSTANCING</span>
-    <span class="n">transformedNormal</span> <span class="o">=</span> <span class="n">mat3</span><span class="p">(</span> <span class="n">instanceMatrix</span> <span class="p">)</span> <span class="o">*</span> <span class="n">transformedNormal</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="n">transformedNormal</span> <span class="o">=</span> <span class="n">normalMatrix</span> <span class="o">*</span> <span class="n">transformedNormal</span><span class="p">;</span>
-<span class="c1">#ifdef FLIP_SIDED</span>
-    <span class="n">transformedNormal</span> <span class="o">=</span> <span class="o">-</span> <span class="n">transformedNormal</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_TANGENT</span>
-    <span class="n">vec3</span> <span class="n">transformedTangent</span> <span class="o">=</span> <span class="n">normalMatrix</span> <span class="o">*</span> <span class="n">objectTangent</span><span class="p">;</span>
-    <span class="c1">#ifdef FLIP_SIDED</span>
-        <span class="n">transformedTangent</span> <span class="o">=</span> <span class="o">-</span> <span class="n">transformedTangent</span><span class="p">;</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifndef FLAT_SHADED</span>
-    <span class="n">vNormal</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">transformedNormal</span> <span class="p">);</span>
-<span class="c1">#endif</span>
-<span class="n">vec3</span> <span class="n">transformed</span> <span class="o">=</span> <span class="n">vec3</span><span class="p">(</span> <span class="n">position</span> <span class="p">);</span>
-<span class="c1">#ifdef USE_MORPHTARGETS</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphTarget0</span> <span class="o">-</span> <span class="n">position</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphTarget1</span> <span class="o">-</span> <span class="n">position</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphTarget2</span> <span class="o">-</span> <span class="n">position</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">2</span> <span class="p">];</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphTarget3</span> <span class="o">-</span> <span class="n">position</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">3</span> <span class="p">];</span>
-    <span class="c1">#ifndef USE_MORPHNORMALS</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphTarget4</span> <span class="o">-</span> <span class="n">position</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">4</span> <span class="p">];</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphTarget5</span> <span class="o">-</span> <span class="n">position</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">5</span> <span class="p">];</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphTarget6</span> <span class="o">-</span> <span class="n">position</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">6</span> <span class="p">];</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">morphTarget7</span> <span class="o">-</span> <span class="n">position</span> <span class="p">)</span> <span class="o">*</span> <span class="n">morphTargetInfluences</span><span class="p">[</span> <span class="mi">7</span> <span class="p">];</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_SKINNING</span>
-    <span class="n">vec4</span> <span class="n">skinVertex</span> <span class="o">=</span> <span class="n">bindMatrix</span> <span class="o">*</span> <span class="n">vec4</span><span class="p">(</span> <span class="n">transformed</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
-    <span class="n">vec4</span> <span class="n">skinned</span> <span class="o">=</span> <span class="n">vec4</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">);</span>
-    <span class="n">skinned</span> <span class="o">+=</span> <span class="n">boneMatX</span> <span class="o">*</span> <span class="n">skinVertex</span> <span class="o">*</span> <span class="n">skinWeight</span><span class="o">.</span><span class="n">x</span><span class="p">;</span>
-    <span class="n">skinned</span> <span class="o">+=</span> <span class="n">boneMatY</span> <span class="o">*</span> <span class="n">skinVertex</span> <span class="o">*</span> <span class="n">skinWeight</span><span class="o">.</span><span class="n">y</span><span class="p">;</span>
-    <span class="n">skinned</span> <span class="o">+=</span> <span class="n">boneMatZ</span> <span class="o">*</span> <span class="n">skinVertex</span> <span class="o">*</span> <span class="n">skinWeight</span><span class="o">.</span><span class="n">z</span><span class="p">;</span>
-    <span class="n">skinned</span> <span class="o">+=</span> <span class="n">boneMatW</span> <span class="o">*</span> <span class="n">skinVertex</span> <span class="o">*</span> <span class="n">skinWeight</span><span class="o">.</span><span class="n">w</span><span class="p">;</span>
-    <span class="n">transformed</span> <span class="o">=</span> <span class="p">(</span> <span class="n">bindMatrixInverse</span> <span class="o">*</span> <span class="n">skinned</span> <span class="p">)</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_DISPLACEMENTMAP</span>
-    <span class="n">transformed</span> <span class="o">+=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">objectNormal</span> <span class="p">)</span> <span class="o">*</span> <span class="p">(</span> <span class="n">texture2D</span><span class="p">(</span> <span class="n">displacementMap</span><span class="p">,</span> <span class="n">vUv</span> <span class="p">)</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">displacementScale</span> <span class="o">+</span> <span class="n">displacementBias</span> <span class="p">);</span>
-<span class="c1">#endif</span>
-<span class="n">vec4</span> <span class="n">mvPosition</span> <span class="o">=</span> <span class="n">vec4</span><span class="p">(</span> <span class="n">transformed</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
-<span class="c1">#ifdef USE_INSTANCING</span>
-    <span class="n">mvPosition</span> <span class="o">=</span> <span class="n">instanceMatrix</span> <span class="o">*</span> <span class="n">mvPosition</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="n">mvPosition</span> <span class="o">=</span> <span class="n">modelViewMatrix</span> <span class="o">*</span> <span class="n">mvPosition</span><span class="p">;</span>
-<span class="n">gl_Position</span> <span class="o">=</span> <span class="n">projectionMatrix</span> <span class="o">*</span> <span class="n">mvPosition</span><span class="p">;</span>
-<span class="c1">#ifdef USE_LOGDEPTHBUF</span>
-    <span class="c1">#ifdef USE_LOGDEPTHBUF_EXT</span>
-        <span class="n">vFragDepth</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="n">gl_Position</span><span class="o">.</span><span class="n">w</span><span class="p">;</span>
-        <span class="n">vIsPerspective</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="n">isPerspectiveMatrix</span><span class="p">(</span> <span class="n">projectionMatrix</span> <span class="p">)</span> <span class="p">);</span>
-    <span class="c1">#else</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="n">isPerspectiveMatrix</span><span class="p">(</span> <span class="n">projectionMatrix</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-            <span class="n">gl_Position</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">log2</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span> <span class="n">EPSILON</span><span class="p">,</span> <span class="n">gl_Position</span><span class="o">.</span><span class="n">w</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="p">)</span> <span class="p">)</span> <span class="o">*</span> <span class="n">logDepthBufFC</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">;</span>
-            <span class="n">gl_Position</span><span class="o">.</span><span class="n">z</span> <span class="o">*=</span> <span class="n">gl_Position</span><span class="o">.</span><span class="n">w</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#if 0 &gt; 0 &amp;&amp; ! defined( STANDARD ) &amp;&amp; ! defined( PHONG ) &amp;&amp; ! defined( MATCAP )</span>
-    <span class="n">vViewPosition</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mvPosition</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>
-<span class="c1">#endif</span>
-    <span class="n">vViewPosition</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mvPosition</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>
-<span class="c1">#if defined( USE_ENVMAP ) || defined( DISTANCE ) || defined ( USE_SHADOWMAP )</span>
-    <span class="n">vec4</span> <span class="n">worldPosition</span> <span class="o">=</span> <span class="n">vec4</span><span class="p">(</span> <span class="n">transformed</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
-    <span class="c1">#ifdef USE_INSTANCING</span>
-        <span class="n">worldPosition</span> <span class="o">=</span> <span class="n">instanceMatrix</span> <span class="o">*</span> <span class="n">worldPosition</span><span class="p">;</span>
-    <span class="c1">#endif</span>
-    <span class="n">worldPosition</span> <span class="o">=</span> <span class="n">modelMatrix</span> <span class="o">*</span> <span class="n">worldPosition</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_ENVMAP</span>
-    <span class="c1">#ifdef ENV_WORLDPOS</span>
-        <span class="n">vWorldPosition</span> <span class="o">=</span> <span class="n">worldPosition</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>
-    <span class="c1">#else</span>
-        <span class="n">vec3</span> <span class="n">cameraToVertex</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="n">isOrthographic</span> <span class="p">)</span> <span class="p">{</span>
-            <span class="n">cameraToVertex</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">vec3</span><span class="p">(</span> <span class="o">-</span> <span class="n">viewMatrix</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="mi">2</span> <span class="p">],</span> <span class="o">-</span> <span class="n">viewMatrix</span><span class="p">[</span> <span class="mi">1</span> <span class="p">][</span> <span class="mi">2</span> <span class="p">],</span> <span class="o">-</span> <span class="n">viewMatrix</span><span class="p">[</span> <span class="mi">2</span> <span class="p">][</span> <span class="mi">2</span> <span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">cameraToVertex</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">worldPosition</span><span class="o">.</span><span class="n">xyz</span> <span class="o">-</span> <span class="n">cameraPosition</span> <span class="p">);</span>
-        <span class="p">}</span>
-        <span class="n">vec3</span> <span class="n">worldNormal</span> <span class="o">=</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="n">transformedNormal</span><span class="p">,</span> <span class="n">viewMatrix</span> <span class="p">);</span>
-        <span class="c1">#ifdef ENVMAP_MODE_REFLECTION</span>
-            <span class="n">vReflect</span> <span class="o">=</span> <span class="n">reflect</span><span class="p">(</span> <span class="n">cameraToVertex</span><span class="p">,</span> <span class="n">worldNormal</span> <span class="p">);</span>
-        <span class="c1">#else</span>
-            <span class="n">vReflect</span> <span class="o">=</span> <span class="n">refract</span><span class="p">(</span> <span class="n">cameraToVertex</span><span class="p">,</span> <span class="n">worldNormal</span><span class="p">,</span> <span class="n">refractionRatio</span> <span class="p">);</span>
-        <span class="c1">#endif</span>
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_SHADOWMAP</span>
-    <span class="c1">#if 1 &gt; 0</span>
+        varying vec3 vWorldPosition;
+    #else
+        varying vec3 vReflect;
+        uniform float refractionRatio;
+    #endif
+#endif
+#ifdef USE_COLOR
+    varying vec3 vColor;
+#endif
+#ifdef USE_FOG
+    varying float fogDepth;
+#endif
+#ifdef USE_MORPHTARGETS
+    #ifndef USE_MORPHNORMALS
+    uniform float morphTargetInfluences[ 8 ];
+    #else
+    uniform float morphTargetInfluences[ 4 ];
+    #endif
+#endif
+#ifdef USE_SKINNING
+    uniform mat4 bindMatrix;
+    uniform mat4 bindMatrixInverse;
+    #ifdef BONE_TEXTURE
+        uniform highp sampler2D boneTexture;
+        uniform int boneTextureSize;
+        mat4 getBoneMatrix( const in float i ) {
+            float j = i * 4.0;
+            float x = mod( j, float( boneTextureSize ) );
+            float y = floor( j / float( boneTextureSize ) );
+            float dx = 1.0 / float( boneTextureSize );
+            float dy = 1.0 / float( boneTextureSize );
+            y = dy * ( y + 0.5 );
+            vec4 v1 = texture2D( boneTexture, vec2( dx * ( x + 0.5 ), y ) );
+            vec4 v2 = texture2D( boneTexture, vec2( dx * ( x + 1.5 ), y ) );
+            vec4 v3 = texture2D( boneTexture, vec2( dx * ( x + 2.5 ), y ) );
+            vec4 v4 = texture2D( boneTexture, vec2( dx * ( x + 3.5 ), y ) );
+            mat4 bone = mat4( v1, v2, v3, v4 );
+            return bone;
+        }
+    #else
+        uniform mat4 boneMatrices[ MAX_BONES ];
+        mat4 getBoneMatrix( const in float i ) {
+            mat4 bone = boneMatrices[ int(i) ];
+            return bone;
+        }
+    #endif
+#endif
+#ifdef USE_SHADOWMAP
+    #if 1 &gt; 0
+        uniform mat4 directionalShadowMatrix[ 1 ];
+        varying vec4 vDirectionalShadowCoord[ 1 ];
+    #endif
+    #if 0 &gt; 0
+        uniform mat4 spotShadowMatrix[ 0 ];
+        varying vec4 vSpotShadowCoord[ 0 ];
+    #endif
+    #if 0 &gt; 0
+        uniform mat4 pointShadowMatrix[ 0 ];
+        varying vec4 vPointShadowCoord[ 0 ];
+    #endif
+#endif
+#ifdef USE_LOGDEPTHBUF
+    #ifdef USE_LOGDEPTHBUF_EXT
+        varying float vFragDepth;
+        varying float vIsPerspective;
+    #else
+        uniform float logDepthBufFC;
+    #endif
+#endif
+#if 0 &gt; 0 &amp;&amp; ! defined( STANDARD ) &amp;&amp; ! defined( PHONG ) &amp;&amp; ! defined( MATCAP )
+    varying vec3 vViewPosition;
+#endif
+void main() {
+#ifdef USE_UV
+    vUv = ( uvTransform * vec3( uv, 1 ) ).xy;
+#endif
+#if defined( USE_LIGHTMAP ) || defined( USE_AOMAP )
+    vUv2 = uv2;
+#endif
+#ifdef USE_COLOR
+    vColor.xyz = color.xyz;
+#endif
+vec3 objectNormal = vec3( normal );
+#ifdef USE_TANGENT
+    vec3 objectTangent = vec3( tangent.xyz );
+#endif
+#ifdef USE_MORPHNORMALS
+    objectNormal += ( morphNormal0 - normal ) * morphTargetInfluences[ 0 ];
+    objectNormal += ( morphNormal1 - normal ) * morphTargetInfluences[ 1 ];
+    objectNormal += ( morphNormal2 - normal ) * morphTargetInfluences[ 2 ];
+    objectNormal += ( morphNormal3 - normal ) * morphTargetInfluences[ 3 ];
+#endif
+#ifdef USE_SKINNING
+    mat4 boneMatX = getBoneMatrix( skinIndex.x );
+    mat4 boneMatY = getBoneMatrix( skinIndex.y );
+    mat4 boneMatZ = getBoneMatrix( skinIndex.z );
+    mat4 boneMatW = getBoneMatrix( skinIndex.w );
+#endif
+#ifdef USE_SKINNING
+    mat4 skinMatrix = mat4( 0.0 );
+    skinMatrix += skinWeight.x * boneMatX;
+    skinMatrix += skinWeight.y * boneMatY;
+    skinMatrix += skinWeight.z * boneMatZ;
+    skinMatrix += skinWeight.w * boneMatW;
+    skinMatrix  = bindMatrixInverse * skinMatrix * bindMatrix;
+    objectNormal = vec4( skinMatrix * vec4( objectNormal, 0.0 ) ).xyz;
+    #ifdef USE_TANGENT
+        objectTangent = vec4( skinMatrix * vec4( objectTangent, 0.0 ) ).xyz;
+    #endif
+#endif
+vec3 transformedNormal = objectNormal;
+#ifdef USE_INSTANCING
+    transformedNormal = mat3( instanceMatrix ) * transformedNormal;
+#endif
+transformedNormal = normalMatrix * transformedNormal;
+#ifdef FLIP_SIDED
+    transformedNormal = - transformedNormal;
+#endif
+#ifdef USE_TANGENT
+    vec3 transformedTangent = normalMatrix * objectTangent;
+    #ifdef FLIP_SIDED
+        transformedTangent = - transformedTangent;
+    #endif
+#endif
+#ifndef FLAT_SHADED
+    vNormal = normalize( transformedNormal );
+#endif
+vec3 transformed = vec3( position );
+#ifdef USE_MORPHTARGETS
+    transformed += ( morphTarget0 - position ) * morphTargetInfluences[ 0 ];
+    transformed += ( morphTarget1 - position ) * morphTargetInfluences[ 1 ];
+    transformed += ( morphTarget2 - position ) * morphTargetInfluences[ 2 ];
+    transformed += ( morphTarget3 - position ) * morphTargetInfluences[ 3 ];
+    #ifndef USE_MORPHNORMALS
+    transformed += ( morphTarget4 - position ) * morphTargetInfluences[ 4 ];
+    transformed += ( morphTarget5 - position ) * morphTargetInfluences[ 5 ];
+    transformed += ( morphTarget6 - position ) * morphTargetInfluences[ 6 ];
+    transformed += ( morphTarget7 - position ) * morphTargetInfluences[ 7 ];
+    #endif
+#endif
+#ifdef USE_SKINNING
+    vec4 skinVertex = bindMatrix * vec4( transformed, 1.0 );
+    vec4 skinned = vec4( 0.0 );
+    skinned += boneMatX * skinVertex * skinWeight.x;
+    skinned += boneMatY * skinVertex * skinWeight.y;
+    skinned += boneMatZ * skinVertex * skinWeight.z;
+    skinned += boneMatW * skinVertex * skinWeight.w;
+    transformed = ( bindMatrixInverse * skinned ).xyz;
+#endif
+#ifdef USE_DISPLACEMENTMAP
+    transformed += normalize( objectNormal ) * ( texture2D( displacementMap, vUv ).x * displacementScale + displacementBias );
+#endif
+vec4 mvPosition = vec4( transformed, 1.0 );
+#ifdef USE_INSTANCING
+    mvPosition = instanceMatrix * mvPosition;
+#endif
+mvPosition = modelViewMatrix * mvPosition;
+gl_Position = projectionMatrix * mvPosition;
+#ifdef USE_LOGDEPTHBUF
+    #ifdef USE_LOGDEPTHBUF_EXT
+        vFragDepth = 1.0 + gl_Position.w;
+        vIsPerspective = float( isPerspectiveMatrix( projectionMatrix ) );
+    #else
+        if ( isPerspectiveMatrix( projectionMatrix ) ) {
+            gl_Position.z = log2( max( EPSILON, gl_Position.w + 1.0 ) ) * logDepthBufFC - 1.0;
+            gl_Position.z *= gl_Position.w;
+        }
+    #endif
+#endif
+#if 0 &gt; 0 &amp;&amp; ! defined( STANDARD ) &amp;&amp; ! defined( PHONG ) &amp;&amp; ! defined( MATCAP )
+    vViewPosition = - mvPosition.xyz;
+#endif
+    vViewPosition = - mvPosition.xyz;
+#if defined( USE_ENVMAP ) || defined( DISTANCE ) || defined ( USE_SHADOWMAP )
+    vec4 worldPosition = vec4( transformed, 1.0 );
+    #ifdef USE_INSTANCING
+        worldPosition = instanceMatrix * worldPosition;
+    #endif
+    worldPosition = modelMatrix * worldPosition;
+#endif
+#ifdef USE_ENVMAP
+    #ifdef ENV_WORLDPOS
+        vWorldPosition = worldPosition.xyz;
+    #else
+        vec3 cameraToVertex;
+        if ( isOrthographic ) {
+            cameraToVertex = normalize( vec3( - viewMatrix[ 0 ][ 2 ], - viewMatrix[ 1 ][ 2 ], - viewMatrix[ 2 ][ 2 ] ) );
+        } else {
+            cameraToVertex = normalize( worldPosition.xyz - cameraPosition );
+        }
+        vec3 worldNormal = inverseTransformDirection( transformedNormal, viewMatrix );
+        #ifdef ENVMAP_MODE_REFLECTION
+            vReflect = reflect( cameraToVertex, worldNormal );
+        #else
+            vReflect = refract( cameraToVertex, worldNormal, refractionRatio );
+        #endif
+    #endif
+#endif
+#ifdef USE_SHADOWMAP
+    #if 1 &gt; 0
 
-        <span class="n">vDirectionalShadowCoord</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">=</span> <span class="n">directionalShadowMatrix</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">*</span> <span class="n">worldPosition</span><span class="p">;</span>
+        vDirectionalShadowCoord[ 0 ] = directionalShadowMatrix[ 0 ] * worldPosition;
 
-    <span class="c1">#endif</span>
-    <span class="c1">#if 0 &gt; 0</span>
+    #endif
+    #if 0 &gt; 0
 
-    <span class="c1">#endif</span>
-    <span class="c1">#if 0 &gt; 0</span>
+    #endif
+    #if 0 &gt; 0
 
-    <span class="c1">#endif</span>
-<span class="c1">#endif</span>
-<span class="c1">#ifdef USE_FOG</span>
-    <span class="n">fogDepth</span> <span class="o">=</span> <span class="o">-</span><span class="n">mvPosition</span><span class="o">.</span><span class="n">z</span><span class="p">;</span>
-<span class="c1">#endif</span>
-<span class="p">}</span>
+    #endif
+#endif
+#ifdef USE_FOG
+    fogDepth = -mvPosition.z;
+#endif
+}
 </pre></div>
 </div>
 </div>
@@ -584,8 +581,7 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
