@@ -22,7 +22,8 @@ The default parameters::
     intensity: 1.1
     position: [1, 1, 1]
 
-To configure it, set parameters via `Lighting#set() <https://odys-z.github.io/javadoc/x-visual/light.html>`_.
+To configure it, set options of XWorld constructor; to change light, use
+`Lighting#changeLight() <https://odys-z.github.io/javadoc/x-visual/XMaterials.html#change-light>`_.
 
 X-visual use this singleton parameter globally. When the object using material
 of Three.js, the light effects is exactly the same with examples of Three.js.
@@ -45,6 +46,11 @@ with Visual.paras:
       }
     }
 ..
+
+test::
+
+    html/ecs-basics/light.html
+    html/shaders/texprism.html
 
 HUD
 ---
