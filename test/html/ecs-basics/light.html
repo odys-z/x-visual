@@ -49,7 +49,8 @@
             intensity: 1 },
           shadow: {
             helper: true,
-            size: 20,
+			bias: 0.0001,
+            size: 100,
             near: 200,
             far: 600 }
         } );
@@ -68,10 +69,10 @@
                 mesh: {receiveShadow: true} },
         Visual:{vtype: xv.AssetType.mesh,
                 // shader: xv.XComponent.ShaderFlag.colorArray,
-                paras: {
-                    shininess: 90,
-                    shineColor: [0, 1, 0],
-                    colors: [[0., 0., 0.5]] },
+                // paras: {
+                //     shininess: 90,
+                //     shineColor: [0, 1, 0],
+                //     colors: [[0., 0., 0.5]] },
                 asset}
       },
       { id: 'wall',
@@ -91,7 +92,8 @@
         Obj3: { geom: xv.XComponent.Obj3Type.BOX,
                 box: [60, 60, 60],
                 transform: [ { translate: [-200, 0, -120] } ],
-                mesh: {castShadow: true} },
+                mesh: { castShadow: true,
+						receiveShadow: true} },
         Visual:{vtype: xv.AssetType.mesh,
                 asset}
       },

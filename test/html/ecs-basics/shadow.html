@@ -17,10 +17,12 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
 				{ canvasize: [480, 320],
-				  light:{ skyColor: 0x7f7fff },
+				  light:{ skyColor: 0xffffff },
 				  shadow: {
 					helper: true,
-					type: THREE.PCFShadowMap,
+					// type: THREE.PCFShadowMap,
+					radius: 24,
+					bias: 0.001,
 					near: 60,
 					far: 500,
 				 	zoom: 1.}
@@ -28,15 +30,14 @@
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	const asset = 'data:application/x-visual+img,color-pixel [.5, .5, 0, 1.]';
+	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
 	xworld.addEntities([
 	  { id: 'ground',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [800, 800],
-				transform: [{ rotate: {deg: 90, axis: [1, 0, 0]} },
+				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
 							{ translate: [0, -21, 0] } ],
 				mesh: {
-					castShadow: true,
 					receiveShadow: true
 				} },
 		Visual:{vtype: xv.AssetType.mesh,
@@ -44,7 +45,7 @@
 	  },
 	  { id: 'box-x',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [60, 60, 80],
+				box: [50, 60, 80],
 				transform: [ { translate: [-50, 10, 50] } ],
 				mesh: {
 					castShadow: true,
@@ -54,17 +55,17 @@
 				shader: xv.XComponent.ShaderFlag.receiveShadow,
 				asset}
 	  },
-	  // { id: 'box-3js',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [40, 40, 180],
-		// 		transform: [ { translate: [10, 0, -30] } ],
-		// 		mesh: {
-		// 			castShadow: true,
-		// 			receiveShadow: true
-		// 		} },
-		// Visual:{vtype: xv.AssetType.mesh,
-		// 		asset}
-	  // }
+	  { id: 'box-3js',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [40, 40, 180],
+				transform: [ { translate: [20, 60, -10] } ],
+				mesh: {
+					castShadow: true,
+					// receiveShadow: true
+				} },
+		Visual:{vtype: xv.AssetType.mesh,
+				asset}
+	  }
 	]);
 
 	xworld.startUpdate();
