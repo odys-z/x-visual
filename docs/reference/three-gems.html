@@ -338,7 +338,7 @@ void main() {
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In <em>WebGLRenderer.initMaterial()</em>, the lights&#8217; state also updated into materials&#8217;
+<p id="three-gem-material-lights">In <em>WebGLRenderer.initMaterial()</em>, the lights&#8217; state also updated into materials&#8217;
 uniforms:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">needsLights</span> <span class="p">)</span> <span class="p">{</span>
     <span class="c1">// wire up the material to this renderer&#39;s lighting state</span>
@@ -359,6 +359,8 @@ uniforms:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>This section also shows that if a material receive directional lights, it must
+has all the fields. In x-visual, this is been handled by <em>thrender.createXShaderMaterial()</em>.</p>
 </div>
 </div>
 

@@ -210,6 +210,8 @@ The *setup()* function manage directional lights uniforms.
     }
 ..
 
+.. _three-gem-material-lights:
+
 In *WebGLRenderer.initMaterial()*, the lights' state also updated into materials'
 uniforms:
 
@@ -233,3 +235,6 @@ uniforms:
         uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
     }
 ..
+
+This section also shows that if a material receive directional lights, it must
+has all the fields. In x-visual, this is been handled by *thrender.createXShaderMaterial()*.
