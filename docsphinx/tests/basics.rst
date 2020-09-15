@@ -27,6 +27,8 @@ ShaderFlag::
     xv.Component.ShaderFlag.boxLayers
 	... and any future implement with f_LIGHTENED = 1
 
+.. attention:: x-visual' shader doesn't receive shadow currently. Coming soon.
+
 The test created some objects with materials provided by Three.js, and some material
 extended by x-visual for special purpose.
 
