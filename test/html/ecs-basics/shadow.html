@@ -46,7 +46,9 @@
 	  { id: 'box-x',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [50, 60, 80],
-				transform: [ { translate: [-50, 10, 50] } ],
+				transform: [
+					{ rotate: { deg: 45, axis: [1, 0, 1] } },
+					{ translate: [-50, 10, 50] } ],
 				mesh: {
 					castShadow: true,
 					receiveShadow: true
