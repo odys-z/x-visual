@@ -59,8 +59,12 @@
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0xaaaaaa );
 
-				scene.add( new THREE.DirectionalLight() );
-				scene.add( new THREE.HemisphereLight() );
+				let lt = new THREE.DirectionalLight();
+				lt.position.x = 1;
+				lt.position.y = 0;
+				scene.add( lt );
+				// scene.add( new THREE.DirectionalLight() );
+				// scene.add( new THREE.HemisphereLight() );
 
 				group = new THREE.Group();
 				scene.add( group );
@@ -147,7 +151,7 @@
 			function render() {
 
 				var timer = performance.now();
-				//group.rotation.x = timer * 0.008;
+				group.rotation.x = timer * 0.0001;
 				//group.rotation.y = timer * 0.001;
 
 				composer.render();
