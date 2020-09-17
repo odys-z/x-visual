@@ -59,7 +59,8 @@
 			var material = new THREE.MeshPhongMaterial(def);
 
 			// a helper to create mesh, or set any THREE.Mesh to Obj3.mesh
-			xv.Thrender.createObj3mesh(usermesh.Obj3, xv.XComponent.Obj3Type.PLANE, material);
+			var m = xv.Thrender.createObj3mesh(usermesh.Obj3, xv.XComponent.Obj3Type.PLANE, material);
+			usermesh.Obj3.mesh = m;
 
 			return usermesh;
 		}
