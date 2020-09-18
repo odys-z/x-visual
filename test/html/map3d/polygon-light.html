@@ -35,20 +35,21 @@
 	const o0 = [11584957, 3585100];
 	document.getElementById('ajson').href = uri;
 
-    const position = [200, 200, 200];
+    const position = [200, 100, 400];
     const asset = 'data:application/x-visual+img,gray-pixel';
 
     const xworld = new xv.XWorld(document.getElementById('canv'), window,
         { light: {
             position,
-            skyColor: 0x0000ff,
+            skyColor: 0x7777cc,
             intensity: 1 },
           shadow: {
             helper: true,
-			bias: 0.0001,
-            size: 20,
+            bias: 0.0001,
+            mapSize: {width: 8192, height: 8192}, // texture resolution
+            size: [40, 80, 40, 5], // camera size, or {left, right, top, bottom} || number
             near: 200,
-            far: 600 }
+            far: 1500 }
 		});
     const ecs = xworld.xecs;
 
@@ -59,24 +60,24 @@
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [1200, 800],
 				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
-							{ translate: [180, -60, -280] } ],
+							{ translate: [-40, -60, -280] } ],
 				mesh: {
 					receiveShadow: true
 				} },
 		Visual:{vtype: xv.AssetType.mesh,
-            	shader: xv.XComponent.ShaderFlag.receiveShadow,
+            	// shader: xv.XComponent.ShaderFlag.receiveShadow,
 				asset}
 	  },
       { id: 'texprism-1',
         Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
-                transform: [ {translate: [120, -30, -0]} ],
+                transform: [ {translate: [-120, -30, -0]} ],
 				mesh: { castShadow: true,
 						receiveShadow: true },
                 box: [] },
         Visual:{
             vtype: xv.AssetType.mesh,
-            // shader: xv.XComponent.ShaderFlag.texPrism,
-            shader: xv.XComponent.ShaderFlag.receiveShadow,
+            shader: xv.XComponent.ShaderFlag.texPrism,
+            // shader: xv.XComponent.ShaderFlag.receiveShadow,
             paras: {
                 // prism visual
                 side: THREE.FrontSide,
@@ -97,7 +98,7 @@
                 maxVerts: 1024 * 16,
                 // features: json0.features,
 				uri, origin: o0,
-                geostyle: { height: 36, scale: 1.5, }
+                geostyle: { height: 76, scale: 1.5, }
             } } ,
       },
       { id: 'light',
