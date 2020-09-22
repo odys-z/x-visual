@@ -69,7 +69,7 @@ var Reflector = function ( geometry, options ) {
 	}
 
 	var material = new ShaderMaterial( {
-		uniforms: UniformsUtils.clone( shader.uniforms ),
+		uniforms: UniformsUtils.clone( shader.uniforms || Reflector.ReflectorShader.uniforms ),
 		fragmentShader: shader.fragmentShader,
 		vertexShader: shader.vertexShader
 	} );
@@ -263,7 +263,8 @@ Reflector.ReflectorShader = {
 		'	vec4 base = texture2DProj( tDiffuse, vUv );',
 		'	gl_FragColor = vec4( blendOverlay( base.rgb, color ), 1.0 );',
 
-		'	gl_FragColor = mix( gl_FragColor, vec4(0.5), 0.5 );',
+		// '	gl_FragColor = mix( gl_FragColor, vec4(0.5), 0.5 );',
+		'	gl_FragColor.b += 0.2;',
 
 		'}'
 	].join( '\n' )

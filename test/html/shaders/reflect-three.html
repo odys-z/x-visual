@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Three.js Reflect</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <p>A start point making sure the ported Three.js shader can working</p>
+  <script>
+	"use strict";
+
+	// initiating xworld
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+				window,
+				{ canvasize: [480, 320],
+				  light:{ skyColor: 0xffffff },
+				  shadow: {
+					helper: true,
+					radius: 24,
+					bias: 0.001,
+					near: 60,
+					far: 260,
+				 	zoom: 1.}
+				} );
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
+	xworld.addEntities([
+	  { id: 'ground',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				box: [800, 800],
+				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
+							{ translate: [0, -21, 0] } ],
+				},
+		Visual:{
+			vtype: xv.AssetType.reflector3js,
+			asset}
+	  },
+	  { id: 'box-tex',
+		Obj3: { geom: xv.XComponent.Obj3Type.CONE,
+				box: [50, 90, 12],
+				transform: [ { translate: [-0, 50, 0] } ],
+				mesh: {
+					castShadow: true,
+					receiveShadow: true
+				}
+			},
+		Visual:{vtype: xv.AssetType.mesh}
+	  },
+	]);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
