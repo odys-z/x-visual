@@ -49,6 +49,49 @@ Depth buffer is been rendered by *WebGLShadowMap#render()*::
 
     three/src/renderers/webgl/WebGLShadowMap.js
 
+Each light has a *shadow* property, a WebGLRenderTarget, used to randering depth
+map.
+
+.. code-block:: javascript
+
+    function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
+        ...
+        this.render = function ( lights, scene, camera ) {
+            for ( var i = 0, il = lights.length; i < il; i ++ ) {
+
+            var light = lights[ i ];
+            var shadow = light.shadow
+
+
+            if ( shadow.map === null ) {
+                var pars = { minFilter: NearestFilter, magFilter: NearestFilter, format: RGBAFormat };
+                shadow.map = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y, pars );
+                shadow.map.texture.name = light.name + ".shadowMap";
+                shadow.camera.updateProjectionMatrix();
+            }
+
+            _renderer.setRenderTarget( shadow.map );
+            _renderer.clear();
+
+            var viewport = shadow.getViewport( vp );
+            _viewport.set(
+                _viewportSize.x * viewport.x,
+                _viewportSize.y * viewport.y,
+                _viewportSize.x * viewport.z,
+                _viewportSize.y * viewport.w
+            );
+
+            _state.viewport( _viewport );
+            shadow.updateMatrices( light, vp );
+            _frustum = shadow.getFrustum();
+
+            renderObject( scene, camera, shadow.camera, light, this.type );
+
+            ...
+        }
+    }
+..
+
 With light casting shadow, any mesh created by x-visual can cast shadow receivable
 by Three.js materials. See test page::
 
@@ -114,6 +157,8 @@ recorded here for reference.
 
 -vs
 
+:ref:`raw vertex glsl source<shadow-ground-vert-raw>`
+
 .. code-block:: glsl
 
     precision highp float;
@@ -145,33 +190,9 @@ recorded here for reference.
         return length( v / maxComponent ) * maxComponent;
     }
 
-    struct IncidentLight {
-        vec3 color;
-        vec3 direction;
-        bool visible;
-    };
-
-    struct ReflectedLight {
-        vec3 directDiffuse;
-        vec3 directSpecular;
-        vec3 indirectDiffuse;
-        vec3 indirectSpecular;
-    };
-
-    struct GeometricContext {
-        vec3 position;
-        vec3 normal;
-        vec3 viewDir;
-    };
-
-    vec3 inverseTransformDirection( in vec3 dir, in mat4 matrix ) {
-        return normalize( ( vec4( dir, 0.0 ) * matrix ).xyz );
-    }
-
     varying vec2 vUv;
     uniform mat3 uvTransform;
 
-    varying vec3 vReflect;
     uniform float refractionRatio;
 
     varying vec3 vColor;
@@ -201,9 +222,9 @@ recorded here for reference.
     }
 ..
 
-:ref:`raw fragment glsl source<shadow-ground-frag-raw>`
-
 -fs
+
+:ref:`raw fragment glsl source<shadow-ground-frag-raw>`
 
 .. code-block:: glsl
 
@@ -483,4 +504,4 @@ recorded here for reference.
 
 .. https://stackoverflow.com/questions/14345922/how-to-do-a-link-to-a-file-in-rst-with-sphinx
 
-:ref:`raw vertex glsl source<shadow-ground-vert-raw>`
+:ref:`raw fragment glsl source<shadow-ground-frag-raw>`

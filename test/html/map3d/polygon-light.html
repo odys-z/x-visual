@@ -62,11 +62,12 @@
 				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
 							{ translate: [-40, -60, -280] } ],
 				mesh: {
-					receiveShadow: true
+					receiveShadow: true // ignored by reflector3js
 				} },
-		Visual:{vtype: xv.AssetType.mesh,
-            	// shader: xv.XComponent.ShaderFlag.receiveShadow,
-				asset}
+		Visual:{
+			vtype: xv.AssetType.reflector3js,
+			// shader: xv.XComponent.ShaderFlag.receiveShadow,
+			asset}
 	  },
       { id: 'texprism-1',
         Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
