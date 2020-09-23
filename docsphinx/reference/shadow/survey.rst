@@ -78,6 +78,34 @@ Code snippet setting glsl source in constructor:
     }
 ..
 
+If a mesh receiving shadow, the *WebGlRenderer.initMaterial()* will been triggered
+at each rendering. All shadow shader used uniforms is updated here:
+
+.. code-block:: javascript
+
+    if ( materialProperties.needsLights ) {
+        // wire up the material to this renderer's lighting state
+
+        uniforms.ambientLightColor.value = lights.state.ambient;
+        uniforms.lightProbe.value = lights.state.probe;
+        uniforms.directionalLights.value = lights.state.directional;
+        uniforms.spotLights.value = lights.state.spot;
+        uniforms.rectAreaLights.value = lights.state.rectArea;
+        uniforms.pointLights.value = lights.state.point;
+        uniforms.hemisphereLights.value = lights.state.hemi;
+
+        uniforms.directionalShadowMap.value = lights.state.directionalShadowMap;
+        uniforms.directionalShadowMatrix.value = lights.state.directionalShadowMatrix;
+        uniforms.spotShadowMap.value = lights.state.spotShadowMap;
+        uniforms.spotShadowMatrix.value = lights.state.spotShadowMatrix;
+        uniforms.pointShadowMap.value = lights.state.pointShadowMap;
+        uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
+    }
+..
+
+This assumes the properties are presenting if an object is receiving shadow. The
+*ShaderLib* will handle this.
+
 Glsl Source
 ___________
 
