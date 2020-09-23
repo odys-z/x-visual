@@ -264,6 +264,35 @@ source handling shadow map.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>If a mesh receiving shadow, the <em>WebGlRenderer.initMaterial()</em> will been triggered
+at each rendering. All shadow shader used uniforms is updated here:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">needsLights</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// wire up the material to this renderer&#39;s lighting state</span>
+
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">ambientLightColor</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">ambient</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">lightProbe</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">probe</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directional</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spot</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">rectAreaLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">rectArea</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">point</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">hemisphereLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">hemi</span><span class="p">;</span>
+
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadowMatrix</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spotShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spotShadowMatrix</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">pointShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">pointShadowMatrix</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This assumes the properties are presenting if an object is receiving shadow. The
+<em>ShaderLib</em> will handle this. Thrender use it like:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="nx">obj3</span><span class="p">.</span><span class="nx">mesh</span> <span class="o">&amp;&amp;</span> <span class="nx">obj3</span><span class="p">.</span><span class="nx">mesh</span><span class="p">.</span><span class="nx">receiveShadow</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">uniforms</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">uniforms</span><span class="p">,</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">ShaderLib</span><span class="p">.</span><span class="nx">shadow</span><span class="p">.</span><span class="nx">uniforms</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="glsl-source">
 <h3>Glsl Source<a class="headerlink" href="#glsl-source" title="Permalink to this headline">¶</a></h3>

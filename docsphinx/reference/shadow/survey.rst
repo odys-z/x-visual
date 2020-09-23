@@ -147,7 +147,14 @@ at each rendering. All shadow shader used uniforms is updated here:
 ..
 
 This assumes the properties are presenting if an object is receiving shadow. The
-*ShaderLib* will handle this.
+*ShaderLib* will handle this. Thrender use it like:
+
+.. code-block:: javascript
+
+    if ( obj3.mesh && obj3.mesh.receiveShadow ) {
+        uniforms = Object.assign(uniforms, THREE.ShaderLib.shadow.uniforms);
+    }
+..
 
 Glsl Source
 ___________

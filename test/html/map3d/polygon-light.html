@@ -58,15 +58,15 @@
     xworld.addEntities([
 	  { id: 'ground',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [1200, 800],
+				box: [1600, 1200],
 				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
 							{ translate: [-40, -60, -280] } ],
 				mesh: {
 					receiveShadow: true // ignored by reflector3js
 				} },
 		Visual:{
-			vtype: xv.AssetType.reflector3js,
-			// shader: xv.XComponent.ShaderFlag.receiveShadow,
+			// vtype: xv.AssetType.reflector3js,
+			vtype: xv.AssetType.reflectex,
 			asset}
 	  },
       { id: 'texprism-1',
