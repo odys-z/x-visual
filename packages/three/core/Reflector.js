@@ -15,9 +15,9 @@ import {
 	UniformsUtils,
 	Vector3,
 	Vector4,
-	WebGLRenderTarget
+	WebGLRenderTarget,
+	ShaderLib
 } from "three";
-//  from "../../../build/three.module.js";
 
 var Reflector = function ( geometry, options ) {
 
@@ -77,6 +77,15 @@ var Reflector = function ( geometry, options ) {
 	material.uniforms[ "tDiffuse" ].value = renderTarget.texture;
 	material.uniforms[ "color" ].value = color;
 	material.uniforms[ "textureMatrix" ].value = textureMatrix;
+
+	// Design Memo:
+	// We'd better merge Reflector into material part and shader part, so the
+	// material creating can merge with Thrender.createXShaderMaterial().
+	// have this material receiving Three.lights
+	if ( options.receiveShadow )
+		// Three.js directional light and map co-orperate with a few special
+		// materials' uniforms
+		material.uniforms = Object.assign(material.uniforms, ShaderLib.shadow.uniforms);
 
 	this.material = material;
 
