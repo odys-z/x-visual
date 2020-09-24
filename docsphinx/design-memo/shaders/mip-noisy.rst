@@ -19,7 +19,7 @@ A modified version:
              n = texture(iChannel1, u * .1).rg;  // Displacement
 
         f = textureLod(iChannel0, u, 5.5 * length(n) + 1.);
-		// ody: LOD can be controlled
+        // ody: LOD can be controlled
 
         // Loop through the different inverse sizes of drops
         for (float r = 4. ; r > 0. ; r--) {
