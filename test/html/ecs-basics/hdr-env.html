@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Env Map</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <p><a href='https://www.cgtrader.com/free-3d-models/textures/natural/hdri-freebie-series'>
+    avianx, 4K Sky Series HDRi free Texture, cgtrader</a></p>
+  <img src='../assets/tex/sky-blue.jpg'/>
+  <script>
+	"use strict";
+
+	var cubetex = [ '../../assets/tex/byr0.png',
+					'../../assets/tex/byr0.png',
+					'../../assets/tex/rgb2x2.png',
+					'../../assets/tex/rgb2x2.png',
+					'../../assets/tex/byr0.png',
+					'../../assets/tex/rgb2x2.png' ];
+	var equirectex = '../../assets/tex/sky-blue.exr';
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+				window,
+				{ canvasize: [480, 320],
+				  light:{ skyColor: 0xffffff },
+				} );
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
+	xworld.addEntities([
+	  { id: 'sky',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [800, 800],
+				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
+							{ translate: [0, -21, 0] } ],
+				mesh: {
+					receiveShadow: true
+				} },
+		Visual:{vtype: xv.AssetType.skyBox,
+				paras: {
+					// Note:
+					// Only EXR of Equirectangle map & img of cube map are supported
+					// u_tex: cubetex // only cube map
+					u_tex: equirectex // only Equirectangle map
+				}
+			}
+	  },
+	  // { id: 'box-tex',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		box: [50, 90, 80],
+		// 		transform: [
+		// 			{ rotate: { deg: 45, axis: [1, 0, 1] } },
+		// 			{ translate: [-50, 10, 50] } ],
+		// 		mesh: {
+		// 			castShadow: true,
+		// 			receiveShadow: true
+		// 		} },
+		// Visual:{vtype: xv.AssetType.mesh,
+		// 		// shader: xv.XComponent.ShaderFlag.receiveShadow,
+		// 		shader: xv.XComponent.ShaderFlag.texPrism,
+		// 		paras: {
+		// 			// side: THREE.FrontSide,
+		// 			tile: {
+		// 				change: true,
+		// 				layers: 5 },
+	  //               u_tex: [
+	  //                   asset,
+	  //                   'data:application/x-visual+img,grey-pixel',
+	  //                   asset],
+		// 			},
+		// 		// asset
+		// 	}
+	  // },
+	  // { id: 'box-error',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		box: [50, 90, 40],
+		// 		transform: [
+		// 			{ translate: [-20, 10, -50] } ],
+		// 		mesh: {
+		// 			castShadow: true,
+		// 			receiveShadow: true
+		// 		} },
+		// Visual:{vtype: xv.AssetType.mesh,
+		// 		// shader: xv.XComponent.ShaderFlag.receiveShadow,
+		// 		shader: xv.XComponent.ShaderFlag.texPrism,
+		// 		paras: {
+		// 			// side: THREE.FrontSide,
+		// 			tile: {
+		// 				change: true,
+		// 				layers: 5 },
+		// 			asset
+		// 		} }
+	  // },
+	  // { id: 'box-3js',
+		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+		// 		box: [40, 40, 180],
+		// 		transform: [ { translate: [20, 60, -10] } ],
+		// 		mesh: {
+		// 			castShadow: true,
+		// 			// receiveShadow: true
+		// 		} },
+		// Visual:{vtype: xv.AssetType.mesh,
+		// 		asset}
+	  // }
+	]);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
