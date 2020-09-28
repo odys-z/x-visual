@@ -17,7 +17,7 @@ import {
 	Vector4,
 	WebGLRenderTarget,
 	ShaderLib
-} from "three";
+} from "../three.module-r120.js";
 
 var Reflector = function ( geometry, options ) {
 

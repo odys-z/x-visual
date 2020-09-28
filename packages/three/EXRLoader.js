@@ -43,7 +43,7 @@ import {
 	LinearFilter,
 	RGBAFormat,
 	RGBFormat
-} from "three";
+} from "./three.module-r120.js";
 
 // /*
 // Copyright (c) 2014 - 2017, Syoyo Fujita
@@ -1276,6 +1276,7 @@ EXRLoader.prototype = Object.assign( Object.create( DataTextureLoader.prototype 
 
 			switch ( texture.type ) {
 
+				default:
 				case FloatType:
 
 					texture.encoding = LinearEncoding;

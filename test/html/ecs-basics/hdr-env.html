@@ -34,9 +34,7 @@
 	xworld.addEntities([
 	  { id: 'sky',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [800, 800],
-				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
-							{ translate: [0, -21, 0] } ],
+				box: [8000, 8000, 8000],
 				mesh: {
 					receiveShadow: true
 				} },
@@ -49,63 +47,6 @@
 				}
 			}
 	  },
-	  // { id: 'box-tex',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [50, 90, 80],
-		// 		transform: [
-		// 			{ rotate: { deg: 45, axis: [1, 0, 1] } },
-		// 			{ translate: [-50, 10, 50] } ],
-		// 		mesh: {
-		// 			castShadow: true,
-		// 			receiveShadow: true
-		// 		} },
-		// Visual:{vtype: xv.AssetType.mesh,
-		// 		// shader: xv.XComponent.ShaderFlag.receiveShadow,
-		// 		shader: xv.XComponent.ShaderFlag.texPrism,
-		// 		paras: {
-		// 			// side: THREE.FrontSide,
-		// 			tile: {
-		// 				change: true,
-		// 				layers: 5 },
-	  //               u_tex: [
-	  //                   asset,
-	  //                   'data:application/x-visual+img,grey-pixel',
-	  //                   asset],
-		// 			},
-		// 		// asset
-		// 	}
-	  // },
-	  // { id: 'box-error',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [50, 90, 40],
-		// 		transform: [
-		// 			{ translate: [-20, 10, -50] } ],
-		// 		mesh: {
-		// 			castShadow: true,
-		// 			receiveShadow: true
-		// 		} },
-		// Visual:{vtype: xv.AssetType.mesh,
-		// 		// shader: xv.XComponent.ShaderFlag.receiveShadow,
-		// 		shader: xv.XComponent.ShaderFlag.texPrism,
-		// 		paras: {
-		// 			// side: THREE.FrontSide,
-		// 			tile: {
-		// 				change: true,
-		// 				layers: 5 },
-		// 			asset
-		// 		} }
-	  // },
-	  // { id: 'box-3js',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [40, 40, 180],
-		// 		transform: [ { translate: [20, 60, -10] } ],
-		// 		mesh: {
-		// 			castShadow: true,
-		// 			// receiveShadow: true
-		// 		} },
-		// Visual:{vtype: xv.AssetType.mesh,
-		// 		asset}
-	  // }
 	]);
 
 	xworld.startUpdate();

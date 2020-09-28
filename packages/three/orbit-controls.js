@@ -3,7 +3,9 @@
  * Copyrights and authour ect. are removed for new comments. For details, see
  * [npm package page](https://www.npmjs.com/package/three-orbitcontrols)
  */
-import * as THREE from 'three';
+// import * as THREE from 'three';
+import * as THREE from '../../packages/three/three.module-r120';
+
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
