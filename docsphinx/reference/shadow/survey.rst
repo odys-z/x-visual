@@ -121,6 +121,106 @@ Code snippet setting glsl source in constructor:
     }
 ..
 
+If a mesh receiving shadow, the *WebGlRenderer.initMaterial( )*  will been triggered
+at each rendering. All shadow shader used uniforms is updated here::
+
+    WebGLRenderer.render()
+    -> renderObjects()
+    -> renderObject(object, scene, camera, geometry, material, group)
+        ''' object: Mesh
+                material: {ShaderMaterial}
+            material: {ShaderMaterial} # same instance of object.material
+                uniforms: {object}
+                    uniforms.directionalLights: {object}
+        '''
+    -> renderBufferDirect()
+    -> setProgram()
+    -> initMaterial()
+
+r110 WebGlRendere.initMaterial(): 
+
+.. code-block:: javascript
+
+    if ( materialProperties.needsLights ) {
+        // wire up the material to this renderer's lighting state
+
+        uniforms.ambientLightColor.value = lights.state.ambient;
+        uniforms.lightProbe.value = lights.state.probe;
+        uniforms.directionalLights.value = lights.state.directional;
+        uniforms.spotLights.value = lights.state.spot;
+        uniforms.rectAreaLights.value = lights.state.rectArea;
+        uniforms.pointLights.value = lights.state.point;
+        uniforms.hemisphereLights.value = lights.state.hemi;
+
+        uniforms.directionalShadowMap.value = lights.state.directionalShadowMap;
+        uniforms.directionalShadowMatrix.value = lights.state.directionalShadowMatrix;
+        uniforms.spotShadowMap.value = lights.state.spotShadowMap;
+        uniforms.spotShadowMatrix.value = lights.state.spotShadowMatrix;
+        uniforms.pointShadowMap.value = lights.state.pointShadowMap;
+        uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
+    }
+..
+
+This assumes the properties are presenting if an object is receiving shadow. The
+*ShaderLib* will handle this. Thrender use it like:
+
+.. code-block:: javascript
+
+    if ( obj3.mesh && obj3.mesh.receiveShadow ) {
+        uniforms = Object.assign(uniforms, THREE.ShaderLib.shadow.uniforms);
+    }
+..
+
+But in r120, it changed to:
+
+.. code-block:: javascript
+
+    if ( materialProperties.needsLights ) {
+
+        // wire up the material to this renderer's lighting state
+
+        uniforms.ambientLightColor.value = lights.state.ambient;
+        uniforms.lightProbe.value = lights.state.probe;
+        uniforms.directionalLights.value = lights.state.directional;
+        uniforms.directionalLightShadows.value = lights.state.directionalShadow; // change
+        uniforms.spotLights.value = lights.state.spot;
+        uniforms.spotLightShadows.value = lights.state.spotShadow;
+        uniforms.rectAreaLights.value = lights.state.rectArea;
+        uniforms.ltc_1.value = lights.state.rectAreaLTC1;
+        uniforms.ltc_2.value = lights.state.rectAreaLTC2;
+        uniforms.pointLights.value = lights.state.point;
+        uniforms.pointLightShadows.value = lights.state.pointShadow;
+        uniforms.hemisphereLights.value = lights.state.hemi;
+
+        uniforms.directionalShadowMap.value = lights.state.directionalShadowMap;
+        uniforms.directionalShadowMatrix.value = lights.state.directionalShadowMatrix;
+        uniforms.spotShadowMap.value = lights.state.spotShadowMap;
+        uniforms.spotShadowMatrix.value = lights.state.spotShadowMatrix;
+        uniforms.pointShadowMap.value = lights.state.pointShadowMap;
+        uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
+        // TODO (abelnation): add area lights shadow info to uniforms
+    }
+..
+
+The data structure of lights.stat.directional in r120 changed toghether with 
+directionalShadowMap to::
+
+    lights.state.directional
+    0:
+        color: Color {r: 1, g: 1, b: 1, isColor: true}
+        direction: Vector3 {x: 0.6574396037977712, y: 0.6574396037977712, z: 0.36816617812675195, isVector3: true}
+    length: 1
+
+    lights.state.directionalShadow
+    0:
+        shadowBias: 0.001
+        shadowMapSize: {x: 1024, y: 1024, width: 1024, height: 1024}
+        shadowNormalBias: 0
+        shadowRadius: 24
+    length: 1
+
+This makes x-visual shader broken without source modification.
+
 Glsl Source
 ___________
 
