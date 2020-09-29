@@ -59,6 +59,8 @@ var LuminosityHighPassShader = {
 
 		"	gl_FragColor = mix( outputColor, texel, alpha );",
 
+		"	gl_FragColor = vec4(0.3, 0.5, 1.0, 1.0);",
+
 		"}"
 
 	].join( "\n" )

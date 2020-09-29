@@ -18641,6 +18641,13 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
 		].filter( filterEmptyLine ).join( '\n' );
 
+		// TODO delete
+		// TODO delete
+		// TODO delete
+		// parameters.map = true;
+		// TODO delete
+		// TODO delete
+		// TODO delete
 		prefixFragment = [
 
 			customExtensions,
