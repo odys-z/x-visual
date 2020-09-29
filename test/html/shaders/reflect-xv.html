@@ -78,8 +78,10 @@
 	  },
 	  { id: 'mirror',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [180, 120, 40],
-				transform: [{ translate: [-80, 60, -220] } ],
+				box: [280, 120, 40],
+				transform: [
+					{ rotate: { deg: 90, axis: [0, 1, 0] } },
+					{ translate: [-180, 60, -0] } ],
 				mesh: {
 					receiveShadow: true
 				} },
