@@ -32,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/>
         <link rel="up" title="Shadow Map" href="index.html"/>
         <link rel="next" title="Shadow Ground Shader" href="shadow-html-ground-frag.html"/>
@@ -93,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../geometry.html">Geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../svg.html">SVG</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Shadow Map</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">A Survey on Shadowing</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">A Survey on Shadowing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#references">References</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#the-three-js-way">The Three.js way</a></li>
 </ul>
@@ -179,7 +182,7 @@
 <h2>The Three.js way<a class="headerlink" href="#the-three-js-way" title="Permalink to this headline">¶</a></h2>
 <p><strong>Use Case: Directional Light</strong></p>
 <p>Trying Page:</p>
-<div class="highlight-python"><div class="highlight"><pre>test/try/shadow-castonly.html
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="k">try</span><span class="o">/</span><span class="n">shadow</span><span class="o">-</span><span class="n">castonly</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 <div class="section" id="how-it-works">
@@ -189,18 +192,18 @@
 <ul class="simple">
 <li>Casting Shadow (Directional)</li>
 </ul>
-<p>Shadow map&#8217;s bias, size &amp; texture been set by <em>WebGLLights#setup( lights, shadows, camera )</em>.</p>
+<p>Shadow map’s bias, size &amp; texture been set by <em>WebGLLights#setup( lights, shadows, camera )</em>.</p>
 <p>source file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">three</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">webgl</span><span class="o">/</span><span class="n">WebGLLights</span><span class="o">.</span><span class="n">js</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">three</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">webgl</span><span class="o">/</span><span class="n">WebGLLights</span><span class="o">.</span><span class="n">js</span>
 </pre></div>
 </div>
 <p>Depth buffer is been rendered by <em>WebGLShadowMap#render()</em>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">three</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">webgl</span><span class="o">/</span><span class="n">WebGLShadowMap</span><span class="o">.</span><span class="n">js</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">three</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">webgl</span><span class="o">/</span><span class="n">WebGLShadowMap</span><span class="o">.</span><span class="n">js</span>
 </pre></div>
 </div>
 <p>With light casting shadow, any mesh created by x-visual can cast shadow receivable
 by Three.js materials. See test page:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">ecs</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">shadow</span><span class="o">-</span><span class="n">castonly</span><span class="o">.</span><span class="n">html</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">ecs</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">shadow</span><span class="o">-</span><span class="n">castonly</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -209,11 +212,11 @@ by Three.js materials. See test page:</p>
 <p>For mesh receiveShadow = true, shaderProgram will create shader program with glsl
 source handling shadow map.</p>
 <p>source file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">three</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">webgl</span><span class="o">/</span><span class="n">WebGLProgram</span><span class="o">.</span><span class="n">js</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">three</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">webgl</span><span class="o">/</span><span class="n">WebGLProgram</span><span class="o">.</span><span class="n">js</span>
 </pre></div>
 </div>
 <p>Code snippet setting glsl source in constructor:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">WebGLProgram</span><span class="p">(</span> <span class="nx">renderer</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="nx">cacheKey</span><span class="p">,</span> <span class="nx">material</span><span class="p">,</span> <span class="nx">shader</span><span class="p">,</span> <span class="nx">parameters</span> <span class="p">)</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">WebGLProgram</span><span class="p">(</span> <span class="nx">renderer</span><span class="p">,</span> <span class="nx">extensions</span><span class="p">,</span> <span class="nx">cacheKey</span><span class="p">,</span> <span class="nx">material</span><span class="p">,</span> <span class="nx">shader</span><span class="p">,</span> <span class="nx">parameters</span> <span class="p">)</span> <span class="p">{</span>
     <span class="c1">// ...</span>
     <span class="kd">var</span> <span class="nx">glVertexShader</span> <span class="o">=</span> <span class="nx">WebGLShader</span><span class="p">(</span> <span class="nx">gl</span><span class="p">,</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">VERTEX_SHADER</span><span class="p">,</span> <span class="nx">vertexGlsl</span> <span class="p">);</span>
     <span class="kd">var</span> <span class="nx">glFragmentShader</span> <span class="o">=</span> <span class="nx">WebGLShader</span><span class="p">(</span> <span class="nx">gl</span><span class="p">,</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">FRAGMENT_SHADER</span><span class="p">,</span> <span class="nx">fragmentGlsl</span> <span class="p">);</span>
@@ -227,86 +230,86 @@ source handling shadow map.</p>
 </div>
 <div class="section" id="glsl-source">
 <h3>Glsl Source<a class="headerlink" href="#glsl-source" title="Permalink to this headline">¶</a></h3>
-<p>Three.js shadow map with directional light&#8217;s shader likely source instance is
+<p>Three.js shadow map with directional light’s shader likely source instance is
 recorded here for reference.</p>
 <p>-vs</p>
-<div class="highlight-glsl"><div class="highlight"><pre><span class="k">precision</span> <span class="k">highp</span> <span class="k">float</span><span class="p">;</span>
-<span class="k">precision</span> <span class="k">highp</span> <span class="k">int</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="k">precision</span> <span class="k">highp</span> <span class="kt">float</span><span class="p">;</span>
+<span class="k">precision</span> <span class="k">highp</span> <span class="kt">int</span><span class="p">;</span>
 <span class="cp">#define HIGH_PRECISION</span>
 <span class="cp">#define SHADER_NAME MeshPhongMaterial</span>
 <span class="cp">#define SHADOWMAP_TYPE_PCF_SOFT</span>
 
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">modelMatrix</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">modelViewMatrix</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">projectionMatrix</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">viewMatrix</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="n">mat3</span> <span class="n">normalMatrix</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">cameraPosition</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">bool</span> <span class="n">isOrthographic</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">modelMatrix</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">modelViewMatrix</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">projectionMatrix</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">viewMatrix</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat3</span> <span class="n">normalMatrix</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">cameraPosition</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">bool</span> <span class="n">isOrthographic</span><span class="p">;</span>
 
-<span class="k">attribute</span> <span class="k">vec3</span> <span class="n">position</span><span class="p">;</span>
-<span class="k">attribute</span> <span class="k">vec3</span> <span class="n">normal</span><span class="p">;</span>
-<span class="k">attribute</span> <span class="k">vec2</span> <span class="n">uv</span><span class="p">;</span>
+<span class="k">attribute</span> <span class="kt">vec3</span> <span class="n">position</span><span class="p">;</span>
+<span class="k">attribute</span> <span class="kt">vec3</span> <span class="n">normal</span><span class="p">;</span>
+<span class="k">attribute</span> <span class="kt">vec2</span> <span class="n">uv</span><span class="p">;</span>
 
-<span class="k">attribute</span> <span class="k">vec3</span> <span class="n">color</span><span class="p">;</span>
+<span class="k">attribute</span> <span class="kt">vec3</span> <span class="n">color</span><span class="p">;</span>
 
-<span class="k">varying</span> <span class="k">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
-<span class="k">varying</span> <span class="k">vec3</span> <span class="n">vNormal</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec3</span> <span class="n">vNormal</span><span class="p">;</span>
 
-<span class="k">float</span> <span class="n">max3</span><span class="p">(</span> <span class="k">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">max</span><span class="p">(</span> <span class="n">max</span><span class="p">(</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="p">),</span> <span class="n">v</span><span class="p">.</span><span class="n">z</span> <span class="p">);</span> <span class="p">}</span>
-<span class="k">float</span> <span class="n">precisionSafeLength</span><span class="p">(</span> <span class="k">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">float</span> <span class="n">maxComponent</span> <span class="o">=</span> <span class="n">max3</span><span class="p">(</span> <span class="n">abs</span><span class="p">(</span> <span class="n">v</span> <span class="p">)</span> <span class="p">);</span>
+<span class="kt">float</span> <span class="n">max3</span><span class="p">(</span> <span class="kt">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">max</span><span class="p">(</span> <span class="n">max</span><span class="p">(</span> <span class="n">v</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">y</span> <span class="p">),</span> <span class="n">v</span><span class="p">.</span><span class="n">z</span> <span class="p">);</span> <span class="p">}</span>
+<span class="kt">float</span> <span class="n">precisionSafeLength</span><span class="p">(</span> <span class="kt">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">maxComponent</span> <span class="o">=</span> <span class="n">max3</span><span class="p">(</span> <span class="n">abs</span><span class="p">(</span> <span class="n">v</span> <span class="p">)</span> <span class="p">);</span>
     <span class="k">return</span> <span class="n">length</span><span class="p">(</span> <span class="n">v</span> <span class="o">/</span> <span class="n">maxComponent</span> <span class="p">)</span> <span class="o">*</span> <span class="n">maxComponent</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">struct</span> <span class="n">IncidentLight</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">color</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">direction</span><span class="p">;</span>
-    <span class="k">bool</span> <span class="n">visible</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">color</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">direction</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">visible</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">struct</span> <span class="n">ReflectedLight</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">directDiffuse</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">directSpecular</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">indirectDiffuse</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">indirectSpecular</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">directDiffuse</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">directSpecular</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">indirectDiffuse</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">indirectSpecular</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">struct</span> <span class="n">GeometricContext</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">position</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">normal</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">viewDir</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">position</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">normal</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">viewDir</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">vec3</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">dir</span><span class="p">,</span> <span class="k">in</span> <span class="n">mat4</span> <span class="n">matrix</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span> <span class="p">(</span> <span class="k">vec4</span><span class="p">(</span> <span class="n">dir</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">matrix</span> <span class="p">).</span><span class="n">xyz</span> <span class="p">);</span>
+<span class="kt">vec3</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">dir</span><span class="p">,</span> <span class="k">in</span> <span class="kt">mat4</span> <span class="n">matrix</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span> <span class="p">(</span> <span class="kt">vec4</span><span class="p">(</span> <span class="n">dir</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">matrix</span> <span class="p">).</span><span class="n">xyz</span> <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">varying</span> <span class="k">vec2</span> <span class="n">vUv</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="n">mat3</span> <span class="n">uvTransform</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec2</span> <span class="n">vUv</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat3</span> <span class="n">uvTransform</span><span class="p">;</span>
 
-<span class="k">varying</span> <span class="k">vec3</span> <span class="n">vReflect</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">float</span> <span class="n">refractionRatio</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec3</span> <span class="n">vReflect</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">float</span> <span class="n">refractionRatio</span><span class="p">;</span>
 
-<span class="k">varying</span> <span class="k">vec3</span> <span class="n">vColor</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec3</span> <span class="n">vColor</span><span class="p">;</span>
 
 <span class="c1">// shadow map</span>
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">directionalShadowMatrix</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
-<span class="k">varying</span> <span class="k">vec4</span> <span class="n">vDirectionalShadowCoord</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">directionalShadowMatrix</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
+<span class="k">varying</span> <span class="kt">vec4</span> <span class="n">vDirectionalShadowCoord</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
 
-<span class="k">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">vUv</span> <span class="o">=</span> <span class="p">(</span> <span class="n">uvTransform</span> <span class="o">*</span> <span class="k">vec3</span><span class="p">(</span> <span class="n">uv</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">).</span><span class="n">xy</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">vUv</span> <span class="o">=</span> <span class="p">(</span> <span class="n">uvTransform</span> <span class="o">*</span> <span class="kt">vec3</span><span class="p">(</span> <span class="n">uv</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">).</span><span class="n">xy</span><span class="p">;</span>
     <span class="n">vColor</span><span class="p">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="n">color</span><span class="p">.</span><span class="n">xyz</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">objectNormal</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span> <span class="n">normal</span> <span class="p">);</span>
-    <span class="k">vec3</span> <span class="n">transformedNormal</span> <span class="o">=</span> <span class="n">objectNormal</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">objectNormal</span> <span class="o">=</span> <span class="kt">vec3</span><span class="p">(</span> <span class="n">normal</span> <span class="p">);</span>
+    <span class="kt">vec3</span> <span class="n">transformedNormal</span> <span class="o">=</span> <span class="n">objectNormal</span><span class="p">;</span>
     <span class="n">transformedNormal</span> <span class="o">=</span> <span class="n">normalMatrix</span> <span class="o">*</span> <span class="n">transformedNormal</span><span class="p">;</span>
     <span class="n">vNormal</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">transformedNormal</span> <span class="p">);</span>
-    <span class="k">vec3</span> <span class="n">transformed</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span> <span class="n">position</span> <span class="p">);</span>
-    <span class="k">vec4</span> <span class="n">mvPosition</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span> <span class="n">transformed</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
+    <span class="kt">vec3</span> <span class="n">transformed</span> <span class="o">=</span> <span class="kt">vec3</span><span class="p">(</span> <span class="n">position</span> <span class="p">);</span>
+    <span class="kt">vec4</span> <span class="n">mvPosition</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span> <span class="n">transformed</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
     <span class="n">mvPosition</span> <span class="o">=</span> <span class="n">modelViewMatrix</span> <span class="o">*</span> <span class="n">mvPosition</span><span class="p">;</span>
-    <span class="n">gl_Position</span> <span class="o">=</span> <span class="n">projectionMatrix</span> <span class="o">*</span> <span class="n">mvPosition</span><span class="p">;</span>
+    <span class="nb">gl_Position</span> <span class="o">=</span> <span class="n">projectionMatrix</span> <span class="o">*</span> <span class="n">mvPosition</span><span class="p">;</span>
     <span class="n">vViewPosition</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mvPosition</span><span class="p">.</span><span class="n">xyz</span><span class="p">;</span>
-    <span class="k">vec4</span> <span class="n">worldPosition</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span> <span class="n">transformed</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
+    <span class="kt">vec4</span> <span class="n">worldPosition</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span> <span class="n">transformed</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">);</span>
 
     <span class="n">worldPosition</span> <span class="o">=</span> <span class="n">modelMatrix</span> <span class="o">*</span> <span class="n">worldPosition</span><span class="p">;</span>
     <span class="n">vWorldPosition</span> <span class="o">=</span> <span class="n">worldPosition</span><span class="p">.</span><span class="n">xyz</span><span class="p">;</span>
@@ -315,30 +318,30 @@ recorded here for reference.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="shadow-html-ground-frag.html#shadow-ground-frag-raw"><span>raw fragment glsl source</span></a></p>
+<p><a class="reference internal" href="shadow-html-ground-frag.html#shadow-ground-frag-raw"><span class="std std-ref">raw fragment glsl source</span></a></p>
 <p>-fs</p>
-<div class="highlight-glsl"><div class="highlight"><pre><span class="cp">#extension GL_OES_standard_derivatives : enable</span>
-<span class="k">precision</span> <span class="k">highp</span> <span class="k">float</span><span class="p">;</span>
-<span class="k">precision</span> <span class="k">highp</span> <span class="k">int</span><span class="p">;</span>
+<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span><span class="cp">#extension GL_OES_standard_derivatives : enable</span>
+<span class="k">precision</span> <span class="k">highp</span> <span class="kt">float</span><span class="p">;</span>
+<span class="k">precision</span> <span class="k">highp</span> <span class="kt">int</span><span class="p">;</span>
 <span class="cp">#define HIGH_PRECISION</span>
 <span class="cp">#define SHADER_NAME MeshPhongMaterial</span>
 
 <span class="c1">// #define DOUBLE_SIDED</span>
 <span class="cp">#define USE_SHADOWMAP</span>
 <span class="cp">#define SHADOWMAP_TYPE_PCF</span>
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">viewMatrix</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">cameraPosition</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">bool</span> <span class="n">isOrthographic</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">mat4</span> <span class="n">viewMatrix</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">cameraPosition</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">bool</span> <span class="n">isOrthographic</span><span class="p">;</span>
 
-<span class="k">uniform</span> <span class="k">float</span> <span class="n">toneMappingExposure</span><span class="p">;</span>
-<span class="k">vec3</span> <span class="n">toneMapping</span><span class="p">(</span> <span class="k">vec3</span> <span class="n">color</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">toneMappingExposure</span> <span class="o">*</span> <span class="n">color</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">uniform</span> <span class="kt">float</span> <span class="n">toneMappingExposure</span><span class="p">;</span>
+<span class="kt">vec3</span> <span class="n">toneMapping</span><span class="p">(</span> <span class="kt">vec3</span> <span class="n">color</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">toneMappingExposure</span> <span class="o">*</span> <span class="n">color</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="cp">#define PHONG</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">diffuse</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">emissive</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">specular</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">float</span> <span class="n">shininess</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">float</span> <span class="n">opacity</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">diffuse</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">emissive</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">specular</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">float</span> <span class="n">shininess</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">float</span> <span class="n">opacity</span><span class="p">;</span>
 <span class="cp">#define PI 3.14159265359</span>
 <span class="cp">#define PI2 6.28318530718</span>
 <span class="cp">#define PI_HALF 1.5707963267949</span>
@@ -349,72 +352,72 @@ recorded here for reference.</p>
 
 <span class="cp">#define saturate(a) clamp( a, 0.0, 1.0 )</span>
 
-<span class="k">float</span> <span class="n">precisionSafeLength</span><span class="p">(</span> <span class="k">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">length</span><span class="p">(</span> <span class="n">v</span> <span class="p">);</span> <span class="p">}</span>
+<span class="kt">float</span> <span class="n">precisionSafeLength</span><span class="p">(</span> <span class="kt">vec3</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">length</span><span class="p">(</span> <span class="n">v</span> <span class="p">);</span> <span class="p">}</span>
 
 <span class="k">struct</span> <span class="n">IncidentLight</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">color</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">direction</span><span class="p">;</span>
-    <span class="k">bool</span> <span class="n">visible</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">color</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">direction</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">visible</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">struct</span> <span class="n">ReflectedLight</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">directDiffuse</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">directSpecular</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">indirectDiffuse</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">indirectSpecular</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">directDiffuse</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">directSpecular</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">indirectDiffuse</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">indirectSpecular</span><span class="p">;</span>
 <span class="p">};</span>
 <span class="k">struct</span> <span class="n">GeometricContext</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">position</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">normal</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">viewDir</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">position</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">normal</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">viewDir</span><span class="p">;</span>
 <span class="p">};</span>
-<span class="k">vec3</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">dir</span><span class="p">,</span> <span class="k">in</span> <span class="n">mat4</span> <span class="n">matrix</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span> <span class="p">(</span> <span class="k">vec4</span><span class="p">(</span> <span class="n">dir</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">matrix</span> <span class="p">).</span><span class="n">xyz</span> <span class="p">);</span>
+<span class="kt">vec3</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">dir</span><span class="p">,</span> <span class="k">in</span> <span class="kt">mat4</span> <span class="n">matrix</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span> <span class="p">(</span> <span class="kt">vec4</span><span class="p">(</span> <span class="n">dir</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">matrix</span> <span class="p">).</span><span class="n">xyz</span> <span class="p">);</span>
 <span class="p">}</span>
-<span class="k">vec3</span> <span class="n">unpackRGBToNormal</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">rgb</span> <span class="p">)</span> <span class="p">{</span>
+<span class="kt">vec3</span> <span class="n">unpackRGBToNormal</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">rgb</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">rgb</span><span class="p">.</span><span class="n">xyz</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="k">const</span> <span class="k">float</span> <span class="n">PackUpscale</span> <span class="o">=</span> <span class="mf">256.</span> <span class="o">/</span> <span class="mf">255.</span><span class="p">;</span>
-<span class="k">const</span> <span class="k">float</span> <span class="n">UnpackDownscale</span> <span class="o">=</span> <span class="mf">255.</span> <span class="o">/</span> <span class="mf">256.</span><span class="p">;</span>
-<span class="k">const</span> <span class="k">vec3</span> <span class="n">PackFactors</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span> <span class="mf">256.</span> <span class="o">*</span> <span class="mf">256.</span> <span class="o">*</span> <span class="mf">256.</span><span class="p">,</span> <span class="mf">256.</span> <span class="o">*</span> <span class="mf">256.</span><span class="p">,</span>  <span class="mf">256.</span> <span class="p">);</span>
-<span class="k">const</span> <span class="k">vec4</span> <span class="n">UnpackFactors</span> <span class="o">=</span> <span class="n">UnpackDownscale</span> <span class="o">/</span> <span class="k">vec4</span><span class="p">(</span> <span class="n">PackFactors</span><span class="p">,</span> <span class="mf">1.</span> <span class="p">);</span>
-<span class="k">const</span> <span class="k">float</span> <span class="n">ShiftRight8</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="mf">256.</span><span class="p">;</span>
-<span class="k">float</span> <span class="n">unpackRGBAToDepth</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="k">vec4</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span>
+<span class="k">const</span> <span class="kt">float</span> <span class="n">PackUpscale</span> <span class="o">=</span> <span class="mf">256.</span> <span class="o">/</span> <span class="mf">255.</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">float</span> <span class="n">UnpackDownscale</span> <span class="o">=</span> <span class="mf">255.</span> <span class="o">/</span> <span class="mf">256.</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">vec3</span> <span class="n">PackFactors</span> <span class="o">=</span> <span class="kt">vec3</span><span class="p">(</span> <span class="mf">256.</span> <span class="o">*</span> <span class="mf">256.</span> <span class="o">*</span> <span class="mf">256.</span><span class="p">,</span> <span class="mf">256.</span> <span class="o">*</span> <span class="mf">256.</span><span class="p">,</span>  <span class="mf">256.</span> <span class="p">);</span>
+<span class="k">const</span> <span class="kt">vec4</span> <span class="n">UnpackFactors</span> <span class="o">=</span> <span class="n">UnpackDownscale</span> <span class="o">/</span> <span class="kt">vec4</span><span class="p">(</span> <span class="n">PackFactors</span><span class="p">,</span> <span class="mf">1.</span> <span class="p">);</span>
+<span class="k">const</span> <span class="kt">float</span> <span class="n">ShiftRight8</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="mf">256.</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">unpackRGBAToDepth</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">vec4</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">dot</span><span class="p">(</span> <span class="n">v</span><span class="p">,</span> <span class="n">UnpackFactors</span> <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">varying</span> <span class="k">vec2</span> <span class="n">vUv</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">map</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec2</span> <span class="n">vUv</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">map</span><span class="p">;</span>
 
-<span class="k">vec3</span> <span class="n">BRDF_Diffuse_Lambert</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">diffuseColor</span> <span class="p">)</span> <span class="p">{</span>
+<span class="kt">vec3</span> <span class="n">BRDF_Diffuse_Lambert</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">diffuseColor</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">RECIPROCAL_PI</span> <span class="o">*</span> <span class="n">diffuseColor</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="k">vec3</span> <span class="n">F_Schlick</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">specularColor</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="k">float</span> <span class="n">dotLH</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">float</span> <span class="n">fresnel</span> <span class="o">=</span> <span class="n">exp2</span><span class="p">(</span> <span class="p">(</span> <span class="o">-</span><span class="mf">5.55473</span> <span class="o">*</span> <span class="n">dotLH</span> <span class="o">-</span> <span class="mf">6.98316</span> <span class="p">)</span> <span class="o">*</span> <span class="n">dotLH</span> <span class="p">);</span>
+<span class="kt">vec3</span> <span class="n">F_Schlick</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">specularColor</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">float</span> <span class="n">dotLH</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">fresnel</span> <span class="o">=</span> <span class="n">exp2</span><span class="p">(</span> <span class="p">(</span> <span class="o">-</span><span class="mf">5.55473</span> <span class="o">*</span> <span class="n">dotLH</span> <span class="o">-</span> <span class="mf">6.98316</span> <span class="p">)</span> <span class="o">*</span> <span class="n">dotLH</span> <span class="p">);</span>
     <span class="k">return</span> <span class="p">(</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">specularColor</span> <span class="p">)</span> <span class="o">*</span> <span class="n">fresnel</span> <span class="o">+</span> <span class="n">specularColor</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">float</span> <span class="n">D_BlinnPhong</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="k">float</span> <span class="n">shininess</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="k">float</span> <span class="n">dotNH</span> <span class="p">)</span> <span class="p">{</span>
+<span class="kt">float</span> <span class="n">D_BlinnPhong</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">float</span> <span class="n">shininess</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">float</span> <span class="n">dotNH</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">RECIPROCAL_PI</span> <span class="o">*</span> <span class="p">(</span> <span class="n">shininess</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">pow</span><span class="p">(</span> <span class="n">dotNH</span><span class="p">,</span> <span class="n">shininess</span> <span class="p">);</span>
 <span class="p">}</span>
-<span class="k">vec3</span> <span class="n">BRDF_Specular_BlinnPhong</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="n">IncidentLight</span> <span class="n">incidentLight</span><span class="p">,</span>
-        <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">specularColor</span><span class="p">,</span>
-        <span class="k">const</span> <span class="k">in</span> <span class="k">float</span> <span class="n">shininess</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">halfDir</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">incidentLight</span><span class="p">.</span><span class="n">direction</span> <span class="o">+</span> <span class="n">geometry</span><span class="p">.</span><span class="n">viewDir</span> <span class="p">);</span>
-    <span class="k">float</span> <span class="n">dotNH</span> <span class="o">=</span> <span class="n">saturate</span><span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">geometry</span><span class="p">.</span><span class="n">normal</span><span class="p">,</span> <span class="n">halfDir</span> <span class="p">)</span> <span class="p">);</span>
-    <span class="k">float</span> <span class="n">dotLH</span> <span class="o">=</span> <span class="n">saturate</span><span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">incidentLight</span><span class="p">.</span><span class="n">direction</span><span class="p">,</span> <span class="n">halfDir</span> <span class="p">)</span> <span class="p">);</span>
-    <span class="k">vec3</span> <span class="n">F</span> <span class="o">=</span> <span class="n">F_Schlick</span><span class="p">(</span> <span class="n">specularColor</span><span class="p">,</span> <span class="n">dotLH</span> <span class="p">);</span>
-    <span class="k">float</span> <span class="n">G</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">;</span> <span class="c1">// G_BlinnPhong_Implicit( );</span>
-    <span class="k">float</span> <span class="n">D</span> <span class="o">=</span> <span class="n">D_BlinnPhong</span><span class="p">(</span> <span class="n">shininess</span><span class="p">,</span> <span class="n">dotNH</span> <span class="p">);</span>
+<span class="kt">vec3</span> <span class="n">BRDF_Specular_BlinnPhong</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="n">IncidentLight</span> <span class="n">incidentLight</span><span class="p">,</span>
+        <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">specularColor</span><span class="p">,</span>
+        <span class="k">const</span> <span class="k">in</span> <span class="kt">float</span> <span class="n">shininess</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kt">vec3</span> <span class="n">halfDir</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">incidentLight</span><span class="p">.</span><span class="n">direction</span> <span class="o">+</span> <span class="n">geometry</span><span class="p">.</span><span class="n">viewDir</span> <span class="p">);</span>
+    <span class="kt">float</span> <span class="n">dotNH</span> <span class="o">=</span> <span class="n">saturate</span><span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">geometry</span><span class="p">.</span><span class="n">normal</span><span class="p">,</span> <span class="n">halfDir</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="kt">float</span> <span class="n">dotLH</span> <span class="o">=</span> <span class="n">saturate</span><span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">incidentLight</span><span class="p">.</span><span class="n">direction</span><span class="p">,</span> <span class="n">halfDir</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="kt">vec3</span> <span class="n">F</span> <span class="o">=</span> <span class="n">F_Schlick</span><span class="p">(</span> <span class="n">specularColor</span><span class="p">,</span> <span class="n">dotLH</span> <span class="p">);</span>
+    <span class="kt">float</span> <span class="n">G</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">;</span> <span class="c1">// G_BlinnPhong_Implicit( );</span>
+    <span class="kt">float</span> <span class="n">D</span> <span class="o">=</span> <span class="n">D_BlinnPhong</span><span class="p">(</span> <span class="n">shininess</span><span class="p">,</span> <span class="n">dotNH</span> <span class="p">);</span>
     <span class="k">return</span> <span class="n">F</span> <span class="o">*</span> <span class="p">(</span> <span class="n">G</span> <span class="o">*</span> <span class="n">D</span> <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">uniform</span> <span class="k">bool</span> <span class="n">receiveShadow</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">ambientLightColor</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">lightProbe</span><span class="p">[</span> <span class="mi">9</span> <span class="p">];</span>
-<span class="k">vec3</span> <span class="n">shGetIrradianceAt</span><span class="p">(</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">normal</span><span class="p">,</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">shCoefficients</span><span class="p">[</span> <span class="mi">9</span> <span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">float</span> <span class="n">x</span> <span class="o">=</span> <span class="n">normal</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">normal</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">normal</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">result</span> <span class="o">=</span> <span class="n">shCoefficients</span><span class="p">[</span> <span class="mo">0</span> <span class="p">]</span> <span class="o">*</span> <span class="mf">0.886227</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">bool</span> <span class="n">receiveShadow</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">ambientLightColor</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="kt">vec3</span> <span class="n">lightProbe</span><span class="p">[</span> <span class="mi">9</span> <span class="p">];</span>
+<span class="kt">vec3</span> <span class="n">shGetIrradianceAt</span><span class="p">(</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">normal</span><span class="p">,</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">shCoefficients</span><span class="p">[</span> <span class="mi">9</span> <span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">x</span> <span class="o">=</span> <span class="n">normal</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">normal</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">normal</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">result</span> <span class="o">=</span> <span class="n">shCoefficients</span><span class="p">[</span> <span class="mo">0</span> <span class="p">]</span> <span class="o">*</span> <span class="mf">0.886227</span><span class="p">;</span>
     <span class="n">result</span> <span class="o">+=</span> <span class="n">shCoefficients</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="mf">0.511664</span> <span class="o">*</span> <span class="n">y</span><span class="p">;</span>
     <span class="n">result</span> <span class="o">+=</span> <span class="n">shCoefficients</span><span class="p">[</span> <span class="mi">2</span> <span class="p">]</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="mf">0.511664</span> <span class="o">*</span> <span class="n">z</span><span class="p">;</span>
     <span class="n">result</span> <span class="o">+=</span> <span class="n">shCoefficients</span><span class="p">[</span> <span class="mi">3</span> <span class="p">]</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="mf">0.511664</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
@@ -425,13 +428,13 @@ recorded here for reference.</p>
     <span class="n">result</span> <span class="o">+=</span> <span class="n">shCoefficients</span><span class="p">[</span> <span class="mi">8</span> <span class="p">]</span> <span class="o">*</span> <span class="mf">0.429043</span> <span class="o">*</span> <span class="p">(</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="p">);</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="k">vec3</span> <span class="n">getLightProbeIrradiance</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">lightProbe</span><span class="p">[</span> <span class="mi">9</span> <span class="p">],</span> <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">worldNormal</span> <span class="o">=</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="n">geometry</span><span class="p">.</span><span class="n">normal</span><span class="p">,</span> <span class="n">viewMatrix</span> <span class="p">);</span>
-    <span class="k">vec3</span> <span class="n">irradiance</span> <span class="o">=</span> <span class="n">shGetIrradianceAt</span><span class="p">(</span> <span class="n">worldNormal</span><span class="p">,</span> <span class="n">lightProbe</span> <span class="p">);</span>
+<span class="kt">vec3</span> <span class="n">getLightProbeIrradiance</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">lightProbe</span><span class="p">[</span> <span class="mi">9</span> <span class="p">],</span> <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kt">vec3</span> <span class="n">worldNormal</span> <span class="o">=</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="n">geometry</span><span class="p">.</span><span class="n">normal</span><span class="p">,</span> <span class="n">viewMatrix</span> <span class="p">);</span>
+    <span class="kt">vec3</span> <span class="n">irradiance</span> <span class="o">=</span> <span class="n">shGetIrradianceAt</span><span class="p">(</span> <span class="n">worldNormal</span><span class="p">,</span> <span class="n">lightProbe</span> <span class="p">);</span>
     <span class="k">return</span> <span class="n">irradiance</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="k">vec3</span> <span class="n">getAmbientLightIrradiance</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">ambientLightColor</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">irradiance</span> <span class="o">=</span> <span class="n">ambientLightColor</span><span class="p">;</span>
+<span class="kt">vec3</span> <span class="n">getAmbientLightIrradiance</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">ambientLightColor</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kt">vec3</span> <span class="n">irradiance</span> <span class="o">=</span> <span class="n">ambientLightColor</span><span class="p">;</span>
 
     <span class="n">irradiance</span> <span class="o">*=</span> <span class="n">PI</span><span class="p">;</span>
 
@@ -439,36 +442,36 @@ recorded here for reference.</p>
 <span class="p">}</span>
 
 <span class="k">struct</span> <span class="n">DirectionalLight</span> <span class="p">{</span>
-    <span class="k">vec3</span> <span class="n">direction</span><span class="p">;</span>
-    <span class="k">vec3</span> <span class="n">color</span><span class="p">;</span>
-    <span class="k">int</span> <span class="n">shadow</span><span class="p">;</span>
-    <span class="k">float</span> <span class="n">shadowBias</span><span class="p">;</span>
-    <span class="k">float</span> <span class="n">shadowRadius</span><span class="p">;</span>
-    <span class="k">vec2</span> <span class="n">shadowMapSize</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">direction</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">color</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">shadow</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">shadowBias</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">shadowRadius</span><span class="p">;</span>
+    <span class="kt">vec2</span> <span class="n">shadowMapSize</span><span class="p">;</span>
 <span class="p">};</span>
 <span class="k">uniform</span> <span class="n">DirectionalLight</span> <span class="n">directionalLights</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
-<span class="k">void</span> <span class="n">getDirectionalDirectLightIrradiance</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="n">DirectionalLight</span> <span class="n">directionalLight</span><span class="p">,</span>
+<span class="kt">void</span> <span class="n">getDirectionalDirectLightIrradiance</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="n">DirectionalLight</span> <span class="n">directionalLight</span><span class="p">,</span>
             <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span><span class="p">,</span> <span class="k">out</span> <span class="n">IncidentLight</span> <span class="n">directLight</span> <span class="p">)</span> <span class="p">{</span>
     <span class="n">directLight</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">directionalLight</span><span class="p">.</span><span class="n">color</span><span class="p">;</span>
     <span class="n">directLight</span><span class="p">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">directionalLight</span><span class="p">.</span><span class="n">direction</span><span class="p">;</span>
-    <span class="n">directLight</span><span class="p">.</span><span class="n">visible</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="n">directLight</span><span class="p">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">varying</span> <span class="k">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
 
-<span class="k">varying</span> <span class="k">vec3</span> <span class="n">vNormal</span><span class="p">;</span>
+<span class="k">varying</span> <span class="kt">vec3</span> <span class="n">vNormal</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="n">BlinnPhongMaterial</span> <span class="p">{</span>
-    <span class="k">vec3</span>    <span class="n">diffuseColor</span><span class="p">;</span>
-    <span class="k">vec3</span>    <span class="n">specularColor</span><span class="p">;</span>
-    <span class="k">float</span>    <span class="n">specularShininess</span><span class="p">;</span>
-    <span class="k">float</span>    <span class="n">specularStrength</span><span class="p">;</span>
+    <span class="kt">vec3</span>    <span class="n">diffuseColor</span><span class="p">;</span>
+    <span class="kt">vec3</span>    <span class="n">specularColor</span><span class="p">;</span>
+    <span class="kt">float</span>    <span class="n">specularShininess</span><span class="p">;</span>
+    <span class="kt">float</span>    <span class="n">specularStrength</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">void</span> <span class="n">RE_Direct</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="n">IncidentLight</span> <span class="n">directLight</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span><span class="p">,</span>
+<span class="kt">void</span> <span class="n">RE_Direct</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="n">IncidentLight</span> <span class="n">directLight</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span><span class="p">,</span>
                 <span class="k">const</span> <span class="k">in</span> <span class="n">BlinnPhongMaterial</span> <span class="n">material</span><span class="p">,</span> <span class="k">inout</span> <span class="n">ReflectedLight</span> <span class="n">reflectedLight</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">float</span> <span class="n">dotNL</span> <span class="o">=</span> <span class="n">saturate</span><span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">geometry</span><span class="p">.</span><span class="n">normal</span><span class="p">,</span> <span class="n">directLight</span><span class="p">.</span><span class="n">direction</span> <span class="p">)</span> <span class="p">);</span>
-    <span class="k">vec3</span> <span class="n">irradiance</span> <span class="o">=</span> <span class="n">dotNL</span> <span class="o">*</span> <span class="n">directLight</span><span class="p">.</span><span class="n">color</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">dotNL</span> <span class="o">=</span> <span class="n">saturate</span><span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">geometry</span><span class="p">.</span><span class="n">normal</span><span class="p">,</span> <span class="n">directLight</span><span class="p">.</span><span class="n">direction</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="kt">vec3</span> <span class="n">irradiance</span> <span class="o">=</span> <span class="n">dotNL</span> <span class="o">*</span> <span class="n">directLight</span><span class="p">.</span><span class="n">color</span><span class="p">;</span>
 
     <span class="n">irradiance</span> <span class="o">*=</span> <span class="n">PI</span><span class="p">;</span>
 
@@ -477,79 +480,79 @@ recorded here for reference.</p>
             <span class="n">directLight</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">material</span><span class="p">.</span><span class="n">specularColor</span><span class="p">,</span> <span class="n">material</span><span class="p">.</span><span class="n">specularShininess</span> <span class="p">)</span>
             <span class="o">*</span> <span class="n">material</span><span class="p">.</span><span class="n">specularStrength</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="k">void</span> <span class="n">RE_IndirectDiffuse</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">irradiance</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span><span class="p">,</span>
+<span class="kt">void</span> <span class="n">RE_IndirectDiffuse</span><span class="p">(</span> <span class="k">const</span> <span class="k">in</span> <span class="kt">vec3</span> <span class="n">irradiance</span><span class="p">,</span> <span class="k">const</span> <span class="k">in</span> <span class="n">GeometricContext</span> <span class="n">geometry</span><span class="p">,</span>
                 <span class="k">const</span> <span class="k">in</span> <span class="n">BlinnPhongMaterial</span> <span class="n">material</span><span class="p">,</span> <span class="k">inout</span> <span class="n">ReflectedLight</span> <span class="n">reflectedLight</span> <span class="p">)</span> <span class="p">{</span>
     <span class="n">reflectedLight</span><span class="p">.</span><span class="n">indirectDiffuse</span> <span class="o">+=</span> <span class="n">irradiance</span> <span class="o">*</span> <span class="n">BRDF_Diffuse_Lambert</span><span class="p">(</span> <span class="n">material</span><span class="p">.</span><span class="n">diffuseColor</span> <span class="p">);</span>
 <span class="p">}</span>
 
 <span class="c1">// shadow map</span>
-<span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">directionalShadowMap</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
-<span class="k">varying</span> <span class="k">vec4</span> <span class="n">vDirectionalShadowCoord</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
+<span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">directionalShadowMap</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
+<span class="k">varying</span> <span class="kt">vec4</span> <span class="n">vDirectionalShadowCoord</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
 
-<span class="k">float</span> <span class="n">texture2DCompare</span><span class="p">(</span> <span class="k">sampler2D</span> <span class="n">depths</span><span class="p">,</span> <span class="k">vec2</span> <span class="n">uv</span><span class="p">,</span> <span class="k">float</span> <span class="n">compare</span> <span class="p">)</span> <span class="p">{</span>
+<span class="kt">float</span> <span class="n">texture2DCompare</span><span class="p">(</span> <span class="kt">sampler2D</span> <span class="n">depths</span><span class="p">,</span> <span class="kt">vec2</span> <span class="n">uv</span><span class="p">,</span> <span class="kt">float</span> <span class="n">compare</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">step</span><span class="p">(</span> <span class="n">compare</span><span class="p">,</span> <span class="n">unpackRGBAToDepth</span><span class="p">(</span> <span class="n">texture2D</span><span class="p">(</span> <span class="n">depths</span><span class="p">,</span> <span class="n">uv</span> <span class="p">)</span> <span class="p">)</span> <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">float</span> <span class="n">getShadow</span><span class="p">(</span> <span class="k">sampler2D</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="k">vec2</span> <span class="n">shadowMapSize</span><span class="p">,</span> <span class="k">float</span> <span class="n">shadowBias</span><span class="p">,</span>
-                <span class="k">float</span> <span class="n">shadowRadius</span><span class="p">,</span> <span class="k">vec4</span> <span class="n">shadowCoord</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="k">float</span> <span class="n">shadow</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">getShadow</span><span class="p">(</span> <span class="kt">sampler2D</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="kt">vec2</span> <span class="n">shadowMapSize</span><span class="p">,</span> <span class="kt">float</span> <span class="n">shadowBias</span><span class="p">,</span>
+                <span class="kt">float</span> <span class="n">shadowRadius</span><span class="p">,</span> <span class="kt">vec4</span> <span class="n">shadowCoord</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">shadow</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
     <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xyz</span> <span class="o">/=</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">w</span><span class="p">;</span>
     <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="o">+=</span> <span class="n">shadowBias</span><span class="p">;</span>
-    <span class="k">bvec4</span> <span class="n">inFrustumVec</span> <span class="o">=</span> <span class="k">bvec4</span> <span class="p">(</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="kt">bvec4</span> <span class="n">inFrustumVec</span> <span class="o">=</span> <span class="kt">bvec4</span> <span class="p">(</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span>
                                  <span class="n">shadowCoord</span><span class="p">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mf">1.0</span> <span class="p">);</span>
-    <span class="k">bool</span> <span class="n">inFrustum</span> <span class="o">=</span> <span class="n">all</span><span class="p">(</span> <span class="n">inFrustumVec</span> <span class="p">);</span>
-    <span class="k">bvec2</span> <span class="n">frustumTestVec</span> <span class="o">=</span> <span class="k">bvec2</span><span class="p">(</span> <span class="n">inFrustum</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="o">&lt;=</span> <span class="mf">1.0</span> <span class="p">);</span>
-    <span class="k">bool</span> <span class="n">frustumTest</span> <span class="o">=</span> <span class="n">all</span><span class="p">(</span> <span class="n">frustumTestVec</span> <span class="p">);</span>
+    <span class="kt">bool</span> <span class="n">inFrustum</span> <span class="o">=</span> <span class="n">all</span><span class="p">(</span> <span class="n">inFrustumVec</span> <span class="p">);</span>
+    <span class="kt">bvec2</span> <span class="n">frustumTestVec</span> <span class="o">=</span> <span class="kt">bvec2</span><span class="p">(</span> <span class="n">inFrustum</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="o">&lt;=</span> <span class="mf">1.0</span> <span class="p">);</span>
+    <span class="kt">bool</span> <span class="n">frustumTest</span> <span class="o">=</span> <span class="n">all</span><span class="p">(</span> <span class="n">frustumTestVec</span> <span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span> <span class="n">frustumTest</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="k">vec2</span> <span class="n">texelSize</span> <span class="o">=</span> <span class="k">vec2</span><span class="p">(</span> <span class="mf">1.0</span> <span class="p">)</span> <span class="o">/</span> <span class="n">shadowMapSize</span><span class="p">;</span>
-        <span class="k">float</span> <span class="n">dx0</span> <span class="o">=</span> <span class="o">-</span> <span class="n">texelSize</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">shadowRadius</span><span class="p">;</span>
-        <span class="k">float</span> <span class="n">dy0</span> <span class="o">=</span> <span class="o">-</span> <span class="n">texelSize</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">shadowRadius</span><span class="p">;</span>
-        <span class="k">float</span> <span class="n">dx1</span> <span class="o">=</span> <span class="o">+</span> <span class="n">texelSize</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">shadowRadius</span><span class="p">;</span>
-        <span class="k">float</span> <span class="n">dy1</span> <span class="o">=</span> <span class="o">+</span> <span class="n">texelSize</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">shadowRadius</span><span class="p">;</span>
-        <span class="k">float</span> <span class="n">dx2</span> <span class="o">=</span> <span class="n">dx0</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
-        <span class="k">float</span> <span class="n">dy2</span> <span class="o">=</span> <span class="n">dy0</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
-        <span class="k">float</span> <span class="n">dx3</span> <span class="o">=</span> <span class="n">dx1</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
-        <span class="k">float</span> <span class="n">dy3</span> <span class="o">=</span> <span class="n">dy1</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
+        <span class="kt">vec2</span> <span class="n">texelSize</span> <span class="o">=</span> <span class="kt">vec2</span><span class="p">(</span> <span class="mf">1.0</span> <span class="p">)</span> <span class="o">/</span> <span class="n">shadowMapSize</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">dx0</span> <span class="o">=</span> <span class="o">-</span> <span class="n">texelSize</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">shadowRadius</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">dy0</span> <span class="o">=</span> <span class="o">-</span> <span class="n">texelSize</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">shadowRadius</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">dx1</span> <span class="o">=</span> <span class="o">+</span> <span class="n">texelSize</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">shadowRadius</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">dy1</span> <span class="o">=</span> <span class="o">+</span> <span class="n">texelSize</span><span class="p">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">shadowRadius</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">dx2</span> <span class="o">=</span> <span class="n">dx0</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">dy2</span> <span class="o">=</span> <span class="n">dy0</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">dx3</span> <span class="o">=</span> <span class="n">dx1</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">dy3</span> <span class="o">=</span> <span class="n">dy1</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
         <span class="n">shadow</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx0</span><span class="p">,</span> <span class="n">dy0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dy0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx1</span><span class="p">,</span> <span class="n">dy0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx2</span><span class="p">,</span> <span class="n">dy2</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dy2</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx3</span><span class="p">,</span> <span class="n">dy2</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx2</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx0</span><span class="p">,</span> <span class="n">dy0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dy0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx1</span><span class="p">,</span> <span class="n">dy0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx2</span><span class="p">,</span> <span class="n">dy2</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dy2</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx3</span><span class="p">,</span> <span class="n">dy2</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx0</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx2</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
             <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx3</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx1</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx2</span><span class="p">,</span> <span class="n">dy3</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dy3</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx3</span><span class="p">,</span> <span class="n">dy3</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx0</span><span class="p">,</span> <span class="n">dy1</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dy1</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
-            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="k">vec2</span><span class="p">(</span> <span class="n">dx1</span><span class="p">,</span> <span class="n">dy1</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx3</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx1</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx2</span><span class="p">,</span> <span class="n">dy3</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dy3</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx3</span><span class="p">,</span> <span class="n">dy3</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx0</span><span class="p">,</span> <span class="n">dy1</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dy1</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span> <span class="o">+</span>
+            <span class="n">texture2DCompare</span><span class="p">(</span> <span class="n">shadowMap</span><span class="p">,</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">+</span> <span class="kt">vec2</span><span class="p">(</span> <span class="n">dx1</span><span class="p">,</span> <span class="n">dy1</span> <span class="p">),</span> <span class="n">shadowCoord</span><span class="p">.</span><span class="n">z</span> <span class="p">)</span>
         <span class="p">)</span> <span class="o">*</span> <span class="p">(</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">17.0</span> <span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">shadow</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">vec4</span> <span class="n">diffuseColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span> <span class="n">diffuse</span><span class="p">,</span> <span class="n">opacity</span> <span class="p">);</span>
-    <span class="n">ReflectedLight</span> <span class="n">reflectedLight</span> <span class="o">=</span> <span class="n">ReflectedLight</span><span class="p">(</span> <span class="k">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">),</span>
-                                    <span class="k">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="k">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="k">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="p">);</span>
-    <span class="k">vec3</span> <span class="n">totalEmissiveRadiance</span> <span class="o">=</span> <span class="n">emissive</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">vec4</span> <span class="n">diffuseColor</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span> <span class="n">diffuse</span><span class="p">,</span> <span class="n">opacity</span> <span class="p">);</span>
+    <span class="n">ReflectedLight</span> <span class="n">reflectedLight</span> <span class="o">=</span> <span class="n">ReflectedLight</span><span class="p">(</span> <span class="kt">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">),</span>
+                                    <span class="kt">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="kt">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">),</span> <span class="kt">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="kt">vec3</span> <span class="n">totalEmissiveRadiance</span> <span class="o">=</span> <span class="n">emissive</span><span class="p">;</span>
 
-    <span class="k">vec4</span> <span class="n">texelColor</span> <span class="o">=</span> <span class="n">texture2D</span><span class="p">(</span> <span class="n">map</span><span class="p">,</span> <span class="n">vUv</span> <span class="p">);</span>
+    <span class="kt">vec4</span> <span class="n">texelColor</span> <span class="o">=</span> <span class="n">texture2D</span><span class="p">(</span> <span class="n">map</span><span class="p">,</span> <span class="n">vUv</span> <span class="p">);</span>
     <span class="n">diffuseColor</span> <span class="o">*=</span> <span class="n">texelColor</span><span class="p">;</span>
 
-    <span class="k">float</span> <span class="n">specularStrength</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">specularStrength</span><span class="p">;</span>
 
     <span class="n">specularStrength</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
 
-    <span class="k">vec3</span> <span class="n">normal</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">vNormal</span> <span class="p">);</span>
-    <span class="n">normal</span> <span class="o">=</span> <span class="n">normal</span> <span class="o">*</span> <span class="p">(</span> <span class="k">float</span><span class="p">(</span> <span class="n">gl_FrontFacing</span> <span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span> <span class="p">);</span> <span class="c1">// DOUBLE_SIDED</span>
+    <span class="kt">vec3</span> <span class="n">normal</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">vNormal</span> <span class="p">);</span>
+    <span class="n">normal</span> <span class="o">=</span> <span class="n">normal</span> <span class="o">*</span> <span class="p">(</span> <span class="kt">float</span><span class="p">(</span> <span class="nb">gl_FrontFacing</span> <span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span> <span class="p">);</span> <span class="c1">// DOUBLE_SIDED</span>
 
-    <span class="k">vec3</span> <span class="n">geometryNormal</span> <span class="o">=</span> <span class="n">normal</span><span class="p">;</span>
+    <span class="kt">vec3</span> <span class="n">geometryNormal</span> <span class="o">=</span> <span class="n">normal</span><span class="p">;</span>
 
     <span class="n">BlinnPhongMaterial</span> <span class="n">material</span><span class="p">;</span>
     <span class="n">material</span><span class="p">.</span><span class="n">diffuseColor</span> <span class="o">=</span> <span class="n">diffuseColor</span><span class="p">.</span><span class="n">rgb</span><span class="p">;</span>
@@ -560,7 +563,7 @@ recorded here for reference.</p>
     <span class="n">GeometricContext</span> <span class="n">geometry</span><span class="p">;</span>
     <span class="n">geometry</span><span class="p">.</span><span class="n">position</span> <span class="o">=</span> <span class="o">-</span> <span class="n">vViewPosition</span><span class="p">;</span>
     <span class="n">geometry</span><span class="p">.</span><span class="n">normal</span> <span class="o">=</span> <span class="n">normal</span><span class="p">;</span>
-    <span class="n">geometry</span><span class="p">.</span><span class="n">viewDir</span> <span class="o">=</span> <span class="p">(</span> <span class="n">isOrthographic</span> <span class="p">)</span> <span class="o">?</span> <span class="k">vec3</span><span class="p">(</span> <span class="mo">0</span><span class="p">,</span> <span class="mo">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="o">:</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">vViewPosition</span> <span class="p">);</span>
+    <span class="n">geometry</span><span class="p">.</span><span class="n">viewDir</span> <span class="o">=</span> <span class="p">(</span> <span class="n">isOrthographic</span> <span class="p">)</span> <span class="o">?</span> <span class="kt">vec3</span><span class="p">(</span> <span class="mo">0</span><span class="p">,</span> <span class="mo">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="o">:</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">vViewPosition</span> <span class="p">);</span>
 
     <span class="n">IncidentLight</span> <span class="n">directLight</span><span class="p">;</span>
 
@@ -569,29 +572,29 @@ recorded here for reference.</p>
     <span class="n">directionalLight</span> <span class="o">=</span> <span class="n">directionalLights</span><span class="p">[</span> <span class="mo">0</span> <span class="p">];</span>
     <span class="n">getDirectionalDirectLightIrradiance</span><span class="p">(</span> <span class="n">directionalLight</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">directLight</span> <span class="p">);</span>
 
-    <span class="n">directLight</span><span class="p">.</span><span class="n">color</span> <span class="o">*=</span> <span class="n">all</span><span class="p">(</span> <span class="k">bvec3</span><span class="p">(</span> <span class="n">directionalLight</span><span class="p">.</span><span class="n">shadow</span><span class="p">,</span> <span class="n">directLight</span><span class="p">.</span><span class="n">visible</span><span class="p">,</span> <span class="n">receiveShadow</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="n">directLight</span><span class="p">.</span><span class="n">color</span> <span class="o">*=</span> <span class="n">all</span><span class="p">(</span> <span class="kt">bvec3</span><span class="p">(</span> <span class="n">directionalLight</span><span class="p">.</span><span class="n">shadow</span><span class="p">,</span> <span class="n">directLight</span><span class="p">.</span><span class="n">visible</span><span class="p">,</span> <span class="n">receiveShadow</span> <span class="p">)</span> <span class="p">)</span>
             <span class="o">?</span> <span class="n">getShadow</span><span class="p">(</span> <span class="n">directionalShadowMap</span><span class="p">[</span> <span class="mo">0</span> <span class="p">],</span> <span class="n">directionalLight</span><span class="p">.</span><span class="n">shadowMapSize</span><span class="p">,</span>
               <span class="n">directionalLight</span><span class="p">.</span><span class="n">shadowBias</span><span class="p">,</span> <span class="n">directionalLight</span><span class="p">.</span><span class="n">shadowRadius</span><span class="p">,</span> <span class="n">vDirectionalShadowCoord</span><span class="p">[</span> <span class="mo">0</span> <span class="p">]</span> <span class="p">)</span>
             <span class="o">:</span> <span class="mf">1.0</span><span class="p">;</span>
 
     <span class="n">RE_Direct</span><span class="p">(</span> <span class="n">directLight</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">material</span><span class="p">,</span> <span class="n">reflectedLight</span> <span class="p">);</span> <span class="c1">// out: reflectedLight</span>
 
-    <span class="k">vec3</span> <span class="n">iblIrradiance</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">);</span>
-    <span class="k">vec3</span> <span class="n">irradiance</span> <span class="o">=</span> <span class="n">getAmbientLightIrradiance</span><span class="p">(</span> <span class="n">ambientLightColor</span> <span class="p">);</span>
+    <span class="kt">vec3</span> <span class="n">iblIrradiance</span> <span class="o">=</span> <span class="kt">vec3</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">);</span>
+    <span class="kt">vec3</span> <span class="n">irradiance</span> <span class="o">=</span> <span class="n">getAmbientLightIrradiance</span><span class="p">(</span> <span class="n">ambientLightColor</span> <span class="p">);</span>
     <span class="n">irradiance</span> <span class="o">+=</span> <span class="n">getLightProbeIrradiance</span><span class="p">(</span> <span class="n">lightProbe</span><span class="p">,</span> <span class="n">geometry</span> <span class="p">);</span>
 
     <span class="n">RE_IndirectDiffuse</span><span class="p">(</span> <span class="n">irradiance</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span> <span class="n">material</span><span class="p">,</span> <span class="n">reflectedLight</span> <span class="p">);</span>
 
-    <span class="k">vec3</span> <span class="n">outgoingLight</span> <span class="o">=</span> <span class="n">reflectedLight</span><span class="p">.</span><span class="n">directDiffuse</span> <span class="o">+</span> <span class="n">reflectedLight</span><span class="p">.</span><span class="n">indirectDiffuse</span>
+    <span class="kt">vec3</span> <span class="n">outgoingLight</span> <span class="o">=</span> <span class="n">reflectedLight</span><span class="p">.</span><span class="n">directDiffuse</span> <span class="o">+</span> <span class="n">reflectedLight</span><span class="p">.</span><span class="n">indirectDiffuse</span>
             <span class="o">+</span> <span class="n">reflectedLight</span><span class="p">.</span><span class="n">directSpecular</span> <span class="o">+</span> <span class="n">reflectedLight</span><span class="p">.</span><span class="n">indirectSpecular</span> <span class="o">+</span> <span class="n">totalEmissiveRadiance</span><span class="p">;</span>
 
-    <span class="n">gl_FragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span> <span class="n">outgoingLight</span><span class="p">,</span> <span class="n">diffuseColor</span><span class="p">.</span><span class="n">a</span> <span class="p">);</span>
+    <span class="nb">gl_FragColor</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span> <span class="n">outgoingLight</span><span class="p">,</span> <span class="n">diffuseColor</span><span class="p">.</span><span class="n">a</span> <span class="p">);</span>
 
-    <span class="n">gl_FragColor</span><span class="p">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">toneMapping</span><span class="p">(</span> <span class="n">gl_FragColor</span><span class="p">.</span><span class="n">rgb</span> <span class="p">);</span>
+    <span class="nb">gl_FragColor</span><span class="p">.</span><span class="n">rgb</span> <span class="o">=</span> <span class="n">toneMapping</span><span class="p">(</span> <span class="nb">gl_FragColor</span><span class="p">.</span><span class="n">rgb</span> <span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="shadow-html-ground-vert.html#shadow-ground-vert-raw"><span>raw vertex glsl source</span></a></p>
+<p><a class="reference internal" href="shadow-html-ground-vert.html#shadow-ground-vert-raw"><span class="std std-ref">raw vertex glsl source</span></a></p>
 </div>
 </div>
 </div>
@@ -646,7 +649,8 @@ recorded here for reference.</p>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
