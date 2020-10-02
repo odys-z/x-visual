@@ -49,6 +49,49 @@ Depth buffer is been rendered by *WebGLShadowMap#render()*::
 
     three/src/renderers/webgl/WebGLShadowMap.js
 
+Each light has a *shadow* property, a WebGLRenderTarget, used to randering depth
+map.
+
+.. code-block:: javascript
+
+    function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
+        ...
+        this.render = function ( lights, scene, camera ) {
+            for ( var i = 0, il = lights.length; i < il; i ++ ) {
+
+            var light = lights[ i ];
+            var shadow = light.shadow
+
+
+            if ( shadow.map === null ) {
+                var pars = { minFilter: NearestFilter, magFilter: NearestFilter, format: RGBAFormat };
+                shadow.map = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y, pars );
+                shadow.map.texture.name = light.name + ".shadowMap";
+                shadow.camera.updateProjectionMatrix();
+            }
+
+            _renderer.setRenderTarget( shadow.map );
+            _renderer.clear();
+
+            var viewport = shadow.getViewport( vp );
+            _viewport.set(
+                _viewportSize.x * viewport.x,
+                _viewportSize.y * viewport.y,
+                _viewportSize.x * viewport.z,
+                _viewportSize.y * viewport.w
+            );
+
+            _state.viewport( _viewport );
+            shadow.updateMatrices( light, vp );
+            _frustum = shadow.getFrustum();
+
+            renderObject( scene, camera, shadow.camera, light, this.type );
+
+            ...
+        }
+    }
+..
+
 With light casting shadow, any mesh created by x-visual can cast shadow receivable
 by Three.js materials. See test page::
 
@@ -78,6 +121,106 @@ Code snippet setting glsl source in constructor:
     }
 ..
 
+If a mesh receiving shadow, the *WebGlRenderer.initMaterial( )*  will been triggered
+at each rendering. All shadow shader used uniforms is updated here::
+
+    WebGLRenderer.render()
+    -> renderObjects()
+    -> renderObject(object, scene, camera, geometry, material, group)
+        ''' object: Mesh
+                material: {ShaderMaterial}
+            material: {ShaderMaterial} # same instance of object.material
+                uniforms: {object}
+                    uniforms.directionalLights: {object}
+        '''
+    -> renderBufferDirect()
+    -> setProgram()
+    -> initMaterial()
+
+r110 WebGlRendere.initMaterial(): 
+
+.. code-block:: javascript
+
+    if ( materialProperties.needsLights ) {
+        // wire up the material to this renderer's lighting state
+
+        uniforms.ambientLightColor.value = lights.state.ambient;
+        uniforms.lightProbe.value = lights.state.probe;
+        uniforms.directionalLights.value = lights.state.directional;
+        uniforms.spotLights.value = lights.state.spot;
+        uniforms.rectAreaLights.value = lights.state.rectArea;
+        uniforms.pointLights.value = lights.state.point;
+        uniforms.hemisphereLights.value = lights.state.hemi;
+
+        uniforms.directionalShadowMap.value = lights.state.directionalShadowMap;
+        uniforms.directionalShadowMatrix.value = lights.state.directionalShadowMatrix;
+        uniforms.spotShadowMap.value = lights.state.spotShadowMap;
+        uniforms.spotShadowMatrix.value = lights.state.spotShadowMatrix;
+        uniforms.pointShadowMap.value = lights.state.pointShadowMap;
+        uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
+    }
+..
+
+This assumes the properties are presenting if an object is receiving shadow. The
+*ShaderLib* will handle this. Thrender use it like:
+
+.. code-block:: javascript
+
+    if ( obj3.mesh && obj3.mesh.receiveShadow ) {
+        uniforms = Object.assign(uniforms, THREE.ShaderLib.shadow.uniforms);
+    }
+..
+
+But in r120, it changed to:
+
+.. code-block:: javascript
+
+    if ( materialProperties.needsLights ) {
+
+        // wire up the material to this renderer's lighting state
+
+        uniforms.ambientLightColor.value = lights.state.ambient;
+        uniforms.lightProbe.value = lights.state.probe;
+        uniforms.directionalLights.value = lights.state.directional;
+        uniforms.directionalLightShadows.value = lights.state.directionalShadow; // change
+        uniforms.spotLights.value = lights.state.spot;
+        uniforms.spotLightShadows.value = lights.state.spotShadow;
+        uniforms.rectAreaLights.value = lights.state.rectArea;
+        uniforms.ltc_1.value = lights.state.rectAreaLTC1;
+        uniforms.ltc_2.value = lights.state.rectAreaLTC2;
+        uniforms.pointLights.value = lights.state.point;
+        uniforms.pointLightShadows.value = lights.state.pointShadow;
+        uniforms.hemisphereLights.value = lights.state.hemi;
+
+        uniforms.directionalShadowMap.value = lights.state.directionalShadowMap;
+        uniforms.directionalShadowMatrix.value = lights.state.directionalShadowMatrix;
+        uniforms.spotShadowMap.value = lights.state.spotShadowMap;
+        uniforms.spotShadowMatrix.value = lights.state.spotShadowMatrix;
+        uniforms.pointShadowMap.value = lights.state.pointShadowMap;
+        uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
+        // TODO (abelnation): add area lights shadow info to uniforms
+    }
+..
+
+The data structure of lights.stat.directional in r120 changed toghether with 
+directionalShadowMap to::
+
+    lights.state.directional
+    0:
+        color: Color {r: 1, g: 1, b: 1, isColor: true}
+        direction: Vector3 {x: 0.6574396037977712, y: 0.6574396037977712, z: 0.36816617812675195, isVector3: true}
+    length: 1
+
+    lights.state.directionalShadow
+    0:
+        shadowBias: 0.001
+        shadowMapSize: {x: 1024, y: 1024, width: 1024, height: 1024}
+        shadowNormalBias: 0
+        shadowRadius: 24
+    length: 1
+
+This makes x-visual shader broken without source modification.
+
 Glsl Source
 ___________
 
@@ -85,6 +228,8 @@ Three.js shadow map with directional light's shader likely source instance is
 recorded here for reference.
 
 -vs
+
+:ref:`raw vertex glsl source<shadow-ground-vert-raw>`
 
 .. code-block:: glsl
 
@@ -117,33 +262,9 @@ recorded here for reference.
         return length( v / maxComponent ) * maxComponent;
     }
 
-    struct IncidentLight {
-        vec3 color;
-        vec3 direction;
-        bool visible;
-    };
-
-    struct ReflectedLight {
-        vec3 directDiffuse;
-        vec3 directSpecular;
-        vec3 indirectDiffuse;
-        vec3 indirectSpecular;
-    };
-
-    struct GeometricContext {
-        vec3 position;
-        vec3 normal;
-        vec3 viewDir;
-    };
-
-    vec3 inverseTransformDirection( in vec3 dir, in mat4 matrix ) {
-        return normalize( ( vec4( dir, 0.0 ) * matrix ).xyz );
-    }
-
     varying vec2 vUv;
     uniform mat3 uvTransform;
 
-    varying vec3 vReflect;
     uniform float refractionRatio;
 
     varying vec3 vColor;
@@ -173,9 +294,9 @@ recorded here for reference.
     }
 ..
 
-:ref:`raw fragment glsl source<shadow-ground-frag-raw>`
-
 -fs
+
+:ref:`raw fragment glsl source<shadow-ground-frag-raw>`
 
 .. code-block:: glsl
 
@@ -455,4 +576,4 @@ recorded here for reference.
 
 .. https://stackoverflow.com/questions/14345922/how-to-do-a-link-to-a-file-in-rst-with-sphinx
 
-:ref:`raw vertex glsl source<shadow-ground-vert-raw>`
+:ref:`raw fragment glsl source<shadow-ground-frag-raw>`

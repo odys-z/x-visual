@@ -97,9 +97,9 @@ In UniformsLib.js
     };
 ..
 
-ShaderChunk is actually a boilerplate, e.g. phong vertex shader:
+ShaderChunk is actually a boilerplate, e.g. Phong vertex shader:
 
-.. code-block:: glsl
+.. code-block:: c++
 
     #define PHONG
     varying vec3 vViewPosition;

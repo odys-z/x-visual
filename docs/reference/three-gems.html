@@ -236,58 +236,58 @@ true</em> branch will load the shader of <em>ShaderLib[ parameters.shaderID ]</e
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>ShaderChunk is actually a boilerplate, e.g. phong vertex shader:</p>
-<div class="highlight-glsl notranslate"><div class="highlight"><pre><span></span>#define PHONG
-varying vec3 vViewPosition;
+<p>ShaderChunk is actually a boilerplate, e.g. Phong vertex shader:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#define PHONG</span>
+<span class="n">varying</span> <span class="n">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
 
-#ifndef FLAT_SHADED
-    varying vec3 vNormal;
-#endif
+<span class="cp">#ifndef FLAT_SHADED</span>
+    <span class="n">varying</span> <span class="n">vec3</span> <span class="n">vNormal</span><span class="p">;</span>
+<span class="cp">#endif</span>
 
-#include &lt;common&gt;
-#include &lt;uv_pars_vertex&gt;
-#include &lt;uv2_pars_vertex&gt;
-#include &lt;displacementmap_pars_vertex&gt;
-#include &lt;envmap_pars_vertex&gt;
-#include &lt;color_pars_vertex&gt;
-#include &lt;fog_pars_vertex&gt;
-#include &lt;morphtarget_pars_vertex&gt;
-#include &lt;skinning_pars_vertex&gt;
-#include &lt;shadowmap_pars_vertex&gt;
-#include &lt;logdepthbuf_pars_vertex&gt;
-#include &lt;clipping_planes_pars_vertex&gt;
+<span class="cp">#include</span> <span class="cpf">&lt;common&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;uv_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;uv2_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;displacementmap_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;envmap_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;color_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fog_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;morphtarget_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;skinning_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;shadowmap_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;logdepthbuf_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;clipping_planes_pars_vertex&gt;</span><span class="cp"></span>
 
-void main() {
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    #include &lt;uv_vertex&gt;
-    #include &lt;uv2_vertex&gt;
-    #include &lt;color_vertex&gt;
+    <span class="cp">#include</span> <span class="cpf">&lt;uv_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;uv2_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;color_vertex&gt;</span><span class="cp"></span>
 
-    #include &lt;beginnormal_vertex&gt;
-    #include &lt;morphnormal_vertex&gt;
-    #include &lt;skinbase_vertex&gt;
-    #include &lt;skinnormal_vertex&gt;
-    #include &lt;defaultnormal_vertex&gt;
+    <span class="cp">#include</span> <span class="cpf">&lt;beginnormal_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;morphnormal_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;skinbase_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;skinnormal_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;defaultnormal_vertex&gt;</span><span class="cp"></span>
 
-#ifndef FLAT_SHADED // Normal computed with derivatives when FLAT_SHADED
-    vNormal = normalize( transformedNormal );
-#endif
+<span class="cp">#ifndef FLAT_SHADED </span><span class="c1">// Normal computed with derivatives when FLAT_SHADED</span>
+    <span class="n">vNormal</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">transformedNormal</span> <span class="p">);</span>
+<span class="cp">#endif</span>
 
-    #include &lt;begin_vertex&gt;
-    #include &lt;morphtarget_vertex&gt;
-    #include &lt;skinning_vertex&gt;
-    #include &lt;displacementmap_vertex&gt;
-    #include &lt;project_vertex&gt;
-    #include &lt;logdepthbuf_vertex&gt;
-    #include &lt;clipping_planes_vertex&gt;
+    <span class="cp">#include</span> <span class="cpf">&lt;begin_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;morphtarget_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;skinning_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;displacementmap_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;project_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;logdepthbuf_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;clipping_planes_vertex&gt;</span><span class="cp"></span>
 
-    vViewPosition = - mvPosition.xyz;
+    <span class="n">vViewPosition</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mvPosition</span><span class="p">.</span><span class="n">xyz</span><span class="p">;</span>
 
-    #include &lt;worldpos_vertex&gt;
-    #include &lt;envmap_vertex&gt;
-    #include &lt;shadowmap_vertex&gt;
-    #include &lt;fog_vertex&gt;
-}
+    <span class="cp">#include</span> <span class="cpf">&lt;worldpos_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;envmap_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;shadowmap_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;fog_vertex&gt;</span><span class="cp"></span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
