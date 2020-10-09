@@ -10,7 +10,7 @@ x-visual Passes & Composer
 
 Currently x-visual is trying to make these effects can be plugged in orthogonally.
 
-Design Pattern v0.2
+Design Pattern v0.3
 ___________________
 
 - Abstratct Base Class: Orthocclude
@@ -51,5 +51,20 @@ For example, in FlowingPath
 
 [`EffectComposer <https://threejs.org/docs/#examples/en/postprocessing/EffectComposer>`_]
 [`Pass.js (no docs) <https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js>`_]
+
+A Notes on Render Passes
+________________________
+
+Once FinalComposer found effect passes, it will use a ShaderMaterial to combine
+effects passed through effectComposers as texture "texEffects".
+
+See FinalComposer.effects().
+
+The finalPass.material.uniforms.texEffects must the same as last pass of
+effectComposer's writeBuffer.
+
+An error occured when using Three.js r120 module but importing ShaderMaterial
+from r110.
+
 
 TODO docs ...

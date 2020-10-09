@@ -264,8 +264,23 @@ source handling shadow map.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If a mesh receiving shadow, the <em>WebGlRenderer.initMaterial()</em> will been triggered
+<p>If a mesh receiving shadow, the <em>WebGlRenderer.initMaterial( )</em>  will been triggered
 at each rendering. All shadow shader used uniforms is updated here:</p>
+<div class="highlight-python"><div class="highlight"><pre>WebGLRenderer.render()
+-&gt; renderObjects()
+-&gt; renderObject(object, scene, camera, geometry, material, group)
+    &#39;&#39;&#39; object: Mesh
+            material: {ShaderMaterial}
+        material: {ShaderMaterial} # same instance of object.material
+            uniforms: {object}
+                uniforms.directionalLights: {object}
+    &#39;&#39;&#39;
+-&gt; renderBufferDirect()
+-&gt; setProgram()
+-&gt; initMaterial()
+</pre></div>
+</div>
+<p>r110 WebGlRendere.initMaterial():</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">needsLights</span> <span class="p">)</span> <span class="p">{</span>
     <span class="c1">// wire up the material to this renderer&#39;s lighting state</span>
 
@@ -293,6 +308,52 @@ at each rendering. All shadow shader used uniforms is updated here:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>But in r120, it changed to:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">needsLights</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// wire up the material to this renderer&#39;s lighting state</span>
+
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">ambientLightColor</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">ambient</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">lightProbe</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">probe</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directional</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalLightShadows</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadow</span><span class="p">;</span> <span class="c1">// change</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spot</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotLightShadows</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spotShadow</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">rectAreaLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">rectArea</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">ltc_1</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">rectAreaLTC1</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">ltc_2</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">rectAreaLTC2</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">point</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointLightShadows</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">pointShadow</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">hemisphereLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">hemi</span><span class="p">;</span>
+
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadowMatrix</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spotShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spotShadowMatrix</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">pointShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">pointShadowMatrix</span><span class="p">;</span>
+    <span class="c1">// TODO (abelnation): add area lights shadow info to uniforms</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The data structure of lights.stat.directional in r120 changed toghether with
+directionalShadowMap to:</p>
+<div class="highlight-python"><div class="highlight"><pre>lights.state.directional
+0:
+    color: Color {r: 1, g: 1, b: 1, isColor: true}
+    direction: Vector3 {x: 0.6574396037977712, y: 0.6574396037977712, z: 0.36816617812675195, isVector3: true}
+length: 1
+
+lights.state.directionalShadow
+0:
+    shadowBias: 0.001
+    shadowMapSize: {x: 1024, y: 1024, width: 1024, height: 1024}
+    shadowNormalBias: 0
+    shadowRadius: 24
+length: 1
+</pre></div>
+</div>
+<p>This makes x-visual shader broken without source modification.</p>
 </div>
 <div class="section" id="glsl-source">
 <h3>Glsl Source<a class="headerlink" href="#glsl-source" title="Permalink to this headline">¶</a></h3>
