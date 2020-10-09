@@ -2,7 +2,6 @@ import chai from 'chai'
 import { expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
 
-// import * as THREE from 'three'
 import * as THREE from '../packages/three/three.module-r120';
 
 import * as ECS from '../packages/ecs-js/index';

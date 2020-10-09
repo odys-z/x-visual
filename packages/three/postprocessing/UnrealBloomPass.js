@@ -340,7 +340,6 @@ UnrealBloomPass.prototype = Object.assign( Object.create( Pass.prototype ), {
 						weightSum += 2.0 * w;\
 					}\
 					gl_FragColor = vec4(diffuseSum/weightSum, 1.0);\n\
-					gl_FragColor = vec4(1., 0., 0., 1);\
 				}"
 		} );
 
@@ -399,8 +398,6 @@ UnrealBloomPass.prototype = Object.assign( Object.create( Pass.prototype ), {
 						lerpBloomFactor(bloomFactors[2]) * vec4(bloomTintColors[2], 1.0) * texture2D(blurTexture3, vUv) +
 						lerpBloomFactor(bloomFactors[3]) * vec4(bloomTintColors[3], 1.0) * texture2D(blurTexture4, vUv) +
 						lerpBloomFactor(bloomFactors[4]) * vec4(bloomTintColors[4], 1.0) * texture2D(blurTexture5, vUv) );
-
-					gl_FragColor = vec4(0.3, 0.5, 1.0, 1);
 				}`
 		} );
 

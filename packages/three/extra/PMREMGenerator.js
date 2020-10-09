@@ -33,7 +33,8 @@ import { BufferAttribute,
 	RawShaderMaterial,
 	Vector2,
 	Vector3,
-	WebGLRenderTarget } from 'three';
+	WebGLRenderTarget
+} from '../three.module-r120';
 
 const LOD_MIN = 4;
 const LOD_MAX = 8;

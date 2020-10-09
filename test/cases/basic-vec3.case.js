@@ -4,7 +4,6 @@
 import chai from 'chai'
 import { expect, assert } from 'chai'
 
-// import * as THREE from 'three'
 import * as THREE from '../../packages/three/three.module-r120';
 
 import {vec3, mat4} from '../../lib/xmath/vec'

@@ -1,4 +1,5 @@
-import { Geometry, BufferGeometry, Float32BufferAttribute, Vector2, Vector3 } from 'three';
+import { Geometry, BufferGeometry, Float32BufferAttribute, Vector2, Vector3
+} from '../three.module-r120';
 
 /**@class ThreeExt */
 class ThreeExt {
