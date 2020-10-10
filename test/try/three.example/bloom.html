@@ -35,7 +35,7 @@
 
 			vec4 getTexture( sampler2D texelToLinearTexture ) {
 
-				return mapTexelToLinear( texture2D( texelToLinearTexture , vUv ) );
+				return ( texture2D( texelToLinearTexture , vUv ) );
 
 			}
 

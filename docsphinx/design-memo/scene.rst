@@ -13,7 +13,9 @@ how to create main scene objects.
 Main Scene Light
 ________________
 
-Main scene use a modified Three.js `HemisphereLight <https://threejs.org/docs/#api/en/lights/HemisphereLight>`_.
+Main scene use a modified Three.js `DirectionalLight <https://threejs.org/docs/index.html#api/en/lights/DirectionalLight>`_,
+and the `DirectionalLightShadow <https://threejs.org/docs/index.html#api/en/lights/shadows/DirectionalLightShadow>`_
+is enabled by default.
 
 The default parameters::
 
