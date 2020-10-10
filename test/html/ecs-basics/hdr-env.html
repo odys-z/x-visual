@@ -10,7 +10,11 @@
   <canvas id='canv'></canvas>
   <p><a href='https://www.cgtrader.com/free-3d-models/textures/natural/hdri-freebie-series'>
     avianx, 4K Sky Series HDRi free Texture, cgtrader</a></p>
-  <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 320px"/>
+  <img src='assets/../../assets/tex/sky-blue.jpg'
+  	style="width: 1024px; height: 512px; position: absolute;
+	margin-top: -169px;
+	clip-path: polygon(0% 33%, 25% 33%, 25% 58%, 0% 58%);"/>
+  <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 256px; margin-left: 256px"/>
   <script>
 	"use strict";
 
@@ -20,13 +24,14 @@
 					'../../assets/tex/rgb2x2.png',
 					'../../assets/tex/byr0.png',
 					'../../assets/tex/rgb2x2.png' ];
-	var equirectex = // '../../assets/tex/sky-blue.exr';
-					'https://threejs.org/examples/textures/memorial.exr';
-					
+	var equirectex = '../../assets/tex/sky-blue.exr';
+	// var equirectex = 'https://threejs.org/examples/textures/memorial.exr';
+
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
-				{ canvasize: [480, 320],
+				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
+				  // control: xv.CameraType.Orbitctrl,
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
@@ -36,9 +41,8 @@
 	  { id: 'sky',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [8000, 8000, 8000],
-				mesh: {
-					receiveShadow: true
-				} },
+				// mesh: { receiveShadow: true }
+			},
 		Visual:{vtype: xv.AssetType.skyBox,
 				paras: {
 					// Note:
