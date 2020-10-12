@@ -40,7 +40,7 @@
 	xworld.addEntities([
 	  { id: 'sky',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [8000, 8000, 8000],
+				// box: [8000, 8000, 8000],
 				// mesh: { receiveShadow: true }
 			},
 		Visual:{vtype: xv.AssetType.skyBox,
@@ -49,6 +49,16 @@
 					// Only EXR of Equirectangle map & img of cube map are supported
 					// u_tex: cubetex // only cube map
 					u_tex: equirectex // only Equirectangle map
+				}
+			}
+	  },
+	  { id: 'box',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [80, 80, 80],
+			},
+		Visual:{vtype: xv.AssetType.mesh,
+				paras: {
+					envMap: 'sky'
 				}
 			}
 	  },
