@@ -8,7 +8,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p><a href='https://www.cgtrader.com/free-3d-models/textures/natural/hdri-freebie-series'>
+  <p>Image from <a href='https://www.cgtrader.com/free-3d-models/textures/natural/hdri-freebie-series'>
     avianx, 4K Sky Series HDRi free Texture, cgtrader</a></p>
   <img src='assets/../../assets/tex/sky-blue.jpg'
   	style="width: 1024px; height: 512px; position: absolute;
@@ -53,13 +53,16 @@
 			}
 	  },
 	  { id: 'box',
-		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [80, 80, 80],
+		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+                box: [40, 24, 24],
 			},
 		Visual:{vtype: xv.AssetType.mesh,
 				paras: {
-					envMap: 'sky'
-				}
+					shader: xv.ShaderFlag.envMap,
+					envMap: 'sky',
+					textureMapping: THREE.CubeRefractionMapping, // default CubeReflectionMapping
+				},
+				asset
 			}
 	  },
 	]);
