@@ -54,11 +54,12 @@
 	  },
 	  { id: 'box',
 		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-                box: [40, 24, 24],
+                box: [80, 24, 24],
 			},
 		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.envMap,
 				paras: {
-					shader: xv.ShaderFlag.envMap,
+					u_tex: ['.', '.'],
 					envMap: 'sky',
 					textureMapping: THREE.CubeRefractionMapping, // default CubeReflectionMapping
 				},
