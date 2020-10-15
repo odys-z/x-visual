@@ -292,7 +292,8 @@ Three.js way breaks this into some separate parts.</p>
 <p>where</p>
 <p><span class="math">\(M_n =\)</span> normalMatrix,</p>
 <p><span class="math">\(M_v =\)</span> viewmatrix.</p>
-<p>Because <span class="math">\((M_v)_{3x3} = M_n^{-1}\)</span> according to [3, 4, 5].</p>
+<p>Because <span class="math">\((M_v)_{3x3} = M_n^{-1}\)</span> according to [3, 4, 5]. (And there is no
+difference in glsl for <span class="math">\(n^T\)</span> or <span class="math">\(n\)</span>?)</p>
 <p>References</p>
 <p>[1] <a class="reference external" href="https://stackoverflow.com/a/13654662">Transforming normals with the transpose of the inverse of the modelview matrix</a></p>
 <p>[2] <a class="reference external" href="https://paroj.github.io/gltut/Illumination/Tut09%20Normal%20Transformation.html">Jason L. McKesson, Normal Transformation, Chapter 9. Lights On, Learning Modern 3D Graphics Programming</a></p>

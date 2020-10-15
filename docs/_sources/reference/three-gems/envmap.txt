@@ -180,7 +180,8 @@ where
 
 :math:`M_v =` viewmatrix.
 
-Because :math:`(M_v)_{3x3} = M_n^{-1}` according to [3, 4, 5].
+Because :math:`(M_v)_{3x3} = M_n^{-1}` according to [3, 4, 5]. (And there is no
+difference in glsl for :math:`n^T` or :math:`n`?)
 
 References
 
