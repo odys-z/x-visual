@@ -49,8 +49,11 @@ For example, in FlowingPath
        some options, and creating some subsystem like PathEffect and FinalComposer
     3. thrender will use final composer rendering scene in update() if it's triggered
 
-[`EffectComposer <https://threejs.org/docs/#examples/en/postprocessing/EffectComposer>`_]
-[`Pass.js (no docs) <https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js>`_]
+Reference
+
+[1] `EffectComposer <https://threejs.org/docs/#examples/en/postprocessing/EffectComposer>`_
+
+[2] `Pass.js (no docs) <https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js>`_
 
 A Notes on Render Passes
 ________________________
@@ -63,8 +66,5 @@ See FinalComposer.effects().
 The finalPass.material.uniforms.texEffects must the same as last pass of
 effectComposer's writeBuffer.
 
-An error occured when using Three.js r120 module but importing ShaderMaterial
-from r110.
-
-
-TODO docs ...
+To check whether the FinalComposer reads writing target of effect composer - check
+materials' uuid.
