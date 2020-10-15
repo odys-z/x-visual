@@ -8,7 +8,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>Image from <a href='https://www.cgtrader.com/free-3d-models/textures/natural/hdri-freebie-series'>
+  <p>Sky image from <a href='https://www.cgtrader.com/free-3d-models/textures/natural/hdri-freebie-series'>
     avianx, 4K Sky Series HDRi free Texture, cgtrader</a></p>
   <img src='assets/../../assets/tex/sky-blue.jpg'
   	style="width: 1024px; height: 512px; position: absolute;
@@ -18,12 +18,14 @@
   <script>
 	"use strict";
 
-	var cubetex = [ '../../assets/tex/byr0.png',
-					'../../assets/tex/byr0.png',
-					'../../assets/tex/rgb2x2.png',
-					'../../assets/tex/rgb2x2.png',
-					'../../assets/tex/byr0.png',
-					'../../assets/tex/rgb2x2.png' ];
+	// var cubetex = [
+	// 	'../assets/tex/museum/pos-x.jpg',
+	// 	'../assets/tex/museum/neg-x.jpg',
+	// 	'../assets/tex/museum/pos-y.jpg',
+	// 	'../assets/tex/museum/neg-y.jpg',
+	// 	'../assets/tex/museum/pos-z.jpg',
+	// 	'../assets/tex/museum/neg-z.jpg'
+	// ];
 	var equirectex = '../../assets/tex/sky-blue.exr';
 	// var equirectex = 'https://threejs.org/examples/textures/memorial.exr';
 
@@ -47,25 +49,39 @@
 				paras: {
 					// Note:
 					// Only EXR of Equirectangle map & img of cube map are supported
-					// u_tex: cubetex // only cube map
-					u_tex: equirectex // only Equirectangle map
+					u_tex: equirectex // string for equirectangle map
 				}
 			}
 	  },
-	  { id: 'box',
+	  { id: 'box1',
 		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
                 box: [80, 24, 24],
 			},
 		Visual:{vtype: xv.AssetType.mesh,
 				shader: xv.ShaderFlag.envMap,
 				paras: {
-					u_tex: ['.', '.'],
+					whiteAlpha: 0.0,
 					envMap: 'sky',
 					textureMapping: THREE.CubeRefractionMapping, // default CubeReflectionMapping
 				},
 				asset
 			}
 	  },
+	  // { id: 'box2',
+		// Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+      //           box: [80, 24, 24],
+		// 		transform: [{ translate: [-100, 40, 0] }]
+		// 	},
+		// Visual:{vtype: xv.AssetType.mesh,
+		// 		shader: xv.ShaderFlag.envMap,
+		// 		paras: {
+		// 			u_tex: ['.', '.'],
+		// 			envMap: 'sky',
+		// 			textureMapping: THREE.CubeRefractionMapping, // default CubeReflectionMapping
+		// 		},
+		// 		asset
+		// 	}
+	  // },
 	]);
 
 	xworld.startUpdate();
