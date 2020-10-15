@@ -194,3 +194,5 @@ References
 [4] `viewMatrix = camera.matrixWorldInverse, Stackoverflow <https://stackoverflow.com/a/26912790>`_
 
 [5] `Inverse of transformation matrix, Mathematics, stackexchange <https://math.stackexchange.com/questions/152462/inverse-of-transformation-matrix>`_
+
+[6] `Three.js Backgrounds and Skyboxes, Three.js Fundamentals <https://threejsfundamentals.org/threejs/lessons/threejs-backgrounds.html>`_
