@@ -1,5 +1,5 @@
-Three.js Gems
-=============
+Directional Shadow
+==================
 
 ShaderLib
 ---------

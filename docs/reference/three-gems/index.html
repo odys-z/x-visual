@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Shadow Map &mdash; x-visual 0.4 documentation</title>
+  <title>Three.js Gems &mdash; x-visual 0.4 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/>
         <link rel="up" title="Reference" href="../index.html"/>
-        <link rel="next" title="A Survey on Shadowing" href="survey.html"/>
-        <link rel="prev" title="SVG" href="../svg.html"/> 
+        <link rel="next" title="Directional Shadow" href="dir-shadow.html"/>
+        <link rel="prev" title="Components" href="../components.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -95,15 +95,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../gltf.html">GLTF Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../geometry.html">Geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../svg.html">SVG</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Shadow Map</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="survey.html">A Survey on Shadowing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="shadow-html-ground-frag.html">Shadow Ground Shader</a></li>
-<li class="toctree-l3"><a class="reference internal" href="shadow-html-ground-vert.html">Shadow Ground Shader</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../shadow/index.html">Shadow Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../components.html">Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../three-gems/index.html">Three.js Gems</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Three.js Gems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dir-shadow.html">Directional Shadow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="envmap.html">EnvMap</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -138,7 +137,7 @@
       
           <li><a href="../index.html">Reference</a> &raquo;</li>
       
-    <li>Shadow Map</li>
+    <li>Three.js Gems</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -150,18 +149,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="shadow-map">
-<h1>Shadow Map<a class="headerlink" href="#shadow-map" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="three-js-gems">
+<h1>Three.js Gems<a class="headerlink" href="#three-js-gems" title="Permalink to this headline">¶</a></h1>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="survey.html">A Survey on Shadowing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="survey.html#references">References</a></li>
-<li class="toctree-l2"><a class="reference internal" href="survey.html#the-three-js-way">The Three.js way</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dir-shadow.html">Directional Shadow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dir-shadow.html#shaderlib">ShaderLib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dir-shadow.html#directional-lights-uniforms">Directional Lights Uniforms</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="shadow-html-ground-frag.html">Shadow Ground Shader</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shadow-html-ground-vert.html">Shadow Ground Shader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="envmap.html">EnvMap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="envmap.html#envmap-for-user">EnvMap for User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="envmap.html#some-essential-parts">Some Essential Parts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="envmap.html#revert-normal-vector">Revert normal vector</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -173,10 +176,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="survey.html" class="btn btn-neutral float-right" title="A Survey on Shadowing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dir-shadow.html" class="btn btn-neutral float-right" title="Directional Shadow" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../svg.html" class="btn btn-neutral" title="SVG" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../components.html" class="btn btn-neutral" title="Components" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

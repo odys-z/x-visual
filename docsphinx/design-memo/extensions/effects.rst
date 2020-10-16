@@ -10,7 +10,7 @@ x-visual Passes & Composer
 
 Currently x-visual is trying to make these effects can be plugged in orthogonally.
 
-Design Pattern v0.2
+Design Pattern v0.3
 ___________________
 
 - Abstratct Base Class: Orthocclude
@@ -49,7 +49,22 @@ For example, in FlowingPath
        some options, and creating some subsystem like PathEffect and FinalComposer
     3. thrender will use final composer rendering scene in update() if it's triggered
 
-[`EffectComposer <https://threejs.org/docs/#examples/en/postprocessing/EffectComposer>`_]
-[`Pass.js (no docs) <https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js>`_]
+Reference
 
-TODO docs ...
+[1] `EffectComposer <https://threejs.org/docs/#examples/en/postprocessing/EffectComposer>`_
+
+[2] `Pass.js (no docs) <https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js>`_
+
+A Notes on Render Passes
+________________________
+
+Once FinalComposer found effect passes, it will use a ShaderMaterial to combine
+effects passed through effectComposers as texture "texEffects".
+
+See FinalComposer.effects().
+
+The finalPass.material.uniforms.texEffects must the same as last pass of
+effectComposer's writeBuffer.
+
+To check whether the FinalComposer reads writing target of effect composer - check
+materials' uuid.
