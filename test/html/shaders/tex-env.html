@@ -39,10 +39,13 @@
 	};
 	document.getElementById('txt').value = JSON.stringify(json0);
 	var o0 = [-0, 0];
+	const position = [160, 160, 120];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
-					  window, { canvasize: [600, 360],
-					  			light: { intensity: 0.8 } });
+					window, { canvasize: [600, 360],
+					light: {position,
+							skyColor: 0x7777cc,
+							intensity: 1 } });
 
 	xworld.addEntities([
 	  // { id: 'prism-far',
@@ -80,7 +83,12 @@
 		// 	} } ,
 	  // },
 	  //
-
+	  { id: 'light',
+	    Obj3: { geom: xv.Obj3Type.BOX,
+				box: [80, 80, 80],
+				transform: [ { translate: position } ] },
+		Visual:{vtype: xv.AssetType.wireframe}
+	  },
 	  { id: 'sky',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				// box: [8000, 8000, 8000],
@@ -95,7 +103,7 @@
 			}
 	  },
 	  { id: 'prism',
-		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism, // try Obj3Type.BOX
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
@@ -103,11 +111,13 @@
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
-				whiteAlpha: 0.2, // refraction
+				whiteAlphas: [0.2, 0.7], // roof, side reflection, 0~1, default 0.5
 
 				envMap: 'sky',
+				envExposure: 0.8,   // > 0,  = 1 will keep original
+
+				// for test texPrism only
 				u_tex: [
-					// for test texPrism only
 					'../../assets/tex/ruler256.png',
 					'../../assets/tex/wood.png',
 					'../../assets/tex/byr0.png'],
