@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Texture of Prism</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <p>Test ShaderFlag.texPrism &amp; Obj3Type.GeoPrism<br>
+  	Note the left tall building polygon is not clockwise and not correctly rendered.</p>
+  <br><textarea id="txt" rows="9" cols="73"></textarea>
+  <script>
+	"use strict";
+
+	var json0 = {
+	  "type": "FeatureCollection",
+	  "features": [
+		{ "type": "Feature", "properties": {"height": 4, "side":"3857 counter clockwise"},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[80, 120], [140, 120], [140, 160], [80, 160]]]
+		  }
+	    },
+		{ "type": "Feature", "properties": {"height": 3, "side":"3857 clockwise"},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-140, 160], [-60, 160], [-60, 120], [-140, 120]]]
+		  }
+	    },
+		{ "type": "Feature", "properties": {"height": 2},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-160, 0], [0, -160], [160, 0], [0, 160]]]
+		  }
+		}
+	  ]
+	};
+	document.getElementById('txt').value = JSON.stringify(json0);
+	var o0 = [-0, 0];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, { canvasize: [600, 360],
+					  			light: { intensity: 0.8 } });
+
+	xworld.addEntities([
+	  // { id: 'prism-far',
+		// Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+		// 		transform: [ {translate: [-300, 0, -420]} ],
+		// 		box: [] },
+		// Visual:{
+		// 	vtype: xv.AssetType.mesh,
+		// 	shader: xv.XComponent.ShaderFlag.texPrism,
+		// 	paras: {
+		// 		shineColor: [0, 1, 0],
+		// 		shininess: 80,
+	  //
+		// 		side: THREE.FrontSide,
+		// 		uvScale: [6, 2],
+		// 		tile: {
+		// 			tiles: [2, 2],
+		// 			change: false,
+		// 			layers: 2 },
+		// 		u_tex: [
+		// 			'../../assets/tex/ruler256.png',   // 0: base faces (roof)
+		// 			'../../assets/tex/wood.png',       // 1: lateral faces (wall)
+		// 			'../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
+		// 		whiteAlphas: [0.8, 0.2],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+	  //
+		// 		// geojson geometry handling
+		// 		maxVerts: 4096, // GeoPrism's vertex count
+		// 		// configuration similar with Obj3Type.Hexatile
+		// 		features: json0.features,
+		// 		origin: o0,
+		// 		geostyle: {
+		// 			height: 25, scale: 1,
+		// 			groups: 3,
+		// 			onGroup: (fx, feature) => { return fx % 3; } }, // then update() can change morphings
+		// 	} } ,
+	  // },
+	  //
+
+	  { id: 'sky',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				// box: [8000, 8000, 8000],
+				// mesh: { receiveShadow: true }
+			},
+		Visual:{vtype: xv.AssetType.skyBox,
+				paras: {
+					// Note:
+					// Only EXR of Equirectangle map & img of cube map are supported
+					u_tex: '../../assets/tex/sky-blue.exr'
+				}
+			}
+	  },
+	  { id: 'prism',
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism, // try Obj3Type.BOX
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			// shader: xv.ShaderFlag.envMap,
+			shader: xv.ShaderFlag.texEnv,
+			paras: {
+				shininess: 80,
+				whiteAlpha: 0.2, // refraction
+
+				envMap: 'sky',
+				u_tex: [
+					// for test texPrism only
+					'../../assets/tex/ruler256.png',
+					'../../assets/tex/wood.png',
+					'../../assets/tex/byr0.png'],
+
+				side: THREE.FrontSide,
+				// geojson geometry handling
+				// configuration are similar with Obj3Type.Hexatile
+				features: json0.features,
+				origin: o0,
+				geostyle: {
+					height: 25, scale: 1,
+				}
+			} } ,
+		CmpTweens: {}
+	  },
+	] );
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
