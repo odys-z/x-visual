@@ -50,7 +50,10 @@
 				shader: xv.ShaderFlag.envMap,
 				paras: {
 					// ratio of refraction vs. reflection, 0 ~ 1
-					whiteAlpha: 0.3,
+					whiteAlpha: 0.5,
+
+					// lod of cube texture, [refract, reflect], >= 0
+					lod: [1.2, 0.8],
 
 					// use 'sky'.Obj3.datum.envMap - resolved when loaded it's loaded
 					envMap: 'sky',

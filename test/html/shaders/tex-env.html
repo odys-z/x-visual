@@ -83,22 +83,18 @@
 		// 	} } ,
 	  // },
 	  //
-	  { id: 'light',
+	  { id: 'light-pos',
 	    Obj3: { geom: xv.Obj3Type.SPHERE,
 				box: [20, 10, 6],
 				transform: [ { translate: position } ] },
 		Visual:{vtype: xv.AssetType.wireframe}
 	  },
 	  { id: 'sky',
-		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				// box: [8000, 8000, 8000],
-				// mesh: { receiveShadow: true }
-			},
+		Obj3: {},
 		Visual:{vtype: xv.AssetType.skyBox,
 				paras: {
-					// Note:
-					// Only EXR of Equirectangle map & img of cube map are supported
-					u_tex: '../../assets/tex/sky-blue.exr'
+					// u_tex: '../../assets/tex/sky-blue.exr'
+					u_tex: '../../assets/tex/sky-blue.jpg',
 				}
 			}
 	  },
@@ -111,10 +107,10 @@
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
-				whiteAlphas: [0.2, 0.7], // roof, side reflection, 0~1, default 0.5
+				whiteAlphas: [0.2, 0.2], // roof, side reflection, 0~1, default 0.5
 
 				envMap: 'sky',
-				envExposure: 0.8,   // > 0,  = 1 will keep original
+				envExposure: 0.9,   // > 0,  = 1 will keep original
 
 				// for test texPrism only
 				u_tex: [

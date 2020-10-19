@@ -20,14 +20,6 @@
 		Divide a 2D polygon with N vertices into triangles draw in a 3D space,
 		Mathematics, StackExchange</a>
   </p>
-  <!--
-  <p>Intensity (float): <input id='intense' value='2'/><br>
-     Diffuse Color (css style): <input id='diffuse' value='0xff0'/><br>
-     Ambient Color (css style): <input id='ambient' value='0x00c'/><br>
-     Specular Color(css style): <input id='specular' value='0x0f0'/><br>
-     <input type='button' onclick='updateLight()' value='update'/></p>
-  json0 (read only)<br><textarea id="txt" rows="5" cols="73"></textarea>
-  -->
   <script>
     "use strict";
 
@@ -56,6 +48,14 @@
     ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
 
     xworld.addEntities([
+	  { id: 'sky',
+		Obj3:  { },
+		Visual:{vtype: xv.AssetType.skyBox,
+				paras: {
+					u_tex: '../../assets/tex/sky-blue.jpg',
+				}
+			}
+	  },
 	  { id: 'ground',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [1600, 1200],
@@ -73,15 +73,21 @@
       { id: 'texprism-1',
         Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
                 transform: [ {translate: [-120, -30, -0]} ],
-				mesh: { castShadow: true,
-						receiveShadow: true },
+                mesh: { castShadow: true,
+                        receiveShadow: true },
                 box: [] },
         Visual:{
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texEnv,
             // shader: xv.XComponent.ShaderFlag.texPrism,
-            // shader: xv.XComponent.ShaderFlag.receiveShadow,
             paras: {
+                whiteAlphas: [0.7, 0.5], // roof, side reflection, 0~1, default 0.5
+                envMap: 'sky',
+                // lod of cube texture, [refract, reflect], >= 0
+                lod: [undefined,    // not used
+                      0],           // reflect LOD
+                envExposure: 0.6,   // > 0,  = 1 will keep original, only for EXR
+
                 // prism visual
                 side: THREE.FrontSide,
                 uvScale: [6, 2],
@@ -90,12 +96,15 @@
                     tiles: [4, 2],
                     change: false,
                     layers: 1 },
+
                 u_tex: [
                     asset,                             // 0: base faces (roof)
                     '../../assets/tex/wood.png',       // 1: lateral faces (wall)
                     '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
-                whiteAlphas: [.8, 1.0],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
-                edgeWeight: 5.8,          // layer box weight
+
+                // TODO add texPrism test case for texPrism
+                // whiteAlphas: [.8, 1.0],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+                // edgeWeight: 5.8,          // layer box weight
 
                 // geojson geometry
                 maxVerts: 1024 * 16,
