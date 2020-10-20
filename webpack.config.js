@@ -27,11 +27,6 @@
 	   // })
 	],
 
-	// doesn't work ?
-	// externals: {
-	// 	"packages/three/three.module-r120.js": "THREE"
-	// },
-
 	module: {
 		rules: [
 		{test: /tiles-worker\.js$/,

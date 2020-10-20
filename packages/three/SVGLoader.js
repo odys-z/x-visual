@@ -15,7 +15,7 @@ import {
 	ShapePath,
 	Vector2,
 	Vector3
-} from "./three.module-r120"
+} from "./three.module-MRTSupport"
 
 var SVGLoader = function ( manager ) {
 

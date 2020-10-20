@@ -43,7 +43,7 @@ import {
 	LinearFilter,
 	RGBAFormat,
 	RGBFormat
-} from "./three.module-r120.js";
+} from "./three.module-MRTSupport.js";
 
 // /*
 // Copyright (c) 2014 - 2017, Syoyo Fujita

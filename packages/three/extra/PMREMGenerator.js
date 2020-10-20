@@ -34,7 +34,7 @@ import { BufferAttribute,
 	Vector2,
 	Vector3,
 	WebGLRenderTarget
-} from '../three.module-r120';
+} from '../three.module-MRTSupport';
 
 const LOD_MIN = 4;
 const LOD_MAX = 8;

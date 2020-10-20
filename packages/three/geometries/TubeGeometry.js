@@ -1,5 +1,5 @@
 import { Geometry, BufferGeometry, Float32BufferAttribute, Vector2, Vector3
-} from '../three.module-r120';
+} from '../three.module-MRTSupport';
 
 /**@class ThreeExt */
 class ThreeExt {

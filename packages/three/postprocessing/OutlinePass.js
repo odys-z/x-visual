@@ -18,7 +18,7 @@ import {
 	Vector2,
 	Vector3,
 	WebGLRenderTarget
-} from "../three.module-r120"
+} from "../three.module-MRTSupport"
 
 import { Pass } from "./Pass.js";
 import { CopyShader } from "../shaders/CopyShader.js";

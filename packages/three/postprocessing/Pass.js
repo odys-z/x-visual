@@ -2,7 +2,7 @@ import {
 	OrthographicCamera,
 	PlaneBufferGeometry,
 	Mesh
-} from "../three.module-r120"
+} from "../three.module-MRTSupport"
 
 function Pass() {
 
