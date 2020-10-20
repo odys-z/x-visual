@@ -33,7 +33,7 @@
     const xworld = new xv.XWorld(document.getElementById('canv'), window,
         { light: {
             position,
-            skyColor: 0x7777cc,
+            skyColor: 0xcccccc,
             intensity: 1 },
           shadow: {
             helper: true,
@@ -81,12 +81,12 @@
             shader: xv.XComponent.ShaderFlag.texEnv,
             // shader: xv.XComponent.ShaderFlag.texPrism,
             paras: {
-                whiteAlphas: [0.7, 0.5], // roof, side reflection, 0~1, default 0.5
+                whiteAlphas: [0.4, 0.9], // roof, side reflection, 0~1, default 0.5
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
                 lod: [undefined,    // not used
-                      0],           // reflect LOD
-                envExposure: 0.6,   // > 0,  = 1 will keep original, only for EXR
+                      2],           // reflect LOD
+                envExposure: 0.8,   // > 0,  = 1 will keep original, only for EXR
 
                 // prism visual
                 side: THREE.FrontSide,
