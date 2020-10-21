@@ -116,7 +116,7 @@
 				vec3 diffuse = texture( tDiffuse, vUv ).rgb;
 				vec3 normal = texture( tNormal, vUv ).rgb;
 
-				pc_FragColor.rgb = mix( diffuse, normal, step( 0.5, vUv.x ) );
+				pc_FragColor.rgb = mix( diffuse, diffuse * normal, step( 0.5, vUv.x ) );
 				pc_FragColor.a = 1.0;
 
 			}

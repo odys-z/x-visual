@@ -52,7 +52,8 @@
 		Obj3:  { },
 		Visual:{vtype: xv.AssetType.skyBox,
 				paras: {
-					u_tex: '../../assets/tex/sky-blue.jpg',
+					// u_tex: '../../assets/tex/sky-blue.jpg',
+					u_tex: '../../assets/tex/sky-blue.exr',
 				}
 			}
 	  },
@@ -81,21 +82,15 @@
             shader: xv.XComponent.ShaderFlag.texEnv,
             // shader: xv.XComponent.ShaderFlag.texPrism,
             paras: {
-                whiteAlphas: [0.4, 0.9], // roof, side reflection, 0~1, default 0.5
+                whiteAlphas: [0.4, 0.2], // roof, side reflection, 0~1, default 0.5
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
                 lod: [undefined,    // not used
                       2],           // reflect LOD
                 envExposure: 0.8,   // > 0,  = 1 will keep original, only for EXR
 
-                // prism visual
-                side: THREE.FrontSide,
-                uvScale: [6, 2],
-                tile: {
-                    hue: [0.2, 0, 0.6, 1],
-                    tiles: [4, 2],
-                    change: false,
-                    layers: 1 },
+				u_texRough: '../../assets/tex/roughness.png',
+				u_roughness: [3, 5, 0.2], // x, y, z scale
 
                 u_tex: [
                     asset,                             // 0: base faces (roof)
@@ -105,6 +100,13 @@
                 // TODO add texPrism test case for texPrism
                 // whiteAlphas: [.8, 1.0],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
                 // edgeWeight: 5.8,          // layer box weight
+                // side: THREE.FrontSide,
+                // uvScale: [6, 2],
+                // tile: {
+                //     hue: [0.2, 0, 0.6, 1],
+                //     tiles: [4, 2],
+                //     change: false,
+                //     layers: 1 },
 
                 // geojson geometry
                 maxVerts: 1024 * 16,

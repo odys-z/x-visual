@@ -48,41 +48,6 @@
 							intensity: 1 } });
 
 	xworld.addEntities([
-	  // { id: 'prism-far',
-		// Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
-		// 		transform: [ {translate: [-300, 0, -420]} ],
-		// 		box: [] },
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	shader: xv.XComponent.ShaderFlag.texPrism,
-		// 	paras: {
-		// 		shineColor: [0, 1, 0],
-		// 		shininess: 80,
-	  //
-		// 		side: THREE.FrontSide,
-		// 		uvScale: [6, 2],
-		// 		tile: {
-		// 			tiles: [2, 2],
-		// 			change: false,
-		// 			layers: 2 },
-		// 		u_tex: [
-		// 			'../../assets/tex/ruler256.png',   // 0: base faces (roof)
-		// 			'../../assets/tex/wood.png',       // 1: lateral faces (wall)
-		// 			'../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
-		// 		whiteAlphas: [0.8, 0.2],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
-	  //
-		// 		// geojson geometry handling
-		// 		maxVerts: 4096, // GeoPrism's vertex count
-		// 		// configuration similar with Obj3Type.Hexatile
-		// 		features: json0.features,
-		// 		origin: o0,
-		// 		geostyle: {
-		// 			height: 25, scale: 1,
-		// 			groups: 3,
-		// 			onGroup: (fx, feature) => { return fx % 3; } }, // then update() can change morphings
-		// 	} } ,
-	  // },
-	  //
 	  { id: 'light-pos',
 	    Obj3: { geom: xv.Obj3Type.SPHERE,
 				box: [20, 10, 6],
@@ -93,8 +58,8 @@
 		Obj3: {},
 		Visual:{vtype: xv.AssetType.skyBox,
 				paras: {
-					// u_tex: '../../assets/tex/sky-blue.exr'
-					u_tex: '../../assets/tex/sky-blue.jpg',
+					u_tex: '../../assets/tex/sky-blue.exr'
+					// u_tex: '../../assets/tex/sky-blue.jpg',
 				}
 			}
 	  },
@@ -107,12 +72,13 @@
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
-				whiteAlphas: [0.2, 0.2], // roof, side reflection, 0~1, default 0.5
+				whiteAlphas: [0.2, 0.7], // roof, side reflection, 0~1, default 0.5
 
 				envMap: 'sky',
-				envExposure: 0.9,   // > 0,  = 1 will keep original
+				envExposure: 0.8,   // > 0,  = 1 will keep original
 
-				// for test texPrism only
+				u_texRough: '../../assets/tex/roughness.png',
+				u_roughness: [3, 5, 0.2], // x, y, z scale
 				u_tex: [
 					'../../assets/tex/ruler256.png',
 					'../../assets/tex/wood.png',
