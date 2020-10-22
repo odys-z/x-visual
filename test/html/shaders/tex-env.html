@@ -58,7 +58,8 @@
 		Obj3: {},
 		Visual:{vtype: xv.AssetType.skyBox,
 				paras: {
-					u_tex: '../../assets/tex/sky-blue.exr'
+					// u_tex: '../../assets/tex/sky-blue.exr'
+					u_tex: '../../assets/tex/piz_compressed.exr'
 					// u_tex: '../../assets/tex/sky-blue.jpg',
 				}
 			}
@@ -72,11 +73,12 @@
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
-				whiteAlphas: [0.2, 0.7], // roof, side reflection, 0~1, default 0.5
+				whiteAlphas: [0.1, 0.2], // roof, side reflection, 0~1, default 0.5
 
 				envMap: 'sky',
-				envExposure: 0.8,   // > 0,  = 1 will keep original
+				envExposure: 0.16,   // > 0,  = 1 will keep original
 
+				lod: [31, 41],
 				u_texRough: '../../assets/tex/roughness.png',
 				u_roughness: [3, 5, 0.2], // x, y, z scale
 				u_tex: [

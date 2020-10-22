@@ -85,9 +85,9 @@
                 whiteAlphas: [0.4, 0.2], // roof, side reflection, 0~1, default 0.5
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
-                lod: [undefined,    // not used
-                      2],           // reflect LOD
-                envExposure: 0.8,   // > 0,  = 1 will keep original, only for EXR
+                lod: [undefined,    // reserved
+                      6],           // reflect LOD
+                envExposure: 0.1,   // > 0,  = 1 will keep original, only for EXR
 
 				u_texRough: '../../assets/tex/roughness.png',
 				u_roughness: [3, 5, 0.2], // x, y, z scale
