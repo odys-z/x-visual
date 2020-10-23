@@ -2442,6 +2442,7 @@ EXRLoader.prototype = Object.assign( Object.create( DataTextureLoader.prototype 
 					texture.flipY = false;
 					break;
 
+				case undefined:
 				case FloatType:
 				case HalfFloatType:
 

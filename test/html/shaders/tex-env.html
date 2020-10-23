@@ -45,7 +45,7 @@
 					window, { canvasize: [600, 360],
 					light: {position,
 							skyColor: 0x7777cc,
-							intensity: 1 } });
+							intensity: 3 } });
 
 	xworld.addEntities([
 	  { id: 'light-pos',
@@ -58,8 +58,8 @@
 		Obj3: {},
 		Visual:{vtype: xv.AssetType.skyBox,
 				paras: {
-					// u_tex: '../../assets/tex/sky-blue.exr'
-					u_tex: '../../assets/tex/piz_compressed.exr'
+					u_tex: '../../assets/tex/sky-blue.exr'
+					// u_tex: '../../assets/tex/piz_compressed.exr'
 					// u_tex: '../../assets/tex/sky-blue.jpg',
 				}
 			}
@@ -73,14 +73,14 @@
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
-				whiteAlphas: [0.1, 0.2], // roof, side reflection, 0~1, default 0.5
+				whiteAlphas: [0.6, 0.4], // roof, side reflection, 0~1, default 0.5
 
 				envMap: 'sky',
-				envExposure: 0.16,   // > 0,  = 1 will keep original
+				envExposure: 0.7,   // > 0,  = 1 will keep original
 
-				lod: [31, 41],
-				u_texRough: '../../assets/tex/roughness.png',
-				u_roughness: [3, 5, 0.2], // x, y, z scale
+				lod: [2, 1],	// base, lateral
+				u_texNoise: '../../assets/tex/roughness.png', // rgb2x2.png
+				u_noisiness: [3, 5, 0.2, .0], // noisy scale: [base, lateral, z-bump, texture uv]
 				u_tex: [
 					'../../assets/tex/ruler256.png',
 					'../../assets/tex/wood.png',
