@@ -36,7 +36,7 @@
         { light: {
             position,
             skyColor: 0xcccccc,
-            intensity: 1 },
+            intensity: 2 },
           shadow: {
             helper: true,
             bias: 0.0001,
@@ -88,11 +88,10 @@
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
                 lod: [3, 2],        // reflect LOD of [base, lateral]
-                envExposure: 0.4,   // > 0,  = 1 will keep original, only for EXR
+                envExposure: 1.8,   // > 0,  = 1 will keep original, only for EXR
 
-				u_texNoise: '../../assets/tex/roughness.png',
-				u_noisiness: [0, 0, 0., 0], // x, y, z scale
-
+                uvScale: [5, 1],
+                u_texbump: [0., 0.125],
                 u_tex: [
                     asset,                             // 0: base faces (roof)
                     '../../assets/tex/wood.png',       // 1: lateral faces (wall)
