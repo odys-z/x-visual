@@ -87,7 +87,6 @@ language = None
 html_show_sourcelink = False
 html_copy_source = False
 
-
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
 #today = ''
