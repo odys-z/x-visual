@@ -6,7 +6,8 @@
 	npm test</pre>
  */
 
-context = require.context('./cases', true, /\.case\.js$/);
+context = require.context('./cases', true, /\.mocha\.js$/);
+
 // context = require.context('./cases', true, /basic-csscolor-x\.case\.js$/);
 // context = require.context('.', true, /tweener.case\.js$/);
 // context = require.context('.', true, /api-script-affines\.case\.js/);
@@ -14,6 +15,7 @@ context = require.context('./cases', true, /\.case\.js$/);
 // context = require.context('.', true, /api-visual-obj3.case\.js$/);
 // context = require.context('.', true, /api-scripts-anim.case\.js$/);
 
+// context = require.context('.', true, /.*\.mocha\.js$/);
 // context = require.context('.', true, /basic-affines-.*\.case\.js$/);
 // context = require.context('.', true, /basic-affines-array\.case\.js$/);
 // context = require.context('.', true, /basic-affines-orbit\.case\.js$/);

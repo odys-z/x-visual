@@ -2,7 +2,8 @@ import chai from 'chai'
 import { expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
 
-import * as THREE from 'three'
+import * as THREE from '../packages/three/three.module-MRTSupport';
+
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld.js'
 import {x} from '../lib/xapp/xworld.js'

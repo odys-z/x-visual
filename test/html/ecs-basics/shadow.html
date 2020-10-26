@@ -3,13 +3,16 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-Shadow Map</title>
-	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<!--<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	-->
+	<script type='text/javascript' src='../../../dist/three.min-r120.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
   <p><a href='https://odys-z.github.io/x-visual/reference/shadow/survey.html#the-three-js-way'>
 	  Likely shader source (vs/fs)</a></p>
+  <p>Problem: if paras.u_tex not provided, the shadow map is been used as lateral texture.</p>
   <script>
 	"use strict";
 
@@ -43,22 +46,54 @@
 		Visual:{vtype: xv.AssetType.mesh,
 				asset}
 	  },
-	  { id: 'box-x',
+	  { id: 'box-tex',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [50, 60, 80],
-				transform: [ { translate: [-50, 10, 50] } ],
+				box: [50, 90, 80],
+				transform: [
+					{ rotate: { deg: 45, axis: [1, 0, 1] } },
+					{ translate: [-50, 43, 50] } ],
 				mesh: {
 					castShadow: true,
 					receiveShadow: true
 				} },
 		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.XComponent.ShaderFlag.receiveShadow,
-				asset}
+				// shader: xv.XComponent.ShaderFlag.receiveShadow,
+				shader: xv.XComponent.ShaderFlag.texPrism,
+				paras: {
+					tile: {
+						change: true,
+						layers: 5 },
+	                u_tex: [
+	                    'data:application/x-visual+img,grey-pixel',
+	                    'data:application/x-visual+img,grey-pixel',
+	                    'data:application/x-visual+img,grey-pixel']
+					},
+			}
+	  },
+	  { id: 'box-error',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [50, 90, 40],
+				transform: [
+					{ translate: [-20, 10, -50] } ],
+				mesh: {
+					castShadow: true,
+					receiveShadow: true
+				} },
+		Visual:{vtype: xv.AssetType.mesh,
+				// shader: xv.XComponent.ShaderFlag.receiveShadow,
+				shader: xv.XComponent.ShaderFlag.texPrism,
+				paras: {
+					// side: THREE.FrontSide,
+					tile: {
+						change: true,
+						layers: 5 },
+					asset
+				} }
 	  },
 	  { id: 'box-3js',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [40, 40, 180],
-				transform: [ { translate: [20, 60, -10] } ],
+				transform: [ { translate: [30, 70, -10] } ],
 				mesh: {
 					castShadow: true,
 					// receiveShadow: true

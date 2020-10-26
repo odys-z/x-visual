@@ -5,7 +5,7 @@
 import {
 	ShaderMaterial,
 	UniformsUtils
-} from "three"
+} from "../three.module-MRTSupport"
 
 import { Pass } from "../postprocessing/Pass.js";
 import { FilmShader } from "../shaders/FilmShader.js";
