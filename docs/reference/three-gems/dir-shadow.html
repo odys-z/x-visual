@@ -8,12 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Three.js Gems &mdash; x-visual 0.4 documentation</title>
+  <title>Directional Shadow &mdash; x-visual 0.4 documentation</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
   
 
   
@@ -26,21 +26,19 @@
 
   
   
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   
 
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
-        <link rel="up" title="Reference" href="index.html"/>
-        <link rel="prev" title="Components" href="components.html"/> 
+    <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/>
+        <link rel="up" title="Three.js Gems" href="index.html"/>
+        <link rel="next" title="EnvMap" href="envmap.html"/>
+        <link rel="prev" title="Three.js Gems" href="index.html"/> 
 
   
-  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -55,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> x-visual
+            <a href="../../index.html" class="icon icon-home"> x-visual
           
 
           
@@ -72,7 +70,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -87,19 +85,23 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="gltf.html">GLTF Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shadow/index.html">Shadow Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Three.js Gems</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#shaderlib">ShaderLib</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#directional-lights-uniforms">Directional Lights Uniforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests/index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../gltf.html">GLTF Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../geometry.html">Geometries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svg.html">SVG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../shadow/index.html">Shadow Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Three.js Gems</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">Directional Shadow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shaderlib">ShaderLib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#directional-lights-uniforms">Directional Lights Uniforms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="envmap.html">EnvMap</a></li>
 </ul>
 </li>
 </ul>
@@ -117,7 +119,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">x-visual</a>
+        <a href="../../index.html">x-visual</a>
       </nav>
 
 
@@ -132,11 +134,13 @@
 
 <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">Reference</a> &raquo;</li>
+          <li><a href="../index.html">Reference</a> &raquo;</li>
       
-    <li>Three.js Gems</li>
+          <li><a href="index.html">Three.js Gems</a> &raquo;</li>
+      
+    <li>Directional Shadow</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -148,13 +152,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="three-js-gems">
-<h1>Three.js Gems<a class="headerlink" href="#three-js-gems" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="directional-shadow">
+<h1>Directional Shadow<a class="headerlink" href="#directional-shadow" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="shaderlib">
 <h2>ShaderLib<a class="headerlink" href="#shaderlib" title="Permalink to this headline">¶</a></h2>
 <p>When WebGLRenderer creating material in <em>initMaterial()</em>, the <em>programChange ==
 true</em> branch will load the shader of <em>ShaderLib[ parameters.shaderID ]</em>.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">initMaterial</span><span class="p">(</span> <span class="nx">material</span><span class="p">,</span> <span class="nx">fog</span><span class="p">,</span> <span class="nx">object</span> <span class="p">)</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">initMaterial</span><span class="p">(</span> <span class="nx">material</span><span class="p">,</span> <span class="nx">fog</span><span class="p">,</span> <span class="nx">object</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span> <span class="nx">programChange</span> <span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">shaderID</span> <span class="p">)</span>
             <span class="kd">var</span> <span class="nx">shader</span> <span class="o">=</span> <span class="nx">ShaderLib</span><span class="p">[</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">shaderID</span> <span class="p">];</span>
@@ -163,7 +167,7 @@ true</em> branch will load the shader of <em>ShaderLib[ parameters.shaderID ]</e
 </pre></div>
 </div>
 <p>In ShaderLib.js, the lib is defined as</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">ShaderLib</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">ShaderLib</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">...</span>
 
     <span class="nx">phong</span><span class="o">:</span> <span class="p">{</span>
@@ -198,7 +202,7 @@ true</em> branch will load the shader of <em>ShaderLib[ parameters.shaderID ]</e
 </pre></div>
 </div>
 <p>In UniformsLib.js</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">UniformsLib</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">UniformsLib</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">common</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">diffuse</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span> <span class="mh">0xeeeeee</span> <span class="p">)</span> <span class="p">},</span>
         <span class="p">...</span>
@@ -236,8 +240,8 @@ true</em> branch will load the shader of <em>ShaderLib[ parameters.shaderID ]</e
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>ShaderChunk is actually a boilerplate, e.g. Phong vertex shader:</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#define PHONG</span>
+<p>ShaderChunk is actually a boilerplate, e.g. phong vertex shader:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define PHONG</span>
 <span class="n">varying</span> <span class="n">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
 
 <span class="cp">#ifndef FLAT_SHADED</span>
@@ -293,15 +297,15 @@ true</em> branch will load the shader of <em>ShaderLib[ parameters.shaderID ]</e
 </div>
 <div class="section" id="directional-lights-uniforms">
 <h2>Directional Lights Uniforms<a class="headerlink" href="#directional-lights-uniforms" title="Permalink to this headline">¶</a></h2>
-<p>When WebGLRenderer is rendering, it maintance it’s current state, an instance of
+<p>When WebGLRenderer is rendering, it maintance it&#8217;s current state, an instance of
 <em>WebGLRenderState</em>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">WebGLRenderer</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-<span class="o">-&gt;</span>  <span class="n">WebGLRenderState</span><span class="o">.</span><span class="n">setupLights</span><span class="p">(</span> <span class="n">camera</span> <span class="p">)</span>
-    <span class="o">-&gt;</span>  <span class="n">WebGLLights</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span> <span class="n">lights</span><span class="p">,</span> <span class="n">shadows</span><span class="p">,</span> <span class="n">camera</span> <span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre>WebGLRenderer.render()
+-&gt;  WebGLRenderState.setupLights( camera )
+    -&gt;  WebGLLights.setup( lights, shadows, camera )
 </pre></div>
 </div>
 <p>The <em>setup()</em> function manage directional lights uniforms.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">uniforms</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">uniforms</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">direction</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Vector3</span><span class="p">(),</span>
     <span class="nx">color</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(),</span>
 
@@ -341,9 +345,9 @@ true</em> branch will load the shader of <em>ShaderLib[ parameters.shaderID ]</e
 <span class="p">}</span>
 </pre></div>
 </div>
-<p id="three-gem-material-lights">In <em>WebGLRenderer.initMaterial()</em>, the lights’ state also updated into materials’
+<p id="three-gem-material-lights">In <em>WebGLRenderer.initMaterial()</em>, the lights&#8217; state also updated into materials&#8217;
 uniforms:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span> <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">needsLights</span> <span class="p">)</span> <span class="p">{</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">needsLights</span> <span class="p">)</span> <span class="p">{</span>
     <span class="c1">// wire up the material to this renderer&#39;s lighting state</span>
     <span class="nx">uniforms</span><span class="p">.</span><span class="nx">ambientLightColor</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">ambient</span><span class="p">;</span>
     <span class="nx">uniforms</span><span class="p">.</span><span class="nx">lightProbe</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">probe</span><span class="p">;</span>
@@ -374,8 +378,10 @@ has all the fields. In x-visual, this is been handled by <em>thrender.createXSha
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="envmap.html" class="btn btn-neutral float-right" title="EnvMap" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="components.html" class="btn btn-neutral" title="Components" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="index.html" class="btn btn-neutral" title="Three.js Gems" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -405,24 +411,23 @@ has all the fields. In x-visual, this is been handled by <em>thrender.createXSha
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
+            URL_ROOT:'../../',
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="../_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
   
   
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
   
 
   
