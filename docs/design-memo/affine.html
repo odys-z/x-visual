@@ -284,11 +284,16 @@ previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been 
 30
 31
 32
-33</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="cm">/**Update affine combination for the object.</span>
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="c1">// pinned reference 96-131</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Update affine combination for the object.</span>
+<span class="cm">     *</span>
 <span class="cm">     * @param {Obj3} obj3 combined target object with mi</span>
 <span class="cm">     * @param {CmpTweens} cmpTweens e.g. [{mi, translate: [x, y, z]}]</span>
-<span class="cm">	 * @return {bool} dirty</span>
+<span class="cm">     * @return {bool} dirty</span>
 <span class="cm">     * @member AffineCombiner#combineUpdate</span>
+<span class="cm">     *</span>
 <span class="cm">     */</span>
     <span class="nx">combineUpdate</span><span class="p">(</span><span class="nx">obj3</span><span class="p">,</span> <span class="nx">cmpTweens</span><span class="p">)</span> <span class="p">{</span>
 		<span class="kd">var</span> <span class="nx">dirty</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
@@ -314,9 +319,6 @@ previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been 
 			<span class="p">}</span>
 	        <span class="k">if</span> <span class="p">(</span><span class="nx">cmpTweens</span><span class="p">.</span><span class="nx">mf_buff</span><span class="p">[</span><span class="nx">seqx</span><span class="p">])</span>
 	        	<span class="nx">obj3</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mul</span><span class="p">(</span><span class="nx">cmpTweens</span><span class="p">.</span><span class="nx">mf_buff</span><span class="p">[</span><span class="nx">seqx</span><span class="p">]);</span>
-		<span class="p">}</span>
-		<span class="k">return</span> <span class="nx">dirty</span><span class="p">;</span>
-    <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>

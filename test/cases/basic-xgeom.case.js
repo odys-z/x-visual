@@ -2,7 +2,8 @@ import chai from 'chai'
 import { expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
 
-import * as THREE from 'three';
+import * as THREE from '../../packages/three/three.module-MRTSupport';
+
 import {vec3, mat4} from '../../lib/xmath/vec'
 import xmath from '../../lib/xmath/math'
 import xgeom from '../../lib/xmath/geom'

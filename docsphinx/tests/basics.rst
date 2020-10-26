@@ -35,7 +35,7 @@ extended by x-visual for special purpose.
 The light position is indicated by a wireframe object, showing how different of
 x-visual material extension vs. Three.js'. The left most (-x) 3 objects using
 Three.js material objects have light effects of
-`Three.HemisphereLight <https://threejs.org/docs/#api/en/lights/HemisphereLight>`_ .
+`Three.DirectionalLight <https://threejs.org/docs/#api/en/lights/DirectionalLight>`_ .
 
 .. image:: imgs/001-light.jpg
     :width: 600px

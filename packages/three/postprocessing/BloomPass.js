@@ -10,10 +10,11 @@ import {
 	UniformsUtils,
 	Vector2,
 	WebGLRenderTarget
-} from "three"
-import { Pass } from "../postprocessing/Pass.js";
-import { CopyShader } from "../shaders/CopyShader.js";
-import { ConvolutionShader } from "../shaders/ConvolutionShader.js";
+} from "../three.module-MRTSupport"
+
+import { Pass } from "./Pass";
+import { CopyShader } from "../shaders/CopyShader"
+import { ConvolutionShader } from "../shaders/ConvolutionShader"
 
 var BloomPass = function ( strength, kernelSize, sigma, resolution ) {
 

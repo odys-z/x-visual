@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ripples &mdash; x-visual 0.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests/index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Design Memo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Ripples</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ripples">
+<h1>Ripples<a class="headerlink" href="#ripples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ripple-by-distance-displacement">
+<h2>Ripple by distance displacement<a class="headerlink" href="#ripple-by-distance-displacement" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.shadertoy.com/view/XsXGR7">Shock Wave</a> way of distance can be
+optimized.</p>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="cm">/* The original way</span>
+<span class="cm">void mainImage( out vec4 fragColor, in vec2 fragCoord ) {</span>
+<span class="cm">     float t = mod(iTime, 3.);</span>
+<span class="cm">     vec3 waveParams = vec3( 10.0, 0.8, 0.1 );</span>
+<span class="cm">     vec2 uv = fragCoord.xy / iResolution.xy;</span>
+<span class="cm">     uv = uv * 2. - 1.;</span>
+<span class="cm">     vec2 texCoord = uv;</span>
+<span class="cm">     float distance = length(uv);</span>
+
+<span class="cm">     if ( distance &lt;= t + waveParams.z &amp;&amp; distance &gt;= t - waveParams.z )</span>
+<span class="cm">     {</span>
+<span class="cm">            float diff = distance - t;</span>
+<span class="cm">            float powDiff = 1.0 - pow(abs(diff*waveParams.x), waveParams.y);</span>
+
+<span class="cm">            float diffTime = diff  * powDiff;</span>
+<span class="cm">            vec2 diffUV = normalize(uv);</span>
+<span class="cm">            texCoord = uv + (diffUV * diffTime);</span>
+
+<span class="cm">     }</span>
+<span class="cm">     vec4 original = texture( iChannel0, texCoord);</span>
+<span class="cm">     fragColor = original;</span>
+<span class="cm">}</span>
+<span class="cm">*/</span>
+<span class="k">void</span> <span class="n">mainImage</span><span class="p">(</span> <span class="k">out</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">,</span> <span class="k">in</span> <span class="k">vec2</span> <span class="n">fragCoord</span> <span class="p">)</span> <span class="p">{</span>
+     <span class="k">float</span> <span class="n">t</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">iTime</span><span class="p">,</span> <span class="mf">3.</span><span class="p">);</span>
+     <span class="k">vec3</span> <span class="n">waveParams</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span> <span class="p">);</span>
+     <span class="k">vec2</span> <span class="n">uv</span> <span class="o">=</span> <span class="n">fragCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">/</span> <span class="n">iResolution</span><span class="p">.</span><span class="n">xy</span><span class="p">;</span>
+     <span class="c1">// uv = uv * 2. - 1.;</span>
+     <span class="k">vec2</span> <span class="n">texCoord</span> <span class="o">=</span> <span class="n">uv</span><span class="p">;</span>
+     <span class="k">float</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">uv</span> <span class="o">*</span> <span class="mf">2.</span> <span class="o">-</span><span class="mf">1.</span><span class="p">);</span>
+
+     <span class="k">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">smoothstep</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mf">0.06</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">distance</span><span class="p">);</span>
+          <span class="n">d</span> <span class="o">-=</span> <span class="n">smoothstep</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mf">0.03</span><span class="p">,</span> <span class="n">distance</span><span class="p">);</span>
+     <span class="n">texCoord</span> <span class="o">=</span> <span class="n">uv</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="mf">0.0125</span> <span class="o">*</span> <span class="n">d</span> <span class="o">/</span> <span class="n">pow</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">));</span>
+
+     <span class="k">vec4</span> <span class="n">original</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span> <span class="n">iChannel0</span><span class="p">,</span> <span class="n">texCoord</span><span class="p">);</span>
+     <span class="n">fragColor</span> <span class="o">=</span> <span class="n">original</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://www.shadertoy.com/view/XslcWn">Rainy mood</a></p>
+</div>
+<div class="section" id="ripple-distortion-by-triangle-functions">
+<h2>Ripple distortion by triangle functions.<a class="headerlink" href="#ripple-distortion-by-triangle-functions" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.shadertoy.com/view/ldBXDD">RippleEffectFragmentShader</a></p>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="c1">// Ref: http://adrianboeing.blogspot.in/2011/02/ripple-effect-in-webgl.html</span>
+<span class="k">void</span> <span class="n">mainImage</span><span class="p">(</span> <span class="k">out</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">,</span> <span class="k">in</span> <span class="k">vec2</span> <span class="n">fragCoord</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// pixel position normalised to [-1, 1]</span>
+    <span class="k">vec2</span> <span class="n">cPos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">.5</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">fragCoord</span><span class="p">.</span><span class="n">xy</span> <span class="o">/</span> <span class="n">iResolution</span><span class="p">.</span><span class="n">xy</span><span class="p">;</span>
+
+    <span class="c1">// distance of current pixel from center</span>
+    <span class="k">float</span> <span class="n">cLength</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">cPos</span><span class="p">);</span>
+
+    <span class="c1">// vec2 uv = fragCoord.xy/iResolution.xy+(cPos/pow(cLength, 2.))*cos(cLength*12.0-iTime*4.0) * 0.03;</span>
+
+    <span class="k">vec2</span> <span class="n">uv</span> <span class="o">=</span> <span class="n">fragCoord</span><span class="p">.</span><span class="n">xy</span><span class="o">/</span><span class="n">iResolution</span><span class="p">.</span><span class="n">xy</span><span class="p">;</span>
+    <span class="c1">// abs(0.75*sin(2*x)/x + 1*sin(0.5*x)/x) / 1.75</span>
+    <span class="k">float</span> <span class="n">s</span> <span class="o">=</span> <span class="n">iTime</span> <span class="o">*</span> <span class="mf">0.125</span><span class="p">;</span>
+    <span class="n">uv</span> <span class="o">+=</span> <span class="p">(</span><span class="n">cPos</span><span class="o">/</span><span class="n">pow</span><span class="p">(</span><span class="n">cLength</span><span class="p">,</span> <span class="mf">2.</span><span class="p">))</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">cLength</span><span class="o">*</span><span class="mf">12.0</span><span class="o">-</span><span class="n">iTime</span><span class="o">*</span><span class="mf">14.0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.03</span>
+          <span class="o">*</span> <span class="n">abs</span><span class="p">(</span><span class="mf">0.75</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">s</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">s</span><span class="p">))</span> <span class="o">/</span> <span class="mf">1.75</span><span class="p">;</span>
+    <span class="k">vec3</span> <span class="n">col</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span><span class="n">iChannel0</span><span class="p">,</span><span class="n">uv</span><span class="p">).</span><span class="n">xyz</span><span class="p">;</span>
+
+    <span class="n">fragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z.github.io.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

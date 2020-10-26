@@ -35,57 +35,19 @@ see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-t
 Issues
 ------
 
-.. _issue-asynch-gltf:
+1. Implementing Shadow with SSAO
 
-1. ModelSeqs can't handle asynchronously loaded mesh
+Reference:
 
-test case: html/gltf-car.html
+`OGL Tutorial 45: Screen Space Ambient Occlusion <http://ogldev.org/www/tutorial45/tutorial45.html>`_
 
-Problem: If setting animation sequence start at 0 (any but Infinity) on a gltf
-mesh, then the target Obj3.mesh won't being ready when playing started.
+3D distance fields: A survey of techniques and applications, August 2006IEEE
+Transactions on Visualization and Computer Graphics 12(4):581-99
+`DOI: 10.1109/TVCG.2006.56 <https://www.researchgate.net/publication/6979985_3D_distance_fields_A_survey_of_techniques_and_applications>`_
 
-Loading the gltf nodes is an asynchronous process, of which the node objects can
-only been ready for rendering latter.
+`A Complete Distance Field Representation, 2001 <https://graphics.stanford.edu/courses/cs468-03-fall/Papers/completeDistanceFieldRep.pdf>`_
 
-Code snippet of starting Tween animation in AffineCombiner.update():
-
-.. code-block:: javascript
-
-    if (!e.CmpTweens.idle) {
-        if (e.CmpTweens.playRising) {
-            e.Obj3.m0.setByjs(e.Obj3.mesh.matrix);
-        }
-        ...
-..
-
-Code snippet of Thrender.createObj3s() AssetType.gltf branch:
-
-.. code-block:: javascript
-
-    AssetKeepr.loadGltfNodes(e.Obj3, `assets/${e.Visual.asset}`,
-        nds,
-        (nodes) => {
-            // Too late to push mesh into mes now, add to scene directly
-            if (scene && nodes) {
-                for (var n of nodes) {
-                    if (e.Obj3 && e.Obj3.transform) {
-                        var m4 = new mat4();
-
-                        if (e.Visual.paras && e.Visual.paras.withTransform)
-                            m4.setByjs(n.matrix);
-
-                        for (var trs of e.Obj3.transform)
-                            m4.appAffine(trs);
-
-                        n.matrixAutoUpdate = false;
-                        m4.put2js(n.matrix);
-                        e.Obj3.mesh = n;
-                    }
-                    scene.add(n);
-                }
-            }
-        });
-..
+`Generating Signed Distance Fields From Triangle Meshes, 2002 <http://www2.imm.dtu.dk/pubdb/edoc/imm1289.pdf>`_
 
 2. Loaded GLTF makes outlined together with box mesh.
 
@@ -143,6 +105,60 @@ There are `Three.js issue about the same error <https://github.com/mrdoob/three.
 ..
 
 plane.Obj3.uniforms.opacity will hide / show way0
+
+.. _issue-asynch-gltf:
+
+3. ModelSeqs can't handle asynchronously loaded mesh
+
+.. attention:: This issue should no longer exists in version latter than v0.3.
+
+test case: html/gltf-car.html
+
+Problem: If setting animation sequence start at 0 (any but Infinity) on a gltf
+mesh, then the target Obj3.mesh won't being ready when playing started.
+
+Loading the gltf nodes is an asynchronous process, of which the node objects can
+only been ready for rendering latter.
+
+Code snippet of starting Tween animation in AffineCombiner.update():
+
+.. code-block:: javascript
+
+    if (!e.CmpTweens.idle) {
+        if (e.CmpTweens.playRising) {
+            e.Obj3.m0.setByjs(e.Obj3.mesh.matrix);
+        }
+        ...
+..
+
+Code snippet of Thrender.createObj3s() AssetType.gltf branch:
+
+.. code-block:: javascript
+
+    AssetKeepr.loadGltfNodes(e.Obj3, `assets/${e.Visual.asset}`,
+        nds,
+        (nodes) => {
+            // Too late to push mesh into mes now, add to scene directly
+            if (scene && nodes) {
+                for (var n of nodes) {
+                    if (e.Obj3 && e.Obj3.transform) {
+                        var m4 = new mat4();
+
+                        if (e.Visual.paras && e.Visual.paras.withTransform)
+                            m4.setByjs(n.matrix);
+
+                        for (var trs of e.Obj3.transform)
+                            m4.appAffine(trs);
+
+                        n.matrixAutoUpdate = false;
+                        m4.put2js(n.matrix);
+                        e.Obj3.mesh = n;
+                    }
+                    scene.add(n);
+                }
+            }
+        });
+..
 
 Wish List
 ---------
