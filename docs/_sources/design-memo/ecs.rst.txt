@@ -1,17 +1,20 @@
 ECS Framework
 =============
 
-.. note:: doc stub
-..
+ECS stands for Entity, Component & System. This is frequently applied pattern in
+application's built as a finite state machine, accepting different input driving
+the system handling.
 
-X-visual is inspired by fritz/ECS.
+X-visual is inspired by `fritzy/ECS <https://github.com/fritzy/ape-ecs>`_.
 
-Before x-visual v0.3.0, all object are handled in static way - no new object can be created
-during scene updating process. Each subsystem is implement assuming that entity
-won't been changed during entire rendering life cycle.
+Before x-visual v1.0, all object are handled in static way - no new object can be
+created after scene updating started. Each subsystem is implement assuming that
+entity won't been changed during entire rendering life cycle.
 
-*Memo: As loading SVG & GLTF asynchronously required, the v0.2.39 can add assets to
-Three.js later than initializing xworld.*
+It's true since v0.3 some model loading and assets handling are asynchronous,
+which means model of texture can be changed after scene started updating. As
+loading SVG & GLTF asynchronously required, the v0.2.39 can add assets to Three.js
+later than initializing xworld.
 
 Reason: there are many other more important concepts to be verified, this decision
 can largely simplify x-visual, and it's highly probably impose limited modification

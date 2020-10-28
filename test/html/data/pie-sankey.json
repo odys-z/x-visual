@@ -13,7 +13,7 @@
     "totalValue": 21,
     "totalBar": 8, "totalBar-desc": "discret-coords x vector-num",
     "bar-desc": "[ vec-idx: [coord-idx, coord-enum, h, y] ]",
-    "texture": "../../assets/tex/grey-pixel.png",
+    "texture": "../../assets/tex/gray-pixel.png",
     "bars": [
         [ [ 0, 1, 6, 15 ],
           [ 1, 1, 6, 15 ] ],

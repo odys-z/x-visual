@@ -6,7 +6,8 @@ import chaiStats from 'chai-stats'
 
 const {performance} = require('perf_hooks');
 
-import * as THREE from 'three';
+import * as THREE from '../packages/three/three.module-MRTSupport';
+
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld'
 import {x} from '../lib/xapp/xworld'
@@ -25,7 +26,7 @@ describe('case: [affine ISSUE] orbit parallel to rotate axisy', function() {
     x.log = 4;
 	x.test = true;
 
-    it('affine combination: orbit + roate x not combined correctly, WRONG', async function() {
+    it('affine combination: orbit + rotate x not combined correctly, WRONG', async function() {
         const xworld = new XWorld(undefined, 'window', {});
         const ecs = xworld.xecs;
 

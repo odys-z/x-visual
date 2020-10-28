@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Virtual Buildings</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>input[id] {width: 4.9em}</style>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <p>For more reference to triangle face handling, see <a href='./polygon-light.html'>
+  test case: Light on GeoPrism</a>.</p>
+  <script>
+	"use strict";
+
+	var area = {
+	  "type": "FeatureCollection",
+	  "features": [
+		{ "type": "Feature",
+		  "properties": {"height": 0.1, "area": "virtual", "boxHeight": 20},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-100, -100], [200, -100], [200, 100], [-100, 100]]]
+		  }
+	    },
+		{ "type": "Feature",
+		  "properties": {"height": 0.5, "area": "virtual", "boxHeight": 10},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-200, -100], [-180, -80], [-180, -60], [-128, -100],
+							 [-120, -100], [-120, 100], [-200, 100]]]
+		  }
+	    },
+		{ "type": "Feature",
+		  "properties": {"height": 1}, // != area, filtered out by xv.map3.BoundingCubes
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-200, 123], [200, 123], [200, 200], [-200, 200]]]
+		  }
+	    },
+	  ]
+	};
+	var o0 = [0, 0];
+
+	// box(x, z, w, d, h) of area(x, z, w, d, Visual.paras.maxHeight)
+	var boxes = [[0.8, 0.2, 0.1, 0.2, 1], [0.3, 0.4, 0.4, 0.2, 0.4]];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					  window, {canvasize: [600, 300]});
+
+	xworld.xecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
+
+	xworld.addEntities([
+	  { id: 'va',
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+				box: [] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				// layers: 5,
+				// VirtualArea
+				maxHeight: 30,
+				features: undefined, // GeoPrism will take care of this
+				origin: o0,
+				geostyle: { height: 5, scale: 1. },
+
+				// shader paras
+				color: [0.4, 0.4, 1.0, 1], // BOX color
+				// tiles
+				north: 0,
+				edgeWeight: 30,
+				xztile: {
+					hue: [0.3, 0.0, 0.8, 0.4], // tile color
+					edgeWeight: 16.0,
+					box: [-6, -8],
+					tiles: [14, 3],
+					change: false,
+					layers: 1,
+					layerDist: 10,
+					y0: 0,
+				}
+			} } ,
+		ModelSeqs: { script: [[{
+			mtype:  xv.XComponent.AnimType.U_NOW,
+			paras: {start: 0,
+				speed: 0.001,   // speed para always comes with U_NOW
+				duration: 0 }	// ignored
+			}]]
+		},
+		CmpTweens: {},
+		CBoundCubes: {
+			area,
+			boxes,
+		}
+	  },
+	]);
+
+	// must after VirtualCubes created, before xworld started
+	xworld.addSystem('v-area',
+		new xv.map3.BoundingCubes(xworld.xecs, {xscene: xworld.xscene}));
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

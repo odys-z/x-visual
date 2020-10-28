@@ -11,8 +11,6 @@
   <script>
     "use strict";
 
-    /**Senario: suppose you have 2 models to be morphed (animated). */
-    // initiating xworld
     const xworld = new xv.XWorld(document.getElementById('canv'),
                         window, {canvasize: [480, 320]});
     const ecs = xworld.xecs;
@@ -27,7 +25,7 @@
         Visual:{vtype: xv.AssetType.mesh,
                 asset: 'tex/byr0.png' },
         ModelSeqs: {
-            script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
+            script: [[{ mtype: xv.XComponent.AnimType.U_ALPHA,
                         paras: {start: 0,            // auto start
                                 duration: 1.7,       // seconds
                                 alpha: [0.95, 0.05], // from, to
@@ -35,7 +33,7 @@
                         startWith:[{entity: 'points',
                                     seqx: 0,        // index of the fade-in
                                     start: 0.0}] }],
-                     [{ mtype: xv.XComponent.AnimType.ALPHA,
+                     [{ mtype: xv.XComponent.AnimType.U_ALPHA,
                         paras: {start: Infinity,
                                 alpha: [0.05, 0.95],
                                 ease: undefined}, }] ] },
@@ -52,13 +50,13 @@
         Visual:{vtype: xv.AssetType.mesh,
                 asset: 'city/textures/World_ap_baseColor.jpeg' },
         ModelSeqs: {
-            script: [[{ mtype: xv.XComponent.AnimType.ALPHA,
+            script: [[{ mtype: xv.XComponent.AnimType.U_ALPHA,
                         paras: {start: Infinity,        // follow points[0][1]
                                 duration: 1.2,          // seconds
                                 alpha: [0.95, 0.05],    // from, to
                                 ease: xv.XEasing.Elastic.In},
                      }],
-                     [{ mtype: xv.XComponent.AnimType.ALPHA,
+                     [{ mtype: xv.XComponent.AnimType.U_ALPHA,
                         paras: {start: Infinity,
                                 duration: 3.2,          // seconds
                                 alpha: [0.05, 0.95],
@@ -80,14 +78,14 @@
                 invisible: false },              // It's visible, but alpha 0?
         Visual:{vtype: xv.AssetType.refPoint,
                 asset: 'entity1',
-                shader: xv.XComponent.ShaderFlag.randomParticles | xv.XComponent.ShaderFlag.defaultex,
+                shader: xv.XComponent.ShaderFlag.randomParticles,
                 paras: {vert_scale: '120.0',
                         a_dest: 'entity2',      // entity2.Obj3.mesh
                         // u_tex: 'tex/spark1.png',
                         u_tex: 'tex/crosstar.png',
                         a_noise: false}},
         ModelSeqs: { script: [[
-              { mtype: xv.XComponent.AnimType.ALPHA,
+              { mtype: xv.XComponent.AnimType.U_ALPHA,
                 paras: {start: Infinity,        // triggered by entity1
                         duration: 1.2,          // seconds
                         alpha: [0.06, 0.9],     // from, to
@@ -102,7 +100,7 @@
                 followBy: [{entity: 'entity2',
                             seqx: 1,            // index of the fade-in
                             start: 0.3}] },
-              { mtype: xv.XComponent.AnimType.ALPHA,
+              { mtype: xv.XComponent.AnimType.U_ALPHA,
                 paras: {start: Infinity,        // triggered by entity1
                         duration: 1.2,          // seconds
                         alpha: [0.9, 0.41],     // from, to
@@ -111,10 +109,56 @@
         CmpTweens: {}
     };
 
-
-
-
     xworld.addEntities(points);
+
+
+    /////// end pin
+    const line1 = {
+        id: 'line1',
+		Obj3: { geom: xv.XComponent.Obj3Type.PointCurve,
+				box: [10],
+				transform: [{ translate: [-140, 80, 0] }],
+				uniforms: {opacity: 1.0} },
+		Visual: {
+			vtype:  xv.AssetType.GeomCurve,
+			paras: {
+				points:[[-12, 12, -10], [12, 12, -10],
+						[12, 0, -10], [12, 0, 10]],
+				origin: [0, 0, 0],
+				linewidth: 4,
+				color: 'red' }, },
+        ModelSeqs: { script: [[
+              { mtype: xv.XComponent.AnimType.U_ALPHA,
+                paras: {start: 0,
+                        duration: 1.2,          // seconds
+                        alpha: [0.06, 0.9],     // from, to
+                        ease: xv.XEasing.Elastic.In} },
+              { mtype: xv.XComponent.AnimType.U_ALPHA,
+                paras: {start: Infinity,        // triggered by entity1
+                        duration: 6,            // seconds
+                        alpha: [0.9, 0.3],      // from, to
+                        ease: xv.XEasing.Elastic.In} }
+            ]] },
+        CmpTweens: {}
+    };
+    xworld.addEntities(line1);
+
+    const lines = {
+        id: 'p1.2',
+        Obj3: { geom: xv.XComponent.Obj3Type.PointSects,
+                box: [],
+                mesh: undefined },
+        Visual:{vtype: xv.AssetType.DynaSects,
+                paras: {
+                    sects:[[[-20, 10, 0], [20, -10, 0]],
+                           [[0, -20, 0], [0, 20, 0]],
+                           [[0, 0, -20], [0, 0, 20]]],
+                    color: 0xffff00,
+                    origin: [-140, 50, 0] } },
+        // FIXME PointSects can not applying alpha morphing because it's created as a group.
+        // FIXME MorphingAnim checking Obj3.mesh & material for alpha morphing will fail.
+    };
+    xworld.addEntities(lines);
 
     xworld.startUpdate();
   </script>

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest-GLTF xloader</title>
+	<title>XTest-GLTF & HUD</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
 </head>
@@ -77,22 +77,26 @@
 					HudChild: { hud: 'hud0' }
 				});
 
+
 				this.earth = ecs.createEntity({
 					id: 'earth-low',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],
 							transform: [
-								{scale: [1.8, 1.8, 1.8]},
-								{translate: [0, 32, 0]},
+								{scale: [1.8, 1.8, 1.8]},//1.8
+								{translate: [0, 32, 0]},//32
 							],
 							mesh: undefined },
 					Visual:{vtype: xv.AssetType.gltf,
 							asset: 'earth/earth-low.gltf'},
 					HudChild: { hud: 'hud0' },
-					ModelSeqs: { script: [[{
+					ModelSeqs: { script: [
+
+						[{
 							mtype:  xv.XComponent.AnimType.ROTAXIS,
-							paras: {start: Infinity,
-									duration: 7.2,
+							paras: {// can't start at 0, because of asynchronous gltf loading issue
+									start: Infinity,
+									duration: 12,
 									deg: [0, 360],
 									axis: [0, 1, 0],
 									ease: undefined},
@@ -114,7 +118,7 @@
 	const xscene = xworld.xscene;
 
 	xworld.addSystem('test', new Citysys(ecs, {xscene}));
-
+	
 	xworld.startUpdate();
 
   </script>

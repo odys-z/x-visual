@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Env Map</title>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <p>Sky image from <a href='https://www.cgtrader.com/free-3d-models/textures/natural/hdri-freebie-series'>
+    avianx, 4K Sky Series HDRi free Texture, cgtrader</a></p>
+  <img src='assets/../../assets/tex/sky-blue.jpg'
+  	style="width: 1024px; height: 512px; position: absolute; margin-top: -169px; clip-path: polygon(0% 33%, 25% 33%, 25% 58%, 0% 58%);"/>
+  <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 256px; margin-left: 257px"/>
+  <br><a href='hdr-env-exr.html'>Change to EXR texture</a>
+  <script>
+	"use strict";
+
+	var equirectex = '../../assets/tex/sky-blue.jpg';
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+				window,
+				{ canvasize: [512, 256],
+				  light:{ skyColor: 0xffffff },
+				  // control: xv.CameraType.Orbitctrl,
+				} );
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
+	xworld.addEntities([
+	  { id: 'sky',
+		Obj3: { },
+		Visual:{vtype: xv.AssetType.skyBox,
+				paras: {
+					u_tex: equirectex // string for equirectangle map
+				}
+			}
+	  },
+	  { id: 'box1',
+		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+                box: [80, 24, 24],
+			},
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.envMap,
+				paras: {
+					whiteAlpha: 0.3,
+					envMap: 'sky',
+					// lod of cube texture, [refract, reflect], >= 0
+					lod: [0.8, 0],
+				},
+				asset
+			}
+	  },
+	]);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

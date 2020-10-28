@@ -11,7 +11,7 @@ import {
 	RGBAFormat,
 	Vector2,
 	WebGLRenderTarget
-} from "three";
+} from "../three.module-MRTSupport.js";
 
 import { CopyShader } from "../shaders/CopyShader.js";
 import { ShaderPass } from "./ShaderPass.js";

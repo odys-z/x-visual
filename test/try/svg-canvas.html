@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest-Htmltex</title>
+	<title>XTry-SVG Canvas</title>
 	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
 	<script src="https://d3js.org/d3.v5.min.js"></script>
 	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
@@ -17,19 +17,7 @@
 	<img style='height: 128px; width: 128px', src='../html/assets/tex/rgb2x2.png'></img>
   </div>
   <script>
-	/**TODO we can also animize letters:
-	 * https://www.html5rocks.com/en/tutorials/webgl/million_letters/#disqus_thread
-	 */
 	"use strict";
-
-	// function drawPie() {
-	// 	var ctx = document.getElementById('stub').getContext('2d');
-	// 	ctx.fillStyle = xv.xutils.randomColor();
-	// 	ctx.beginPath();
-	// 	ctx.arc(64, 64, 20, 0, 1.2 * Math.PI);
-	// 	ctx.stroke();
-	// 	ctx.fill();
-	// }
 
 	document.getElementById('stub')
 			.addEventListener('click', function() {
@@ -40,7 +28,6 @@
 				});
 			});
 
-	// render something in h5-content's canvas
 	drawPie('stub', {});
 
 	// initiating xworld
@@ -49,8 +36,6 @@
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	// the Htmltex convert html content to texture and render it as requested in what?
-	// TODO doc: domId, obj3, width / height
 	const entDefines = xv.Htmltex.createEntityDefs({objcanvas: [
 			{domId: 'h5-content',
 			 texsize: {width: 256, height: 256}}
@@ -77,6 +62,7 @@
 	    var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
 
 	    var pie = d3.pie().value(function(d) {
+				console.log(d);
 	            return d.percent;
 	        });
 
@@ -99,10 +85,6 @@
 	        {browser: "Opera", percent: "1.00"}];
 	    data.columns = ["browser", "percent"];
 	    // d3.csv("browseruse.csv", function(error, data) {
-	    //     if (error) {
-	    //         throw error;
-	    //     }
-	    //     console.log(data);
 	        var arc = g.selectAll(".arc")
 	                   .data(pie(data))
 	                   .enter().append("g")
@@ -110,7 +92,10 @@
 
 	        arc.append("path")
 	           .attr("d", path)
-	           .attr("fill", function(d) { return color(d.data.browser); });
+	           .attr("fill", function(d) {
+				   let s = color(d.data.browser);
+				   console.log(s);
+				   return s; });
 
 	        console.log(arc)
 

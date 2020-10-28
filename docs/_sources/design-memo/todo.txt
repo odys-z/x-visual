@@ -35,9 +35,82 @@ see `Three.js Texture <https://threejsfundamentals.org/threejs/lessons/threejs-t
 Issues
 ------
 
+1. Implementing Shadow with SSAO
+
+Reference:
+
+`OGL Tutorial 45: Screen Space Ambient Occlusion <http://ogldev.org/www/tutorial45/tutorial45.html>`_
+
+3D distance fields: A survey of techniques and applications, August 2006IEEE
+Transactions on Visualization and Computer Graphics 12(4):581-99
+`DOI: 10.1109/TVCG.2006.56 <https://www.researchgate.net/publication/6979985_3D_distance_fields_A_survey_of_techniques_and_applications>`_
+
+`A Complete Distance Field Representation, 2001 <https://graphics.stanford.edu/courses/cs468-03-fall/Papers/completeDistanceFieldRep.pdf>`_
+
+`Generating Signed Distance Fields From Triangle Meshes, 2002 <http://www2.imm.dtu.dk/pubdb/edoc/imm1289.pdf>`_
+
+2. Loaded GLTF makes outlined together with box mesh.
+
+And further, if used in an other project, the loaded GLTF modules crashes with box object::
+
+    three.module.js:16034 Uncaught TypeError: Cannot read property 'type' of undefined
+        at WebGLIndexedBufferRenderer.setIndex (three.module.js:16034)
+        at WebGLRenderer.renderBufferDirect (three.module.js:24169)
+        at renderObject (three.module.js:24886)
+        at renderObjects (three.module.js:24856)
+        at WebGLRenderer.render (three.module.js:24637)
+        at RenderPass.render (RenderPass.js:58)
+        at EffectComposer.render (EffectComposer.js:142)
+        at Thrender.update (thrender.js:920)
+        at ECS.runSystemGroup (ecs.js:197)
+        at XWorld.update (xworld.js:311)
+    THREE.REVISION
+    "113"
+
+There are `Three.js issue about the same error <https://github.com/mrdoob/three.js/pull/14367>`_.
+
+`Jsdoc API - AssetKeepr <https://odys-z.github.io/javadoc/x-visual/AssetKeepr.html>`_
+
+- bug: Obj3.uniforms.u_alpha will affect each others
+
+.. code-block:: javascript
+
+	xworld.addEntities( {
+		id: 'way0',
+		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
+				box: [0] },    // y0 = 0
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.ShaderFlag.colorArray,
+			paras: {
+				feature: path1.property,
+				points: path0[0].points,
+				origin: origin0,
+				colors: [[0, 0.3, 0], [0, 0.3, 0.5]] } }
+			});
+
+	xworld.addEntities( {
+		id: 'plane',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				uniforms: {opacity: 1.0},
+				box: [300, 10] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.ShaderFlag.colorArray,
+			paras: {
+				// texMix: xv.ShaderAlpha.mix,
+				colors: [[0, 0.2, 0], [0.5, 0.2, 0]] },
+			asset: '../../assets/tex/ruler256.png'}
+			});
+..
+
+plane.Obj3.uniforms.opacity will hide / show way0
+
 .. _issue-asynch-gltf:
 
-1. ModelSeqs can't handle asynchronously loaded mesh
+3. ModelSeqs can't handle asynchronously loaded mesh
+
+.. attention:: This issue should no longer exists in version latter than v0.3.
 
 test case: html/gltf-car.html
 
@@ -86,28 +159,6 @@ Code snippet of Thrender.createObj3s() AssetType.gltf branch:
             }
         });
 ..
-
-2. Loaded GLTF makes outlined together with box mesh.
-
-And further, if used in an other project, the loaded GLTF modules crashes with box object::
-
-    three.module.js:16034 Uncaught TypeError: Cannot read property 'type' of undefined
-        at WebGLIndexedBufferRenderer.setIndex (three.module.js:16034)
-        at WebGLRenderer.renderBufferDirect (three.module.js:24169)
-        at renderObject (three.module.js:24886)
-        at renderObjects (three.module.js:24856)
-        at WebGLRenderer.render (three.module.js:24637)
-        at RenderPass.render (RenderPass.js:58)
-        at EffectComposer.render (EffectComposer.js:142)
-        at Thrender.update (thrender.js:920)
-        at ECS.runSystemGroup (ecs.js:197)
-        at XWorld.update (xworld.js:311)
-    THREE.REVISION
-    "113"
-
-There are `Three.js issue about the same error <https://github.com/mrdoob/three.js/pull/14367>`_.
-
-`Jsdoc API - AssetKeepr <../jsdoc/AssetKeepr.html>`_
 
 Wish List
 ---------
@@ -200,3 +251,17 @@ references:
 
 -- `DirectWrite Font Cache (obsolete), docs of the Chromium Projects <https://www.chromium.org/developers/design-documents/directwrite-font-cache>`_
    Details about how Chromium sandbox handling fonts in Windows.
+
+-- `96-bit 8x12 Font, a shadertoy way <https://www.shadertoy.com/view/Mt2GWD>`_
+   Using vec4 for each glyph, with the help of
+   `Charset Extractor from Images online tool <http://www.massmind.org/techref/datafile/charset/extractor/charset_extractor.htm>`_
+
+-- `Inigo Quilez - iq/2015, Parametric graph by curvature, Shadertoy. <https://www.shadertoy.com/view/Xlf3zl>`_,
+   License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+   Try::
+
+    color = smoothstep(0.0, 0.01, vec3( d ));
+
+.. `Da Rasterizer , Created by TDM, 2014-08-20 <https://www.shadertoy.com/view/MsjSzz>`_
+   An example of fragment shader matrix operation.

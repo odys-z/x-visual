@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Slicing Plane</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+	<style>input[id] {width: 4.9em}</style>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	const xworld = new xv.XWorld( document.getElementById('canv'), window, {
+					canvasize: [400, 300],
+					light: {intensity: 0} } );
+	const layers = 3, xb = 100, yb = 60, zb = 100;
+
+	xworld.addEntities([
+	  { id: 'slicing',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ { rotate: {rad: Math.PI/4, axis: [0, 1, 0]} },
+							 { translate: [-80, 0, 0] } ],
+				box: [xb, yb, zb] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.boxLayers,
+			paras: {
+				side: THREE.FrontSide,
+				// tiles
+				whiteAlpha: 1,
+				north: Math.PI / 4, // FIXME boxes don't ratate together with transform?
+				edgeWeight: 42.0,
+				xztile: {
+					hue: [0.3, 0.7, 0.2, 0.9], // tile hue
+					box: [xb, zb],             // must present if using three.js geometry otherthan GeoPrism.
+					tiles: [12, 18],
+					layers,
+					layerDist: yb/layers,    // 60 x 4 = 240 (box.h)
+					y0: -yb/2 },
+				yztile: {
+					box: [yb, zb],
+					tiles: [2, 1],
+					layers,
+					layerDist: xb/layers,    // 160 x 1 = 160 (box.w, not used)
+					x0: -xb/2 },
+				xytile: {
+					box: [zb, yb],
+					tiles: [1, 2],
+					change: true,
+					layers,
+					layerDist: zb/layers,   // box.d not used (1 layers)
+					z0: -zb/2 },
+			} } ,
+	  },
+	  { id: 'virtual-cubes',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ { rotate: {rad: Math.PI/4, axis: [0, 1, 0]} },
+							 { translate: [80, 0, 0] } ],
+				box: [xb, yb, zb] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.Cubeskin,
+			paras: {
+				side: THREE.FrontSide,
+				// tiles
+				whiteAlpha: 0,
+				north: Math.PI / 4,
+				edgeWeight: 42.0,
+				xztile: {
+					hue: [0.3, 0.7, 0.2, 0.9], // tile hue
+					box: [xb, zb],           // must present if using three.js geometry otherthan GeoPrism.
+					tiles: [12, 18],
+					layers,
+					layerDist: yb/layers,    // 60 x 4 = 240 (box.h)
+					y0: -yb/2 },
+				yztile: {
+					box: [yb, zb],
+					tiles: [2, 1],
+					layers: 1,
+					layerDist: xb/layers,    // 160 x 1 = 160 (box.w, not used)
+					x0: -xb/2 },
+				xytile: {
+					box: [zb, yb],
+					tiles: [1, 2],
+					change: true,
+					layers: 1,
+					layerDist: zb/layers,   // box.d not used (1 layers)
+					z0: -zb/2 },
+			} } ,
+	  } ]);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

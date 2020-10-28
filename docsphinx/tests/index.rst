@@ -1,16 +1,22 @@
 Tests & Example
 ===============
 
+About Test:
+
+See `Test in Readme <https://github.com/odys-z/x-visual#test-without-server>`_.
+
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-   test-morph
-   test-geom
-   test-effect
+   basics
+   morph
+   geom
+   effect
    examples
 
 Credits
 
-See `acknowledgement in readme <../../README.md>`_ for details.
+See `Credits in readme <https://github.com/odys-z/x-visual#asset-resources>`_
+for details.

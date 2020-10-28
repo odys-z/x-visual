@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Animizers &mdash; x-visual 0.3 documentation</title>
+  <title>Animizers &mdash; x-visual 0.4 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Affine Tweening" href="affine.html"/>
         <link rel="prev" title="Visual.paras" href="vparas.html"/> 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.3
+                0.4
               </div>
             
           
@@ -108,6 +108,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
@@ -170,9 +171,9 @@ that can be played by XTweener.</p>
 sequences&#8217; order. Each sequence is an array of <em>CmpTween</em> component.</p>
 <p>API Reference:</p>
 <ul class="simple">
-<li><a class="reference external" href="../jsdoc/XComponent.ModelSeqs.html">ModelSeqs</a></li>
-<li><a class="reference external" href="../jsdoc/XComponent.CmpTweens.html">CmpTweens</a></li>
-<li><a class="reference external" href="../jsdoc/XComponent.CmpTween.html">CmpTween</a></li>
+<li><a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XComponent.ModelSeqs.html">ModelSeqs</a></li>
+<li><a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XComponent.CmpTweens.html">CmpTweens</a></li>
+<li><a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XComponent.CmpTween.html">CmpTween</a></li>
 </ul>
 </div>
 <div class="section" id="start-tween-sequence">
@@ -205,7 +206,7 @@ code start the second sequence of entity e.</li>
 
     <span class="c1">// in version 1.0, only type of sequential animation is supported</span>
     <span class="nx">ModelSeqs</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">ALPHA</span><span class="p">,</span>
+        <span class="nx">script</span><span class="o">:</span> <span class="p">[[{</span> <span class="nx">mtype</span><span class="o">:</span> <span class="nx">AnimType</span><span class="p">.</span><span class="nx">U_ALPHA</span><span class="p">,</span>
                     <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>         <span class="c1">// auto start, only alpha tween in v0.2</span>
                             <span class="nx">duration</span><span class="o">:</span> <span class="mf">0.8</span><span class="p">,</span>    <span class="c1">// seconds</span>
                             <span class="nx">alpha</span><span class="o">:</span> <span class="p">[</span><span class="nx">opa0</span><span class="p">,</span> <span class="nx">opa1</span><span class="p">],</span>
@@ -316,9 +317,9 @@ is finished.</p>
 <blockquote>
 <div>see <a class="reference internal" href="#anim-paras-start"><span>paras.start</span></a>.</div></blockquote>
 <p>Example:</p>
-<div class="highlight-json"><div class="highlight"><pre><span class="err">type:</span> <span class="p">[{</span> <span class="err">entity:</span> <span class="err">&#39;id&#39;,</span>
-         <span class="err">seqx:</span> <span class="err">0,</span>
-         <span class="err">start:</span> <span class="err">0.1</span><span class="p">}]</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">type</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">entity</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+         <span class="nx">seqx</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+         <span class="nx">start</span><span class="o">:</span> <span class="mf">0.1</span><span class="p">}]</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -548,14 +549,33 @@ is the only one can be updated dynamically.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="animtype-alpha-paras">
-<h4>AnimType.ALPHA paras<a class="headerlink" href="#animtype-alpha-paras" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="animtype-u-alpha-paras">
+<span id="guid-animtype-ualpha"></span><h4>AnimType.U_ALPHA paras<a class="headerlink" href="#animtype-u-alpha-paras" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li>alpha:</li>
 </ul>
 <p>Array of starting and ending alpha.</p>
-<p>If the Visual is a <a class="reference internal" href="renderer.html#vtype-point"><span>point</span></a> or <a class="reference internal" href="renderer.html#vtype-refpoint"><span>refPoint</span></a>
-type, the alpha tween is been handled by shader.</p>
+<p><em>U_ALPHA</em> is implemented as a uniform float <em>u_alpha</em>. Some vtype like <a class="reference internal" href="renderer.html#vtype-point"><span>point</span></a>
+or <a class="reference internal" href="renderer.html#vtype-refpoint"><span>refPoint</span></a> are been handled by x-shader, which supporting
+u_alpha uniform. There are also other types supporting u_alpha. It&#8217;s planned support
+u_alpha for all vtype in the future. Currently a typical THREE.Mesh without Visual.shader
+configured will use THREE.Mesh.opacity for this.</p>
+<p>U_ALPHA can apply to children:</p>
+<div class="highlight-python"><div class="highlight"><pre>ModelSeqs { scrpt [ {
+    mtype: xv.XComponent.AnimType.U_ALPHA,
+    apply2Children: true,
+    ...
+  } ]
+}
+</pre></div>
+</div>
+<p>The <em>apply2Children</em> parameter makes x-visual try apply parent (entity group)&#8217;s
+uniform to all children. This needs both children and parent supporting U_ALPHA
+as u_alpha shader uniform. In v0.3.19, these are AssetType.point, refPoint,
+GeomCurve, DynaSects and ShaderFlag.randomParticles, cubeVoxels, colorArray,
+colorLine.</p>
+<p>The logic is implemented by both MorphingAnim.initTweens() &amp;&amp; xgls.hasUAlpha().</p>
+<p>See <a class="reference internal" href="../tests/morph.html#tst-morph-group-alpha"><span>test case</span></a> for example.</p>
 </div>
 <div class="section" id="animtype-uniform-paras">
 <span id="animtype-uniform"></span><h4>AnimType.UNIFORM paras<a class="headerlink" href="#animtype-uniform-paras" title="Permalink to this headline">¶</a></h4>
@@ -582,7 +602,7 @@ For a_noise, See VisualType.point.</p>
 </div>
 <div class="section" id="script-example">
 <h2>Script Example:<a class="headerlink" href="#script-example" title="Permalink to this headline">¶</a></h2>
-<p>see test case: <a class="reference internal" href="../tests/test-morph.html#test-morph"><span>Test - Morphing &amp; Uniform</span></a>.</p>
+<p>see test case: <a class="reference internal" href="../tests/morph.html#test-morph"><span>Test - Morphing &amp; Uniform</span></a>.</p>
 </div>
 </div>
 
@@ -605,7 +625,7 @@ For a_noise, See VisualType.point.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, odys-z@github.com.
+        &copy; Copyright 2020, odys-z.github.io.
 
     </p>
   </div>
@@ -627,7 +647,7 @@ For a_noise, See VisualType.point.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3',
+            VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

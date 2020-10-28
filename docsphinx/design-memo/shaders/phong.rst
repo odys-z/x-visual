@@ -1,7 +1,7 @@
 Morphing Phong Material
 =======================
 
-X-visual Phong shader is designed for general materail used by data object like
+X-visual Phong shader is designed for general material used by data object like
 bar in bar chart, with respect to light position.
 
 This shader can also handle texture mixing.
@@ -10,9 +10,13 @@ test::
 
     test/html/morph-color.html
 
-Phong material is provided by `xglsl <../../jsdoc/xglsl.html>`_.meshColors(vparas).
+Phong material is provided by `xglsl <https://odys-z.github.io/javadoc/x-visual/xglsl.html>`_.phongMorph2(vparas).
 
-Reference: `WebGL - Phong Shading <http://www.cs.toronto.edu/~jacobson/phong-demo/>`_
+Reference:
+
+1. referencing implementation: `WebGL - Phong Shading <http://www.cs.toronto.edu/~jacobson/phong-demo/>`_
+
+2. `Lambertian Emitters & Scatters <https://www.rp-photonics.com/lambertian_emitters_and_scatterers.html>`_
 
 .. code-block:: glsl
 

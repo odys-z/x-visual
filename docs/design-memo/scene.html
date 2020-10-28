@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scene &amp; HUD &mdash; x-visual 0.3 documentation</title>
+  <title>Scene &amp; HUD &mdash; x-visual 0.4 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="x-visual 0.3 documentation" href="../index.html"/>
+    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
         <link rel="next" title="Obj3 &amp; Transformation" href="obj3.html"/>
         <link rel="prev" title="Assets Loader" href="assets.html"/> 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.3
+                0.4
               </div>
             
           
@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometry Handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
@@ -169,15 +170,39 @@ HudGroup and it&#8217;s children.</p>
 how to create main scene objects.</p>
 <div class="section" id="main-scene-light">
 <h3>Main Scene Light<a class="headerlink" href="#main-scene-light" title="Permalink to this headline">¶</a></h3>
-<p>Main scene use a Three.js <a class="reference external" href="https://threejs.org/docs/#api/en/lights/HemisphereLight">HemisphereLight</a>.</p>
+<p>Main scene use a modified Three.js <a class="reference external" href="https://threejs.org/docs/index.html#api/en/lights/DirectionalLight">DirectionalLight</a>,
+and the <a class="reference external" href="https://threejs.org/docs/index.html#api/en/lights/shadows/DirectionalLightShadow">DirectionalLightShadow</a>
+is enabled by default.</p>
 <p>The default parameters:</p>
 <div class="highlight-python"><div class="highlight"><pre>skyColor: #xffffbb
 groundColor: #x080820
 intensity: 1.1
-position: [0, 1, 0]
+position: [1, 1, 1]
 </pre></div>
 </div>
-<p>To configure it, set parameters in XWorld.x.light.</p>
+<p>To configure it, set options of XWorld constructor; to change light, use
+<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XMaterials.html#change-light">Lighting#changeLight()</a>.</p>
+<p>X-visual use this singleton parameter globally. When the object using material
+of Three.js, the light effects is exactly the same with examples of Three.js.</p>
+<p>But x-visual use a diffuse light with direction (the light position) and a specular
+color use the light as point light. This is illustrated in the
+<a class="reference internal" href="../tests/basics.html#test-xworld-light"><span>test case: light</span></a>.</p>
+<p>The diffuse color is the same as skyColor, and groundColor used as ambient color.</p>
+<p>An object in scene has it&#8217;s own specular properties, so an object can be configured
+with Visual.paras:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Visual</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">paras</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">shininess</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">specular</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html</span><span class="o">/</span><span class="n">ecs</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">light</span><span class="o">.</span><span class="n">html</span>
+<span class="n">html</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">texprism</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="hud">
@@ -243,7 +268,7 @@ entity id defined in HudGroup&#8217;s entity.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, odys-z@github.com.
+        &copy; Copyright 2020, odys-z.github.io.
 
     </p>
   </div>
@@ -265,7 +290,7 @@ entity id defined in HudGroup&#8217;s entity.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3',
+            VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

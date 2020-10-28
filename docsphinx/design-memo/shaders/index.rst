@@ -8,4 +8,6 @@ Contents:
 
    instance
    phong
+   volumetric
    flame
+   mip-noisy

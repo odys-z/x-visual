@@ -17,7 +17,7 @@
     "Obj3": {"geom": "xv.XComponent.Obj3Type.BOX",
              "box-desc": "in space grid scale; y is set with value (ignored)",
              "box": [0.1, 1, 0.1]},
-    "Visual": {"asset": "../../tex/grey-pixel.png"},
+    "Visual": {"asset": "../../tex/gray-pixel.png"},
 
     "bars-desc": "use this to define layer overlapping?",
     "serials": {

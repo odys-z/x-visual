@@ -2,7 +2,8 @@
 import { chai, expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
 
-import * as THREE from 'three';
+import * as THREE from '../packages/three/three.module-MRTSupport';
+
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld'
 import {x} from '../lib/xapp/xworld'
@@ -73,7 +74,7 @@ describe('case: [Particles] VisualType.points', function() {
 		assert.equal(points.CmpTweens.tweens[0][0].isPlaying, true);
 	});
 
-	it('VisualType.refPoint & AnimType.ALPHA script animation', async function() {
+	it('VisualType.refPoint & AnimType.U_ALPHA script animation', async function() {
 		const xworld = new XWorld(undefined, 'window', {});
 		const ecs = xworld.xecs;
 
@@ -98,7 +99,7 @@ describe('case: [Particles] VisualType.points', function() {
 					paras: { a_dest: 'cube0' }},
 			ModelSeqs: {
 					script: [[{
-						mtype: AnimType.ALPHA,
+						mtype: AnimType.U_ALPHA,
 					 	paras: {start: 0,			// auto start
 								duration: 0.401,	// seconds
 								alpha: [1, 0] },

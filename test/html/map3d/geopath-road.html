@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>XTest SVG -&gt; Obj3</title>
+	<title>XTest Path Morph</title>
 	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
@@ -73,53 +73,9 @@
 			paras: {
 				features: json1.features,
 				origin: origin,
-				style: {halfWidth: 6} },
-			asset: '../../assets/tex/ruler256.png' } },
-			// asset: '../../assets/tex/byr0.png' } },
-	  // { id: 'way1-2',
-		// Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-		// 		box: [-18] },    // y0
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	shader: xv.XComponent.ShaderFlag.scaleOrb,
-		// 	paras: {
-		// 		// road
-		// 		features: json1.features,
-		// 		origin: origin,
-		// 		style: {halfWidth: 6,
-		// 				geoScale: 1},
-	  //
-		// 		// shader
-		// 		uniforms: { u_texWeight: 0.5,
-		// 					whiteAlpha: 0.},
-		// 		side: THREE.FrontSide,
-		// 		colors: [[0.4, 0.0, 0.5]],
-		// 		//
-		// 		orbR: 50,
-		// 		// whiteAlpha: 0.75,	// out of range alpha
-		//         orbScale: [0.2, 0.5, 0.5] },
-		// 	asset: '../../assets/tex/ruler256.png' } },
-	  // { id: 'way1-3',
-		// Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-		// 		box: [-12] },    // y0
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	shader: xv.XComponent.ShaderFlag.worldOrbs,
-		// 	paras: {
-		// 		// road
-		// 		features: json1.features,
-		// 		origin: origin,
-		// 		style: {halfWidth: 6,
-		// 				geoScale: 1},
-	  //
-		// 		// shader
-		// 		side: THREE.FrontSide,
-		// 		colors: [[0.4, 0.0, 0.5]],
-		// 		orbR: [50],
-		// 		whiteAlpha: 0.05,	// out of range alpha
-		//         orbScale: [0.5, 0.5, 0.5] },
-		// 	asset: '../../assets/tex/ruler256.png' } },
-
+				geostyle: {halfWidth: 6} },
+			asset: '../../assets/tex/ruler256.png' },
+	  },
 	  { id: 'way2-1',
 		Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
 				box: [6] },    // y0
@@ -127,42 +83,38 @@
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.worldOrbs,
 			paras: {
-				// road
+				// road geometry
+				uri: 'data:application/geo+json,features', // overriden by features
 				features: json1.features,
 				origin: origin,
-				style: {halfWidth: 32,
-						geoScale: 2},
+				geostyle: {halfWidth: 12, scale: 2},
 
 				// shader
 				side: THREE.FrontSide,
-				colors: [[0.4, 0.6, 0.5]], // TODO  // TODO  // TODO  // TODO  // TODO
+				colors: [[0, 0, 1], [0, 1, 0], [1, 0, 0]],
 				//
-				orbR: [50, 50, 50],
-				wpos: [[0, 0, 0], [-8, 0, 0], [-16, 0, -0]],
-				whiteAlpha: 0.01,	// out of range alpha
-		        orbScale: [0.1, 0.5, 0.5] },
-			asset: '../../assets/tex/ruler256.png' } },
-	  // { id: 'way2',
-		// Obj3: { geom: xv.XComponent.Obj3Type.MapXZRoad,
-		// 		box: [-6] },    // y0
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	paras: {
-		// 		features: json2.features,
-		// 		origin: origin2,
-		// 		style: {halfWidth: 12, geoScale: 0.1} },
-		// 	asset: '../../assets/tex/ruler256.png' } }
+				orbR: [30, 50, 30],
+				offsets: [[0, 0, 0], [-8, 0, 0], [-16, 0, -0]],
+				whiteAlpha: 0.1,	// out of range alpha
+		        orbScale: [0.05, 0.5, 0.5] },
+			asset: '../../assets/tex/ruler256.png' } ,
+		ModelSeqs: { script: [[ {
+			mtype: xv.XComponent.AnimType.U_PATH_MORPH,
+			paras: {
+				start: 0,
+				duration: 9,
+				ease: undefined, // xv.XEasing.Elastic.Elastic,
+				// TODO remove in jsdoc:
+				// MapXZRoad has path data in Obj3.datum, same as PathTube,
+				// FIXME but where should the enum been declared, vtype or geom type?
+				// Desgin Memo: if we consider goemetries comes from three.js are
+				// the same as MapXZRoad, it's nature to put all geometry types
+				// in Obj3.geom.
+				path: 'way2-1' } }
+			]] },
+		CmpTweens: {}
+	  }
 	]);
-
-	// xworld.addEntities( {
-	// 	id: 'x',
-	// 	Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-	// 			uniforms: {opacity: 1.0},
-	// 			box: [(100+12)*2, 72, 240] },    // y0
-	// 	Visual:{
-	// 		vtype: xv.AssetType.wireframe,
-	// 	}
-	// });
 
 	xworld.startUpdate();
   </script>

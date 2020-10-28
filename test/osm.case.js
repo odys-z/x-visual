@@ -3,7 +3,8 @@ import chai from 'chai'
 import { expect, assert } from 'chai'
 import chaiStats from 'chai-stats'
 
-import * as THREE from 'three';
+import * as THREE from '../../packages/three/three.module-MRTSupport';
+
 import {OsmUtils, ThreeWrapper, R} from '../lib/osm/utils.js'
 import {TilesKeeper} from '../lib/osm/tiles-keeper.js'
 import {OSM3} from '../lib/osm/osm3.js'
