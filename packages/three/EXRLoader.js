@@ -10,7 +10,6 @@ import {
 	RGBEFormat,
 	RGBFormat,
 	UnsignedByteType
-// } from "../../../build/three.module.js";
 } from "./three.module-MRTSupport.js";
 
 import { Inflate } from "./libs/inflate.module.min.js";
