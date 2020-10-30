@@ -34,17 +34,17 @@
 
 	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
 	xworld.addEntities([
-	  // { id: 'ground',
-		// Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-		// 		box: [800, 800],
-		// 		transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
-		// 					{ translate: [0, -21, 0] } ],
-		// 		mesh: {
-		// 			receiveShadow: true
-		// 		} },
-		// Visual:{vtype: xv.AssetType.mesh,
-		// 		asset}
-	  // },
+	  { id: 'ground',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				box: [800, 800],
+				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
+							{ translate: [0, -21, 0] } ],
+				mesh: {
+					// receiveShadow: true
+				} },
+		Visual:{vtype: xv.AssetType.mesh,
+				asset}
+	  },
 	  { id: 'box-tex',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [50, 90, 80],
