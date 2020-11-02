@@ -17343,6 +17343,8 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 	vertexShader = unrollLoops( vertexShader );
 	fragmentShader = unrollLoops( fragmentShader );
 
+	let vertexGlsl;
+	let fragmentGlsl;
 	if ( parameters.isWebGL2 && parameters.isRawShaderMaterial !== true ) {
 
 		// GLSL 3.0 conversion for built-in materials and ShaderMaterial
@@ -17377,11 +17379,16 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 			'#define textureCubeGradEXT textureGrad'
 		].join( '\n' ) + '\n' + prefixFragment;
 
+		// ody
+		vertexGlsl = versionString + prefixVertex + vertexShader;
+		fragmentGlsl = versionString + prefixFragment + fragmentShader;
 	}
-
-	const vertexGlsl = versionString + prefixVertex + vertexShader;
-	const fragmentGlsl = versionString + prefixFragment + fragmentShader;
-
+	else {
+		vertexGlsl = prefixVertex + vertexShader;
+		fragmentGlsl = prefixFragment + fragmentShader;
+	}
+	// const vertexGlsl = versionString + prefixVertex + vertexShader;
+	// const fragmentGlsl = versionString + prefixFragment + fragmentShader;
 	// console.log( '*VERTEX*', vertexGlsl );
 	// console.log( '*FRAGMENT*', fragmentGlsl );
 
@@ -19314,6 +19321,8 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 				} else if ( material.visible ) {
 
 					const depthMaterial = getDepthMaterial( object, geometry, material, light, shadowCamera.near, shadowCamera.far, type );
+					// ody
+					depthMaterial.glslVersion = material.glslVersion;
 
 					_renderer.renderBufferDirect( shadowCamera, null, geometry, depthMaterial, object, null );
 

@@ -188,28 +188,18 @@
 				);
 
 				// Name our G-Buffer attachments for debugging
-
 				// renderTarget.textures[ 0 ].name = 'diffuse';
 				// renderTarget.textures[ 1 ].name = 'normal';
 
 				// Scene setup
-
 				scene = new THREE.Scene();
 
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10 );
 				camera.position.z = 4;
 
 				var diffuse = new THREE.TextureLoader().load(
-
 					'../../html/assets/tex/wood.png',
-
-					// function () {
-					//
-					// 	// ready to render
-					// 	render();
-					//
-					// }
-
+					() => render()
 				);
 
 				diffuse.wrapS = diffuse.wrapT = THREE.RepeatWrapping;
