@@ -26,12 +26,10 @@
 				window,
 				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
-				  // control: xv.CameraType.Orbitctrl,
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	// const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
 	xworld.addEntities([
 	  { id: 'sky',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
@@ -47,7 +45,8 @@
                 box: [80, 24, 24],
 			},
 		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.envMap,
+				// shader: xv.ShaderFlag.envMap,
+				shader: xv.ShaderFlag.envMapMrt,
 				paras: {
 					// ratio of refraction vs. reflection, 0 ~ 1
 					whiteAlpha: 0.5,

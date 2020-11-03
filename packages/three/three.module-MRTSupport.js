@@ -8484,6 +8484,8 @@ function Material() {
 
 	this.version = 0;
 
+	this.isMrt = false;
+
 }
 
 Material.prototype = Object.assign( Object.create( EventDispatcher.prototype ), {
@@ -8544,6 +8546,12 @@ Material.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 			} else {
 
 				this[ key ] = newValue;
+
+			}
+
+			if ( key === 'isMrt' ) {
+
+				this.glslVersion = GLSL3;
 
 			}
 
@@ -8896,7 +8904,8 @@ function MeshBasicMaterial( parameters ) {
 
 	Material.call( this );
 
-	this.type = 'MeshBasicMaterial';
+	this.type = parameters && parameters.isMrt ?
+		'MeshBasicMaterial_mrt' : 'MeshBasicMaterial';
 
 	this.color = new Color( 0xffffff ); // emissive
 
@@ -13146,8 +13155,6 @@ var cube_frag = "#include <envmap_common_pars_fragment>\nuniform float opacity;\
 
 var cube_vert = "varying vec3 vWorldDirection;\n#include <common>\nvoid main() {\n\tvWorldDirection = transformDirection( position, modelMatrix );\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\tgl_Position.z = gl_Position.w;\n}";
 
-var cube_mrt_vert = "out vec3 vWorldDirection;\n#include <common>\nvoid main() {\n\tvWorldDirection = transformDirection( position, modelMatrix );\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\tgl_Position.z = gl_Position.w;\n}";
-
 var depth_frag = "#if DEPTH_PACKING == 3200\n\tuniform float opacity;\n#endif\n#include <common>\n#include <packing>\n#include <uv_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvarying vec2 vHighPrecisionZW;\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( 1.0 );\n\t#if DEPTH_PACKING == 3200\n\t\tdiffuseColor.a = opacity;\n\t#endif\n\t#include <map_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <logdepthbuf_fragment>\n\tfloat fragCoordZ = 0.5 * vHighPrecisionZW[0] / vHighPrecisionZW[1] + 0.5;\n\t#if DEPTH_PACKING == 3200\n\t\tgl_FragColor = vec4( vec3( 1.0 - fragCoordZ ), opacity );\n\t#elif DEPTH_PACKING == 3201\n\t\tgl_FragColor = packDepthToRGBA( fragCoordZ );\n\t#endif\n}";
 
 var depth_vert = "#include <common>\n#include <uv_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvarying vec2 vHighPrecisionZW;\nvoid main() {\n\t#include <uv_vertex>\n\t#include <skinbase_vertex>\n\t#ifdef USE_DISPLACEMENTMAP\n\t\t#include <beginnormal_vertex>\n\t\t#include <morphnormal_vertex>\n\t\t#include <skinnormal_vertex>\n\t#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvHighPrecisionZW = gl_Position.zw;\n}";
@@ -13207,11 +13214,15 @@ var sprite_vert = "uniform float rotation;\nuniform vec2 center;\n#include <comm
 // TODO delete
 var common_mrt = "layout(location = 0) out vec4 pc_FragColor;\nlayout(location = 1) out vec4 xColor;\n#define PI 3.141592653589793\n#define PI2 6.283185307179586\n#define PI_HALF 1.5707963267948966\n#define RECIPROCAL_PI 0.3183098861837907\n#define RECIPROCAL_PI2 0.15915494309189535\n#define EPSILON 1e-6\n#ifndef saturate\n#define saturate(a) clamp( a, 0.0, 1.0 )\n#endif\n#define whiteComplement(a) ( 1.0 - saturate( a ) )\nfloat pow2( const in float x ) { return x*x; }\nfloat pow3( const in float x ) { return x*x*x; }\nfloat pow4( const in float x ) { float x2 = x*x; return x2*x2; }\nfloat average( const in vec3 color ) { return dot( color, vec3( 0.3333 ) ); }\nhighp float rand( const in vec2 uv ) {\n\tconst highp float a = 12.9898, b = 78.233, c = 43758.5453;\n\thighp float dt = dot( uv.xy, vec2( a,b ) ), sn = mod( dt, PI );\n\treturn fract(sin(sn) * c);\n}\n#ifdef HIGH_PRECISION\n\tfloat precisionSafeLength( vec3 v ) { return length( v ); }\n#else\n\tfloat max3( vec3 v ) { return max( max( v.x, v.y ), v.z ); }\n\tfloat precisionSafeLength( vec3 v ) {\n\t\tfloat maxComponent = max3( abs( v ) );\n\t\treturn length( v / maxComponent ) * maxComponent;\n\t}\n#endif\nstruct IncidentLight {\n\tvec3 color;\n\tvec3 direction;\n\tbool visible;\n};\nstruct ReflectedLight {\n\tvec3 directDiffuse;\n\tvec3 directSpecular;\n\tvec3 indirectDiffuse;\n\tvec3 indirectSpecular;\n};\nstruct GeometricContext {\n\tvec3 position;\n\tvec3 normal;\n\tvec3 viewDir;\n#ifdef CLEARCOAT\n\tvec3 clearcoatNormal;\n#endif\n};\nvec3 transformDirection( in vec3 dir, in mat4 matrix ) {\n\treturn normalize( ( matrix * vec4( dir, 0.0 ) ).xyz );\n}\nvec3 inverseTransformDirection( in vec3 dir, in mat4 matrix ) {\n\treturn normalize( ( vec4( dir, 0.0 ) * matrix ).xyz );\n}\nvec3 projectOnPlane(in vec3 point, in vec3 pointOnPlane, in vec3 planeNormal ) {\n\tfloat distance = dot( planeNormal, point - pointOnPlane );\n\treturn - distance * planeNormal + point;\n}\nfloat sideOfPlane( in vec3 point, in vec3 pointOnPlane, in vec3 planeNormal ) {\n\treturn sign( dot( point - pointOnPlane, planeNormal ) );\n}\nvec3 linePlaneIntersect( in vec3 pointOnLine, in vec3 lineDirection, in vec3 pointOnPlane, in vec3 planeNormal ) {\n\treturn lineDirection * ( dot( planeNormal, pointOnPlane - pointOnLine ) / dot( planeNormal, lineDirection ) ) + pointOnLine;\n}\nmat3 transposeMat3( const in mat3 m ) {\n\tmat3 tmp;\n\ttmp[ 0 ] = vec3( m[ 0 ].x, m[ 1 ].x, m[ 2 ].x );\n\ttmp[ 1 ] = vec3( m[ 0 ].y, m[ 1 ].y, m[ 2 ].y );\n\ttmp[ 2 ] = vec3( m[ 0 ].z, m[ 1 ].z, m[ 2 ].z );\n\treturn tmp;\n}\nfloat linearToRelativeLuminance( const in vec3 color ) {\n\tvec3 weights = vec3( 0.2126, 0.7152, 0.0722 );\n\treturn dot( weights, color.rgb );\n}\nbool isPerspectiveMatrix( mat4 m ) {\n\treturn m[ 2 ][ 3 ] == - 1.0;\n}\nvec2 equirectUv( in vec3 dir ) {\n\tfloat u = atan( dir.z, dir.x ) * RECIPROCAL_PI2 + 0.5;\n\tfloat v = asin( clamp( dir.y, - 1.0, 1.0 ) ) * RECIPROCAL_PI + 0.5;\n\treturn vec2( u, v );\n}";
 
+var meshbasic_mrt_frag = "uniform vec3 diffuse;\nuniform float opacity;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\n#include <common>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <fog_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <specularmap_fragment>\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\t#ifdef USE_LIGHTMAP\n\t\tvec4 lightMapTexel= texture2D( lightMap, vUv2 );\n\t\treflectedLight.indirectDiffuse += lightMapTexelToLinear( lightMapTexel ).rgb * lightMapIntensity;\n\t#else\n\t\treflectedLight.indirectDiffuse += vec3( 1.0 );\n\t#endif\n\t#include <aomap_fragment>\n\treflectedLight.indirectDiffuse *= diffuseColor.rgb;\n\tvec3 outgoingLight = reflectedLight.indirectDiffuse;\n\t#include <envmap_fragment>\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n\t#include <_mrt_end>\n}";
+
 var meshphong_mrt_frag = "#define PHONG\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform vec3 specular;\nuniform float shininess;\nuniform float opacity;\n#include <common>\n#include <packing>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <emissivemap_pars_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <fog_pars_fragment>\n#include <bsdfs>\n#include <lights_pars_begin>\n#include <lights_phong_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <specularmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <emissivemap_fragment>\n\t#include <lights_phong_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\t#include <aomap_fragment>\n\tvec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;\n\t#include <envmap_fragment>\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n\t#include <_mrt_end>\n}";
 
-var meshphong_mrt_vert = "#define PHONG\nout vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tout vec3 vNormal;\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <envmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <envmap_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n}";
+var cube_mrt_vert = "out vec3 vWorldDirection;\n#include <common>\nvoid main() {\n\tvWorldDirection = transformDirection( position, modelMatrix );\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\tgl_Position.z = gl_Position.w;\n}";
 
-var _mrt_end = "xColor = pc_fragColor;";
+var cube_mrt_frag = "#include <envmap_common_pars_fragment>\nuniform float opacity;\nvarying vec3 vWorldDirection;\n#include <cube_uv_reflection_fragment>\nvoid main() {\n\tvec3 vReflect = vWorldDirection;\n\t#include <envmap_fragment>\n\tgl_FragColor = envColor;\n\tgl_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\txColor.rgba = gl_FragColor.bgra;\n\t#include <_mrt_end>\n}";
+
+var _mrt_end = "xColor = pc_FragColor;";
 
 const ShaderChunk = {
 	_mrt_end, common_mrt,
@@ -13317,7 +13328,6 @@ const ShaderChunk = {
 	background_vert: background_vert,
 	cube_frag: cube_frag,
 	cube_vert: cube_vert,
-	cube_mrt_vert: cube_mrt_vert,
 	depth_frag: depth_frag,
 	depth_vert: depth_vert,
 	distanceRGBA_frag: distanceRGBA_frag,
@@ -13334,8 +13344,8 @@ const ShaderChunk = {
 	meshmatcap_vert: meshmatcap_vert,
 	meshtoon_frag: meshtoon_frag,
 	meshtoon_vert: meshtoon_vert,
-	meshphong_frag: meshphong_frag,                                meshphong_mrt_frag,
-	meshphong_vert: meshphong_vert,                                meshphong_mrt_vert,
+	meshphong_frag: meshphong_frag,
+	meshphong_vert: meshphong_vert,
 	meshphysical_frag: meshphysical_frag,
 	meshphysical_vert: meshphysical_vert,
 	normal_frag: normal_frag,
@@ -13345,7 +13355,11 @@ const ShaderChunk = {
 	shadow_frag: shadow_frag,
 	shadow_vert: shadow_vert,
 	sprite_frag: sprite_frag,
-	sprite_vert: sprite_vert
+	sprite_vert: sprite_vert,
+
+	meshbasic_mrt_frag,
+	meshphong_mrt_frag,
+	cube_mrt_vert, cube_mrt_frag,
 };
 
 /**
@@ -13575,6 +13589,22 @@ const ShaderLib = {
 
 	},
 
+	basicMrt: {
+
+		uniforms: mergeUniforms( [
+			UniformsLib.common,
+			UniformsLib.specularmap,
+			UniformsLib.envmap,
+			UniformsLib.aomap,
+			UniformsLib.lightmap,
+			UniformsLib.fog
+		] ),
+
+		vertexShader: ShaderChunk.meshbasic_vert,
+		fragmentShader: ShaderChunk.meshbasic_mrt_frag
+
+	},
+
 	lambert: {
 
 		uniforms: mergeUniforms( [
@@ -13617,7 +13647,33 @@ const ShaderLib = {
 			}
 		] ),
 
-		vertexShader: ShaderChunk.meshphong_mrt_vert,
+		vertexShader: ShaderChunk.meshphong_vert,
+		fragmentShader: ShaderChunk.meshphong_frag
+
+	},
+
+	phongMrt: {
+
+		uniforms: mergeUniforms( [
+			UniformsLib.common,
+			UniformsLib.specularmap,
+			UniformsLib.envmap,
+			UniformsLib.aomap,
+			UniformsLib.lightmap,
+			UniformsLib.emissivemap,
+			UniformsLib.bumpmap,
+			UniformsLib.normalmap,
+			UniformsLib.displacementmap,
+			UniformsLib.fog,
+			UniformsLib.lights,
+			{
+				emissive: { value: new Color( 0x000000 ) },
+				specular: { value: new Color( 0x111111 ) },
+				shininess: { value: 30 }
+			}
+		] ),
+
+		vertexShader: ShaderChunk.meshphong_vert,
 		fragmentShader: ShaderChunk.meshphong_mrt_frag
 
 	},
@@ -13927,6 +13983,7 @@ function WebGLBackground( renderer, cubemaps, state, objects, premultipliedAlpha
 					new BoxBufferGeometry( 1, 1, 1 ),
 					new ShaderMaterial( {
 						name: 'BgCubeMrtMaterial',
+						isMrt: true,
 						uniforms: cloneUniforms( ShaderLib.cube.uniforms ),
 						// vertexShader: ShaderLib.cube.vertexShader,
 						// fragmentShader: ShaderLib.cube.fragmentShader,
@@ -17362,10 +17419,11 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 			// the original logic is correct?
 			// ( parameters.glslVersion === GLSL3 ) ? '' : 'out highp vec4 pc_fragColor;',
 			// ( parameters.glslVersion === GLSL3 ) ? '' : '#define gl_FragColor pc_fragColor',
+			// better use this in common_mrt?
 			( parameters.glslVersion === GLSL3 ) ?
-			'layout(location = 0) out highp vec4 pc_fragColor;\n' +
+				'layout(location = 0) out highp vec4 pc_FragColor;\n' +
 			'layout(location = 1) out highp vec4 xColor;\n' +
-			'#define gl_FragColor pc_fragColor' : '',
+			'#define gl_FragColor pc_FragColor' : '',
 
 			'#define gl_FragDepthEXT gl_FragDepth',
 			'#define texture2D texture',
@@ -17382,10 +17440,12 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 		// ody
 		vertexGlsl = versionString + prefixVertex + vertexShader;
 		fragmentGlsl = versionString + prefixFragment + fragmentShader;
-	}
-	else {
+
+	} else {
+
 		vertexGlsl = prefixVertex + vertexShader;
 		fragmentGlsl = prefixFragment + fragmentShader;
+
 	}
 	// const vertexGlsl = versionString + prefixVertex + vertexShader;
 	// const fragmentGlsl = versionString + prefixFragment + fragmentShader;
@@ -17563,7 +17623,11 @@ function WebGLPrograms( renderer, cubemaps, extensions, capabilities, bindingSta
 		LineDashedMaterial: 'dashed',
 		PointsMaterial: 'points',
 		ShadowMaterial: 'shadow',
-		SpriteMaterial: 'sprite'
+		SpriteMaterial: 'sprite',
+
+		LineBasicMaterial_mrt: 'basicMrt',
+		MeshBasicMaterial_mrt: 'basicMrt',
+		MeshPhongMaterial_mrt: 'phongMrt'
 	};
 
 	const parameterNames = [
@@ -24462,7 +24526,7 @@ function WebGLRenderer( parameters ) {
 			// ody, oct 20, 2020
 			// our shader material can't pass this test and get material. Don't know why.
 			// const material = overrideMaterial === null ? renderItem.material : overrideMaterial;
-			const material = !overrideMaterial ? renderItem.material : overrideMaterial;
+			const material = ! overrideMaterial ? renderItem.material : overrideMaterial;
 			const group = renderItem.group;
 
 			if ( camera.isArrayCamera ) {
@@ -26719,7 +26783,8 @@ function LineBasicMaterial( parameters ) {
 
 	Material.call( this );
 
-	this.type = 'LineBasicMaterial';
+	this.type = parameters && parameters.isMrt ?
+		'LineBasicMaterial_mrt' : 'LineBasicMaterial';
 
 	this.color = new Color( 0xffffff );
 
@@ -33751,9 +33816,8 @@ MeshPhysicalMaterial.prototype.copy = function ( source ) {
 function MeshPhongMaterial( parameters ) {
 
 	Material.call( this );
-	this.glslVersion = GLSL3;
 
-	this.type = 'MeshPhongMaterial';
+	this.type = parameters && parameters.isMrt ? 'MeshPhongMaterial_mrt' : 'MeshPhongMaterial';
 
 	this.color = new Color( 0xffffff ); // diffuse
 	this.specular = new Color( 0x111111 );
@@ -47634,10 +47698,11 @@ const _camera = /*@__PURE__*/ new Camera();
 
 class CameraHelper extends LineSegments {
 
-	constructor( camera ) {
+	constructor( camera, isMrt ) {
 
 		const geometry = new BufferGeometry();
-		const material = new LineBasicMaterial( { color: 0xffffff, vertexColors: true, toneMapped: false } );
+		const material = new LineBasicMaterial( { color: 0xffffff, vertexColors: true, toneMapped: false,
+		 										isMrt } );
 
 		const vertices = [];
 		const colors = [];

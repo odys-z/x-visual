@@ -18,11 +18,9 @@
 
 	var equirectex = '../../assets/tex/sky-blue.jpg';
 
-	const xworld = new xv.XWorld(document.getElementById('canv'),
-				window,
+	const xworld = new xv.XWorld(document.getElementById('canv'), window,
 				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
-				  // control: xv.CameraType.Orbitctrl,
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
@@ -37,21 +35,21 @@
 				}
 			}
 	  },
-	  { id: 'box1',
-		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-                box: [80, 24, 24],
-			},
-		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.envMap,
-				paras: {
-					whiteAlpha: 0.3,
-					envMap: 'sky',
-					// lod of cube texture, [refract, reflect], >= 0
-					lod: [0.8, 0],
-				},
-				asset
-			}
-	  },
+	  // { id: 'box1',
+		// Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+      //           box: [80, 24, 24],
+		// 	},
+		// Visual:{vtype: xv.AssetType.mesh,
+		// 		shader: xv.ShaderFlag.envMap,
+		// 		paras: {
+		// 			whiteAlpha: 0.3,
+		// 			envMap: 'sky',
+		// 			// lod of cube texture, [refract, reflect], >= 0
+		// 			lod: [0.8, 0],
+		// 		},
+		// 		asset
+		// 	}
+	  // },
 	]);
 
 	xworld.startUpdate();
