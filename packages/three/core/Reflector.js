@@ -12,6 +12,7 @@ import {
 	Plane,
 	RGBFormat,
 	ShaderMaterial,
+	RawShaderMaterial,
 	UniformsUtils,
 	Vector3,
 	Vector4,
@@ -68,7 +69,8 @@ var Reflector = function ( geometry, options ) {
 
 	}
 
-	var material = new ShaderMaterial( {
+	var material = new RawShaderMaterial( { // ShaderMaterial
+		isMrt: options.isMrt,
 		uniforms: UniformsUtils.clone( shader.uniforms || Reflector.ReflectorShader.uniforms ),
 		fragmentShader: shader.fragmentShader,
 		vertexShader: shader.vertexShader
@@ -80,8 +82,8 @@ var Reflector = function ( geometry, options ) {
 
 	// Design Memo:
 	// We'd better merge Reflector into material part and shader part, so the
-	// material creating can merge with Thrender.createXShaderMaterial().
-	// have this material receiving Three.lights
+	// material creating can merge with Thrender.createXShaderMaterial(),
+	// having this material receiving Three.lights
 	if ( options.receiveShadow )
 		// Three.js directional light and map co-orperate with a few special
 		// materials' uniforms
