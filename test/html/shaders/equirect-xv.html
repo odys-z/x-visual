@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Equirectangle Texture</title>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <script>
+	"use strict";
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+				window, { canvasize: [480, 320],
+						  light:{ skyColor: 0xe0d7c0, intensity: 1 } } );
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	const asset = '../../assets/tex/sky-blue.jpg';
+
+	xworld.addEntities([
+	  { id: 'inner',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [2000, 2000, 2000],
+				mesh: {
+				}
+			},
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.equirectex,
+				paras: {
+					side: xv.THREE.DoubleSide,
+					u_tex: asset },
+			}
+	  }
+	]);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>
