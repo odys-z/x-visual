@@ -13215,11 +13215,13 @@ var meshbasic_mrt_frag = "uniform vec3 diffuse;\nuniform float opacity;\n#ifndef
 
 var meshphong_mrt_frag = "#define PHONG\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform vec3 specular;\nuniform float shininess;\nuniform float opacity;\n#include <common>\n#include <packing>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <emissivemap_pars_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <fog_pars_fragment>\n#include <bsdfs>\n#include <lights_pars_begin>\n#include <lights_phong_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <specularmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <emissivemap_fragment>\n\t#include <lights_phong_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\t#include <aomap_fragment>\n\tvec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;\n\t#include <envmap_fragment>\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n\t#include <_mrt_end>\n}";
 
-var background_mrt_frag = "uniform sampler2D t2D;\nin vec2 vUv;\nvoid main() {\n\tvec4 texColor = texture( t2D, vUv );\n\tpc_FragColor = mapTexelToLinear( texColor );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <_mrt_end>\n}";
+var background_mrt_vert = "#include <common>\nout vec3 vNormal;\nout vec3 vwDir;\nvoid main() {\n\tvNormal = normal;\n\tvwDir = transformDirection( position, modelMatrix );\n\tvec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n\tgl_Position = projectionMatrix * mvPosition;\n\tgl_Position.z = gl_Position.w;\n}";
+
+var background_mrt_frag = "#define RECIPROCAL_PI 0.3183098861837907\n#define RECIPROCAL_PI2 0.15915494309189535\nuniform float opacity;\nuniform sampler2D u_tex0;\nin vec3 vwDir;\nvec2 equirectUv( in vec3 dir ) {\n\tfloat u = atan( dir.z, dir.x ) * RECIPROCAL_PI2 + 0.5;\n\tfloat v = asin( clamp( dir.y, - 1.0, 1.0 ) ) * RECIPROCAL_PI + 0.5;\n\treturn vec2( u, v );\n}\nvoid main() {\n\tvec3 wdir = normalize( vwDir );\n\tvec2 sampleUV = equirectUv( wdir );\n\tpc_FragColor = texture( u_tex0, sampleUV );\n\tpc_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <_mrt_end>\n}";
 
 var cube_mrt_vert = "out vec3 vWorldDirection;\n#include <common>\nvoid main() {\n\tvWorldDirection = transformDirection( position, modelMatrix );\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\tgl_Position.z = gl_Position.w;\n}";
 
-var cube_mrt_frag = "#include <envmap_common_pars_fragment>\nuniform float opacity;\nvarying vec3 vWorldDirection;\n#include <cube_uv_reflection_fragment>\nvoid main() {\n\tvec3 vReflect = vWorldDirection;\n\t#include <envmap_fragment>\n\tgl_FragColor = envColor;\n\tgl_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\txColor.rgba = gl_FragColor.bgra;\n\t#include <_mrt_end>\n}";
+var cube_mrt_frag = "#include <envmap_common_pars_fragment>\nuniform float opacity;\nvarying vec3 vWorldDirection;\n#include <cube_uv_reflection_fragment>\nvoid main() {\n\tvec3 vReflect = vWorldDirection;\n\t#include <envmap_fragment>\n\tgl_FragColor = envColor;\n\tgl_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <_mrt_end>\n}";
 
 var _mrt_end = "xColor = pc_FragColor;";
 
@@ -13359,7 +13361,7 @@ const ShaderChunk = {
 	meshbasic_mrt_frag,
 	meshphong_mrt_frag,
 	cube_mrt_vert, cube_mrt_frag,
-	background_mrt_frag,
+	background_mrt_frag, background_mrt_vert,
 };
 
 /**
@@ -13829,14 +13831,14 @@ const ShaderLib = {
 
 	},
 
-	background_mrt: {
+	backgroundMrt: {
 
 		uniforms: {
 			uvTransform: { value: new Matrix3() },
 			t2D: { value: null },
 		},
 
-		vertexShader: ShaderChunk.background_vert,
+		vertexShader: ShaderChunk.background_mrt_vert,
 		fragmentShader: ShaderChunk.background_mrt_frag
 
 	},
@@ -14060,18 +14062,24 @@ function WebGLBackground( renderer, cubemaps, state, objects, premultipliedAlpha
 			// push to the pre-sorted opaque render list
 			renderList.unshift( boxMesh, boxMesh.geometry, boxMesh.material, 0, 0, null );
 
-		} else if ( background && background.isTexture ) {
+		}
+
+		else if ( background && background.isTexture ) {
 
 			if ( planeMesh === undefined ) {
+
+				if ( ! background.isEquirect && isMrt ) {
+					console.warn("In branch mrt-further, background only support equirenctangular texture in MRT mode.");
+				}
 
 				planeMesh = new Mesh(
 					new PlaneBufferGeometry( 2, 2 ),
 					new ShaderMaterial( {
-						isMrt: !!isMrt,
+						isMrt: isMrt,
 						name: 'BackgroundMaterial',
 						uniforms: cloneUniforms( ShaderLib.background.uniforms ),
-						vertexShader: !!isMrt ? ShaderLib.background_mrt.vertexShader : ShaderLib.background.vertexShader,
-						fragmentShader: !!isMrt ? ShaderLib.background_mrt.fragmentShader : ShaderLib.background.fragmentShader,
+						vertexShader: isMrt ? ShaderLib.backgroundMrt.vertexShader : ShaderLib.background.vertexShader,
+						fragmentShader: isMrt ? ShaderLib.backgroundMrt.fragmentShader : ShaderLib.background.fragmentShader,
 						side: FrontSide,
 						depthTest: false,
 						depthWrite: false,
