@@ -21,19 +21,32 @@
 	const asset = '../../assets/tex/sky-blue.jpg';
 
 	xworld.addEntities([
-	  // { id: 'inner',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [2000, 2000, 2000],
-		// 		mesh: {
-		// 		}
-		// 	},
-		// Visual:{vtype: xv.AssetType.mesh,
-		// 		shader: xv.ShaderFlag.equirectex,
-		// 		paras: {
-		// 			side: xv.THREE.DoubleSide,
-		// 			u_tex: asset },
-		// 	}
-	  // },
+	  { id: 'outer',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [1000, 1000, 1000],
+				mesh: {
+				}
+			},
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.equirectex,
+				paras: {
+					side: xv.THREE.BackSide,
+					u_tex: asset },
+			}
+	  },
+	  { id: 'inner',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [100, 50, 100],
+				mesh: {
+				}
+			},
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.equirectex,
+				paras: {
+					side: xv.THREE.FrontSide,
+					u_tex: asset },
+			}
+	  },
 
 	  { id: 'sky',
 		Obj3: { },
