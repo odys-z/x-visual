@@ -36,22 +36,22 @@
 				}
 			}
 	  },
-	  // { id: 'orb',
-		// Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-		// 		box: [80, 24, 24],
-		// 	},
-		// Visual:{vtype: xv.AssetType.mesh,
-		// 		shader: xv.ShaderFlag.envMapMrt,
-		// 		paras: {
-		// 			whiteAlpha: 0.3,
-		// 			envMap: 'sky',
-		// 			lod: [0.8, 0],
-		// 			envBloom: 3,
-		// 			u_texBloom: 'hdr', // layout 1
-		// 		},
-		// 		asset
-		// 	}
-	  // },
+	  { id: 'orb',
+		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
+				box: [80, 24, 24],
+			},
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.envMap,
+				paras: {
+					whiteAlpha: 0.3,
+					envMap: 'sky',
+					lod: [0.8, 0],
+					envBloom: 3,
+					u_texBloom: 'hdr', // layout 1
+				},
+				asset
+			}
+	  },
 	]);
 
 	xworld.startUpdate();
