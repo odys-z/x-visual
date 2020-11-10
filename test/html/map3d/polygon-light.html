@@ -36,7 +36,7 @@
         { light: {
             position,
             skyColor: 0xcccccc,
-            intensity: 2 },
+            intensity: 1.2 },
           shadow: {
             helper: true,
             bias: 0.0001,
@@ -82,18 +82,17 @@
         Visual:{
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texEnv,
-            // shader: xv.XComponent.ShaderFlag.texPrism,
             paras: {
-                whiteAlphas: [0.4, 0.2], // roof, side reflection, 0~1, default 0.5
+                whiteAlphas: [0.4, 0.9], // roof, side reflection, 0~1, default 0.5
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
-                lod: [3, 2],        // reflect LOD of [base, lateral]
+                lod: [2, 2],        // reflect LOD of [base, lateral]
                 envExposure: 1.8,   // > 0,  = 1 will keep original, only for EXR
 
                 uvScale: [5, 1],
-                u_texbump: [0., 0.125],
+                u_texbump: [0.1, 0.125],
                 u_tex: [
-                    asset,                             // 0: base faces (roof)
+                    '../../assets/tex/bricks.jpg',     // 0: base faces (roof)
                     '../../assets/tex/wood.png',       // 1: lateral faces (wall)
                     '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
 
@@ -115,7 +114,7 @@
                 geostyle: { height: 76, scale: 1.5, }
             } } ,
       },
-      { id: 'light',
+      { id: 'light-symbol',
         Obj3: { geom: xv.XComponent.Obj3Type.Octahedron,
                 box: [20, 0],
                 transform: [{ translate: position }],
