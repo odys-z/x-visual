@@ -283,7 +283,7 @@ OutlinePass.prototype = Object.assign( Object.create( Pass.prototype ), {
 
 			if ( maskActive ) renderer.state.buffers.stencil.setTest( false );
 
-			renderer.setClearColor( 0xffffff, 1 );
+			renderer.setClearColor( 0x00ffff, 1 );
 
 			// Make selected objects invisible
 			this.changeVisibilityOfSelectedObjects( false );
@@ -441,7 +441,7 @@ OutlinePass.prototype = Object.assign( Object.create( Pass.prototype ), {
 				'	float depth = unpackRGBAToDepth(texture2DProj( depthTexture, projTexCoord ));',
 				'	float viewZ = - DEPTH_TO_VIEW_Z( depth, cameraNearFar.x, cameraNearFar.y );',
 				'	float depthTest = (-vPosition.z > viewZ) ? 1.0 : 0.0;',
-				'	gl_FragColor = vec4(0.0, depthTest, 1.0, 1.0);',
+				'	gl_FragColor = vec4(1.0, depthTest, 1.0, 1.0);',
 
 				'}'
 			].join( '\n' )
