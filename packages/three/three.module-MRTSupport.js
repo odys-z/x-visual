@@ -13223,7 +13223,7 @@ var cube_mrt_vert = "out vec3 vwDir;\n#include <common>\nvoid main() {\n\tvwDir 
 
 var cube_mrt_frag = "#include <envmap_common_pars_fragment>\nuniform float opacity;\nin vec3 vwDir;\n#include <cube_uv_reflection_fragment>\nvoid main() {\n\tvec3 vReflect = vwDir;\n\t#include <envmap_fragment>\n\tgl_FragColor = envColor;\n\tgl_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <_mrt_end>\n}";
 
-var _mrt_end = "xColor = pc_FragColor;";
+var _mrt_end = "xColor = pc_FragColor;\nxEnvSpecular = vec4(0.);";
 
 const ShaderChunk = {
 	_mrt_end,
@@ -14069,18 +14069,12 @@ function WebGLBackground( renderer, cubemaps, state, objects, premultipliedAlpha
 
 			if ( planeMesh === undefined ) {
 
-				// if ( ! background.isEquirect && isMrt ) {
-				// 	console.warn("In branch mrt-further, background only support equirenctangular texture in MRT mode.");
-				// }
-
 				planeMesh = new Mesh(
 					new PlaneBufferGeometry( 2, 2 ),
 					new ShaderMaterial( {
 						isMrt: isMrt,
 						name: 'BackgroundMaterial',
 						uniforms: cloneUniforms( ShaderLib.background.uniforms ),
-						// vertexShader: isMrt ? ShaderLib.backgroundMrt.vertexShader : ShaderLib.background.vertexShader,
-						// fragmentShader: isMrt ? ShaderLib.backgroundMrt.fragmentShader : ShaderLib.background.fragmentShader,
 						vertexShader: ShaderLib.background.vertexShader,
 						fragmentShader: ShaderLib.background.fragmentShader,
 						side: FrontSide,
@@ -17446,9 +17440,11 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 			// ( parameters.glslVersion === GLSL3 ) ? '' : 'out highp vec4 pc_fragColor;',
 			// ( parameters.glslVersion === GLSL3 ) ? '' : '#define gl_FragColor pc_fragColor',
 			( parameters.glslVersion === GLSL3 ) ?
-				'layout(location = 0) out highp vec4 pc_FragColor;\n' +
-			'layout(location = 1) out highp vec4 xColor;\n' +
-			'#define gl_FragColor pc_FragColor' : '',
+				// 'layout(location = 0) out highp vec4 pc_FragColor;\n' +
+				// 'layout(location = 1) out highp vec4 xColor;\n' +
+				// 'layout(location = 2) out highp vec4 xEnvSpecular;\n' +
+				WebGLProgram.mrt_layouts +
+				'#define gl_FragColor pc_FragColor' : '',
 
 			'#define gl_FragDepthEXT gl_FragDepth',
 			'#define texture2D texture',
@@ -17620,6 +17616,12 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 	return this;
 
 }
+
+WebGLProgram.mrt_layouts =
+		`layout(location = 0) out highp vec4 pc_FragColor;
+		layout(location = 1) out highp vec4 xColor;
+		layout(location = 2) out highp vec4 xEnvSpecular;
+		`.replaceAll(/\t\t/g, '');
 
 function WebGLPrograms( renderer, cubemaps, extensions, capabilities, bindingStates, clipping ) {
 
