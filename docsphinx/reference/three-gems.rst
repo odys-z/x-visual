@@ -238,3 +238,17 @@ uniforms:
 
 This section also shows that if a material receive directional lights, it must
 has all the fields. In x-visual, this is been handled by *thrender.createXShaderMaterial()*.
+
+OutlinePass
+-----------
+
+A note on how's OutlinePass working::
+
+    1. Basic rule: render selected object with color 1.0;
+    2. In depth testing pass, all objects except selected are rendered to depth
+	buffer
+    3. In mask material rendering pass, only selected object is rendered, with r
+	channel for color 1., g channel for value of discarding occluded part;
+    4. Find the edge with respect to tex size, r chennel for difference, g channel
+	for visiblity;
+    5. Two size of texture are used for separated gaussian blur pass.
