@@ -12,6 +12,7 @@ import {
 	Plane,
 	RGBFormat,
 	ShaderMaterial,
+	RawShaderMaterial,
 	UniformsUtils,
 	Vector3,
 	Vector4,
@@ -68,7 +69,8 @@ var Reflector = function ( geometry, options ) {
 
 	}
 
-	var material = new ShaderMaterial( {
+	var material = new RawShaderMaterial( { // ShaderMaterial
+		isMrt: options.isMrt,
 		uniforms: UniformsUtils.clone( shader.uniforms || Reflector.ReflectorShader.uniforms ),
 		fragmentShader: shader.fragmentShader,
 		vertexShader: shader.vertexShader
@@ -80,8 +82,8 @@ var Reflector = function ( geometry, options ) {
 
 	// Design Memo:
 	// We'd better merge Reflector into material part and shader part, so the
-	// material creating can merge with Thrender.createXShaderMaterial().
-	// have this material receiving Three.lights
+	// material creating can merge with Thrender.createXShaderMaterial(),
+	// having this material receiving Three.lights
 	if ( options.receiveShadow )
 		// Three.js directional light and map co-orperate with a few special
 		// materials' uniforms
@@ -238,8 +240,18 @@ Reflector.ReflectorShader = {
 	},
 
 	vertexShader: [
+		`#version 300 es
+		precision highp float;
+		uniform mat4 modelMatrix;
+		uniform mat4 projectionMatrix;
+		uniform mat4 modelViewMatrix;
+
+		in vec3 normal;
+		in vec3 position;
+		`.replaceAll(/\n\t\t/ig, '\n'),
+
 		'uniform mat4 textureMatrix;',
-		'varying vec4 vUv;',
+		'out vec4 vUv;',
 
 		'void main() {',
 
@@ -251,9 +263,15 @@ Reflector.ReflectorShader = {
 	].join( '\n' ),
 
 	fragmentShader: [
+		`#version 300 es
+		precision highp float;
+		layout(location = 0) out vec4 pc_FragColor;
+		layout(location = 1) out vec4 xColor;
+		`.replaceAll(/\n\t\t/ig, '\n'),
+
 		'uniform vec3 color;',
 		'uniform sampler2D tDiffuse;',
-		'varying vec4 vUv;',
+		'in vec4 vUv;',
 
 		'float blendOverlay( float base, float blend ) {',
 
@@ -269,11 +287,12 @@ Reflector.ReflectorShader = {
 
 		'void main() {',
 
-		'	vec4 base = texture2DProj( tDiffuse, vUv );',
-		'	gl_FragColor = vec4( blendOverlay( base.rgb, color ), 1.0 );',
+		'	vec4 base = textureProj( tDiffuse, vUv );',
+		'	pc_FragColor = vec4( blendOverlay( base.rgb, color ), 1.0 );',
 
-		// '	gl_FragColor = mix( gl_FragColor, vec4(0.5), 0.5 );',
-		'	gl_FragColor.b += 0.2;',
+		'	pc_FragColor.b += 0.2;',
+
+		'	xColor = pc_FragColor;',
 
 		'}'
 	].join( '\n' )

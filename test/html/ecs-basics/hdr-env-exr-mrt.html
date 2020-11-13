@@ -12,20 +12,21 @@
   <img src='assets/../../assets/tex/sky-blue.jpg'
   	style="width: 1024px; height: 512px; position: absolute; margin-top: -169px; clip-path: polygon(0% 33%, 25% 33%, 25% 58%, 0% 58%);"/>
   <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 256px; margin-left: 257px"/>
-  <br><a href='hdr-env-exr.html'>Change to EXR texture</a>
+  <br><a href='hdr-env.html'>Change to JPG texture</a>
   <script>
 	"use strict";
 
-	var equirectex = '../../assets/tex/sky-blue.jpg';
+	var equirectex = '../../assets/tex/sky-blue.exr';
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window,
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+				window,
 				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
+	const asset = 'data:application/x-visual+img,color-pixel [0.9, 0.5, 0.8, 1.]';
 	xworld.addEntities([
 	  { id: 'sky',
 		Obj3: { },
@@ -35,7 +36,7 @@
 				}
 			}
 	  },
-	  { id: 'box1',
+	  { id: 'orb',
 		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
 				box: [80, 24, 24],
 			},
@@ -44,8 +45,9 @@
 				paras: {
 					whiteAlpha: 0.3,
 					envMap: 'sky',
-					// lod of cube texture, [refract, reflect], >= 0
 					lod: [0.8, 0],
+					envBloom: 3,
+					u_texBloom: 'hdr', // layout 1
 				},
 				asset
 			}

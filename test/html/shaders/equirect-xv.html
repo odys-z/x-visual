@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-Equirectangle Texture</title>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas><br>
+  <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 480px; margin-left: 0px"/>
+  <script>
+	"use strict";
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+				window, { canvasize: [480, 320],
+						  camera: {far: 20000},
+						  light:{ skyColor: 0xe0d7c0, intensity: 1 } } );
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	const asset = '../../assets/tex/sky-blue.jpg';
+
+	xworld.addEntities([
+	  { id: 'outer',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [500, 500, 500],
+				mesh: {
+				}
+			},
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.equirectex,
+				paras: {
+					side: xv.THREE.BackSide,
+					u_tex: asset },
+			}
+	  },
+	  { id: 'inner',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [200, 150, 200],
+				mesh: {
+				}
+			},
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.equirectex,
+				paras: {
+					side: xv.THREE.FrontSide,
+					u_tex: asset },
+			}
+	  },
+
+	  { id: 'sky',
+		Obj3: { },
+		Visual:{vtype: xv.AssetType.skyBox,
+				paras: {
+					u_tex: asset
+				}
+			}
+	  },
+	]);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

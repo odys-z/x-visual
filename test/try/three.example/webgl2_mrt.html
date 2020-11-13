@@ -129,6 +129,8 @@
 			Renders geometry into a G-Buffer.<br/>
 			Visualized here is the color and normal data from the G-Buffer.<br/>
 			Created by <a href="http://twitter.com/mattdesl" target="_blank">@mattdesl</a>.
+			&amp; <a href='https://www.shaderific.com/blog/2014/3/13/tutorial-how-to-update-a-shader-for-opengl-es-30'>
+			es 3.0 quick start</a>
 		</div>
 
 		<script type="module">
@@ -136,7 +138,9 @@
 			// import {THREE, OrbitControls} from 'http://www.inforise.com.c/www-res/dist/xv-0.3.0.min.js';
 			// let THREE = xv.THREE;
 			// let WebGLMultiRenderTarget = xv.WebGLMultiRenderTarget;
-			import * as THREE from 'http://127.0.0.1:8080/xv/js/three.module-dev.js';
+
+			// import * as THREE from 'http://127.0.0.1:8080/xv/js/three.module-dev.js';
+			import * as THREE from 'http://127.0.0.1:8080/xv/js/three.module-MRTSupport.js';
 			let OrbitControls = xv.OrbitControls.default;
 			console.log(THREE.REVISION);
 
@@ -184,29 +188,18 @@
 				);
 
 				// Name our G-Buffer attachments for debugging
-
-				renderTarget.textures[ 0 ].name = 'diffuse';
-				renderTarget.textures[ 1 ].name = 'normal';
+				// renderTarget.textures[ 0 ].name = 'diffuse';
+				// renderTarget.textures[ 1 ].name = 'normal';
 
 				// Scene setup
-
 				scene = new THREE.Scene();
 
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10 );
 				camera.position.z = 4;
 
 				var diffuse = new THREE.TextureLoader().load(
-
-					// 'textures/brick_diffuse.jpg',
 					'../../html/assets/tex/wood.png',
-
-					function () {
-
-						// ready to render
-						render();
-
-					}
-
+					() => render()
 				);
 
 				diffuse.wrapS = diffuse.wrapT = THREE.RepeatWrapping;
