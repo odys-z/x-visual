@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-Env Map</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
@@ -17,11 +18,13 @@
 	"use strict";
 
 	var equirectex = '../../assets/tex/sky-blue.exr';
+	// var equirectex = 'https://threejs.org/examples/textures/memorial.exr';
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
 				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
+				  // control: xv.CameraType.Orbitctrl,
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
@@ -47,7 +50,7 @@
 					envMap: 'sky',
 					lod: [0.8, 0],
 					envBloom: 3,
-					u_texBloom: 'hdr', // layout 1
+					u_texBloom: 'hdr', // FIXME WRONG
 				},
 				asset
 			}
