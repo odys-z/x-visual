@@ -48,17 +48,18 @@
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					window, { canvasize: [600, 360],
+					// finalQuad: {debug: true},
 					light: {position,
 							skyColor: 0x7777cc,
 							intensity: 2 } });
 
 	xworld.addEntities([
-	  { id: 'light-pos',
-	    Obj3: { geom: xv.Obj3Type.SPHERE,
-				box: [20, 10, 6],
-				transform: [ { translate: position } ] },
-		Visual:{vtype: xv.AssetType.wireframe}
-	  },
+	  // { id: 'light-pos',
+	  //   Obj3: { geom: xv.Obj3Type.SPHERE,
+		// 		box: [20, 10, 6],
+		// 		transform: [ { translate: position } ] },
+		// Visual:{vtype: xv.AssetType.wireframe}
+	  // },
 	  { id: 'sky',
 		Obj3: {},
 		Visual:{vtype: xv.AssetType.skyBox,
@@ -74,8 +75,8 @@
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			// shader: xv.ShaderFlag.envMap,
-			shader: xv.ShaderFlag.texEnv,
+			shader: xv.ShaderFlag.envMap,
+			// shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
 				whiteAlphas: [0.6, 0.4], // roof, side reflection, 0~1, default 0.5
