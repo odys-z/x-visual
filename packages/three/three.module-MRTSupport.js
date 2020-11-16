@@ -13223,7 +13223,7 @@ var cube_mrt_vert = "out vec3 vwDir;\n#include <common>\nvoid main() {\n\tvwDir 
 
 var cube_mrt_frag = "#include <envmap_common_pars_fragment>\nuniform float opacity;\nin vec3 vwDir;\n#include <cube_uv_reflection_fragment>\nvoid main() {\n\tvec3 vReflect = vwDir;\n\t#include <envmap_fragment>\n\tgl_FragColor = envColor;\n\tgl_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <_mrt_end>\n}";
 
-var _mrt_end = "xColor = pc_FragColor;\nxEnvSpecular = vec4(0.);\nxBlurH = vec4(0.);";
+var _mrt_end = "xColor = pc_FragColor;\nxEnvSpecular = vec4(0.);";
 
 const ShaderChunk = {
 	_mrt_end,
@@ -17617,12 +17617,11 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
 }
 
-WebGLProgram.mrt_num = 4;
+WebGLProgram.mrt_num = 3;
 WebGLProgram.mrt_layouts =
 		`layout(location = 0) out highp vec4 pc_FragColor;
 		layout(location = 1) out highp vec4 xColor;
 		layout(location = 2) out highp vec4 xEnvSpecular;
-		layout(location = 3) out highp vec4 xBlurH;
 		`.replaceAll(/\t\t/g, '');
 
 function WebGLPrograms( renderer, cubemaps, extensions, capabilities, bindingStates, clipping ) {
@@ -21606,13 +21605,28 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 		const texture = renderTarget.texture;
 		const supportsMips = isPowerOfTwo( renderTarget ) || isWebGL2;
 
+
 		if ( textureNeedsGenerateMipmaps( texture, supportsMips ) ) {
 
 			const target = renderTarget.isWebGLCubeRenderTarget ? 34067 : 3553;
-			const webglTexture = properties.get( texture ).__webglTexture;
 
-			state.bindTexture( target, webglTexture );
-			generateMipmap( target, texture, renderTarget.width, renderTarget.height );
+			// should we file a PR to MRTSupport?
+			if ( renderTarget instanceof WebGLMultiRenderTarget ) {
+				// we care about MRT textures,
+				// and should avoiding throwing exception while renderTarget.texture mip generating.
+				for ( var tex of renderTarget.textures) {
+					let webglTex_i = properties.get( tex ).__webglTexture;
+					state.bindTexture( target, webglTex_i );
+					generateMipmap( target, tex, renderTarget.width, renderTarget.height );
+				}
+			}
+			else {
+				// const target = renderTarget.isWebGLCubeRenderTarget ? 34067 : 3553;
+				const webglTexture = properties.get( texture ).__webglTexture;
+
+				state.bindTexture( target, webglTexture );
+				generateMipmap( target, texture, renderTarget.width, renderTarget.height );
+			}
 			state.bindTexture( target, null );
 
 		}
