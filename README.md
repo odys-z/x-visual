@@ -7,7 +7,19 @@ Before v1.0, it's a part of a research project and a prototype of a comercial sy
 
 Currently is focused on report chart implementation.
 
-It's also the npm package name.
+## NPM Version
+
+'x-visual' is also the npm package name.
+
+Currently there are two main branch:
+
+- 1. **master** with even least minor version number for developing based on WebGL 2.
+
+	E.g, 0.3.52
+
+- 2. **webgl1** with odd least minor version number for legacy function support.
+
+	E.g, 0.3.53
 
 # Quick Start
 
