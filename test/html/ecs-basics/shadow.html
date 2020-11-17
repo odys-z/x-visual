@@ -3,16 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-Shadow Map</title>
-	<!--<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
-	-->
-	<script type='text/javascript' src='../../../dist/three.min-r120.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p><a href='https://odys-z.github.io/x-visual/reference/shadow/survey.html#the-three-js-way'>
-	  Likely shader source (vs/fs)</a></p>
-  <p>Problem: if paras.u_tex not provided, the shadow map is been used as lateral texture.</p>
+  <p>For shadow map integration, see
+	  <a href='https://odys-z.github.io/x-visual/reference/shadow/survey.html#the-three-js-way'>
+	  docs: Three.js way of directional shadow</a>.</p>
+  <p>Three.js basic material (AssetType.mesh_basic) doesn't receive shadow.</p>
   <script>
 	"use strict";
 
@@ -60,35 +58,41 @@
 				// shader: xv.XComponent.ShaderFlag.receiveShadow,
 				shader: xv.XComponent.ShaderFlag.texPrism,
 				paras: {
-					tile: {
-						change: true,
-						layers: 5 },
-	                u_tex: [
-	                    'data:application/x-visual+img,grey-pixel',
-	                    'data:application/x-visual+img,grey-pixel',
-	                    'data:application/x-visual+img,grey-pixel']
+					tile: { change: true,
+							layers: 5 },
+				u_tex: [
+					'data:application/x-visual+img,grey-pixel',
+					'data:application/x-visual+img,grey-pixel',
+					'data:application/x-visual+img,grey-pixel']
 					},
 			}
 	  },
-	  { id: 'box-error',
+	  { id: 'box-recieve-shadow',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [50, 90, 40],
 				transform: [
-					{ translate: [-20, 10, -50] } ],
+					{ translate: [-20, 25, -50] } ],
 				mesh: {
 					castShadow: true,
 					receiveShadow: true
 				} },
 		Visual:{vtype: xv.AssetType.mesh,
-				// shader: xv.XComponent.ShaderFlag.receiveShadow,
-				shader: xv.XComponent.ShaderFlag.texPrism,
+				shader: xv.XComponent.ShaderFlag.receiveShadow,
 				paras: {
-					// side: THREE.FrontSide,
-					tile: {
-						change: true,
-						layers: 5 },
-					asset
+					side: xv.THREE.FrontSide,
 				} }
+	  },
+	  { id: 'p-basic',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				box: [160, 120, 0],
+				transform: [ { rotate: { deg: 90, axis: [0, 1, 0] } },
+							 { translate: [-100, 40, -100] } ],
+				mesh: {
+					castShadow: true,
+					receiveShadow: true
+				} },
+		Visual:{vtype: xv.AssetType.mesh_basic,
+				asset}
 	  },
 	  { id: 'box-3js',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,

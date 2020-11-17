@@ -48,9 +48,10 @@
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					window, { canvasize: [600, 360],
+					// finalQuad: {debug: true},
 					light: {position,
 							skyColor: 0x7777cc,
-							intensity: 5 } });
+							intensity: 2 } });
 
 	xworld.addEntities([
 	  { id: 'light-pos',
@@ -65,7 +66,6 @@
 				paras: {
 					// u_tex: '../../assets/tex/sky-blue.exr'
 					u_tex: '../../assets/tex/piz_compressed.exr'
-					// u_tex: '../../assets/tex/sky-blue.jpg',
 				}
 			}
 	  },
@@ -78,14 +78,15 @@
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
-				whiteAlphas: [0.3, 0.4], // roof, side reflection, 0~1, default 0.5
+				whiteAlphas: [0.6, 0.4], // roof, side reflection, 0~1, default 0.5
 
 				envMap: 'sky',
 				envExposure: 1.7,   // > 0,  = 1 will keep original
 
 				lod: [3.6, 5.2],	// base, lateral
-				uvScale: [5, 1],// only for side uv
-				u_texbump: [0.8, 0.2],
+				uvScale: [3, 1],    // only for side uv
+				texScale: 100,
+				u_texbump: [0.2, 0.1],
 				u_tex: [
 					'../../assets/tex/bricks.jpg',
 					'../../assets/tex/wood.png',
