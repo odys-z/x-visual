@@ -10,7 +10,7 @@ import {
 	UniformsUtils,
 	Vector2,
 	WebGLRenderTarget
-} from "../three.module-r120"
+} from "../three.module-MRTSupport"
 
 import { Pass } from "./Pass";
 import { CopyShader } from "../shaders/CopyShader"

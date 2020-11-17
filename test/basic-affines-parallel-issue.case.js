@@ -6,7 +6,7 @@ import chaiStats from 'chai-stats'
 
 const {performance} = require('perf_hooks');
 
-import * as THREE from '../packages/three/three.module-r120';
+import * as THREE from '../packages/three/three.module-MRTSupport';
 
 import * as ECS from '../packages/ecs-js/index';
 import XWorld from '../lib/xapp/xworld'

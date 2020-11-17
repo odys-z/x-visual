@@ -5,7 +5,7 @@
  * http://en.wikipedia.org/wiki/Luminosity
  */
 
-import { Color } from "../three.module-r120"
+import { Color } from "../three.module-MRTSupport"
 
 var LuminosityHighPassShader = {
 
