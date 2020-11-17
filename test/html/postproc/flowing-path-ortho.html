@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>XTest-Flowing Path Orthogonal</title>
-    <script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-    <script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+    <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+    <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <img id='splash'></img>
@@ -70,7 +70,7 @@
                         transform: [{translate: [0, 60, 0]}],
                         mesh: undefined },
                 Visual:{vtype: xv.AssetType.mesh,
-                        asset: 'tex/uestc.svg' },
+                        asset: '../../assets/tex/uestc.svg' },
                 Filming: { paras: [ ] },
                 Glow: { paras: [ ] },
                 ModelSeqs: { script: [[
@@ -105,12 +105,12 @@
         }
     }
 
-    const xworld = new xv.XWorld(document.getElementById('canv'),
-                                 window,
-                                {effects: true,
-                                 Glow: {threshold: 0.1,
-                                        strength: 2.8,
-                                        radius: 0.5}});
+    const xworld = new xv.XWorld(document.getElementById('canv'), window,
+                      { effects: true,
+                        alphaTest: '0.0',
+                        Glow: { threshold: 0.1,
+                                strength: 2.8,
+                                radius: 0.5} });
     const ecs = xworld.xecs;
     const xscene = xworld.xscene;
 

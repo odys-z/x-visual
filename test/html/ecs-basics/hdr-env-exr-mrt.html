@@ -25,14 +25,11 @@
 				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
 				  // control: xv.CameraType.Orbitctrl,
-				  finalQuad: {
-					  blurRadius: 12,
-					  debug: false },
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
+	const asset = 'data:application/x-visual+img,color-pixel [0.9, 0.5, 0.8, 1.]';
 	xworld.addEntities([
 	  { id: 'sky',
 		Obj3: { },
@@ -42,35 +39,18 @@
 				}
 			}
 	  },
-	  { id: 'orb1',
+	  { id: 'orb',
 		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-                box: [80, 24, 24],
-				transform: [ { translate: [-60, 0, 0] }]
+				box: [80, 24, 24],
 			},
 		Visual:{vtype: xv.AssetType.mesh,
 				shader: xv.ShaderFlag.envMap,
 				paras: {
 					whiteAlpha: 0.3,
 					envMap: 'sky',
-					// lod of cube texture, [refract, reflect], >= 0
 					lod: [0.8, 0],
-				},
-				asset
-			}
-	  },
-
-	  { id: 'orb2',
-		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-                box: [20, 24, 24],
-				transform: [ { translate: [60, 0, 0] }]
-			},
-		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.envMap,
-				paras: {
-					whiteAlpha: 0.3,
-					envMap: 'sky',
-					// lod of cube texture, [refract, reflect], >= 0
-					lod: [0.8, 0],
+					envBloom: 3,
+					u_texBloom: 'hdr', // FIXME WRONG
 				},
 				asset
 			}
