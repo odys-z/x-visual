@@ -9,7 +9,7 @@ Before v1.0, it's a part of a research project and a prototype of a comercial sy
 
 'x-visual' is also the npm package name.
 
-Currently there are two main branch:
+Currently there are two main branches:
 
 - 1. **master** with even least minor version number for developing based on WebGL 2.
 
