@@ -48,11 +48,13 @@
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					window, { canvasize: [600, 360],
-					// finalQuad: {debug: true},
+					// finalQuad: {debug: true}, // have filter & final quad show something
 					light: {position,
 							skyColor: 0x7777cc,
-							intensity: 2,
-							flare: true } });
+							intensity: 2,       // diffuse (texture) intensity
+							flare: 0.4,	        // if > 0, add lens flare, value = radius_0
+							flareHue: undefined // defualt = glConfig.xfilter.flareHue
+						} });
 
 	xworld.addEntities([
 	  { id: 'light-pos',
