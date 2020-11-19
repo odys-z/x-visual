@@ -36,7 +36,7 @@
         { light: {
             position,
             skyColor: 0xcccccc,
-            intensity: 1.7 },
+            intensity: 0.5 },
           shadow: {
             helper: true,
             bias: 0.0001,
@@ -59,20 +59,20 @@
 				}
 			}
 	  },
-	  { id: 'ground',
-		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [1600, 1200],
-				transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
-							{ translate: [-40, -60, -280] } ],
-				mesh: {
-					receiveShadow: true // ignored by reflector3js
-				} },
-		Visual:{
-			// both works
-			// vtype: xv.AssetType.reflector3js,
-			vtype: xv.AssetType.reflectex,
-			asset}
-	  },
+	  // { id: 'ground',
+		// Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+		// 		box: [1600, 1200],
+		// 		transform: [{ rotate: {deg: -90, axis: [1, 0, 0]} },
+		// 					{ translate: [-40, -60, -280] } ],
+		// 		mesh: {
+		// 			receiveShadow: true // ignored by reflector3js
+		// 		} },
+		// Visual:{
+		// 	// both works
+		// 	// vtype: xv.AssetType.reflector3js,
+		// 	vtype: xv.AssetType.reflectex,
+		// 	asset}
+	  // },
       { id: 'texprism-1',
         Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
                 transform: [ {translate: [-120, -30, -0]} ],
@@ -83,15 +83,15 @@
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texEnv,
             paras: {
-                whiteAlphas: [0.2, 0.9], // roof, side reflection, 0~1, default 0.5
+                whiteAlphas: [.5, 0.], // roof, side reflection, 0~1, default 0.5
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
                 lod: [2, 2],        // reflect LOD of [base, lateral]
-                envExposure: 0.8,   // > 0,  = 1 will keep original, only for EXR
+                envExposure: .8,   // > 0,  = 1 will keep original, only for EXR
 
                 uvScale: [5, 1],
 				texScale: 72,
-                u_texbump: [0.12, 0.125], // roof, lateral
+                u_texbump: [0.15, 0.25], // roof, lateral
                 u_tex: [
                     '../../assets/tex/bricks.jpg',     // 0: base faces (roof)
                     '../../assets/tex/wood.png',       // 1: lateral faces (wall)
