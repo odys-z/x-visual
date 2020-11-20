@@ -77,8 +77,8 @@
 				box: [] },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			shader: xv.ShaderFlag.envMap,
-			// shader: xv.ShaderFlag.texEnv,
+			// shader: xv.ShaderFlag.envMap,
+			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
 				whiteAlphas: [.8, 0.4], // roof, side reflection, 0~1, default 0.5
@@ -86,10 +86,10 @@
 				envMap: 'sky',
 				envExposure: 0.2,   // > 0,  = 1 will keep original
 
-				lod: [.0, 5.2],	// base, lateral
+				lod: [3.6, 5.2],	// base, lateral
 				uvScale: [3, 1],    // only for side uv
 				texScale: 100,
-				u_texbump: [0.0, 0.4],
+				u_texbump: [0.2, 0.4],
 				u_tex: [
 					'../../assets/tex/bricks.jpg',
 					'../../assets/tex/wood.png',
