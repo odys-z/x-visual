@@ -33,6 +33,7 @@
     const asset = 'data:application/x-visual+img,gray-pixel';
 
     const xworld = new xv.XWorld(document.getElementById('canv'), window,
+        // { finalQuad: {} },
         { light: {
             position,
             skyColor: 0xcccccc,
@@ -87,10 +88,10 @@
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
                 lod: [2, 2],            // reflect LOD of [base, lateral]
-                envExposure: 1.8,       // > 0,  = 1 will keep original, only for EXR
+                envExposure: .2,       // > 0,  = 1 will keep original, only for EXR
 
                 uvScale: [5, 1],
-				texScale: 12,
+				texScale: 42,
                 u_texbump: [0.25, 0.25], // roof, lateral
                 u_tex: [
                     '../../assets/tex/bricks.jpg',     // 0: base faces (roof)
