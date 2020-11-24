@@ -10,13 +10,19 @@ export
  */
 class Filterenderer {
 	constructor(webglRenderer, options) {
-		this.renderer = new WebGLRenderer(options);
-		this.renderer.shadowMap.render = () => {}
+		this.renderer = webglRenderer;
 	}
 
 	renderQuad ( scene, camera ) {
+		let r = this.renderer.shadowMap.render;
+		this.renderer.shadowMap.render = () => {}
+		this.renderer.render( scene, camera );
+		this.renderer.shadowMap.render = r;
 	}
 
+	setRenderTarget( target ) {
+		this.renderer.setRenderTarget( target );
+	}
 	// renderQuad ( scene, camera ) {
 	//
 	// 	let renderTarget, forceClear;
