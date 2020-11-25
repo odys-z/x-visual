@@ -16,8 +16,12 @@ class Filterenderer {
 	renderQuad ( scene, camera ) {
 		let r = this.renderer.shadowMap.render;
 		this.renderer.shadowMap.render = () => {}
-		this.renderer.render( scene, camera );
-		this.renderer.shadowMap.render = r;
+		try {
+			this.renderer.render( scene, camera );
+		}
+		finally {
+			this.renderer.shadowMap.render = r;
+		}
 	}
 
 	setRenderTarget( target ) {
