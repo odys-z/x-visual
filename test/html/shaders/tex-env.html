@@ -52,8 +52,8 @@
 					light: {position,
 							skyColor: 0x7777cc,
 							intensity: 0.8,       // diffuse (texture) intensity
-							flare: 0.4,	        // if > 0, add lens flare, value = radius_0
-							flareHue: undefined // defualt = glConfig.xfilter.flareHue
+							flare: 0.4,	          // if > 0, add lens flare, value = radius_0
+							flareHue: [1., 0, 0]  // defualt = glConfig.xfilter.flareHue
 						} });
 
 	xworld.addEntities([
@@ -74,7 +74,10 @@
 	  },
 	  { id: 'prism',
 		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
-				box: [] },
+				box: [],
+				mesh: {
+					receiveShadow: true
+				} },
 		Visual:{
 			vtype: xv.AssetType.mesh,
 			// shader: xv.ShaderFlag.envMap,
