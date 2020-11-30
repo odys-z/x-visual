@@ -13,10 +13,11 @@
 	envMap: referenced entity-id, whiteAlpha: [top, side] weight of env light<br>
 	u_texbump: texture bumpiness, u_tex: [top, side, reserved] texture path / url
   </p>
-  <br><textarea id="txt" rows="9" cols="73"></textarea>
   <p>About Light Position: light position is rendered with a wireframe object,
 	  but the light is actually directional light, with flare location projected
 	  from infinity far.</p>
+  <p>Xworld's options.shadow.debug = true can make shadow depth visible.</p>
+  <p>See console for geojson data.</p>
   <p><a href='https://freestocktextures.com/texture/brick-renovated-closeup,740.html'>
 	  Brick Texture Copyright © 2009-2020 FreeStockTextures.com</p>
   <script>
@@ -45,7 +46,7 @@
 		}
 	  ]
 	};
-	document.getElementById('txt').value = JSON.stringify(json0);
+	// document.getElementById('txt').value = JSON.stringify(json0);
 	var o0 = [-0, 0];
 	const position = [1600, 1600, 1200];
 
@@ -80,7 +81,7 @@
 		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
 				box: [],
 				mesh: {
-					receiveShadow: true,
+					// receiveShadow: true,
 					castShadow: true
 				} },
 		Visual:{
@@ -118,6 +119,7 @@
 
 	xworld.startUpdate();
 
+	console.log(json0);
   </script>
 </body>
 </html>
