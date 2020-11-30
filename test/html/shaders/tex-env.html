@@ -14,6 +14,9 @@
 	u_texbump: texture bumpiness, u_tex: [top, side, reserved] texture path / url
   </p>
   <br><textarea id="txt" rows="9" cols="73"></textarea>
+  <p>About Light Position: light position is rendered with a wireframe object,
+	  but the light is actually directional light, with flare location projected
+	  from infinity far.</p>
   <p><a href='https://freestocktextures.com/texture/brick-renovated-closeup,740.html'>
 	  Brick Texture Copyright © 2009-2020 FreeStockTextures.com</p>
   <script>
@@ -44,16 +47,17 @@
 	};
 	document.getElementById('txt').value = JSON.stringify(json0);
 	var o0 = [-0, 0];
-	const position = [160, 160, 120];
+	const position = [1600, 1600, 1200];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					window, { canvasize: [600, 360],
 					// finalQuad: {debug: true}, // have filter & final quad show something
+					shadow: { bias: 0.0 },
 					light: {position,
 							skyColor: 0x7777cc,
 							intensity: 0.8,       // diffuse (texture) intensity
 							flare: 0.4,	          // if > 0, add lens flare, value = radius_0
-							flareHue: [1., 0, 0]  // defualt = glConfig.xfilter.flareHue
+							flareHue: [1., 1, 0.8],  // defualt = glConfig.xfilter.flareHue FIXME how about sky color?
 						} });
 
 	xworld.addEntities([
@@ -76,7 +80,8 @@
 		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
 				box: [],
 				mesh: {
-					receiveShadow: true
+					receiveShadow: true,
+					castShadow: true
 				} },
 		Visual:{
 			vtype: xv.AssetType.mesh,
