@@ -157,6 +157,11 @@ All the documents are updating.
 
 ## [Three.js](https://threejs.org)
 
+###### Note
+
+Since v0.3.54, x-visual no longer directly depends on Three.js directly, via npm
+pacakge. It's using a forked and modified version of [Three.js](https://github.com/odys-z/three.js).
+
 ## ECS - Powered by @fritzy/ecs
 
 x-visual is a js ECS framework inspired by [fritz's ecs-js](https://github.com/fritzy/ecs-js).
