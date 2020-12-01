@@ -23,7 +23,8 @@
   <script>
     "use strict";
 
-	const uri = 'http://127.0.0.1:8080/xv/json/polygon02.json';
+	const uri = '../data/polygon02.json';
+	// const uri = 'http://127.0.0.1:8080/xv/json/polygon02.json';
 	// also this 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/polygon02.json';
 
 	const o0 = [11584957, 3585100];
@@ -32,11 +33,13 @@
     const position = [200, 100, 400];
     const asset = 'data:application/x-visual+img,gray-pixel';
 
-    const xworld = new xv.XWorld(document.getElementById('canv'), window,
-        { light: {
+    const xworld = new xv.XWorld( document.getElementById('canv'), window,
+        { // finalQuad: { debug: true },
+          light: {
             position,
             skyColor: 0xcccccc,
-            intensity: 2.2 },
+            flare: 0.8,
+            intensity: 0.5 },
           shadow: {
             helper: true,
             bias: 0.0001,
@@ -44,7 +47,7 @@
             size: [40, 80, 40, 5], // camera size, or {left, right, top, bottom} || number
             near: 200,
             far: 1500 }
-		});
+        } );
     const ecs = xworld.xecs;
 
     ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
@@ -83,14 +86,15 @@
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texEnv,
             paras: {
-                whiteAlphas: [0.4, 0.9], // roof, side reflection, 0~1, default 0.5
+                whiteAlphas: [.5, 0.3], // roof, side reflection, 0~1, default 0.5
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
-                lod: [2, 2],        // reflect LOD of [base, lateral]
-                envExposure: 1.8,   // > 0,  = 1 will keep original, only for EXR
+                lod: [2, 2],            // reflect LOD of [base, lateral]
+                envExposure: .2,       // > 0,  = 1 will keep original, only for EXR
 
                 uvScale: [5, 1],
-                u_texbump: [0.03, 0.125],
+				texScale: 42,
+                u_texbump: [0.25, 0.25], // roof, lateral
                 u_tex: [
                     '../../assets/tex/bricks.jpg',     // 0: base faces (roof)
                     '../../assets/tex/wood.png',       // 1: lateral faces (wall)

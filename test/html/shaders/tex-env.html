@@ -13,7 +13,11 @@
 	envMap: referenced entity-id, whiteAlpha: [top, side] weight of env light<br>
 	u_texbump: texture bumpiness, u_tex: [top, side, reserved] texture path / url
   </p>
-  <br><textarea id="txt" rows="9" cols="73"></textarea>
+  <p>About Light Position: light position is rendered with a wireframe object,
+	  but the light is actually directional light, with flare location projected
+	  from infinity far.</p>
+  <p>Xworld's options.shadow.debug = true can make shadow depth visible.</p>
+  <p>See console for geojson data.</p>
   <p><a href='https://freestocktextures.com/texture/brick-renovated-closeup,740.html'>
 	  Brick Texture Copyright © 2009-2020 FreeStockTextures.com</p>
   <script>
@@ -42,16 +46,19 @@
 		}
 	  ]
 	};
-	document.getElementById('txt').value = JSON.stringify(json0);
+	// document.getElementById('txt').value = JSON.stringify(json0);
 	var o0 = [-0, 0];
-	const position = [160, 160, 120];
+	const position = [1600, 1600, 1200];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 					window, { canvasize: [600, 360],
-					// finalQuad: {debug: true},
+					// finalQuad: {debug: true}, // have filter & final quad show something
+					shadow: { bias: 0.0 },
 					light: {position,
 							skyColor: 0x7777cc,
-							intensity: 2 } });
+							intensity: 0.8,       // diffuse (texture) intensity
+							flare: 1.4,	          // if > 0, add lens flare, value = radius_0
+						} });
 
 	xworld.addEntities([
 	  { id: 'light-pos',
@@ -71,21 +78,25 @@
 	  },
 	  { id: 'prism',
 		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
-				box: [] },
+				box: [],
+				mesh: {
+					// receiveShadow: true,
+					castShadow: true
+				} },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			// shader: xv.ShaderFlag.envMap,
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
-				whiteAlphas: [0.6, 0.4], // roof, side reflection, 0~1, default 0.5
+				whiteAlphas: [.8, 0.4], // roof, side reflection, 0~1, default 0.5
 
 				envMap: 'sky',
-				envExposure: 1.7,   // > 0,  = 1 will keep original
+				envExposure: 0.2,   // > 0,  = 1 will keep original
 
 				lod: [3.6, 5.2],	// base, lateral
-				uvScale: [5, 1],    // only for side uv
-				u_texbump: [0.2, 0.1],
+				uvScale: [3, 1],    // only for side uv
+				texScale: 100,
+				u_texbump: [0.2, 0.4],
 				u_tex: [
 					'../../assets/tex/bricks.jpg',
 					'../../assets/tex/wood.png',
@@ -106,6 +117,7 @@
 
 	xworld.startUpdate();
 
+	console.log(json0);
   </script>
 </body>
 </html>
