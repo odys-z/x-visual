@@ -18,7 +18,6 @@
 	"use strict";
 
 	var equirectex = '../../assets/tex/sky-blue.exr';
-	// var equirectex = 'https://threejs.org/examples/textures/memorial.exr';
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
@@ -27,7 +26,7 @@
 				  // control: xv.CameraType.Orbitctrl,
 				  finalQuad: {
 					  blurRadius: 12,
-					  flare: 0.4,
+					  flare: 0.9,
 					  debug: false },
 				} );
 	const ecs = xworld.xecs;

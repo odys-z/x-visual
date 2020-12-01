@@ -57,8 +57,7 @@
 					light: {position,
 							skyColor: 0x7777cc,
 							intensity: 0.8,       // diffuse (texture) intensity
-							flare: 0.4,	          // if > 0, add lens flare, value = radius_0
-							flareHue: [1., 1, 0.8],  // defualt = glConfig.xfilter.flareHue FIXME how about sky color?
+							flare: 1.4,	          // if > 0, add lens flare, value = radius_0
 						} });
 
 	xworld.addEntities([
@@ -86,7 +85,6 @@
 				} },
 		Visual:{
 			vtype: xv.AssetType.mesh,
-			// shader: xv.ShaderFlag.envMap,
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,

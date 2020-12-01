@@ -23,7 +23,8 @@
   <script>
     "use strict";
 
-	const uri = 'http://127.0.0.1:8080/xv/json/polygon02.json';
+	const uri = '../data/polygon02.json';
+	// const uri = 'http://127.0.0.1:8080/xv/json/polygon02.json';
 	// also this 'https://raw.githubusercontent.com/odys-z/x-visual/master/test/html/data/polygon02.json';
 
 	const o0 = [11584957, 3585100];
@@ -32,11 +33,12 @@
     const position = [200, 100, 400];
     const asset = 'data:application/x-visual+img,gray-pixel';
 
-    const xworld = new xv.XWorld(document.getElementById('canv'), window,
-        // { finalQuad: {} },
-        { light: {
+    const xworld = new xv.XWorld( document.getElementById('canv'), window,
+        { // finalQuad: { debug: true },
+          light: {
             position,
             skyColor: 0xcccccc,
+            flare: 0.8,
             intensity: 0.5 },
           shadow: {
             helper: true,
@@ -45,7 +47,7 @@
             size: [40, 80, 40, 5], // camera size, or {left, right, top, bottom} || number
             near: 200,
             far: 1500 }
-		});
+        } );
     const ecs = xworld.xecs;
 
     ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
