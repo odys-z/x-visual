@@ -115,6 +115,15 @@ file access. Try (tested on Ubuntu):
     ./chrome
 ```
 
+Since v0.3.56, some page can not been loaded without issue of CORS plus local files
+loaded from file system, due to the new version of browser's policies.
+
+The testing page can be visited for runing python server at x-visual's root folder:
+
+```
+    python3 -m http.server 8000 --bind 127.0.0.1
+```
+
 ### Some Other Examples
 
 - Test Case: GLTFLoader (test/html/gltf-city.html)
