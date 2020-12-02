@@ -8775,6 +8775,10 @@ Material.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		this.name = source.name;
 
+		// ody
+		this.isMrt = source.isMrt;
+		this.glslVersion = source.glslVersion;
+		
 		this.fog = source.fog;
 
 		this.blending = source.blending;
@@ -19439,7 +19443,7 @@ function WebGLShadowMap( _renderer, _objects, maxTextureSize ) {
 				} else if ( material.visible ) {
 
 					const depthMaterial = getDepthMaterial( object, geometry, material, light, shadowCamera.near, shadowCamera.far, type );
-					// ody
+					// ody - note 2020.Nov: should move this to getDepthMaterialVariant() ?
 					depthMaterial.glslVersion = material.glslVersion;
 
 					_renderer.renderBufferDirect( shadowCamera, null, geometry, depthMaterial, object, null );
@@ -21610,13 +21614,19 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 			const target = renderTarget.isWebGLCubeRenderTarget ? 34067 : 3553;
 
+			// ody
 			// should we file a PR to MRTSupport?
+			// It's confirmed that mipmap neeeds to be regenerated every frame
+			// see <a href='https://stackoverflow.com/q/20359352'>the opengl question</a>
 			if ( renderTarget instanceof WebGLMultiRenderTarget ) {
 				// we care about MRT textures,
 				// and should avoiding throwing exception while renderTarget.texture mip generating.
 				for ( var tex of renderTarget.textures) {
 					let webglTex_i = properties.get( tex ).__webglTexture;
 					state.bindTexture( target, webglTex_i );
+					// FIXME webglTex_i ?
+					// FIXME webglTex_i ?
+					// FIXME webglTex_i ?
 					generateMipmap( target, tex, renderTarget.width, renderTarget.height );
 				}
 			}
@@ -25148,6 +25158,7 @@ function WebGLRenderer( parameters ) {
 
 		let framebuffer = _framebuffer;
 		let isCube = false;
+		let isMrt = false;
 
 		if ( renderTarget ) {
 
@@ -25161,6 +25172,7 @@ function WebGLRenderer( parameters ) {
 			} else if ( renderTarget.isWebGLMultisampleRenderTarget ) {
 
 				framebuffer = properties.get( renderTarget ).__webglMultisampledFramebuffer;
+				isMrt = true;
 
 			} else {
 
@@ -25253,6 +25265,13 @@ function WebGLRenderer( parameters ) {
 			const textureProperties = properties.get( renderTarget.texture );
 			_gl.framebufferTexture2D( 36160, 36064, 34069 + activeCubeFace, textureProperties.__webglTexture, activeMipmapLevel );
 
+		}
+
+		// ody: try suppress this warning:
+		// [.WebGL-0x1abf9488e000] GL_INVALID_ENUM: Texture filter not recognized.
+		else if (isMrt) {
+			console.log ("Here? ???");
+			// ...
 		}
 
 	};
