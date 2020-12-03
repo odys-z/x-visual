@@ -11,4 +11,4 @@ Contents:
    svg
    shadow/index
    components
-   systems
+   three-gems/index

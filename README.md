@@ -5,9 +5,19 @@ for rendering.
 
 Before v1.0, it's a part of a research project and a prototype of a comercial system used to verify and accumulate any usefull tech.
 
-Currently is focused on report chart implementation.
+## NPM Version
 
-It's also the npm package name.
+'x-visual' is also the npm package name.
+
+Currently there are two main branches:
+
+- 1. **master** with even least minor version number for developing based on WebGL 2.
+
+	E.g, 0.3.52
+
+- 2. **webgl1** with odd least minor version number for legacy function support.
+
+	E.g, 0.3.53
 
 # Quick Start
 
@@ -105,6 +115,15 @@ file access. Try (tested on Ubuntu):
     ./chrome
 ```
 
+Since v0.3.56, some page can not been loaded without issue of CORS plus local files
+loaded from file system, due to the new version of browser's policies.
+
+The testing page can be visited for runing python server at x-visual's root folder:
+
+```
+    python3 -m http.server 8000 --bind 127.0.0.1
+```
+
 ### Some Other Examples
 
 - Test Case: GLTFLoader (test/html/gltf-city.html)
@@ -137,6 +156,11 @@ All the documents are updating.
 # Acknowledgement
 
 ## [Three.js](https://threejs.org)
+
+###### Note
+
+Since v0.3.54, x-visual no longer directly depends on Three.js directly, via npm
+pacakge. It's using a forked and modified version of [Three.js](https://github.com/odys-z/three.js).
 
 ## ECS - Powered by @fritzy/ecs
 
