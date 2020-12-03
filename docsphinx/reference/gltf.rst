@@ -473,7 +473,7 @@ For promise returning 'ndoes', see :ref:`Parse Promise<parse-promise>`.
 Enable MRT
 __________
 
-The materials (currently only MeshStandardMaterial) is created by default supporting
+The material (currently only MeshStandardMaterial) is created by default supporting
 MRT.
 
 .. code-block:: javascript
@@ -485,7 +485,8 @@ MRT.
 ..
 
 This created MRT material template, with support of Three.js MRTSupport version,
-material will be cloned with additional properties, i.e. isMrt & glslVersion.  
+will be cloned for GLTF nodes' materail with additional properties, i.e. isMrt &
+glslVersion.
 
 References
 ----------
