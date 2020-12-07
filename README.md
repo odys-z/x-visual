@@ -1,3 +1,5 @@
+![npm](https://img.shields.io/npm/v/x-visual?logo=npm)
+
 # About
 
 X-visual is a lib for data visiualization using [Three.js](https://threejs.org)
@@ -6,8 +8,6 @@ for rendering.
 Before v1.0, it's a part of a research project and a prototype of a comercial system used to verify and accumulate any usefull tech.
 
 ## NPM Version
-
-'x-visual' is also the npm package name.
 
 Currently there are two main branches:
 
