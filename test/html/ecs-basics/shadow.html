@@ -94,17 +94,17 @@
 		// Visual:{vtype: xv.AssetType.mesh_basic,
 		// 		asset}
 	  // },
-	  // { id: 'box-3js',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		box: [40, 40, 180],
-		// 		transform: [ { translate: [30, 70, -10] } ],
-		// 		mesh: {
-		// 			castShadow: true,
-		// 			// receiveShadow: true
-		// 		} },
-		// Visual:{vtype: xv.AssetType.mesh,
-		// 		asset}
-	  // }
+	  { id: 'box-3js',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [40, 40, 180],
+				transform: [ { translate: [30, 70, -10] } ],
+				mesh: {
+					castShadow: true,
+					// receiveShadow: true
+				} },
+		Visual:{vtype: xv.AssetType.mesh,
+				asset}
+	  }
 	]);
 
 	xworld.startUpdate();
