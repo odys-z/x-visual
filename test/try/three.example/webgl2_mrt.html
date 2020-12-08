@@ -4,7 +4,7 @@
 		<title>three.js webgl - Multiple Render Targets</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+		<script type='text/javascript' src='/xv/dist/xv-0.3.0.min.js'></script>
 		<style>
 			body {
 				font-family: Monospace;
@@ -113,7 +113,8 @@
 
 			void main() {
 
-				vec3 diffuse = texture( tDiffuse, vUv ).rgb;
+				// vec3 diffuse = texture( tDiffuse, vUv ).rgb;
+				vec3 diffuse = textureLod( tDiffuse, vUv, 10. ).rgb;
 				vec3 normal = texture( tNormal, vUv ).rgb;
 
 				pc_FragColor.rgb = mix( diffuse, diffuse * normal, step( 0.5, vUv.x ) );
@@ -129,6 +130,8 @@
 			Renders geometry into a G-Buffer.<br/>
 			Visualized here is the color and normal data from the G-Buffer.<br/>
 			Created by <a href="http://twitter.com/mattdesl" target="_blank">@mattdesl</a>.
+			&amp; <a href='https://www.shaderific.com/blog/2014/3/13/tutorial-how-to-update-a-shader-for-opengl-es-30'>
+			es 3.0 quick start</a>
 		</div>
 
 		<script type="module">
@@ -136,7 +139,9 @@
 			// import {THREE, OrbitControls} from 'http://www.inforise.com.c/www-res/dist/xv-0.3.0.min.js';
 			// let THREE = xv.THREE;
 			// let WebGLMultiRenderTarget = xv.WebGLMultiRenderTarget;
-			import * as THREE from 'http://127.0.0.1:8080/xv/js/three.module-dev.js';
+
+			// import * as THREE from 'http://127.0.0.1:8080/xv/js/three.module-dev.js';
+			import * as THREE from '/xv/js/three.module-MRTSupport.js';
 			let OrbitControls = xv.OrbitControls.default;
 			console.log(THREE.REVISION);
 
@@ -174,10 +179,14 @@
 					2,
 					{
 						format: THREE.RGBAFormat,
-						minFilter: THREE.NearestFilter,
-						magFilter: THREE.NearestFilter,
+						// minFilter: THREE.NearestFilter,
+						// magFilter: THREE.NearestFilter,
 						type: THREE.FloatType,
-						generateMipmaps: false,
+						// generateMipmaps: false,
+
+						minFilter: THREE.LinearMipmapLinearFilter,
+						magFilter: THREE.LinearMipmapLinearFilter,
+						generateMipmaps: true,
 						stencilBuffer: false,
 						depthBuffer: true
 					}
@@ -185,28 +194,15 @@
 
 				// Name our G-Buffer attachments for debugging
 
-				// renderTarget.textures[ 0 ].name = 'diffuse-notused?';
-				// renderTarget.textures[ 1 ].name = 'normal';
-
 				// Scene setup
-
 				scene = new THREE.Scene();
 
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10 );
 				camera.position.z = 4;
 
 				var diffuse = new THREE.TextureLoader().load(
-
-					// 'textures/brick_diffuse.jpg',
 					'../../html/assets/tex/wood.png',
-
-					function () {
-
-						// ready to render
-						render();
-
-					}
-
+					() => render()
 				);
 
 				diffuse.wrapS = diffuse.wrapT = THREE.RepeatWrapping;

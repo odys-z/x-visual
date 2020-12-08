@@ -29,7 +29,7 @@
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
+	const asset = 'data:application/x-visual+img,color-pixel [0.9, 0.5, 0.8, 1.]';
 	xworld.addEntities([
 	  { id: 'sky',
 		Obj3: { },
@@ -39,16 +39,18 @@
 				}
 			}
 	  },
-	  { id: 'box1',
+	  { id: 'orb',
 		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
 				box: [80, 24, 24],
 			},
 		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.envMapMrt,
+				shader: xv.ShaderFlag.envMap,
 				paras: {
 					whiteAlpha: 0.3,
 					envMap: 'sky',
 					lod: [0.8, 0],
+					envBloom: 3,
+					u_texBloom: 'hdr', // FIXME WRONG
 				},
 				asset
 			}

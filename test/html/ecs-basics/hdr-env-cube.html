@@ -8,6 +8,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p>shader envCubeMap can not configured with envExposure.</p>
   <p>Meseum image from <a href='https://webglfundamentals.org/webgl/lessons/webgl-skybox.html'>
     WebGL SkyBox, WebGl Fundamentals, License unknown</a></p>
   <script>
@@ -26,12 +27,11 @@
 				window,
 				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
-				  // control: xv.CameraType.Orbitctrl,
+				  finalQuad: { blurRadius: 8 },
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	// const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
 	xworld.addEntities([
 	  { id: 'sky',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
@@ -44,10 +44,11 @@
 	  },
 	  { id: 'orb',
 		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-                box: [80, 24, 24],
+                box: [80, 64, 64],
 			},
 		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.envMap,
+				// shader: xv.ShaderFlag.envMap,
+				shader: xv.ShaderFlag.envCubeMap,
 				paras: {
 					// ratio of refraction vs. reflection, 0 ~ 1
 					whiteAlpha: 0.5,
@@ -59,7 +60,7 @@
 					envMap: 'sky',
 
 					// default CubeReflectionMapping
-					textureMapping: THREE.CubeRefractionMapping,
+					textureMapping: xv.THREE.CubeRefractionMapping,
 				},
 			}
 	  },

@@ -10,13 +10,13 @@
   <canvas id='canv'></canvas>
   <br><a id='ajson'>json</a>
   <p>Reference of trangulation<br>
-  	- <a href='https://en.wikipedia.org/wiki/Two_ears_theorem'>Two ears theorem</a><br>
+	- <a href='https://en.wikipedia.org/wiki/Two_ears_theorem'>Two ears theorem</a><br>
 	- <a href='http://wapbowen.oss-cn-hongkong.aliyuncs.com/PubFiles/JAO10021-20140509-174109-8123-42657.pdf?Expires=1599892564&OSSAccessKeyId=UVhDXw2HqaJ5Mj2n&Signature=PYurdwXO2qB2S81hn6xTIkkYEM4%3D'>
 		A Simple Sweep-line Delaunay Triangulation Algorithm (local ~/Documents)</a>,
 		which is the algorithm of <a href='https://www.npmjs.com/package/earcut'>
 		npm earcut used by mapbox</a><br>
-  	- <a href='https://www.cs.cmu.edu/~quake/triangle.html'>Triangel</a><br>
-  	- <a href='https://math.stackexchange.com/questions/1814607/divide-a-2d-polygon-with-n-vertices-into-triangles-draw-in-a-3d-space'>
+	- <a href='https://www.cs.cmu.edu/~quake/triangle.html'>Triangel</a><br>
+	- <a href='https://math.stackexchange.com/questions/1814607/divide-a-2d-polygon-with-n-vertices-into-triangles-draw-in-a-3d-space'>
 		Divide a 2D polygon with N vertices into triangles draw in a 3D space,
 		Mathematics, StackExchange</a>
   </p>
@@ -33,10 +33,11 @@
     const asset = 'data:application/x-visual+img,gray-pixel';
 
     const xworld = new xv.XWorld(document.getElementById('canv'), window,
+        // { finalQuad: {} },
         { light: {
             position,
             skyColor: 0xcccccc,
-            intensity: 2 },
+            intensity: 0.5 },
           shadow: {
             helper: true,
             bias: 0.0001,
@@ -82,18 +83,18 @@
         Visual:{
             vtype: xv.AssetType.mesh,
             shader: xv.XComponent.ShaderFlag.texEnv,
-            // shader: xv.XComponent.ShaderFlag.texPrism,
             paras: {
-                whiteAlphas: [0.4, 0.2], // roof, side reflection, 0~1, default 0.5
+                whiteAlphas: [.5, 0.3], // roof, side reflection, 0~1, default 0.5
                 envMap: 'sky',
                 // lod of cube texture, [refract, reflect], >= 0
-                lod: [3, 2],        // reflect LOD of [base, lateral]
-                envExposure: 1.8,   // > 0,  = 1 will keep original, only for EXR
+                lod: [2, 2],            // reflect LOD of [base, lateral]
+                envExposure: .2,       // > 0,  = 1 will keep original, only for EXR
 
                 uvScale: [5, 1],
-                u_texbump: [0., 0.125],
+				texScale: 42,
+                u_texbump: [0.25, 0.25], // roof, lateral
                 u_tex: [
-                    asset,                             // 0: base faces (roof)
+                    '../../assets/tex/bricks.jpg',     // 0: base faces (roof)
                     '../../assets/tex/wood.png',       // 1: lateral faces (wall)
                     '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
 
@@ -115,7 +116,7 @@
                 geostyle: { height: 76, scale: 1.5, }
             } } ,
       },
-      { id: 'light',
+      { id: 'light-symbol',
         Obj3: { geom: xv.XComponent.Obj3Type.Octahedron,
                 box: [20, 0],
                 transform: [{ translate: position }],
