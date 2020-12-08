@@ -11,19 +11,19 @@ ________________________________
 
 html file::
 
-    test/html/morph-model.html
+    test/html/morph/lerp-model.html
     test/html/voxel-morph.html
     test/html/voxel-morph-particles.html
 
 The test defined 2 box object, with the 3rd as points referencing the boxes' vertices
 and moving the points while changing the alpha.
 
-.. image:: imgs/002-case-morph-model.jpg
+.. image:: imgs/002-case-morph/lerp-model.jpg
     :width: 420px
 
 A test case for basic morphing scripts.
 
-.. literalinclude:: ../../test/html/morph-model.html
+.. literalinclude:: ../../test/html/morph/lerp-model.html
    :language: javascript
    :lines: 73-115
    :linenos:
@@ -75,7 +75,7 @@ _______________________
 
 html file::
 
-    test/html/morph-model.html
+    test/html/morph/lerp-model.html
 
 This test shows how to update target position and use a animation to move to there.
 
