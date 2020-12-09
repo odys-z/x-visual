@@ -47,6 +47,7 @@
             position,
             skyColor: 0xff0000,
             intensity: 1 },
+		  finalQuad: { blurRadius: .4 },
           shadow: {
             helper: true,
             bias: 0.0001,
@@ -211,7 +212,7 @@
                 shininess: 80,
                 whiteAlphas: [.8, 0.4], // roof, side reflection, 0~1, default 0.5
 
-                // envMap: 'sky',
+                // envMap: 'sky',   - none in the scene
                 envExposure: 0.2,   // > 0,  = 1 will keep original
 
                 lod: [3.6, 5.2],    // base, lateral

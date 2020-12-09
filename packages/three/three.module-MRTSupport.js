@@ -21658,9 +21658,6 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 				for ( var tex of renderTarget.textures) {
 					let webglTex_i = properties.get( tex ).__webglTexture;
 					state.bindTexture( target, webglTex_i );
-					// FIXME webglTex_i ?
-					// FIXME webglTex_i ?
-					// FIXME webglTex_i ?
 					generateMipmap( target, tex, renderTarget.width, renderTarget.height );
 				}
 			}
