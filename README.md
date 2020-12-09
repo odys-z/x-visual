@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/v/x-visual?logo=npm)
+MRT Support: ![npm](https://img.shields.io/npm/v/x-visual?logo=npm)
 
 # About
 
@@ -17,7 +17,7 @@ Currently there are two main branches:
 
 - 2. **webgl1** with odd least minor version number for legacy function support.
 
-	E.g, 0.3.53
+	The latest branch version is 0.3.63.
 
 # Quick Start
 
