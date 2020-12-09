@@ -40,14 +40,16 @@
     document.getElementById('txt').value = JSON.stringify(json0);
 
     const position = [200, 200, 200];
-    const asset = 'data:application/x-visual+img,color-pixel [1., 1., 1., 1.]';
+    const asset = 'data:application/x-visual+img,color-pixel [.8, 1., .5, 1.]';
 
     const xworld = new xv.XWorld(document.getElementById('canv'), window,
         { light: {
             position,
             skyColor: 0xff0000,
             intensity: 1 },
-		  finalQuad: { blurRadius: .4 },
+          finalQuad: {
+            blurRadius: 1.2,
+            blurIntense: 0.4 },
           shadow: {
             helper: true,
             bias: 0.0001,
@@ -84,6 +86,7 @@
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
                 paras: {
+                    u_texWeight: 1,
                     shininess: 90,
                     shineColor: [1, 1, 1],
                     colors: [[0., 0., 0.5]] },
@@ -148,9 +151,11 @@
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
                 paras: {
+                    u_alpha: 0.7,
+                    u_texWeight: 0.7,
                     shininess: 3,
-                    colors: [[0.5, 0.5, 0.5]] },
-                asset},
+                    colors: [[0.5, 0., 0.5]] },
+                asset: '../../assets/tex/ruler256.png' },
       },
       { id: 'color-sphere',
         Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
@@ -161,6 +166,7 @@
                 shader: xv.XComponent.ShaderFlag.colorArray,
                 paras: {
                     shininess: 3.5,
+                    u_texWeight: 0.5,
                     colors: [[0.5, 0.5, 0.5]] },
                 asset}
       },
@@ -198,9 +204,10 @@
             } } ,
       },
       */
-      { id: 'prism',
+      { id: 'texprism',
         Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
                 box: [],
+                transform: [ {translate: [20, -30, -0]} ],
                 mesh: {
                     // receiveShadow: true,
                     castShadow: true
@@ -278,7 +285,7 @@
                     layers: 2 },
                 u_tex: [asset, asset, asset],
                 whiteAlphas: [1, 1],
-                edgeWeight: .8,
+                edgeWeight: .1,
 
                 // geojson geometry
                 maxVerts: 512,
