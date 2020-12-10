@@ -18,15 +18,15 @@
 	"use strict";
 
 	var equirectex = '../../assets/tex/sky-blue.exr';
-	// var equirectex = 'https://threejs.org/examples/textures/memorial.exr';
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
 				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
-				  // control: xv.CameraType.Orbitctrl,
 				  finalQuad: {
-					  blurRadius: 12,
+					  blurRadius: 1.,
+					  blurExposure: 0.6,
+					  flare: 0.9,
 					  debug: false },
 				} );
 	const ecs = xworld.xecs;

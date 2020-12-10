@@ -5,12 +5,12 @@
     <title>XTest-Hemisphere Light</title>
     <script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
     <script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
-	<style>input[id] {width: 4.6em}</style>
+    <style>input[id] {width: 4.6em}</style>
 </head>
 <body>
   <canvas id='canv'></canvas>
   <p>DirectionalLight Intensity: <input id='intense' value='2'/> <br>
-	 Diffuse Color : <input id='diffuse' value='0x0000ff'/>
+     Diffuse Color : <input id='diffuse' value='0x0000ff'/>
      Ambient Color : <input id='ambient' value='0x00c000'/><br>
   <hr>
      Object Specular: <input id='specular' value='0xffffff'/><br>
@@ -18,10 +18,10 @@
   Geo feature json (read only)<br><textarea id="txt" rows="3" cols="98"></textarea>
   <p>Points worth to note:<br>
       1. TexPrism (front left 3) is shadowed with CullFaceFront side (Three.js default);<br>
-	  2. Virual box (front left 4) is shadowed with CullFaceBack; </p>
+      2. Virual box (front left 4) is shadowed with CullFaceBack; </p>
   <p>see<a href='https://odys-z.github.io/x-visual/tests/basics.html#test-xworld-light'
       target='_parent'> test introduction</a> &amp;
-	  <a href='https://odys-z.github.io/x-visual/design-memo/scene.html#main-scene-light'
+      <a href='https://odys-z.github.io/x-visual/design-memo/scene.html#main-scene-light'
       target='_top'>doc: xscene light</a></p>
   <script>
     "use strict";
@@ -40,23 +40,26 @@
     document.getElementById('txt').value = JSON.stringify(json0);
 
     const position = [200, 200, 200];
-    const asset = 'data:application/x-visual+img,color-pixel [1., 1., 1., 1.]';
+    const asset = 'data:application/x-visual+img,color-pixel [.8, 1., .5, 1.]';
 
     const xworld = new xv.XWorld(document.getElementById('canv'), window,
         { light: {
             position,
             skyColor: 0xff0000,
             intensity: 1 },
+          finalQuad: {
+            blurRadius: 1.2,
+            blurIntense: 0.4 },
           shadow: {
             helper: true,
-			bias: 0.0001,
+            bias: 0.0001,
             size: 18,
             near: 200,
             far: 640 }
         } );
     const ecs = xworld.xecs;
 
-	// used by virtual box
+    // used by virtual box
     ecs.registerComponent('CBoundCubes', xv.map3.CBoundCubes );
 
     xworld.addEntities([
@@ -83,6 +86,7 @@
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
                 paras: {
+                    u_texWeight: 1,
                     shininess: 90,
                     shineColor: [1, 1, 1],
                     colors: [[0., 0., 0.5]] },
@@ -93,7 +97,7 @@
                 box: [60, 60, 60],
                 transform: [ { translate: [-200, 0, -120] } ],
                 mesh: { castShadow: true,
-						receiveShadow: true} },
+                        receiveShadow: true} },
         Visual:{vtype: xv.AssetType.mesh,
                 asset}
       },
@@ -147,9 +151,11 @@
         Visual:{vtype: xv.AssetType.mesh,
                 shader: xv.XComponent.ShaderFlag.colorArray,
                 paras: {
+                    u_alpha: 0.7,
+                    u_texWeight: 0.7,
                     shininess: 3,
-                    colors: [[0.5, 0.5, 0.5]] },
-                asset},
+                    colors: [[0.5, 0., 0.5]] },
+                asset: '../../assets/tex/ruler256.png' },
       },
       { id: 'color-sphere',
         Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
@@ -160,10 +166,12 @@
                 shader: xv.XComponent.ShaderFlag.colorArray,
                 paras: {
                     shininess: 3.5,
+                    u_texWeight: 0.5,
                     colors: [[0.5, 0.5, 0.5]] },
                 asset}
       },
 
+      /*
       { id: 'texprism-1',
         Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
                 transform: [ {translate: [20, -30, -0]} ],
@@ -195,6 +203,42 @@
                 geostyle: { height: 16, scale: 1.5, }
             } } ,
       },
+      */
+      { id: 'texprism',
+        Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+                box: [],
+                transform: [ {translate: [20, -30, -0]} ],
+                mesh: {
+                    // receiveShadow: true,
+                    castShadow: true
+                } },
+        Visual:{
+            vtype: xv.AssetType.mesh,
+            shader: xv.ShaderFlag.texEnv,
+            paras: {
+                shininess: 80,
+                whiteAlphas: [.8, 0.4], // roof, side reflection, 0~1, default 0.5
+
+                // envMap: 'sky',   - none in the scene
+                envExposure: 0.2,   // > 0,  = 1 will keep original
+
+                lod: [3.6, 5.2],    // base, lateral
+                uvScale: [3, 1],    // only for side uv
+                texScale: 20,
+                u_texbump: [0.2, 0.4],
+                u_tex: [
+                    '../../assets/tex/bricks.jpg',
+                    '../../assets/tex/wood.png',
+                    '../../assets/tex/byr0.png'],
+
+                features: json0.features,
+                maxVerts: 512,
+                geostyle: {
+                    height: 16, scale: 1.5,
+                }
+            } } ,
+        CmpTweens: {}
+      },
       { id: 'sphere-tex',
         Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
                 transform: [ {translate: [120, 80, -120]} ],
@@ -212,10 +256,10 @@
                     change: false,
                     layers: 2 },
                 u_tex: [asset,            // 0: base faces (roof)
-	                    asset,            // 1: lateral faces (wall)
-	                    asset],           // 2: optional, layer faces (floor)
+                        asset,            // 1: lateral faces (wall)
+                        asset],           // 2: optional, layer faces (floor)
                 whiteAlphas: [0.8, 0.7],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
-                edgeWeight: 5.8,          // layer box weight
+                edgeWeight: .8,          // layer box weight
 
                 // geojson geometry
                 maxVerts: 512,
@@ -241,7 +285,7 @@
                     layers: 2 },
                 u_tex: [asset, asset, asset],
                 whiteAlphas: [1, 1],
-                edgeWeight: 5.8,
+                edgeWeight: .1,
 
                 // geojson geometry
                 maxVerts: 512,

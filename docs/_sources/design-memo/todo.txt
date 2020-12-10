@@ -163,6 +163,10 @@ Code snippet of Thrender.createObj3s() AssetType.gltf branch:
 Wish List
 ---------
 
+- Port to WebGL 2.0
+
+`Kai Ninomiya, Zhenyao Mo, Ken Russell, WebGL 2.0 is Here: What You Need To Know, Khronos Webinar, Google, Inc. 2017 April 11 <https://www.khronos.org/assets/uploads/developers/library/2017-webgl-webinar/Khronos-Webinar-WebGL-20-is-here_What-you-need-to-know_Apr17.pdf>`_
+
 - Animize Letters
 
 See `Ilmari Heikkinen, Animating a Million Letters Using Three.js <https://www.html5rocks.com/en/tutorials/webgl/million_letters>`_
