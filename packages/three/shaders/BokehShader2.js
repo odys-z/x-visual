@@ -14,17 +14,17 @@ import {
 
 var BokehShader = {
 
-	uniforms: {
+	uniforms_: {
 
-		"textureWidth": { value: 1.0 },
-		"textureHeight": { value: 1.0 },
+		//"textureWidth": { value: 1.0 },
+		//"textureHeight": { value: 1.0 },
 
 		"focalDepth": { value: 1.0 },
 		"focalLength": { value: 24.0 },
 		"fstop": { value: 0.9 },
 
-		"tColor": { value: null },
-		"tDepth": { value: null },
+		//"tColor": { value: null },
+		//"tDepth": { value: null },
 
 		"maxblur": { value: 1.0 },
 
@@ -43,7 +43,7 @@ var BokehShader = {
 
 		"noise": { value: 1 },
 		"dithering": { value: 0.0001 },
-		"pentagon": { value: 0 },
+		"pentagon": { value: 0 }, to be continued
 
 		"shaderFocus": { value: 1 },
 		"focusCoords": { value: new Vector2() }
@@ -66,85 +66,85 @@ var BokehShader = {
 
 	fragmentShader: [
 
-		"#include <common>",
+		// #include <common>",
 
-		"varying vec2 vUv;",
+		// varying vec2 vUv;",
 
-		"uniform sampler2D tColor;",
-		"uniform sampler2D tDepth;",
-		"uniform float textureWidth;",
-		"uniform float textureHeight;",
+		// uniform sampler2D tColor;",
+		// uniform sampler2D tDepth;",
+		// uniform float textureWidth;",
+		// uniform float textureHeight;",
 
-		"uniform float focalDepth;  //focal distance value in meters, but you may use autofocus option below",
-		"uniform float focalLength; //focal length in mm",
-		"uniform float fstop; //f-stop value",
-		"uniform bool showFocus; //show debug focus point and focal range (red = focal point, green = focal range)",
+		"uniform float focalDepth;"  //focal distance value in meters, but you may use autofocus option below",
+		"uniform float focalLength;" //focal length in mm",
+		"uniform float fstop;" //f-stop value",
+		"uniform bool showFocus;" //show debug focus point and focal range (red = focal point, green = focal range)",
 
-		"/*",
+		/*",
 		"make sure that these two values are the same for your camera, otherwise distances will be wrong.",
-		"*/",
+		"*/
 
-		"uniform float znear; // camera clipping start",
-		"uniform float zfar; // camera clipping end",
+		"uniform float znear;" // camera clipping start",
+		"uniform float zfar;" // camera clipping end",
 
-		"//------------------------------------------",
-		"//user variables",
+		//------------------------------------------",
+		//user variables",
 
-		"const int samples = SAMPLES; //samples on the first ring",
-		"const int rings = RINGS; //ring count",
+		"const int samples = SAMPLES;" //samples on the first ring",
+		"const int rings = RINGS;" //ring count",
 
 		"const int maxringsamples = rings * samples;",
 
-		"uniform bool manualdof; // manual dof calculation",
-		"float ndofstart = 1.0; // near dof blur start",
-		"float ndofdist = 2.0; // near dof blur falloff distance",
-		"float fdofstart = 1.0; // far dof blur start",
-		"float fdofdist = 3.0; // far dof blur falloff distance",
+		"uniform bool manualdof;" // manual dof calculation",
+		"float ndofstart = 1.0;" // near dof blur start",
+		"float ndofdist = 2.0;" // near dof blur falloff distance",
+		"float fdofstart = 1.0;" // far dof blur start",
+		"float fdofdist = 3.0;" // far dof blur falloff distance",
 
-		"float CoC = 0.03; //circle of confusion size in mm (35mm film = 0.03mm)",
+		"float CoC = 0.03;" //circle of confusion size in mm (35mm film = 0.03mm)",
 
-		"uniform bool vignetting; // use optical lens vignetting",
+		"uniform bool vignetting;" // use optical lens vignetting",
 
-		"float vignout = 1.3; // vignetting outer border",
-		"float vignin = 0.0; // vignetting inner border",
-		"float vignfade = 22.0; // f-stops till vignete fades",
+		"float vignout = 1.3;" // vignetting outer border",
+		"float vignin = 0.0;" // vignetting inner border",
+		"float vignfade = 22.0;" // f-stops till vignete fades",
 
 		"uniform bool shaderFocus;",
-		"// disable if you use external focalDepth value",
+		// disable if you use external focalDepth value",
 
 		"uniform vec2 focusCoords;",
-		"// autofocus point on screen (0.0,0.0 - left lower corner, 1.0,1.0 - upper right)",
-		"// if center of screen use vec2(0.5, 0.5);",
+		// autofocus point on screen (0.0,0.0 - left lower corner, 1.0,1.0 - upper right)",
+		// if center of screen use vec2(0.5, 0.5);",
 
 		"uniform float maxblur;",
-		"//clamp value of max blur (0.0 = no blur, 1.0 default)",
+		//clamp value of max blur (0.0 = no blur, 1.0 default)",
 
-		"uniform float threshold; // highlight threshold;",
-		"uniform float gain; // highlight gain;",
+		"uniform float threshold;" // highlight threshold;",
+		"uniform float gain;" // highlight gain;",
 
-		"uniform float bias; // bokeh edge bias",
-		"uniform float fringe; // bokeh chromatic aberration / fringing",
+		"uniform float bias;" // bokeh edge bias",
+		"uniform float fringe;" // bokeh chromatic aberration / fringing",
 
-		"uniform bool noise; //use noise instead of pattern for sample dithering",
+		"uniform bool noise;" //use noise instead of pattern for sample dithering",
 
 		"uniform float dithering;",
 
-		"uniform bool depthblur; // blur the depth buffer",
-		"float dbsize = 1.25; // depth blur size",
+		"uniform bool depthblur;" // blur the depth buffer",
+		"float dbsize = 1.25;" // depth blur size",
 
-		"/*",
+		/*",
 		"next part is experimental",
 		"not looking good with small sample and ring count",
 		"looks okay starting from samples = 4, rings = 4",
-		"*/",
+		"*/
 
-		"uniform bool pentagon; //use pentagon as bokeh shape?",
-		"float feather = 0.4; //pentagon shape feather",
+		"uniform bool pentagon;" //use pentagon as bokeh shape?",
+		"float feather = 0.4;" //pentagon shape feather",
 
-		"//------------------------------------------",
+		//------------------------------------------",
 
 		"float penta(vec2 coords) {",
-		"	//pentagonal shape",
+			//pentagonal shape",
 		"	float scale = float(rings) - 1.3;",
 		"	vec4  HS0 = vec4( 1.0,         0.0,         0.0,  1.0);",
 		"	vec4  HS1 = vec4( 0.309016994, 0.951056516, 0.0,  1.0);",
@@ -179,12 +179,12 @@ var BokehShader = {
 		"}",
 
 		"float bdepth(vec2 coords) {",
-		"	// Depth buffer blur",
+			// Depth buffer blur",
 		"	float d = 0.0;",
 		"	float kernel[9];",
 		"	vec2 offset[9];",
 
-		"	vec2 wh = vec2(1.0/textureWidth,1.0/textureHeight) * dbsize;",
+		"	vec2 wh = vec2(1.0/u_texsize.x,1.0/textureHeight) * dbsize;",
 
 		"	offset[0] = vec2(-wh.x,-wh.y);",
 		"	offset[1] = vec2( 0.0, -wh.y);",
@@ -204,7 +204,7 @@ var BokehShader = {
 
 
 		"	for( int i=0; i<9; i++ ) {",
-		"		float tmp = texture2D(tDepth, coords + offset[i]).r;",
+		"		float tmp = texture(xBokehDepth, coords + offset[i]).r;",
 		"		d += tmp * kernel[i];",
 		"	}",
 
@@ -213,14 +213,14 @@ var BokehShader = {
 
 
 		"vec3 color(vec2 coords,float blur) {",
-		"	//processing the sample",
+			//processing the sample",
 
 		"	vec3 col = vec3(0.0);",
-		"	vec2 texel = vec2(1.0/textureWidth,1.0/textureHeight);",
+		"	vec2 texel = vec2(1.0)/u_texsize; ",
 
-		"	col.r = texture2D(tColor,coords + vec2(0.0,1.0)*texel*fringe*blur).r;",
-		"	col.g = texture2D(tColor,coords + vec2(-0.866,-0.5)*texel*fringe*blur).g;",
-		"	col.b = texture2D(tColor,coords + vec2(0.866,-0.5)*texel*fringe*blur).b;",
+		"	col.r = texture(xFragColor,coords + vec2(0.0,1.0)*texel*fringe*blur).r;",
+		"	col.g = texture(xFragColor,coords + vec2(-0.866,-0.5)*texel*fringe*blur).g;",
+		"	col.b = texture(xFragColor,coords + vec2(0.866,-0.5)*texel*fringe*blur).b;",
 
 		"	vec3 lumcoeff = vec3(0.299,0.587,0.114);",
 		"	float lum = dot(col.rgb, lumcoeff);",
@@ -229,7 +229,7 @@ var BokehShader = {
 		"}",
 
 		"vec3 debugFocus(vec3 col, float blur, float depth) {",
-		"	float edge = 0.002*depth; //distance based edge smoothing",
+		"	float edge = 0.002*depth;" //distance based edge smoothing",
 		"	float m = clamp(smoothstep(0.0,edge,blur),0.0,1.0);",
 		"	float e = clamp(smoothstep(1.0-edge,1.0,blur),0.0,1.0);",
 
@@ -263,27 +263,28 @@ var BokehShader = {
 		"	return 1.0 * mix(1.0, i /rings2, bias) * p;",
 		"}",
 
-		"void main() {",
-		"	//scene depth calculation",
+		// void main() {",
+			//scene depth calculation",
+		"vec3 bokeh() {",
 
-		"	float depth = linearize(texture2D(tDepth,vUv.xy).x);",
+		"	float depth = linearize(texture(xBokehDepth,vUv.xy).x);",
 
-		"	// Blur depth?",
+			// Blur depth?",
 		"	if ( depthblur ) {",
 		"		depth = linearize(bdepth(vUv.xy));",
 		"	}",
 
-		"	//focal plane calculation",
+			//focal plane calculation",
 
 		"	float fDepth = focalDepth;",
 
 		"	if (shaderFocus) {",
 
-		"		fDepth = linearize(texture2D(tDepth,focusCoords).x);",
+		"		fDepth = linearize(texture(xBokehDepth,focusCoords).x);",
 
 		"	}",
 
-		"	// dof blur factor calculation",
+			// dof blur factor calculation",
 
 		"	float blur = 0.0;",
 
@@ -306,36 +307,36 @@ var BokehShader = {
 
 		"	blur = clamp(blur,0.0,1.0);",
 
-		"	// calculation of pattern for dithering",
+			// calculation of pattern for dithering",
 
 		"	vec2 noise = vec2(rand(vUv.xy), rand( vUv.xy + vec2( 0.4, 0.6 ) ) )*dithering*blur;",
 
-		"	// getting blur x and y step factor",
+			// getting blur x and y step factor",
 
-		"	float w = (1.0/textureWidth)*blur*maxblur+noise.x;",
-		"	float h = (1.0/textureHeight)*blur*maxblur+noise.y;",
+		"	float w = (1.0/u_texsize.x) * blur * maxblur + noise.x;",
+		"	float h = (1.0/u_texsize.y) * blur * maxblur + noise.y;",
 
-		"	// calculation of final color",
+			// calculation of final color",
 
 		"	vec3 col = vec3(0.0);",
 
 		"	if(blur < 0.05) {",
-		"		//some optimization thingy",
-		"		col = texture2D(tColor, vUv.xy).rgb;",
+				//some optimization thingy",
+		"		col = texture(xFragColor, vUv.xy).rgb;",
 		"	} else {",
-		"		col = texture2D(tColor, vUv.xy).rgb;",
+		"		col = texture(tColor, vUv.xy).rgb;",
 		"		float s = 1.0;",
 		"		int ringsamples;",
 
 		"		for (int i = 1; i <= rings; i++) {",
-		"			/*unboxstart*/",
+					/*unboxstart*/
 		"			ringsamples = i * samples;",
 
 		"			for (int j = 0 ; j < maxringsamples ; j++) {",
 		"				if (j >= ringsamples) break;",
 		"				s += gather(float(i), float(j), ringsamples, col, w, h, blur);",
 		"			}",
-		"			/*unboxend*/",
+					/*unboxend*/
 		"		}",
 
 		"		col /= s; //divide by sample count",
@@ -349,8 +350,9 @@ var BokehShader = {
 		"		col *= vignette();",
 		"	}",
 
-		"	gl_FragColor.rgb = col;",
-		"	gl_FragColor.a = 1.0;",
+		//	gl_FragColor.rgb = col;",
+		//	gl_FragColor.a = 1.0;",
+		"	return col;"
 		"} "
 
 	].join( "\n" )
