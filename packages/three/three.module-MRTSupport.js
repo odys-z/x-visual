@@ -13223,7 +13223,7 @@ var meshphong_mrt_frag = "#define PHONG\nuniform vec3 diffuse;\nuniform vec3 emi
 
 var background_mrt_vert = "#include <common>\nout vec3 vNormal;\nout vec3 vwDir;\nvoid main() {\n\tvNormal = normal;\n\tvwDir = transformDirection( position, modelMatrix );\n\tvec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n\tgl_Position = projectionMatrix * mvPosition;\n\tgl_Position.z = gl_Position.w;\n}";
 
-var background_mrt_frag = "#define RECIPROCAL_PI 0.3183098861837907\n#define RECIPROCAL_PI2 0.15915494309189535\nuniform float opacity;\nuniform sampler2D envMap;\nin vec3 vwDir;\nvec2 equirectUv( in vec3 dir ) {\n\tfloat u = atan( dir.z, dir.x ) * RECIPROCAL_PI2 + 0.5;\n\tfloat v = asin( clamp( dir.y, - 1.0, 1.0 ) ) * RECIPROCAL_PI + 0.5;\n\treturn vec2( u, v );\n}\nvoid main() {\n\tvec3 wdir = normalize( vwDir );\n\tvec2 sampleUV = equirectUv( wdir );\n\tpc_FragColor = texture( envMap, sampleUV );\n\tpc_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <_mrt_end>\n}";
+var background_mrt_frag = "#define RECIPROCAL_PI 0.3183098861837907\n#define RECIPROCAL_PI2 0.15915494309189535\nuniform float opacity;\nuniform sampler2D envMap;\nin vec3 vwDir;\nvec2 equirectUv( in vec3 dir ) {\n\tfloat u = atan( dir.z, dir.x ) * RECIPROCAL_PI2 + 0.5;\n\tfloat v = asin( clamp( dir.y, - 1.0, 1.0 ) ) * RECIPROCAL_PI + 0.5;\n\treturn vec2( u, v );\n}\nvoid main() {\n\tvec3 wdir = normalize( vwDir );\n\tvec2 sampleUV = equirectUv( wdir );\n\tpc_FragColor = texture( envMap, sampleUV );\n\tpc_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <_mrt_end>\n\txBokehDepth = vec4(sampleUV.x, sampleUV.y, 1., 0.);\n}";
 
 var cube_mrt_vert = "out vec3 vwDir;\n#include <common>\nvoid main() {\n\tvwDir = transformDirection( position, modelMatrix );\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\tgl_Position.z = gl_Position.w;\n}";
 
@@ -17654,11 +17654,12 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
 }
 
-WebGLProgram.mrt_num = 3;
+WebGLProgram.mrt_num = 4;
 WebGLProgram.mrt_layouts =
 		`layout(location = 0) out highp vec4 pc_FragColor;
 		layout(location = 1) out highp vec4 xColor;
 		layout(location = 2) out highp vec4 xEnvSpecular;
+		layout(location = 3) out highp vec4 xBokehDepth;
 		`.replaceAll(/\t\t/g, '');
 
 function WebGLPrograms( renderer, cubemaps, extensions, capabilities, bindingStates, clipping ) {

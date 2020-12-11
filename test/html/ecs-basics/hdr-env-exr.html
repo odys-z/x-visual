@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-Env Map</title>
-	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
@@ -22,11 +21,17 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
 				{ canvasize: [512, 256],
-				  light:{ skyColor: 0xffffff },
+				  light:{
+					  skyColor: 0xffffff,
+					  flare: 0.0,
+				  },
+				  camera: {
+					  far: 20000,
+					  bokeh: 1.0,
+				  },
 				  finalQuad: {
 					  blurRadius: 1.,
 					  blurExposure: 0.6,
-					  flare: 0.9,
 					  debug: false },
 				} );
 	const ecs = xworld.xecs;

@@ -1,6 +1,5 @@
-import {
-	Vector2
-} from "../../../build/three.module.js";
+import { Vector2 } from "../three.module-MRTSupport";
+import { glConfig } from '../../../lib/xutils/shaders/glx.glsl'
 
 /**
  * Depth-of-field shader with bokeh
@@ -14,7 +13,7 @@ import {
 
 var BokehShader = {
 
-	uniforms_: {
+	uniforms: {
 
 		//"textureWidth": { value: 1.0 },
 		//"textureHeight": { value: 1.0 },
@@ -26,14 +25,14 @@ var BokehShader = {
 		//"tColor": { value: null },
 		//"tDepth": { value: null },
 
-		"maxblur": { value: 1.0 },
+		"maxblur": { value: 10 },
 
 		"showFocus": { value: 0 },
 		"manualdof": { value: 0 },
 		"vignetting": { value: 0 },
 		"depthblur": { value: 0 },
 
-		"threshold": { value: 0.5 },
+		"bokehThreshold": { value: 0.5 },
 		"gain": { value: 2.0 },
 		"bias": { value: 0.5 },
 		"fringe": { value: 0.7 },
@@ -41,14 +40,38 @@ var BokehShader = {
 		"znear": { value: 0.1 },
 		"zfar": { value: 100 },
 
-		"noise": { value: 1 },
+		"bknoise": { value: 1 },
 		"dithering": { value: 0.0001 },
-		"pentagon": { value: 0 }, to be continued
+		"pentagon": { value: 0 },
 
 		"shaderFocus": { value: 1 },
 		"focusCoords": { value: new Vector2() }
+	},
 
+	uniforms_: {
+		focalDepth: 1.0,
+		focalLength: 24.0,
+		fstop: 0.9,
+		maxblur: 1.,
+		showFocus: 0,
+		manualdof: 0,
+		vignetting: 0,
+		depthblur: 0,
 
+		bokehThreshold: 0.5,
+		gain: 2,
+		bias: 0.5,
+		fringe: 0.7,
+
+		znear: 0.1,
+		zfar: 2000,
+
+		bknoise: 1,
+		dithering: 0.0001,
+		pentagon: 0,
+
+		shaderFocus: 1,
+		focusCoords: new Vector2()
 	},
 
 	vertexShader: [
@@ -66,6 +89,14 @@ var BokehShader = {
 
 	fragmentShader: [
 
+		// expects values in the range of [0,1]x[0,1], returns values in the [0,1] range.
+		// do not collapse into a single function per: http://byteblacksmith.com/improvements-to-the-canonical-one-liner-glsl-rand-for-opengl-es-2-0/
+		`highp float rand( const in vec2 uv ) {
+			const highp float a = 12.9898, b = 78.233, c = 43758.5453;
+			highp float dt = dot( uv.xy, vec2( a,b ) ), sn = mod( dt, PI );
+			return fract(sin(sn) * c);
+		}`.replaceAll(/\t\t/g, ''),
+
 		// #include <common>",
 
 		// varying vec2 vUv;",
@@ -75,39 +106,39 @@ var BokehShader = {
 		// uniform float textureWidth;",
 		// uniform float textureHeight;",
 
-		"uniform float focalDepth;"  //focal distance value in meters, but you may use autofocus option below",
-		"uniform float focalLength;" //focal length in mm",
-		"uniform float fstop;" //f-stop value",
-		"uniform bool showFocus;" //show debug focus point and focal range (red = focal point, green = focal range)",
+		"uniform float focalDepth;",  //focal distance value in meters, but you may use autofocus option below",
+		"uniform float focalLength;", //focal length in mm",
+		"uniform float fstop;", //f-stop value",
+		"uniform bool showFocus;", //show debug focus point and focal range (red = focal point, green = focal range)",
 
 		/*",
 		"make sure that these two values are the same for your camera, otherwise distances will be wrong.",
 		"*/
 
-		"uniform float znear;" // camera clipping start",
-		"uniform float zfar;" // camera clipping end",
+		"uniform float znear;", // camera clipping start",
+		"uniform float zfar;", // camera clipping end",
 
 		//------------------------------------------",
 		//user variables",
 
-		"const int samples = SAMPLES;" //samples on the first ring",
-		"const int rings = RINGS;" //ring count",
+		`const int samples = ${glConfig.xfilter.bokehSamples};`, //samples on the first ring",
+		`const int rings = ${glConfig.xfilter.bokehRings};`,     //ring count",
 
 		"const int maxringsamples = rings * samples;",
 
-		"uniform bool manualdof;" // manual dof calculation",
-		"float ndofstart = 1.0;" // near dof blur start",
-		"float ndofdist = 2.0;" // near dof blur falloff distance",
-		"float fdofstart = 1.0;" // far dof blur start",
-		"float fdofdist = 3.0;" // far dof blur falloff distance",
+		"uniform bool manualdof;", // manual dof calculation",
+		"float ndofstart = 1.0;", // near dof blur start",
+		"float ndofdist = 2.0;", // near dof blur falloff distance",
+		"float fdofstart = 1.0;", // far dof blur start",
+		"float fdofdist = 3.0;", // far dof blur falloff distance",
 
-		"float CoC = 0.03;" //circle of confusion size in mm (35mm film = 0.03mm)",
+		"float CoC = 0.03;", //circle of confusion size in mm (35mm film = 0.03mm)",
 
-		"uniform bool vignetting;" // use optical lens vignetting",
+		"uniform bool vignetting;", // use optical lens vignetting",
 
-		"float vignout = 1.3;" // vignetting outer border",
-		"float vignin = 0.0;" // vignetting inner border",
-		"float vignfade = 22.0;" // f-stops till vignete fades",
+		"float vignout = 1.3;", // vignetting outer border",
+		"float vignin = 0.0;", // vignetting inner border",
+		"float vignfade = 22.0;", // f-stops till vignete fades",
 
 		"uniform bool shaderFocus;",
 		// disable if you use external focalDepth value",
@@ -119,18 +150,18 @@ var BokehShader = {
 		"uniform float maxblur;",
 		//clamp value of max blur (0.0 = no blur, 1.0 default)",
 
-		"uniform float threshold;" // highlight threshold;",
-		"uniform float gain;" // highlight gain;",
+		"uniform float bokehThreshold;", // highlight threshold;",
+		"uniform float gain;", // highlight gain;",
 
-		"uniform float bias;" // bokeh edge bias",
-		"uniform float fringe;" // bokeh chromatic aberration / fringing",
+		"uniform float bias;", // bokeh edge bias",
+		"uniform float fringe;", // bokeh chromatic aberration / fringing",
 
-		"uniform bool noise;" //use noise instead of pattern for sample dithering",
+		"uniform bool bknoise;", //use noise instead of pattern for sample dithering",
 
 		"uniform float dithering;",
 
-		"uniform bool depthblur;" // blur the depth buffer",
-		"float dbsize = 1.25;" // depth blur size",
+		"uniform bool depthblur;", // blur the depth buffer",
+		"float dbsize = 1.25;", // depth blur size",
 
 		/*",
 		"next part is experimental",
@@ -138,20 +169,20 @@ var BokehShader = {
 		"looks okay starting from samples = 4, rings = 4",
 		"*/
 
-		"uniform bool pentagon;" //use pentagon as bokeh shape?",
-		"float feather = 0.4;" //pentagon shape feather",
+		"uniform bool pentagon;", //use pentagon as bokeh shape?",
+		"float feather = 0.4;", //pentagon shape feather",
 
 		//------------------------------------------",
 
 		"float penta(vec2 coords) {",
 			//pentagonal shape",
 		"	float scale = float(rings) - 1.3;",
-		"	vec4  HS0 = vec4( 1.0,         0.0,         0.0,  1.0);",
+		"	vec4  HS0 = vec4( 1.0        , 0.0        , 0.0,  1.0);",
 		"	vec4  HS1 = vec4( 0.309016994, 0.951056516, 0.0,  1.0);",
 		"	vec4  HS2 = vec4(-0.809016994, 0.587785252, 0.0,  1.0);",
 		"	vec4  HS3 = vec4(-0.809016994,-0.587785252, 0.0,  1.0);",
 		"	vec4  HS4 = vec4( 0.309016994,-0.951056516, 0.0,  1.0);",
-		"	vec4  HS5 = vec4( 0.0        ,0.0         , 1.0,  1.0);",
+		"	vec4  HS5 = vec4( 0.0        , 0.0        , 1.0,  1.0);",
 
 		"	vec4  one = vec4( 1.0 );",
 
@@ -178,13 +209,14 @@ var BokehShader = {
 		"	return clamp( inorout, 0.0, 1.0 );",
 		"}",
 
-		"float bdepth(vec2 coords) {",
+		"float bdepth(sampler2D bokehDepth, vec2 coords) {",
 			// Depth buffer blur",
 		"	float d = 0.0;",
 		"	float kernel[9];",
 		"	vec2 offset[9];",
 
-		"	vec2 wh = vec2(1.0/u_texsize.x,1.0/textureHeight) * dbsize;",
+		// "	vec2 wh = vec2(1.0/u_texsize.x,1.0/textureHeight) * dbsize;",
+		"	vec2 wh = 1.0/u_texsize * dbsize;",
 
 		"	offset[0] = vec2(-wh.x,-wh.y);",
 		"	offset[1] = vec2( 0.0, -wh.y);",
@@ -204,7 +236,7 @@ var BokehShader = {
 
 
 		"	for( int i=0; i<9; i++ ) {",
-		"		float tmp = texture(xBokehDepth, coords + offset[i]).r;",
+		"		float tmp = texture(bokehDepth, coords + offset[i]).r;",
 		"		d += tmp * kernel[i];",
 		"	}",
 
@@ -212,7 +244,7 @@ var BokehShader = {
 		"}",
 
 
-		"vec3 color(vec2 coords,float blur) {",
+		"vec3 color(vec2 coords, float blur) {",
 			//processing the sample",
 
 		"	vec3 col = vec3(0.0);",
@@ -224,12 +256,12 @@ var BokehShader = {
 
 		"	vec3 lumcoeff = vec3(0.299,0.587,0.114);",
 		"	float lum = dot(col.rgb, lumcoeff);",
-		"	float thresh = max((lum-threshold)*gain, 0.0);",
+		"	float thresh = max((lum - bokehThreshold)*gain, 0.0);",
 		"	return col+mix(vec3(0.0),col,thresh*blur);",
 		"}",
 
 		"vec3 debugFocus(vec3 col, float blur, float depth) {",
-		"	float edge = 0.002*depth;" //distance based edge smoothing",
+		"	float edge = 0.002*depth;", //distance based edge smoothing",
 		"	float m = clamp(smoothstep(0.0,edge,blur),0.0,1.0);",
 		"	float e = clamp(smoothstep(1.0-edge,1.0,blur),0.0,1.0);",
 
@@ -244,34 +276,35 @@ var BokehShader = {
 		"}",
 
 
-		"float vignette() {",
-		"	float dist = distance(vUv.xy, vec2(0.5,0.5));",
+		"float vignette(vec2 uv) {",
+		"	float dist = distance(uv.xy, vec2(0.5,0.5));",
 		"	dist = smoothstep(vignout+(fstop/vignfade), vignin+(fstop/vignfade), dist);",
 		"	return clamp(dist,0.0,1.0);",
 		"}",
 
-		"float gather(float i, float j, int ringsamples, inout vec3 col, float w, float h, float blur) {",
+		"float gather(float i, float j, int ringsamples, inout vec3 col, float w, float h, vec2 uv, float blur) {",
 		"	float rings2 = float(rings);",
-		"	float step = PI*2.0 / float(ringsamples);",
+		//"	float step = PI*2.0 / float(ringsamples);",
+		"	float step = _2Pi / float(ringsamples);",
 		"	float pw = cos(j*step)*i;",
 		"	float ph = sin(j*step)*i;",
 		"	float p = 1.0;",
 		"	if (pentagon) {",
 		"		p = penta(vec2(pw,ph));",
 		"	}",
-		"	col += color(vUv.xy + vec2(pw*w,ph*h), blur) * mix(1.0, i/rings2, bias) * p;",
+		"	col += color(uv.xy + vec2(pw*w,ph*h), blur) * mix(1.0, i/rings2, bias) * p;",
 		"	return 1.0 * mix(1.0, i /rings2, bias) * p;",
 		"}",
 
 		// void main() {",
 			//scene depth calculation",
-		"vec3 bokeh() {",
+		"vec3 bokeh(sampler2D bokehDepth, sampler2D tColor, vec2 uv) {",
 
-		"	float depth = linearize(texture(xBokehDepth,vUv.xy).x);",
+		"	float depth = linearize(texture(bokehDepth, uv.xy).x);",
 
 			// Blur depth?",
 		"	if ( depthblur ) {",
-		"		depth = linearize(bdepth(vUv.xy));",
+		"		depth = linearize(bdepth(bokehDepth, uv.xy));",
 		"	}",
 
 			//focal plane calculation",
@@ -280,7 +313,7 @@ var BokehShader = {
 
 		"	if (shaderFocus) {",
 
-		"		fDepth = linearize(texture(xBokehDepth,focusCoords).x);",
+		"		fDepth = linearize(texture(bokehDepth, focusCoords).x);",
 
 		"	}",
 
@@ -289,14 +322,14 @@ var BokehShader = {
 		"	float blur = 0.0;",
 
 		"	if (manualdof) {",
-		"		float a = depth-fDepth;" // Focal plane,
-		"		float b = (a-fdofstart)/fdofdist;" // Far DoF,
-		"		float c = (-a-ndofstart)/ndofdist;" // Near Dof,
+		"		float a = depth-fDepth;", // Focal plane,
+		"		float b = (a-fdofstart)/fdofdist;", // Far DoF,
+		"		float c = (-a-ndofstart)/ndofdist;", // Near Dof,
 		"		blur = (a>0.0) ? b : c;",
 		"	} else {",
-		"		float f = focalLength;" // focal length in mm,
-		"		float d = fDepth*1000.0;" // focal plane in mm,
-		"		float o = depth*1000.0;" // (object?) depth in mm,
+		"		float f = focalLength;", // focal length in mm,
+		"		float d = fDepth*1000.0;", // focal plane in mm,
+		"		float o = depth*1000.0;", // (object?) depth in mm,
 
 		"		float a = (o*f)/(o-f);",
 		"		float b = (d*f)/(d-f);",
@@ -309,12 +342,12 @@ var BokehShader = {
 
 			// calculation of pattern for dithering",
 
-		"	vec2 noise = vec2(rand(vUv.xy), rand( vUv.xy + vec2( 0.4, 0.6 ) ) )*dithering*blur;",
+		"	vec2 bknoise = vec2( rand(uv.xy), rand( uv.xy + vec2( 0.4, 0.6 ) ) ) * dithering * blur;",
 
 			// getting blur x and y step factor",
 
-		"	float w = (1.0/u_texsize.x) * blur * maxblur + noise.x;",
-		"	float h = (1.0/u_texsize.y) * blur * maxblur + noise.y;",
+		"	float w = (1.0/u_texsize.x) * blur * maxblur + bknoise.x;",
+		"	float h = (1.0/u_texsize.y) * blur * maxblur + bknoise.y;",
 
 			// calculation of final color",
 
@@ -322,24 +355,24 @@ var BokehShader = {
 
 		"	if(blur < 0.05) {",
 				//some optimization thingy",
-		"		col = texture(xFragColor, vUv.xy).rgb;",
+		"		col = texture(xFragColor, uv.xy).rgb;",
 		"	} else {",
-		"		col = texture(tColor, vUv.xy).rgb;",
+		"		col = texture(tColor, uv.xy).rgb;",
 		"		float s = 1.0;",
 		"		int ringsamples;",
 
 		"		for (int i = 1; i <= rings; i++) {",
 					/*unboxstart*/
-		"			ringsamples = i * samples;",
+		"		    ringsamples = i * samples;",
 
-		"			for (int j = 0 ; j < maxringsamples ; j++) {",
-		"				if (j >= ringsamples) break;",
-		"				s += gather(float(i), float(j), ringsamples, col, w, h, blur);",
-		"			}",
+		"		    for (int j = 0 ; j < maxringsamples ; j++) {",
+		"		        if (j >= ringsamples) break;",
+		"		        s += gather(float(i), float(j), ringsamples, col, w, h, uv, blur);",
+		"		    }",
 					/*unboxend*/
 		"		}",
 
-		"		col /= s; //divide by sample count",
+		"		col /= s;", //divide by sample count",
 		"	}",
 
 		"	if (showFocus) {",
@@ -347,12 +380,12 @@ var BokehShader = {
 		"	}",
 
 		"	if (vignetting) {",
-		"		col *= vignette();",
+		"		col *= vignette(uv);",
 		"	}",
 
 		//	gl_FragColor.rgb = col;",
 		//	gl_FragColor.a = 1.0;",
-		"	return col;"
+		"	return col;",
 		"} "
 
 	].join( "\n" )
