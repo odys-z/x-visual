@@ -37,8 +37,10 @@ var BokehShader = {
 		"bias": { value: 0.5 },
 		"fringe": { value: 0.7 },
 
-		"znear": { value: 0.1 },
-		"zfar": { value: 100 },
+		// "znear": { value: 0.1 },
+		bokehNear: {value: 0.1 },
+		// "zfar": { value: 100 },
+		bokehFar: { value: 1000 },
 
 		"bknoise": { value: 1 },
 		"dithering": { value: 0.0001 },
@@ -115,8 +117,8 @@ var BokehShader = {
 		"make sure that these two values are the same for your camera, otherwise distances will be wrong.",
 		"*/
 
-		"uniform float znear;", // camera clipping start",
-		"uniform float zfar;", // camera clipping end",
+		"uniform float bokehNear;", // camera clipping start",
+		"uniform float bokehFar;", // camera clipping end",
 
 		//------------------------------------------",
 		//user variables",
@@ -272,7 +274,7 @@ var BokehShader = {
 		"}",
 
 		"float linearize(float depth) {",
-		"	return -zfar * znear / (depth * (zfar - znear) - zfar);",
+		"	return -bokehFar * bokehNear / (depth * (bokehFar - bokehNear) - bokehFar);",
 		"}",
 
 

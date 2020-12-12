@@ -6,7 +6,7 @@
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
-  <canvas id='canv'></canvas>
+  <canvas id='canv'></canvas><br>
   <img src='assets/../../assets/tex/bricks.jpg' style="width: 256px; margin-left: 257px"/>
   <script>
 	"use strict";
@@ -17,7 +17,7 @@
 				window,
 				{ canvasize: [720, 360],
 				  camera: {
-					  far: 20000,
+					  far: 2200,
 					  bokeh: 1.0,
 				  },
 				  light:{
@@ -25,9 +25,9 @@
 					  flare: 0.0,
 				  },
 				  finalQuad: {
-					  blurRadius: 0,
-					  blurExposure: 0.0,
-					  debug: false },
+					  blurRadius: 1,
+					  blurIntense: 1.0,
+					  debug: true },
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
@@ -49,9 +49,9 @@
 		  { id: `orb-${i}`,
 			Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
 	                box: [40, 24, 24],
-					transform: [ { translate: [180 - i * i / 8. * 60, 30 * i, - i * 240] }]
+					transform: [ { translate: [180 - i * i / 8. * 60, 30 * i, - i * 120] }]
 				},
-			Visual:{vtype: xv.AssetType.mesh,
+			Visual:{vtype: xv.AssetType.mesh_basic,
 					shader: xv.ShaderFlag.envMap,
 					paras: {
 						whiteAlpha: 1.2,
@@ -60,6 +60,7 @@
 						// lod of cube texture, [refract, reflect], >= 0
 						lod: [0.8, 0],
 					},
+					asset: equirectex
 				}
 		  });
 	}
