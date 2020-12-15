@@ -40,14 +40,14 @@ var BokehShader = {
 		// "znear": { value: 0.1 },
 		bokehNear: {value: 0.1 },
 		// "zfar": { value: 100 },
-		bokehFar: { value: 1000 },
+		bokehFar: { value: 4000 },
 
 		"bknoise": { value: 1 },
 		"dithering": { value: 0.0001 },
 		"pentagon": { value: 0 },
 
 		"shaderFocus": { value: 1 },
-		"focusCoords": { value: new Vector2() }
+		"focusCoords": { value: new Vector2(0.5, 0.5) }
 	},
 
 	uniforms_: {
@@ -298,8 +298,7 @@ var BokehShader = {
 		"	return 1.0 * mix(1.0, i /rings2, bias) * p;",
 		"}",
 
-		// void main() {",
-			//scene depth calculation",
+		//scene depth calculation",
 		"vec3 bokeh(sampler2D bokehDepth, sampler2D tColor, vec2 uv) {",
 
 		"	float depth = linearize(texture(bokehDepth, uv.xy).x);",
@@ -309,13 +308,21 @@ var BokehShader = {
 		"		depth = linearize(bdepth(bokehDepth, uv.xy));",
 		"	}",
 
+		// working: "	if (uv.x > uv.y) return vec3(depth);",
+
 			//focal plane calculation",
 
 		"	float fDepth = focalDepth;",
 
+		// "	if (abs(uv.x - focusCoords.x - 0.5) < 0.01 || abs(uv.y - focusCoords.y - 0.5) < 0.01) return vec3(.0, 1., 0.);",
+		// "	if (abs(uv.x - 0.5) < 0.01 || abs(uv.y - 0.5) < 0.01) return vec3(.0, 1., 1.);",
+
 		"	if (shaderFocus) {",
 
 		"		fDepth = linearize(texture(bokehDepth, focusCoords).x);",
+
+				// working: fDepth changed when object in center changed:
+				// "if (uv.x > uv.y) return vec3(fDepth);",
 
 		"	}",
 
@@ -338,9 +345,13 @@ var BokehShader = {
 		"		float c = (d-f)/(d*fstop*CoC);",
 
 		"		blur = abs(a-b)*c;",
+
+		"		if (0.45 < uv.y && uv.y < 0.55) return vec3( blur );", // blur is working
+
 		"	}",
 
 		"	blur = clamp(blur,0.0,1.0);",
+		// "	if (0.6 > uv.y) return vec3( blur );",
 
 			// calculation of pattern for dithering",
 
@@ -358,6 +369,7 @@ var BokehShader = {
 		"	if(blur < 0.05) {",
 				//some optimization thingy",
 		"		col = texture(xFragColor, uv.xy).rgb;",
+		"		col.b = 1.;",
 		"	} else {",
 		"		col = texture(tColor, uv.xy).rgb;",
 		"		float s = 1.0;",
@@ -376,6 +388,8 @@ var BokehShader = {
 
 		"		col /= s;", //divide by sample count",
 		"	}",
+
+		// problem: "	if (uv.x > uv.y) return vec3(blur);",
 
 		"	if (showFocus) {",
 		"		col = debugFocus(col, blur, depth);",
