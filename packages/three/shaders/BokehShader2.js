@@ -46,7 +46,7 @@ var BokehShader = {
 		"dithering": { value: 0.0001 },
 		"pentagon": { value: 0 },
 
-		"shaderFocus": { value: 1 },
+		"autofocus": { value: 1 },
 		"focusCoords": { value: new Vector2(0.5, 0.5) }
 	},
 
@@ -72,7 +72,7 @@ var BokehShader = {
 		dithering: 0.0001,
 		pentagon: 0,
 
-		shaderFocus: 1,
+		autofocus: 1,
 		focusCoords: new Vector2()
 	},
 
@@ -133,7 +133,7 @@ var BokehShader = {
 		"float vignin = 0.0;", // vignetting inner border",
 		"float vignfade = 22.0;", // f-stops till vignete fades",
 
-		"uniform bool shaderFocus;",
+		"uniform bool autofocus;",
 		// disable if you use external focalDepth value",
 
 		"uniform vec2 focusCoords;",
@@ -307,7 +307,7 @@ var BokehShader = {
 		// "	if (abs(uv.x - focusCoords.x - 0.5) < 0.01 || abs(uv.y - focusCoords.y - 0.5) < 0.01) return vec3(.0, 1., 0.);",
 		// "	if (abs(uv.x - 0.5) < 0.01 || abs(uv.y - 0.5) < 0.01) return vec3(.0, 1., 1.);",
 
-		"	if (shaderFocus) {",
+		"	if (autofocus) {",
 
 		"		fDepth = linearize(texture(bokehDepth, focusCoords).x);",
 
