@@ -99,15 +99,6 @@ var BokehShader = {
 			return fract(sin(sn) * c);
 		}`.replaceAll(/\t\t/g, ''),
 
-		// #include <common>",
-
-		// varying vec2 vUv;",
-
-		// uniform sampler2D tColor;",
-		// uniform sampler2D tDepth;",
-		// uniform float textureWidth;",
-		// uniform float textureHeight;",
-
 		"uniform float focalDepth;",  //focal distance value in meters, but you may use autofocus option below",
 		"uniform float focalLength;", //focal length in mm",
 		"uniform float fstop;", //f-stop value",
@@ -286,7 +277,6 @@ var BokehShader = {
 
 		"float gather(float i, float j, int ringsamples, inout vec3 col, float w, float h, vec2 uv, float blur) {",
 		"	float rings2 = float(rings);",
-		//"	float step = PI*2.0 / float(ringsamples);",
 		"	float step = _2Pi / float(ringsamples);",
 		"	float pw = cos(j*step)*i;",
 		"	float ph = sin(j*step)*i;",
@@ -346,7 +336,7 @@ var BokehShader = {
 
 		"		blur = abs(a-b)*c;",
 
-		"		if (0.45 < uv.y && uv.y < 0.55) return vec3( blur );", // blur is working
+		// "		if (0.45 < uv.y && uv.y < 0.55) return vec3( blur );", // blur is working
 
 		"	}",
 
@@ -369,7 +359,7 @@ var BokehShader = {
 		"	if(blur < 0.05) {",
 				//some optimization thingy",
 		"		col = texture(xFragColor, uv.xy).rgb;",
-		"		col.b = 1.;",
+		// "		col -= 1.;",
 		"	} else {",
 		"		col = texture(tColor, uv.xy).rgb;",
 		"		float s = 1.0;",

@@ -11,7 +11,8 @@
   <script>
 	"use strict";
 
-	var equirectex = '../../assets/tex/bricks.jpg';
+	const equirectex = '../../assets/tex/bricks.jpg';
+	// const asset = '../../assets/tex/bricks.jpg';
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
@@ -47,20 +48,20 @@
 	for (let i = 0; i < 18; i++) {
 		ets.push(
 		  { id: `orb-${i}`,
-			Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-	                box: [40, 24, 24],
+			Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+	                box: [40, 100, 24],
 					transform: [ { translate: [180 - i * i / 8. * 60, 30 * i, - i * 120] }]
 				},
 			Visual:{vtype: xv.AssetType.mesh_basic,
 					shader: xv.ShaderFlag.envMap,
 					paras: {
-						whiteAlpha: 1.2,
+						whiteAlpha: .0,     // refract weight
 						envMap: 'sky',
-						envExposure: 1.0,   // > 0,  = 1 will keep original
+						envExposure: 1.2,   // > 0,  = 1 will keep original
 						// lod of cube texture, [refract, reflect], >= 0
-						lod: [0.8, 0],
+						lod: [20., 0.],
 					},
-					asset: equirectex
+					// asset
 				}
 		  });
 	}
