@@ -11,11 +11,11 @@ Before v1.0, it's a part of a research project and a prototype of a comercial sy
 
 Currently there are two main branches:
 
-- 1. **master** with even least minor version number for developing based on WebGL 2.
+- **master** with even least minor version number for developing based on WebGL 2.
 
 	E.g, 0.3.52
 
-- 2. **webgl1** with odd least minor version number for legacy function support.
+- **webgl1** with odd least minor version number for legacy function support.
 
 	The latest branch version is 0.3.63.
 
