@@ -7,12 +7,11 @@
 </head>
 <body>
   <canvas id='canv'></canvas><br>
-  <img src='assets/../../assets/tex/bricks.jpg' style="width: 256px; margin-left: 257px"/>
+  <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 256px; margin-left: 257px"/>
   <script>
 	"use strict";
 
-	const equirectex = '../../assets/tex/bricks.jpg';
-	// const asset = '../../assets/tex/bricks.jpg';
+	const equirectex = '../../assets/tex/sky-blue.jpg';
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
@@ -20,6 +19,7 @@
 				  camera: {
 					  far: 4000,
 					  bokeh: 1.0,
+					  showFocus: false
 				  },
 				  light:{
 					  skyColor: 0xffffff,
@@ -57,18 +57,58 @@
 					paras: {
 						whiteAlpha: .0,     // refract weight
 						envMap: 'sky',
-						envExposure: 1.2,   // > 0,  = 1 will keep original
+						envExposure: .6,   // > 0,  = 1 will keep original
 						// lod of cube texture, [refract, reflect], >= 0
-						lod: [20., 0.],
+						lod: [2., 0.],
 					},
-					// asset
 				}
 		  });
 	}
 	xworld.addEntities(ets);
 
+	xworld.addEntities([{
+		id: 'prism',
+  		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+  				box: [],
+  				transform: [ { translate: [0, -80, -800] } ],
+			},
+  		Visual:{
+  			vtype: xv.AssetType.mesh,
+  			shader: xv.ShaderFlag.texEnv,
+  			paras: {
+  				shininess: 80,
+  				whiteAlphas: [.8, 0.4], // roof, side reflection, 0~1, default 0.5
+
+  				envMap: 'sky',
+  				envExposure: 0.7,   // > 0,  = 1 will keep original
+
+  				lod: [0, 0],	// base, lateral
+  				uvScale: [30, 1],    // only for side uv
+  				texScale: 100,
+  				u_texbump: [0.2, 0.4],
+  				u_tex: [
+  					'../../assets/tex/bricks.jpg',
+  					'../../assets/tex/wood.png',
+  					'../../assets/tex/byr0.png'],
+
+  				features: [ { "type": "Feature",
+							  "properties": {"height": 4,},
+							  "geometry": { "type": "polygon",
+									"coordinates": [[[0, -800], [80, -800], [-400, 800], [-480, 800]]]
+					  		  } } ],
+  				origin: [0, 0],
+  				geostyle: {
+  					height: 16, scale: 1,
+  				}
+  			} } ,
+  		CmpTweens: {}
+  	}] );
+
 	xworld.startUpdate();
 
+	document.getElementById('canv').addEventListener('mousemove', (e) => {
+		xworld.xthrender.setFocuse(e.offsetX, e.offsetY);
+	});
   </script>
 </body>
 </html>

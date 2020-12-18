@@ -326,9 +326,9 @@ var BokehShader = {
 		"		float c = (-a-ndofstart)/ndofdist;", // Near Dof,
 		"		blur = (a>0.0) ? b : c;",
 		"	} else {",
-		"		float f = focalLength;", // focal length in mm,
-		"		float d = fDepth*1000.0;", // focal plane in mm,
-		"		float o = depth*1000.0;", // (object?) depth in mm,
+		"		float f = focalLength;", // focal length in mm (24),
+		"		float d = fDepth*1000.0;", // focal plane in mm (0~1),
+		"		float o = depth*1000.0;", // (object?) depth in mm (),
 
 		"		float a = (o*f)/(o-f);",
 		"		float b = (d*f)/(d-f);",
