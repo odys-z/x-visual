@@ -52,7 +52,7 @@ var BokehShader = {
 
 	uniforms_: {
 		focalDepth: 1.0,
-		focalLength: 24.0,
+		focalLength: 50, // 24.0,
 		fstop: 0.9,
 		maxblur: 1.,
 		showFocus: 0,
@@ -326,12 +326,11 @@ var BokehShader = {
 		"		float c = (-a-ndofstart)/ndofdist;", // Near Dof,
 		"		blur = (a>0.0) ? b : c;",
 		"	} else {",
-				// ody:
-				// this one?
+				// ody: for dof?
 				// https://en.wikipedia.org/wiki/Circle_of_confusion
 				// https://toolstud.io/photo/dof.php?cropfactor=1&focallengthmm=50&aperturef=1.2&distancem=10
 		"		float f = focalLength;", // focal length in mm (24),
-		"		float d = fDepth*1000.0;", // focal plane in mm (0~1),
+		"		float d = fDepth*1000.0;", // focal plane in mm,
 		"		float o = depth*1000.0;", // (object?) depth in mm (),
 
 		"		float a = (o*f)/(o-f);",
@@ -339,8 +338,6 @@ var BokehShader = {
 		"		float c = (d-f)/(d*fstop*CoC);",
 
 		"		blur = abs(a-b)*c;",
-
-		// "		if (0.45 < uv.y && uv.y < 0.55) return vec3( blur );", // blur is working
 
 		"	}",
 
