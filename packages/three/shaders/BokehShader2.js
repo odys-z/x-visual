@@ -329,6 +329,7 @@ var BokehShader = {
 				// ody:
 				// this one?
 				// https://en.wikipedia.org/wiki/Circle_of_confusion
+				// https://toolstud.io/photo/dof.php?cropfactor=1&focallengthmm=50&aperturef=1.2&distancem=10
 		"		float f = focalLength;", // focal length in mm (24),
 		"		float d = fDepth*1000.0;", // focal plane in mm (0~1),
 		"		float o = depth*1000.0;", // (object?) depth in mm (),
