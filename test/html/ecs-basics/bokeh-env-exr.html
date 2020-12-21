@@ -4,10 +4,22 @@
 	<meta charset="utf-8">
 	<title>XTest-Env Map &amp Bokeh</title>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+    <style>input[id] {width: 2.2em}
+		td.lable {text-align: right; width: 10em}
+	</style>
 </head>
 <body>
   <canvas id='canv'></canvas><br>
   <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 256px; margin-left: 257px"/>
+  <table>
+	  <tr><td class='lable'>focal length:</td><td><input id='focus' value='60'></input>mm</td>
+		  <td class='lable'>F: 1 / </td><td><input id='F' value='1.1'></input></td></tr>
+	  <tr><td class='lable'>debug:</td>
+		  <td><input id='debug' type='checkbox' value='true' checked></input></td>
+		  <td class='lable'>Blur Alpha (0~1):</td><td><input id='b-alpha' value='1'></input></td>
+	  </tr>
+	  <tr><td/><td/><td class='lable'><input type='button' onclick='updateCam()' value='update'/></td></tr>
+  </table>
   <script>
 	"use strict";
 
@@ -19,7 +31,7 @@
 				  camera: {
 					  far: 4000,
 					  bokeh: 1.0,
-					  showFocus: false
+					  showFocus: true // debug bokeh
 				  },
 				  light:{
 					  skyColor: 0xffffff,
@@ -50,7 +62,7 @@
 		  { id: `orb-${i}`,
 			Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 	                box: [40, 100, 24],
-					transform: [ { translate: [180 - i * i / 8. * 60, 30 * i, - i * 120] }]
+					transform: [ { translate: [180 - i * 70, 40, 180 + - i * 140] }]
 				},
 			Visual:{vtype: xv.AssetType.mesh_basic,
 					shader: xv.ShaderFlag.envMap,
@@ -70,7 +82,7 @@
 		id: 'prism',
   		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
   				box: [],
-  				transform: [ { translate: [0, -80, -800] } ],
+  				transform: [ { translate: [0, -20, -80] } ],
 			},
   		Visual:{
   			vtype: xv.AssetType.mesh,
@@ -83,18 +95,18 @@
   				envExposure: 0.7,   // > 0,  = 1 will keep original
 
   				lod: [0, 0],	// base, lateral
-  				uvScale: [30, 1],    // only for side uv
+  				uvScale: [50, 1],    // only for side uv
   				texScale: 100,
   				u_texbump: [0.2, 0.4],
   				u_tex: [
   					'../../assets/tex/bricks.jpg',
-  					'../../assets/tex/wood.png',
+  					'../../assets/tex/ruler256.png',
   					'../../assets/tex/byr0.png'],
 
   				features: [ { "type": "Feature",
 							  "properties": {"height": 4,},
 							  "geometry": { "type": "polygon",
-									"coordinates": [[[0, -800], [80, -800], [-400, 800], [-480, 800]]]
+									"coordinates": [[[0, -420], [80, -420], [-1800, 3200], [-1820, 3200]]]
 					  		  } } ],
   				origin: [0, 0],
   				geostyle: {
@@ -109,6 +121,15 @@
 	document.getElementById('canv').addEventListener('mousemove', (e) => {
 		xworld.xthrender.setFocuse(e.offsetX, e.offsetY);
 	});
+
+	function updateCam(e) {
+		let f = document.getElementById('focus').value;
+		let F = document.getElementById('F').value;
+		let debugBokeh = document.getElementById('debug').checked;
+		let blurAlpha = document.getElementById('b-alpha').value;
+		// console.log(f, F, dbg, bAlpha);
+		xworld.xthrender.setFilter({f, F, debugBokeh, blurAlpha});
+	}
   </script>
 </body>
 </html>

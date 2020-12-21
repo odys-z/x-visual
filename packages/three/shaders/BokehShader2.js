@@ -19,7 +19,8 @@ var BokehShader = {
 		//"textureHeight": { value: 1.0 },
 
 		"focalDepth": { value: 1.0 },
-		"focalLength": { value: 24.0 },
+		"focalLength": { value: 70.0 },
+		"F": { value: 2.4 },
 		"fstop": { value: 0.9 },
 
 		//"tColor": { value: null },
@@ -28,6 +29,7 @@ var BokehShader = {
 		"maxblur": { value: 10 },
 
 		"showFocus": { value: 0 },
+		"blurAlpha": { value: 0.2 },
 		"manualdof": { value: 0 },
 		"vignetting": { value: 0 },
 		"depthblur": { value: 0 },
