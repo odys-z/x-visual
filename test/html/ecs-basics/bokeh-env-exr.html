@@ -116,6 +116,26 @@
   		CmpTweens: {}
   	}] );
 
+	xworld.addEntities([ {
+				id: 'hello',
+				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+						box: [256, 256],
+						transform: [ { translate: [-140, 0, -180] } ],
+						mesh: undefined },
+				Visual:{vtype: xv.AssetType.mesh,
+						shader: xv.ShaderFlag.colorArray,
+						paras: { u_tex: ['../../assets/tex/byr0.png'] }},
+				//more chart
+				Dynatex: {text: '0123456789abcdefghijk',
+						xywh: {x: 0, y: 0, w: 256, h: 36,
+							size: 32,     // text x, y, size(px)
+							margin: 4 },    // text margin
+						'bg-color': 'white',
+						'v-align': 'top',
+						font: 'Arial',
+						style: '#157'},
+			} ]);
+
 	xworld.startUpdate();
 
 	document.getElementById('canv').addEventListener('mousemove', (e) => {
