@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>XTest-Env Map &amp Bokeh</title>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
-    <style>input[id] {width: 2.2em}
+    <style>input[id] {width: 3.6em}
 		td.lable {text-align: right; width: 10em}
 	</style>
 </head>
@@ -18,7 +18,10 @@
 		  <td><input id='debug' type='checkbox' value='true' checked></input></td>
 		  <td class='lable'>Blur Alpha (0~1):</td><td><input id='b-alpha' value='1'></input></td>
 	  </tr>
-	  <tr><td/><td/><td class='lable'><input type='button' onclick='updateCam()' value='update'/></td></tr>
+	  <tr><td class='lable' colspan='3'>ISO (presumptive without evidence)
+		  <input id='iso' value='1000' disabled='true'/>
+		  </td>
+		  <td><input type='button' onclick='updateCam()' value='update'/></td></tr>
   </table>
   <script>
 	"use strict";
@@ -116,25 +119,25 @@
   		CmpTweens: {}
   	}] );
 
-	xworld.addEntities([ {
-				id: 'hello',
-				Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-						box: [256, 256],
-						transform: [ { translate: [-140, 0, -180] } ],
-						mesh: undefined },
-				Visual:{vtype: xv.AssetType.mesh,
-						shader: xv.ShaderFlag.colorArray,
-						paras: { u_tex: ['../../assets/tex/byr0.png'] }},
-				//more chart
-				Dynatex: {text: '0123456789abcdefghijk',
-						xywh: {x: 0, y: 0, w: 256, h: 36,
-							size: 32,     // text x, y, size(px)
-							margin: 4 },    // text margin
-						'bg-color': 'white',
-						'v-align': 'top',
-						font: 'Arial',
-						style: '#157'},
-			} ]);
+	// xworld.addEntities([ {
+	// 			id: 'hello',
+	// 			Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+	// 					box: [256, 256],
+	// 					transform: [ { translate: [-140, 0, -180] } ],
+	// 					mesh: undefined },
+	// 			Visual:{vtype: xv.AssetType.mesh,
+	// 					shader: xv.ShaderFlag.colorArray,
+	// 					paras: { u_tex: ['../../assets/tex/byr0.png'] }},
+	// 			//more chart
+	// 			Dynatex: {text: '0123456789abcdefghijk',
+	// 					xywh: {x: 0, y: 0, w: 256, h: 36,
+	// 						size: 32,     // text x, y, size(px)
+	// 						margin: 4 },    // text margin
+	// 					'bg-color': 'white',
+	// 					'v-align': 'top',
+	// 					font: 'Arial',
+	// 					style: '#157'},
+	// 		} ]);
 
 	xworld.startUpdate();
 
@@ -149,6 +152,8 @@
 		let blurAlpha = document.getElementById('b-alpha').value;
 		// console.log(f, F, dbg, bAlpha);
 		xworld.xthrender.setFilter({f, F, debugBokeh, blurAlpha});
+
+		document.getElementById('iso').value = Math.round(110 / Number(F)) * 10;
 	}
   </script>
 </body>
