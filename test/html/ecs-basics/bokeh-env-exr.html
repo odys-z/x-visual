@@ -13,7 +13,7 @@
   <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 256px; margin-left: 257px"/>
   <table>
 	  <tr><td class='lable'>focal length:</td><td><input id='focus' value='60'></input>mm</td>
-		  <td class='lable'>F: 1 / </td><td><input id='F' value='1.1'></input></td></tr>
+		  <td class='lable'>F: 1 / </td><td><input id='F' value='1.4'></input></td></tr>
 	  <tr><td class='lable'>debug:</td>
 		  <td><input id='debug' type='checkbox' value='true' checked></input></td>
 		  <td class='lable'>Blur Alpha (0~1):</td><td><input id='b-alpha' value='1'></input></td>
@@ -23,6 +23,7 @@
 		  </td>
 		  <td><input type='button' onclick='updateCam()' value='update'/></td></tr>
   </table>
+  <p><a href='https://dofsimulator.net/en/'>DOF Simulator</a></p>
   <script>
 	"use strict";
 
@@ -43,6 +44,8 @@
 				  finalQuad: {
 					  blurRadius: 1,
 					  blurIntense: 1.0,
+					  // shader: xv.ShaderFlag.testXDepth, // show xBokehDepth LOD
+					  // shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
 					  debug: false },
 				} );
 	const ecs = xworld.xecs;
