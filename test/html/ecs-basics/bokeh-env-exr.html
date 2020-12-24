@@ -101,7 +101,7 @@
   				envExposure: 0.7,   // > 0,  = 1 will keep original
 
   				lod: [0, 0],	// base, lateral
-  				uvScale: [50, 1],    // only for side uv
+  				uvScale: [10, 1],    // only for side uv
   				texScale: 100,
   				u_texbump: [0.2, 0.4],
   				u_tex: [
@@ -109,11 +109,17 @@
   					'../../assets/tex/ruler256.png',
   					'../../assets/tex/byr0.png'],
 
-  				features: [ { "type": "Feature",
-							  "properties": {"height": 4,},
-							  "geometry": { "type": "polygon",
-									"coordinates": [[[0, -420], [80, -420], [-1800, 3200], [-1820, 3200]]]
-					  		  } } ],
+  				features: [
+					{ "type": "Feature",
+					  "properties": {"height": 4,},
+					  "geometry": { "type": "polygon",
+					  "coordinates": [[[0, -420], [80, -420], [-1800, 3200], [-1820, 3200]]] }
+					},
+					{ "type": "Feature",
+					  "properties": {"height": 8, "name": "model"},
+					  "geometry": { "type": "polygon",
+					  "coordinates": [[[-80, 8], [-20, 8], [-20, 9], [-80, 9]]] },
+					} ],
   				origin: [0, 0],
   				geostyle: {
   					height: 16, scale: 1,
