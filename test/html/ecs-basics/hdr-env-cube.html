@@ -25,6 +25,11 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
 				{ canvasize: [512, 256],
+				  camera: {
+					far: 4000,
+					bokeh: 1.0,
+					showFocus: true // debug bokeh
+				  },
 				  light:{ skyColor: 0xffffff },
 				  finalQuad: { blurRadius: 8 },
 				} );
