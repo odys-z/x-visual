@@ -131,7 +131,7 @@
 	{	id: 'hello',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [256, 64],
-				transform: [ { translate: [-140, 160, -180] } ],
+				transform: [ { translate: [140, 160, -180] } ],
 				mesh: undefined },
 		Visual:{vtype:  xv.AssetType.mesh,
 				shader: xv.ShaderFlag.colorArray,
@@ -144,6 +144,15 @@
 				'v-align': 'top',
 				font: 'Arial',
 				style: '#157'},
+	},
+	{	id: 'wall',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				box: [64, 64],
+				transform: [ { translate: [-120, 120, 0] } ],
+				mesh: undefined },
+		Visual:{vtype:  xv.AssetType.mesh,
+				shader: xv.ShaderFlag.colorArray,
+				paras: { u_tex: ['../../assets/tex/ruler256.png'] }},
 	} ]);
 
 	xworld.startUpdate();
