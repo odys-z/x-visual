@@ -170,7 +170,9 @@ HudGroup and it&#8217;s children.</p>
 how to create main scene objects.</p>
 <div class="section" id="main-scene-light">
 <h3>Main Scene Light<a class="headerlink" href="#main-scene-light" title="Permalink to this headline">¶</a></h3>
-<p>Main scene use a modified Three.js <a class="reference external" href="https://threejs.org/docs/#api/en/lights/HemisphereLight">HemisphereLight</a>.</p>
+<p>Main scene use a modified Three.js <a class="reference external" href="https://threejs.org/docs/index.html#api/en/lights/DirectionalLight">DirectionalLight</a>,
+and the <a class="reference external" href="https://threejs.org/docs/index.html#api/en/lights/shadows/DirectionalLightShadow">DirectionalLightShadow</a>
+is enabled by default.</p>
 <p>The default parameters:</p>
 <div class="highlight-python"><div class="highlight"><pre>skyColor: #xffffbb
 groundColor: #x080820
@@ -178,7 +180,8 @@ intensity: 1.1
 position: [1, 1, 1]
 </pre></div>
 </div>
-<p>To configure it, set parameters via <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/light.html">Lighting#set()</a>.</p>
+<p>To configure it, set options of XWorld constructor; to change light, use
+<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XMaterials.html#change-light">Lighting#changeLight()</a>.</p>
 <p>X-visual use this singleton parameter globally. When the object using material
 of Three.js, the light effects is exactly the same with examples of Three.js.</p>
 <p>But x-visual use a diffuse light with direction (the light position) and a specular
@@ -193,6 +196,11 @@ with Visual.paras:</p>
     <span class="nx">specular</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html</span><span class="o">/</span><span class="n">ecs</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">light</span><span class="o">.</span><span class="n">html</span>
+<span class="n">html</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">texprism</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 </div>
@@ -285,7 +293,7 @@ entity id defined in HudGroup&#8217;s entity.</p>
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

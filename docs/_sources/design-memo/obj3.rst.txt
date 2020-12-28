@@ -219,6 +219,6 @@ recommended using EPSG 3857 coordinates. Coordinates in EPSG 4326 can be directl
 applied if showing a small area and geoScale is large enough.
 
 See the test :ref:`tst-geom-hexatile` &
-`xgeom.hexacylinder3857() API <https://odys-z.github.io/javadoc/x-visual/xgeom.html#hexacylinder3857>`_.
+`xgeom.hexaprism3857() API <https://odys-z.github.io/javadoc/x-visual/xgeom.html#hexaprism3857>`_.
 
 :ref:`Memo: hexagon tile generation<geom-hexatile>`

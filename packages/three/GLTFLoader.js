@@ -7,6 +7,7 @@
  */
 
 import {
+	GLSL3,
 	AnimationClip,
 	Bone,
 	BufferAttribute,
@@ -68,7 +69,7 @@ import {
 	VectorKeyframeTrack,
 	VertexColors,
 	sRGBEncoding
-} from "three";
+} from "./three.module-MRTSupport";
 
 var GLTFLoader = ( function () {
 
@@ -818,6 +819,8 @@ var GLTFLoader = ( function () {
 				// setup material properties based on MeshStandardMaterial for Specular-Glossiness
 
 				var material = new ShaderMaterial( {
+					isMrt: true,
+					glslVersion: THREE.GLSL3,
 					defines: params.defines,
 					vertexShader: params.vertexShader,
 					fragmentShader: params.fragmentShader,
@@ -1260,6 +1263,8 @@ var GLTFLoader = ( function () {
 	function createDefaultMaterial() {
 
 		defaultMaterial = defaultMaterial || new MeshStandardMaterial( {
+			isMrt: true,
+			glslVersion: GLSL3,
 			color: 0xFFFFFF,
 			emissive: 0x000000,
 			metalness: 1,
@@ -2286,7 +2291,7 @@ var GLTFLoader = ( function () {
 		var materialDef = json.materials[ materialIndex ];
 
 		var materialType;
-		var materialParams = {};
+		var materialParams = {isMrt: true, glslVersion: GLSL3};
 		var materialExtensions = materialDef.extensions || {};
 
 		var pending = [];
@@ -3102,7 +3107,7 @@ var GLTFLoader = ( function () {
 
 					var matrix = new Matrix4();
 					matrix.fromArray( nodeDef.matrix );
-					node.applyMatrix( matrix );
+					node.applyMatrix4( matrix );
 
 				} else {
 

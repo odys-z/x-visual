@@ -1,0 +1,374 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>EnvMap &mdash; x-visual 0.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/>
+        <link rel="up" title="Three.js Gems" href="index.html"/>
+        <link rel="prev" title="Directional Shadow" href="dir-shadow.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests/index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../gltf.html">GLTF Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../geometry.html">Geometries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svg.html">SVG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../shadow/index.html">Shadow Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Three.js Gems</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dir-shadow.html">Directional Shadow</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">EnvMap</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#envmap-for-user">EnvMap for User</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#some-essential-parts">Some Essential Parts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#revert-normal-vector">Revert normal vector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+      
+          <li><a href="index.html">Three.js Gems</a> &raquo;</li>
+      
+    <li>EnvMap</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="envmap">
+<h1>EnvMap<a class="headerlink" href="#envmap" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="envmap-for-user">
+<h2>EnvMap for User<a class="headerlink" href="#envmap-for-user" title="Permalink to this headline">¶</a></h2>
+<p>Three.js envMap is designed can be used by ShaderMaterial. Here are some example:</p>
+<p><a class="reference external" href="https://jsfiddle.net/p23rd7ft/10/">JsFiddle Test</a></p>
+<p>which won&#8217;t run without these lines:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">materialShader</span><span class="p">.</span><span class="nx">envMap</span> <span class="o">=</span> <span class="nx">envMap</span><span class="p">;</span>
+<span class="nx">materialShader</span><span class="p">.</span><span class="nx">combine</span> <span class="o">=</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">MultiplyOperation</span><span class="p">;</span>
+<span class="nx">materialShader</span><span class="p">.</span><span class="nx">uniforms</span><span class="p">.</span><span class="nx">envMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">envMap</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://discourse.threejs.org/t/solved-how-to-use-envmap-in-shadermaterial-based-on-meshphongmaterial/13003/7">discussion here</a>.</p>
+</div>
+<div class="section" id="some-essential-parts">
+<h2>Some Essential Parts<a class="headerlink" href="#some-essential-parts" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Shader of MeshLambertMaterial for the above example.</li>
+</ul>
+<p>The fragment shader is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">ShaderLib</span><span class="o">/</span><span class="n">meshlambert_frag</span><span class="o">.</span><span class="n">glsl</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include</span> <span class="cpf">&lt;common&gt;</span><span class="cp"></span>
+<span class="p">...</span>
+<span class="cp">#include</span> <span class="cpf">&lt;envmap_common_pars_fragment&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;envmap_pars_fragment&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">vec3</span> <span class="n">outgoingLight</span> <span class="o">=</span> <span class="n">reflectedLight</span><span class="p">.</span><span class="n">directDiffuse</span> <span class="o">+</span> <span class="n">reflectedLight</span><span class="p">.</span><span class="n">indirectDiffuse</span> <span class="o">+</span> <span class="n">totalEmissiveRadiance</span><span class="p">;</span>
+    <span class="cp">#include</span> <span class="cpf">&lt;envmap_fragment&gt;</span><span class="cp"></span>
+    <span class="n">gl_FragColor</span> <span class="o">=</span> <span class="n">vec4</span><span class="p">(</span> <span class="n">outgoingLight</span><span class="p">,</span> <span class="n">diffuseColor</span><span class="p">.</span><span class="n">a</span> <span class="p">);</span>
+
+    <span class="c1">// include tonemapping and more</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Env texture sampling</li>
+</ul>
+<p>Light direction is done by vertex shader:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">ShaderChunk</span><span class="o">/</span><span class="n">envmap_vertex</span><span class="o">.</span><span class="n">glsl</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="k">vec3</span> <span class="n">cameraToVertex</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">isOrthographic</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">cameraToVertex</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="k">vec3</span><span class="p">(</span> <span class="o">-</span> <span class="n">viewMatrix</span><span class="p">[</span> <span class="mo">0</span> <span class="p">][</span> <span class="mi">2</span> <span class="p">],</span> <span class="o">-</span> <span class="n">viewMatrix</span><span class="p">[</span> <span class="mi">1</span> <span class="p">][</span> <span class="mi">2</span> <span class="p">],</span> <span class="o">-</span> <span class="n">viewMatrix</span><span class="p">[</span> <span class="mi">2</span> <span class="p">][</span> <span class="mi">2</span> <span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">cameraToVertex</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">worldPosition</span><span class="p">.</span><span class="n">xyz</span> <span class="o">-</span> <span class="n">cameraPosition</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="k">vec3</span> <span class="n">worldNormal</span> <span class="o">=</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="n">transformedNormal</span><span class="p">,</span> <span class="n">viewMatrix</span> <span class="p">);</span>
+
+<span class="cp">#ifdef ENVMAP_MODE_REFLECTION</span>
+    <span class="n">vReflect</span> <span class="o">=</span> <span class="n">reflect</span><span class="p">(</span> <span class="n">cameraToVertex</span><span class="p">,</span> <span class="n">worldNormal</span> <span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="n">vReflect</span> <span class="o">=</span> <span class="n">refract</span><span class="p">(</span> <span class="n">cameraToVertex</span><span class="p">,</span> <span class="n">worldNormal</span><span class="p">,</span> <span class="n">refractionRatio</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>Then env texture been sampled in fragment shader like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">ShaderChunk</span><span class="o">/</span><span class="n">envmap_fragement</span><span class="o">.</span><span class="n">glsl</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="cp">#ifdef ENVMAP_TYPE_CUBE</span>
+    <span class="k">vec4</span> <span class="n">envColor</span> <span class="o">=</span> <span class="n">textureCube</span><span class="p">(</span> <span class="n">envMap</span><span class="p">,</span> <span class="k">vec3</span><span class="p">(</span> <span class="n">flipEnvMap</span> <span class="o">*</span> <span class="n">reflectVec</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">reflectVec</span><span class="p">.</span><span class="n">yz</span> <span class="p">)</span> <span class="p">);</span>
+<span class="cp">#elif defined( ENVMAP_TYPE_CUBE_UV )</span>
+    <span class="k">vec4</span> <span class="n">envColor</span> <span class="o">=</span> <span class="n">textureCubeUV</span><span class="p">(</span> <span class="n">envMap</span><span class="p">,</span> <span class="n">reflectVec</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">);</span>
+<span class="cp">#else</span>
+    <span class="k">vec4</span> <span class="n">envColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span> <span class="mf">0.0</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>The uniforms used is:</p>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="k">uniform</span> <span class="k">float</span> <span class="n">envMapIntensity</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="k">float</span> <span class="n">flipEnvMap</span><span class="p">;</span>
+<span class="k">uniform</span> <span class="k">int</span> <span class="n">maxMipLevel</span><span class="p">;</span>
+
+<span class="cp">#ifdef ENVMAP_TYPE_CUBE</span>
+    <span class="k">uniform</span> <span class="n">samplerCube</span> <span class="n">envMap</span><span class="p">;</span>
+<span class="cp">#else</span>
+    <span class="k">uniform</span> <span class="k">sampler2D</span> <span class="n">envMap</span><span class="p">;</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>See example of cube map: <a class="reference external" href="https://threejs.org/examples/?q=env#webgl_materials_envmaps">Three.js example: envmap</a>.</p>
+<ul class="simple">
+<li>Uniforms</li>
+</ul>
+<p>flipEnvMap is set by default with -1 in UniformsLib</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">UniformsLib</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="nx">envmap</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">envMap</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
+        <span class="nx">flipEnvMap</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">},</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>flipEnvMap should be changed to &#8216;1&#8217; if not cube texture used, e.g. WebGlBackground will
+change this according to backgound.isCubeTexture.</p>
+</div>
+<div class="section" id="revert-normal-vector">
+<h2>Revert normal vector<a class="headerlink" href="#revert-normal-vector" title="Permalink to this headline">¶</a></h2>
+<p>To get reflected direction, transformed normal vector must been reverted [1] [2].</p>
+<p>A normal vector can be got from reverting a transformed normal vector[2]. The
+Three.js way breaks this into some separate parts.</p>
+<div class="highlight-python"><div class="highlight"><pre>src/renderers/shaders/ShaderChunk/common.glsl.js
+- and [5] shows this is correct for normal vector.
+</pre></div>
+</div>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="k">vec3</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">dir</span><span class="p">,</span> <span class="k">in</span> <span class="n">mat4</span> <span class="n">matrix</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">normalize</span><span class="p">(</span> <span class="p">(</span> <span class="k">vec4</span><span class="p">(</span> <span class="n">dir</span><span class="p">,</span> <span class="mf">0.0</span> <span class="p">)</span> <span class="o">*</span> <span class="n">matrix</span> <span class="p">).</span><span class="n">xyz</span> <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">ShaderChunk</span><span class="o">/</span><span class="n">defaultnormal_vertex</span><span class="o">.</span><span class="n">glsl</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="k">vec3</span> <span class="n">transformedNormal</span> <span class="o">=</span> <span class="n">objectNormal</span><span class="p">;</span>
+<span class="n">transformedNormal</span> <span class="o">=</span> <span class="n">normalMatrix</span> <span class="o">*</span> <span class="n">transformedNormal</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span><span class="o">/</span><span class="n">renderers</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">ShaderChunk</span><span class="o">/</span><span class="n">envmap_vertex</span><span class="o">.</span><span class="n">glsl</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="k">vec3</span> <span class="n">worldNormal</span> <span class="o">=</span> <span class="n">inverseTransformDirection</span><span class="p">(</span> <span class="n">transformedNormal</span><span class="p">,</span> <span class="n">viewMatrix</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>We want invert transpose normal,</p>
+<div class="math">
+\[n = (M_n ^ {-1}) ^ T \cdot n\]</div>
+<p>which can be done by</p>
+<div class="math">
+\[n = M_n \cdot n \cdot (M_v)_{3x3}\]</div>
+<p>where</p>
+<p><span class="math">\(M_n =\)</span> normalMatrix,</p>
+<p><span class="math">\(M_v =\)</span> viewmatrix.</p>
+<p>Because <span class="math">\((M_v)_{3x3} = M_n^{-1}\)</span> according to [3, 4, 5]. (And there is no
+difference in glsl for <span class="math">\(n^T\)</span> or <span class="math">\(n\)</span>?)</p>
+<p>References</p>
+<p>[1] <a class="reference external" href="https://stackoverflow.com/a/13654662">Transforming normals with the transpose of the inverse of the modelview matrix</a></p>
+<p>[2] <a class="reference external" href="https://paroj.github.io/gltut/Illumination/Tut09%20Normal%20Transformation.html">Jason L. McKesson, Normal Transformation, Chapter 9. Lights On, Learning Modern 3D Graphics Programming</a></p>
+<p>[3] <a class="reference external" href="https://threejs.org/docs/#api/en/renderers/webgl/WebGLProgram">viewMatrix = camera.matrixWorldInverse, WebGLProgram, Three.js docs</a></p>
+<p>[4] <a class="reference external" href="https://stackoverflow.com/a/26912790">viewMatrix = camera.matrixWorldInverse, Stackoverflow</a></p>
+<p>[5] <a class="reference external" href="https://math.stackexchange.com/questions/152462/inverse-of-transformation-matrix">Inverse of transformation matrix, Mathematics, stackexchange</a></p>
+<p>[6] <a class="reference external" href="https://threejsfundamentals.org/threejs/lessons/threejs-backgrounds.html">Three.js Backgrounds and Skyboxes, Three.js Fundamentals</a></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="dir-shadow.html" class="btn btn-neutral" title="Directional Shadow" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z.github.io.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

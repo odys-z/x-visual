@@ -493,7 +493,7 @@ For a_target, See VisualType.point.
 
 In version 0.3, there are two tests showing the usage:
 
-test/html/morph-color.html and test/html/morph-model.html.
+test/html/morph-color.html and test/html/morph/lerp-model.html.
 
 - u_dist:
 

@@ -9,6 +9,6 @@ Contents:
    gltf
    geometry
    svg
-   shadow
+   shadow/index
    components
-   systems
+   three-gems/index
