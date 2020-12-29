@@ -42,10 +42,10 @@
 					  flare: 0.0,
 				  },
 				  finalQuad: {
-					  blurRadius: 1,
-					  blurIntense: 1.0,
+					  blurRadius: 4,
+					  blurIntense: .25,
 					  // shader: xv.ShaderFlag.testXDepth, // show xBokehDepth LOD
-					  // shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
+					  shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
 					  debug: false },
 				} );
 	const ecs = xworld.xecs;
@@ -102,8 +102,8 @@
 
   				lod: [0, 0],	// base, lateral
   				uvScale: [10, 1],    // only for side uv
-  				texScale: 100,
-  				u_texbump: [0.2, 0.4],
+  				texScale: 10,
+  				u_texbump: [0., 0.],
   				u_tex: [
   					'../../assets/tex/bricks.jpg',
   					'../../assets/tex/ruler256.png',
