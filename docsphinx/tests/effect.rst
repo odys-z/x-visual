@@ -1,5 +1,9 @@
 .. _test-effect:
 
+.. attention:: Postprocessing is no longer supported in master branch after v0.3.70.
+    It should still working in the *webgl1* branch but not tested.
+..
+
 Test - Postprocessing
 =====================
 

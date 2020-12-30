@@ -583,7 +583,7 @@ Which means you can not use it like &#8220;node one&#8221;, it&#8217;s been repl
 </div>
 <div class="section" id="enable-mrt">
 <h3>Enable MRT<a class="headerlink" href="#enable-mrt" title="Permalink to this headline">¶</a></h3>
-<p>The materials (currently only MeshStandardMaterial) is created by default supporting
+<p>The material (currently only MeshStandardMaterial) is created by default supporting
 MRT.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadMaterial</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">materialIndex</span> <span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">materialParams</span> <span class="o">=</span> <span class="p">{</span><span class="nx">isMrt</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">glslVersion</span><span class="o">:</span> <span class="nx">GLSL3</span><span class="p">};</span>
@@ -592,7 +592,8 @@ MRT.</p>
 </pre></div>
 </div>
 <p>This created MRT material template, with support of Three.js MRTSupport version,
-material will be cloned with additional properties, i.e. isMrt &amp; glslVersion.</p>
+will be cloned for GLTF nodes&#8217; materail with additional properties, i.e. isMrt &amp;
+glslVersion.</p>
 </div>
 </div>
 <div class="section" id="references">
