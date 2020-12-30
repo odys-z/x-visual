@@ -40,12 +40,14 @@
 				  light:{
 					  skyColor: 0xffffff,
 					  flare: 0.0,
+					  bloomThresh: 0.2,
 				  },
 				  finalQuad: {
-					  blurRadius: 4,
-					  blurIntense: .25,
+					  blurRadius: 5,
+					  blurIntense: .65,
 					  // shader: xv.ShaderFlag.testXDepth, // show xBokehDepth LOD
-					  shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
+					  // shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
+					  // shader: xv.ShaderFlag.testXSpec,  // show xEnvSpecular LOD
 					  debug: false },
 				} );
 	const ecs = xworld.xecs;
