@@ -8,25 +8,19 @@
 </head>
 <body>
   <canvas id='canv'></canvas><br>
-  <input type='button' value='SSAO' onclick='xworld.xssao.togggleOutput()' />
   <script>
 	"use strict";
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window,
 			  { canvasize: [480, 320],
-				effects: true,
-				alphaTest: '0.0',
 				light:{
 					intensity: 0,
 					skyColor: 0x000000,
 					position: [-100, 100, 56] },
-				shadow: {
-					helper: true,
-					radius: 24,
-					bias: 0.001,
-					near: 60,
-					far: 500,
-				 	zoom: 1.}
+				finalQuad: {
+					blurRadius: 5,
+					blurIntense: .65,
+					shader: xv.ShaderFlag.testXDepth }
 			  } );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
@@ -39,8 +33,8 @@
 				transform: [ { translate: [0, -10, -40] } ]
 			  },
 		Visual:{vtype: xv.AssetType.mesh,
+				paras:{ssao: 1.},
 				asset},
-		Ssao: { }
 	  },
 	  { id: 'ground',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
@@ -50,21 +44,16 @@
 					{ translate: [0, -40, 0] } ]
 			  },
 		Visual:{vtype: xv.AssetType.mesh,
+				paras:{ssao: 1.},
 				asset},
-		Ssao: { }
 	  },
 	  { id: 'ssao',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [50, 80, 80],
-				// mesh: {
-				// 	castShadow: true,
-				// 	receiveShadow: true
-				// }
 			  },
 		Visual:{vtype: xv.AssetType.mesh,
-				// shader: xv.XComponent.ShaderFlag.ssao,
+				paras:{ssao: 1.},
 				asset},
-		Ssao: { }
 	  }
 	]);
 
