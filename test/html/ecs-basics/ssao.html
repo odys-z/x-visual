@@ -13,47 +13,83 @@
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window,
 			  { canvasize: [480, 320],
+				camera: {
+					far: 600,
+				},
 				light:{
-					intensity: 0,
+					intensity: 0.8,
 					skyColor: 0x000000,
+					bloomThresh: 30,     // not needed
 					position: [-100, 100, 56] },
 				finalQuad: {
-					blurRadius: 5,
-					blurIntense: .65,
-					shader: xv.ShaderFlag.testXDepth }
+					ssaoRadius: 10,
+					ssaoIntense: 10.,
+					// shader: xv.ShaderFlag.testXDepth
+				}
 			  } );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
 	const asset = 'data:application/x-visual+img,color-pixel [1., 1, 1, 1]';
+	const equirectex = '../../assets/tex/sky-blue.jpg';
+
+	xworld.addEntities([
+	  { id: 'sky',
+		Obj3: { },
+		Visual:{vtype: xv.AssetType.skyBox,
+				paras: {
+					u_tex: equirectex // string for equirectangle map
+				}
+			}
+	  },
+	]);
+
 	xworld.addEntities([
 	  { id: 'wall-0',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [200, 60],
-				transform: [ { translate: [0, -10, -40] } ]
+				box: [100, 60],
+				transform: [ { translate: [50, -10, -40] } ]
 			  },
-		Visual:{vtype: xv.AssetType.mesh,
-				paras:{ssao: 1.},
+		Visual:{vtype: xv.AssetType.mesh_basic,
+				shader: xv.ShaderFlag.envMap,
+				paras: {
+					envMap: 'sky',
+					envExposure: .6,   // > 0,  = 1 will keep original
+					ssao: 1.
+				},
 				asset},
 	  },
 	  { id: 'ground',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [200, 200],
+				box: [200, 360],
 				transform: [
-					{ rotate: { deg: 90, axis: [1, 0, 0] } },
-					{ translate: [0, -40, 0] } ]
+					{ rotate: { deg: -90, axis: [1, 0, 0] } },
+					{ translate: [0, -20, 0] } ]
 			  },
 		Visual:{vtype: xv.AssetType.mesh,
-				paras:{ssao: 1.},
+				shader: xv.ShaderFlag.colorArray,
+				paras: {
+					ssao: 1.
+				},
 				asset},
 	  },
-	  { id: 'ssao',
+	  { id: 'box',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				box: [50, 80, 80],
+				box: [50, 40, 300],
 			  },
 		Visual:{vtype: xv.AssetType.mesh,
-				paras:{ssao: 1.},
-				asset},
+				shader: xv.ShaderFlag.texEnv,
+				paras: {
+	  				envMap: 'sky',
+  					shininess: 0,
+  					whiteAlphas: [1.0, .0],
+  					lod: [0, 0],	// base, lateral
+  					u_tex: [asset, asset, asset],
+  					u_texbump: [0., 0.],
+	  				envExposure: .2,   // > 0,  = 1 will keep original
+					ssao: 1.
+				},
+			},
 	  }
 	]);
 
