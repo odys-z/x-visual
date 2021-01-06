@@ -22,9 +22,11 @@
 					bloomThresh: 30,     // not needed
 					position: [-100, 100, 56] },
 				finalQuad: {
-					ssaoRadius: 10,
-					ssaoIntense: 10.,
+					ssaoRadius: 1,
+					ssaoIntense: 1.,
 					// shader: xv.ShaderFlag.testXDepth
+					shader: xv.ShaderFlag.finalOutline,
+					debug: true
 				}
 			  } );
 	const ecs = xworld.xecs;
@@ -47,8 +49,8 @@
 	xworld.addEntities([
 	  { id: 'wall-0',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [100, 60],
-				transform: [ { translate: [50, -10, -40] } ]
+				box: [74, 80],
+				transform: [ { translate: [62, 20, -40] } ]
 			  },
 		Visual:{vtype: xv.AssetType.mesh_basic,
 				shader: xv.ShaderFlag.envMap,
