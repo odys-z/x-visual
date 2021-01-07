@@ -12,9 +12,9 @@
 	"use strict";
 
 	const xworld = new xv.XWorld(document.getElementById('canv'), window,
-			  { canvasize: [480, 320],
+			  { canvasize: [600, 400],
 				camera: {
-					far: 600,
+					far: 1200,
 				},
 				light:{
 					intensity: 0.8,
@@ -22,8 +22,8 @@
 					bloomThresh: 30,     // not needed
 					position: [-100, 100, 56] },
 				finalQuad: {
-					ssaoRadius: 1,
-					ssaoIntense: 1.,
+					ssaoRadius: 5,
+					ssaoIntense: 160,
 					// shader: xv.ShaderFlag.testXDepth
 					shader: xv.ShaderFlag.finalOutline,
 					debug: true
