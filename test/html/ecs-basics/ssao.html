@@ -15,16 +15,18 @@
 			  { canvasize: [600, 400],
 				camera: {
 					far: 1200,
+					ratio: 1.5,
 				},
 				light:{
 					intensity: 0.8,
 					skyColor: 0x000000,
-					bloomThresh: 30,     // not needed
 					position: [-100, 100, 56] },
 				finalQuad: {
-					ssaoRadius: 5,
-					ssaoIntense: 160,
-					// shader: xv.ShaderFlag.testXDepth
+					ssao: { radius: 5,
+							intense: 1,
+							depthLOD: 4,
+							 },
+					// shader: xv.ShaderFlag.testXDepth,
 					shader: xv.ShaderFlag.finalOutline,
 					debug: true
 				}
@@ -75,9 +77,29 @@
 				},
 				asset},
 	  },
-	  { id: 'box',
+	  { id: 'beam',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [50, 40, 300],
+			  },
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.texEnv,
+				paras: {
+	  				envMap: 'sky',
+  					shininess: 0,
+  					whiteAlphas: [1.0, .0],
+  					lod: [0, 0],	// base, lateral
+  					u_tex: [asset, asset, asset],
+  					u_texbump: [0., 0.],
+	  				envExposure: .2,   // > 0,  = 1 will keep original
+					ssao: 1.
+				},
+			},
+	  },
+
+	  { id: 'box',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [40, 20, 60],
+				transform: [ { translate: [-50, -6, 0] } ]
 			  },
 		Visual:{vtype: xv.AssetType.mesh,
 				shader: xv.ShaderFlag.texEnv,
