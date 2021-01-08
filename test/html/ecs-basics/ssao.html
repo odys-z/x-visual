@@ -23,7 +23,7 @@
 					position: [-100, 100, 56] },
 				finalQuad: {
 					ssao: { radius: 5,
-							intense: 1,
+							intense: 0.2,
 							depthLOD: 4,
 							 },
 					// shader: xv.ShaderFlag.testXDepth,
@@ -99,7 +99,7 @@
 	  { id: 'box',
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
 				box: [40, 20, 60],
-				transform: [ { translate: [-50, -6, 0] } ]
+				transform: [ { translate: [-50, -2, 0] } ]
 			  },
 		Visual:{vtype: xv.AssetType.mesh,
 				shader: xv.ShaderFlag.texEnv,
