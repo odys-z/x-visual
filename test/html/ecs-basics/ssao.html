@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - SSAO</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas><br>
+  <script>
+	"use strict";
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window,
+			  { canvasize: [600, 400],
+				camera: {
+					far: 1200,
+					ratio: 1.5,
+				},
+				light:{
+					intensity: 0.8,
+					skyColor: 0x000000,
+					position: [-100, 100, 56] },
+				finalQuad: {
+					ssao: { radius: 8,
+							intense: 2,
+							depthLOD: 8,
+							debug: 0.3 },
+					// shader: xv.ShaderFlag.testXDepth,
+					shader: xv.ShaderFlag.finalOutline,
+					debug: false
+				}
+			  } );
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	const asset = 'data:application/x-visual+img,color-pixel [1., 1, 1, 1]';
+	const equirectex = '../../assets/tex/sky-blue.jpg';
+
+	xworld.addEntities([
+	  { id: 'sky',
+		Obj3: { },
+		Visual:{vtype: xv.AssetType.skyBox,
+				paras: {
+					u_tex: equirectex // string for equirectangle map
+				}
+			}
+	  },
+	]);
+
+	xworld.addEntities([
+	  { id: 'wall-0',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				box: [74, 80],
+				transform: [ { translate: [62, 20, -40] } ]
+			  },
+		Visual:{vtype: xv.AssetType.mesh_basic,
+				shader: xv.ShaderFlag.envMap,
+				paras: {
+					envMap: 'sky',
+					envExposure: .6,   // > 0,  = 1 will keep original
+					ssao: 1.
+				},
+				asset},
+	  },
+	  { id: 'ground',
+		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+				box: [200, 360],
+				transform: [
+					{ rotate: { deg: -90, axis: [1, 0, 0] } },
+					{ translate: [0, -20, 0] } ]
+			  },
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.colorArray,
+				paras: {
+					ssao: 1.
+				},
+				asset},
+	  },
+	  { id: 'beam',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [50, 40, 300],
+			  },
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.texEnv,
+				paras: {
+	  				envMap: 'sky',
+  					shininess: 0,
+  					whiteAlphas: [1.0, .0],
+  					lod: [0, 0],	// base, lateral
+  					u_tex: [asset, asset, asset],
+  					u_texbump: [0., 0.],
+	  				envExposure: .2,   // > 0,  = 1 will keep original
+					ssao: 1.
+				},
+			},
+	  },
+
+	  { id: 'box',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				box: [40, 20, 60],
+				transform: [ { translate: [-50, -2, 0] } ]
+			  },
+		Visual:{vtype: xv.AssetType.mesh,
+				shader: xv.ShaderFlag.texEnv,
+				paras: {
+	  				envMap: 'sky',
+  					shininess: 0,
+  					whiteAlphas: [1.0, .0],
+  					lod: [0, 0],	// base, lateral
+  					u_tex: [asset, asset, asset],
+  					u_texbump: [0., 0.],
+	  				envExposure: .2,   // > 0,  = 1 will keep original
+					ssao: 1.
+				},
+			},
+	  }
+	]);
+
+	xworld.startUpdate();
+
+  </script>
+</body>
+</html>

@@ -91,8 +91,8 @@
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer/index.html">Renderer &amp; Light</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
@@ -174,6 +174,15 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="renderer/index.html">Renderer &amp; Light</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="renderer/dir-shadow.html">Directional Shadow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer/bokeh.html">Bokeh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer/ssao.html">SSAO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="renderer/ssao.html#memo-failed-experiment">Memo: Failed Experiment</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#obj3-transform">Obj3.transform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html#using-obj3-transform">Using Obj3.transform</a></li>
@@ -185,20 +194,6 @@
 <li class="toctree-l3"><a class="reference internal" href="obj3.html#obj3type-hexatile">Obj3Type.Hexatile</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html#thrender-the-default">Thrender the Default</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="renderer.html#visual-vtype-obj3-geom-handling">Visual.vtype &amp; Obj3.geom Handling</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="renderer.html#visual-vtype">Visual.vtype</a></li>
-<li class="toctree-l4"><a class="reference internal" href="renderer.html#visual-paras">Visual.paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="renderer.html#visual-asset">Visual.asset</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html#dynamic-text">Dynamic Text</a></li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html#gltf-nodes-transform">GLTF Nodes &amp; Transform</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="vparas.html">Visual.paras</a><ul>
@@ -217,22 +212,8 @@
 <li class="toctree-l2"><a class="reference internal" href="animizer.html#start-tween-sequence">Start Tween Sequence</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html#mesh-animiation-script">Mesh Animiation Script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html#modleseqs-script">ModleSeqs.script</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="animizer.html#mtype">mtype</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype">AnimType</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animcate">AnimCate</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="animizer.html#paras">paras</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#common-paras">common paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-position-paras">AnimType.POSITION paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-rotatex-paras">AnimType.ROTATEX paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-rotaxis-paras">AnimType.ROTAXIS paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-orbit-paras">AnimType.ORBIT paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-u-alpha-paras">AnimType.U_ALPHA paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-uniform-paras">AnimType.UNIFORM paras</a></li>
-<li class="toctree-l4"><a class="reference internal" href="animizer.html#animtype-u-morphi-paras">AnimType.U_MORPHi paras</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="animizer.html#mtype">mtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="animizer.html#paras">paras</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html#script-example">Script Example:</a></li>
@@ -276,26 +257,14 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="extensions/index.html">Extensions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="extensions/effects.html">Post Effects</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="extensions/effects.html#x-visual-passes-composer">x-visual Passes &amp; Composer</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="extensions/effects.html#design-pattern-v0-3">Design Pattern v0.3</a></li>
-<li class="toctree-l4"><a class="reference internal" href="extensions/effects.html#a-notes-on-render-passes">A Notes on Render Passes</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="extensions/effects.html#x-visual-passes-composer">x-visual Passes &amp; Composer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/htmltex.html">HTML Texture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/svg.html">SVG Texture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extensions/chart.html">Charts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#chart-xcommon">Chart XCommon</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="extensions/chart.html#axis">Axis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="extensions/chart.html#visual-auxiliaries">Visual Auxiliaries</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#chart-extensions">Chart Extensions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="extensions/chart.html#xbar">XBar</a></li>
-<li class="toctree-l4"><a class="reference internal" href="extensions/chart.html#d3pie">D3Pie</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#chart-xcommon">Chart XCommon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#chart-extensions">Chart Extensions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="extensions/chart.html#resources-references">Resources &amp; References</a></li>
 </ul>
 </li>
