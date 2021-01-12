@@ -22,13 +22,13 @@
 					skyColor: 0x000000,
 					position: [-100, 100, 56] },
 				finalQuad: {
-					ssao: { radius: 5,
-							intense: 0.2,
-							depthLOD: 4,
-							 },
+					ssao: { radius: 8,
+							intense: 2,
+							depthLOD: 8,
+							debug: 0.3 },
 					// shader: xv.ShaderFlag.testXDepth,
 					shader: xv.ShaderFlag.finalOutline,
-					debug: true
+					debug: false
 				}
 			  } );
 	const ecs = xworld.xecs;
