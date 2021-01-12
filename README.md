@@ -151,7 +151,7 @@ All the documents are updating.
 
 [updating: Introduction, Guide & Reference](https://odys-z.github.io/x-visual/)
 
-[API jsdoc](https://odys-z.github.io/x-visual/jsdoc/index.html)
+[API jsdoc](https://odys-z.github.io/javadoc/x-visual/index.html)
 
 # Acknowledgement
 
