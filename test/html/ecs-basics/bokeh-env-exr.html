@@ -35,7 +35,7 @@
 				{ canvasize: [720, 360],
 				  camera: {
 					  far: 4000,
-					  bokeh: 1.0,
+					  bokeh: .0,
 					  showFocus: true // debug bokeh
 				  },
 				  light:{
@@ -44,10 +44,11 @@
 					  bloomThresh: 0.2,
 				  },
 				  finalQuad: {
+					  lodMagnitude: 0.5,
 					  blur: { radius: 5,
 					  		  intense: .65 },
 					  // shader: xv.ShaderFlag.testXDepth, // show xBokehDepth LOD
-					  // shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
+					  shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
 					  // shader: xv.ShaderFlag.testXSpec,  // show xEnvSpecular LOD
 					  debug: false },
 				} );
