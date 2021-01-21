@@ -7,57 +7,75 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>Sky image from <a href='https://www.cgtrader.com/free-3d-models/textures/natural/hdri-freebie-series'>
-    avianx, 4K Sky Series HDRi free Texture, cgtrader</a></p>
-  <img src='assets/../../assets/tex/sky-blue.jpg'
-  	style="width: 1024px; height: 512px; position: absolute; margin-top: -169px; clip-path: polygon(0% 33%, 25% 33%, 25% 58%, 0% 58%);"/>
-  <img src='assets/../../assets/tex/sky-blue.jpg' style="width: 256px; margin-left: 257px"/>
-  <br><a href='hdr-env-exr.html'>Change to EXR texture</a>
+  <p>shader envCubeMap can not configured with envExposure.</p>
+  <p>Meseum image from <a href='https://webglfundamentals.org/webgl/lessons/webgl-skybox.html'>
+    WebGL SkyBox, WebGl Fundamentals, License unknown</a></p>
+  <p><a href='reflect-env-eqrect.html'>reflect-env-eqrect.html</a>
   <script>
 	"use strict";
 
-	var equirectex = '../../assets/tex/sky-blue.jpg';
+	var cubetex = [
+		'../assets/tex/museum/pos-x.jpg',
+		'../assets/tex/museum/neg-x.jpg',
+		'../assets/tex/museum/pos-y.jpg',
+		'../assets/tex/museum/neg-y.jpg',
+		'../assets/tex/museum/pos-z.jpg',
+		'../assets/tex/museum/neg-z.jpg'
+	];
 
-	const xworld = new xv.XWorld(document.getElementById('canv'), window,
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+				window,
 				{ canvasize: [512, 256],
+				  camera: {
+					position: [0, 0, 500]
+				  },
 				  light:{ skyColor: 0xffffff },
+				  finalQuad: { blur: {radius: 0} },
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
 
-	const asset = 'data:application/x-visual+img,color-pixel [0., 1., 0., 1.]';
 	xworld.addEntities([
 	  { id: 'sky',
-		Obj3: { },
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+			},
 		Visual:{vtype: xv.AssetType.skyBox,
 				paras: {
-					u_tex: equirectex
+					u_tex: cubetex // Array for cube map
 				}
 			}
 	  },
-	  { id: 'orb1',
+	  { id: 'orb',
 		Obj3: { geom: xv.XComponent.Obj3Type.SPHERE,
-				box: [80, 24, 24],
+                box: [80, 64, 64],
 			},
 		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.envMap,
+				// shader: xv.ShaderFlag.envMap,
+				shader: xv.ShaderFlag.envCubeMap,
 				paras: {
-					whiteAlpha: 0.3,
-					envExposure: 0.8,
-					envMap: 'sky',
+					// ratio of refraction vs. reflection, 0 ~ 1
+					whiteAlpha: 0.,
+
 					// lod of cube texture, [refract, reflect], >= 0
-					lod: [0.8, 0],
+					lod: [1.2, 0.0],
+
+					// use 'sky'.Obj3.datum.envMap - resolved when loaded it's loaded
+					envMap: 'sky',
+
+					// default CubeReflectionMapping
+					textureMapping: xv.THREE.CubeRefractionMapping,
 				},
-				asset
 			}
 	  },
 	  { id: `box1`,
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
                 box: [60, 100, 120],
-				transform: [ { translate: [-140, 0, -0] }]
+				transform: [
+					{ rotate: { deg: -15, axis:[1, 0, 0]} },
+					{ translate: [120, 0, -0] }]
 			},
 		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.envMap,
+				shader: xv.ShaderFlag.envCubeMap,
 				paras: {
 					whiteAlpha: 0.,     // refract weight
 					envMap: 'sky',
@@ -71,11 +89,11 @@
 		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
                 box: [60, 100, 120],
 				transform: [
-					{ rotate: { deg: -5, axis:[1, 0, 0]} },
-					{ translate: [-220, 0, -0] }]
+					{ rotate: { deg: 15, axis:[1, 0, 0]} },
+					{ translate: [-120, 0, -0] }]
 			},
 		Visual:{vtype: xv.AssetType.mesh,
-				shader: xv.ShaderFlag.envMap,
+				shader: xv.ShaderFlag.envCubeMap,
 				paras: {
 					whiteAlpha: 0.,     // refract weight
 					envMap: 'sky',
