@@ -25,7 +25,6 @@
 		  <td><input type='button' onclick='updateCam()' value='update'/></td></tr>
   </table>
   <p><a href='https://dofsimulator.net/en/'>DOF Simulator</a></p>
-  <div class='exception'>The problem could probably be needing logrithm and leanerize around focal plane.</div>
   <script>
 	"use strict";
 
@@ -131,8 +130,7 @@
   			} } ,
   		CmpTweens: {}
   	},
-
-	{	id: 'hello',
+	  { id: 'hello',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [256, 64],
 				transform: [ { translate: [140, 160, -180] } ],
@@ -148,8 +146,8 @@
 				'v-align': 'top',
 				font: 'Arial',
 				style: '#157'},
-	},
-	{	id: 'wall',
+	  },
+	  { id: 'wall',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [64, 64],
 				transform: [ { translate: [-120, 120, 0] } ],
@@ -157,8 +155,8 @@
 		Visual:{vtype:  xv.AssetType.mesh,
 				shader: xv.ShaderFlag.colorArray,
 				paras: { u_tex: ['../../assets/tex/ruler256.png'] }},
-	},
- ]);
+	  },
+    ]);
 
 	xworld.startUpdate();
 
