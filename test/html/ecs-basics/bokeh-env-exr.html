@@ -88,7 +88,7 @@
 				}
 		  });
 	}
-	xworld.addEntities(ets);
+	// xworld.addEntities(ets);
 
 	xworld.addEntities([
 	  { id: 'prism-wall',
@@ -112,7 +112,8 @@
   				u_texbump: [0., 0.],
   				u_tex: [
   					'../../assets/tex/bricks.jpg',
-  					'../../assets/tex/ruler256.png',
+  					'../../assets/tex/bricks.jpg',
+  					// '../../assets/tex/ruler256.png',
   					'../../assets/tex/byr0.png'],
 
   				features: [
@@ -134,23 +135,23 @@
   			} } ,
   		CmpTweens: {}
 	  },
-	  { id: 'hello',
-		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [256, 64],
-				transform: [ { translate: [140, 160, -180] } ],
-				mesh: undefined },
-		Visual:{vtype:  xv.AssetType.mesh,
-				shader: xv.ShaderFlag.colorArray,
-				paras: { u_tex: ['../../assets/tex/bricks.jpg'] }},
-		Dynatex: {text: '0123456789abcdefghijk',
-				xywh: {x: 0, y: 0, w: 256, h: 36,
-					size: 32,     // text x, y, size(px)
-					margin: 4 },    // text margin
-				'bg-color': 'white',
-				'v-align': 'top',
-				font: 'Arial',
-				style: '#157'},
-	  },
+	  // { id: 'hello',
+		// Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+		// 		box: [256, 64],
+		// 		transform: [ { translate: [140, 160, -180] } ],
+		// 		mesh: undefined },
+		// Visual:{vtype:  xv.AssetType.mesh,
+		// 		shader: xv.ShaderFlag.colorArray,
+		// 		paras: { u_tex: ['../../assets/tex/bricks.jpg'] }},
+		// Dynatex: {text: '0123456789abcdefghijk',
+		// 		xywh: {x: 0, y: 0, w: 256, h: 36,
+		// 			size: 32,     // text x, y, size(px)
+		// 			margin: 4 },    // text margin
+		// 		'bg-color': 'white',
+		// 		'v-align': 'top',
+		// 		font: 'Arial',
+		// 		style: '#157'},
+	  // },
 	  { id: 'hanging',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [64, 64],
