@@ -10,7 +10,7 @@
 <body>
   <canvas id='canv'></canvas>
   <p>middle north: <input id='north' value='0.25'/> &pi; ;
-  	 xz distance: <input id='distance' value='60'/>
+	  hue: <input id='hue' type="color" />
 	  <input type='button' value='update' onclick="update('0')"/>
   </p>
   <script>
@@ -29,6 +29,7 @@
 			paras: {
 				color: [0.2, 0.0, 0.8, 1], // BOX color
 				// tiles
+				whiteAlpha: 0.8,
 				edgeWeight: 24.0,
 				xztile: {
 					hue: [0.3, 0.7, 0.2, 0.4], // tile hue
@@ -135,23 +136,20 @@
 
 	xworld.startUpdate();
 	const ecs = xworld.xecs;
-	function update(id){
-		let e = ecs.getEntity(id);
+	const thrender = xworld.xthrender;
+
+	function update(id) {
 		let v = document.getElementById("north").value;
-
 		v = v * Math.PI;
-		e.Obj3.mesh.material.uniforms.u_north.value = v;
 
-		// task2
-		// Thrender.updateObj(eid, {Visual: {
-		//		shader: xv.XComponent.ShaderFlag.boxLayers,
-		// 		paras: {north: v}}});
-		// task3
-		// Thrender.updateObj(eid, {Visual: {
-		//		shader: xv.XComponent.ShaderFlag.boxLayers,
-		// 		paras: {xztile: {layerDist: h}}}});
+		let hue = document.getElementById("hue").value;
+
+		let e = ecs.getEntity(id);
+		xworld.materials.change(e,
+		 		{north: v,
+		 		 tile: {hue: xv.xutils.cssColor(hue)}
+		} );
 	}
-
   </script>
 </body>
 </html>

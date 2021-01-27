@@ -3,7 +3,8 @@
  * Copyrights and authour ect. are removed for new comments. For details, see
  * [npm package page](https://www.npmjs.com/package/three-orbitcontrols)
  */
-import * as THREE from 'three';
+import * as THREE from '../../packages/three/three.module-MRTSupport';
+
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -1008,11 +1009,11 @@ export default function XOrbitControls ( object, domElement ) {
 	scope.domElement.addEventListener( 'contextmenu', onContextMenu, false );
 
 	scope.domElement.addEventListener( 'mousedown', onMouseDown, false );
-	scope.domElement.addEventListener( 'wheel', onMouseWheel, false );
+	scope.domElement.addEventListener( 'wheel', onMouseWheel, {passive: false} );
 
-	scope.domElement.addEventListener( 'touchstart', onTouchStart, false );
+	scope.domElement.addEventListener( 'touchstart', onTouchStart, {passive: false} );
 	scope.domElement.addEventListener( 'touchend', onTouchEnd, false );
-	scope.domElement.addEventListener( 'touchmove', onTouchMove, false );
+	scope.domElement.addEventListener( 'touchmove', onTouchMove, {passive: false} );
 
 	// TODO let's replace this dispatcher with ECS system.update()
 	scope.domElement.addEventListener( 'keydown', onKeyDown, false );

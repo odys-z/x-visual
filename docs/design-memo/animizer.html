@@ -93,7 +93,6 @@
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Animizers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sequence-the-animation-structure">Sequence the Animation Structure</a></li>
@@ -555,8 +554,8 @@ is the only one can be updated dynamically.</p>
 <li>alpha:</li>
 </ul>
 <p>Array of starting and ending alpha.</p>
-<p><em>U_ALPHA</em> is implemented as a uniform float <em>u_alpha</em>. Some vtype like <a class="reference internal" href="renderer.html#vtype-point"><span>point</span></a>
-or <a class="reference internal" href="renderer.html#vtype-refpoint"><span>refPoint</span></a> are been handled by x-shader, which supporting
+<p><em>U_ALPHA</em> is implemented as a uniform float <em>u_alpha</em>. Some vtype like <span class="xref std std-ref">point</span>
+or <span class="xref std std-ref">refPoint</span> are been handled by x-shader, which supporting
 u_alpha uniform. There are also other types supporting u_alpha. It&#8217;s planned support
 u_alpha for all vtype in the future. Currently a typical THREE.Mesh without Visual.shader
 configured will use THREE.Mesh.opacity for this.</p>
@@ -591,7 +590,7 @@ between vertices, positions, the vertex positions will be mixed with all target,
 the <em>a_target</em> attributes.</p>
 <p>For a_target, See VisualType.point.</p>
 <p>In version 0.3, there are two tests showing the usage:</p>
-<p>test/html/morph-color.html and test/html/morph-model.html.</p>
+<p>test/html/morph-color.html and test/html/morph/lerp-model.html.</p>
 <ul class="simple">
 <li>u_dist:</li>
 </ul>
@@ -650,7 +649,7 @@ For a_noise, See VisualType.point.</p>
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

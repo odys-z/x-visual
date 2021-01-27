@@ -93,7 +93,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
@@ -259,10 +258,10 @@ defined label &#8220;A&#8221;, &#8220;B&#8221; &amp; &#8220;C&#8221; move alone 
         <span class="kr">const</span> <span class="nx">xscene</span> <span class="o">=</span> <span class="nx">xworld</span><span class="p">.</span><span class="nx">xscene</span><span class="p">;</span>
 
         <span class="kd">var</span> <span class="nx">d3pie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">chart</span><span class="p">.</span><span class="nx">D3Pie</span><span class="p">(</span><span class="nx">ecs</span><span class="p">,</span>
-			<span class="p">{</span> <span class="nx">stub</span><span class="o">:</span> <span class="s1">&#39;stub&#39;</span><span class="p">,</span>
-			  <span class="nx">xy</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>   <span class="c1">// texture start offset</span>
-			  <span class="nx">xworld</span><span class="p">,</span> <span class="nx">chart</span><span class="o">:</span> <span class="nx">json</span><span class="p">.</span><span class="nx">chart</span>
-			<span class="p">},</span> <span class="nx">json</span><span class="p">.</span><span class="nx">pie</span><span class="p">);</span>
+            <span class="p">{</span> <span class="nx">stub</span><span class="o">:</span> <span class="s1">&#39;stub&#39;</span><span class="p">,</span>
+              <span class="nx">xy</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>   <span class="c1">// texture start offset</span>
+              <span class="nx">xworld</span><span class="p">,</span> <span class="nx">chart</span><span class="o">:</span> <span class="nx">json</span><span class="p">.</span><span class="nx">chart</span>
+            <span class="p">},</span> <span class="nx">json</span><span class="p">.</span><span class="nx">pie</span><span class="p">);</span>
         <span class="nx">xworld</span><span class="p">.</span><span class="nx">addSystem</span><span class="p">(</span><span class="s1">&#39;chart&#39;</span><span class="p">,</span> <span class="nx">d3pie</span><span class="p">);</span>
         <span class="nx">xworld</span><span class="p">.</span><span class="nx">addSystem</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">TestD3Pie</span><span class="p">(</span><span class="nx">ecs</span><span class="p">,</span> <span class="p">{</span><span class="nx">xworld</span><span class="p">,</span> <span class="nx">d3pie</span><span class="p">}));</span>
         <span class="nx">xworld</span><span class="p">.</span><span class="nx">startUpdate</span><span class="p">();</span>
@@ -343,7 +342,7 @@ be subtle to debug if not have a div like this.</p>
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

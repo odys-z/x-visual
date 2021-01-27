@@ -10,3 +10,4 @@ Contents:
    phong
    volumetric
    flame
+   mip-noisy

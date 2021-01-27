@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Directional Shadow &mdash; x-visual 0.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/>
+        <link rel="up" title="Three.js Gems" href="index.html"/>
+        <link rel="next" title="EnvMap" href="envmap.html"/>
+        <link rel="prev" title="Three.js Gems" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests/index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../gltf.html">GLTF Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../geometry.html">Geometries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svg.html">SVG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../shadow/index.html">Shadow Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Three.js Gems</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">Directional Shadow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shaderlib">ShaderLib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#directional-lights-uniforms">Directional Lights Uniforms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="envmap.html">EnvMap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+      
+          <li><a href="index.html">Three.js Gems</a> &raquo;</li>
+      
+    <li>Directional Shadow</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="directional-shadow">
+<h1>Directional Shadow<a class="headerlink" href="#directional-shadow" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="shaderlib">
+<h2>ShaderLib<a class="headerlink" href="#shaderlib" title="Permalink to this headline">¶</a></h2>
+<p>When WebGLRenderer creating material in <em>initMaterial()</em>, the <em>programChange ==
+true</em> branch will load the shader of <em>ShaderLib[ parameters.shaderID ]</em>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">initMaterial</span><span class="p">(</span> <span class="nx">material</span><span class="p">,</span> <span class="nx">fog</span><span class="p">,</span> <span class="nx">object</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">programChange</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">shaderID</span> <span class="p">)</span>
+            <span class="kd">var</span> <span class="nx">shader</span> <span class="o">=</span> <span class="nx">ShaderLib</span><span class="p">[</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">shaderID</span> <span class="p">];</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In ShaderLib.js, the lib is defined as</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">ShaderLib</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">...</span>
+
+    <span class="nx">phong</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">mergeUniforms</span><span class="p">(</span> <span class="p">[</span>
+            <span class="nx">UniformsLib</span><span class="p">.</span><span class="nx">specularmap</span><span class="p">,</span>
+            <span class="p">...</span>
+            <span class="nx">UniformsLib</span><span class="p">.</span><span class="nx">lights</span><span class="p">,</span>
+            <span class="p">{</span>   <span class="nx">emissive</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span> <span class="mh">0x000000</span> <span class="p">)</span> <span class="p">},</span>
+                <span class="nx">specular</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span> <span class="mh">0x111111</span> <span class="p">)</span> <span class="p">},</span>
+                <span class="nx">shininess</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="mi">30</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">]</span> <span class="p">),</span>
+
+        <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshphong_vert</span><span class="p">,</span>
+        <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">meshphong_frag</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+
+    <span class="nx">shadow</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">uniforms</span><span class="o">:</span> <span class="nx">mergeUniforms</span><span class="p">(</span> <span class="p">[</span>
+            <span class="nx">UniformsLib</span><span class="p">.</span><span class="nx">lights</span><span class="p">,</span>
+            <span class="nx">UniformsLib</span><span class="p">.</span><span class="nx">fog</span><span class="p">,</span>
+            <span class="p">{</span>   <span class="nx">color</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span> <span class="mh">0x00000</span> <span class="p">)</span> <span class="p">},</span>
+                <span class="nx">opacity</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="mf">1.0</span> <span class="p">}</span>
+            <span class="p">},</span>
+        <span class="p">]</span> <span class="p">),</span>
+
+        <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">shadow_vert</span><span class="p">,</span>
+        <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">ShaderChunk</span><span class="p">.</span><span class="nx">shadow_frag</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>In UniformsLib.js</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">UniformsLib</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">common</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">diffuse</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span> <span class="mh">0xeeeeee</span> <span class="p">)</span> <span class="p">},</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+
+    <span class="nx">specularmap</span><span class="o">:</span> <span class="p">{</span> <span class="nx">specularMap</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span> <span class="p">},</span>
+
+    <span class="nx">lights</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">ambientLightColor</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="p">[]</span> <span class="p">},</span>
+        <span class="nx">lightProbe</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="p">[]</span> <span class="p">},</span>
+        <span class="nx">directionalLights</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">direction</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="nx">color</span><span class="o">:</span> <span class="p">{},</span>
+
+            <span class="nx">shadow</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="nx">shadowBias</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="nx">shadowRadius</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="nx">shadowMapSize</span><span class="o">:</span> <span class="p">{}</span>
+        <span class="p">}</span> <span class="p">},</span>
+
+        <span class="nx">directionalShadowMap</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="p">[]</span> <span class="p">},</span>
+        <span class="nx">directionalShadowMatrix</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="p">[]</span> <span class="p">},</span>
+
+        <span class="nx">spotLights</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+        <span class="nx">pointLights</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
+
+        <span class="p">...</span>
+
+        <span class="nx">hemisphereLights</span><span class="o">:</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">direction</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="nx">skyColor</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="nx">groundColor</span><span class="o">:</span> <span class="p">{}</span>
+        <span class="p">}</span> <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>ShaderChunk is actually a boilerplate, e.g. phong vertex shader:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define PHONG</span>
+<span class="n">varying</span> <span class="n">vec3</span> <span class="n">vViewPosition</span><span class="p">;</span>
+
+<span class="cp">#ifndef FLAT_SHADED</span>
+    <span class="n">varying</span> <span class="n">vec3</span> <span class="n">vNormal</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;common&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;uv_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;uv2_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;displacementmap_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;envmap_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;color_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fog_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;morphtarget_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;skinning_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;shadowmap_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;logdepthbuf_pars_vertex&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;clipping_planes_pars_vertex&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="cp">#include</span> <span class="cpf">&lt;uv_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;uv2_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;color_vertex&gt;</span><span class="cp"></span>
+
+    <span class="cp">#include</span> <span class="cpf">&lt;beginnormal_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;morphnormal_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;skinbase_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;skinnormal_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;defaultnormal_vertex&gt;</span><span class="cp"></span>
+
+<span class="cp">#ifndef FLAT_SHADED </span><span class="c1">// Normal computed with derivatives when FLAT_SHADED</span>
+    <span class="n">vNormal</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span> <span class="n">transformedNormal</span> <span class="p">);</span>
+<span class="cp">#endif</span>
+
+    <span class="cp">#include</span> <span class="cpf">&lt;begin_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;morphtarget_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;skinning_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;displacementmap_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;project_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;logdepthbuf_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;clipping_planes_vertex&gt;</span><span class="cp"></span>
+
+    <span class="n">vViewPosition</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mvPosition</span><span class="p">.</span><span class="n">xyz</span><span class="p">;</span>
+
+    <span class="cp">#include</span> <span class="cpf">&lt;worldpos_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;envmap_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;shadowmap_vertex&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;fog_vertex&gt;</span><span class="cp"></span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="directional-lights-uniforms">
+<h2>Directional Lights Uniforms<a class="headerlink" href="#directional-lights-uniforms" title="Permalink to this headline">¶</a></h2>
+<p>When WebGLRenderer is rendering, it maintance it&#8217;s current state, an instance of
+<em>WebGLRenderState</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre>WebGLRenderer.render()
+-&gt;  WebGLRenderState.setupLights( camera )
+    -&gt;  WebGLLights.setup( lights, shadows, camera )
+</pre></div>
+</div>
+<p>The <em>setup()</em> function manage directional lights uniforms.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">uniforms</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">direction</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Vector3</span><span class="p">(),</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(),</span>
+
+    <span class="nx">shadow</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">shadowBias</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">shadowRadius</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">shadowMapSize</span><span class="o">:</span> <span class="k">new</span> <span class="nx">Vector2</span><span class="p">()</span>
+<span class="p">};</span>
+
+<span class="k">if</span> <span class="p">(</span> <span class="nx">light</span><span class="p">.</span><span class="nx">isDirectionalLight</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">uniforms</span> <span class="o">=</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">light</span> <span class="p">);</span>
+
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span> <span class="nx">light</span><span class="p">.</span><span class="nx">color</span> <span class="p">).</span><span class="nx">multiplyScalar</span><span class="p">(</span> <span class="nx">light</span><span class="p">.</span><span class="nx">intensity</span> <span class="p">);</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">direction</span><span class="p">.</span><span class="nx">setFromMatrixPosition</span><span class="p">(</span> <span class="nx">light</span><span class="p">.</span><span class="nx">matrixWorld</span> <span class="p">);</span>
+    <span class="nx">vector3</span><span class="p">.</span><span class="nx">setFromMatrixPosition</span><span class="p">(</span> <span class="nx">light</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">matrixWorld</span> <span class="p">);</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">direction</span><span class="p">.</span><span class="nx">sub</span><span class="p">(</span> <span class="nx">vector3</span> <span class="p">);</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">direction</span><span class="p">.</span><span class="nx">transformDirection</span><span class="p">(</span> <span class="nx">viewMatrix</span> <span class="p">);</span>
+
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">shadow</span> <span class="o">=</span> <span class="nx">light</span><span class="p">.</span><span class="nx">castShadow</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">light</span><span class="p">.</span><span class="nx">castShadow</span> <span class="p">)</span> <span class="p">{</span>
+
+        <span class="kd">var</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="nx">light</span><span class="p">.</span><span class="nx">shadow</span><span class="p">;</span>
+
+        <span class="nx">uniforms</span><span class="p">.</span><span class="nx">shadowBias</span> <span class="o">=</span> <span class="nx">shadow</span><span class="p">.</span><span class="nx">bias</span><span class="p">;</span>
+        <span class="nx">uniforms</span><span class="p">.</span><span class="nx">shadowRadius</span> <span class="o">=</span> <span class="nx">shadow</span><span class="p">.</span><span class="nx">radius</span><span class="p">;</span>
+        <span class="nx">uniforms</span><span class="p">.</span><span class="nx">shadowMapSize</span> <span class="o">=</span> <span class="nx">shadow</span><span class="p">.</span><span class="nx">mapSize</span><span class="p">;</span>
+
+        <span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadowMap</span><span class="p">[</span> <span class="nx">directionalLength</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">shadowMap</span><span class="p">;</span>
+        <span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadowMatrix</span><span class="p">[</span> <span class="nx">directionalLength</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">light</span><span class="p">.</span><span class="nx">shadow</span><span class="p">.</span><span class="nx">matrix</span><span class="p">;</span>
+
+        <span class="nx">numDirectionalShadows</span> <span class="o">++</span><span class="p">;</span>
+
+    <span class="p">}</span>
+
+    <span class="nx">state</span><span class="p">.</span><span class="nx">directional</span><span class="p">[</span> <span class="nx">array_length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">uniforms</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p id="three-gem-material-lights">In <em>WebGLRenderer.initMaterial()</em>, the lights&#8217; state also updated into materials&#8217;
+uniforms:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span> <span class="nx">materialProperties</span><span class="p">.</span><span class="nx">needsLights</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// wire up the material to this renderer&#39;s lighting state</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">ambientLightColor</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">ambient</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">lightProbe</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">probe</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directional</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spot</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">rectAreaLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">rectArea</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">point</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">hemisphereLights</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">hemi</span><span class="p">;</span>
+
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">directionalShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">directionalShadowMatrix</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spotShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">spotShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">spotShadowMatrix</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointShadowMap</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">pointShadowMap</span><span class="p">;</span>
+    <span class="nx">uniforms</span><span class="p">.</span><span class="nx">pointShadowMatrix</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">lights</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">pointShadowMatrix</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This section also shows that if a material receive directional lights, it must
+has all the fields. In x-visual, this is been handled by <em>thrender.createXShaderMaterial()</em>.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="envmap.html" class="btn btn-neutral float-right" title="EnvMap" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Three.js Gems" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z.github.io.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

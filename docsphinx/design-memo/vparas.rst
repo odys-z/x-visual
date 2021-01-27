@@ -9,9 +9,11 @@ for general information about Visual component.
 Shared for different vtype
 --------------------------
 
-- tex_alpha
+- u_alpha
 
 Range 0 ~ 1, for any object's material accepting alpha channel (Three.js Object3D.opacity).
+
+.. attention:: Before v0.3.64, it's named *tex_alpha*.
 
 - uniforms
 

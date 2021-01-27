@@ -168,12 +168,16 @@ xv.Component.ShaderFlag.boxLayers
     ... and any future implement with f_LIGHTENED = 1
 </pre></div>
 </div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">x-visual&#8217; shader doesn&#8217;t receive shadow currently. Coming soon.</p>
+</div>
 <p>The test created some objects with materials provided by Three.js, and some material
 extended by x-visual for special purpose.</p>
 <p>The light position is indicated by a wireframe object, showing how different of
 x-visual material extension vs. Three.js&#8217;. The left most (-x) 3 objects using
 Three.js material objects have light effects of
-<a class="reference external" href="https://threejs.org/docs/#api/en/lights/HemisphereLight">Three.HemisphereLight</a> .</p>
+<a class="reference external" href="https://threejs.org/docs/#api/en/lights/DirectionalLight">Three.DirectionalLight</a> .</p>
 <a class="reference internal image-reference" href="../_images/001-light.jpg"><img alt="../_images/001-light.jpg" src="../_images/001-light.jpg" style="width: 600px;" /></a>
 <p>The <em>colorArray</em>, <em>texPrism</em> &amp; <em>boxLayers</em> shaders are applied to the rest of the
 objects, mixing light&#8217;s diffuse color with the material&#8217;s texture. E.g. the
@@ -227,7 +231,7 @@ colorArray&#8217;s morphing result color is mixed with an extra diffuse color. S
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

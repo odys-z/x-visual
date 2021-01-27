@@ -149,18 +149,18 @@ ___________________________________
 
 AnimType.UNIFORMS
 
-示例： see `test/html/morph-model.html <https://github.com/odys-z/x-visual/blob/master/test/html/morph-model.html>`_
+示例： see `test/html/morph/lerp-model.html <https://github.com/odys-z/x-visual/blob/master/test/html/morph/lerp-model.html>`_
 
 这段首先定义了两个用于做位置参照的模型：
 
-.. literalinclude:: ../../test/html/morph-model.html
+.. literalinclude:: ../../test/html/morph/lerp-model.html
    :language: javascript
    :lines: 20-72
    :linenos:
 
 然后定义了若干顶点（points / vertices)，并且控制在这两个模型对应顶点间移动。
 
-.. literalinclude:: ../../test/html/morph-model.html
+.. literalinclude:: ../../test/html/morph/lerp-model.html
    :language: javascript
    :lines: 74-107
    :linenos:
