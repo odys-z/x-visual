@@ -18,7 +18,7 @@ html file::
 The test defined 2 box object, with the 3rd as points referencing the boxes' vertices
 and moving the points while changing the alpha.
 
-.. image:: imgs/002-case-morph/lerp-model.jpg
+.. image:: imgs/002-case-morph-model.jpg
     :width: 420px
 
 A test case for basic morphing scripts.

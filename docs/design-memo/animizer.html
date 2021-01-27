@@ -92,7 +92,9 @@
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer/index.html">Renderer &amp; Light</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual.html">Visual &amp; Assets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Animizers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sequence-the-animation-structure">Sequence the Animation Structure</a></li>
@@ -554,8 +556,8 @@ is the only one can be updated dynamically.</p>
 <li>alpha:</li>
 </ul>
 <p>Array of starting and ending alpha.</p>
-<p><em>U_ALPHA</em> is implemented as a uniform float <em>u_alpha</em>. Some vtype like <span class="xref std std-ref">point</span>
-or <span class="xref std std-ref">refPoint</span> are been handled by x-shader, which supporting
+<p><em>U_ALPHA</em> is implemented as a uniform float <em>u_alpha</em>. Some vtype like <a class="reference internal" href="visual.html#vtype-point"><span>point</span></a>
+or <a class="reference internal" href="visual.html#vtype-refpoint"><span>refPoint</span></a> are been handled by x-shader, which supporting
 u_alpha uniform. There are also other types supporting u_alpha. It&#8217;s planned support
 u_alpha for all vtype in the future. Currently a typical THREE.Mesh without Visual.shader
 configured will use THREE.Mesh.opacity for this.</p>

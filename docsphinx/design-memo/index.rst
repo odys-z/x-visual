@@ -12,7 +12,7 @@ Contents:
    scene
    renderer/index
    obj3
-   renderer
+   visual
    vparas
    animizer
    affine

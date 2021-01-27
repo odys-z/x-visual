@@ -12,3 +12,4 @@ Contents:
    volumetric
    flame
    mip-noisy
+   ripple
