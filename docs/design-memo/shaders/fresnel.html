@@ -101,6 +101,9 @@
 <li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="">Fresnel Implementation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#schlick-specular">Schlick Specular</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#schlick-fresnel">Schlick Fresnel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-info">Additional Info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
@@ -168,13 +171,13 @@
 <p>This is an approximation by Schlick[1], and presented by [2], used and copied
 from [3].</p>
 <img alt="../../_images/102-fschlick-specular-result.png" src="../../_images/102-fschlick-specular-result.png" />
-<div class="section" id="x-visual-vision">
-<h3>x-visual vision<a class="headerlink" href="#x-visual-vision" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="x-visual-shader">
+<h3>x-visual shader<a class="headerlink" href="#x-visual-shader" title="Permalink to this headline">¶</a></h3>
 <p>source:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">lib</span><span class="o">/</span><span class="n">xutils</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">glx</span><span class="o">.</span><span class="n">glsl</span><span class="o">.</span><span class="n">js</span>
 </pre></div>
 </div>
-<div class="highlight-c"><div class="highlight"><pre><span class="n">vec3</span> <span class="nf">fSchlick</span><span class="p">(</span> <span class="n">vec3</span> <span class="n">col</span><span class="p">,</span> <span class="n">vec3</span> <span class="n">incident</span><span class="p">,</span> <span class="n">vec3</span> <span class="n">viewDir</span><span class="p">,</span> <span class="kt">float</span> <span class="n">rough</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">vec3</span> <span class="nf">fSchlick_specular</span><span class="p">(</span> <span class="n">vec3</span> <span class="n">col</span><span class="p">,</span> <span class="n">vec3</span> <span class="n">incident</span><span class="p">,</span> <span class="n">vec3</span> <span class="n">viewDir</span><span class="p">,</span> <span class="kt">float</span> <span class="n">rough</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">incident</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">incident</span><span class="p">)</span> <span class="p">;</span>
     <span class="kt">float</span> <span class="n">dotLH</span> <span class="o">=</span> <span class="n">clamp</span><span class="p">(</span> <span class="n">dot</span><span class="p">(</span> <span class="n">incident</span><span class="p">,</span> <span class="n">normalize</span><span class="p">(</span><span class="n">viewDir</span><span class="p">)</span> <span class="p">),</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span> <span class="p">);</span>
 
@@ -185,7 +188,46 @@ from [3].</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>References:</p>
+</div>
+</div>
+<div class="section" id="schlick-fresnel">
+<h2>Schlick Fresnel<a class="headerlink" href="#schlick-fresnel" title="Permalink to this headline">¶</a></h2>
+<img alt="../../_images/102-fschlick-fresnel-result.png" src="../../_images/102-fschlick-fresnel-result.png" />
+<div class="section" id="id1">
+<h3>x-visual shader<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>source:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">lib</span><span class="o">/</span><span class="n">xutils</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">glx</span><span class="o">.</span><span class="n">glsl</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<div class="highlight-c"><div class="highlight"><pre>vec3 fSchlick( vec3 col, vec3 incident, vec3 viewDir, float rough) {
+        incident = normalize(incident) ;
+        vec3 halfDir = incident + normalize(viewDir);
+        float dotLH = 1. - clamp( dot( incident, halfDir ), 0., 1. );
+
+        float fresnel = exp2( ( -5.55473 * dotLH - 6.98316 ) * dotLH );
+        vec3 Fo = max( vec3( 1.0 - rough ), col ) - col;
+
+        return Fo * fresnel + col;
+    }`,
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="additional-info">
+<h2>Additional Info<a class="headerlink" href="#additional-info" title="Permalink to this headline">¶</a></h2>
+<img alt="../../_images/102-fschlick-gaussion-appx.png" src="../../_images/102-fschlick-gaussion-appx.png" />
+<p>where:</p>
+<div class="highlight-python"><div class="highlight"><pre>f1(x, t) = 0.7                        // normal color
+f2(x, t) = 1 - f1(x, t)               // 1 - F0
+f3(x, t) = cos((1 - x) * PI / 2)      // dot(V, H)
+f4(x, t) = pow(2, ( -5.55473 * f3(x,t) - 6.98316 ) * f3(x,t))
+f5(x, t) = (1 - f1(x,t)) * f4(x,t) + f1(x,t)
+</pre></div>
+</div>
+<p>For Graphtoy, see [4].</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p>[1] Schlick, Christophe, “An Inexpensive BRDF Model for Physically-based Rendering”, Computer
 Graphics Forum, vol. 13, no. 3, Sept. 1994, pp. 149–162.
 <a class="reference external" href="http://dept-info.labri.u-bordeaux.fr/~schlick/DOC/eur2.html">http://dept-info.labri.u-bordeaux.fr/~schlick/DOC/eur2.html</a></p>
@@ -193,7 +235,7 @@ Graphics Forum, vol. 13, no. 3, Sept. 1994, pp. 149–162.
 <a class="reference external" href="https://cdn2.unrealengine.com/Resources/files/2013SiggraphPresentationsNotes-26915738.pdf">(Online PDF)</a></p>
 <p>[3] Mrdoob, github.com,
 <a class="reference external" href="https://github.com/mrdoob/three.js/blob/b15bd85b2fd5b669393677a772bbf07291954645/src/renderers/shaders/ShaderChunk/bsdfs.glsl.js#L59">three.js/src/srcbsdf.glsl.js F_Schlick()</a></p>
-</div>
+<p>[4] Graphtoy v0.4 by Inigo Quilez, <a class="reference external" href="https://graphtoy.com">https://graphtoy.com</a></p>
 </div>
 </div>
 
