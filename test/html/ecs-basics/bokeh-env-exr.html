@@ -24,8 +24,9 @@
 		  </td>
 		  <td><input type='button' onclick='updateCam()' value='update'/></td></tr>
   </table>
+  <p>comparation: <a href='../geom/reflect-env-eqrect.html'>equirectangle sky box reflection</a>
+  &amp; <a href='../geom/reflect-env-cube.html'>cube sky box reflection</a>.</p>
   <p><a href='https://dofsimulator.net/en/'>DOF Simulator</a></p>
-  <div class='exception'>The problem could probably be needing logrithm and leanerize around focal plane.</div>
   <script>
 	"use strict";
 
@@ -49,7 +50,7 @@
 					  blur: { radius: 5,
 					  		  intense: .65 },
 					  // shader: xv.ShaderFlag.testXDepth, // show xBokehDepth LOD
-					  shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
+					  // shader: xv.ShaderFlag.testXFrag,  // show xFragColor LOD
 					  // shader: xv.ShaderFlag.testXSpec,  // show xEnvSpecular LOD
 					  debug: false },
 				} );
@@ -87,20 +88,20 @@
 				}
 		  });
 	}
-	xworld.addEntities(ets);
+	// xworld.addEntities(ets);
 
-	xworld.addEntities([{
-		id: 'prism',
+	xworld.addEntities([
+	  { id: 'prism-wall',
   		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
   				box: [],
-  				transform: [ { translate: [0, -20, -80] } ],
+  				transform: [ { translate: [0, 0, -80] } ],
 			},
   		Visual:{
   			vtype: xv.AssetType.mesh,
   			shader: xv.ShaderFlag.texEnv,
   			paras: {
   				shininess: 80,
-  				whiteAlphas: [.8, 0.4], // roof, side reflection, 0~1, default 0.5
+  				whiteAlphas: [.8, 1.0], // roof, side reflection, 0~1, default 0.5
 
   				envMap: 'sky',
   				envExposure: 0.7,   // > 0,  = 1 will keep original
@@ -111,14 +112,16 @@
   				u_texbump: [0., 0.],
   				u_tex: [
   					'../../assets/tex/bricks.jpg',
-  					'../../assets/tex/ruler256.png',
+  					'../../assets/tex/bricks.jpg',
+  					// '../../assets/tex/ruler256.png',
   					'../../assets/tex/byr0.png'],
 
   				features: [
 					{ "type": "Feature",
 					  "properties": {"height": 4,},
 					  "geometry": { "type": "polygon",
-					  "coordinates": [[[0, -420], [80, -420], [-1800, 3200], [-1820, 3200]]] }
+					  // "coordinates": [[[0, -420], [80, -420], [-1800, 3200], [-1820, 3200]]] }
+					  "coordinates": [[[0, -20], [80, -20], [80, 300], [0, 300]]] }
 					},
 					{ "type": "Feature",
 					  "properties": {"height": 8, "name": "model"},
@@ -131,26 +134,25 @@
   				}
   			} } ,
   		CmpTweens: {}
-  	},
-
-	{	id: 'hello',
-		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
-				box: [256, 64],
-				transform: [ { translate: [140, 160, -180] } ],
-				mesh: undefined },
-		Visual:{vtype:  xv.AssetType.mesh,
-				shader: xv.ShaderFlag.colorArray,
-				paras: { u_tex: ['../../assets/tex/bricks.jpg'] }},
-		Dynatex: {text: '0123456789abcdefghijk',
-				xywh: {x: 0, y: 0, w: 256, h: 36,
-					size: 32,     // text x, y, size(px)
-					margin: 4 },    // text margin
-				'bg-color': 'white',
-				'v-align': 'top',
-				font: 'Arial',
-				style: '#157'},
-	},
-	{	id: 'wall',
+	  },
+	  // { id: 'hello',
+		// Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
+		// 		box: [256, 64],
+		// 		transform: [ { translate: [140, 160, -180] } ],
+		// 		mesh: undefined },
+		// Visual:{vtype:  xv.AssetType.mesh,
+		// 		shader: xv.ShaderFlag.colorArray,
+		// 		paras: { u_tex: ['../../assets/tex/bricks.jpg'] }},
+		// Dynatex: {text: '0123456789abcdefghijk',
+		// 		xywh: {x: 0, y: 0, w: 256, h: 36,
+		// 			size: 32,     // text x, y, size(px)
+		// 			margin: 4 },    // text margin
+		// 		'bg-color': 'white',
+		// 		'v-align': 'top',
+		// 		font: 'Arial',
+		// 		style: '#157'},
+	  // },
+	  { id: 'hanging',
 		Obj3: { geom: xv.XComponent.Obj3Type.PLANE,
 				box: [64, 64],
 				transform: [ { translate: [-120, 120, 0] } ],
@@ -158,8 +160,8 @@
 		Visual:{vtype:  xv.AssetType.mesh,
 				shader: xv.ShaderFlag.colorArray,
 				paras: { u_tex: ['../../assets/tex/ruler256.png'] }},
-	},
- ]);
+	  },
+    ]);
 
 	xworld.startUpdate();
 
