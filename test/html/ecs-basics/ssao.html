@@ -18,16 +18,16 @@
 					ratio: 1.5,
 				},
 				light:{
-					intensity: 0.8,
+					intensity: 0.6,
 					skyColor: 0x000000,
 					position: [-100, 100, 56] },
 				finalQuad: {
 					ssao: { radius: 8,
 							intense: 2,
-							depthLOD: 8,
-							debug: 0.3 },
-					// shader: xv.ShaderFlag.testXDepth,
-					shader: xv.ShaderFlag.finalOutline,
+							lodMagnitude: .0,
+							debug: 0.2 },
+					shader: xv.ShaderFlag.testXDepth,
+					// shader: xv.ShaderFlag.finalOutline,
 					debug: false
 				}
 			  } );
