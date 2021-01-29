@@ -18,14 +18,16 @@
 					ratio: 1.5,
 				},
 				light:{
-					intensity: 0.8,
+					intensity: 0.6,
 					skyColor: 0x000000,
 					position: [-100, 100, 56] },
 				finalQuad: {
-					ssao: { radius: 8,
-							intense: 2,
-							depthLOD: 8,
-							debug: 0.3 },
+					ssao: { radius: 2,
+							intense: 0.04,
+							lodMagnitude: .0,
+							lod: 4.0, epsilon: 0.01,
+							// stop or enable ssao - when using testXDepth, as alpha of writing to outbufer
+							debug: 0.2 },
 					// shader: xv.ShaderFlag.testXDepth,
 					shader: xv.ShaderFlag.finalOutline,
 					debug: false
@@ -58,6 +60,7 @@
 				shader: xv.ShaderFlag.envMap,
 				paras: {
 					envMap: 'sky',
+  					whiteAlpha: 1,
 					envExposure: .6,   // > 0,  = 1 will keep original
 					ssao: 1.
 				},
@@ -73,7 +76,8 @@
 		Visual:{vtype: xv.AssetType.mesh,
 				shader: xv.ShaderFlag.colorArray,
 				paras: {
-					ssao: 1.
+					ssao: 1.,
+  					u_tex: [asset],
 				},
 				asset},
 	  },
