@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Test - Post Filtering &mdash; x-visual 0.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-memo/index.html">Design Memo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Test - Post Filtering</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="test-post-filtering">
+<span id="test-filter"></span><h1>Test - Post Filtering<a class="headerlink" href="#test-post-filtering" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tone-hdr">
+<h2>Tone &amp; HDR<a class="headerlink" href="#tone-hdr" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="blooming">
+<h2>Blooming<a class="headerlink" href="#blooming" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="bokeh">
+<h2>Bokeh<a class="headerlink" href="#bokeh" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="ssao">
+<span id="test-filter-ssao"></span><h2>SSAO<a class="headerlink" href="#ssao" title="Permalink to this headline">¶</a></h2>
+<p>X-visual use a cheap way for SSAO, based on MIP map of depth buffer.</p>
+<p>filter:</p>
+<div class="highlight-python"><div class="highlight"><pre>filters.ssao: paras =&gt; glsl-string
+</pre></div>
+</div>
+<p>Shaders with <em>f_DepthBokeh</em> flag can support SSAO. In version 0.3.74, these shaders
+are:</p>
+<div class="highlight-python"><div class="highlight"><pre>colorArray: 6 | f_LIGHTENED | f_DepthBokeh,
+texPrism: 12 | f_LIGHTENED | f_DepthBokeh,
+boxLayers: 15 | f_LIGHTENED | f_DepthBokeh,
+cubeTex: 16 | f_LIGHTENED | f_DepthBokeh,
+reflectex: 17 | f_LIGHTENED | f_DepthBokeh,
+texEnv: 18 | f_LIGHTENED | f_DepthBokeh,
+envCubeMap: 43 | f_LIGHTENED | f_DepthBokeh,
+envMap: 44 | f_LIGHTENED | f_DepthBokeh,
+</pre></div>
+</div>
+<p>For latest shader supporting SSAO, see <em>Visual</em> component
+<a class="reference external" href="https://github.com/odys-z/x-visual/blob/master/lib/component/visual.js">source</a>
+&amp; <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XComponent.Visual.html">API doc</a>.</p>
+<p>Test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">test</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">ecs</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">ssao</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>Visaul explained:</p>
+<p>This test page using a filter debugging shader showing SSAO color in enhanced
+green color. To show the real SSAO effect, disable
+<a class="reference external" href="https://github.com/odys-z/x-visual/blob/ae176d5fc095d2c7c0e1c8fd147ae949f2e54974/lib/xutils/shaders/testxfrag.glsl.js#L105">xv.ShaderFlag.finalOutline</a>
+in ssao.html:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kr">const</span> <span class="nx">xworld</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">XWorld</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;canv&#39;</span><span class="p">),</span>
+      <span class="nb">window</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">canvasize</span><span class="o">:</span> <span class="p">[</span><span class="mi">600</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span>
+        <span class="nx">camera</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">far</span><span class="o">:</span> <span class="mi">1200</span><span class="p">,</span>
+            <span class="nx">ratio</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nx">light</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">intensity</span><span class="o">:</span> <span class="mf">0.8</span><span class="p">,</span>
+            <span class="nx">skyColor</span><span class="o">:</span> <span class="mh">0x000000</span><span class="p">,</span>
+            <span class="nx">position</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">56</span><span class="p">]</span> <span class="p">},</span>
+        <span class="nx">finalQuad</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">ssao</span><span class="o">:</span> <span class="p">{</span> <span class="nx">radius</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="nx">intense</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="nx">debug</span><span class="o">:</span> <span class="mf">0.3</span> <span class="p">},</span>
+            <span class="nx">shader</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">ShaderFlag</span><span class="p">.</span><span class="nx">finalOutline</span><span class="p">,</span>
+            <span class="nx">debug</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">}</span> <span class="p">}</span> <span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>finalQuad.ssao:
+    radius:  the sample distance on screen to find SSAO area;
+    intense: scale SSAO color;
+    lod:     depth texture LOD for SSAO detecting;
+    epsilon: min and max scale for finding distance range to rendering SSAO
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z.github.io.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
