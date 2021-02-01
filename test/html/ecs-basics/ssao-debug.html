@@ -8,7 +8,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas><br>
-  <p><a href='ssao-debug.html'>Debug Mode</a></p>
+  <p><a href='ssao.html'>Normal Mode</a></p>
   <script>
 	"use strict";
 
@@ -25,10 +25,12 @@
 				finalQuad: {
 					ssao: { radius: 2,
 							intense: 0.04,
-							lodMagnitude: .0,	// only for debug mode
+							lodMagnitude: .0,
 							lod: 4.0, epsilon: 0.01,
 							// stop or enable ssao - when using testXDepth, as alpha of writing to outbufer
-							debug: 0.0 },
+							debug: 0.2 },
+					// shader: xv.ShaderFlag.testXDepth,
+					shader: xv.ShaderFlag.finalOutline,
 					debug: false
 				}
 			  } );
