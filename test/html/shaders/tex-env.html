@@ -57,7 +57,7 @@
 					// finalQuad: {debug: true}, // have filter & final quad show something
 					shadow: { bias: 0.0 },
 					camera: { far: 4000,
-							  bokeh: 1.0,
+							  bokeh: 0.0,
 							  showFocus: true    // debug bokeh
 						},
 					light:  { position,
@@ -94,15 +94,15 @@
 			shader: xv.ShaderFlag.texEnv,
 			paras: {
 				shininess: 80,
-				whiteAlphas: [.9, 0.4], // roof, side reflection, 0~1, default 0.5
+				whiteAlphas: [.5, 0.0], // roof, side reflection, 0~1, default 0.5
 
 				envMap: 'sky',
 				envExposure: 0.2,   // > 0,  = 1 will keep original
 
-				lod: [0.6, 0.2],	// base, lateral
+				lod: [2.6, 0.2],	// base, lateral
 				uvScale: [3, 1],    // only for side uv
 				texScale: 100,
-				u_texbump: [0.05, 0.4],
+				u_texbump: [2.5, 3.4],
 				u_tex: [
 					'../../assets/tex/bricks.jpg',
 					'../../assets/tex/wood.png',
