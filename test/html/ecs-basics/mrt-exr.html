@@ -22,7 +22,6 @@
 				window,
 				{ canvasize: [512, 256],
 				  light:{ skyColor: 0xffffff },
-				  // control: xv.CameraType.Orbitctrl,
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
@@ -46,6 +45,7 @@
 				paras: {
 					whiteAlpha: 0.3,
 					envMap: 'sky',
+					envExposure: 1.0,   // > 0,  = 1 will keep original
 					// lod of cube texture, [refract, reflect], >= 0
 					lod: [0.8, 0],
 				},
