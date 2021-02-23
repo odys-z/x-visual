@@ -1,1 +1,7 @@
 git diff --name-only --diff-filter=U
+
+# Basic authentication using a password to Git is deprecated and will soon no longer work.
+# https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git#next-steps-authenticating-with-github-from-git
+#
+# Set the cache to timeout after 1 hour (setting is in seconds)
+# $ git config --global credential.helper 'cache --timeout=3600'

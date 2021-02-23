@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MIP &amp; Noisy by Texture &mdash; x-visual 0.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.4 documentation" href="../../index.html"/>
+        <link rel="up" title="Shader Samples" href="index.html"/>
+        <link rel="next" title="Ripples" href="ripple.html"/>
+        <link rel="prev" title="Shadertoy Flame" href="flame.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests/index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ecs.html">ECS Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../renderer/index.html">Renderer &amp; Light</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visual.html">Visual &amp; Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../geometry.html">Geometry Handling</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shader Samples</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fresnel.html">Fresnel Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="volumetric.html">Morphing Volumetric Shaders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">MIP &amp; Noisy by Texture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ripple.html">Ripples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../extensions/index.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../debug.html">Debug Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Design Memo</a> &raquo;</li>
+      
+          <li><a href="index.html">Shader Samples</a> &raquo;</li>
+      
+    <li>MIP &amp; Noisy by Texture</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mip-noisy-by-texture">
+<h1>MIP &amp; Noisy by Texture<a class="headerlink" href="#mip-noisy-by-texture" title="Permalink to this headline">¶</a></h1>
+<p>Reference:</p>
+<p><a class="reference external" href="https://www.shadertoy.com/view/ldSBWW">Rain drops on screen</a></p>
+<p>A modified version:</p>
+<div class="highlight-glsl"><div class="highlight"><pre><span class="c1">// Author: Élie Michel</span>
+<span class="c1">// License: CC BY 3.0</span>
+<span class="c1">// July 2017</span>
+
+<span class="k">void</span> <span class="n">mainImage</span><span class="p">(</span> <span class="k">out</span> <span class="k">vec4</span> <span class="n">f</span><span class="p">,</span> <span class="k">in</span> <span class="k">vec2</span> <span class="n">c</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">vec2</span> <span class="n">u</span> <span class="o">=</span> <span class="n">c</span> <span class="o">/</span> <span class="n">iResolution</span><span class="p">.</span><span class="n">xy</span><span class="p">,</span>
+         <span class="n">n</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span><span class="n">iChannel1</span><span class="p">,</span> <span class="n">u</span> <span class="o">*</span> <span class="mf">.1</span><span class="p">).</span><span class="n">rg</span><span class="p">;</span>  <span class="c1">// Displacement</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">textureLod</span><span class="p">(</span><span class="n">iChannel0</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="mf">5.5</span> <span class="o">*</span> <span class="n">length</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">);</span>
+    <span class="c1">// ody: LOD can be controlled</span>
+
+    <span class="c1">// Loop through the different inverse sizes of drops</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">float</span> <span class="n">r</span> <span class="o">=</span> <span class="mf">4.</span> <span class="p">;</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mf">0.</span> <span class="p">;</span> <span class="n">r</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">vec2</span> <span class="n">x</span> <span class="o">=</span> <span class="n">iResolution</span><span class="p">.</span><span class="n">xy</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="mf">.015</span><span class="p">,</span>  <span class="c1">// Number of potential drops (in a grid)</span>
+             <span class="n">p</span> <span class="o">=</span> <span class="mf">6.28</span> <span class="o">*</span> <span class="n">u</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mf">.5</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.</span><span class="p">,</span>
+             <span class="n">s</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+
+        <span class="c1">// Current drop properties. Coordinates are rounded to ensure a</span>
+        <span class="c1">// consistent value among the fragment of a given drop.</span>
+        <span class="k">vec4</span> <span class="n">d</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span><span class="n">iChannel1</span><span class="p">,</span> <span class="n">round</span><span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">0.25</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span><span class="p">);</span>
+
+        <span class="c1">// Drop shape and fading</span>
+        <span class="k">float</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">x</span><span class="o">+</span><span class="n">s</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">max</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">fract</span><span class="p">(</span><span class="n">iTime</span> <span class="o">*</span> <span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">b</span> <span class="o">+</span> <span class="mf">.1</span><span class="p">)</span> <span class="o">+</span> <span class="n">d</span><span class="p">.</span><span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.</span><span class="p">);;</span>
+
+        <span class="c1">// d.r -&gt; only x% of drops are kept on, with x depending on the size of drops</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">r</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mf">5.</span><span class="o">-</span><span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="mf">.08</span> <span class="o">&amp;&amp;</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mf">.5</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Drop normal</span>
+            <span class="k">vec3</span> <span class="n">v</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="o">-</span><span class="k">vec3</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">mix</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">t</span><span class="o">-</span><span class="mf">.5</span><span class="p">)));</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>  <span class="c1">// show normals</span>
+
+            <span class="c1">// Poor man&#39;s refraction (no visual need to do more)</span>
+            <span class="c1">// ody: but we can have a little using normal</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">texture</span><span class="p">(</span><span class="n">iChannel0</span><span class="p">,</span> <span class="n">u</span> <span class="o">-</span> <span class="n">v</span><span class="p">.</span><span class="n">xy</span> <span class="o">*</span> <span class="mf">.43</span> <span class="o">/</span> <span class="n">length</span><span class="p">(</span><span class="n">f</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ripple.html" class="btn btn-neutral float-right" title="Ripples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="flame.html" class="btn btn-neutral" title="Shadertoy Flame" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z.github.io.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

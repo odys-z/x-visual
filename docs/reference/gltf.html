@@ -98,11 +98,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#lowpoly-city-example">Lowpoly City Example</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#city-scene-gltf-representation">city/scene.gltf representation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#node-example">Node Example</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#three-js-gltfloader">Three.js GLTFLoader</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#three-js-gltfloader">Three.js GLTFLoader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-material-instancing">The Material Instancing</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#the-x-visual-loader">The X-visual Loader</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#exposing-raw-nodes-geometry-buffer">Exposing Raw Nodes/Geometry Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enable-mrt">Enable MRT</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
@@ -110,10 +114,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="svg.html">SVG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shadow.html">A Survey on Shadowing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shadow/index.html">Shadow Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components.html#api-doc-xcomponent">API Doc: XComponent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems.html">Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="three-gems/index.html">Three.js Gems</a></li>
 </ul>
 </li>
 </ul>
@@ -319,8 +323,9 @@ nodes[0].children[0].geometry.attributes[&#39;position&#39;] ==
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="three-js-gltfloader">
-<h3>Three.js GLTFLoader<a class="headerlink" href="#three-js-gltfloader" title="Permalink to this headline">¶</a></h3>
+<h2>Three.js GLTFLoader<a class="headerlink" href="#three-js-gltfloader" title="Permalink to this headline">¶</a></h2>
 <p>The gltf loader processing can be simplify and clarified if with some basic gltf
 knowledge.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">GLTFLoader</span><span class="p">(</span> <span class="nx">manager</span> <span class="p">)</span> <span class="p">{</span>
@@ -439,6 +444,22 @@ etc. been parsed.</p>
 <span class="p">};</span>
 </pre></div>
 </div>
+<div class="section" id="the-material-instancing">
+<h3>The Material Instancing<a class="headerlink" href="#the-material-instancing" title="Permalink to this headline">¶</a></h3>
+<p>Three.js GLTFLoader will create then use a cache for meshes&#8217; material:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">assignFinalMaterial</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">mesh</span> <span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nx">cachedMaterial</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">cachedMaterial</span> <span class="o">=</span> <span class="nx">material</span><span class="p">.</span><span class="nx">isGLTFSpecularGlossinessMaterial</span>
+            <span class="o">?</span> <span class="nx">extensions</span><span class="p">[</span> <span class="nx">EXTENSIONS</span><span class="p">.</span><span class="nx">KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS</span> <span class="p">].</span><span class="nx">cloneMaterial</span><span class="p">(</span> <span class="nx">material</span> <span class="p">)</span>
+            <span class="o">:</span> <span class="nx">material</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This depends on Three.js/Material&#8217;s copy() method, which will ignoring property
+for MRT suport. (GLTFLoader now depends on MRT Suport)</p>
 </div>
 </div>
 <div class="section" id="the-x-visual-loader">
@@ -560,6 +581,20 @@ Which means you can not use it like &#8220;node one&#8221;, it&#8217;s been repl
 </pre></div>
 </div>
 </div>
+<div class="section" id="enable-mrt">
+<h3>Enable MRT<a class="headerlink" href="#enable-mrt" title="Permalink to this headline">¶</a></h3>
+<p>The material (currently only MeshStandardMaterial) is created by default supporting
+MRT.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">GLTFParser</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">loadMaterial</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">materialIndex</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">materialParams</span> <span class="o">=</span> <span class="p">{</span><span class="nx">isMrt</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">glslVersion</span><span class="o">:</span> <span class="nx">GLSL3</span><span class="p">};</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This created MRT material template, with support of Three.js MRTSupport version,
+will be cloned for GLTF nodes&#8217; materail with additional properties, i.e. isMrt &amp;
+glslVersion.</p>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
@@ -614,7 +649,7 @@ Which means you can not use it like &#8220;node one&#8221;, it&#8217;s been repl
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

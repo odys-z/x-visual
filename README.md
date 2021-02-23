@@ -1,3 +1,5 @@
+MRT Support: ![npm](https://img.shields.io/npm/v/x-visual?logo=npm)
+
 # About
 
 X-visual is a lib for data visiualization using [Three.js](https://threejs.org)
@@ -5,9 +7,17 @@ for rendering.
 
 Before v1.0, it's a part of a research project and a prototype of a comercial system used to verify and accumulate any usefull tech.
 
-Currently is focused on report chart implementation.
+## NPM Version
 
-It's also the npm package name.
+Currently there are two main branches:
+
+- **master** with even least minor version number for developing based on WebGL 2.
+
+	E.g, 0.3.52
+
+- **webgl1** with odd least minor version number for legacy function support.
+
+	The latest branch version is 0.3.63.
 
 # Quick Start
 
@@ -83,6 +93,7 @@ Chrome will show the inspect list at
     chrome://inspect
 ```
 
+See also
 [\[1\]](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints)
 [[2](https://blog.andrewray.me/how-to-debug-mocha-tests-with-chrome/)]
 [[3](https://nodejs.org/en/docs/guides/debugging-getting-started/)]
@@ -103,6 +114,15 @@ file access. Try (tested on Ubuntu):
     # add this: google-chrome --allow-file-access-from-files --allow-file-access --allow-cross-origin-auth-prompt
     chmod +x chrome
     ./chrome
+```
+
+Since v0.3.56, some page can not been loaded without issue of CORS plus local files
+loaded from file system, due to the new version of browser's policies.
+
+The testing page can be visited for runing python server at x-visual's root folder:
+
+```
+    python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
 ### Some Other Examples
@@ -132,11 +152,16 @@ All the documents are updating.
 
 [updating: Introduction, Guide & Reference](https://odys-z.github.io/x-visual/)
 
-[API jsdoc](https://odys-z.github.io/x-visual/jsdoc/index.html)
+[API jsdoc](https://odys-z.github.io/javadoc/x-visual/index.html)
 
 # Acknowledgement
 
 ## [Three.js](https://threejs.org)
+
+###### Note
+
+Since v0.3.54, x-visual no longer directly depends on Three.js directly, via npm
+pacakge. It's using a forked and modified version of [Three.js](https://github.com/odys-z/three.js).
 
 ## ECS - Powered by @fritzy/ecs
 

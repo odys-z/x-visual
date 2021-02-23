@@ -13,6 +13,7 @@ Contents:
    basics
    morph
    geom
+   post
    effect
    examples
 

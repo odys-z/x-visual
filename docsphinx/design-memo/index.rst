@@ -4,14 +4,15 @@ Design Memo
 Contents:
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 3
 
    ecs
    view
    assets
    scene
+   renderer/index
    obj3
-   renderer
+   visual
    vparas
    animizer
    affine

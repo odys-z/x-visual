@@ -146,8 +146,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="test-postprocessing">
-<span id="test-effect"></span><h1>Test - Postprocessing<a class="headerlink" href="#test-postprocessing" title="Permalink to this headline">¶</a></h1>
+  <div class="admonition attention" id="test-effect">
+<p class="first admonition-title">Attention</p>
+<p class="last">Postprocessing is no longer supported in master branch after v0.3.70.
+It should still working in the <em>webgl1</em> branch but not tested.</p>
+</div>
+<div class="section" id="test-postprocessing">
+<h1>Test - Postprocessing<a class="headerlink" href="#test-postprocessing" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="cate-occluding-pointgeom">
 <h2>Cate: Occluding (PointGeom)<a class="headerlink" href="#cate-occluding-pointgeom" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="case-flowingpath-occluding">
@@ -257,7 +262,7 @@ on all entities of FlowingPath - part of yellow line&#8217;s post processing is 
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

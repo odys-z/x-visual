@@ -41,7 +41,8 @@
 	var o0 = [-0, 0];
 
 	const xworld = new xv.XWorld(document.getElementById('canv'),
-					  window, {canvasize: [600, 360]});
+					  window, { canvasize: [600, 360],
+					  			light: { intensity: 0.8 } });
 
 	xworld.addEntities([
 	  // { id: 'prism-left',
@@ -89,6 +90,9 @@
 			vtype: xv.AssetType.mesh,
 			shader: xv.XComponent.ShaderFlag.texPrism,
 			paras: {
+				shineColor: [0, 1, 0],
+				shininess: 80,
+
 				side: THREE.FrontSide,
 				uvScale: [6, 2],
 				tile: {
@@ -99,7 +103,7 @@
 					'../../assets/tex/ruler256.png',   // 0: base faces (roof)
 					'../../assets/tex/wood.png',       // 1: lateral faces (wall)
 					'../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
-				whiteAlphas: [0.8, 0.7],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
+				whiteAlphas: [0.8, 0.2],  // texture weights [roof, side], defualt [0.7, 0.9, 0.95]
 				edgeWeight: 0.8,          // layer box weight
 				colors: [[0, 0, 1],       // TODO roof hue
 						 [0, 1, 0],       // TODO lateral face hue
@@ -124,20 +128,23 @@
 			// shader: xv.XComponent.ShaderFlag.texPrism,
 			shader: xv.XComponent.ShaderFlag.boxLayers,
 			paras: {
+				shininess: 80,
+				whiteAlpha: 0.2,
+
 				// prism
-				color: [0.4, 0.6, 0.4, 0.7],
+				color: [0.0, 0.6, 0.0, 0.7],
 				edgeWeight: 24,
 
 				side: THREE.FrontSide,
 				// uvScale: [6, 2],
 				xztile: {
 					box: [0, 0],  // GeoPrism has extra box size for each cube
-					tiles: [2, 2],
+					tiles: [8, 8],
 					change: false,
 					layers: 1 },
 
 				// geojson geometry handling
-				// configuration similar with Obj3Type.Hexatile
+				// configuration are similar with Obj3Type.Hexatile
 				features: json0.features,
 				origin: o0,
 				geostyle: {
@@ -154,24 +161,24 @@
 		},
 		CmpTweens: {}
 	  },
-	  // { id: 'box',
-		// Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-		// 		transform: [ {translate: [0, 80, 0]} ],
-		// 		box: [80, 20, 120] },
-		// Visual:{
-		// 	vtype: xv.AssetType.mesh,
-		// 	shader: xv.XComponent.ShaderFlag.texPrism,
-		// 	paras: {
-		// 		side: THREE.FrontSide,
-		// 		tile: {
-		// 			change: true,
-		// 			layers: 5 },
-		// 		u_tex: [
-		// 			'../../assets/tex/wood.png',    // 0: lateral faces (wall)
-		// 			'../../assets/tex/ruler256.png',  // 1: base faces (root)
-		// 			'../../assets/tex/byr0.png'],     // 2: optional, layer faces (floor)
-      //   } }
-	  // }
+	  { id: 'box',
+		Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				transform: [ {translate: [0, 80, 0]} ],
+				box: [80, 20, 120] },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.XComponent.ShaderFlag.texPrism,
+			paras: {
+				side: THREE.FrontSide,
+				tile: {
+					change: true,
+					layers: 5 },
+				u_tex: [
+					'../../assets/tex/wood.png',    // 0: lateral faces (wall)
+					'../../assets/tex/ruler256.png',  // 1: base faces (root)
+					'../../assets/tex/byr0.png'],     // 2: optional, layer faces (floor)
+        } }
+	  }
 	] );
 
 	xworld.startUpdate();

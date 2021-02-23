@@ -14,6 +14,7 @@
   "dependencies": {},
   "devDependencies": {
     "babel-plugin-wildcard": "^5.0.0",
+    "ini": "^2.0.0",
     "three-orbitcontrols": "^2.110.3",
     "x-visual": "^0.3.36"
   }

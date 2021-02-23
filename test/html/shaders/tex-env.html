@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest - Texture of Prism</title>
+	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <br><img src='../assets/tex/piz_compressed.jpg' style="width: 298px"/>
+  <img src='../assets/tex/sky-blue.jpg' style="width: 298px"/>
+  <p>Test ShaderFlag.texEnv &amp; Obj3Type.GeoPrism<br>
+	roughness: lod[top, side], environment exposure: envExposure {float}<br>
+	envMap: referenced entity-id, whiteAlpha: [top, side] weight of env light<br>
+	u_texbump: texture bumpiness, u_tex: [top, side, reserved] texture path / url
+  </p>
+  <p>About Light Position: light position is rendered with a wireframe object,
+	  but the light is actually directional light, with flare location projected
+	  from infinity far.</p>
+  <p>Xworld's options.shadow.debug = true can make shadow depth visible.</p>
+  <p>See console for geojson data.</p>
+  <p><a href='https://freestocktextures.com/texture/brick-renovated-closeup,740.html'>
+	  Brick Texture Copyright © 2009-2020 FreeStockTextures.com</p>
+  <script>
+	"use strict";
+
+	var json0 = {
+	  "type": "FeatureCollection",
+	  "features": [
+		{ "type": "Feature", "properties": {"height": 4, "side":"3857 counter clockwise"},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[80, 120], [140, 120], [140, 160], [80, 160]]]
+		  }
+	    },
+		{ "type": "Feature", "properties": {"height": 3, "side":"3857 clockwise"},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-140, 160], [-60, 160], [-60, 120], [-140, 120]]]
+		  }
+	    },
+		{ "type": "Feature", "properties": {"height": 2},
+		  "geometry": {
+			"type": "polygon",
+			"coordinates": [[[-160, 0], [0, -160], [160, 0], [0, 160]]]
+		  }
+		}
+	  ]
+	};
+	// document.getElementById('txt').value = JSON.stringify(json0);
+	var o0 = [-0, 0];
+	const position = [1600, 1600, 1200];
+
+	const xworld = new xv.XWorld(document.getElementById('canv'),
+					window, { canvasize: [600, 360],
+					// finalQuad: {debug: true}, // have filter & final quad show something
+					shadow: { bias: 0.0 },
+					camera: { far: 4000,
+							  bokeh: 0.0,
+							  showFocus: true    // debug bokeh
+						},
+					light:  { position,
+							  skyColor: 0x7777cc,
+							  intensity: 0.8,       // diffuse (texture) intensity
+							  flare: 1.4,	        // if > 0, add lens flare, value = radius_0
+						} });
+
+	xworld.addEntities([
+	  { id: 'light-pos',
+	    Obj3: { geom: xv.Obj3Type.SPHERE,
+				box: [20, 10, 6],
+				transform: [ { translate: position } ] },
+		Visual:{vtype: xv.AssetType.wireframe}
+	  },
+	  { id: 'sky',
+		Obj3: {},
+		Visual:{vtype: xv.AssetType.skyBox,
+				paras: {
+					// u_tex: '../../assets/tex/sky-blue.exr'
+					u_tex: '../../assets/tex/piz_compressed.exr'
+				}
+			}
+	  },
+	  { id: 'prism',
+		Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+				box: [],
+				mesh: {
+					// receiveShadow: true,
+					castShadow: true
+				} },
+		Visual:{
+			vtype: xv.AssetType.mesh,
+			shader: xv.ShaderFlag.texEnv,
+			paras: {
+				shininess: 80,
+				whiteAlphas: [.5, 0.4], // roof, side reflection, 0~1, default 0.5
+
+				envMap: 'sky',
+				envExposure: 0.2,   // > 0,  = 1 will keep original
+
+				lod: [2.6, 0.2],	// base, lateral
+				uvScale: [3, 1],    // only for side uv
+				texScale: 100,
+				u_texbump: [2.5, 3.4],
+				u_tex: [
+					'../../assets/tex/bricks.jpg',
+					'../../assets/tex/wood.png',
+					'../../assets/tex/byr0.png'],
+
+				features: json0.features,
+				origin: o0,
+				geostyle: {
+					height: 25, scale: 1,
+				}
+			} } ,
+		CmpTweens: {}
+	  },
+	] );
+
+	xworld.startUpdate();
+
+	console.log(json0);
+  </script>
+</body>
+</html>

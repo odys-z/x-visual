@@ -34,7 +34,7 @@
   
     <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
         <link rel="up" title="Design Memo" href="index.html"/>
-        <link rel="next" title="Obj3 &amp; Transformation" href="obj3.html"/>
+        <link rel="next" title="Renderer &amp; Light" href="renderer/index.html"/>
         <link rel="prev" title="Assets Loader" href="assets.html"/> 
 
   
@@ -103,8 +103,9 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="renderer/index.html">Renderer &amp; Light</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual.html">Visual &amp; Assets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
@@ -170,7 +171,9 @@ HudGroup and it&#8217;s children.</p>
 how to create main scene objects.</p>
 <div class="section" id="main-scene-light">
 <h3>Main Scene Light<a class="headerlink" href="#main-scene-light" title="Permalink to this headline">¶</a></h3>
-<p>Main scene use a modified Three.js <a class="reference external" href="https://threejs.org/docs/#api/en/lights/HemisphereLight">HemisphereLight</a>.</p>
+<p>Main scene use a modified Three.js <a class="reference external" href="https://threejs.org/docs/index.html#api/en/lights/DirectionalLight">DirectionalLight</a>,
+and the <a class="reference external" href="https://threejs.org/docs/index.html#api/en/lights/shadows/DirectionalLightShadow">DirectionalLightShadow</a>
+is enabled by default.</p>
 <p>The default parameters:</p>
 <div class="highlight-python"><div class="highlight"><pre>skyColor: #xffffbb
 groundColor: #x080820
@@ -178,7 +181,8 @@ intensity: 1.1
 position: [1, 1, 1]
 </pre></div>
 </div>
-<p>To configure it, set parameters via <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/light.html">Lighting#set()</a>.</p>
+<p>To configure it, set options of XWorld constructor; to change light, use
+<a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XMaterials.html#change-light">Lighting#changeLight()</a>.</p>
 <p>X-visual use this singleton parameter globally. When the object using material
 of Three.js, the light effects is exactly the same with examples of Three.js.</p>
 <p>But x-visual use a diffuse light with direction (the light position) and a specular
@@ -193,6 +197,11 @@ with Visual.paras:</p>
     <span class="nx">specular</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html</span><span class="o">/</span><span class="n">ecs</span><span class="o">-</span><span class="n">basics</span><span class="o">/</span><span class="n">light</span><span class="o">.</span><span class="n">html</span>
+<span class="n">html</span><span class="o">/</span><span class="n">shaders</span><span class="o">/</span><span class="n">texprism</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 </div>
@@ -248,7 +257,7 @@ entity id defined in HudGroup&#8217;s entity.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="obj3.html" class="btn btn-neutral float-right" title="Obj3 &amp; Transformation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="renderer/index.html" class="btn btn-neutral float-right" title="Renderer &amp; Light" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="assets.html" class="btn btn-neutral" title="Assets Loader" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -285,7 +294,7 @@ entity id defined in HudGroup&#8217;s entity.</p>
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

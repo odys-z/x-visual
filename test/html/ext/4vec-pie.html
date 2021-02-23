@@ -38,10 +38,10 @@
         const xscene = xworld.xscene;
 
         var d3pie = new xv.chart.D3Pie(ecs,
-			{ stub: 'stub',
-			  xy: [0, 25],   // texture start offset
-			  xworld, chart: json.chart
-			}, json.pie);
+            { stub: 'stub',
+              xy: [0, 25],   // texture start offset
+              xworld, chart: json.chart
+            }, json.pie);
         xworld.addSystem('chart', d3pie);
         xworld.addSystem('test', new TestD3Pie(ecs, {xworld, d3pie}));
         xworld.startUpdate();
