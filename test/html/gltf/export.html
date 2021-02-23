@@ -8,6 +8,7 @@
 <body>
   <canvas id='canv'></canvas>
   <br><input type='button' value='export GLTF' onclick='exportGltf()'></input>
+  <p>TODO: Save DataTexture</p>
   <ul>Credits
 	  <li>Simple Route 66 Low Poly Scene<br>
 		free 3D model by hj7880, <a href='https://www.cgtrader.com/free-3d-models/architectural/other/simple-route-66-low-poly-scene'>
@@ -51,7 +52,7 @@
 
 		initCity(ecs, scene) {
 			if (ecs) {
-				var city = ecs.createEntity({
+				let city = ecs.createEntity({
 					id: 'city',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],
@@ -65,7 +66,7 @@
 							asset: '../../assets/city/scene.gltf'}
 				});
 
-				var rt66 = ecs.createEntity({
+				let rt66 = ecs.createEntity({
 					id: 'rt66',
 					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
 							box: [0, 0, 0],
@@ -78,15 +79,59 @@
 							asset: '../../../../examples/route66/assets/route66.gltf'}
 				});
 
-				var cube = ecs.createEntity({
-				    id: 'cube0',
-				    Obj3: { geom: xv.XComponent.Obj3Type.BOX,
-				            box: [80, 40, 80],
-							transform: [
-								{translate: [120, -2, -100]} ] },
-				    Visual:{vtype: xv.AssetType.mesh,
-							paras: {u_alpha: 0.4}},
-				});
+				// var cube = ecs.createEntity({
+				//     id: 'cube0',
+				//     Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				//             box: [80, 40, 80],
+				// 			transform: [
+				// 				{translate: [120, -2, -100]} ] },
+				//     Visual:{vtype: xv.AssetType.mesh,
+				// 			paras: {u_alpha: 0.4}},
+				// });
+
+			    xworld.addEntities([
+				  { id: 'sky',
+					Obj3:  { },
+					Visual:{vtype: xv.AssetType.skyBox,
+							paras: {
+								// u_tex: '../../assets/tex/sky-blue.jpg',
+								u_tex: '../../assets/tex/sky-blue.exr',
+							}
+						}
+				  },
+				  {
+					id: 'texprism-1',
+			        Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+			                transform: [ {translate: [-120, -30, -0]} ],
+			                mesh: { castShadow: true,
+			                        receiveShadow: true },
+			                box: [] },
+			        Visual:{
+			            vtype: xv.AssetType.mesh,
+			            shader: xv.XComponent.ShaderFlag.texEnv,
+			            paras: {
+			                whiteAlphas: [.5, 0.3], // roof, side reflection, 0~1, default 0.5
+			                envMap: 'sky',
+			                // lod of cube texture, [refract, reflect], >= 0
+			                lod: [2, 2],            // reflect LOD of [base, lateral]
+			                envExposure: .2,       // > 0,  = 1 will keep original, only for EXR
+
+			                uvScale: [5, 1],
+							texScale: 42,
+			                u_texbump: [0.25, 0.25], // roof, lateral
+			                u_tex: [
+			                    '../../assets/tex/bricks.jpg',     // 0: base faces (roof)
+			                    '../../assets/tex/wood.png',       // 1: lateral faces (wall)
+			                    '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
+
+			                // geojson geometry
+			                maxVerts: 1024 * 16,
+			                // features: json0.features,
+			                uri: '../data/polygon02.json',
+							origin: [11584957, 3585100],
+			                geostyle: { height: 76, scale: 1.5, }
+			            } } ,
+			      } ]);
 			}
 		}
 	}
@@ -107,7 +152,8 @@
 	document.body.appendChild( link ); // Firefox workaround, see #6594
 
 	function exportGltf() {
-		const gltfExporter = new GLTFExporter();
+		// const gltfExporter = new GLTFExporter();
+		const gltfExporter = xv.AssetKeepr.exportGltf();
 
 		const options = {
 			trs: undefined,
@@ -116,11 +162,11 @@
 			binary: false,
 			maxTextureSize: 1024 * 64
 		};
-		gltfExporter.parse( input, function ( result ) {
+		gltfExporter.parse( xworld.xscene, function ( result ) {
 
 			if ( result instanceof ArrayBuffer ) {
 				// saveArrayBuffer( result, 'scene.glb' );
-				let blob = new Blob([ buffer ], { type: 'application/octet-stream'});
+				let blob = new Blob([ result ], { type: 'application/octet-stream'});
 				link.href = URL.createObjectURL( blob );
 				link.download = 'scene.glb';
 				link.click();
