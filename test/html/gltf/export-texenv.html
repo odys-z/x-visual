@@ -7,7 +7,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <br><input type='button' value='export GLTF' onclick='exportGltf()'></input>
+  <br><input type='button' value='export GLTF' onclick='xworld.xport({filename: "sync.gltf"})'></input>
   <p>TODO: Save DataTexture</p>
   <a href='export.html'>Build Geo-prism Asynchronously</a>
   <ul>Credits
@@ -35,12 +35,6 @@
 			"coordinates": [[[80, 120], [140, 120], [140, 160], [80, 160]]]
 		  }
 	    },
-		// { "type": "Feature", "properties": {"height": 3, "side":"3857 clockwise"},
-		//   "geometry": {
-		// 	"type": "polygon",
-		// 	"coordinates": [[[-140, 160], [-60, 160], [-60, 120], [-140, 120]]]
-		//   }
-	    // },
 		{ "type": "Feature", "properties": {"height": 2},
 		  "geometry": {
 			"type": "polygon",
@@ -124,37 +118,6 @@
 	link.style.display = 'none';
 	document.body.appendChild( link ); // Firefox workaround, see #6594
 
-	function exportGltf() {
-		// const gltfExporter = new GLTFExporter();
-		const gltfExporter = xv.AssetKeepr.exportGltf();
-
-		const options = {
-			trs: undefined,
-			onlyVisible: false,
-			truncateDrawRange: false,
-			binary: false,
-			maxTextureSize: 1024 * 64
-		};
-		gltfExporter.parse( xworld.xscene, function ( result ) {
-
-			if ( result instanceof ArrayBuffer ) {
-				// saveArrayBuffer( result, 'scene.glb' );
-				let blob = new Blob([ result ], { type: 'application/octet-stream'});
-				link.href = URL.createObjectURL( blob );
-				link.download = 'scene.glb';
-				link.click();
-			} else {
-				const output = JSON.stringify( result, null, 2 );
-				// console.log( output );
-				// saveString( output, 'scene.gltf' );
-				let blob = new Blob([ output ], { type: 'text/plain'});
-				link.href = URL.createObjectURL( blob );
-				link.download = 'scene.gltf';
-				link.click();
-			}
-		}, options );
-
-	}
   </script>
 </body>
 </html>

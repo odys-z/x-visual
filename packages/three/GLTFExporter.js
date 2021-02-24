@@ -1,3 +1,7 @@
+/**source:
+ * https://github.com/mrdoob/three.js/blob/master/examples/jsm/exporters/GLTFExporter.js
+ * LICENSE: <a href='https://github.com/mrdoob/three.js/blob/dev/LICENSE'>MIT</a>
+ */
 import {
 	BufferAttribute,
 	BufferGeometry,
