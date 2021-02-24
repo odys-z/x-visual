@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>XTest-GLTF xporter</title>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
+</head>
+<body>
+  <canvas id='canv'></canvas>
+  <br><input type='button' value='export GLTF' onclick='exportGltf()'></input>
+  <p>TODO: Save DataTexture</p>
+  <a href='export-texenv.html'>Build Geo-prism Synchronously</a>
+  <ul>Credits
+	  <li>Simple Route 66 Low Poly Scene<br>
+		free 3D model by hj7880, <a href='https://www.cgtrader.com/free-3d-models/architectural/other/simple-route-66-low-poly-scene'>
+		download @ CGTrader</a>, licensed under *Royalty Free License*. </li>
+	  <li>Low Poly City<br>
+		Referenced by <a href='https://threejsfundamentals.org/threejs/lessons/threejs-load-gltf.html'>
+			Three.js tutorial: Three.js Loading a .GLTF File</a><br>
+		Download: <a href='https://threejsfundamentals.org/threejs/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf'>
+			scene.gltf @ threejsfundamentals</a> and together with referenced
+			resources like scene.bin and textures/*.png,<br>
+			or from <a href='https://sketchfab.com/3d-models/cartoon-lowpoly-small-city-free-pack-edd1c604e1e045a0a2a552ddd9a293e6'>
+			low poly city @ sketchfab</a></li>
+  </ul>
+  <script>
+	"use strict";
+
+	var log = true;
+	class Citysys extends xv.XSys {
+		constructor(ecs, options) {
+			super(ecs);
+			this.ecs = ecs;
+			this.initCity(ecs, options.xscene);
+		}
+
+		update(tick, entities) {
+			if (log) {
+				log = false;
+				console.log('city-sys');
+			}
+			if (xworld.xview.flag > 0
+				&& xworld.xview.cmds[0].code === 'key') {
+				var c = xworld.xview.cmds[0];
+		    	for (const e of entities) {
+					if (c.cmd === 'fire' && e.id === 'greate-points') {
+						xv.XTweener.startSeq(e.CmpTweens, 0);
+						break;
+					}
+				}
+			}
+		}
+
+		initCity(ecs, scene) {
+			if (ecs) {
+				// let city = ecs.createEntity({
+				// 	id: 'city',
+				// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+				// 			box: [0, 0, 0],
+				// 			transform: [
+				// 				// for route66: {scale: [31, 31, 31]},
+				// 				{scale: [0.1, 0.1, 0.1]},
+				// 				{translate: [0, 10, 0]},
+				// 			],
+				// 			mesh: undefined },		// Thrender will handle this
+				// 	Visual: {vtype: xv.AssetType.gltf,
+				// 			asset: '../../assets/city/scene.gltf'}
+				// });
+				//
+				// let rt66 = ecs.createEntity({
+				// 	id: 'rt66',
+				// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+				// 			box: [0, 0, 0],
+				// 			transform: [
+				// 				{scale: [8, 8, 8]},
+				// 				{translate: [120, -20, -100]},
+				// 			],
+				// 			mesh: undefined },
+				// 	Visual: {vtype: xv.AssetType.gltf,
+				// 			asset: '../../../../examples/route66/assets/route66.gltf'}
+				// });
+
+				// FIXME DataTexture not appliable to GLTF
+				// var cube = ecs.createEntity({
+				//     id: 'cube0',
+				//     Obj3: { geom: xv.XComponent.Obj3Type.BOX,
+				//             box: [80, 40, 80],
+				// 			transform: [
+				// 				{translate: [120, -2, -100]} ] },
+				//     Visual:{vtype: xv.AssetType.mesh,
+				// 			paras: {u_alpha: 0.4}},
+				// });
+
+			    xworld.addEntities([
+				  { id: 'sky',
+					Obj3:  { },
+					Visual:{vtype: xv.AssetType.skyBox,
+							paras: {
+								// u_tex: '../../assets/tex/sky-blue.jpg',
+								u_tex: '../../assets/tex/sky-blue.exr',
+							}
+						}
+				  },
+				  {
+					id: 'texprism-1',
+			        Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
+			                transform: [ {translate: [-120, -30, -0]} ],
+			                mesh: { castShadow: true,
+			                        receiveShadow: true },
+			                box: [] },
+			        Visual:{
+			            vtype: xv.AssetType.mesh,
+			            shader: xv.XComponent.ShaderFlag.texEnv,
+			            paras: {
+			                whiteAlphas: [.5, 0.3], // roof, side reflection, 0~1, default 0.5
+			                envMap: 'sky',
+			                // lod of cube texture, [refract, reflect], >= 0
+			                lod: [2, 2],            // reflect LOD of [base, lateral]
+			                envExposure: .2,       // > 0,  = 1 will keep original, only for EXR
+
+			                uvScale: [5, 1],
+							texScale: 42,
+			                u_texbump: [0.25, 0.25], // roof, lateral
+			                u_tex: [
+			                    '../../assets/tex/bricks.jpg',     // 0: base faces (roof)
+			                    '../../assets/tex/wood.png',       // 1: lateral faces (wall)
+			                    '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
+
+			                // geojson geometry
+			                maxVerts: 1024 * 16,
+			                // features: json0.features,
+			                uri: '../data/polygon02.json',
+							origin: [11584957, 3585100],
+			                geostyle: { height: 76, scale: 1.5, }
+			            } } ,
+			      } ]);
+			}
+		}
+	}
+
+	Citysys.query = { any: ['Visual', 'CmdFlag'] };
+
+	const xworld = new xv.XWorld(document.getElementById('canv'), window, {});
+	const ecs = xworld.xecs;
+	const xscene = xworld.xscene;
+
+	xworld.addSystem('test', new Citysys(ecs, {xscene}));
+
+	xworld.startUpdate();
+
+	// download gltf
+	const link = document.createElement( 'a' );
+	link.style.display = 'none';
+	document.body.appendChild( link ); // Firefox workaround, see #6594
+
+	function exportGltf() {
+		// const gltfExporter = new GLTFExporter();
+		const gltfExporter = xv.AssetKeepr.exportGltf();
+
+		const options = {
+			trs: undefined,
+			onlyVisible: false,
+			truncateDrawRange: false,
+			binary: false,
+			maxTextureSize: 1024 * 64
+		};
+		gltfExporter.parse( xworld.xscene, function ( result ) {
+
+			if ( result instanceof ArrayBuffer ) {
+				// saveArrayBuffer( result, 'scene.glb' );
+				let blob = new Blob([ result ], { type: 'application/octet-stream'});
+				link.href = URL.createObjectURL( blob );
+				link.download = 'scene.glb';
+				link.click();
+			} else {
+				const output = JSON.stringify( result, null, 2 );
+				// console.log( output );
+				// saveString( output, 'scene.gltf' );
+				let blob = new Blob([ output ], { type: 'text/plain'});
+				link.href = URL.createObjectURL( blob );
+				link.download = 'scene.gltf';
+				link.click();
+			}
+		}, options );
+
+	}
+  </script>
+</body>
+</html>
