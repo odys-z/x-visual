@@ -109,6 +109,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#enable-mrt">Enable MRT</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#exporting-gltf">Exporting GLTF</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
@@ -594,6 +595,21 @@ MRT.</p>
 <p>This created MRT material template, with support of Three.js MRTSupport version,
 will be cloned for GLTF nodes&#8217; materail with additional properties, i.e. isMrt &amp;
 glslVersion.</p>
+</div>
+</div>
+<div class="section" id="exporting-gltf">
+<h2>Exporting GLTF<a class="headerlink" href="#exporting-gltf" title="Permalink to this headline">¶</a></h2>
+<p>X-visual created object in scene are intended to be exportable by Three.js GLTFExporter.</p>
+<p>In v0.3.80, geo-objects created according to geo-json can be partly exported. (
+The texture and uv is still to be done.)</p>
+<p>Test:</p>
+<div class="highlight-python"><div class="highlight"><pre>Asynchronous: test/html/gltf/export.html
+Synchronous : test/html/gltf/export-texenv.html
+</pre></div>
+</div>
+<p>API:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">AssetKeepr</span><span class="o">.</span><span class="n">exportGltf</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="references">
