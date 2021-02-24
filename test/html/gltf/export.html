@@ -7,7 +7,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <br><input type='button' value='export GLTF' onclick='exportGltf()'></input>
+  <br><input type='button' value='export GLTF' onclick='xworld.xport({filename: "async.glb"})'></input>
   <p>TODO: Save DataTexture</p>
   <a href='export-texenv.html'>Build Geo-prism Synchronously</a>
   <ul>Credits
@@ -149,41 +149,25 @@
 	xworld.startUpdate();
 
 	// download gltf
-	const link = document.createElement( 'a' );
-	link.style.display = 'none';
-	document.body.appendChild( link ); // Firefox workaround, see #6594
+	// const link = document.createElement( 'a' );
+	// link.style.display = 'none';
+	// document.body.appendChild( link ); // Firefox workaround, see #6594
 
-	function exportGltf() {
-		// const gltfExporter = new GLTFExporter();
-		const gltfExporter = xv.AssetKeepr.exportGltf();
+	// function saveAs(result) {
+	// 	if ( result instanceof ArrayBuffer ) {
+	// 		let blob = new Blob([ result ], { type: 'application/octet-stream'});
+	// 		link.href = URL.createObjectURL( blob );
+	// 		link.download = 'scene.glb';
+	// 		link.click();
+	// 	} else {
+	// 		const output = JSON.stringify( result, null, 2 );
+	// 		let blob = new Blob([ output ], { type: 'text/plain'});
+	// 		link.href = URL.createObjectURL( blob );
+	// 		link.download = 'scene.gltf';
+	// 		link.click();
+	// 	}
+	// }
 
-		const options = {
-			trs: undefined,
-			onlyVisible: false,
-			truncateDrawRange: false,
-			binary: false,
-			maxTextureSize: 1024 * 64
-		};
-		gltfExporter.parse( xworld.xscene, function ( result ) {
-
-			if ( result instanceof ArrayBuffer ) {
-				// saveArrayBuffer( result, 'scene.glb' );
-				let blob = new Blob([ result ], { type: 'application/octet-stream'});
-				link.href = URL.createObjectURL( blob );
-				link.download = 'scene.glb';
-				link.click();
-			} else {
-				const output = JSON.stringify( result, null, 2 );
-				// console.log( output );
-				// saveString( output, 'scene.gltf' );
-				let blob = new Blob([ output ], { type: 'text/plain'});
-				link.href = URL.createObjectURL( blob );
-				link.download = 'scene.gltf';
-				link.click();
-			}
-		}, options );
-
-	}
   </script>
 </body>
 </html>
