@@ -488,6 +488,23 @@ This created MRT material template, with support of Three.js MRTSupport version,
 will be cloned for GLTF nodes' materail with additional properties, i.e. isMrt &
 glslVersion.
 
+Exporting GLTF
+--------------
+
+X-visual created object in scene are intended to be exportable by Three.js GLTFExporter.
+
+In v0.3.80, geo-objects created according to geo-json can be partly exported. (
+The texture and uv is still to be done.)
+
+Test::
+
+    Asynchronous: test/html/gltf/export.html
+    Synchronous : test/html/gltf/export-texenv.html
+
+API::
+
+    xv.AssetKeepr.exportGltf()
+
 References
 ----------
 
