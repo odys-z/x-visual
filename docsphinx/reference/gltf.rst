@@ -503,7 +503,7 @@ Test::
 
 API::
 
-    xv.AssetKeepr.exportGltf()
+    xworld.xport('filename.glb'); // or *.gltf
 
 References
 ----------
