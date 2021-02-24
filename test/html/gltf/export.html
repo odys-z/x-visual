@@ -7,7 +7,7 @@
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <br><input type='button' value='export GLTF' onclick='xworld.xport({filename: "async.glb"})'></input>
+  <br><input type='button' value='export GLB' onclick='xworld.xport({filename: "async.glb"})'></input>
   <p>TODO: Save DataTexture</p>
   <a href='export-texenv.html'>Build Geo-prism Synchronously</a>
   <ul>Credits
@@ -53,32 +53,32 @@
 
 		initCity(ecs, scene) {
 			if (ecs) {
-				// let city = ecs.createEntity({
-				// 	id: 'city',
-				// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-				// 			box: [0, 0, 0],
-				// 			transform: [
-				// 				// for route66: {scale: [31, 31, 31]},
-				// 				{scale: [0.1, 0.1, 0.1]},
-				// 				{translate: [0, 10, 0]},
-				// 			],
-				// 			mesh: undefined },		// Thrender will handle this
-				// 	Visual: {vtype: xv.AssetType.gltf,
-				// 			asset: '../../assets/city/scene.gltf'}
-				// });
-				//
-				// let rt66 = ecs.createEntity({
-				// 	id: 'rt66',
-				// 	Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
-				// 			box: [0, 0, 0],
-				// 			transform: [
-				// 				{scale: [8, 8, 8]},
-				// 				{translate: [120, -20, -100]},
-				// 			],
-				// 			mesh: undefined },
-				// 	Visual: {vtype: xv.AssetType.gltf,
-				// 			asset: '../../../../examples/route66/assets/route66.gltf'}
-				// });
+				let city = ecs.createEntity({
+					id: 'city',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],
+							transform: [
+								// for route66: {scale: [31, 31, 31]},
+								{scale: [0.1, 0.1, 0.1]},
+								{translate: [0, 10, 0]},
+							],
+							mesh: undefined },		// Thrender will handle this
+					Visual: {vtype: xv.AssetType.gltf,
+							asset: '../../assets/city/scene.gltf'}
+				});
+
+				let rt66 = ecs.createEntity({
+					id: 'rt66',
+					Obj3: { geom: xv.XComponent.Obj3Type.USER,	// not used
+							box: [0, 0, 0],
+							transform: [
+								{scale: [8, 8, 8]},
+								{translate: [120, -20, -100]},
+							],
+							mesh: undefined },
+					Visual: {vtype: xv.AssetType.gltf,
+							asset: '../../../../examples/route66/assets/route66.gltf'}
+				});
 
 				// FIXME DataTexture not appliable to GLTF
 				// var cube = ecs.createEntity({
@@ -104,7 +104,7 @@
 				  {
 					id: 'texprism-1',
 			        Obj3: { geom: xv.XComponent.Obj3Type.GeoPrism,
-			                transform: [ {translate: [-120, -30, -0]} ],
+			                transform: [ {translate: [-120, -10, -240]} ],
 			                mesh: { castShadow: true,
 			                        receiveShadow: true },
 			                box: [] },
@@ -112,7 +112,7 @@
 			            vtype: xv.AssetType.mesh,
 			            shader: xv.XComponent.ShaderFlag.texEnv,
 			            paras: {
-			                whiteAlphas: [.5, 0.3], // roof, side reflection, 0~1, default 0.5
+			                whiteAlphas: [.6, 0.7], // roof, side reflection, 0~1, default 0.5
 			                envMap: 'sky',
 			                // lod of cube texture, [refract, reflect], >= 0
 			                lod: [2, 2],            // reflect LOD of [base, lateral]
@@ -123,7 +123,7 @@
 			                u_texbump: [0.25, 0.25], // roof, lateral
 			                u_tex: [
 			                    '../../assets/tex/bricks.jpg',     // 0: base faces (roof)
-			                    '../../assets/tex/wood.png',       // 1: lateral faces (wall)
+			                    '../../assets/tex/bricks.jpg',       // 1: lateral faces (wall)
 			                    '../../assets/tex/byr0.png'],      // 2: optional, layer faces (floor)
 
 			                // geojson geometry

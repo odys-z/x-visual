@@ -3,12 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-GLTF & HUD</title>
-	<script type='text/javascript' src='../../node_modules/three/build/three.min.js'></script>
-	<script type='text/javascript' src='../../dist/xv-0.3.0.min.js'></script>
+	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
-  <p>Press spacebar to start.</p>
+  <p>Press spacebar to start. Bug!</p>
   <script>
 	"use strict";
 
@@ -44,7 +43,7 @@
 							],
 							mesh: undefined },		// Thrender will handle this
 					Visual:{vtype: xv.AssetType.gltf,
-							asset: 'city/scene.gltf'}// see docs/design-memo/renderer/
+							asset: '../../assets/city/scene.gltf'}// see docs/design-memo/renderer/
 				});
 
 				var hud = ecs.createEntity({
@@ -73,7 +72,7 @@
 					Visual:{vtype: xv.AssetType.gltf,
 							// https://www.cgtrader.com/items/2407021/download-page#
 							// asset: 'cgtrade_2407021_zemlia.glb'},
-							asset: 'earth/cgtrade_2407021_zemlia.gltf'},
+							asset: '../../assets/earth/cgtrade_2407021_zemlia.gltf'},
 					HudChild: { hud: 'hud0' }
 				});
 
@@ -88,7 +87,7 @@
 							],
 							mesh: undefined },
 					Visual:{vtype: xv.AssetType.gltf,
-							asset: 'earth/earth-low.gltf'},
+							asset: '../../assets/earth/earth-low.gltf'},
 					HudChild: { hud: 'hud0' },
 					ModelSeqs: { script: [
 
@@ -118,7 +117,7 @@
 	const xscene = xworld.xscene;
 
 	xworld.addSystem('test', new Citysys(ecs, {xscene}));
-	
+
 	xworld.startUpdate();
 
   </script>
