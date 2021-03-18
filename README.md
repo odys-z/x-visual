@@ -19,7 +19,7 @@ Currently there are two main branch:
 
 - 2. **webgl1** with odd least minor version number for legacy function support.
 
-	E.g, 0.3.53
+	E.g, 0.3.81
 
 # Quick Start
 
