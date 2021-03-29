@@ -54,7 +54,7 @@
     "style-loader": "^1.1.2",
     "three": "^0.110.0",
     "three-orbitcontrols": "^2.110.3",
-    "uuid": "^3.3.3",
+    "uuid": "^3.4.0",
     "webpack-cli": "^3.3.10",
     "webpack-node-externals": "^1.7.2",
     "webpack-shell-plugin": "^0.5.0",
