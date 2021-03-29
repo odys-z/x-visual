@@ -17,7 +17,7 @@ Currently there are two main branches:
 
 - **webgl1** with odd least minor version number for legacy function support.
 
-	The latest branch version is 0.3.63.
+	The latest branch version is 0.3.81.
 
 # Quick Start
 
