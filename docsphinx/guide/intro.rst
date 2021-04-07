@@ -20,7 +20,7 @@ For quick start, see x-visual/examples readme.
 X-visual using webpak. If starting with source, these 2 simple steps should work::
 
     npm in --save-dev
-	webpack
+    webpack
 
 .. _guide-hello-xworld:
 
@@ -45,6 +45,10 @@ repeatedly.
    :linenos:
 
 A cube entity has been defined above, with id, Obj3, Visual components.
+
+X-visual is intended to be a data driven front end, though it's fight hard to be
+a well round 3D renderer engine. A data driven sample project can be found using
+a json web service at `here <https://odys-z.github.io/Anclient/starter/client.html#example-x-visual>`_.
 
 About System
 ____________
