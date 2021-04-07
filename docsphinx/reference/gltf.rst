@@ -184,7 +184,7 @@ The loaded node example (name = 'Tree-1-3')
 
 
 Three.js GLTFLoader
-___________________
+-------------------
 
 The gltf loader processing can be simplify and clarified if with some basic gltf
 knowledge.
@@ -310,6 +310,27 @@ etc. been parsed.
         return dependency;
     };
 ..
+
+The Material Instancing
+_______________________
+
+Three.js GLTFLoader will create then use a cache for meshes' material:
+
+.. code-block:: javascript
+
+    GLTFParser.prototype.assignFinalMaterial = function ( mesh ) {
+
+        if ( ! cachedMaterial ) {
+            cachedMaterial = material.isGLTFSpecularGlossinessMaterial
+                ? extensions[ EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS ].cloneMaterial( material )
+                : material.clone();
+            ...
+        }
+    }
+..
+
+This depends on Three.js/Material's copy() method, which will ignoring property
+for MRT suport. (GLTFLoader now depends on MRT Suport)
 
 .. _xv-gltf-loader:
 
@@ -448,6 +469,41 @@ For promise returning 'ndoes', see :ref:`Parse Promise<parse-promise>`.
             onLoad( result ); // callback reporting results to caller
         };
 ..
+
+Enable MRT
+__________
+
+The material (currently only MeshStandardMaterial) is created by default supporting
+MRT.
+
+.. code-block:: javascript
+
+    GLTFParser.prototype.loadMaterial = function ( materialIndex ) {
+        var materialParams = {isMrt: true, glslVersion: GLSL3};
+        ...
+    }
+..
+
+This created MRT material template, with support of Three.js MRTSupport version,
+will be cloned for GLTF nodes' materail with additional properties, i.e. isMrt &
+glslVersion.
+
+Exporting GLTF
+--------------
+
+X-visual created object in scene are intended to be exportable by Three.js GLTFExporter.
+
+In v0.3.80, geo-objects created according to geo-json can be partly exported. (
+The texture and uv is still to be done.)
+
+Test::
+
+    Asynchronous: test/html/gltf/export.html
+    Synchronous : test/html/gltf/export-texenv.html
+
+API::
+
+    xworld.xport('filename.glb'); // or *.gltf
 
 References
 ----------

@@ -18,9 +18,10 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
 				{ canvasize: [480, 320],
+				  // finalQuad: { debug: true },
 				  light:{ skyColor: 0xffffff },
 				  shadow: {
-					helper: true,
+					// helper: true,
 					// type: THREE.PCFShadowMap,
 					radius: 24,
 					bias: 0.001,
@@ -60,10 +61,10 @@
 				paras: {
 					tile: { change: true,
 							layers: 5 },
-				u_tex: [
-					'data:application/x-visual+img,grey-pixel',
-					'data:application/x-visual+img,grey-pixel',
-					'data:application/x-visual+img,grey-pixel']
+					u_tex: [
+						'data:application/x-visual+img,grey-pixel',
+						'data:application/x-visual+img,grey-pixel',
+						'data:application/x-visual+img,grey-pixel']
 					},
 			}
 	  },

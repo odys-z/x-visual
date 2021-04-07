@@ -11,7 +11,7 @@ ________________________________
 
 html file::
 
-    test/html/morph-model.html
+    test/html/morph/lerp-model.html
     test/html/voxel-morph.html
     test/html/voxel-morph-particles.html
 
@@ -23,7 +23,7 @@ and moving the points while changing the alpha.
 
 A test case for basic morphing scripts.
 
-.. literalinclude:: ../../test/html/morph-model.html
+.. literalinclude:: ../../test/html/morph/lerp-model.html
    :language: javascript
    :lines: 73-115
    :linenos:
@@ -75,7 +75,7 @@ _______________________
 
 html file::
 
-    test/html/morph-model.html
+    test/html/morph/lerp-model.html
 
 This test shows how to update target position and use a animation to move to there.
 

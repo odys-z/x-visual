@@ -92,8 +92,9 @@
 <li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer/index.html">Renderer &amp; Light</a></li>
 <li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual.html">Visual &amp; Assets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Affine Tweening</a><ul>
@@ -285,7 +286,8 @@ previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been 
 31
 32
 33
-34</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="c1">// pinned reference 96-131</span>
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre>    <span class="c1">// pinned reference 96-131</span>
     <span class="cm">/**</span>
 <span class="cm">     * Update affine combination for the object.</span>
 <span class="cm">     *</span>
@@ -319,6 +321,7 @@ previous tween finished (<span class="math">\(m_{i_{f,g}}\)</span> needing been 
 			<span class="p">}</span>
 	        <span class="k">if</span> <span class="p">(</span><span class="nx">cmpTweens</span><span class="p">.</span><span class="nx">mf_buff</span><span class="p">[</span><span class="nx">seqx</span><span class="p">])</span>
 	        	<span class="nx">obj3</span><span class="p">.</span><span class="nx">mi</span><span class="p">.</span><span class="nx">mul</span><span class="p">(</span><span class="nx">cmpTweens</span><span class="p">.</span><span class="nx">mf_buff</span><span class="p">[</span><span class="nx">seqx</span><span class="p">]);</span>
+		<span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -407,7 +410,7 @@ index, making last affine update skipped the iteration.</p>
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

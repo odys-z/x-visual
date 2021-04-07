@@ -92,8 +92,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../renderer/index.html">Renderer &amp; Light</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visual.html">Visual &amp; Assets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
@@ -168,8 +169,8 @@ and Passes. See <a class="reference external" href="https://threejsfundamentals.
 <div class="section" id="x-visual-passes-composer">
 <h2>x-visual Passes &amp; Composer<a class="headerlink" href="#x-visual-passes-composer" title="Permalink to this headline">¶</a></h2>
 <p>Currently x-visual is trying to make these effects can be plugged in orthogonally.</p>
-<div class="section" id="design-pattern-v0-2">
-<h3>Design Pattern v0.2<a class="headerlink" href="#design-pattern-v0-2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="design-pattern-v0-3">
+<h3>Design Pattern v0.3<a class="headerlink" href="#design-pattern-v0-3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Abstratct Base Class: Orthocclude</li>
 </ul>
@@ -205,9 +206,19 @@ and Passes. See <a class="reference external" href="https://threejsfundamentals.
 3. thrender will use final composer rendering scene in update() if it&#39;s triggered
 </pre></div>
 </div>
-<p>[<a class="reference external" href="https://threejs.org/docs/#examples/en/postprocessing/EffectComposer">EffectComposer</a>]
-[<a class="reference external" href="https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js">Pass.js (no docs)</a>]</p>
-<p>TODO docs ...</p>
+<p>Reference</p>
+<p>[1] <a class="reference external" href="https://threejs.org/docs/#examples/en/postprocessing/EffectComposer">EffectComposer</a></p>
+<p>[2] <a class="reference external" href="https://github.com/mrdoob/three.js/blob/dev/examples/jsm/postprocessing/Pass.js">Pass.js (no docs)</a></p>
+</div>
+<div class="section" id="a-notes-on-render-passes">
+<h3>A Notes on Render Passes<a class="headerlink" href="#a-notes-on-render-passes" title="Permalink to this headline">¶</a></h3>
+<p>Once FinalComposer found effect passes, it will use a ShaderMaterial to combine
+effects passed through effectComposers as texture &#8220;texEffects&#8221;.</p>
+<p>See FinalComposer.effects().</p>
+<p>The finalPass.material.uniforms.texEffects must the same as last pass of
+effectComposer&#8217;s writeBuffer.</p>
+<p>To check whether the FinalComposer reads writing target of effect composer - check
+materials&#8217; uuid.</p>
 </div>
 </div>
 </div>
@@ -256,7 +267,7 @@ and Passes. See <a class="reference external" href="https://threejsfundamentals.
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

@@ -92,18 +92,21 @@
 <li class="toctree-l2"><a class="reference internal" href="../view.html">MVC View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assets.html">Assets Loader</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../renderer/index.html">Renderer &amp; Light</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../obj3.html">Obj3 &amp; Transformation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../renderer.html">Visual &amp; Renderers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visual.html">Visual &amp; Assets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../vparas.html">Visual.paras</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../animizer.html">Animizers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../affine.html">Affine Tweening</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../geometry.html">Geometry Handling</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Shader Samples</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="instance.html">Shader Instance Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fresnel.html">Fresnel Implementation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
 <li class="toctree-l3"><a class="reference internal" href="volumetric.html">Morphing Volumetric Shaders</a></li>
 <li class="toctree-l3"><a class="reference internal" href="flame.html">Shadertoy Flame</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mip-noisy.html">MIP &amp; Noisy by Texture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ripple.html">Ripples</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../extensions/index.html">Extensions</a></li>
@@ -166,6 +169,13 @@
 <li class="toctree-l2"><a class="reference internal" href="instance.html#reference">Reference</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="fresnel.html">Fresnel Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fresnel.html#schlick-specular">Schlick Specular</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fresnel.html#schlick-fresnel">Schlick Fresnel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fresnel.html#additional-info">Additional Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fresnel.html#references">References</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="phong.html">Morphing Phong Material</a></li>
 <li class="toctree-l1"><a class="reference internal" href="volumetric.html">Morphing Volumetric Shaders</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="volumetric.html#scalable-orb">Scalable Orb</a></li>
@@ -182,6 +192,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mip-noisy.html">MIP &amp; Noisy by Texture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ripple.html">Ripples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ripple.html#ripple-by-distance-displacement">Ripple by distance displacement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ripple.html#ripple-distortion-by-triangle-functions">Ripple distortion by triangle functions.</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -230,7 +245,7 @@
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  false
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

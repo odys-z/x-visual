@@ -1,0 +1,376 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Visual &amp; Assets &mdash; x-visual 0.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="x-visual 0.4 documentation" href="../index.html"/>
+        <link rel="up" title="Design Memo" href="index.html"/>
+        <link rel="next" title="Visual.paras" href="vparas.html"/>
+        <link rel="prev" title="Obj3 &amp; Transformation" href="obj3.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> x-visual
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/index.html">X-visual Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Tests &amp; Example</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Design Memo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">ECS Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view.html">MVC View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets.html">Assets Loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene &amp; HUD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="renderer/index.html">Renderer &amp; Light</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obj3.html">Obj3 &amp; Transformation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Visual &amp; Assets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#thrender">Thrender</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#visual-vtype-obj3-geom-handling">Visual.vtype &amp; Obj3.geom Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-text">Dynamic Text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gltf-nodes-transform">GLTF Nodes &amp; Transform</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="vparas.html">Visual.paras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="animizer.html">Animizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="affine.html">Affine Tweening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometry Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shaders/index.html">Shader Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extensions/index.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debug.html">Debug Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">x-visual</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Design Memo</a> &raquo;</li>
+      
+    <li>Visual &amp; Assets</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="visual-assets">
+<span id="visual-renderer"></span><h1>Visual &amp; Assets<a class="headerlink" href="#visual-assets" title="Permalink to this headline">¶</a></h1>
+<p>X-visual rendering 3d scene with Three.js, wrapped in a rendere, Thrender system.
+The Thrender handling 2 components, Visual &amp; Obj3, by converting parameters in a
+Visual to Obj3. The later is represented in scene as an <a class="reference external" href="https://threejs.org/docs/index.html#api/en/core/Object3D">THREE.Object3D</a>
+object.</p>
+<ul class="simple">
+<li>Visual</li>
+</ul>
+<p>The Visual Component specify the visual effect such as material texture asset or wireframe type.</p>
+<ul class="simple">
+<li>Obj3</li>
+</ul>
+<p>The Obj3 Component specify the geometry or shape such as plane, box or path type.</p>
+<p>See <a class="reference internal" href="obj3.html#obj3-transform-guide"><span>Obj3.transform</span></a></p>
+<div class="section" id="thrender">
+<h2>Thrender<a class="headerlink" href="#thrender" title="Permalink to this headline">¶</a></h2>
+<p>Thrender is the xv default renderer, handling Visual and Obj3 components. Created by xworld.startUpdate().</p>
+<p>Example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">cube</span> <span class="o">=</span> <span class="nx">ecs</span><span class="p">.</span><span class="nx">createEntity</span><span class="p">({</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;cube0&#39;</span><span class="p">,</span>
+    <span class="nx">Obj3</span><span class="o">:</span> <span class="p">{</span> <span class="nx">geom</span><span class="o">:</span> <span class="nx">Obj3Type</span><span class="p">.</span><span class="nx">BOX</span><span class="p">,</span>
+            <span class="nx">box</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>    <span class="c1">// bounding box</span>
+            <span class="nx">mesh</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">},</span>      <span class="c1">// Thrender will create this from Visual</span>
+    <span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">,</span>
+            <span class="c1">// Three use document to load assets, which doesn&#39;t exist while testing.</span>
+            <span class="c1">// &#39;null&#39; acts as a flag to let thrender create a ram texture.</span>
+            <span class="nx">asset</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<div class="section" id="visual-vtype-obj3-geom-handling">
+<h3>Visual.vtype &amp; Obj3.geom Handling<a class="headerlink" href="#visual-vtype-obj3-geom-handling" title="Permalink to this headline">¶</a></h3>
+<p>Visual.vtype specify an AssetType;</p>
+<p>Obe3.geom specify shape or model type.</p>
+<p>When Thrender is created by xworld.startUpdate(), all entities&#8217; Obj3 components
+will been converted to a scene object, with visual effect of Visual component.</p>
+<p>Model geometry and material are good examples to get this idea. Another is the
+point visual and points object, where point is a visual effect a points array,
+the scene object consists many points.</p>
+<div class="section" id="visual-vtype">
+<h4>Visual.vtype<a class="headerlink" href="#visual-vtype" title="Permalink to this headline">¶</a></h4>
+<ul class="simple" id="vtype-point">
+<li>AssetType.point</li>
+</ul>
+<p>The created <a class="reference external" href="https://threejs.org/docs/#api/en/core/Object3D">THREE.Object3D</a>
+will be rendered as an array of WebGl points.</p>
+<p>The point type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
+<ul class="simple" id="vtype-refpoint">
+<li>AssetType.refPoint</li>
+</ul>
+<p>Same as <em>point</em>, except that this type use the <em>asset</em> property specifying entity id
+of which the vertices&#8217; position is copied from, the entity&#8217;s Obj3.mesh.</p>
+<p>The refPoint type&#8217;s material can only be a <a class="reference external" href="https://threejs.org/docs/index.html#api/en/materials/ShaderMaterial">THREE.ShaderMaterial</a>.</p>
+</div>
+<div class="section" id="visual-paras">
+<h4>Visual.paras<a class="headerlink" href="#visual-paras" title="Permalink to this headline">¶</a></h4>
+<p>Visual.paras has different usage for different vtype.</p>
+<p>See <a class="reference internal" href="vparas.html#id1"><span>visual parameters for different types</span></a>.</p>
+</div>
+<div class="section" id="visual-asset">
+<h4>Visual.asset<a class="headerlink" href="#visual-asset" title="Permalink to this headline">¶</a></h4>
+<p>Specify a gltf asset file, e.g. int the test case of html/gltf:</p>
+<div class="highlight-python"><div class="highlight"><pre>test/html/gitf-city.html/script/Citysys.initCity(),
+
+Visual.asset: &#39;city/scene.gltf&#39;
+</pre></div>
+</div>
+<p>The file located in &#8216;assets/city/scene.gltf&#8217; and referenced bin file together with
+texture files are loaded by <a class="reference internal" href="../reference/gltf.html#xv-gltf-loader"><span>The X-visual Loader</span></a> of gltf loader.</p>
+</div>
+</div>
+</div>
+<div class="section" id="dynamic-text">
+<h2>Dynamic Text<a class="headerlink" href="#dynamic-text" title="Permalink to this headline">¶</a></h2>
+<p>AssetType:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">AssetType</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>Component:</p>
+<div class="highlight-python"><div class="highlight"><pre>Dynatex: {
+    text,
+    xywh,
+    dirty: true,
+    style
+}
+</pre></div>
+</div>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre>test/html/dynatex.html
+test/html/dynatex-2.html
+</pre></div>
+</div>
+<p>In x-visual, 2D text are supported by system <a class="reference external" href="https://odys-z.github.io/javadoc/x-visual/XComponent.Dynatex.html">CanvTex</a>
+using an html canvas as the dynamic texture, with an API function for updating
+text.</p>
+<p>The <em>Dynatex.style</em> and <em>Dynatex.font</em> are used as canvas style and font attribute,
+the same as html canvas style, see <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle">MDN Canvas.style</a>
+and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font">css font</a>.</p>
+<p id="render-dynatex-xywh">xywh &amp; transform:</p>
+<p>Define canvas, font box and transform.</p>
+<p>Canvas size, font size and scene objects are working together to produce the 3D
+visualized effects, while transform declare child alignment - mainly using scale
+and translate to align text.</p>
+<img alt="../_images/004-dynatex-size.jpg" src="../_images/004-dynatex-size.jpg" />
+<p>Example:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Visual</span><span class="o">:</span><span class="p">{</span><span class="nx">vtype</span><span class="o">:</span> <span class="nx">xv</span><span class="p">.</span><span class="nx">AssetType</span><span class="p">.</span><span class="nx">mesh</span><span class="p">},</span>
+<span class="nx">Dynatex</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">style</span><span class="o">:</span> <span class="s1">&#39;#00c0c0&#39;</span><span class="p">,</span>
+    <span class="nx">font</span><span class="o">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span>
+    <span class="nx">xywh</span><span class="o">:</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">128</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">256</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">48</span><span class="p">,</span> <span class="nx">size</span><span class="o">:</span> <span class="mi">64</span><span class="p">,</span> <span class="nx">margin</span><span class="o">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Default text is:</p>
+<div class="highlight-python"><div class="highlight"><pre>font: &quot;bold sans-serif&quot;,
+    xywh: {x: 0, y: 0, size: 32, margin: 0} // w,h must presented
+</pre></div>
+</div>
+<p>Also note that the font width is measured with html/canvas-2d-context, with height
+scaled with measured/width. With this scale, the canvas can&#8217;t simply been set to
+size of power 2. So normally browser will warn about this. Before near future,
+ignoring the message can be the only option.</p>
+</div>
+<div class="section" id="gltf-nodes-transform">
+<h2>GLTF Nodes &amp; Transform<a class="headerlink" href="#gltf-nodes-transform" title="Permalink to this headline">¶</a></h2>
+<p>AssetType:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xv</span><span class="o">.</span><span class="n">AssetType</span><span class="o">.</span><span class="n">gltf</span>
+</pre></div>
+</div>
+<p>Visual.paras:</p>
+<div class="highlight-python"><div class="highlight"><pre>nodes: string | array&lt;string&gt;, nodes name in gltf.
+       If ignored, will load entire gltf scene.
+withTransform: apply node&#39;s transformation provided by gltf as node&#39;s matrix.
+</pre></div>
+</div>
+<p>test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">car</span><span class="o">.</span><span class="n">html</span>
+<span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">city</span><span class="o">.</span><span class="n">html</span>
+<span class="n">html</span><span class="o">/</span><span class="n">gltf</span><span class="o">-</span><span class="n">verts</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>See also <a class="reference internal" href="../tests/morph.html#test-gltf"><span>test case about gltf</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vparas.html" class="btn btn-neutral float-right" title="Visual.paras" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="obj3.html" class="btn btn-neutral" title="Obj3 &amp; Transformation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, odys-z.github.io.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

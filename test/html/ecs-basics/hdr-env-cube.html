@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>XTest-Env Map</title>
-	<script type='text/javascript' src='../../../node_modules/three/build/three.min.js'></script>
 	<script type='text/javascript' src='../../../dist/xv-0.3.0.min.js'></script>
 </head>
 <body>
   <canvas id='canv'></canvas>
+  <p>shader envCubeMap can not configured with envExposure.</p>
   <p>Meseum image from <a href='https://webglfundamentals.org/webgl/lessons/webgl-skybox.html'>
     WebGL SkyBox, WebGl Fundamentals, License unknown</a></p>
   <script>
@@ -25,7 +25,13 @@
 	const xworld = new xv.XWorld(document.getElementById('canv'),
 				window,
 				{ canvasize: [512, 256],
+				  camera: {
+					far: 4000,
+					bokeh: 1.0,
+					showFocus: true // debug bokeh
+				  },
 				  light:{ skyColor: 0xffffff },
+				  finalQuad: { blur: {radius: 8} },
 				} );
 	const ecs = xworld.xecs;
 	const xscene = xworld.xscene;
@@ -50,6 +56,9 @@
 				paras: {
 					// ratio of refraction vs. reflection, 0 ~ 1
 					whiteAlpha: 0.5,
+
+					// environment color intensity
+					envExposure: 0.8,
 
 					// lod of cube texture, [refract, reflect], >= 0
 					lod: [1.2, 0.8],
