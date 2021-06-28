@@ -1,6 +1,6 @@
 {
   "name": "x-visual",
-  "version": "0.3.82",
+  "version": "0.3.84",
   "description": "x-visual is a hi dimensional data visualization tool kit.",
   "main": "./lib/xv.js",
   "directories": {
@@ -30,7 +30,10 @@
   "homepage": "https://github.com/odys-z/x-visual#readme",
   "dependencies": {
     "@tweenjs/tween.js": "^18.5.0",
+    "d3": "^5.16.0",
+    "earcut": "^2.2.2",
     "node-pre-gyp": "^0.14.0",
+    "oboe": "^2.1.5",
     "webpack": "^4.41.5"
   },
   "devDependencies": {
@@ -43,13 +46,10 @@
     "chai": "^4.2.0",
     "chai-arrays": "^2.0.0",
     "chai-stats": "^0.3.0",
-    "d3": "^5.15.0",
-    "earcut": "^2.2.2",
     "jquery": "^3.5.0",
     "jsdoc": "^3.6.3",
     "mocha": "^7.2.0",
     "mocha-webpack": "^2.0.0-beta.0",
-    "oboe": "^2.1.5",
     "raw-loader": "^3.1.0",
     "style-loader": "^1.1.2",
     "three": "^0.110.0",
