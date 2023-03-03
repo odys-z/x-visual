@@ -2,6 +2,8 @@ MRT Support: ![npm](https://img.shields.io/npm/v/x-visual?logo=npm)
 
 # About
 
+**This project is paused**
+
 X-visual is a lib for data visiualization using [Three.js](https://threejs.org)
 for rendering.
 
@@ -148,7 +150,7 @@ see [test/html/svg-canvas.html](./test/html/svg-canvas.html).
 
 # Documents
 
-All the documents are updating.
+All the documents are deprecated.
 
 [updating: Introduction, Guide & Reference](https://odys-z.github.io/x-visual/)
 
