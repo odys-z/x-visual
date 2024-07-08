@@ -17680,11 +17680,22 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 WebGLProgram.mrt_num = 4;
 WebGLProgram.mrt_layouts =
 		`layout(location = 0) out highp vec4 pc_FragColor;
+layout(location = 1) out highp vec4 xColor;
+layout(location = 2) out highp vec4 xEnvSpecular;
+layout(location = 3) out highp vec4 xBokehDepth;
+`;
+//.replaceAll(/\t\t/g, '');
+/*
+ * But why report error like this:
+ * TypeError: "layout(location = 0) out highp vec4 pc_FragColor;
 		layout(location = 1) out highp vec4 xColor;
 		layout(location = 2) out highp vec4 xEnvSpecular;
 		layout(location = 3) out highp vec4 xBokehDepth;
-		`.replaceAll(/\t\t/g, '');
+		".replaceAll is not a function
+    at eval (webpack:///./packages/three/three.module-MRTSupport.js?:18154:5)
+ */
 
+//
 function WebGLPrograms( renderer, cubemaps, extensions, capabilities, bindingStates, clipping ) {
 
 	const programs = [];
