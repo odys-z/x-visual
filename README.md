@@ -129,24 +129,9 @@ The testing page can be visited for runing python server at x-visual's root fold
 
 ### Some Other Examples
 
-- Test Case: GLTFLoader (test/html/gltf-city.html)
+Check test cases demos (WebGL 1.0 version) at [here](https://odys-z.github.io/demos/x-visual-webgl1-0.3.83/test/html/#).
 
 <img src='./docsphinx/imgs/001%20gltf-loader.png' width='800px'></img>
-
-
-- Test Case: using html DOM as texture
-
-To update rendering texture, use
-
-```
-    Htmltex.refresh();
-```
-
-see [test/html/svg-canvas.html](./test/html/svg-canvas.html).
-
-- Test Case: Model Animization
-
-- Test Case: Particle Animation Script
 
 # Documents
 
