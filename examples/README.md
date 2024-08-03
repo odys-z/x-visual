@@ -41,6 +41,9 @@ There is [an updating introduction for developers](https://odys-z.github.io/x-vi
 Upcoming a sample demonstrating gltf assets loading and structured applying,
 svg assets 3D visualizing, etc.
 
+## Barycentric Coordinate System
+
+[TODO](https://stackoverflow.com/a/47043459/7362888)
 
 # Troubleshooting
 
