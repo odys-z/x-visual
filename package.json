@@ -35,7 +35,7 @@
     "jquery": "^3.7.1",
     "node-pre-gyp": "^0.17.0",
     "oboe": "^2.1.5",
-    "three": "^0.166.1",
+    "three": "^0.160.0",
     "three-orbitcontrols": "^2.110.3",
     "webpack": "^4.41.5",
     "worker-loader": "^3.0.8"
